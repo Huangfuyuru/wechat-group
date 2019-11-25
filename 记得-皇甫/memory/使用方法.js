@@ -1,9 +1,17 @@
-var userM = require('./src/userM');
-var LoverM = require('./src/loverM');
-var ChildM = require('./src/childM');
+//将database 放入你的文件夹，确保你的依赖中有mongoose模块
+//如果没有先安装一下 npm install mongoose --save
+
+//userM 是user表的一些方法
+//LoverM 是lover表的一些方法
+//childM 是child表的一些方法
+var userM = require('./database/src/userM');
+var LoverM = require('./database/src/loverM');
+var ChildM = require('./database/src/childM');
 
 /* 
     验证手机号，密码是否正确
+    将 用户的手机号，密码传入，
+    如果正确 输出手机号密码正确
     data中拿到了用户信息，
     data.id是用户id
 */
@@ -32,6 +40,8 @@ userM.changePass("15930300511","123456","1234567",function(err){
 */
 
 /*插入一个用户，示例
+新建一个用户，如下
+将用户插入userM.addUser()
 var person = {
     name:"rose",
     imgurl:"#",
