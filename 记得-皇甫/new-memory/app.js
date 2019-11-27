@@ -1,14 +1,50 @@
-var userM = require('./new-memory/modules/userM');
-var loverM = require('./new-memory/modules/loverM');
-var childM = require('./new-memory/modules/childM');
-var childDiaryM = require('./new-memory/modules/childDiaryM');
-var childVoiceM = require('./new-memory/modules/childVoiceM');
-var childPhotoListM = require('./new-memory/modules/childPhotoListM');
-var childGrowM = require('./new-memory/modules/childGrowM');
-var childPhotoM = require('./new-memory/modules/childPhotoM')
+var userM = require('./database/modules/userM');
+var loverM = require('./database/modules/loverM');
+var childM = require('./database/modules/childM');
+var childDiaryM = require('./database/modules/childDiaryM');
+var childVoiceM = require('./database/modules/childVoiceM');
+var childPhotoListM = require('./database/modules/childPhotoListM');
+var childGrowM = require('./database/modules/childGrowM');
+var childPhotoM = require('./database/modules/childPhotoM');
+var childAdolesceM = require('./database/modules/childAdolesceM');
 async function loginUser(){
-    var a = await childPhotoM.findIdByPid(3300002)
-    console.log(a)
+
+    // var a = await childPhotoListM.changeById(3300001,{
+    //     name:'xx'
+    // })
+    // var b = await childPhotoListM.findAll();
+    // console.log(b)
+    // var a = await childGrowM.changeById(3400001,{
+    //     weight:120,
+    //     length:20,
+    //     age:2,
+    // })
+    // var b = await childGrowM.findAll();
+    // console.log(b)
+    // var a = await childDiaryM.changeById(3100001,{
+    //     name:'叫妈妈',
+    //     content:'今天小雪第一次叫妈妈',
+    //     imgurl:['#1','#2','#3'],
+    // })
+    // console.log(a)
+    // var b = await childDiaryM.findAll();
+    // console.log(b)
+    // var a = await childAdolesceM.changeById(3500001,{
+    //     item:['第一次'],
+    //     name:'走路',
+    //     imgurl:['#1','#2','#3'],
+    //     content:'小雪第一次走路',
+    // })
+    // var b = await childAdolesceM.findAll();
+    // console.log(b)
+    // var a = await childM.changeById(300001,{
+    //     name:'小雪',
+    //     birthday:'2019-01-01',
+    //     gender:'女'
+    // })
+    // console.log(a)
+    // var b = await childM.findAll()
+    // console.log(b)
     // var a = await childGrowM.delChildGrow(3400004)
     // var b = await childGrowM.findAll();
     // console.log(b)

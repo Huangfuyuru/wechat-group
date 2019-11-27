@@ -96,9 +96,31 @@ async function findIdByCid(cid){
         return ret.rows;
     }
 }
+
+/**
+ *根据成长节点id修改成长节点信息
+ 传入要修改的id ,以及要修改的内容
+ 注意id类的都不能修改,所以text中可以没有id
+ setdate类不用修改，所有text中可以没有setdate字段
+ 有些内容不需要修改，但是要传入原内容  看函数中的字段
+ *
+ * @param {int} id
+ * @param {Object} text
+ * @returns
+ */
+async function changeById(id,text){
+    let sql = 'update childAdolesce set item = $1,name=$2,imgurl=$3,content=$4 where id = $5'
+    let ret = await pgdb.query(sql,[text.item,text.name,text.imgurl,text.content,id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0;
+    }
+}
 exports.addChildAdolesce = addChildAdolesce;
 exports.findAll = findAll;
 exports.delChildAdolesce = delChildAdolesce
 exports.findByCid = findByCid;
 exports.findById = findById;
 exports.findIdByCid = findIdByCid;
+exports.changeById = changeById;

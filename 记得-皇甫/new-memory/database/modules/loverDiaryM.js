@@ -2,14 +2,14 @@ const pgdb = require('./connect');
 
 // 返回0代表成功  返回1代表失败
 /**
- *增加一个照片
+ *增加一个爱人日记
  *
  * @param {Object} text 
  * @returns
  */
-async function addChildPhoto(text){
-    let sql = 'insert into childPhoto(imgurl,pid) values ($1,$2)';
-    let ret = await pgdb.query(sql,[text.imgurl,text.pid]);
+async function addLoverDiary(text){
+    let sql = 'insert into loverDiary(name,content,imgurl,lid) values ($1,$2,$3,$4)';
+    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.lid]);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -19,12 +19,12 @@ async function addChildPhoto(text){
 }
 
 /**
- *查看childPhoto中所有的数据
+ *查看loverDiary中所有的数据
  *
  * @returns
  */
 async function findAll(){
-    let sql = 'select * from childPhoto';
+    let sql = 'select * from loverDiary';
     let ret = await pgdb.query(sql);
     if(ret.rowCount<=0){
         return 1
@@ -35,11 +35,11 @@ async function findAll(){
 
 /**
  *
- *根据childPhoto id删除照片
+ *根据loverDiary id删除亲子日记
  * @param {int} idC
  * @returns
- */
-async function delChilCdPhoto(id){
+ */L
+async function delLoverDiary(id){
     let sql = 'delete from childPhoto where id = $1';
     let ret = await pgdb.query(sql,[id]);
     if(ret.rowCount<=0){
@@ -47,16 +47,16 @@ async function delChilCdPhoto(id){
     }else{
         return 0
     }
-}
+}int
 
 /**
- *根据相册pid找到所有 该相册的所有照片信息
+ *根据爱人id找到所有 该爱人的创建的爱人日记信息
  *
- * @param {*} cid
- * @returns 所有成长的内容
- */
-async function findByPid(pid){
-    let sql = 'select * from childPhoto where pid = $1';
+ * @param {int} lid
+ * @returns 所有爱人日记的内容
+ */l
+async function findByPid(lid){
+    let sql = 'select * from loverDiary where lid = $1';
     let ret = await pgdb.query(sql,[pid]);
     if(ret.rowCount<=0){
         return 1
@@ -67,12 +67,12 @@ async function findByPid(pid){
 
 /**
  *
- *根据childPhoto id找到该childPhoto的具体信息
+ *根据loverDiary id找到该loverDiary的具体信息
  * @param {int} id
  * @returns 相片具体信息
  */
 async function findById(id){
-    let sql = 'select * from childPhoto where id = $1';
+    let sql = 'select * from loverDiary where id = $1';
     let ret = await pgdb.query(sql,[id]);
     if(ret.rowCount<=0){
         return 1
@@ -82,24 +82,23 @@ async function findById(id){
 }
 
 /**
- *根据相册pid找到所有该相册创建的childPhoto的id
+ *根据爱人lid找到所有该爱人创建的loverDiary的id
  *
- * @param {*} cid
+ * @param {int} lid
  * @returns 返回id
  */
-async function findIdByPid(pid){
-    let sql = 'select id from childPhoto where pid = $1';
-    let ret = await pgdb.query(sql,[pid]);
+async function findIdByPid(lid){
+    let sql = 'select id from loverDiary where pid = $1';
+    let ret = await pgdb.query(sql,[lid]);
     if(ret.rowCount<=0){
         return 1
     }else{
         return ret.rows;
     }
 }
-
-exports.addChildPhoto = addChildPhoto;
+exports.addLoverDiary = addLoverDiary;
 exports.findAll = findAll;
-exports.delChilCdPhoto = delChilCdPhoto;
+exports.delLoverDiary = delLoverDiary;
 exports.findByPid = findByPid;
 exports.findById = findById;
 exports.findIdByPid = findIdByPid;

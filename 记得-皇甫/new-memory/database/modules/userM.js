@@ -104,9 +104,25 @@ async function findTelById(id){
         return ret.rows[0]
     }
 }
+
+/**
+ *查看所有用户信息
+ *
+ * @returns 所有用户信息
+ */
+async function findAll(){
+    let sql = 'select * from users';
+    let ret = await pgdb.query(sql);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
 exports.login = login;
 exports.findTel = findTel;
 exports.addUser = addUser;
 exports.delUser = delUser;
 exports.findIdByTel = findIdByTel;
 exports.findTelById = findTelById;
+exports.findAll = findAll;
