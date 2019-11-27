@@ -30,6 +30,19 @@ app.post('/api/register',async(req,res)=>{
     res.send(user)
 
 })
+app.post('/api/login',async(req,res)=>{
+
+   const user = await User.findOne({
+       tel : req.body.tel
+   })
+   if(!user){
+       return res.status(422).send({
+           message : '用户名不存在'
+       })
+   }
+    res.send(user)
+
+})
 app.listen(3001,()=>{
     console.log('http://localhost:3001')
 })
