@@ -23,4 +23,7 @@ async function addLover(person){
     }
 }
 
-exports.addLover = addLover;
+var loverM = {
+    addLover
+}
+module.exports = loverM

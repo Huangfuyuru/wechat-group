@@ -119,10 +119,8 @@ async function findAll(){
         return ret.rows;
     }
 }
-exports.login = login;
-exports.findTel = findTel;
-exports.addUser = addUser;
-exports.delUser = delUser;
-exports.findIdByTel = findIdByTel;
-exports.findTelById = findTelById;
-exports.findAll = findAll;
+
+var userM = {
+    login,findTel,addUser,delUser,findIdByTel,findTelById,findAll
+}
+module.exports = userM;

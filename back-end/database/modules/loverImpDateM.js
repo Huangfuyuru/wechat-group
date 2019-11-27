@@ -117,10 +117,8 @@ async function changeById(id,text){
         return 0;
     }
 }
-exports.addLoverImpDate = addLoverImpDate;
-exports.findAll = findAll;
-exports.delLoverImpDate = delLoverImpDate;
-exports.findByPid = findByPid;
-exports.findById = findById;
-exports.findIdByPid = findIdByPid;
-exports.changeById = changeById;
+
+var loverImpDateM = {
+    addLoverImpDate,delLoverImpDate,findAll,findById,findByPid,findIdByPid,changeById
+}
+module.exports = loverImpDateM;

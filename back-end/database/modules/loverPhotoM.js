@@ -117,10 +117,9 @@ async function changeById(id,text){
         return 0;
     }
 }
-exports.addLoverPhoto = addLoverPhoto;
-exports.findAll = findAll;
-exports.delLoverPhoto = delLoverPhoto;
-exports.findByPid = findByPid;
-exports.findById = findById;
-exports.findIdByPid = findIdByPid;
-exports.changeById = changeById;
+
+var loverPhotoM = {
+    addLoverPhoto,delLoverPhoto,findAll,findById,findByPid,findIdByPid,changeById
+}
+
+module.exports = loverPhotoM;

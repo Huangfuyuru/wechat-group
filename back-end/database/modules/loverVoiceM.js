@@ -117,10 +117,8 @@ async function changeById(id,text){
         return 0;
     }
 }
-exports.addLoverVoice = addLoverVoice;
-exports.findAll = findAll;
-exports.delLoverVoice = delLoverVoice
-exports.findByLid = findByLid;
-exports.findById = findById;
-exports.findIdByLid = findIdByLid;
-exports.changeById = changeById;
+
+var loverVoiceM = {
+    addLoverVoice,delLoverVoice,findAll,findById,findByLid,findIdByLid,changeById
+}
+module.exports = loverVoiceM;

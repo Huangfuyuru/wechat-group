@@ -101,9 +101,8 @@ async function changeById(id,text){
         return 0;
     }
 }
-exports.addChildDiary = addChildDiary;
-exports.findAll = findAll;
-exports.delChildDiary = delChildDiary;
-exports.findByCid = findByCid;
-exports.findById = findById;
-exports.changeById = changeById;
+
+var childDiaryM = {
+    addChildDiary,findAll,delChildDiary,findByCid,findById,changeById
+}
+module.exports = childDiaryM

@@ -85,8 +85,8 @@ async function changeById(id,text){
         return 0;
     }
 }
-exports.addList = addList;
-exports.findAll = findAll;
-exports.dellist = dellist
-exports.changeById = changeById;
-exports.findById = findById;
+
+var listM = {
+    addList,findAll,dellist,changeById,findById
+}
+module.exports = listM;

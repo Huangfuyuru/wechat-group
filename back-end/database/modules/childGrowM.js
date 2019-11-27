@@ -117,10 +117,8 @@ async function changeById(id,text){
         return 0;
     }
 }
-exports.addChildGrow = addChildGrow;
-exports.findAll = findAll;
-exports.delChildGrow = delChildGrow
-exports.findByCid = findByCid;
-exports.findById = findById;
-exports.findIdByCid = findIdByCid;
-exports.changeById = changeById;
+
+var childGrowM = {
+    addChildGrow,findAll,delChildGrow,findById,findByCid,findIdByCid,changeById
+}
+module.exports = childGrowM

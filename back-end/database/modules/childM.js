@@ -1,6 +1,7 @@
 const pgdb = require('./connect');
 
 
+
 /**
  *增加亲子
  *
@@ -105,9 +106,9 @@ async function changeById(id,text){
         return 0;
     }
 }
-exports.addChild = addChild;
-exports.findAll = findAll;
-exports.findIdByUid = findIdByUid;
-exports.findById = findById;
-exports.delChild = delChild;
-exports.changeById = changeById;
+
+var childM = {
+    addChild,findAll,findById,findIdByUid,delChild,changeById
+}
+module.exports = childM;
+

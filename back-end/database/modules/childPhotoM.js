@@ -117,10 +117,8 @@ async function changeById(id,text){
         return 0;
     }
 }
-exports.addChildPhoto = addChildPhoto;
-exports.findAll = findAll;
-exports.delChilCdPhoto = delChilCdPhoto;
-exports.findByPid = findByPid;
-exports.findById = findById;
-exports.findIdByPid = findIdByPid;
-exports.changeById = changeById;
+
+var childPhotoM = {
+    addChildPhoto,delChilCdPhoto,findAll,findById,findByPid,findIdByPid,changeById
+}
+module.exports = childPhotoM;
