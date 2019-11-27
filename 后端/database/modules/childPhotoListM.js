@@ -108,7 +108,7 @@ async function findIdByCid(cid){
  * @returns
  */
 async function changeById(id,text){
-    let sql = 'update childPhotoList set name=$1 where id = $4'
+    let sql = 'update childPhotoList set name=$1 where id = $2'
     let ret = await pgdb.query(sql,[text.name,id]);
     if(ret.rowCount<=0){
         return 1

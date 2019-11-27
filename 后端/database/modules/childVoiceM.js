@@ -80,8 +80,29 @@ async function findById(id){
         return ret.rows;
     }
 }
+/**
+ *根据id修改语音信息
+ 传入要修改的语音id,以及要修改的内容
+ 注意id类的都不能修改,所以text中可以没有id
+ setdate类不用修改，所有text中可以没有setdate字段
+ 有些内容不需要修改，但是要传入原内容  看函数中的字段
+ *
+ * @param {int} id
+ * @param {Object} text
+ * @returns
+ */
+async function changeById(id,text){
+    let sql = 'update childVoice set name=$1,voiceurl=$2 where id = $3'
+    let ret = await pgdb.query(sql,[text.name,text.voiceurl,id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0;
+    }
+}
 exports.addChildVoice = addChildVoice;
 exports.findAll = findAll;
 exports.delChildVoice = delChildVoice;
 exports.findByCid = findByCid;
 exports.findById = findById;
+exports.changeById = changeById

@@ -97,9 +97,30 @@ async function findIdByPid(pid){
     }
 }
 
+/**
+ *根据id修改照片信息
+ 传入要修改的照片id,以及要修改的内容
+ 注意id类的都不能修改,所以text中可以没有id
+ setdate类不用修改，所有text中可以没有setdate字段
+ 有些内容不需要修改，但是要传入原内容  看函数中的字段
+ *
+ * @param {int} id
+ * @param {Object} text
+ * @returns
+ */
+async function changeById(id,text){
+    let sql = 'update childPhoto set imgurl=$1 where id = $2'
+    let ret = await pgdb.query(sql,[text.imgurl,id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0;
+    }
+}
 exports.addChildPhoto = addChildPhoto;
 exports.findAll = findAll;
 exports.delChilCdPhoto = delChilCdPhoto;
 exports.findByPid = findByPid;
 exports.findById = findById;
 exports.findIdByPid = findIdByPid;
+exports.changeById = changeById;
