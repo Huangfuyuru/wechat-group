@@ -2,14 +2,14 @@ const pgdb = require('./connect');
 
 // 返回0代表成功  返回1代表失败
 /**
- *增加一个爱人日记
+ *增加一个爱人恋爱清单loveList
  *
  * @param {Object} text 
  * @returns
  */
-async function addLoverDiary(text){
-    let sql = 'insert into loverDiary(name,content,imgurl,lid) values ($1,$2,$3,$4)';
-    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.lid]);
+async function addloveList(text){
+    let sql = 'insert into loveList(name,content,imgurl,local,listid,lid) values ($1,$2,$3,$4,$5,$6)';
+    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.local,text.listid,text.lid]);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -19,12 +19,12 @@ async function addLoverDiary(text){
 }
 
 /**
- *查看loverDiary中所有的数据
+ *查看loveList中所有的数据
  *
  * @returns
  */
 async function findAll(){
-    let sql = 'select * from loverDiary';
+    let sql = 'select * from loveList';
     let ret = await pgdb.query(sql);
     if(ret.rowCount<=0){
         return 1
@@ -34,13 +34,13 @@ async function findAll(){
 }
 
 /**
- *
- *根据loverDiary id删除爱人日记
+ *L
+ *根据loveList id删除恋爱日期
  * @param {int} idC
  * @returns
  */
-async function delLoverDiary(id){
-    let sql = 'delete from childPhoto where id = $1';
+async function delLoveList(id){
+    let sql = 'delete from loveList where id = $1';
     let ret = await pgdb.query(sql,[id]);
     if(ret.rowCount<=0){
         return 1
@@ -50,45 +50,13 @@ async function delLoverDiary(id){
 }
 
 /**
- *根据爱人id找到所有 该爱人的创建的爱人日记信息
+ *根据爱人lid找到所有 该爱人的创建的恋爱清单
  *
  * @param {int} lid
- * @returns 所有爱人日记的内容
+ * @returns 所有爱人重要日期
  */
-async function findByPid(lid){
-    let sql = 'select * from loverDiary where lid = $1';
-    let ret = await pgdb.query(sql,[pid]);
-    if(ret.rowCount<=0){
-        return 1
-    }else{
-        return ret.rows;
-    }
-}
-
-/**
- *
- *根据loverDiary id找到该loverDiary的具体信息
- * @param {int} id
- * @returns 相片具体信息
- */
-async function findById(id){
-    let sql = 'select * from loverDiary where id = $1';
-    let ret = await pgdb.query(sql,[id]);
-    if(ret.rowCount<=0){
-        return 1
-    }else{
-        return ret.rows;
-    }
-}
-
-/**
- *根据爱人lid找到所有该爱人创建的loverDiary的id
- *
- * @param {int} lid
- * @returns 返回id
- */
-async function findIdByPid(lid){
-    let sql = 'select id from loverDiary where pid = $1';
+async function findByLid(lid){
+    let sql = 'select * from loveList where lid = $1';
     let ret = await pgdb.query(sql,[lid]);
     if(ret.rowCount<=0){
         return 1
@@ -98,8 +66,40 @@ async function findIdByPid(lid){
 }
 
 /**
- *根据id修改爱人日记
- 传入要修改的爱人日记id,以及要修改的内容
+ *
+ *根据loveList id找到该loveList的具体信息
+ * @param {int} id
+ * @returns 相片具体信息
+ */
+async function findById(id){
+    let sql = 'select * from loveList where id = $1';
+    let ret = await pgdb.query(sql,[id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
+
+/**
+ *根据爱人lid找到所有该爱人创建的所有loveList的id
+ *
+ * @param {int} lid
+ * @returns 返回id
+ */
+async function findIdByLid(lid){
+    let sql = 'select id from loveList where pid = $1';
+    let ret = await pgdb.query(sql,[lid]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
+
+/**
+ *根据id修改爱人清单
+ 传入要修改的爱人清单id,以及要修改的内容
  注意id类的都不能修改,所以text中可以没有id
  setdate类不用修改，所有text中可以没有setdate字段
  有些内容不需要修改，但是要传入原内容  看函数中的字段
@@ -109,18 +109,18 @@ async function findIdByPid(lid){
  * @returns
  */
 async function changeById(id,text){
-    let sql = 'update loverDiary set name=$1,content=$2,imgurl=$3 where id = $4'
-    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,id]);
+    let sql = 'update loveList set name=$1,content=$2,imgurl=$3,local=$4 where id=$5'
+    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.local,id]);
     if(ret.rowCount<=0){
         return 1
     }else{
         return 0;
     }
 }
-exports.addLoverDiary = addLoverDiary;
+exports.addloveList = addloveList;
 exports.findAll = findAll;
-exports.delLoverDiary = delLoverDiary;
-exports.findByPid = findByPid;
+exports.delLoveList = delLoveList;
+exports.findByLid = findByLid;
 exports.findById = findById;
-exports.findIdByPid = findIdByPid;
+exports.findIdByLid = findIdByLid;
 exports.changeById = changeById;
