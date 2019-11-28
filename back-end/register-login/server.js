@@ -1,6 +1,6 @@
 // const {User} = require('./db')
 const express = require('express')
-const userM = require('../database/modules/userM');
+require('../database/dateMethod')
 //只是引用了user的方法
 //如果感觉这样太麻烦，可以自己封装在一个文件夹中调用
 const app = express()
