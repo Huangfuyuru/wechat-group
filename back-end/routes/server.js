@@ -9,11 +9,11 @@ app.use(express.json())
 
 
 //查看所有的用户
-app.get('/api/users',async function(rfeq,res){
+app.get('/api/users',async function(req,res){
     const data = await userM.findAll();
     //data的是拿到的数据，因为数据格式不同，可能使用res不能传，以后可以拿到数据后
     //在自己更换格式
-    console.log(data);
+    console.log(data)
     res.end('ok')
     
 })
