@@ -1,6 +1,6 @@
 // const {User} = require('./db')
 const express = require('express')
-require('../database/dateMethod')
+var dataMethod = require('../database/dateMethod')
 //只是引用了user的方法
 //如果感觉这样太麻烦，可以自己封装在一个文件夹中调用
 const app = express()
@@ -10,13 +10,18 @@ app.use(express.json())
 
 //查看所有的用户
 app.get('/api/users',async function(req,res){
-    const data = await userM.findAll();
+    const dat = await dataMethod[15].findAll();
     //data的是拿到的数据，因为数据格式不同，可能使用res不能传，以后可以拿到数据后
     //在自己更换格式
-    console.log(data)
-    res.end('ok')
+    console.log(dat)
+    res.end('OK')
     
 })
+
+app.post('/api/login',async function (req,res){
+    const 
+})
+
 
 app.listen(3002)
 //接口 
