@@ -17,6 +17,7 @@ export default class Message extends Component {
                 <nav style={{textAlign:'center'}}><img src={logo} alt='logo' width='60%'/></nav>
                 <div className='message_detail'>
                     <form>
+                    {/* action='/upload' enctype="multipart/form-data" method='post' */}
                         <p className='img'>
                             <i className='iconfont icon-touxiangshangchuan'></i>  
                             <span>轻触上传头像<input 
@@ -52,13 +53,13 @@ export default class Message extends Component {
                             <input
                             type='radio' 
                             name='usex' 
-                            value='女' 
+                            value='woman' 
                             checked/>女
                             <input 
                             id='man'
                             type='radio' 
                             name='usex' 
-                            value='男'/>男
+                            value='man'/>男
                         </p>
                         <p className='message_details'>
                             <i className='iconfont icon-_'></i>
@@ -67,13 +68,13 @@ export default class Message extends Component {
                             name='utel' 
                             placeholder='请输入手机号'/>
                         </p>
-                        <p className='message_details'>
+                        {/* <p className='message_details'>
                             <i className='iconfont icon-mima1'></i>
                             <input                         
                             type='password' 
                             name='upass' 
                             placeholder='请输入密码'/>
-                        </p>
+                        </p> */}
                         <p className='message_details'>
                             <i className='iconfont icon-queren'></i>
                             <input                            
@@ -85,7 +86,7 @@ export default class Message extends Component {
                             <Link to='/menus/resign'>返回</Link>
                         </button>
                         <button onClick={()=>{
-                            alert('提交成功！')
+                            // alert('提交成功！')
                         }} className='message_but' type='submit'>提交</button>
                     </form>
                 </div>

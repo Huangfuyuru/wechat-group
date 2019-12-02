@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
 export default class Resign extends Component {
     render() {
         return (
-            <form className='resign'>
+            <form className='resign' method='post' action=''>
                 <p>
                     <i className='iconfont icon-ef-zhanghao'></i>
                     <input style={{width:"39%"}} type='tel' name='tel' placeholder='手机号'/>

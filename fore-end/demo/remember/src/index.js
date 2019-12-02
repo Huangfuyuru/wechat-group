@@ -8,7 +8,7 @@ import Menus from './container/Menus';
 import Index from './container/Index';
 
 ReactDOM.render(
-    <Index />, 
+    <App/>, 
     document.getElementById('root')
 );
 

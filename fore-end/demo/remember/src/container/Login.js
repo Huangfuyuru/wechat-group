@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { List, InputItem, WhiteSpace } from 'antd-mobile';
+import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
+
 import '../css/login.css'
 export default class Login extends Component {
     render() {
@@ -7,14 +9,16 @@ export default class Login extends Component {
             <form className='login'>
                 <p>
                     <i className='iconfont icon-ef-zhanghao'></i>
-                    <input type='phone' name='user' placeholder='请输入手机号'/>
+                    <input type='tel' name='utel' placeholder='请输入手机号'/>
                 </p>
                 <p>
                     <i className='iconfont icon-mima'></i>
-                    <input type='password' name='pwd' placeholder='请输入密码'/>
+                    <input type='password' name='pass' placeholder='请输入密码'/>
 
                 </p>
-                <button className='but' type='submit'>登录</button>
+                <Link to='/index'>
+                    <button className='but' type='submit'>登录</button>
+                </Link>
             </form>
         )
     }

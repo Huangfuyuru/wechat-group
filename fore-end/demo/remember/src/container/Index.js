@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { NavBar, Icon,TabBar } from 'antd-mobile';
+import Child from './Child';
+import My from './My';
 export default class Child_index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          selectedTab: 'redTab',
+          selectedTab: 'blueTab',
           hidden: false,
           fullScreen: false,
         };
@@ -12,20 +14,6 @@ export default class Child_index extends Component {
     render() {
         return (
             <div>
-                <NavBar
-                icon={<Icon type="left" />}
-                style={{background:'#FFBF2D'}}
-                onLeftClick={() => console.log('onLeftClick')}
-                >亲子</NavBar>
-                <div className='Children_first'>
-
-                </div>
-                <div className='Children_second'>
-
-                </div>
-                <div className='Children_third'>
-
-                </div>
                 <div style={{ 
                     position: 'fixed', 
                     height: '100%', 
@@ -57,6 +45,7 @@ export default class Child_index extends Component {
                         });
                         }}
                     >
+                        <Child/>
                     </TabBar.Item>
 
                     <TabBar.Item
@@ -125,6 +114,7 @@ export default class Child_index extends Component {
                         });
                         }}
                     >
+                        <My/>
                     </TabBar.Item>
                     </TabBar>
                 </div>
