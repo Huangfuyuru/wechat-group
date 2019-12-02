@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
 import { NavBar,WingBlank} from 'antd-mobile';
+import {Link} from "react-router-dom"
 import "../css/lover.css"
 export default class create_list extends Component {
     render() {
         return (
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
-            <NavBar style={{backgroundColor:"#FFBF2D",color:"white"}}>新建清单</NavBar>
+            <NavBar style={{backgroundColor:"#FFBF2D",color:"white"}}
+                   leftContent={[
+                    <Link to="/lover/list" style={{color:"white"}}><div className="iconfont icon-arror_left_blod" style={{ marginRight: '26px' }} /></Link>,
+                   ]}
+            >新建清单</NavBar>
             <p style={{fontSize:"5vw",float:"left",margin:"5% 5%"}}> 用一张图记录</p>
             <img className="createlist-first" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3560880680,1309107465&fm=26&gp=0.jpg" alt="" ></img>
             <p style={{fontSize:"5vw",float:"left",margin:"5% 5%"}}> 用一句话记录</p>

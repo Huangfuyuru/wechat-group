@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import { NavBar,WingBlank} from 'antd-mobile';
 import "../css/lover.css"
+import {Link} from "react-router-dom"
+
 export default class S extends Component {
     render() {
         return (
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
-            <NavBar style={{backgroundColor:"#FFBF2D",color:"white"}}>新建纪念日</NavBar>
+            <NavBar style={{backgroundColor:"#FFBF2D",color:"white"}}
+         leftContent={[
+            <Link to="/lover/lsouvenir" style={{color:"white"}}><div className="iconfont icon-arror_left_blod" style={{ marginRight: '26px' }} /></Link>,
+           ]}
+            >新建纪念日</NavBar>
                   <div className="createsou-first">
                   <p >纪念日:</p>
                   <input  type="text" placeholder="please input"/>

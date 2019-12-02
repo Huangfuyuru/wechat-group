@@ -17,6 +17,8 @@ import Lsouvenir from "./container/lover/lover_souvenir"
 import CList from "./container/lover-details/create_list"
 import CNote from "./container/lover-details/create_note"
 import CPhoto from "./container/lover-details/create_photo"
+import CSouvenir from "./container/lover-details/create_souver"
+import Lover from "./container/Lover"
 function App() {
   return (
     <Router>
@@ -37,6 +39,10 @@ function App() {
       <Route path='/lover/lsouvenir' component={Lsouvenir}/>
       <Route path='/lover/crlist' component={CList}/>
       <Route path='/lover/crnote' component={CNote}/>
+      <Route path='/lover/crphoto' component={CPhoto}/>
+      <Route path='/lover/crsouvenir' component={CSouvenir}/>
+
+     
     
 
 
