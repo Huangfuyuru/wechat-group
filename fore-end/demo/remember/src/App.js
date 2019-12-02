@@ -10,6 +10,13 @@ import Cevents from './container/child/Cevents'
 import Cgrowup from './container/child/Cgrowup'
 import Cstudy from './container/child/Cstudy'
 import Cdairy from './container/child/Cdairy'
+import Lpictures from "./container/lover/lover_image"
+import Ldairy from "./container/lover/lover_note"
+import List from "./container/lover/lover-list"
+import Lsouvenir from "./container/lover/lover_souvenir"
+import CList from "./container/lover-details/create_list"
+import CNote from "./container/lover-details/create_note"
+import CPhoto from "./container/lover-details/create_photo"
 function App() {
   return (
     <Router>
@@ -23,6 +30,16 @@ function App() {
       <Route path='/child/cgrowup' component={Cgrowup}/>
       <Route path='/child/cstudy' component={Cstudy}/>
       <Route path='/child/cdairy' component={Cdairy}/>
+      <Route path='/lover/lpictures' component={Lpictures}/>
+      {/* <Route path='/lover/lsound' component={Lsound}/> */}
+      <Route path='/lover/ldairy' component={Ldairy}/>
+      <Route path='/lover/list' component={List}/>
+      <Route path='/lover/lsouvenir' component={Lsouvenir}/>
+      <Route path='/lover/crlist' component={CList}/>
+      <Route path='/lover/crnote' component={CNote}/>
+    
+
+
     </Router>
   );
 }

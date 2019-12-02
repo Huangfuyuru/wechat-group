@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { NavBar, Icon,TabBar } from 'antd-mobile';
 import Child from './Child';
 import My from './My';
+import Lover from "./Lover"
 export default class Child_index extends Component {
     constructor(props) {
         super(props);
@@ -69,6 +70,7 @@ export default class Child_index extends Component {
                         });
                         }}
                     >
+                        <Lover/>
                     </TabBar.Item>
 
                     <TabBar.Item
