@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
 import { NavBar} from 'antd-mobile';  
-import "./css/lover.css"
+import "../css/lover.css"
 export default class lover_home extends Component {
     constructor(){
         super();

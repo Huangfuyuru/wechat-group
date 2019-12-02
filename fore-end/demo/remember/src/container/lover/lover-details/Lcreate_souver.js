@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { NavBar,WingBlank} from 'antd-mobile';
-import "../css/lover.css"
 import {Link} from "react-router-dom"
+import "../../../css/lover.css"
 
-export default class S extends Component {
+export default class Lcreate_souver extends Component {
     render() {
         return (
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>

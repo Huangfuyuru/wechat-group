@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { List, InputItem,ImagePicker, SegmentedControl,Slider} from 'antd-mobile';
-import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import '../css/login.css'
 import logo from '../image/logo.png'
-const img=[]
 export default class Message extends Component {
    constructor(){
        super();

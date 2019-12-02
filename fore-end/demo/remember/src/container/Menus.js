@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
-import {NavBar,Carousel,Flex,Icon} from 'antd-mobile'
 import logo from '../image/logo.png'
 import '../css/login.css'
 import Login from './Login'

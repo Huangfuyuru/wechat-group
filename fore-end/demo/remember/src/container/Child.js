@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { NavBar, Icon,TabBar,Flex, WhiteSpace } from 'antd-mobile';
+import { NavBar,Flex } from 'antd-mobile';
 import '../css/child.css'
-import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 export default class Child extends Component {
     constructor(){
         super();
         this.state={
-            cindex_src:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1111897272,37524471&fm=26&gp=0.jpg',
+            cindex_src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575287176951&di=956b2ed9d8a0421af46e81e7b2a0f45b&imgtype=0&src=http%3A%2F%2Fwww.gacedesign.com%2Fuploads%2Fimage%2F20170710%2F1499689128.jpg',
             cnews:[{
                 ctime:'现在',
                 cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
@@ -20,15 +20,48 @@ export default class Child extends Component {
             }]
         }
     }
+    componentDidMount(){
+        fetch('')
+        .then((res)=>res.json())
+        .then((res)=>{
+            this.setState({cindex_src:res.data,cnews:res.data});
+        })
+    }
+    
+    // componentDidUpdate(prevProps,prevState){
+    //     if(prevProps.match.params.page!==this.props.match.params.page){
+    //         fetch('https://cnodejs.org/api/v1/topics?page='+1)
+    //             .then((res)=>res.json())
+    //             .then((res)=>{
+    //                     this.setState({data:res.data});
+    //                 })
+    //     }
+    // }
     render() {
         return (
             <div className='child'>
                 <NavBar
-                style={{background:'#FFBF2D',fontWeight:'bold'}}
-                onLeftClick={() => console.log('onLeftClick')}
-                >亲子</NavBar>
-                <div className='child_first'>
-                    <span>轻触上传头像<input 
+                style={{
+                    background:'#FFBF2D',
+                    height:'8vh'
+                }}
+                ><span style={{
+                    fontWeight:'bold',
+                    fontSize:'6vw',
+                    textIndent:'3vw',
+                    letterSpacing:'3vw'
+                }}
+                >亲子</span></NavBar>
+                <div className='child_first'>                   
+                    <span style={{
+                        zIndex:'10',
+                        display:'inline-block',
+                        width:'100%',
+                        fontSize:'5vw',
+                        position:'relative',
+                        color:'#000',
+                        background:'rgb(255,191,45,0.3)'
+                    }}>轻触上传精选照片<input 
                     id='img'
                     onChange={(e)=>{
                         this.setState({src:e.target.files[0].name})
@@ -38,8 +71,12 @@ export default class Child extends Component {
                     accept="image/*" 
                     capture="camera" 
                     name='uimage' 
-                    placeholder='轻触上传头像'/></span>    
-                    <img src={this.state.cindex_src} alt='自定义照片墙'/>
+                    /></span>
+                    <div>
+                        <img 
+                        style={{}}
+                        src={this.state.cindex_src} alt='自定义照片墙'/>
+                    </div>    
                 </div>
                 <div className='child_second'>
                     <Flex>

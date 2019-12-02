@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { List, InputItem, WhiteSpace } from 'antd-mobile';
-import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 import '../css/login.css'
 export default class Login extends Component {

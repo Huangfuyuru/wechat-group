@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavBar, Icon,TabBar } from 'antd-mobile';
+import { TabBar } from 'antd-mobile';
 import Child from './Child';
 import My from './My';
 import Lover from "./Lover"
