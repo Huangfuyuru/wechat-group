@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post" action="/resign/message/identify">
+        <p>
+            <input type="file" 
+            name="uimage"
+            required
+            placeholder="上传头像"
+            />
+        </p>
+        <p>
+            <input                           
+            type='text' 
+            name='uname' 
+            required
+            placeholder='请输入昵称'/>
+        </p>
+        <p >
+            <input
+            type='radio' 
+            name='usex' 
+            value='女' 
+            checked/>女
+            <input 
+            id='man'
+            type='radio' 
+            name='usex' 
+            value='男'/>男
+        </p>
+        <p >
+            <input                             
+            type='tel' 
+            name='utel' 
+            required
+            placeholder='请输入手机号'/>
+        </p>
+
+        <p >
+            <input                            
+            type='password' 
+            name='pass' 
+            required
+            placeholder='请确认密码'/>
+        </p>
+        <button >
+            返回
+        </button>
+        <button type='submit'>提交</button>
+    </form>
+</body>
+</html>
