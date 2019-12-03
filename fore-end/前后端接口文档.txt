@@ -1,4 +1,4 @@
-/**
+﻿/**
   说明：POST请求：通常情况下前端需要向后端提交数据
         改变了服务器端的资源并被用户察觉，例如订阅某项服务，改变数据库中的数据 
         GET请求；客户端与服务端的交互像是一个提问(如查询操作、搜索操作、读操作)
@@ -26,7 +26,7 @@ post的数据：用户输入的手机号；用户输入的密码
     msg:“用户名或密码错误”
     result:{name:'lisa',pwd:'12345',id}
 
-登录成功以后接口地址：http://192.168.42.1:3000/index
+登录成功以后接口地址：http://localhost:3000/index
 
 备注：id是user表的外码，根据他来和其他的表产生对应关系
 
@@ -67,14 +67,14 @@ uimage uname usex utel pass
 -----------------------------------------------------
 8.第三方登录：
 QQ登录：
-    接口地址：http://192.168.42.1:3000/menus/login/qq
+    接口地址：http://localhost:3000/menus/login/qq
 Wechat登录；
-    接口地址：http://192.168.42.1:3000/menus/login/wechat
+    接口地址：http://localhost:3000/menus/login/wechat
 Weibo登录：
-    接口地址：http://192.168.42.1:3000/menus/login/weibo
+    接口地址：http://localhost:3000/menus/login/weibo
 -----------------------------------------------------
 9.亲子
-接口地址：http://192.168.42.1:3000/index
+接口地址：http://localhost:3000/index/child
 method：get
 需要获取的数据：
 照片墙的图片地址：
@@ -95,15 +95,106 @@ method：get
         ccontent:'醒来觉得甚是爱你~'
     }]
 
-    云相册：
-        接口地址：http://192.168.42.1:3000/child/cpictures
+    云相册：（请求的所有id均为表名+id）
+        接口地址：http://localhost:3000/child/cpictures?childsid=
+        请求数据：亲子childsid
+        返回数据：该亲子的所有云相册childPhotoListid，name，setdate
+        点击具体相册：
+            接口地址：http://localhost:3000/child/cpictures/show?childPhotoListid=
+            请求数据：亲子具体相册childPhotoListid
+            返回数据：该亲子相册的照片childPhotoid，照片地址imgurl
+        增加相册：
+            接口地址：http://localhost:3000/child/cpictures/ccpictures?childsid=&name=
+            请求数据：亲子childsid，相册名称name
+            返回数据：该亲子的所有云相册childPhotoListid，name，setdate
+        删除相册：
+            接口地址：http://localhost:3000/child/cpictures/crpictures?childPhotoListid=
+            请求数据：要删掉相册childPhotoListid
+            返回数据：该亲子的所有云相册childPhotoListid，name，setdate
+        增加照片：
+            method（http请求方式）：post
+            接口地址：http://localhost:3000/child/cpictures/caddpictures
+            提交数据: 具体的相册childPhotoListid，照片的imgurl
+                        childPhotoListid= & imgurl=
+            返回数据：该亲子相册的照片childPhotoid，照片地址imgurl
+        删除照片：
+            method（http请求方式）：post
+            接口地址：http://localhost:3000/child/cpictures/cdelpictures
+            提交数据: 照片的childPhotoid
+                    childPhotoid=
+            返回数据：该亲子相册的照片childPhotoid，照片地址imgurl
+
     语音记事：
-        接口地址：http://192.168.42.1:3000/child/csound
+        接口地址：http://localhost:3000/child/csound?childsid=
+        请求数据：亲子childsid
+        返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音childVoiceid
+        增加语音：
+            method（http请求方式）：post
+            接口地址：http://localhost:3000/child/csound/ccsound
+            提交数据: 
+                        voiceurl= & name= & childsid=
+            返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音childVoiceid
+        删除语音：
+            method（http请求方式）：post
+            接口地址：http://localhost:3000/child/csound/crsound
+            提交数据: 语音的childVoiceid
+                    childVoiceid=
+            返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音childVoiceid
+
     大事记：
-        接口地址：http://192.168.42.1:3000/child/cevents
+        接口地址：http://localhost:3000/child/cevents?childsid=
+        请求数据：亲子childsid
+        返回数据：标签item，节点名称name，图片地址imgurl，记录内容content，创建日期setdate，成长节点childAdolesceid
+        增加成长节点：
+            method（http请求方式）：post
+            接口地址：http://localhost:3000/child/cevents/ccevents
+            提交数据: 亲子childsid，标签item，节点名称name，图片地址imgurl，记录内容content
+                    item= & name= & imgurl= & content=
+            返回数据：标签item，节点名称name，图片地址imgurl，记录内容content，创建日期setdate，成长节点childAdolesceid
+
+        删除成长节点：
+            method（http请求方式）：post
+            接口地址：http://localhost:3000/child/cevents/crevents
+            提交数据: 成长节点的childAdolesceid
+                    childAdolesceid= 
+            返回数据：标签item，节点名称name，图片地址imgurl，记录内容content，创建日期setdate，成长节点childAdolesceid
+            
     成长记录：
-        接口地址：http://192.168.42.1:3000/child/cgrowup
+        接口地址：http://localhost:3000/child/cgrowup?childsid=
+        请求数据：亲子childsid
+        返回数据：成长记录childGrowid，身高length，体重weight，年龄age，创建日期setdate
+        增加成长节点：
+            method（http请求方式）：post
+            接口地址：http://localhost:3000/child/cgrowup/ccgrowup
+            提交数据: 身高length，体重weight，年龄age,亲子childsid
+                    length= & weight= & age= &childsid=
+            返回数据：成长记录childGrowid，身高length，体重weight，年龄age，创建日期setdate
+        删除成长节点：
+            method（http请求方式）：post
+            接口地址：http://localhost:3000/child/cgrowup/crgrowup
+            提交数据: 成长记录childGrowid
+                    childGrowid= 
+            返回数据：成长记录childGrowid，身高length，体重weight，年龄age，创建日期setdate
+
+
+
     学业记录：
-        接口地址：http://192.168.42.1:3000/child/cstudy
+        接口地址：http://localhost:3000/child/cstudy
+
     日记：
-        接口地址：http://192.168.42.1:3000/child/cdairy
+        接口地址：http://localhost:3000/child/cdairy/?childsid=
+        请求数据：亲子childsid
+        返回数据：日记childDiaryid,name,content,setdate,imgurl 
+        增加日记：
+            method（http请求方式）：post
+            接口地址：http://localhost:3000/child/cdairy/ccdairy
+            提交数据: 
+                    childsid= &childDiaryid= & name= & content= & imgurl=
+            返回数据：日记childDiaryid,name,content,setdate,imgurl
+        删除日记：
+            method（http请求方式）：post
+            接口地址：http://localhost:3000/child/cdairy/crdairy
+            提交数据: 日记的childDiaryid
+                    childDiaryid=
+            返回数据：日记childDiaryid,name,content,setdate,imgurl
+            
