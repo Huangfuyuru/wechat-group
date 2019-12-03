@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
-import '../css/login.css'
-import logo from '../image/logo.png'
+import './css/login.css'
+import logo from './image/logo.png'
 export default class Message extends Component {
    constructor(){
        super();

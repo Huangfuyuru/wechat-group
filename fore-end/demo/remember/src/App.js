@@ -10,16 +10,16 @@ import Cevents from './container/child/Cevents'
 import Cgrowup from './container/child/Cgrowup'
 import Cstudy from './container/child/Cstudy'
 import Cdairy from './container/child/Cdairy'
-
-// import Lover from "./container/Lover"
-import Lpictures from "./container/lover/Lpictures"
-import Ldairy from "./container/lover/Ldairy"
-import Llists from "./container/lover/Llists"
-import Lsouvenir from "./container/lover/Lsouvenir"
-import LClists from "./container/lover/lover-details/Lcreate_list"
-import LCdairy from "./container/lover/lover-details/Lcreate_note"
-import LCpictures from "./container/lover/lover-details/Lcreate_photo"
-import LCsouvenir from "./container/lover/lover-details/Lcreate_souver"
+import Lpictures from "./container/lover/lover_image"
+import Ldairy from "./container/lover/lover_note"
+import List from "./container/lover/lover-list"
+import Lsouvenir from "./container/lover/lover_souvenir"
+import CList from "./container/lover-details/create_list"
+import CNote from "./container/lover-details/create_note"
+import CPhoto from "./container/lover-details/create_photo"
+import CSouvenir from "./container/lover-details/create_souver"
+import Listall from "./container/lover-details/lover_allList"
+import Lover from "./container/Lover"
 function App() {
   return (
     <Router>
@@ -27,6 +27,7 @@ function App() {
       <Route path='/resign/message' component={Message}/>
       <Route path='/menus' component={Menus}/>
       <Route path='/index' component={Index}/>
+      <Route path='/Loverhome' component={Lover}/>
       <Route path='/child/cpictures' component={Cpictures}/>
       <Route path='/child/csound' component={Csound}/>
       <Route path='/child/cevents' component={Cevents}/>
@@ -36,12 +37,13 @@ function App() {
       <Route path='/lover/lpictures' component={Lpictures}/>
       {/* <Route path='/lover/lsound' component={Lsound}/> */}
       <Route path='/lover/ldairy' component={Ldairy}/>
-      <Route path='/lover/llists' component={Llists}/>
+      <Route path='/lover/list' component={List}/>
       <Route path='/lover/lsouvenir' component={Lsouvenir}/>
-      <Route path='/lover/lclist' component={LClists}/>
-      <Route path='/lover/lcnote' component={LCdairy}/>
-      <Route path='/lover/lcphoto' component={LCpictures}/>
-      <Route path='/lover/lcsouvenir' component={LCsouvenir}/>
+      <Route path='/lover/crlist' component={CList}/>
+      <Route path='/lover/crnote' component={CNote}/>
+      <Route path='/lover/crphoto' component={CPhoto}/>
+      <Route path='/lover/crsouvenir' component={CSouvenir}/>
+      <Route path='/lover/listall' component={Listall}/>
 
      
     
