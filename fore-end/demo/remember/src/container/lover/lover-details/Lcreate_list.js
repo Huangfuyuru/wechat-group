@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { NavBar,WingBlank} from 'antd-mobile';
 import {Link} from "react-router-dom"
-import "../css/lover.css"
-export default class create_list extends Component {
+import "../../../css/lover.css"
+export default class Lcreate_list extends Component {
     render() {
         return (
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>

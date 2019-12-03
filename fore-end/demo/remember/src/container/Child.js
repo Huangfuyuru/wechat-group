@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavBar,Flex } from 'antd-mobile';
-import './css/child.css'
+import '../css/child.css'
 import {Link} from 'react-router-dom'
 export default class Child extends Component {
     constructor(){
