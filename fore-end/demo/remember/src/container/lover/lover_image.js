@@ -24,7 +24,7 @@ export default class lover_image extends Component {
                   this.state.image.map((index)=>(
                 <div className="loveImage-header">
                   <img src={index} style={{height:"80%",width:"94%",marginLeft:"3%",marginTop:"2%"}} alt=""></img>
-                  <p style={{fontSize:"5vw",float:"left",margin:"2% 64% 0 3%"}}>所有照片</p><span  style={{color:"#C7C7CC",fontSize:"8vw"}}>></span>
+                 <Link to="/lover/imagesall" style={{color:"black"}}><p style={{fontSize:"5vw",float:"left",margin:"2% 64% 0 3%"}}>所有照片</p><span  style={{color:"#C7C7CC",fontSize:"8vw"}}>></span></Link>
                 </div>
                   )
                   )

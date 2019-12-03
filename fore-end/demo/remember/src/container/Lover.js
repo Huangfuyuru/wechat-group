@@ -22,7 +22,13 @@ export default class lover_home extends Component {
     render() {
         return (
             <div style={{height:"100%",width:"100%"}}>
-                 <NavBar style={{backgroundColor:"#FFBF2D",color:"white"}}>爱人</NavBar>
+                 <NavBar style={{backgroundColor:"#FFBF2D",color:"white"}}><span style={{
+                    fontWeight:'bold',
+                    fontSize:'6vw',
+                    textIndent:'3vw',
+                    letterSpacing:'3vw'
+                }}
+                >爱人</span></NavBar>
                  <img src={this.state.cindex_src} alt=""  style={{height:"28%",width:"94%",paddingTop:"5%",marginLeft:"3%"}} ></img>  
                 <div className="lover-home-first">
                  <Link to ="/lover/lpictures"><button className="lover-button">云相册</button></Link>

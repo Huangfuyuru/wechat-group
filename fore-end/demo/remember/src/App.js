@@ -19,6 +19,7 @@ import CNote from "./container/lover-details/create_note"
 import CPhoto from "./container/lover-details/create_photo"
 import CSouvenir from "./container/lover-details/create_souver"
 import Listall from "./container/lover-details/lover_allList"
+import Imagestall from "./container/lover-details/lover_allPhotoes"
 import Lover from "./container/Lover"
 function App() {
   return (
@@ -44,8 +45,9 @@ function App() {
       <Route path='/lover/crphoto' component={CPhoto}/>
       <Route path='/lover/crsouvenir' component={CSouvenir}/>
       <Route path='/lover/listall' component={Listall}/>
+      <Route path='/lover/imagesall' component={Imagestall}/>
 
-     
+    
     
 
 
