@@ -28,9 +28,9 @@ async function findTel(tel){
     let sql = 'select * from users where tel = $1';
     let ret = await pgdb.query(sql,[tel]);
     if(ret.rowCount<=0){
-        return 0
-    }else{
         return 1
+    }else{
+        return 0
     }
 }
 
