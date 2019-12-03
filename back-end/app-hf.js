@@ -22,6 +22,7 @@
 
 const express = require('express');
 const app = express();
+const fs = require("fs");
 
 app.all('*', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -31,9 +32,13 @@ app.all('*', function (req, res, next) {
     next();
 });
 
+app.get("/page", function(req, res, next) {
+    var fileContent = fs.readFileSync("./app-hf.html");
+    res.writeHead(200, {"Content-Type":"text/html"});
+    res.end(fileContent);
+})
 
 var img = require('./routes/img');
 
 app.use('/img',img);
-
 app.listen(3000)

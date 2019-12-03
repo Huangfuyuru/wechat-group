@@ -15,15 +15,16 @@
 <script>
     function UpFile(){
         var fileObj = document.getElementById('file').files[0];
-        var url = 'http://localhost:3000/img';
+        var url = 'http://localhost:3000/img/';
         var form = new FormData();
         form.append("file",fileObj);
         fetch(url,{
             method:'POST',
             body:form
         }).then(res=>res.json())
-        .then(res=>res.text())
-        .then(res=>console.log(res))
+        .then(res=>{
+            console.log(res)
+        })
     }
 </script>
 </html>
