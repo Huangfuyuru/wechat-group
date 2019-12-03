@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { NavBar} from 'antd-mobile';
 import {Link} from "react-router-dom"
-import "../css/lover.css"
-export default class lover_souvenir extends Component {
+import "../../css/lover.css"
+export default class Lsouvenir extends Component {
     constructor(){
         super()
         this.state={
@@ -34,13 +34,13 @@ export default class lover_souvenir extends Component {
                {
                    this.state.lover_souvenir.map((item)=>(
                     <div className="loversou-first">
-                    <img  src={require("../image/xin.jpg")} alt=""  style={{float:"left",margin:"4% 10%"}}></img>
+                    <img  src={require("../../image/xin.jpg")} alt=""  style={{float:"left",margin:"4% 10%"}}></img>
                    <h1>{item.title}</h1>
                    <p style={{fontSize:"5vw"}}>日期：{item.date}</p>
                     </div>
                    ))
                }
-              <Link to="/lover/crsouvenir"><img src={require("../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
+              <Link to="/lover/crsouvenir"><img src={require("../../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
             </div>
         )
     }

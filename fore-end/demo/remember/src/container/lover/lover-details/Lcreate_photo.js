@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { NavBar,WingBlank} from 'antd-mobile';
-import "../css/lover.css"
+import "../../../css/lover.css"
 import {Link} from "react-router-dom"
-export default class create_photo extends Component {
+export default class Lcreate_photo extends Component {
     render() {
         return (
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>

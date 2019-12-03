@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { NavBar} from 'antd-mobile';
-import "../css/lover.css"
+import "../../css/lover.css"
 import {Link} from "react-router-dom"
-export default class lover_note extends Component {
+export default class Ldairy extends Component {
     constructor(){
         super()
         this.state={
@@ -45,7 +45,7 @@ export default class lover_note extends Component {
                      ))
                
                 }
-               <Link to="/lover/crnote"> <img src={require("../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
+               <Link to="/lover/crnote"> <img src={require("../../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
             </div>
         )
     }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { NavBar} from 'antd-mobile';
 import {Link} from "react-router-dom"
-import "../css/lover.css"
-export default class lover_allPhotoes extends Component {
+import "../../../css/lover.css"
+export default class LSpictures extends Component {
     constructor(){
         super()
         this.state={
