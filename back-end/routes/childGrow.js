@@ -7,5 +7,4 @@ router.get('/',function(req,res){
 router.get('/add',function(req,res){
     res.end('add')
 })
-
-module.exports = router
+module.exports = router;

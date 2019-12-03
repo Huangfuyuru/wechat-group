@@ -1,6 +1,8 @@
 // const {User} = require('./db')
 const express = require('express')
 var dataMethod = require('../database/dateMethod')
+var  userAddSql_Params = "SELECT * FROM users.userinfo";
+
 //只是引用了user的方法
 //如果感觉这样太麻烦，可以自己封装在一个文件夹中调用
 const app = express()
@@ -8,8 +10,8 @@ const app = express()
 app.use(express.json())
 
 
-//查看所有的用户
-app.get('/api/users',async function(req,res){
+查看所有的用户
+app.get('/menus/users',async function(req,res){
     const dat = await dataMethod[15].findAll();
     //data的是拿到的数据，因为数据格式不同，可能使用res不能传，以后可以拿到数据后
     //在自己更换格式
@@ -18,12 +20,16 @@ app.get('/api/users',async function(req,res){
     
 })
 
-app.post('/api/login',async function (req,res){
-    const 
+app.get('/menus/login',async function (req,res,next){
+    // 先查询有没有这个user
+    console.log("req.body"+req.body);
+    var Tel = req.body.tel
+    
+
 })
 
 
-app.listen(3002)
+app.listen(3000)
 //接口 
 // app.get('/api/users',async(req,res)=>{
 //     //查出所有用户
