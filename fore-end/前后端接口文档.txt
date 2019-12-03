@@ -197,4 +197,16 @@ method：get
             提交数据: 日记的childDiaryid
                     childDiaryid=
             返回数据：日记childDiaryid,name,content,setdate,imgurl
-            
+
+
+10.上传图片文件：
+    method（http请求方式）：post
+    接口地址：http://localhost:3000/img
+    提交数据：图片文件
+    返回数据：图片在服务器的url
+
+11.上传语音文件：
+    method（http请求方式）：post
+    接口地址：http://localhost:3000/voice
+    提交数据：语音文件
+    返回数据：语音文件在服务器的url
