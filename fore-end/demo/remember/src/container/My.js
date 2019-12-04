@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
+import {Link} from 'react-router-dom';
+
 import '../css/my.css'
 export default class My extends Component {
     constructor(){
@@ -23,7 +25,6 @@ export default class My extends Component {
                         height:'8vh'
                     }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:"white"}}/>}
                     onLeftClick={() => this.props.history.push('/Cstudy')}
                     ><span style={{
                         fontWeight:'bold',
@@ -86,14 +87,16 @@ export default class My extends Component {
                 <div className="My_write">
                     我的记录
                 </div>
-                <form method='post' action=''>
+                {/* <form method='post' action=''> */}
                     <div className="My_count">
-                        <button type="submit">亲子记录</button>
+                        <Link >亲子记录</Link>
+                        {/* <button type="submit">亲子记录</button> */}
                     </div>
                     <div className="My_count">
-                        <button type="submit">爱人记录</button>
+                        <Link>爱人记录</Link>
+                        {/* <button type="submit">爱人记录</button> */}
                     </div>
-                </form>
+                {/* </form> */}
             </div>
         )
     }

@@ -1,10 +1,27 @@
 import React, { Component } from 'react'
+import { NavBar, Icon } from 'antd-mobile';
 
 export default class Csound extends Component {
     render() {
         return (
             <div>
-                语音记事
+                <NavBar
+                    style={{
+                        background:'#FFBF2D',
+                        height:'8vh'
+                    }}
+                    mode="light"
+                    icon={<Icon type="left" style={{color:'white'}}/>}
+                    onLeftClick={() => this.props.history.push('/index')}
+                    ><span style={{
+                        fontWeight:'bold',
+                        fontSize:'6vw',
+                        textIndent:'3vw',
+                        letterSpacing:'3vw',
+                        color:'white'
+                    }}
+                    >语音记事</span>
+                </NavBar>
             </div>
         )
     }

@@ -27,7 +27,7 @@ export default class Llists extends Component {
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
                  <NavBar style={{backgroundColor:"#FFBF2D",color:"white"}}
                                leftContent={[
-                                <Link to="/Loverhome" style={{color:"white"}}><div className="iconfont icon-arror_left_blod" style={{ marginRight: '26px' }} /></Link>,
+                                <Link to="/index/lover" style={{color:"white"}}><div className="iconfont icon-arror_left_blod" style={{ marginRight: '26px' }} /></Link>,
                                ]}
                  ><span style={{fontWeight:'bold',fontSize:'6vw',textIndent:'3vw',letterSpacing:'3vw'}}>恋爱清单</span></NavBar>
                 <div className="loverlist-header">
