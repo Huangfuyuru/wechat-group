@@ -5,7 +5,7 @@ const fs = require('fs');
 router.post('/',function(req,res){
     console.log("hello");
     var form = new formidable.IncomingForm();
-    form.uploadDir = "E:/fight_blink/wechat/wechat-group/back-end/database/img";
+    form.uploadDir = "D:/database/img";
     form.keepExtensions = true; 
     form.maxFieldSize = 2*1024*1024;
     form.parse(req, function (error, fields, files) { 
@@ -25,7 +25,7 @@ router.post('/',function(req,res){
 router.get('/showimg/:name',function(req,res){
     var filename = req.params.name;
     var ext = filename.split('.')[1];
-    var img = fs.readFileSync(`E:/fight_blink/wechat/wechat-group/back-end/database/img/${filename}`);
+    var img = fs.readFileSync(`D:/database/img/${filename}`);
     res.writeHead(200,{
         "Content-Type":"image"+ext
     })
