@@ -2,6 +2,7 @@ const express = require('express'),
       app = express(),
       session = require('express-session');
 const login = require('./routes/login');
+const child = require('./routes/child');
 
 //解决跨域
 app.all('*', function (req, res, next) {
@@ -24,21 +25,21 @@ app.use(session({
 }))
 
 //自定义中间件，判断登陆状态
-app.use(function(req,res,next){
-    if(req.url == '/login'){
-        next()
-    }else{
-        if(session.userinfo && session.userinfo.id!=''){
-            next()
-        }else{
-            res.redirect('/login')
-        }
-    }
+// app.use(function(req,res,next){
+//     if(req.url == '/login'){
+//         next()
+//     }else{
+//         if(session.userinfo && session.userinfo.id!=''){
+//             next()
+//         }else{
+//             res.redirect('/login')
+//         }
+//     }
     
-})
+// })
 
 app.use('/login',login);
-
+app.use('/child',child);
 app.listen(3001);
 
 
