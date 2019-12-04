@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { NavBar, Icon } from 'antd-mobile';
 
-export default class Write extends Component {
+export default class Cevent extends Component {
     constructor(){
         super();
         this.state={
@@ -24,13 +24,14 @@ export default class Write extends Component {
                         height:'8vh'
                     }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:"black"}}/>}
+                    icon={<Icon type="left" style={{color:"white"}}/>}
                     onLeftClick={() => this.props.history.push('/Cloud')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
                         textIndent:'3vw',
-                        letterSpacing:'3vw'
+                        letterSpacing:'3vw',
+                        color:"white"
                     }}
                     >大事记</span>
                 </NavBar>
@@ -55,7 +56,7 @@ export default class Write extends Component {
                 <Link to='/eventAdd'>
                     <div className="Cloud_add">
                         <div>-----------------------------------------------------------</div>
-                        <a href="#" target="_blank"><img className="Cloud_img" src={require("../../image/add.png")}/></a>
+                        <a href="#" target="_blank"><img className="Cloud_img" src={require("../images/add.png")}/></a>
                     </div>
                 </Link>
             </div>

@@ -43,13 +43,14 @@ export default class Add extends Component {
                         height:'8vh'
                     }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:"black"}}/>}
+                    icon={<Icon type="left" style={{color:"white"}}/>}
                     onLeftClick={() => this.props.history.push('/Cstudy')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
                         textIndent:'3vw',
-                        letterSpacing:'3vw'
+                        letterSpacing:'3vw',
+                        color:"white"
                     }}
                     >添加学业记录</span>
                 </NavBar>

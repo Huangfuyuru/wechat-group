@@ -24,13 +24,14 @@ export default class Cdairy extends Component {
                         height:'8vh'
                     }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:"black"}}/>}
+                    icon={<Icon type="left" style={{color:'white'}}/>}
                     onLeftClick={() => this.props.history.push('/Cloud')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
                         textIndent:'3vw',
-                        letterSpacing:'3vw'
+                        letterSpacing:'3vw',
+                        color:'white'
                     }}
                     >日记</span>
                 </NavBar>
@@ -38,12 +39,12 @@ export default class Cdairy extends Component {
                     this.state.text.map((text)=>(
                     <div className="Write_body">
                         <div className="Write_body_one">
-                        <div className="one"><img src={require("../../image/write.svg")}/>{text.txt1}</div>
+                        <div className="one"><img src={require("../images/write.svg")}/>{text.txt1}</div>
                         <div className="two">{text.txt2}</div>
                             <div className="three"><img src={text.src1}/><img src={text.src2}/></div>
                         </div>
                         <div className="Write_body_one">
-                            <div className="one"><img src={require("../../image/write.svg")}/>{text.txt1}</div>
+                            <div className="one"><img src={require("../images/write.svg")}/>{text.txt1}</div>
                             <div className="two">{text.txt2}</div>
                             <div className="three"><img src={text.src1}/><img src={text.src2}/></div>
                         </div>
@@ -53,7 +54,7 @@ export default class Cdairy extends Component {
                 <Link to='/daiCreate'>
                     <div className="Cloud_add">
                         <div>-----------------------------------------------------------</div>
-                        <a href="#" target="_blank"><img className="Cloud_img" src={require("../../image/add.png")}/></a>
+                        <a href="#" target="_blank"><img className="Cloud_img" src={require("../images/add.png")}/></a>
                     </div>
                 </Link>
             </div>

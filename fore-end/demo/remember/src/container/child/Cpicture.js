@@ -46,13 +46,14 @@ export default class Cloud extends Component {
                         height:'8vh'
                     }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:"black"}}/>}
+                    icon={<Icon type="left" style={{color:"white"}}/>}
                     onLeftClick={() => this.props.history.push('/Cloud')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
                         textIndent:'3vw',
-                        letterSpacing:'3vw'
+                        letterSpacing:'3vw',
+                        color:"white"
                     }}
                     >云相册</span>
                 </NavBar>
@@ -78,7 +79,7 @@ export default class Cloud extends Component {
                 <Link to='/Create'>
                     <div className="Cloud_add">
                         <div>-----------------------------------------------------------</div>
-                        <a href="#" target="_blank"><img className="Cloud_img" src={require("../../image/add.png")}/></a>
+                        <a href="#" target="_blank"><img className="Cloud_img" src={require("../images/add.png")}/></a>
                     </div>
                 </Link>
             </div>

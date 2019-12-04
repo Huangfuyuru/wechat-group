@@ -22,13 +22,14 @@ export default class Pages extends Component {
                         height:'8vh'
                     }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:"black"}}/>}
+                    icon={<Icon type="left" style={{color:"white"}}/>}
                     onLeftClick={() => this.props.history.push('/Cpicture')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
                         textIndent:'3vw',
-                        letterSpacing:'3vw'
+                        letterSpacing:'3vw',
+                        color:"white"
                     }}
                     >相册页面</span>
                 </NavBar>
