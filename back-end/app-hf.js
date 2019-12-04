@@ -42,6 +42,9 @@ app.get("/page", function(req, res, next) {
 var imgs = require('./routes/imgs');
 app.use('/imgs',imgs);
 
+var img = require('./routes/img');
+app.use('/img',img);
+
 // //voice
 // var voice = require('./routes/voice');
 // app.use('/voice',voice);
