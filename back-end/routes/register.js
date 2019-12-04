@@ -9,6 +9,7 @@ var info={} //后端返回给前端的信息
 var passwd='';
 var tel ='';
 
+var count = 0;
 //此中间件的作用是获得请求体字符串，然后转成对象赋值给req.body
 router.use(bodyParser.urlencoded({extended:true}));
 //判断请求体的格式是不是json格式，如果是的话会调用JSON.parse方法把请求体字符串转成对象
@@ -18,14 +19,14 @@ router.use(bodyParser.json());
 router.post('/confirm',async function(req,res,next){
     // console.log('req.body',req.body);
     // const data =await user.userM.findAll();
-    // console.log(data.tel);
+    // console.log(data);
 
-    //可以注册返回1，不存在数据库中   
-    var eTel = await user.userM.findTel(req.body.tel);
+    //可以注册返回0，不存在数据库中   
+    var eTel = await user.userM.findTel(req.body.utel);
     console.log(eTel);
  
     //判断用户电话是否在DB中，若在不让注册，不在可以
-    if(eTel === 1){ 
+    if(eTel === 0){ 
         //触发发送短信接口发送验证码
         //由于现在尚不能短信接口，则验证码输入什么都对
         info={
@@ -43,9 +44,13 @@ router.post('/confirm',async function(req,res,next){
 });
 
 router.post('/', async function(req,res,next){
+  
+    // console.log('body',req.body)
+    // console.log('验证码body',passwd,tel);
+
     passwd =req.body.passwd;
-    tel = req.body.tel;
-    
+    tel = req.body.utel;
+
     //进行验证码校验
     if(req.body.pass !==''){
         info={
@@ -65,11 +70,12 @@ router.post('/', async function(req,res,next){
 
 
 router.post('/message',async function(req,res,next){
+    count+=1;
+    console.log('count',count);
+
     console.log('body',req.body);
-    // console.log('tel',tel);
-    // console.log('passwd',passwd);
-
-
+    console.log('tel',tel);
+    console.log('passwd',passwd);
 
     if(req.body.utel=== tel && req.body.pass === passwd){
         //图片上传还需要修改
@@ -77,9 +83,12 @@ router.post('/message',async function(req,res,next){
             name:req.body.uname,
             pass:req.body.pass,
             tel:req.body.utel,
+            gender:req.body.usex==='woman'?'女':'男',
             imgurl:req.body.uimage,
         }
-        // await user.userM.addUser(person);
+        await user.userM.addUser(person);
+        var a = await user.userM.findAll();
+        console.log(a)
          
         info={
             code:0,
