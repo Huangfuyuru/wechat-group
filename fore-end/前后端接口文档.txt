@@ -44,7 +44,7 @@ post的数据：用户输入的手机号；用户输入的密码
 method：post
 post的数据：用户输入的电话 
             utel
-接口地址：http://localhost:3000/menus/resign
+接口地址：http://localhost:3000/resign/confirm
 若此tel未注册过返回，就给用户发送验证码
     若发送成功返回
         code：0
@@ -53,6 +53,7 @@ post的数据：用户输入的电话
 ------------------------------------------------------
 6.提交注册
 method：post
+接口地址：http://localhost:3000/resign/message
 post的数据：
 头像地址，用户昵称，
 用户性别，用户手机号，

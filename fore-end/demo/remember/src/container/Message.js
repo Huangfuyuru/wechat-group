@@ -9,21 +9,32 @@ export default class Message extends Component {
            src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574914271954&di=5ce6c90533745142d11594040dd0b2b1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F19%2F20150619202710_4vZ8s.thumb.224_0.jpeg'
        }
    }
+   upfile=()=>{
+       var file=document.getElementById('img');
+       var url = 'http://localhost:3000/img';
+       var form = new FormData();
+       form.append("file",file);
+       fetch(url,{
+           method:'POST',
+           body:form
+       }).then(res=>res.json())
+       .then(res=>(this.setState({src:res.path})))
+   }
     render() {
         return (
             <div className='message'>
                 <nav style={{textAlign:'center'}}><img src={logo} alt='logo' width='60%'/></nav>
                 <div className='message_detail'>
-                    <form>
-                    {/* action='/upload' enctype="multipart/form-data" method='post' */}
+                    <form action='http://localhost:3000/resign/message' method='post'>
                         <p className='img'>
                             <i className='iconfont icon-touxiangshangchuan'></i>  
                             <span>轻触上传头像<input 
                             id='img'
-                            onChange={(e)=>{
-                                this.setState({src:e.target.files[0].name})
-                               console.log(e.target.files[0])
-                            }}                             
+                            // onChange={()=>{
+                            //     // this.setState({src:e.target.files[0].name})
+                            //     console.log(e.target.files[0])
+                            // }}    
+                            onChange={this.upfile}                         
                             type='file'  
                             accept="image/*" 
                             capture="camera" 
@@ -83,9 +94,7 @@ export default class Message extends Component {
                         <button className='message_but'>
                             <Link to='/menus/resign'>返回</Link>
                         </button>
-                        <button onClick={()=>{
-                            // alert('提交成功！')
-                        }} className='message_but' type='submit'>提交</button>
+                        <button className='message_but' type='submit'>提交</button>
                     </form>
                 </div>
             </div>
