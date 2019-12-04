@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
-
 import '../css/login.css'
 export default class Login extends Component {
     render() {
         return (
-            <form className='login'>
+            <form className='login' method='post' action='http://localhost:3000/login'>
                 <p>
                     <i className='iconfont icon-ef-zhanghao'></i>
                     <input type='tel' name='utel' placeholder='请输入手机号'/>
