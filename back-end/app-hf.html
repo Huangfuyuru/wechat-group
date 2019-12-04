@@ -76,18 +76,19 @@
     </form>
 </body>
 <script>
-    function UpFile(){
-        var fileObj = document.getElementById('file').files[0];
-        var url = 'http://localhost:3000/voice/';
-        var form = new FormData();
-        form.append("file",fileObj);
-        fetch(url,{
-            method:'POST',
-            body:form
-        }).then(res=>res.json())
-        .then(res=>{
-            console.log(res)
-        })
-    }
+
+    // function UpFile(){
+    //     var fileObj = document.getElementById('file').files[0];
+    //     var url = 'http://localhost:3000/voice/';
+    //     var form = new FormData();
+    //     form.append("file",fileObj);
+    //     fetch(url,{
+    //         method:'POST',
+    //         body:form
+    //     }).then(res=>res.json())
+    //     .then(res=>{
+    //         console.log(res)
+    //     })
+    // }
 </script>
 </html>
