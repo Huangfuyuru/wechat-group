@@ -28,7 +28,7 @@ app.use(function(req,res,next){
     if(req.url == '/login'){
         next()
     }else{
-        if(session.userinfo && session.userinfo.username!=''){
+        if(session.userinfo && session.userinfo.id!=''){
             next()
         }else{
             res.redirect('/login')
@@ -36,7 +36,9 @@ app.use(function(req,res,next){
     }
     
 })
-//保存用户信息
-session.userinfo = data[0];
+
+app.use('/login',login);
+
+
 
     
