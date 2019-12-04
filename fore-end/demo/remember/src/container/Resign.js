@@ -53,7 +53,7 @@ export default class Resign extends Component {
     }
     render() {
         return (
-            <form className='resign' method='post' action='http://localhost:3000/resign'>
+            <form className='resign' method='post' action='http://localhost:3001/resign'>
                 <p>
                     <i className='iconfont icon-ef-zhanghao'></i>
                     <input onChange={this.changeTel} style={{width:"39%"}} type='tel' name='utel' placeholder='手机号'/>
