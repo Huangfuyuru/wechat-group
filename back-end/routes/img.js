@@ -13,7 +13,7 @@ router.post('/',function(req,res){
         if(error) {
             var message = {err:1, msg:"文件解析失败"};
         }
-        var a = files.file.path.split("\\");
+        var a = files.path.split("\\");
         var b = a[a.length-1];
         var message = {err:0, path:`http://localhost:3000/img/showimg/${b}`};
         res.write(JSON.stringify(message));   
