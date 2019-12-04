@@ -60,7 +60,7 @@
 </script>
 </html> -->
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -75,9 +75,9 @@
         <input type="submit" value="提交"/>
     </form>
 </body>
-<script>
+<script> -->
 
-    // function UpFile(){
+    <!-- // function UpFile(){
     //     var fileObj = document.getElementById('file').files[0];
     //     var url = 'http://localhost:3000/voice/';
     //     var form = new FormData();
@@ -89,6 +89,38 @@
     //     .then(res=>{
     //         console.log(res)
     //     })
-    // }
-</script>
+    // } -->
+<!-- </script>
+</html> -->
+
+//提交多个图片
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>imgs
+    <form action="http://localhost:3001/imgs" enctype="multipart/form-data" method="post">
+        <input type="file" name="file" multiple="multiple">
+        <input type="submit">
+    </form>
+</body>
+<!-- <script>
+    function UpFile(){
+        var fileObj = document.getElementById('file').files[0];
+        var url = 'http://localhost:3000/img/';
+        var form = new FormData();
+        form.append("file",fileObj);
+        fetch(url,{
+            method:'POST',
+            body:form
+        }).then(res=>res.json())
+        .then(res=>{
+            console.log(res)
+        })
+    }
+</script> -->
 </html>
