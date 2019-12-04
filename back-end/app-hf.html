@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,37 @@
     function UpFile(){
         var fileObj = document.getElementById('file').files[0];
         var url = 'http://localhost:3000/img/';
+        var form = new FormData();
+        form.append("file",fileObj);
+        fetch(url,{
+            method:'POST',
+            body:form
+        }).then(res=>res.json())
+        .then(res=>{
+            console.log(res)
+        })
+    }
+</script>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+        <input type="file" id="file">
+        <input type="button" value="提交" onclick="UpFile()"/>
+    
+</body>
+<script>
+    function UpFile(){
+        var fileObj = document.getElementById('file').files[0];
+        var url = 'http://localhost:3000/voice/';
         var form = new FormData();
         form.append("file",fileObj);
         fetch(url,{

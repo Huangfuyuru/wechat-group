@@ -38,7 +38,11 @@ app.get("/page", function(req, res, next) {
     res.end(fileContent);
 })
 
+//img
 var img = require('./routes/img');
-
 app.use('/img',img);
+
+//voice
+var voice = require('./routes/voice');
+app.use('/voice',voice);
 app.listen(3000)
