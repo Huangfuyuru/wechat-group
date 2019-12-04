@@ -4,9 +4,9 @@ import Menus from './container/Menus'
 import Start from './container/Start';
 import Message from './container/Message';
 import Index from './container/Index';
-import Cpictures from './container/child/Cpictures'
+import Cpictures from './container/child/Cpicture'
 import Csound from './container/child/Csound'
-import Cevents from './container/child/Cevents'
+import Cevents from './container/child/Cevent'
 import Cgrowup from './container/child/Cgrowup'
 import Cstudy from './container/child/Cstudy'
 import Cdairy from './container/child/Cdairy'
@@ -23,21 +23,7 @@ import LCsouvenir from "./container/lover/lover-details/Lcreate_souver"
 import LSlists from "./container/lover/lover-details/LSlists"
 import LSpictures from "./container/lover/lover-details/LSpictures"
 import Lover from "./container/Lover"
-// 王--------
-import React, { Component } from 'react';
-import {BrowserRouter as Router, Route,Link} from 'react-router-dom';
-import Pages from './Picture/Pages.js';
-import Cpicture from './Picture/Cpicture.js';
-import Create from './Picture/Create.js';
-import Add from './Study/stuAdd.js';
-import Cstudy from './Study/Cstudy.js';
-import Add2 from './Things/eventAdd.js';
-import Cevent from './Things/Cevent.js';
-import small from './Things/small.js';
-import Create2 from './Dairy/daiCreate.js';
-import Cdairy from './Dairy/Cdairy.js';
-import Add3 from './Grow/growAdd.js';
-import Cgrowup from './Grow/Cgrowup.js';
+
 
 function App() {
   return (
@@ -65,20 +51,7 @@ function App() {
       <Route path='/lover/lcsouvenir' component={LCsouvenir}/>
       <Route path='/lover/lslists' component={LSlists}/>
       <Route path='/lover/lspictures' component={LSpictures}/>
-      
-      {/* 王------ */}
-      <Route path='/Cpicture' component={Cpicture}/>
-      <Route path='/Create' component={Create}/>
-      <Route path='/Pages' component={Pages}/>
-      <Route path='/stuAdd' component={Add}/>
-      <Route path='/Cstudy' component={Cstudy}/>
-      <Route path='/eventAdd' component={Add2}/>
-      <Route path='/Cevent' component={Cevent}/>
-      <Route path='/Cdairy' component={Cdairy}/>
-      <Route path='/daiCreate' component={Create2}/>
-      <Route path='/growAdd' component={Add3}/>
-      <Route path='/Cgrowup' component={Cgrowup}/>
-      <Route path='/small'component={small}/>
+
   </Router>
   );
 }

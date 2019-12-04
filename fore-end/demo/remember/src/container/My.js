@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavBar, Icon,TabBar,Flex, WhiteSpace } from 'antd-mobile';
-import '../index.css'
+import '../css/my.css'
 export default class My extends Component {
     render() {
         return (

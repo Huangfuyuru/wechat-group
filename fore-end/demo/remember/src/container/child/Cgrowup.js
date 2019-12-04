@@ -108,7 +108,7 @@ export default class Write extends Component {
                             <Link to='/growAdd'>
                               <div className="Cloud_add">
                                 <div>-------------------------------------------------------------</div>
-                                <a href="#" target="_blank"><img className="Cloud_img" src={require("../images/add.png")}/></a>
+                                <a href="#" target="_blank"><img className="Cloud_img" src={require("../../image/add.png")}/></a>
                               </div>
                             </Link>
                           </div>

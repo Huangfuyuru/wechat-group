@@ -6,6 +6,7 @@ export default class Child extends Component {
     constructor(){
         super();
         this.state={
+            child_id:'',
             cindex_src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575287176951&di=956b2ed9d8a0421af46e81e7b2a0f45b&imgtype=0&src=http%3A%2F%2Fwww.gacedesign.com%2Fuploads%2Fimage%2F20170710%2F1499689128.jpg',
             cnews:[{
                 ctime:'现在',
@@ -23,7 +24,7 @@ export default class Child extends Component {
         fetch('')
         .then((res)=>res.json())
         .then((res)=>{
-            this.setState({cindex_src:res.data,cnews:res.data});
+            this.setState({child_id:res.data,cindex_src:res.data,cnews:res.data});
         })
     }
     

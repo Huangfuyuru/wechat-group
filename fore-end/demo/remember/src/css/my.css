@@ -1,0 +1,57 @@
+.All{
+    width:100%;
+    height: 100%;
+    margin:0 auto;
+    background-color: #fff;
+    text-align: center;
+}
+.My_picture .one{
+    width:100%;
+    text-align: center;
+}
+.My_picture .two{
+    width:100%;
+    text-align: center;
+}
+.My_body{
+    width:100%;
+    height:45px;
+    font-size:18px;
+    font-weight:bold;
+    text-align: center;
+    padding-top:15px;
+    display: flex;
+    border-bottom:solid Lightgray;
+}
+.Img{
+    width:30px;
+    height:30px;
+    float: right;
+}
+.My_write{
+    width: 100%;
+    height:35px;
+    font-size:22px;
+    font-weight: bold;
+    padding-top:25px;
+    text-align: center;
+}
+.My_count{
+    width:100%;
+    height:30px;
+    font-size:18px;
+    font-weight:bold;
+    text-align: center;
+    margin-top:15px;
+    padding-top:8px;
+    display: flex;
+    border: solid lightgray;
+    background-color: lightgray;
+    border-radius: 25px;
+}
+.My_count a{
+    text-decoration: none;
+    width:100%;
+    text-align: center;
+    color:black;
+}
