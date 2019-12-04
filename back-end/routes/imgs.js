@@ -22,7 +22,7 @@ router.post('/',function(req,res){
             var newFiles = files.map(function(item){
                 var a = item.path.split("\\");
                 var b = a[a.length-1];
-                var message = {err:0, path:`http://localhost:3000/img/showimg/${b}`};
+                var message = {err:0, path:`http://localhost:3001/img/showimg/${b}`};
                 return message;
             })
         }
