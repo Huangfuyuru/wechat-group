@@ -4,7 +4,7 @@
         GET请求；客户端与服务端的交互像是一个提问(如查询操作、搜索操作、读操作)
 */
 1.启动页
-接口地址：http://localhost:3000
+接口地址：http://localhost:3001
 这个路由下前端不需要向服务器请求任何资源或提交数据
 -----------------------------------------------------
 2.启动APP（点击启动页的进入APP）
@@ -15,26 +15,26 @@
 method（http请求方式）：post
 post的数据：用户输入的手机号；用户输入的密码
             utel;upass
-接口地址：http://localhost:3000/login
+接口地址：http://localhost:3001/login
 
 登录成功返回的json数据：
     {code:0,id:..}
     登录失败返回json数据：
     {code:1,id:null}
 
-登录成功以后接口地址：http://localhost:3000/child
+登录成功以后接口地址：http://localhost:3001/child
 
 备注：id是user表的外码，根据他来和其他的表产生对应关系
 -----------------------------------------------------
 4.用户注册（点击注册按钮切换页面）
-接口地址：http://localhost:3000/resign
+接口地址：http://localhost:3001/resign
 这个路由下前端不需要向服务器请求任何资源或提交数据
 -----------------------------------------------------
 5.获取验证码（不太清楚这个的接口地址和用户注册是否要不一样）
 method：post
 post的数据：用户输入的电话 
             utel
-接口地址：http://localhost:3000/resign/confirm
+接口地址：http://localhost:3001/resign/confirm
 若此tel未注册过返回，就给用户发送验证码
     若发送成功返回
         code：0
@@ -43,7 +43,7 @@ post的数据：用户输入的电话
 ------------------------------------------------------
 6.提交注册
 method：post
-接口地址：http://localhost:3000/resign/message
+接口地址：http://localhost:3001/resign/message
 post的数据：
 头像地址，用户昵称，
 用户性别，用户手机号，
@@ -53,19 +53,19 @@ uimage uname usex utel pass
 ?uimage=%&uname=%&usex=%&utel=%&pass=%（%代表用户输入的数据）
 ------------------------------------------------------
 7.注册返回
-接口地址：http://localhost:3000/menus/resign
+接口地址：http://localhost:3001/menus/resign
 这个路由下前端不需要向服务器请求任何资源或提交数据
 -----------------------------------------------------
 8.第三方登录：
 QQ登录：
-    接口地址：http://localhost:3000/login/qq
+    接口地址：http://localhost:3001/login/qq
 Wechat登录；
-    接口地址：http://localhost:3000/login/wechat
+    接口地址：http://localhost:3001/login/wechat
 Weibo登录：
-    接口地址：http://localhost:3000/login/weibo
+    接口地址：http://localhost:3001/login/weibo
 -----------------------------------------------------
 9.亲子
-接口地址：http://localhost:3000/child
+接口地址：http://localhost:3001/child
 method：get
 需要获取的数据：
 照片墙的图片地址：
@@ -87,36 +87,36 @@ method：get
     }]
 
     云相册：（请求的所有id均为表名+id）
-        接口地址：http://localhost:3000/child/cpictures?childsid=
+        接口地址：http://localhost:3001/child/cpictures?childsid=
         请求数据：亲子childsid
         返回数据：该亲子的所有云相册childPhotoListid，name，setdate
         点击具体相册：
-            接口地址：http://localhost:3000/child/cpictures/show?childPhotoListid=
+            接口地址：http://localhost:3001/child/cpictures/show?childPhotoListid=
             请求数据：亲子具体相册childPhotoListid
             返回数据：该亲子相册的照片childPhotoid，照片地址imgurl
         增加相册：
-            接口地址：http://localhost:3000/child/cpictures/ccpictures?childsid=&name=
+            接口地址：http://localhost:3001/child/cpictures/ccpictures?childsid=&name=
             请求数据：亲子childsid，相册名称name
             返回数据：该亲子的所有云相册childPhotoListid，name，setdate
         删除相册：
-            接口地址：http://localhost:3000/child/cpictures/crpictures?childPhotoListid=
+            接口地址：http://localhost:3001/child/cpictures/crpictures?childPhotoListid=
             请求数据：要删掉相册childPhotoListid
             返回数据：该亲子的所有云相册childPhotoListid，name，setdate
         增加照片：
             method（http请求方式）：post
-            接口地址：http://localhost:3000/child/cpictures/caddpictures
+            接口地址：http://localhost:3001/child/cpictures/caddpictures
             提交数据: 具体的相册childPhotoListid，照片的imgurl
                         childPhotoListid= & imgurl=
             返回数据：该亲子相册的照片childPhotoid，照片地址imgurl
         删除照片：
             method（http请求方式）：post
-            接口地址：http://localhost:3000/child/cpictures/cdelpictures
+            接口地址：http://localhost:3001/child/cpictures/cdelpictures
             提交数据: 照片的childPhotoid
                     childPhotoid=
             返回数据：该亲子相册的照片childPhotoid，照片地址imgurl
 
     语音记事：
-        接口地址：http://localhost:3000/child/csound?childsid=
+        接口地址：http://localhost:3001/child/csound?childsid=
         请求数据：亲子childsid
         返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音childVoiceid
         增加语音：
@@ -127,13 +127,13 @@ method：get
             返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音childVoiceid
         删除语音：
             method（http请求方式）：post
-            接口地址：http://localhost:3000/child/csound/crsound
+            接口地址：http://localhost:3001/child/csound/crsound
             提交数据: 语音的childVoiceid
                     childVoiceid=
             返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音childVoiceid
 
     大事记：
-        接口地址：http://localhost:3000/child/cevents?childsid=
+        接口地址：http://localhost:3001/child/cevents?childsid=
         请求数据：亲子childsid
         返回数据：标签item，节点名称name，图片地址imgurl，记录内容content，创建日期setdate，成长节点childAdolesceid
         增加成长节点：
@@ -145,24 +145,24 @@ method：get
 
         删除成长节点：
             method（http请求方式）：post
-            接口地址：http://localhost:3000/child/cevents/crevents
+            接口地址：http://localhost:3001/child/cevents/crevents
             提交数据: 成长节点的childAdolesceid
                     childAdolesceid= 
             返回数据：标签item，节点名称name，图片地址imgurl，记录内容content，创建日期setdate，成长节点childAdolesceid
             
     成长记录：
-        接口地址：http://localhost:3000/child/cgrowup?childsid=
+        接口地址：http://localhost:3001/child/cgrowup?childsid=
         请求数据：亲子childsid
         返回数据：成长记录childGrowid，身高length，体重weight，年龄age，创建日期setdate
         增加成长节点：
             method（http请求方式）：post
-            接口地址：http://localhost:3000/child/cgrowup/ccgrowup
+            接口地址：http://localhost:3001/child/cgrowup/ccgrowup
             提交数据: 身高length，体重weight，年龄age,亲子childsid
                     length= & weight= & age= &childsid=
             返回数据：成长记录childGrowid，身高length，体重weight，年龄age，创建日期setdate
         删除成长节点：
             method（http请求方式）：post
-            接口地址：http://localhost:3000/child/cgrowup/crgrowup
+            接口地址：http://localhost:3001/child/cgrowup/crgrowup
             提交数据: 成长记录childGrowid
                     childGrowid= 
             返回数据：成长记录childGrowid，身高length，体重weight，年龄age，创建日期setdate
@@ -170,21 +170,21 @@ method：get
 
 
     学业记录：
-        接口地址：http://localhost:3000/child/cstudy
+        接口地址：http://localhost:3001/child/cstudy
 
     日记：
-        接口地址：http://localhost:3000/child/cdairy/?childsid=
+        接口地址：http://localhost:3001/child/cdairy/?childsid=
         请求数据：亲子childsid
         返回数据：日记childDiaryid,name,content,setdate,imgurl 
         增加日记：
             method（http请求方式）：post
-            接口地址：http://localhost:3000/child/cdairy/ccdairy
+            接口地址：http://localhost:3001/child/cdairy/ccdairy
             提交数据: 
                     childsid= &childDiaryid= & name= & content= & imgurl=
             返回数据：日记childDiaryid,name,content,setdate,imgurl
         删除日记：
             method（http请求方式）：post
-            接口地址：http://localhost:3000/child/cdairy/crdairy
+            接口地址：http://localhost:3001/child/cdairy/crdairy
             提交数据: 日记的childDiaryid
                     childDiaryid=
             返回数据：日记childDiaryid,name,content,setdate,imgurl
@@ -192,12 +192,12 @@ method：get
 
 10.上传图片文件：
     method（http请求方式）：post
-    接口地址：http://localhost:3000/img
+    接口地址：http://localhost:3001/img
     提交数据：图片文件
     返回数据：图片在服务器的url
 
 11.上传语音文件：
     method（http请求方式）：post
-    接口地址：http://localhost:3000/voice
+    接口地址：http://localhost:3001/voice
     提交数据：语音文件
     返回数据：语音文件在服务器的url

@@ -35,11 +35,11 @@ router.post('/',function(req,res,next){
     res.end(message)
 })
 
-router.get('/',function(req,res,next){
-    res.redirect('/')
-})
+// router.get('/',function(req,res,next){
+//     res.redirect('/')
+// })
 
-
+module.exports = router;
 
 
 
@@ -87,11 +87,5 @@ router.get('/',function(req,res,next){
 //     }
 // })
    
-<<<<<<< HEAD
 // // 模块化 暴露模块 
 // module.exports = router;
-=======
-// 模块化 暴露模块 
-module.exports = router;
- 
->>>>>>> 224dc74476d6ec7b56c0dc93092bbbc25ed833e2
