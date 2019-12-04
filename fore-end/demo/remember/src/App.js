@@ -24,7 +24,6 @@ import LSlists from "./container/lover/lover-details/LSlists"
 import LSpictures from "./container/lover/lover-details/LSpictures"
 import Lover from "./container/Lover"
 
-
 function App() {
   return (
     <Router>
