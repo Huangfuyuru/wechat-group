@@ -6,12 +6,15 @@ export default class Message extends Component {
    constructor(){
        super();
        this.state={
-           src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574914271954&di=5ce6c90533745142d11594040dd0b2b1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F19%2F20150619202710_4vZ8s.thumb.224_0.jpeg'
-       }
+           src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574914271954&di=5ce6c90533745142d11594040dd0b2b1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F19%2F20150619202710_4vZ8s.thumb.224_0.jpeg',
+           uname:'',
+           utel:'',
+           conpass:''
+        }
    }
    upfile=()=>{
        var file=document.getElementById('img');
-       var url = 'http://localhost:3000/img';
+       var url = 'http://localhost:3001/img';
        var form = new FormData();
        form.append("file",file);
        fetch(url,{
@@ -20,20 +23,50 @@ export default class Message extends Component {
        }).then(res=>res.json())
        .then(res=>(this.setState({src:res.path})))
    }
+   changeName=(e)=>{
+       this.setState({
+           uname:e.target.value
+       })
+    }
+   changeTel=(e)=>{
+       this.setState({
+           utel:e.target.value
+       })
+    }
+   changePass=(e)=>{
+       this.setState({
+           conpass:e.target.value
+       })
+    }
+    buttonPost=()=>{
+        var obj=document.getElementsByName('usex');
+        var a='';
+        for(var i=0;i<obj.length;i++){
+            if(obj[i].checked){
+                a = obj[i].value;
+                // console.log(a)
+            }
+        }
+        fetch('http://localhost:3001/resign/message',{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`utel=${this.state.utel}&uimage=${this.state.src}&uname=${this.state.uname}&pass=${this.state.conpass}&usex=${a}`
+        }).then(res=>res.json())
+        .then(json=>{console.log(json)})
+    }
     render() {
         return (
             <div className='message'>
                 <nav style={{textAlign:'center'}}><img src={logo} alt='logo' width='60%'/></nav>
                 <div className='message_detail'>
-                    <form action='http://localhost:3000/resign/message' method='post'>
+                    <form action='http://localhost:3001/resign/message' method='post'>
                         <p className='img'>
                             <i className='iconfont icon-touxiangshangchuan'></i>  
                             <span>轻触上传头像<input 
                             id='img'
-                            // onChange={()=>{
-                            //     // this.setState({src:e.target.files[0].name})
-                            //     console.log(e.target.files[0])
-                            // }}    
                             onChange={this.upfile}                         
                             type='file'  
                             accept="image/*" 
@@ -52,12 +85,13 @@ export default class Message extends Component {
                         </p>
                         <p className='message_details' >
                             <i className='iconfont icon-zhanghao'></i>
-                            <input                           
+                            <input
+                            onChange={this.changeName}                           
                             type='text' 
                             name='uname' 
                             placeholder='请输入昵称'/>
                         </p>
-                        <p className='message_details message_box'>
+                        <p className='message_details message_box' onClick={this.changeSex}>
                             <i className='iconfont icon-zu'></i>
                             <input
                             type='radio' 
@@ -72,21 +106,16 @@ export default class Message extends Component {
                         </p>
                         <p className='message_details'>
                             <i className='iconfont icon-_'></i>
-                            <input                             
+                            <input 
+                            onChange={this.changeTel}                            
                             type='tel' 
                             name='utel' 
                             placeholder='请输入手机号'/>
                         </p>
-                        {/* <p className='message_details'>
-                            <i className='iconfont icon-mima1'></i>
-                            <input                         
-                            type='password' 
-                            name='upass' 
-                            placeholder='请输入密码'/>
-                        </p> */}
                         <p className='message_details'>
                             <i className='iconfont icon-queren'></i>
-                            <input                            
+                            <input
+                            onChange={this.changePass}                            
                             type='password' 
                             name='pass' 
                             placeholder='请确认密码'/>
@@ -94,7 +123,7 @@ export default class Message extends Component {
                         <button className='message_but'>
                             <Link to='/menus/resign'>返回</Link>
                         </button>
-                        <button className='message_but' type='submit'>提交</button>
+                        <button onClick={this.buttonPost} className='message_but' type='submit'>提交</button>
                     </form>
                 </div>
             </div>

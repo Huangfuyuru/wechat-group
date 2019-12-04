@@ -104,8 +104,8 @@ export default class Child extends Component {
                 </div>
                 <div>
                     {
-                        this.state.cnews.map((cnews)=>(
-                            <div className='child_third'>
+                        this.state.cnews.map((cnews,idx)=>(
+                            <div className='child_third' key={idx}>
                                 <i></i>
                                 <li>{cnews.ctime}</li>
                                 <Flex>
