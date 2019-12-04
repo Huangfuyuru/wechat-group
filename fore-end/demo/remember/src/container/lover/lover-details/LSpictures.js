@@ -16,6 +16,25 @@ export default class LSpictures extends Component {
             ]
         }
     }
+    componentDidMount(){
+        let path = this.props.match.params.id
+        fetch(``)
+        .then((res)=>res.json())
+        .then((res)=>{
+            this.setState({data:res.data});
+        })
+    }
+    componentDidUpdate(Props,State){
+        if(Props.location.search !== this.props.location.search){
+            let path = this.props.match.params.id
+            console.log('path',path)
+            fetch( ``)
+            .then((res)=>res.json())
+            .then((res)=>{
+                this.setState({data:res.data});
+            })
+        }
+    }
     render() {
 
         return (

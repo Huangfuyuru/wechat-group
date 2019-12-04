@@ -24,20 +24,20 @@ import LSlists from "./container/lover/lover-details/LSlists"
 import LSpictures from "./container/lover/lover-details/LSpictures"
 import Lover from "./container/Lover"
 // 王--------
-import React, { Component } from 'react';
-import {BrowserRouter as Router, Route,Link} from 'react-router-dom';
+// import React, { Component } from 'react';
+// import {BrowserRouter as Router, Route,Link} from 'react-router-dom';
 import Pages from './Picture/Pages.js';
 import Cpicture from './Picture/Cpicture.js';
 import Create from './Picture/Create.js';
 import Add from './Study/stuAdd.js';
-import Cstudy from './Study/Cstudy.js';
+// import Cstudy from './Study/Cstudy.js';
 import Add2 from './Things/eventAdd.js';
 import Cevent from './Things/Cevent.js';
 import small from './Things/small.js';
 import Create2 from './Dairy/daiCreate.js';
-import Cdairy from './Dairy/Cdairy.js';
+// import Cdairy from './Dairy/Cdairy.js';
 import Add3 from './Grow/growAdd.js';
-import Cgrowup from './Grow/Cgrowup.js';
+// import Cgrowup from './Grow/Cgrowup.js';
 
 function App() {
   return (
