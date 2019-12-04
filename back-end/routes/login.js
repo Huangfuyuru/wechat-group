@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 // var User = require('../models/users');
-const fs = require('fs');
 const bodyParser = require("body-parser");
 var dM = require('../database/dateMethod');
 
@@ -36,20 +35,5 @@ router.route ('/doLogin').get( function(req,res){
     }
 })
    
-
-router.get('/testing',function(req,res){
-    var html = fs.readFileSync('./liumingying.html').toString('utf-8');
-    res.writeHead(200,{
-        'Content-Type':'text/html;charser = UTF8',
-        'Content-Length':'Buffer.byteLength(html)'
-    })
-    console.log('req.body',req.body);
-    res.end(html);
-});
-router.post('/testing',function(req,res){
-    console.log('req.body',req.body);
-    res.send('hello');
-});
-
 // 模块化 暴露模块 
 module.exports = router;
