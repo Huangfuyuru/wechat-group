@@ -1,48 +1,48 @@
-// //方法一 直接用于不分解
-// let data = require('./database/dateMethod');
+//方法一 直接用于不分解
+//let data = require('./database/dateMethod');
 
-// //方法二 把表的方法分解处理 
-// let { childM,userM } = require('./dateMethod');
-
-
-
-// async function loginUser(){
-
-//     //方法一
-//     var a = await data.userM.findAll();
-//     console.log(a)
-
-//     //方法二
-//     var b = await childM.findAll();
-//     console.log(b)
-
-// }
-// loginUser();
+//方法二 把表的方法分解处理 
+let { userM } = require(__dirname+'/database/dateMethod');
 
 
-const express = require('express');
-const app = express();
-const fs = require("fs");
 
-app.all('*', function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.header('Access-Control-Allow-Methods', '*');
-    res.header('Content-Type', 'application/json;charset=utf-8');
-    next();
-});
+async function loginUser(){
 
-app.get("/page", function(req, res, next) {
-    var fileContent = fs.readFileSync("./app-hf.html");
-    res.writeHead(200, {"Content-Type":"text/html"});
-    res.end(fileContent);
-})
+    //方法一
+    // var a = await data.userM.findAll();
+    // console.log(a)
 
-//img
-var img = require('./routes/img');
-app.use('/img',img);
+    //方法二
+    var b = await userM.findAll();
+    console.log(b)
 
-//voice
-var voice = require('./routes/voice');
-app.use('/voice',voice);
-app.listen(3000)
+}
+loginUser();
+
+
+// const express = require('express');
+// const app = express();
+// const fs = require("fs");
+
+// app.all('*', function (req, res, next) {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type');
+//     res.header('Access-Control-Allow-Methods', '*');
+//     res.header('Content-Type', 'application/json;charset=utf-8');
+//     next();
+// });
+
+// app.get("/page", function(req, res, next) {
+//     var fileContent = fs.readFileSync("./app-hf.html");
+//     res.writeHead(200, {"Content-Type":"text/html"});
+//     res.end(fileContent);
+// })
+
+// //img
+// var img = require('./routes/img');
+// app.use('/img',img);
+
+// //voice
+// var voice = require('./routes/voice');
+// app.use('/voice',voice);
+// app.listen(3000)
