@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
-
+import '../css/my.css'
 export default class My extends Component {
     constructor(){
         super();

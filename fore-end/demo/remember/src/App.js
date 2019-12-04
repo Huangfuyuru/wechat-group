@@ -28,10 +28,11 @@ function App() {
   return (
     <Router>
       <Route exact path='/' component={Start}/>
-      <Route path='/resign/message' component={Message}/>
       <Route path='/menus' component={Menus}/>
+      <Route path='/resign/message' component={Message}/>
       <Route path='/index' component={Index}/>
       <Route path='/Loverhome' component={Lover}/>
+      
       <Route path='/child/cpictures' component={Cpictures}/>
       <Route path='/child/csound' component={Csound}/>
       <Route path='/child/cevents' component={Cevents}/>
@@ -50,7 +51,6 @@ function App() {
       <Route path='/lover/lcsouvenir' component={LCsouvenir}/>
       <Route path='/lover/lslists' component={LSlists}/>
       <Route path='/lover/lspictures' component={LSpictures}/>
-
   </Router>
   );
 }
