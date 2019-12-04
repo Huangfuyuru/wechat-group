@@ -38,7 +38,7 @@ export default class My extends Component {
                 {
                     this.state.message.map((message)=>(
                         <div className="My_body">
-                            <div style={{width:"250px"}}><img className="Img" src={require("./images/love.png")}/></div>
+                            <div style={{width:"250px"}}><img className="Img" src={require("../image/love.png")}/></div>
                             <div style={{width:"150px",textAlign:"left"}}>昵称:</div>
                             <div style={{width:"100%",textAlign:"left"}}>{message.msg1}</div>
                         </div>
@@ -47,7 +47,7 @@ export default class My extends Component {
                 {
                     this.state.message.map((message)=>(
                         <div className="My_body">
-                            <div style={{width:"250px"}}><img className="Img" src={require("./images/sex.png")}/></div>
+                            <div style={{width:"250px"}}><img className="Img" src={require("../image/sex.png")}/></div>
                             <div style={{width:"150px",textAlign:"left"}}>头像:</div>
                             <div style={{width:"100%",textAlign:"left"}}>
                                 <img style={{wdith:"30px",height:"40px"}} src={message.msg2}/>
@@ -58,7 +58,7 @@ export default class My extends Component {
                 {
                     this.state.message.map((message)=>(
                         <div className="My_body">
-                            <div style={{width:"250px"}}><img className="Img" src={require("./images/work2.png")}/></div>
+                            <div style={{width:"250px"}}><img className="Img" src={require("../image/work2.png")}/></div>
                             <div style={{width:"150px",textAlign:"left"}}>性别:</div>
                             <div style={{width:"100%",textAlign:"left"}}>{message.msg3}</div>
                         </div>
@@ -67,7 +67,7 @@ export default class My extends Component {
                 {
                     this.state.message.map((message)=>(
                         <div className="My_body">
-                            <div style={{width:"250px"}}><img className="Img" src={require("./images/work.png")}/></div>
+                            <div style={{width:"250px"}}><img className="Img" src={require("../image/work.png")}/></div>
                             <div style={{width:"150px",textAlign:"left"}}>职业:</div>
                             <div style={{width:"100%",textAlign:"left"}}>{message.msg4}</div>
                         </div>
@@ -76,7 +76,7 @@ export default class My extends Component {
                 {
                     this.state.message.map((message)=>(
                         <div className="My_body">
-                            <div style={{width:"250px"}}><img className="Img" src={require("./images/time.png")}/></div>
+                            <div style={{width:"250px"}}><img className="Img" src={require("../image/time.png")}/></div>
                             <div style={{width:"180px",textAlign:"left"}}>已使用:</div>
                             <div style={{width:"100%",textAlign:"left"}}>{message.msg5}天</div>
                         </div>
