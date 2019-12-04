@@ -30,7 +30,7 @@ export default class Lpictures extends Component {
                   )
                 }
                
-          <Link to="/lover/crphoto"><img src={require("../image/jia.jpg")}  className="loveImage-foot"   alt=""></img></Link>
+          <Link to="/lover/crphoto"><img src={require("../../image/jia.jpg")}  className="loveImage-foot"   alt=""></img></Link>
             </div>
         )
     }

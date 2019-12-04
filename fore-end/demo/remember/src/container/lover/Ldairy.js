@@ -19,7 +19,7 @@ export default class Ldairy extends Component {
          }, { 
             time:"今天19：02",
             note:"今天又是开心的日子，吃饭饭,逛街，看电影，玩游戏",
-            src:"../image/qian.jpg"
+            src:"../../image/qian.jpg"
      },
             ]
         }
@@ -36,7 +36,7 @@ export default class Ldairy extends Component {
                  {
                      this.state.noteArr.map((item)=>(
                         <div className="lovernote-first">
-                        <img  src={require("../image/qian.jpg")} alt=""  style={{float:"left",margin:"4% 10%",height:"13%",width:"13%"}}></img>
+                        <img  src={require("../../image/qian.jpg")} alt=""  style={{float:"left",margin:"4% 10%",height:"13%",width:"13%"}}></img>
                      <p style={{fontSize:"5vw"}}>{item.time}</p>
                      <p style={{fontSize:"5vw",float:"left",margin:"2% 2%"}}>{item.note}</p>
                         <img src={item.src}  alt="" style={{height:"40%",width:"40%",border:"solid 0.5px red" ,float:"left",margin:"2% 2%"}}></img>
