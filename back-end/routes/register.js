@@ -6,6 +6,8 @@ var qs =require('querystring');
 var bodyParser = require("body-parser");
 var user =require('../database/dateMethod');
 var info={} //后端返回给前端的信息
+var passwd='';
+var tel ='';
 
 //此中间件的作用是获得请求体字符串，然后转成对象赋值给req.body
 router.use(bodyParser.urlencoded({extended:true}));
@@ -13,51 +15,89 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
 
-//匹配 /menus/resign
-router.get('/',function(req,res){
-    var html=fs.readFileSync('./testing-yxd/yangxindi.html').toString('utf8');
-    res.writeHead(200,{
-        'Content-Type':'text/html;charset=UTF8',
-        'Content-Length':'Buffer.byteLength(html)'
-    })
+router.post('/confirm',async function(req,res,next){
+    // console.log('req.body',req.body);
+    // const data =await user.userM.findAll();
+    // console.log(data.tel);
 
-    res.end(html);
-});
-
-
-//验证码
-router.get('/testing',function(req,res){
-    
-});
-
-//点击发送验证码按钮post数据，但是yangxindi.html中未再写前端代码测试
-router.post('/testing',async function(req,res,next){
-
+    //可以注册返回1，不存在数据库中   
     var eTel = await user.userM.findTel(req.body.tel);
     console.log(eTel);
-    //不存在返回0
-    
+ 
     //判断用户电话是否在DB中，若在不让注册，不在可以
-    if(eTel === 0){ 
+    if(eTel === 1){ 
         //触发发送短信接口发送验证码
         //由于现在尚不能短信接口，则验证码输入什么都对
-
-        
-        //告诉前端验证码已成功发送
         info={
             code:0,
             msg:'验证码以成功发送，2分钟内有效'
         }
-    }
-    else{
-        var info={
+    }else{
+        info={
             code:1,
             msg:'该用户电话已经注册过',
-            result:{}//？有用吗
         }
-        res.json(info); //前端提示用户
     }
-   
+    res.json(info);
+
 });
 
+router.post('/', async function(req,res,next){
+    passwd =req.body.passwd;
+    tel = req.body.tel;
+    
+    //进行验证码校验
+    if(req.body.pass !==''){
+        info={
+            code:0,
+            msg:'验证码正确'
+        }
+        res.json(info);
+    }else{
+        info={
+            code:1,
+            msg:'验证码错误，请重新输入',
+        }
+        res.json(info);
+    }
+
+});
+
+
+router.post('/message',async function(req,res,next){
+    console.log('body',req.body);
+    // console.log('tel',tel);
+    // console.log('passwd',passwd);
+
+
+
+    if(req.body.utel=== tel && req.body.pass === passwd){
+        //图片上传还需要修改
+        var person={
+            name:req.body.uname,
+            pass:req.body.pass,
+            tel:req.body.utel,
+            imgurl:req.body.uimage,
+        }
+        // await user.userM.addUser(person);
+         
+        info={
+            code:0,
+            msg:'用户注册成功',
+        }
+        res.json(info);
+    }else if(req.body.pass !== passwd){
+        info={
+            code:1,
+            msg:'密码与上一次输入的不一致，请重新输入'
+        }
+        res.json(info);
+    }else if(req.body.utel !== tel){
+        info={
+            code:2,
+            msg:'电话与上一次输入的不一致，请重新输入'
+        }
+        res.json(info);
+    }
+});
 module.exports = router;

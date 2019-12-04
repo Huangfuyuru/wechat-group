@@ -5,13 +5,16 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="post" action="/resign/message/identify">
+
+    <form method="post" action="/resign/message">
         <p>
             <input type="file" 
             name="uimage"
-            required
+            id="file"
             placeholder="上传头像"
+            onchange="UpFile()"
             />
+            <!-- <input type="button" value="提交" onclick="UpFile()"/> -->
         </p>
         <p>
             <input                           
@@ -50,7 +53,32 @@
         <button >
             返回
         </button>
-        <button type='submit'>提交</button>
+        <button type='submit' onclick="UpName()" >提交</button>
     </form>
 </body>
+
+<script>
+    var imgUrl='';
+    function UpFile(){
+        var fileObj = document.getElementById('file').files[0];
+        var url = 'http://localhost:3001/img/';
+        var form = new FormData();
+        form.append("file",fileObj);
+        fetch(url,{
+            method:'POST',
+            body:form
+        }).then(res=>res.json())
+        .then(res=>{
+            imgUrl=res;
+            
+        })
+    }
+
+    function UpName(){
+        var fileObj = document.getElementById('file').files[0];
+        fileObj.name = imgUrl.path
+        console.log(imgUrl.path);
+        console.log('name',fileObj.name);
+    }
+</script>
 </html>
