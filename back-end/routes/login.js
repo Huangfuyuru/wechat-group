@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-// var User = require('../models/users');
+var fs = require('fs');
 const bodyParser = require("body-parser");
 var dM = require('../database/dateMethod');
-
+var info = {}//后端返回给前端的信息
 
 //此中中间件的作用是获得请求体字符串，然后转成对象赋值给req.body
 router.use(bodyParser.urlencoded({extended:true}));
@@ -11,27 +11,35 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
 router.get ('/',function(req,res){
-    //获取用户提交信息  电话 密码
+    //需要补充写一个html  像昕迪的一样
         res.render('routes/login');
 
+
     })
-router.route ('/doLogin').get( function(req,res){
+
+router.route ('/').get( function(req,res){
     res.render('login',{title :'登录'})
-}).post(function(req,res){
+}).post(async function(req,res){
     var tel = req.body.tel;
     var pwd = req.body.pwd;
     var result = dM[15].findTel(tel);
     if(result == 0){
         var ifLogin = dM[15].login(tel,pwd);
         if(ifLogin==1){
-            res.send(500);
-            console.log("密码错误");
+            info = {
+                code : 1,
+                msg :'用户名或密码错误' //密码错误
+            }
+            res.json(info);
         }else{
             res.send(result);
         }
     }else{
-        req.send(404);
-        console.log("用户电话不存在");
+        info={
+            code:0,
+            msg:'用户名或密码错误' //用户电话不存在
+        }
+        res.json(info);
     }
 })
    

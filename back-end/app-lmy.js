@@ -7,7 +7,7 @@ const childGrow = require('./routes/childGrow');
 
 const app = new express();
 
-app.use('/menus/login',login);
+app.use('/login',login);
 app.use('/child/cgrowup',childGrow);
 
 app.listen(3000);
