@@ -15,7 +15,7 @@
 method（http请求方式）：post
 post的数据：用户输入的手机号；用户输入的密码
             utel;upass
-接口地址：http://localhost:3000/menus/login
+接口地址：http://localhost:3000/login
 
 登录成功返回的json数据：
     code:0
@@ -37,7 +37,7 @@ post的数据：用户输入的手机号；用户输入的密码
     result  返回登录名和密码
 -----------------------------------------------------
 4.用户注册（点击注册按钮切换页面）
-接口地址：http://localhost:3000/menus/resign
+接口地址：http://localhost:3000/resign
 这个路由下前端不需要向服务器请求任何资源或提交数据
 -----------------------------------------------------
 5.获取验证码（不太清楚这个的接口地址和用户注册是否要不一样）
@@ -67,14 +67,14 @@ uimage uname usex utel pass
 -----------------------------------------------------
 8.第三方登录：
 QQ登录：
-    接口地址：http://localhost:3000/menus/login/qq
+    接口地址：http://localhost:3000/login/qq
 Wechat登录；
-    接口地址：http://localhost:3000/menus/login/wechat
+    接口地址：http://localhost:3000/login/wechat
 Weibo登录：
-    接口地址：http://localhost:3000/menus/login/weibo
+    接口地址：http://localhost:3000/login/weibo
 -----------------------------------------------------
 9.亲子
-接口地址：http://localhost:3000/index/child
+接口地址：http://localhost:3000/child
 method：get
 需要获取的数据：
 照片墙的图片地址：
