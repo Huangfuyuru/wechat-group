@@ -15,8 +15,8 @@ const loverPhotoM = require('./modules/loverPhotoM');
 const loverVoiceM = require('./modules/loverVoiceM');
 const userM = require('./modules/userM');
 
-var data = [
+var data = {
     childAdolesceM,childDiaryM,childGrowM,childM,childPhotoListM,childPhotoM,childVoiceM,
     listM,loveListM,loverDiaryM,loverImpDateM,loverM,loverPhotoListM,loverPhotoM,loverVoiceM,userM
-]
+}
 module.exports = data;

@@ -2,7 +2,7 @@
 //let data = require('./database/dateMethod');
 
 //方法二 把表的方法分解处理 
-let { userM } = require(__dirname+'/database/dateMethod');
+let { userM } = require('./database/dateMethod');
 
 
 

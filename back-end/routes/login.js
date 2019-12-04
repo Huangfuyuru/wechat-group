@@ -26,16 +26,16 @@ router.post('/',async function(req,res,next){
     var a = await userM.findAll();
     console.log(a)
     var data = await userM.login(tel,pass);
-    if(data == 1){
-        var message = {code:1,id:null}
-    }else{
-        var getId = data.id;
+    // if(data == 1){
+    //     var message = {code:1,id:null}
+    // }else{
+    //     var getId = data.id;
 
-        //保存用户信息
-        session.userinfo = data;
-        var message = {code:0,id:getId}
-    }
-    res.end(message)
+    //     //保存用户信息
+    //     session.userinfo = data;
+    //     var message = {code:0,id:getId}
+    // }
+    // res.end(message)
 })
 
 router.get('/',function(req,res,next){
