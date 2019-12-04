@@ -63,6 +63,8 @@
     height:50px;
     text-align: center;
     margin-top:40px;
+    font-weight: bold;
+    font-size:4vw;
 }
 .Create_ .one{
     width:180px;
@@ -202,16 +204,10 @@
     padding-right: 20px;
 }
 /* 添加学业记录 */
-.Create_study{
-    width:100%;
-    height:50px;
-    text-align: center;
-    font-weight: bold;
-}
 .Create_study1{
     margin-top: 20px;
     width:100%;
-    height:50px;
+    height:30px;
     padding-left:0px;
     font-weight: bold;
     font-size: 5vw;
@@ -228,6 +224,7 @@
     padding-left:0px;
     font-weight: bold;
     text-align: center;
+    font-size:4vw;
 }
 .hr1{
     color:lightgray;
