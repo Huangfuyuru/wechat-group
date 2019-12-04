@@ -25,7 +25,7 @@ export default class Cevent extends Component {
                     }}
                     mode="light"
                     icon={<Icon type="left" style={{color:"white"}}/>}
-                    onLeftClick={() => this.props.history.push('/Cloud')}
+                    onLeftClick={() => this.props.history.push('/index')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
-import { NavBar} from 'antd-mobile';  
+import { NavBar,Flex } from 'antd-mobile';
+
 import "../css/lover.css"
 export default class lover_home extends Component {
     constructor(){
@@ -39,17 +40,24 @@ export default class lover_home extends Component {
                  <Link to ="/lover/lsouvenir"><button className="lover-button">纪念日</button></Link>    
                 </div>
    
-                {
-                this.state.cnews.map((cnews)=>(
-                <div className="lover-home-second">
-                    <p style={{color:"#888888",fontSize:"5vw"}}>—{cnews.ctime}—————————————</p>
-                    <img src={cnews.cpic_src} alt="" style={{height:"90%",width:"45%",float:"left",marginRight:"10%"}}></img>
-                    <div style={{height:"100%",width:"45%",float:"left",border:"solid 0.5px #888888",fontSize:"5vw"}}>{cnews.ccontent}</div>
-                 </div>
-                   
-                ))
-                    
-                }
+                <div>
+                    {
+                        this.state.cnews.map((cnews,idx)=>(
+                            <div className='child_third' key={idx}>
+                                <i></i>
+                                <li>{cnews.ctime}</li>
+                                <Flex>
+                                    <Flex.Item>
+                                        <img src={cnews.cpic_src} width='100%'/>                                  
+                                    </Flex.Item>
+                                    <Flex.Item>
+                                        <span>{cnews.ccontent}</span>
+                                    </Flex.Item>
+                                </Flex>
+                            </div>
+                        ))
+                    }
+                </div>
              
             </div>
         )

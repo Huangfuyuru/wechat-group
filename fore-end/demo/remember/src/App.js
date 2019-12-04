@@ -30,8 +30,8 @@ function App() {
       <Route exact path='/' component={Start}/>
       <Route path='/menus' component={Menus}/>
       <Route path='/resign/message' component={Message}/>
-      <Route path='/index' component={Index}/>
-      <Route path='/Loverhome' component={Lover}/>
+      <Route exact path='/index' component={Index}/>
+      <Route path='/index/lover' component={Index}/>
       
       <Route path='/child/cpictures' component={Cpictures}/>
       <Route path='/child/csound' component={Csound}/>

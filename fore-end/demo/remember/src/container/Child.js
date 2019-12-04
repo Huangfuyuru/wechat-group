@@ -27,7 +27,17 @@ export default class Child extends Component {
             this.setState({child_id:res.data,cindex_src:res.data,cnews:res.data});
         })
     }
-    
+    upfile=()=>{
+        var file=document.getElementById('img').files[0];
+        var url = 'http://localhost:3001/img';
+        var form = new FormData();
+        form.append("file",file);
+        fetch(url,{
+            method:'POST',
+            body:form
+        }).then(res=>res.json())
+        .then(res=>(this.setState({src:res.path})))
+    }
     // componentDidUpdate(prevProps,prevState){
     //     if(prevProps.match.params.page!==this.props.match.params.page){
     //         fetch('https://cnodejs.org/api/v1/topics?page='+1)
@@ -63,10 +73,7 @@ export default class Child extends Component {
                         background:'rgb(255,191,45,0.3)'
                     }}>轻触上传精选照片<input 
                     id='img'
-                    onChange={(e)=>{
-                        this.setState({src:e.target.files[0].name})
-                    console.log(e.target.files[0])
-                    }}                             
+                    onChange={this.upfile}                           
                     type='file'  
                     accept="image/*" 
                     capture="camera" 
