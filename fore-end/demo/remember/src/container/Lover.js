@@ -35,7 +35,7 @@ export default class lover_home extends Component {
                  <button className="lover-button">语音记事</button>
                  <Link to ="/lover/ldairy"> <button className="lover-button">日记</button> </Link>
                  <p style={{float:"left",color:"white"}}>hhhhhh</p>
-                 <Link to ="/lover/list"><button className="lover-button">恋爱清单</button></Link> 
+                 <Link to ="/lover/llists"><button className="lover-button">恋爱清单</button></Link> 
                  <Link to ="/lover/lsouvenir"><button className="lover-button">纪念日</button></Link>    
                 </div>
    

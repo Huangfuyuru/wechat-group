@@ -33,7 +33,35 @@ export default class LSpictures extends Component {
                     </div>
                 ))
             }
+             <span style={{
+                        zIndex:'10',
+                        display:'inline-block',
+                        width:'40%',
+                        fontSize:'5vw',
+                        margin:"5% 0 0 30%",
+                        color:"#FFBF2D",
+                        textAlign:"center",
+                        paddingTop:"3%",
+                        border:"solid 0.5px black"
+                    }}>轻触上传照片<input 
+                    style={{
+                        opacity: 0,
+                        height:"1%",
+                        width:"1%",
+                        border:"solid 0.5px black"
+                    }}
+                    onChange={(e)=>{
+                        this.setState({src:e.target.files[0].name})
+                    console.log(e.target.files[0])
+                    }}                             
+                    type='file'  
+                    accept="image/*" 
+                    capture="camera" 
+                    name='uimage' 
+                    />
+                    </span>
             </div>
+
         )
     }
 }

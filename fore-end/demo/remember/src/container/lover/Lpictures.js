@@ -24,13 +24,13 @@ export default class Lpictures extends Component {
                   this.state.image.map((index)=>(
                 <div className="loveImage-header">
                   <img src={index} style={{height:"80%",width:"94%",marginLeft:"3%",marginTop:"2%"}} alt=""></img>
-                 <Link to="/lover/imagesall" style={{color:"black"}}><p style={{fontSize:"5vw",float:"left",margin:"2% 64% 0 3%"}}>所有照片</p><span  style={{color:"#C7C7CC",fontSize:"8vw"}}>></span></Link>
+                 <Link to="/lover/lspictures" style={{color:"black"}}><p style={{fontSize:"5vw",float:"left",margin:"2% 64% 0 3%"}}>所有照片</p><span  style={{color:"#C7C7CC",fontSize:"8vw"}}>></span></Link>
                 </div>
                   )
                   )
                 }
                
-          <Link to="/lover/crphoto"><img src={require("../../image/jia.jpg")}  className="loveImage-foot"   alt=""></img></Link>
+          <Link to="/lover/lcpictures"><img src={require("../../image/jia.jpg")}  className="loveImage-foot"   alt=""></img></Link>
             </div>
         )
     }

@@ -45,7 +45,7 @@ export default class Ldairy extends Component {
                      ))
                
                 }
-               <Link to="/lover/crnote"> <img src={require("../../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
+               <Link to="/lover/lcdairy"> <img src={require("../../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
             </div>
         )
     }

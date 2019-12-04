@@ -49,12 +49,7 @@ function App() {
       <Route path='/lover/lcsouvenir' component={LCsouvenir}/>
       <Route path='/lover/lslists' component={LSlists}/>
       <Route path='/lover/lspictures' component={LSpictures}/>
-
-    
-    
-
-
-    </Router>
+  </Router>
   );
 }
 

@@ -40,7 +40,7 @@ export default class Lsouvenir extends Component {
                     </div>
                    ))
                }
-              <Link to="/lover/crsouvenir"><img src={require("../../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
+              <Link to="/lover/lcsouvenir"><img src={require("../../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
             </div>
         )
     }

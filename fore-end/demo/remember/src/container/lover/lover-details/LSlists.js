@@ -59,7 +59,7 @@ export default class LSlists extends Component {
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
                 <NavBar style={{background:'#FFBF2D',height:'8vh'}}
                  leftContent={[
-                    <Link to="/lover/list" style={{color:"white"}}><div className="iconfont icon-arror_left_blod" style={{ marginRight: '26px' }} /></Link>,
+                    <Link to="/lover/llists" style={{color:"white"}}><div className="iconfont icon-arror_left_blod" style={{ marginRight: '26px' }} /></Link>,
                    ]}
                 ><span style={{fontWeight:'bold',fontSize:'6vw',textIndent:'3vw',letterSpacing:'3vw'}}>所有清单</span></NavBar>
     <WingBlank><button style={{height:"20%",width:"100%",backgroundColor:"white",fontSize:"5vw",marginTop:"2%"}}>已完成3/{this.state.imgArr.length}</button></WingBlank>

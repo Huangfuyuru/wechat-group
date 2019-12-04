@@ -18,7 +18,7 @@ export default class Llists extends Component {
                       {/* <Link to="/lover/crlist"><img src={require("../image/jia.jpg")}  className="lovelist-jia"   alt=""></img></Link>  */}
                     </div>  
                 </div>
-               <Link to="/lover/listall"> <p className="loverlist-foot">
+               <Link to="/lover/lslists"> <p className="loverlist-foot">
                     所有清单
                 </p></Link>
             </div>
