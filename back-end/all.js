@@ -3,6 +3,8 @@ const express = require('express'),
       session = require('express-session');
 const login = require('./routes/login');
 const child = require('./routes/child');
+const resign =require('./routes/register');
+const img = require('./routes/img')
 
 //解决跨域
 app.all('*', function (req, res, next) {
@@ -39,7 +41,9 @@ app.use(session({
 // })
 
 app.use('/login',login);
+app.use('/resign',resign);
 app.use('/child',child);
+app.use('/img',img);
 app.listen(3001);
 
 
