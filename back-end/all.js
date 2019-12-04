@@ -17,7 +17,26 @@ app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: { 
+        maxAge:1000*60*30
+    },
+    rolling:true
 }))
+
+//自定义中间件，判断登陆状态
+app.use(function(req,res,next){
+    if(req.url == '/login'){
+        next()
+    }else{
+        if(session.userinfo && session.userinfo.username!=''){
+            next()
+        }else{
+            res.redirect('/login')
+        }
+    }
+    
+})
+//保存用户信息
+session.userinfo = data[0];
 
     
