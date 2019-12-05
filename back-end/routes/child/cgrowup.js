@@ -5,7 +5,7 @@ const express = require('express'),
       fs = require('fs');
 // const URL  =  require('url');
 //??
-const {childGrowM} = require('../database/dateMethod');
+const {childGrowM} = require('../../database/dateMethod');
 
 
 //配置bodyparser中间件

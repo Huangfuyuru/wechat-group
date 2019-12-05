@@ -21,6 +21,7 @@ router.use(bodyParser.json());
 // }))
 
 router.post('/',async function(req,res,next){
+    console.log('hello')
     var tel = req.body.utel;
     var pass = req.body.pass;
     var data = await userM.login(tel,pass);
