@@ -2,7 +2,7 @@ const express = require('express');
 
 // 引入模块
 const login = require('./routes/login');
-const childGrow = require('./routes/childGrow');
+// const childGrow = require('./routes/childGrow');
 
 
 const app = new express();

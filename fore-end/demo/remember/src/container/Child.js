@@ -22,6 +22,7 @@ export default class Child extends Component {
     }
     componentDidMount(){
         fetch('')
+        
         .then((res)=>res.json())
         .then((res)=>{
             this.setState({child_id:res.data,cindex_src:res.data,cnews:res.data});
