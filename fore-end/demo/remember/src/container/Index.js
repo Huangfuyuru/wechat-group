@@ -8,12 +8,12 @@ export default class Child_index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          selectedTab: 'blueTab',
+          selectedTab: 'yellowTab',
           hidden: false,
           fullScreen: false,
           userid:this.props.location.state.userid
         };
-        // console.log(this.state.userid)
+        console.log(this.state.userid)
         // console.log(this.props.location.state)
       }
       componentDidMount(){
@@ -52,6 +52,9 @@ export default class Child_index extends Component {
                         }
                         selected={this.state.selectedTab === 'blueTab'}
                         onPress={() => {
+                            this.props.history.push({
+                                pathname:'/index/child',
+                            })
                         this.setState({
                             selectedTab: 'blueTab',
                         });
@@ -76,6 +79,9 @@ export default class Child_index extends Component {
                         //badge={'new'}//消息提示显示new
                         selected={this.state.selectedTab === 'redTab'}
                         onPress={() => {
+                            this.props.history.push({
+                                pathname:'/index/lover',
+                            })
                         this.setState({
                             selectedTab: 'redTab',
                         });
@@ -100,6 +106,9 @@ export default class Child_index extends Component {
                         //dot //小红点
                         selected={this.state.selectedTab === 'greenTab'}
                         onPress={() => {
+                            this.props.history.push({
+                                pathname:'/index/friends',
+                            })
                         this.setState({
                             selectedTab: 'greenTab',
                         });
@@ -123,6 +132,9 @@ export default class Child_index extends Component {
                         key="mine"
                         selected={this.state.selectedTab === 'yellowTab'}
                         onPress={() => {
+                            this.props.history.push({
+                                pathname:'/index/my',
+                            })
                         this.setState({
                             selectedTab: 'yellowTab',
                         });
