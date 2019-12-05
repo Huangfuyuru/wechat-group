@@ -37,7 +37,7 @@ export default class Child extends Component {
             method:'POST',
             body:form
         }).then(res=>res.json())
-        .then(res=>(this.setState({src:res.path})))
+        .then(res=>(this.setState({cindex_src:res.path})))
     }
     // componentDidUpdate(prevProps,prevState){
     //     if(prevProps.match.params.page!==this.props.match.params.page){

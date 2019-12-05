@@ -11,8 +11,18 @@ export default class Child_index extends Component {
           selectedTab: 'blueTab',
           hidden: false,
           fullScreen: false,
+          userid:this.props.location.state.userid
         };
+        // console.log(this.state.userid)
+        // console.log(this.props.location.state)
       }
+      componentDidMount(){
+        fetch('http://localhost:3001/child')
+        .then((res)=>res.json())
+        .then((res)=>{
+            this.setState({child_id:res.data,cindex_src:res.data,cnews:res.data});
+        })
+    }
     render() {
         return (
             <div>

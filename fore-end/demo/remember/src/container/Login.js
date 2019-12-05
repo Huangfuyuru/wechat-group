@@ -34,7 +34,13 @@ export default class Login extends Component {
         .then(json=>{
             console.log(json)
             if(json.code==0){
-                this.props.history.push('/index');
+                this.props.history.push({
+                    pathname:'/index',
+                    state:{
+                        userid:json.id
+                    }
+                });
+
                 console.log('登录成功')
             }else{
                 this.props.history.push('/resign/message')
