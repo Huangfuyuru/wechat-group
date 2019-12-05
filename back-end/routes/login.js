@@ -10,15 +10,15 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
 //配置 express-session中间件
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { 
-        maxAge:1000*60*30
-    },
-    rolling:true
-}))
+// app.use(session({
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { 
+//         maxAge:1000*60*30
+//     },
+//     rolling:true
+// }))
 
 router.post('/',async function(req,res,next){
     var tel = req.body.utel;
@@ -30,7 +30,7 @@ router.post('/',async function(req,res,next){
         var getId = data.id;
 
         //保存用户信息
-        session.userinfo = data;
+        // session.userinfo = data;
         var message = {code:0,id:getId}
     }
     res.json(message)

@@ -15,18 +15,18 @@ app.all('*', function (req, res, next) {
     next();
 });
 
-//配置session 中间件
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { 
-        maxAge:1000*60*30
-    },
-    rolling:true
-}))
+// //配置session 中间件
+// app.use(session({
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { 
+//         maxAge:1000*60*30
+//     },
+//     rolling:true
+// }))
 
-//自定义中间件，判断登陆状态
+// //自定义中间件，判断登陆状态
 // app.use(function(req,res,next){
 //     if(req.url == '/login'){
 //         next()
