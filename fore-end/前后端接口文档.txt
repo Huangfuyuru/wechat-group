@@ -378,36 +378,36 @@ method：get
     增加关系：
         增加亲子：
             method（http请求方式）：post
-            接口地址：http://localhost:3001/child/addchild
+            接口地址：http://localhost:3001/my/addchild
             提交数据: 亲子name，出生日期birthday，性别gender，用户uid
             返回数据：状态码，0成功，1失败
                 {code:0/1}
         删除亲子：
             （点击删除亲子发送的是用户id可以选择哪个亲子，
             点击确认删除给接口发请求发送的是亲子id然后删除）
-            接口地址1：http://localhost:3001/child/delchild
+            接口地址1：http://localhost:3001/my/delchild
                 method（http请求方式）：get
                 发送数据：用户id
                 返回数据：所有亲子id，name
-            接口地址2：http://localhost:3001/child/delchild/confirm
+            接口地址2：http://localhost:3001/my/delchild/confirm
                 method（http请求方式）：get
                 提交数据: 要删的亲子childid
                 返回数据：状态码，0成功，1失败
                     {code:0/1}
         增加爱人：
             method（http请求方式）：post
-            接口地址：http://localhost:3001/lover/addlover
+            接口地址：http://localhost:3001/my/addlover
             提交数据: 爱人name，关系确认日期ldate，性别gender，用户uid
             返回数据：爱人loverid
                 {code:0/1}
         删除爱人：
             （点击删除爱人发送的是用户id，
             点击确认删除给接口发请求发送的是爱人id然后删除）
-            接口地址1：http://localhost:3001/lover/dellover
+            接口地址1：http://localhost:3001/my/dellover
                 method（http请求方式）：get
                 发送数据：用户id
                 返回数据：爱人id，name
-            接口地址2：http://localhost:3001/lover/dellover/confirm
+            接口地址2：http://localhost:3001/my/dellover/confirm
                 method（http请求方式）：get
                 提交数据: 爱人loverid
                 返回数据：状态码，0成功，1失败
@@ -427,6 +427,7 @@ method：get
             修改昵称
             修改密码
             修改提交:
+	method（http请求方式）：post
                 接口地址：http://localhost:3001/my/information、
                 发送数据：uimage=&uname=&pass=&uid=
                 返回数据：{code:0/1}
