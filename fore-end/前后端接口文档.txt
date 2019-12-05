@@ -64,7 +64,8 @@ Wechat登录；
 Weibo登录：
     接口地址：http://localhost:3001/login/weibo
 -----------------------------------------------------
-9.亲子
+
+9.亲子（返回的数据有时候会比需要的多，挑需要的，所有本地图片，语音上传先传文件，然后用返回的地址）
 接口地址：http://localhost:3001/child
 method：get
 需要获取的数据：
@@ -86,6 +87,18 @@ method：get
         ccontent:'醒来觉得甚是爱你~'
     }]
 
+
+切换亲子：
+    接口地址：http://localhost:3001/child/change
+    请求数据：用户usersid
+    返回数据：该用户所有亲子信息,是一个对象数组
+            [{"id":300002,"name":"小明","setdate":"2019-11-25T16:00:00.000Z","gender":"男","birthday":"2019-01-01T16:00:00.000Z","uid":100002}]
+    
+    点击具体孩子切换：
+        接口地址：http://localhost:3001/child?childcurrentid=
+        请求数据：发送亲子childsid，请求childcurrent表
+        返回数据：照片墙图片src，current表(最下边展示的那些)
+
     云相册：（请求的所有id均为表名+id）
         接口地址：http://localhost:3001/child/cpictures?childsid=
         请求数据：亲子childsid
@@ -94,26 +107,36 @@ method：get
             接口地址：http://localhost:3001/child/cpictures/show?childPhotoListid=
             请求数据：亲子具体相册childPhotoListid
             返回数据：该亲子相册的照片childPhotoid，照片地址imgurl
+                （返回数据的id就是需要的那个，cid是亲子id）
+                [{"id":3300002,"name":"宝宝满月","setdate":"2019-11-25T16:00:00.000Z","cid":300003}]
         增加相册：
             接口地址：http://localhost:3001/child/cpictures/ccpictures?childsid=&name=
             请求数据：亲子childsid，相册名称name
             返回数据：该亲子的所有云相册childPhotoListid，name，setdate
+                （返回数据的id就是需要的那个，cid是亲子id）
+                [{"id":3300002,"name":"宝宝满月","setdate":"2019-11-25T16:00:00.000Z","cid":300003}]
         删除相册：
             接口地址：http://localhost:3001/child/cpictures/crpictures?childPhotoListid=
             请求数据：要删掉相册childPhotoListid
             返回数据：该亲子的所有云相册childPhotoListid，name，setdate
+                （返回数据的id就是需要的那个，cid是亲子id）
+                [{"id":3300002,"name":"宝宝满月","setdate":"2019-11-25T16:00:00.000Z","cid":300003}]
         增加照片：
             method（http请求方式）：post
             接口地址：http://localhost:3001/child/cpictures/caddpictures
             提交数据: 具体的相册childPhotoListid，照片的imgurl
                         childPhotoListid= & imgurl=
             返回数据：该亲子相册的照片childPhotoid，照片地址imgurl
+                （举一反三，需要的那个id还是下边那个id）
+                [{"id":3600002,"imgurl":"#","pid":3300002}]
         删除照片：
             method（http请求方式）：post
             接口地址：http://localhost:3001/child/cpictures/cdelpictures
             提交数据: 照片的childPhotoid
                     childPhotoid=
             返回数据：该亲子相册的照片childPhotoid，照片地址imgurl
+                （举一反三，需要的那个id还是下边那个id）
+                [{"id":3600002,"imgurl":"#","pid":3300002}]
 
     语音记事：
         接口地址：http://localhost:3001/child/csound?childsid=
@@ -125,12 +148,14 @@ method：get
             提交数据: 
                         voiceurl= & name= & childsid=
             返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音childVoiceid
+                [{"id":3200002,"name":"sad","setdate":"2019-11-25T16:00:00.000Z","voiceurl":"#","cid":300001}]
         删除语音：
             method（http请求方式）：post
             接口地址：http://localhost:3001/child/csound/crsound
             提交数据: 语音的childVoiceid
                     childVoiceid=
             返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音childVoiceid
+                [{"id":3200002,"name":"sad","setdate":"2019-11-25T16:00:00.000Z","voiceurl":"#","cid":300001}]
 
     大事记：
         接口地址：http://localhost:3001/child/cevents?childsid=
@@ -142,14 +167,15 @@ method：get
             提交数据: 亲子childsid，标签item，节点名称name，图片地址imgurl，记录内容content
                     item= & name= & imgurl= & content=
             返回数据：标签item，节点名称name，图片地址imgurl，记录内容content，创建日期setdate，成长节点childAdolesceid
-
+                    [{"id":3500002,"item":["第一次","勇敢"],"name":"跳","imgurl":["#1","#2","#3"],"content":"小明第一次走路","setdate":"2019-11-25T16:00:00.000Z","cid":300002}]
         删除成长节点：
             method（http请求方式）：post
             接口地址：http://localhost:3001/child/cevents/crevents
             提交数据: 成长节点的childAdolesceid
                     childAdolesceid= 
             返回数据：标签item，节点名称name，图片地址imgurl，记录内容content，创建日期setdate，成长节点childAdolesceid
-            
+                    [{"id":3500002,"item":["第一次","勇敢"],"name":"跳","imgurl":["#1","#2","#3"],"content":"小明第一次走路","setdate":"2019-11-25T16:00:00.000Z","cid":300002}]
+    
     成长记录：
         接口地址：http://localhost:3001/child/cgrowup?childsid=
         请求数据：亲子childsid
@@ -160,16 +186,19 @@ method：get
             提交数据: 身高length，体重weight，年龄age,亲子childsid
                     length= & weight= & age= &childsid=
             返回数据：成长记录childGrowid，身高length，体重weight，年龄age，创建日期setdate
+                    [{"id":3400002,"weight":"121.1","length":"30","age":3,"setdate":"2019-11-25T16:00:00.000Z","cid":300002}]
         删除成长节点：
             method（http请求方式）：post
             接口地址：http://localhost:3001/child/cgrowup/crgrowup
             提交数据: 成长记录childGrowid
                     childGrowid= 
             返回数据：成长记录childGrowid，身高length，体重weight，年龄age，创建日期setdate
+                    [{"id":3400002,"weight":"121.1","length":"30","age":3,"setdate":"2019-11-25T16:00:00.000Z","cid":300002}]
 
 
 
-    学业记录：
+
+    学业记录：(暂时没有)
         接口地址：http://localhost:3001/child/cstudy
 
     日记：
@@ -188,15 +217,148 @@ method：get
             提交数据: 日记的childDiaryid
                     childDiaryid=
             返回数据：日记childDiaryid,name,content,setdate,imgurl
+            [{"id":3100002,"name":"叫爸爸","setdate":"2019-11-25T16:00:00.000Z","content":"今天小明第一次叫妈妈","imgurl":["#1","#2","#3"],"cid":300003}]
+
+10.爱人（返回的数据有时候会比需要的多，挑需要的，所有本地图片，语音上传先传文件，然后用返回的地址）
+接口地址：http://localhost:3001/lover
+method：get
+需要获取的数据：
+照片墙的图片地址：
+    例如：https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1111897272,37524471&fm=26&gp=0.jpg
+说说展示列表数据：
+    说明：获取的数据是一个对象数组，
+        存放的对象的属性包括说说的发送时间，说说图片，说说内容
+        （即：ctime、cpic_src、ccontent）
+    例如：
+    [{
+        ctime:'现在',
+        cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
+        ccontent:'你的脖子真可爱，顶着一个猪脑袋'
+    },
+    {
+        ctime:'刚才',
+        cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
+        ccontent:'醒来觉得甚是爱你~'
+    }]
+
+    云相册：（请求的所有id均为表名+id）
+        接口地址：http://localhost:3001/lover/lpictures?loversid=
+        请求数据：爱人loversid
+        返回数据：需要该爱人的所有云相册loverPhotoListid，name，setdate（数组）
+            [{"id":2300002,"name":"一百天","setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
+        点击具体相册：
+            接口地址：http://localhost:3001/lover/lpictures/show?loverPhotoListid=
+            请求数据：该爱人具体相册loverPhotoListid
+            返回数据：该爱人相册的照片loverPhotoid，照片地址imgurl
+                [{"id":2600002,"imgurl":"#","pid":2300001}]
+
+        增加相册：
+            接口地址：http://localhost:3001/lover/lpictures/lcpictures?loverid=&name=
+            请求数据：爱人loverid，相册名称name
+            返回数据：该爱人的所有云相册loverPhotoListid，name，setdate
+                [{"id":2300002,"name":"一百天","setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
+        删除相册：
+            接口地址：http://localhost:3001/lover/lpictures/lrpictures?loverPhotoListid=
+            请求数据：要删掉相册loverPhotoListid
+            返回数据：该爱人的所有云相册loverPhotoListid，name，setdate
+                [{"id":2300002,"name":"一百天","setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
+        增加照片：
+            method（http请求方式）：post
+            接口地址：http://localhost:3001/lover/lpictures/laddpictures
+            提交数据: 具体的相册loverPhotoListid，照片的imgurl
+                        loverPhotoListid= & imgurl=
+            返回数据：该爱人相册的照片loverPhotoid，照片地址imgurl
+                [{"id":2600002,"imgurl":"#","pid":2300001}]
+
+        删除照片：
+            method（http请求方式）：post
+            接口地址：http://localhost:3001/lover/cpictures/cdelpictures
+            提交数据: 照片的loverPhotoid
+                    loverPhotoid=
+            返回数据：该爱人相册的照片loverPhotoid，照片地址imgurl
+                [{"id":2600002,"imgurl":"#","pid":2300001}]
+
+    语音记事：
+        接口地址：http://localhost:3001/lover/lsound?loverid=
+        请求数据：爱人loversid
+        返回数据：要该爱人的语音name、语音文件地址voiceurl，创建日期setdate，语音id
+            [{"id":2200002,"name":"sad","voiceurl":"#","setdate":"2019-11-26T16:00:00.000Z","lid":200001}](lid是爱人id)
+        增加语音：（先把文件上传，然后再用返回的语音地址）
+            method（http请求方式）：post
+            接口地址：http://localhost:3000/lover/lsound/lcsound
+            提交数据: 
+                        voiceurl= & name= & loverid=
+            返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音id
+                [{"id":2200002,"name":"sad","voiceurl":"#","setdate":"2019-11-26T16:00:00.000Z","lid":200001}](lid是爱人id)
+
+        删除语音：
+            method（http请求方式）：post
+            接口地址：http://localhost:3001/lover/lsound/lrsound
+            提交数据: 语音的loverVoiceid
+                    loverVoiceid=
+            返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音id
+                [{"id":2200002,"name":"sad","voiceurl":"#","setdate":"2019-11-26T16:00:00.000Z","lid":200001}](lid是爱人id)
 
 
-10.上传图片文件：
+    纪念日：
+        接口地址：http://localhost:3001/lover/lsouvenir?loversid=
+        请求数据：亲子loversid
+        返回数据：(点进去的内容联系实际选下边的数据，不懂的问吴雪瑶，确定好了和吴雪瑶说一下)（返回的）
+            (具体是什么属性看数据库表)
+            [{"id":2700001,"name":"生日","content":"一起吃饭","imgurl":"#","item":["纪念日"],"setdate":"2019-11-26T16:00:00.000Z","date":"2019-05-02T06:00:00.000Z","voiceurl":"#","lid":200001}]
+        增加纪念日：
+            method（http请求方式）：post
+            接口地址：http://localhost:3000/lover/lsouvenir/lcsouvenir
+            提交数据: 纪念日名称name，内容content，图片地址imgurl，标签item，提醒日期date，铃声地址voiceurl，爱人loverid
+                    item= & name= & imgurl= & content=（格式类似这个）
+            返回数据:
+                (具体是什么属性看数据库表)
+                [{"id":2700001,"name":"生日","content":"一起吃饭","imgurl":"#","item":["纪念日"],"setdate":"2019-11-26T16:00:00.000Z","date":"2019-05-02T06:00:00.000Z","voiceurl":"#","lid":200001}]
+
+        删除成长节点：
+            method（http请求方式）：post
+            接口地址：http://localhost:3001/child/lsouvenir/lrsouvenir
+            提交数据: 纪念日loverImpDateid
+                    loverImpDateid=
+            返回数据：
+                (具体是什么属性看数据库表)
+                [{"id":2700001,"name":"生日","content":"一起吃饭","imgurl":"#","item":["纪念日"],"setdate":"2019-11-26T16:00:00.000Z","date":"2019-05-02T06:00:00.000Z","voiceurl":"#","lid":200001}]
+            
+    
+    日记：
+        接口地址：http://localhost:3001/lover/ldairy/?loverid=
+        请求数据：爱人loverid
+        返回数据：所有日记信息，是个数组
+            [{"id":2100002,"name":"接吻","content":"今天我们接吻了","imgurl":["#1","#2","#3"],"setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
+        增加日记：
+            method（http请求方式）：post
+            接口地址：http://localhost:3001/child/cdairy/ccdairy
+            提交数据: 
+                    loverid=  & name= & content= & imgurl=
+            返回数据：所有日记信息，是个数组
+                [{"id":2100002,"name":"接吻","content":"今天我们接吻了","imgurl":["#1","#2","#3"],"setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
+
+        删除日记：
+            method（http请求方式）：post
+            接口地址：http://localhost:3001/lover/ldairy/lrdairy
+            提交数据: 日记的loverDiaryid
+                    loverDiaryid=
+            返回数据：所有日记信息，是个数组
+                [{"id":2100002,"name":"接吻","content":"今天我们接吻了","imgurl":["#1","#2","#3"],"setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
+
+11.上传图片文件：
     method（http请求方式）：post
     接口地址：http://localhost:3001/img
     提交数据：图片文件
     返回数据：图片在服务器的url
 
-11.上传语音文件：
+12.上传多图文件：
+    method（http请求方式）：post
+    接口地址：http://localhost:3001/imgs
+    提交数据：图片文件
+    返回数据：图片在服务器的url,数组
+
+13.上传语音文件：
     method（http请求方式）：post
     接口地址：http://localhost:3001/voice
     提交数据：语音文件
