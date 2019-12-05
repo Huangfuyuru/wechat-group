@@ -2,7 +2,7 @@
 //let data = require('./database/dateMethod');
 
 //方法二 把表的方法分解处理 
-let {childBackgroundM,loverBackgroundM} = require('./database/dateMethod');
+let {childBackgroundM,loverBackgroundM,childM} = require('./database/dateMethod');
 
 
 
@@ -13,9 +13,16 @@ async function loginUser(){
     // console.log(a)
 
     //方法二
-    var c = await loverBackgroundM.addLoverBackGround({lid:200004,imgurl:'#'});
-    var b = await loverBackgroundM.findAll();
-    console.log(b)
+    var c = await childM.addChild({
+        name:'张三',
+        birthday:'2015-05-02',
+        gender:'男',
+        uid:100001
+    })
+    // var b = await loverBackgroundM.findAll();
+    console.log(c);
+    var a = await childM.findAll();
+    console.log(a)
 
 }
 loginUser();
