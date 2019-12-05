@@ -66,4 +66,4 @@ router.get('/',function(req,res,next){
 
     res.end(html);
 })
-module.exports = router;
+module.exports = router;0
