@@ -1,11 +1,10 @@
-var express = require('express');
-var fs= require('fs');
+const express = require('express'),
+    fs= require('fs'),
+    app =new express();
 var register =require('./routes/register');
-var message = require('./routes/register_message');
 var img = require('./routes/img.js');
 var voice = require('./routes/voice.js');
-
-var app =new express();
+var lover = require('./routes/lover')
 
 
 
@@ -39,10 +38,8 @@ app.get('/resign',function(req,res,next){
     res.end(html);
 });
 
-
+//注册 
 app.use('/resign',register);
-
-// app.use('/resign/message',message);
 
 //头像上传
 app.use('/img',img);
@@ -50,5 +47,7 @@ app.use('/img',img);
 //音频上传
 app.use('/voice',voice);
 
+//语音记事
+app.use('/lover',lover);
 
 app.listen(3001);
