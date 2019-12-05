@@ -13,7 +13,7 @@ export default class Message extends Component {
         }
    }
    upfile=()=>{
-       var file=document.getElementById('img');
+       var file=document.getElementById('img').files[0];
        var url = 'http://localhost:3001/img';
        var form = new FormData();
        form.append("file",file);
@@ -21,7 +21,10 @@ export default class Message extends Component {
            method:'POST',
            body:form
        }).then(res=>res.json())
-       .then(res=>(this.setState({src:res.path})))
+       .then(res=>{
+           console.log(res.path);
+           this.setState({src:res.path})
+       })
    }
    changeName=(e)=>{
        this.setState({
@@ -62,7 +65,7 @@ export default class Message extends Component {
             <div className='message'>
                 <nav style={{textAlign:'center'}}><img src={logo} alt='logo' width='60%'/></nav>
                 <div className='message_detail'>
-                    <form action='http://localhost:3001/resign/message' method='post'>
+                    {/* <form action='http://localhost:3001/resign/message' method='post'> */}
                         <p className='img'>
                             <i className='iconfont icon-touxiangshangchuan'></i>  
                             <span>轻触上传头像<input 
@@ -124,7 +127,7 @@ export default class Message extends Component {
                             <Link to='/menus/resign'>返回</Link>
                         </button>
                         <button onClick={this.buttonPost} className='message_but' type='submit'>提交</button>
-                    </form>
+                    {/* </form> */}
                 </div>
             </div>
         )

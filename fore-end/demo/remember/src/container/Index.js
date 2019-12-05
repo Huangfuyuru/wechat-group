@@ -3,7 +3,7 @@ import { TabBar } from 'antd-mobile';
 import Child from './Child';
 import My from './My';
 import Lover from "./Lover"
-import Friends from "./Friends"
+// import Friends from "./Friends"
 export default class Child_index extends Component {
     constructor(props) {
         super(props);
@@ -95,7 +95,7 @@ export default class Child_index extends Component {
                         });
                         }}
                     >
-                        <Friends/>
+                        {/* <Friends/> */}
                     </TabBar.Item>
 
                     <TabBar.Item
