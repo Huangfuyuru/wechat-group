@@ -9,7 +9,7 @@ var info={} //后端返回给前端的信息
 var passwd='';
 var tel ='';
 
-var count = 0;
+
 //此中间件的作用是获得请求体字符串，然后转成对象赋值给req.body
 router.use(bodyParser.urlencoded({extended:true}));
 //判断请求体的格式是不是json格式，如果是的话会调用JSON.parse方法把请求体字符串转成对象
@@ -70,15 +70,13 @@ router.post('/', async function(req,res,next){
 
 
 router.post('/message',async function(req,res,next){
-    count+=1;
-    console.log('count',count);
+    // console.log('count',count);
 
-    console.log('body',req.body);
-    console.log('tel',tel);
-    console.log('passwd',passwd);
+    // console.log('body',req.body);
+    // console.log('tel',tel);
+    // console.log('passwd',passwd);
 
     if(req.body.utel=== tel && req.body.pass === passwd){
-        //图片上传还需要修改
         var person={
             name:req.body.uname,
             pass:req.body.pass,
@@ -87,8 +85,8 @@ router.post('/message',async function(req,res,next){
             imgurl:req.body.uimage,
         }
         await user.userM.addUser(person);
-        var a = await user.userM.findAll();
-        console.log(a)
+        // var a = await user.userM.findAll();
+        // console.log(a)
          
         info={
             code:0,
