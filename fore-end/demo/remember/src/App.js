@@ -23,6 +23,9 @@ import LCsouvenir from "./container/lover/lover-details/Lcreate_souver"
 import LSlists from "./container/lover/lover-details/LSlists"
 import LSpictures from "./container/lover/lover-details/LSpictures"
 import Lover from "./container/Lover"
+import Child from "./container/Child"
+import My from './container/My';
+import Friends from './container/Friends';
 
 function App() {
   return (
@@ -30,8 +33,11 @@ function App() {
       <Route exact path='/' component={Start}/>
       <Route path='/menus' component={Menus}/>
       <Route path='/resign/message' component={Message}/>
-      <Route exact path='/index' component={Index}/>
-      <Route path='/index/lover' component={Index}/>
+      <Route path='/index' component={Index}/>
+      <Route path='/index/child' component={Child}/>
+      <Route path='/index/lover' component={Lover}/>
+      <Route path='/index/friends' component={Friends}/>
+      <Route path='/index/my' component={My}/>
       
       <Route path='/child/cpictures' component={Cpictures}/>
       <Route path='/child/csound' component={Csound}/>

@@ -51,7 +51,7 @@ export default class Child extends Component {
                     textIndent:'3vw',
                     letterSpacing:'3vw'
                 }}
-                >朋友</span></NavBar>
+                >好友</span></NavBar>
                 
             </div>
         )

@@ -44,11 +44,11 @@ export default class Menus extends Component {
                         <i></i>
                         <p>第三方登录</p>
                     </div>
-                    <Router>
+                    {/* <Router> */}
                         <Link to='/menus/login/qq'><i className='iconfont icon-qqdenglufanbai'></i></Link>
                         <Link to='/menus/login/wechat'><i className='iconfont icon-weixin'></i></Link>
                         <Link to='/menus/login/weibo'><i className='iconfont icon-comiisweibodenglu'></i></Link>
-                    </Router>
+                    {/* </Router> */}
                 </footer>
             </div>
         )

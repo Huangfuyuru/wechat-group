@@ -110,7 +110,7 @@ export default class Child extends Component {
                         </Flex.Item>
                     </Flex>
                 </div>
-                <div>
+                <div style={{paddingBottom:'9vh'}}>
                     {
                         this.state.cnews.map((cnews,idx)=>(
                             <div className='child_third' key={idx}>

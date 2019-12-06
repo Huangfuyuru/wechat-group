@@ -1,10 +1,10 @@
 #root{
-    height: 100%;
+    min-height: 115vh;
     width: 100%;
     background: #fff;
     position: absolute;
     top: 0px;
-     bottom: 0px;
+    bottom: 0px;
     }
     @font-face {font-family: "iconfont";
       src: url('//at.alicdn.com/t/font_1505428_9chbdsq2.eot?t=1575274849540'); /* IE9 */
