@@ -138,24 +138,48 @@
     text-align: left;
     margin: 0 auto;
     width: 90%;
-    height: 10vh;
+    height: 7vh;
     border-bottom: 1px solid #FFBF2D;
 }
 .resign p i{
     color: #FFBF2D;
-    font-size: 5vh;
+    font-size: 4.5vh;
     margin-right: 8vw;
 }
 .resign input{
     font-size: 3vh;
     width: 70%;
     border:none;
-    height:9.6vh;
+    height:4vh;
 }
 .resign input::placeholder{
     letter-spacing: 0.5vw;
     color: #FFBF2D;
     font-size: 5vw;
+    color:'red'
+}
+#warn{
+    display: none;
+    border-radius: 20px;
+    background:rgba(255,191,45,0.4);
+    position: fixed;
+    top:28vh;
+    width: 90%;
+    height: 35vh;
+    z-index: 100;
+    margin: 0;
+}
+#warn div{
+    text-align: center;
+    padding:4vh 5vw;
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 30%;
+    color: rgb(148, 145, 145);
 }
 .get{
     font-size: 5vw;
@@ -166,7 +190,7 @@
     padding: 1vh 2vw;
 }
 
-/* 注册详情 */
+/* 注册详情（该页取消） */
 .message{
     min-height: 111vh;
     background: linear-gradient(rgb(255,191,45,0.2), rgb(255, 191, 45,0.6),rgb(255, 191, 45,1));
