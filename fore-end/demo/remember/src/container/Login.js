@@ -35,7 +35,7 @@ export default class Login extends Component {
             console.log(json)
             if(json.code==0){
                 this.props.history.push({
-                    pathname:'/index',
+                    pathname:'/index/my',
                     state:{
                         userid:json.id
                     }
