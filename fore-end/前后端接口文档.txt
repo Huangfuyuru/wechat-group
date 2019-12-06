@@ -292,9 +292,8 @@ method：get
 
         删除语音：
             method（http请求方式）：post
-            接口地址：http://localhost:3001/lover/lsound/lrsound
-            提交数据: 语音的loverVoiceid
-                    loverVoiceid=
+            接口地址：http://localhost:3001/lover/lsound/lrsound？loverid = &  loverVoiceid
+            提交数据: 爱人loverid 语音的loverVoiceid
             返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音id
                 [{"id":2200002,"name":"sad","voiceurl":"#","setdate":"2019-11-26T16:00:00.000Z","lid":200001}](lid是爱人id)
 
@@ -309,16 +308,14 @@ method：get
             method（http请求方式）：post
             接口地址：http://localhost:3000/lover/lsouvenir/lcsouvenir
             提交数据: 纪念日名称name，内容content，图片地址imgurl，标签item，提醒日期date，铃声地址voiceurl，爱人loverid
-                    item= & name= & imgurl= & content=（格式类似这个）
+                    item= & name= & imgurl= & content= &item = &loverid =& date（格式类似这个）
             返回数据:
                 (具体是什么属性看数据库表)
                 [{"id":2700001,"name":"生日","content":"一起吃饭","imgurl":"#","item":["纪念日"],"setdate":"2019-11-26T16:00:00.000Z","date":"2019-05-02T06:00:00.000Z","voiceurl":"#","lid":200001}]
 
-        删除成长节点：
-            method（http请求方式）：post
-            接口地址：http://localhost:3001/child/lsouvenir/lrsouvenir
-            提交数据: 纪念日loverImpDateid
-                    loverImpDateid=
+        删除纪念日：
+            接口地址：http://localhost:3001/child/lsouvenir/lrsouvenir？loversid = &  loverImpDateid=
+            提交数据: 爱人loverImpDateid 纪念日loverImpDateid
             返回数据：
                 (具体是什么属性看数据库表)
                 [{"id":2700001,"name":"生日","content":"一起吃饭","imgurl":"#","item":["纪念日"],"setdate":"2019-11-26T16:00:00.000Z","date":"2019-05-02T06:00:00.000Z","voiceurl":"#","lid":200001}]
@@ -329,19 +326,18 @@ method：get
         请求数据：爱人loverid
         返回数据：所有日记信息，是个数组
             [{"id":2100002,"name":"接吻","content":"今天我们接吻了","imgurl":["#1","#2","#3"],"setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
-        增加日记：
+        
+       增加日记：
             method（http请求方式）：post
             接口地址：http://localhost:3001/child/cdairy/ccdairy
             提交数据: 
-                    loverid=  & name= & content= & imgurl=
+                    loverid=  & name= & content= & imgurl= （imgurl是一个数组）
             返回数据：所有日记信息，是个数组
                 [{"id":2100002,"name":"接吻","content":"今天我们接吻了","imgurl":["#1","#2","#3"],"setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
 
         删除日记：
-            method（http请求方式）：post
-            接口地址：http://localhost:3001/lover/ldairy/lrdairy
-            提交数据: 日记的loverDiaryid
-                    loverDiaryid=
+            接口地址：http://localhost:3001/lover/ldairy/lrdairy？loverid = &loverDiaryid
+            提交数据: 爱人 loverDiaryid  日记的loverDiaryid
             返回数据：所有日记信息，是个数组
                 [{"id":2100002,"name":"接吻","content":"今天我们接吻了","imgurl":["#1","#2","#3"],"setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
 
