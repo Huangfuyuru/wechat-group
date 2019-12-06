@@ -1,69 +1,44 @@
-const express = require('express'), 
+const express = require('express'),
       router = express.Router(),
-      bodyParser = require("body-parser"),
-      session = require('express-session'),
-      fs = require('fs');
-// const URL  =  require('url');
-//??
-const {childGrowM} = require('../../database/dateMethod');
-
+      qs = require('querystring'),
+      url = require('url'),
+      bodyParser = require("body-parser");
+const {childGrowM} = require("../../database/dateMethod");//引入数据库
 
 //配置bodyparser中间件
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
-//配置 express-session中间件
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { 
-        maxAge:1000*60*30
-    },
-    rolling:true
-}))
-
-router.post('/',function(req,res){
-    var url = document.location.toString();//获取URL地址
-    var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所以的字符串
-    var arr = urlParmStr.split('&');//通过&符合将字符串分割转成数组
-    var childsid = arr[0].split('=')[1];//获取数组中第一个参数
-    var data  = childGrowM.findByCid(childsid);
-    if(data == 1){
-        var message = {code:1,id:null}
-    }else{
-        var getChildGrowid = data.childGrowid;
-        var getLength = data.length;
-        var getWeight= data.weight;
-        var getAge = data.age;
-        var getSetdate = data.setdate;
-
-        var message = {code:0,childGrowid:getChildGrowid,length:getLength,weight:getWeight,age:getAge,setdate:getSetdate}
-    }
-    //保存用户信息
-    session.userinfo = data;
-    res.json(message)
-})
-router.post('/ccgrowup',function(req,res){
-
-    res.end('add')
-})
-router.post('/',async function(req,res){
-    
-    res.end('add')
-})
-router.post('/',async function(req,res){
-    res.end('add')
+//点击成长记录
+router.get('/',async function(req,res,next){
+    var request = qs.parse(url.parse(req.url).query);
+    var childsid = Number(request.childsid);
+    var data = await childGrowM.findByCid(childsid);
+    res.json(data)
 })
 
-//测试
-router.get('/',function(req,res,next){ 
-    var html=fs.readFileSync('./testing-lmy/cgrowup.html').toString('utf8');
-    res.writeHead(200,{
-        'Content-Type':'text/html;charset=UTF8',
-        'Content-Length':'Buffer.byteLength(html)'
+//增加成长记录
+router.post('/ccgrowup',async function(req,res,next){
+    var childsid = req.body.childsid;
+    var length = req.body.length;
+    var weight = req.body.weight;
+    var age = req.body.age;
+    await childGrowM.addChildGrow({
+        weight:weight,
+        length:length,
+        age:age,
+        cid:childsid
     })
-
-    res.end(html);
+    var data = await childGrowM.findByCid(childsid);
+    res.json(data)
 })
-module.exports = router;0
+
+//删除成长记录
+router.get('/crgrowup',function(req,res,next){
+    var request = qs.parse(url.parse(req.url).query);
+    var childsid = Number(request.childsid);
+    var childGrowid = Number(request.childGrowid);
+    await childGrowM.delChildGrow(childGrowid);
+    var data = await childGrowM.findByCid(childsid);
+    res.json(data)
+})

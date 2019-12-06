@@ -45,6 +45,7 @@ router.get('/crpictures',async function(req,res,next){
     res.json(data)
 })
 
+/*
 //增加照片
 router.post('/caddpictures',async function(req,res,next){
     childPhotoListid = req.body.childPhotoListid;
@@ -66,4 +67,5 @@ router.post('/cdelpictures',async function(req,res,next){
     var data = await childPhotoM.findByPid(childPhotoListid);
     res.json(data)
 })
+*/
 module.exports = router;
