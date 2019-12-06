@@ -36,7 +36,7 @@ router.post('/confirm',async function(req,res,next){
     }else{
         info={
             code:1,
-            msg:'该用户电话已经注册过',
+            msg:'该手机号已注册过'
         }
     }
     res.json(info);
@@ -61,7 +61,7 @@ router.post('/', async function(req,res,next){
     }else{
         info={
             code:1,
-            msg:'验证码错误，请重新输入',
+            msg:'验证码错误'
         }
         res.json(info);
     }
@@ -96,15 +96,16 @@ router.post('/message',async function(req,res,next){
     }else if(req.body.pass !== passwd){
         info={
             code:1,
-            msg:'密码与上一次输入的不一致，请重新输入'
-        }
-        res.json(info);
-    }else if(req.body.utel !== tel){
-        info={
-            code:2,
-            msg:'电话与上一次输入的不一致，请重新输入'
+            msg:'两次密码不一致'
         }
         res.json(info);
     }
+    // }else if(req.body.utel !== tel){
+    //     info={
+    //         code:2,
+    //         msg:'电话与上一次输入的不一致，请重新输入'
+    //     }
+    //     res.json(info);
+    // }
 });
 module.exports = router;
