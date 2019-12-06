@@ -32,6 +32,12 @@ export default class Resign extends Component {
         })
         // console.log(this.state.tel)
     }
+    changePass=(e)=>{
+        this.setState({
+            conpass:e.target.value
+        })
+        // console.log(this.state.tel)
+    }
     buttonPost=()=>{
         // console.log(this.state.tel)
         var warn=document.getElementById('warn');
@@ -78,17 +84,29 @@ export default class Resign extends Component {
             <div className='resign'>
                 <p>
                     <i className='iconfont icon-ef-zhanghao'></i>
-                    <input onChange={this.changeTel} style={{width:"39%"}} type='tel' name='utel' placeholder='手机号' required/>
+                    <input 
+                    onChange={this.changeTel} 
+                    style={{width:"39%"}} 
+                    type='tel' 
+                    name='utel' 
+                    placeholder='手机号'/>
                     <span className='get' onClick={this.buttonPost}>获取验证码</span>
                 </p>
                 <p>
                     <i className='iconfont icon-youjian'></i>
-                    <input onChange={this.changeConfirm} type='text' name='confirm' placeholder='验证码' required/>
+                    <input 
+                    onChange={this.changeConfirm} 
+                    type='text' 
+                    name='confirm' 
+                    placeholder='验证码'/>
                 </p>
                 <p>
                     <i className='iconfont icon-mima'></i>
-                    <input onChange={this.changePasswd} type='password' name='passwd' placeholder='密码' required/>
-
+                    <input 
+                    onChange={this.changePasswd} 
+                    type='password' 
+                    name='passwd' 
+                    placeholder='密码'/>
                 </p>
                 <p>
                     <i className='iconfont icon-queren'></i>
