@@ -42,7 +42,7 @@ export default class Login extends Component {
                 });
                 console.log('登录成功')
             }else{
-                this.props.history.push('/resign/message')
+                this.props.history.push('/login/error')
                 console.log('失败')
             }
             console.log(json)

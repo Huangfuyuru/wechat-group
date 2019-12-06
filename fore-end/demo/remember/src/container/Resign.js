@@ -56,16 +56,16 @@ export default class Resign extends Component {
             <form className='resign' method='post' action='http://localhost:3001/resign'>
                 <p>
                     <i className='iconfont icon-ef-zhanghao'></i>
-                    <input onChange={this.changeTel} style={{width:"39%"}} type='tel' name='utel' placeholder='手机号'/>
+                    <input onChange={this.changeTel} style={{width:"39%"}} type='tel' name='utel' placeholder='手机号' required/>
                     <span className='get' onClick={this.buttonPost}>获取验证码</span>
                 </p>
                 <p>
                     <i className='iconfont icon-youjian'></i>
-                    <input onChange={this.changeConfirm} type='text' name='confirm' placeholder='验证码'/>
+                    <input onChange={this.changeConfirm} type='text' name='confirm' placeholder='验证码' required/>
                 </p>
                 <p>
                     <i className='iconfont icon-mima'></i>
-                    <input onChange={this.changePasswd} type='password' name='passwd' placeholder='密码'/>
+                    <input onChange={this.changePasswd} type='password' name='passwd' placeholder='密码' required/>
 
                 </p>
                 <button onClick={this.post} className='but' type='submit'>
