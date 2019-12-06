@@ -39,7 +39,7 @@ async function findAll(){
  * @param {int} idC
  * @returns
  */
-async function delChilCdPhoto(id){
+async function delChildPhoto(id){
     let sql = 'delete from childPhoto where id = $1';
     let ret = await pgdb.query(sql,[id]);
     if(ret.rowCount<=0){
@@ -52,7 +52,7 @@ async function delChilCdPhoto(id){
 /**
  *根据相册pid找到所有 该相册的所有照片信息
  *
- * @param {*} cid
+ * @param {*} pid
  * @returns 所有成长的内容
  */
 async function findByPid(pid){
@@ -119,6 +119,6 @@ async function changeById(id,text){
 }
 
 var childPhotoM = {
-    addChildPhoto,delChilCdPhoto,findAll,findById,findByPid,findIdByPid,changeById
+    addChildPhoto,delChildPhoto,findAll,findById,findByPid,findIdByPid,changeById
 }
 module.exports = childPhotoM;

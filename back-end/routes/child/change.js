@@ -6,10 +6,8 @@ const express = require('express'),
 
 router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
-    if(request.usersid){
-        var usersid = Number(request.usersid);
-        var data = await childM.findIdByUid(usersid);
-    }
+    var usersid = Number(request.usersid);
+    var data = await childM.findIdByUid(usersid);
     res.json(data);
 })
 
