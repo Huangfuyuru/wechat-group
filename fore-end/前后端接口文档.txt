@@ -142,6 +142,7 @@ method：get
         接口地址：http://localhost:3001/child/csound?childsid=
         请求数据：亲子childsid
         返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音childVoiceid
+[{"id":3200002,"name":"sad","setdate":"2019-11-25T16:00:00.000Z","voiceurl":"#","cid":300001}]
         增加语音：
             method（http请求方式）：post
             接口地址：http://localhost:3000/child/csound/ccsound
@@ -150,10 +151,8 @@ method：get
             返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音childVoiceid
                 [{"id":3200002,"name":"sad","setdate":"2019-11-25T16:00:00.000Z","voiceurl":"#","cid":300001}]
         删除语音：
-            method（http请求方式）：post
-            接口地址：http://localhost:3001/child/csound/crsound
-            提交数据: 语音的childVoiceid
-                    childVoiceid=
+            接口地址：http://localhost:3001/child/csound/crsound?childsid = &  childVoiceid
+            提交数据: 亲子childsid 语音的childVoiceid
             返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音childVoiceid
                 [{"id":3200002,"name":"sad","setdate":"2019-11-25T16:00:00.000Z","voiceurl":"#","cid":300001}]
 
@@ -180,18 +179,16 @@ method：get
         接口地址：http://localhost:3001/child/cgrowup?childsid=
         请求数据：亲子childsid
         返回数据：成长记录childGrowid，身高length，体重weight，年龄age，创建日期setdate
-        增加成长节点：
+        增加成长记录：
             method（http请求方式）：post
             接口地址：http://localhost:3001/child/cgrowup/ccgrowup
             提交数据: 身高length，体重weight，年龄age,亲子childsid
                     length= & weight= & age= &childsid=
             返回数据：成长记录childGrowid，身高length，体重weight，年龄age，创建日期setdate
                     [{"id":3400002,"weight":"121.1","length":"30","age":3,"setdate":"2019-11-25T16:00:00.000Z","cid":300002}]
-        删除成长节点：
-            method（http请求方式）：post
-            接口地址：http://localhost:3001/child/cgrowup/crgrowup
-            提交数据: 成长记录childGrowid
-                    childGrowid= 
+        删除成长记录：
+            接口地址：http://localhost:3001/child/cgrowup/crgrowup？childsid = & childGrowid
+            提交数据: 亲子childsid   成长记录childGrowid
             返回数据：成长记录childGrowid，身高length，体重weight，年龄age，创建日期setdate
                     [{"id":3400002,"weight":"121.1","length":"30","age":3,"setdate":"2019-11-25T16:00:00.000Z","cid":300002}]
 

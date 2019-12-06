@@ -5,13 +5,35 @@ const express = require('express'),
       bodyParser = require("body-parser"),
       {childVoiceM} = require('../../database/dateMethod');
 
-
 //配置bodyparser中间件
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
-router.get('/',function(req,res,next){
-    res.end('/child/csound')
+//点击语音记事
+router.get('/',async function(req,res,next){
+    var request = qs.parse(url.parse(req.url).query);
+    var childsid = Number(request.childsid);
+    var data = await childVoiceM.findByCid(childsid);
+    res.json(data)
 })
 
+//增加语音
+router.post('/ccsound',async function(req,res,next){
+    var childsid = req.body.childsid;
+    var name = req.body.name;
+    var voiceurl = req.body.voiceurl;
+    await childVoiceM.addChildVoice({name:name,voiceurl:voiceurl,cid:childsid});
+    var data = await childVoiceM.findByCid(childsid);
+    res.json(data)
+})
+
+//删除语音
+router.get('/crsound',async function(req,res,next){
+    var request = qs.parse(url.parse(req.url).query);
+    var childsid = Number(request.childsid);
+    var childVoiceid = Number(reqest.childVoiceid);
+    await childVoiceM.delChildVoice(childVoiceid);
+    var data = await childVoiceM.findByCid(childsid);
+    res.json(data)
+})
 module.exports = router;
