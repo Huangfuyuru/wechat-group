@@ -58,12 +58,12 @@ async function findById(id){
 
 /**
  *
- *根据用户id 查找该用户创建的所有亲子id
+ *根据用户id 查找该用户创建的所有亲子信息
  * @param {int} uid
  * @returns
  */
 async function findIdByUid(uid){
-    let sql = 'select id from childs where uid = $1';
+    let sql = 'select * from childs where uid = $1';
     let ret = await pgdb.query(sql,[uid]);
     if(ret.rowCount<=0){
         return 1

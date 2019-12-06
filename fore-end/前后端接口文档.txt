@@ -92,15 +92,12 @@ method：get
 
 
 切换亲子：
-    接口地址：http://localhost:3001/child/change
+    接口地址：http://localhost:3001/child/change?usersid=
     请求数据：用户usersid
     返回数据：该用户所有亲子信息,是一个对象数组
             [{"id":300002,"name":"小明","setdate":"2019-11-25T16:00:00.000Z","gender":"男","birthday":"2019-01-01T16:00:00.000Z","uid":100002}]
     
-    点击具体孩子切换：
-        接口地址：http://localhost:3001/child?childcurrentid=
-        请求数据：发送亲子childsid，请求childcurrent表
-        返回数据：照片墙图片src，current表(最下边展示的那些)
+    点击具体孩子切换：已经拿到了所有的亲子id,直接更新要切换的那个亲子就行，不用在发请求了
 
     云相册：（请求的所有id均为表名+id）
         接口地址：http://localhost:3001/child/cpictures?childsid=

@@ -1,8 +1,16 @@
 const express = require('express'),
-      app = express(),
-      router = express.Router();
-router.get('/',function(req,res,next){
-    res.end('/child/change')
+      router = express.Router(),
+      qs = require('querystring'),
+      url = require('url'),
+      {childM} = require('../../database/dateMethod');
+
+router.get('/',async function(req,res,next){
+    var request = qs.parse(url.parse(req.url).query);
+    if(request.usersid){
+        var usersid = Number(request.usersid);
+        var data = await childM.findIdByUid(usersid);
+    }
+    res.json(data);
 })
 
 module.exports = router;
