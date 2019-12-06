@@ -251,7 +251,7 @@ method：get
             [{"id":2300002,"name":"一百天","setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
         点击具体相册：
             接口地址：http://localhost:3001/lover/lpictures/show?loverPhotoListid=
-            请求数据：该爱人具体相册loverPhotoListid
+            请求数据：爱人具体相册loverPhotoListid
             返回数据：该爱人相册的照片loverPhotoid，照片地址imgurl
                 [{"id":2600002,"imgurl":"#","pid":2300001}]
 
@@ -261,14 +261,14 @@ method：get
             返回数据：该爱人的所有云相册loverPhotoListid，name，setdate
                 [{"id":2300002,"name":"一百天","setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
         删除相册：
-            接口地址：http://localhost:3001/lover/lpictures/lrpictures?loverPhotoListid=
-            请求数据：要删掉相册loverPhotoListid
+            接口地址：http://localhost:3001/lover/lpictures/lrpictures?loversid=&loverPhotoListid=
+            请求数据：爱人loversid 要删掉相册loverPhotoListid
             返回数据：该爱人的所有云相册loverPhotoListid，name，setdate
                 [{"id":2300002,"name":"一百天","setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
         增加照片：
             method（http请求方式）：post
             接口地址：http://localhost:3001/lover/lpictures/laddpictures
-            提交数据: 具体的相册loverPhotoListid，照片的imgurl
+            提交数据: 具体的相册loverPhotoListid，照片的imgurl [数组]
                         loverPhotoListid= & imgurl=
             返回数据：该爱人相册的照片loverPhotoid，照片地址imgurl
                 [{"id":2600002,"imgurl":"#","pid":2300001}]
@@ -276,8 +276,7 @@ method：get
         删除照片：
             method（http请求方式）：post
             接口地址：http://localhost:3001/lover/cpictures/cdelpictures
-            提交数据: 照片的loverPhotoid
-                    loverPhotoid=
+            提交数据: 具体的相册loverPhotoListid 照片的loverPhotoid [数组]
             返回数据：该爱人相册的照片loverPhotoid，照片地址imgurl
                 [{"id":2600002,"imgurl":"#","pid":2300001}]
 
