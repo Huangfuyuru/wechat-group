@@ -45,12 +45,12 @@ router.get('/crpictures',async function(req,res,next){
     res.json(data)
 })
 
-/*
+
 //增加照片
 router.post('/caddpictures',async function(req,res,next){
     childPhotoListid = req.body.childPhotoListid;
     imgurl = req.body.imgurl;
-    imgurl.map(function(item){
+    imgurl.map(async function(item){
         await childPhotoM.addChildPhoto({imgurl:item,pid:childPhotoListid})
     })
     var data = await childPhotoM.findByPid(childPhotoListid);
@@ -61,11 +61,11 @@ router.post('/caddpictures',async function(req,res,next){
 router.post('/cdelpictures',async function(req,res,next){
     childPhotoListid = req.body.childPhotoListid;
     imgurl = req.body.imgurl;
-    imgurl.map(function(item){
+    imgurl.map(async function(item){
         await childPhotoM.delChildPhoto(item)
     })
     var data = await childPhotoM.findByPid(childPhotoListid);
     res.json(data)
 })
-*/
+
 module.exports = router;
