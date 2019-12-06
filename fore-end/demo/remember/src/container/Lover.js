@@ -40,7 +40,7 @@ export default class lover_home extends Component {
                  <Link to ="/lover/lsouvenir"><button className="lover-button">纪念日</button></Link>    
                 </div>
    
-                <div style={{paddingBottom:'8vh'}}>
+                <div style={{paddingBottom:'9vh'}}>
                     {
                         this.state.cnews.map((cnews,idx)=>(
                             <div className='child_third' key={idx}>

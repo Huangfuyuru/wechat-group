@@ -1,0 +1,18 @@
+
+.index_footer{
+    background: #fff;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    height: 8vh;
+    /* margin-top: 8vh; */
+    text-align: left;
+    z-index: 101;
+}
+.index_footer i{
+}
+.index_footer a{
+    text-align: center;
+    width: 25%;
+    float: left;
+}
