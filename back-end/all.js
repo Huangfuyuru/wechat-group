@@ -1,10 +1,13 @@
 const express = require('express'),
       app = express(),
-      session = require('express-session');
-const login = require('./routes/login');
-const child = require('./routes/child');
-const resign =require('./routes/register');
-const img = require('./routes/img')
+      login = require('./routes/login'), //登陆
+      resign =require('./routes/register'),  //注册
+      child = require('./routes/child'),  //亲子
+      lover = require('./routes/lover'),  //爱人
+      img = require('./routes/img'),      //单张图片
+      imgs = require('./routes/imgs'),    //多张图片
+      voice = require('./routes/voice');  //语音
+
 
 //解决跨域
 app.all('*', function (req, res, next) {
@@ -15,35 +18,14 @@ app.all('*', function (req, res, next) {
     next();
 });
 
-// //配置session 中间件
-// app.use(session({
-//     secret: 'keyboard cat',
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { 
-//         maxAge:1000*60*30
-//     },
-//     rolling:true
-// }))
-
-// //自定义中间件，判断登陆状态
-// app.use(function(req,res,next){
-//     if(req.url == '/login'){
-//         next()
-//     }else{
-//         if(session.userinfo && session.userinfo.id!=''){
-//             next()
-//         }else{
-//             res.redirect('/login')
-//         }
-//     }
-    
-// })
-
+//路由模块
 app.use('/login',login);
 app.use('/resign',resign);
 app.use('/child',child);
+app.use('/lover',lover);
 app.use('/img',img);
+app.use('/imgs',imgs);
+app.use('/voice',voice);
 app.listen(3001);
 
 
