@@ -10,7 +10,7 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
 //点击大事记
-router.get('/',function(req,res,next){
+router.get('/',await function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var data = await childAdolesceM.findByCid(childsid);
