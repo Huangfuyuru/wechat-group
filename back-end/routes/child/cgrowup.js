@@ -34,7 +34,7 @@ router.post('/ccgrowup',async function(req,res,next){
 })
 
 //删除成长记录
-router.get('/crgrowup',function(req,res,next){
+router.get('/crgrowup',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var childGrowid = Number(request.childGrowid);
@@ -42,3 +42,5 @@ router.get('/crgrowup',function(req,res,next){
     var data = await childGrowM.findByCid(childsid);
     res.json(data)
 })
+
+module.exports = router;

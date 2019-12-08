@@ -159,19 +159,17 @@ method：get
     大事记：
         接口地址：http://localhost:3001/child/cevents?childsid=
         请求数据：亲子childsid
-        返回数据：标签item，节点名称name，图片地址imgurl，记录内容content，创建日期setdate，成长节点childAdolesceid
+        返回数据：标签item，节点名称name，图片地址imgurl(数组)，记录内容content，创建日期setdate，成长节点childAdolesceid
         增加成长节点：
             method（http请求方式）：post
             接口地址：http://localhost:3000/child/cevents/ccevents
-            提交数据: 亲子childsid，标签item，节点名称name，图片地址imgurl，记录内容content
-                    item= & name= & imgurl= & content=
+            提交数据: 亲子childsid，标签item(数组)，节点名称name，图片地址imgurl，记录内容content
+                   childsid=& item= & name= & imgurl= & content=
             返回数据：标签item，节点名称name，图片地址imgurl，记录内容content，创建日期setdate，成长节点childAdolesceid
                     [{"id":3500002,"item":["第一次","勇敢"],"name":"跳","imgurl":["#1","#2","#3"],"content":"小明第一次走路","setdate":"2019-11-25T16:00:00.000Z","cid":300002}]
         删除成长节点：
-            method（http请求方式）：post
-            接口地址：http://localhost:3001/child/cevents/crevents
-            提交数据: 成长节点的childAdolesceid
-                    childAdolesceid= 
+            接口地址：http://localhost:3001/child/cevents/crevents?childsid= & childAdolesceid=
+            提交数据: 亲子childsid 成长节点的childAdolesceid
             返回数据：标签item，节点名称name，图片地址imgurl，记录内容content，创建日期setdate，成长节点childAdolesceid
                     [{"id":3500002,"item":["第一次","勇敢"],"name":"跳","imgurl":["#1","#2","#3"],"content":"小明第一次走路","setdate":"2019-11-25T16:00:00.000Z","cid":300002}]
     
@@ -206,13 +204,11 @@ method：get
             method（http请求方式）：post
             接口地址：http://localhost:3001/child/cdairy/ccdairy
             提交数据: 
-                    childsid= &childDiaryid= & name= & content= & imgurl=
+                    childsid=  & name= & content= & imgurl= (imgurl是一个数组)
             返回数据：日记childDiaryid,name,content,setdate,imgurl
         删除日记：
-            method（http请求方式）：post
-            接口地址：http://localhost:3001/child/cdairy/crdairy
-            提交数据: 日记的childDiaryid
-                    childDiaryid=
+            接口地址：http://localhost:3001/child/cdairy/crdairy?childsid= & childDiaryid=
+            提交数据: 亲子childsid 日记的childDiaryid
             返回数据：日记childDiaryid,name,content,setdate,imgurl
             [{"id":3100002,"name":"叫爸爸","setdate":"2019-11-25T16:00:00.000Z","content":"今天小明第一次叫妈妈","imgurl":["#1","#2","#3"],"cid":300003}]
 
@@ -402,8 +398,6 @@ method：get
                 返回数据：状态码，0成功，1失败
                     {code:0/1}
             method（http请求方式）：post
-    亲子记录：（从后台获得有几个亲子)
-    爱人记录：（获取爱人姓名）
     消息反馈：
         (点击消息反馈，进入一个和后台对话的页面)
         (点击发送的时候可以向后台发送消息)

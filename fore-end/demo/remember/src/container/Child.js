@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavBar,Flex } from 'antd-mobile';
+import { NavBar,Flex,Icon } from 'antd-mobile';
 import '../css/child.css'
 import {Link} from 'react-router-dom'
 export default class Child extends Component {
@@ -52,10 +52,23 @@ export default class Child extends Component {
         return (
             <div className='child'>
                 <NavBar
-                style={{
-                    background:'#FFBF2D',
-                    height:'8vh'
-                }}
+                    style={{
+                        background:'#FFBF2D',
+                        height:'8vh'
+                    }}
+                    rightContent={[
+                    <i
+                    className='iconfont icon-qiehuan'
+                    style={{
+                        marginRight:'2vw',
+                        fontSize:'8.5vw',
+                        fontWeight:'lighter'
+                    }}
+                    onClick={()=>{
+                        console.log('切换亲子')
+                    }} 
+                    key="1" type="ellipsis" />,
+                    ]}
                 ><span style={{
                     fontWeight:'bold',
                     fontSize:'6vw',
@@ -127,6 +140,9 @@ export default class Child extends Component {
                             </div>
                         ))
                     }
+                </div>
+                <div className='choosechild'>
+
                 </div>
             </div>
         )

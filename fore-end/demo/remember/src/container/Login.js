@@ -7,7 +7,8 @@ export default class Login extends Component {
         super();
         this.state={
             tel:'',
-            pass:''
+            pass:'',
+            code:''
         }
     }
     changeTel=(e)=>{
@@ -42,8 +43,10 @@ export default class Login extends Component {
                 });
                 console.log('登录成功')
             }else{
-                this.props.history.push('/login/error')
-                console.log('失败')
+                this.setState({
+                    code:json.msg
+                })
+                console.log(json.msg)
             }
             console.log(json)
         })
@@ -61,6 +64,24 @@ export default class Login extends Component {
 
                 </p>
                 <button onClick={this.getData} className='but'>登录</button>
+                <div id='warn'>
+                    <div>{this.state.code}</div>
+                    <button 
+                    onClick={()=>{
+                        var warn=document.getElementById('warn');
+                        warn.style.display='none';
+                    }}
+                     style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                </div>
             </div>
         )
     }
