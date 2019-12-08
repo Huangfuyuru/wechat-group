@@ -30,7 +30,7 @@ export default class Child_index extends Component {
             tabs[i].classList.remove('active');
         }
         e.target.classList.add('active');
-        console.log(e.target.className)
+        console.log(e.target.className);
     }
     render() {
         return (

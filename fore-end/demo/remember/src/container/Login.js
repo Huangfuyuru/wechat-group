@@ -45,10 +45,14 @@ export default class Login extends Component {
             }else{
                 this.setState({
                     code:json.msg
+                },()=>{
+                    var lwarn=document.getElementById('lwarn');
+                    lwarn.style.display='block';
                 })
+                
                 console.log(json.msg)
             }
-            console.log(json)
+            // console.log(json)
         })
     }
     render() {
@@ -64,11 +68,11 @@ export default class Login extends Component {
 
                 </p>
                 <button onClick={this.getData} className='but'>登录</button>
-                <div id='warn'>
+                <div id='lwarn'>
                     <div>{this.state.code}</div>
                     <button 
                     onClick={()=>{
-                        var warn=document.getElementById('warn');
+                        var warn=document.getElementById('lwarn');
                         warn.style.display='none';
                     }}
                      style={{
