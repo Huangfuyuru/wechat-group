@@ -13,10 +13,10 @@ router.post('/',async function(req,res,next){
     var pass = req.body.pass;
     var data = await userM.login(tel,pass);
     if(data == 1){
-        var message = {code:1,id:null}
+        var message = {code:1,id:null,msg:"用户名或密码有误"}
     }else{
         var getId = data.id;
-        var message = {code:0,id:getId}
+        var message = {code:0,id:getId,msg:"登陆成功"}
     }
     res.json(message)
 })
