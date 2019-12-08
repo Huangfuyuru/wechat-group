@@ -11,12 +11,17 @@ router.post('/',async function(req,res,next){
     console.log('hello')
     var tel = req.body.utel;
     var pass = req.body.pass;
-    var data = await userM.login(tel,pass);
-    if(data == 1){
-        var message = {code:1,id:null,msg:"用户名或密码有误"}
+    var getUser = await userM.findTel(tel);
+    if(getUser == 1){
+        var msg = {code:1,id:null,msg:"该手机号没有注册"}
     }else{
-        var getId = data.id;
-        var message = {code:0,id:getId,msg:"登陆成功"}
+        var data = await userM.login(tel,pass);
+        if(data == 1){
+            var message = {code:1,id:null,msg:"手机号或密码有误"}
+        }else{
+            var getId = data.id;
+            var message = {code:0,id:getId,msg:"登陆成功"}
+        }
     }
     res.json(message)
 })
