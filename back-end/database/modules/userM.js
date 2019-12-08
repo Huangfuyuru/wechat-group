@@ -41,15 +41,8 @@ async function findTel(tel){
  * @param {Object} person 
  */
 async function addUser(person){
-    let ret;
-    if(person.gender){
-        let sql = 'insert into users(name,pass,tel,imgurl,gender) values($1,$2,$3,$4,$5)';
-        ret = await pgdb.query(sql,[person.name,person.pass,person.tel,person.imgurl,person.gender]);
-    }else{
-        let sql = 'insert into users(name,pass,tel,imgurl) values($1,$2,$3,$4)';
-        ret = await pgdb.query(sql,[person.name,person.pass,person.tel,person.imgurl]);
-    }
-    
+    let sql = 'insert into users(pass,tel) values($1,$2)';
+    let ret = await pgdb.query(sql,[person.pass,person.tel]);
     if(ret.rowCount<=0){
         return 1;
     }else{
