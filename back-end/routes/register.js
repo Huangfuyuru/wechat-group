@@ -6,8 +6,7 @@ var qs =require('querystring');
 var bodyParser = require("body-parser");
 var user =require('../database/dateMethod');
 var info={} //后端返回给前端的信息
-var passwd='';
-var tel ='';
+
 
 
 //此中间件的作用是获得请求体字符串，然后转成对象赋值给req.body
@@ -45,67 +44,31 @@ router.post('/confirm',async function(req,res,next){
 
 router.post('/', async function(req,res,next){
   
-    // console.log('body',req.body)
-    // console.log('验证码body',passwd,tel);
+    console.log('resign body',req.body);
 
-    passwd =req.body.passwd;
-    tel = req.body.utel;
-
-    //进行验证码校验
-    if(req.body.pass !==''){
+    if(req.body.confirm !== '' && req.body.passwd===req.body.pass){
         info={
             code:0,
-            msg:'验证码正确'
+            msg:'注册成功！'
         }
         res.json(info);
-    }else{
+    }else if(req.body.confirm ===''){
         info={
             code:1,
             msg:'验证码错误'
         }
         res.json(info);
-    }
 
-});
-
-
-router.post('/message',async function(req,res,next){
-    // console.log('count',count);
-
-    // console.log('body',req.body);
-    // console.log('tel',tel);
-    // console.log('passwd',passwd);
-
-    if(req.body.utel=== tel && req.body.pass === passwd){
-        var person={
-            name:req.body.uname,
-            pass:req.body.pass,
-            tel:req.body.utel,
-            gender:req.body.usex==='woman'?'女':'男',
-            imgurl:req.body.uimage,
-        }
-        await user.userM.addUser(person);
-        // var a = await user.userM.findAll();
-        // console.log(a)
-         
+    }else if(req.body.pass !== req.body.passwd){
         info={
-            code:0,
-            msg:'用户注册成功',
-        }
-        res.json(info);
-    }else if(req.body.pass !== passwd){
-        info={
-            code:1,
+            code:2,
             msg:'两次密码不一致'
         }
         res.json(info);
     }
-    // }else if(req.body.utel !== tel){
-    //     info={
-    //         code:2,
-    //         msg:'电话与上一次输入的不一致，请重新输入'
-    //     }
-    //     res.json(info);
-    // }
+
+
 });
+
+
 module.exports = router;

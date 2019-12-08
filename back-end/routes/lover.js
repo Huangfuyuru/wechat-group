@@ -7,6 +7,11 @@ const lovePictures = require('./lover/lovePictures'),
       loveList = require('./lover/loveList'),
       loveSouvenir = require('./lover/loveSouvenir');
 
+
+// router.use('/',async function(req,res,next){
+       
+// })
+
 router.use('/lovePictures',lovePictures);
 router.use('/loveSound',loveSound);
 router.use('/loveDinary',loveDinary);
