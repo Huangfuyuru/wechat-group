@@ -47,11 +47,23 @@ export default class Ldairy extends Component {
     render() {
         return (
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
-                 <NavBar style={{backgroundColor:"#FFBF2D",color:"white"}} 
-                   leftContent={[
-                    <Link to="/index/lover" style={{color:"white"}}><div className="iconfont icon-arror_left_blod" style={{ marginRight: '26px' }} /></Link>,
-                   ]}
-                 ><span style={{fontWeight:'bold',fontSize:'6vw',textIndent:'3vw',letterSpacing:'3vw'}}>日记</span></NavBar>
+                 <NavBar 
+                 style={{
+                     background:'#FFBF2D',
+                     height:'8vh',
+                     color:'#fff',
+                     fontWeight:'bolder',
+                    }}
+                    mode="light"
+                    icon={'𡿨'}
+                    onLeftClick={() => this.props.history.push('/index/lover')}
+                 ><span style={{
+                     color:'#fff',
+                     fontWeight:'bold',
+                     fontSize:'6vw',
+                     textIndent:'3vw',
+                     letterSpacing:'3vw'}}>日记</span>
+                </NavBar>
                  {
                      this.state.noteArr.map((item)=>(
                         <div className="lovernote-first">

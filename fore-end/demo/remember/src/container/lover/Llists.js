@@ -25,11 +25,22 @@ export default class Llists extends Component {
     render() {
         return (
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
-                 <NavBar style={{backgroundColor:"#FFBF2D",color:"white"}}
-                               leftContent={[
-                                <Link to="/index/lover" style={{color:"white"}}><div className="iconfont icon-arror_left_blod" style={{ marginRight: '26px' }} /></Link>,
-                               ]}
-                 ><span style={{fontWeight:'bold',fontSize:'6vw',textIndent:'3vw',letterSpacing:'3vw'}}>恋爱清单</span></NavBar>
+                 <NavBar style={{
+                     background:'#FFBF2D',
+                     height:'8vh',
+                     color:'#fff',
+                     fontWeight:'bolder',
+                    }}
+                    mode="light"
+                    icon={'𡿨'}
+                    onLeftClick={() => this.props.history.push('/index/lover')}
+                 ><span style={{
+                     fontWeight:'bold',
+                     fontSize:'6vw',
+                     textIndent:'3vw',
+                     color:'#fff',
+                     letterSpacing:'3vw'}}>恋爱清单</span>
+                </NavBar>
                 <div className="loverlist-header">
                     <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3560880680,1309107465&fm=26&gp=0.jpg" alt="" style={{height:"65%",width:"90%",margin:"4% 0 0 5%"}}></img>
                     <div className="loverlist-first">

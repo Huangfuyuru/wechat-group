@@ -1,10 +1,29 @@
 import React, { Component } from 'react'
-import "../../css/lover.css"
+import { NavBar, Icon } from 'antd-mobile';
+
 export default class Lsound extends Component {
     render() {
         return (
             <div>
-                语音记事
+                <NavBar
+                    style={{
+                        background:'#FFBF2D',
+                        height:'8vh',
+                        color:'#fff',
+                        fontWeight:'bolder',
+                       }}
+                       mode="light"
+                       icon={'𡿨'}
+                       onLeftClick={() => this.props.history.push('/index/lover')}
+                    ><span style={{
+                        fontWeight:'bold',
+                        fontSize:'6vw',
+                        textIndent:'3vw',
+                        letterSpacing:'3vw',
+                        color:'white'
+                    }}
+                    >语音记事</span>
+                </NavBar>
             </div>
         )
     }

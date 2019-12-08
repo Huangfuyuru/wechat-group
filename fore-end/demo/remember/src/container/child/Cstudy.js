@@ -46,12 +46,14 @@ export default class Csdtudy extends Component {
             <div className="All">
                 <NavBar
                     style={{
-                        background:'#FFBF2D',
-                        height:'8vh'
+                      background:'#FFBF2D',
+                      height:'8vh',
+                      color:'#fff',
+                      fontWeight:'bolder',
                     }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:"white"}}/>}
-                    onLeftClick={() => this.props.history.push('/index')}
+                    icon={'𡿨'}
+                    onLeftClick={() => this.props.history.push('/index/child')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
