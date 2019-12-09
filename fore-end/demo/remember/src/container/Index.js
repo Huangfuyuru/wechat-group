@@ -12,23 +12,24 @@ export default class Child_index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          userid:''
+          userid:this.props.location.state
         };
-        console.log(this.state.userid)
-        // console.log(this.props.location.state)
+        // console.log(this.props.location)
+        console.log(this.props.location.state)
+        // console.log(this.state.userid)
       }
     componentDidMount(){
         fetch('http://localhost:3001/child')
         .then((res)=>res.json())
         .then((json)=>{
-            this.setState({userid:json.id});
+            // this.setState({userid:json.id});
         })
     }
     componentDidUpdate(){
         fetch('http://localhost:3001/child')
         .then((res)=>res.json())
         .then((json)=>{
-            this.setState({userid:json.id});
+            // this.setState({userid:json.id});
         })
     }
     addClass=(e)=>{
