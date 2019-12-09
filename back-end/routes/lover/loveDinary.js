@@ -1,8 +1,8 @@
 const express = require('express'),
     router = express.Router(),
     bodyParser = require('body-parser'),
-    fs = require('fs');
     lover = require('../../database/dateMethod');
+var info ={};//返回给前端的数据
 
 
 //此中间件的作用是获得请求体字符串，然后转成对象赋值给req.body
@@ -17,31 +17,69 @@ router.get('/',async function(req,res,next){
     var id = req.query.loverid;
     console.log(id);
     var data =await lover.loverDiaryM.findByPid(id);
-    res.json(data);
+    if(data !== 1){
+        info ={
+            code:0,
+            msg:data
+        }
+        res.json(info);
+    }else{
+        info ={
+            code:1,
+            msg:'传入的爱人lid有误'
+        }
+    }
+    
 });
 
+//增加日记
 router.post('/ldairy/addDairy',async function(req,res,next){
     console.log(req.body);
+    var id = req.body.loverid;
     var text ={
-        lid:req.body.loverid,
+        lid:id,
         name:req.body.name,
         content:req.body.content,
         imgurl:req.body.imgurl
     }
-    // await lover.loverDiaryM.addLoverDiary(text);
-    console.log('增加后查看日记所有信息',await lover.loverDiaryM.findAll());
-
-    //增加成功需要返回什么信息！ 暂定！商量
-    res.json(' 日记添加成功！');
+    var addDairy = await lover.loverDiaryM.addLoverDiary(text);
+    if(addDairy ===0){
+        var data =await lover.loverDiaryM.findByPid(id);
+        info = {
+            code:0,
+            msg:data
+        };
+    }else{
+        sinfo ={
+            code :1,
+            msg:'增加日记失败'
+        };
+    }
+    
+    //增加成功需要返回什么信息！
+    
+    res.json(data);
 });
 
 router.get('/delDairy',async function(){
     var daid = req.query.loverDiaryid;
     console.log(daid);
-    // await lover.loverDiaryM.delLoverDiary(daid);
-    console.log('删除后查看日记所有信息',await lover.loverDiaryM.findAll());
-    res.json(' 日记删除成功！');
-
+    var delDairy = await lover.loverDiaryM.delLoverDiary(daid);
+    if(delDairy === 0 ){
+        var data =await lover.loverDiaryM.findByPid(daid);
+        info ={
+            code:0,
+            msg:data
+        };
+        console.log('删除后查看日记所有信息',await lover.loverDiaryM.findAll());
+        res.json(data);
+    }else{
+        info={
+            code:1,
+            msg:'删除日记失败'
+        }
+    }
+    
 })
 
 module.exports = router;
