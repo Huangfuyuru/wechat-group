@@ -5,12 +5,15 @@ import {Link} from 'react-router-dom'
 export default class Child extends Component {
     constructor(props){
         super(props);
-        console.log('孩子',this.props.location.state)
+        let a = this.props.location.state
         console.log('孩子',this.props.location.state)
         this.state={
+            uid:a.uid,
             change_id:[],
-            child_id:this.props.location.state.cid,
-            cindex_src:this.props.location.state.cpic,
+            child_id:'',
+            cindex_src:'',
+            // child_id:this.props.location.state.cid,
+            // cindex_src:this.props.location.state.cpic,
             cnews:[{
                 ctime:'现在',
                 cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
@@ -23,30 +26,17 @@ export default class Child extends Component {
             }]
         }
     }
-    componentWillMount(){
-        fetch('http://localhost:3001/child')
-        .then((res)=>res.json())
-        .then((json)=>{
-            this.setState({
-                child_id:json[0].id,
-                cindex_src:json[0].background
-            });
-        })
-    }
     componentDidMount(){
-        fetch('http://localhost:3001/child')
-        .then((res)=>res.json())
-        .then((json)=>{
-            this.setState({
-                child_id:json[0].id,
-                cindex_src:json[0].background
-            });
-        })
-    }
-    componentWillUpdate(){
-        fetch('http://localhost:3001/child')
-        .then((res)=>res.json())
-        .then((json)=>{
+        console.log('完成')
+        fetch(`http://localhost:3001/child`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`uid=${this.state.uid}`
+        }).then(res=>res.json())
+        .then(json=>{
             this.setState({
                 child_id:json[0].id,
                 cindex_src:json[0].background
@@ -54,9 +44,15 @@ export default class Child extends Component {
         })
     }
     componentDidUpdate(){
-        fetch('http://localhost:3001/child')
-        .then((res)=>res.json())
-        .then((json)=>{
+        fetch(`http://localhost:3001/child`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`uid=${this.state.uid}`
+        }).then(res=>res.json())
+        .then(json=>{
             this.setState({
                 child_id:json[0].id,
                 cindex_src:json[0].background
