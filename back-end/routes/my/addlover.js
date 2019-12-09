@@ -8,7 +8,7 @@ const {loverM} = require("../../database/dateMethod");
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
-//增加爱人
+//点击增加爱人
 // 爱人name，关系确认日期ldate，性别gender，用户uid
 router.post('/',async function(req,res,next){
     var name = req.body.name;

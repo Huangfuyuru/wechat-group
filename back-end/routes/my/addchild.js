@@ -9,13 +9,6 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
 //点击增加亲子
-// router.get('/',async function(req,rea,next){
-//     var request = qs.parse(url.parse(req.url).query);
-//     var childsid = Number(request.childsid);
-//     var data = await childM.findById
-// })
-
-//增加亲子
 //亲子name，出生日期birthday，性别gender，用户uid
 router.post('/',async function(req,res,next){
     var name = req.body.name;
