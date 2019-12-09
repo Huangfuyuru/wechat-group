@@ -12,8 +12,8 @@ router.post('/',async function(req,res,next){
     var tel = req.body.utel;
     var pass = req.body.pass;
     var getUser = await userM.findTel(tel);
-    if(getUser == 1){
-        var msg = {code:1,id:null,msg:"该手机号没有注册"}
+    if(getUser == 0){
+        var message = {code:1,id:null,msg:"该手机号没有注册"}
     }else{
         var data = await userM.login(tel,pass);
         if(data == 1){

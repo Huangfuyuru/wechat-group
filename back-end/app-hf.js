@@ -30,7 +30,7 @@
 
 const express = require('express');
 const app = express();
-// const fs = require("fs");
+const fs = require("fs");
 
 app.all('*', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -40,15 +40,17 @@ app.all('*', function (req, res, next) {
     next();
 });
 
-var child = require('./routes/child');
-app.use('/child',child);
-app.listen(3001)
-// app.get("/page", function(req, res, next) {
-//     var fileContent = fs.readFileSync("./app-hf.html");
-//     res.writeHead(200, {"Content-Type":"text/html"});
-//     res.end(fileContent);
-// })
+// var child = require('./routes/child');
+// app.use('/child',child);
+// app.listen(3001)
+var login = require('./routes/login');
+app.get("/page", function(req, res, next) {
+    var fileContent = fs.readFileSync("./app-hf.html");
+    res.writeHead(200, {"Content-Type":"text/html"});
+    res.end(fileContent);
+})
 
+app.use('/login',login)
 // //imgs
 // var imgs = require('./routes/imgs');
 // app.use('/imgs',imgs);
@@ -59,4 +61,4 @@ app.listen(3001)
 // //voice
 // var voice = require('./routes/voice');
 // app.use('/voice',voice);
-// app.listen(3001)
+app.listen(3001)
