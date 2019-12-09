@@ -6,10 +6,11 @@ export default class Child extends Component {
     constructor(props){
         super(props);
         console.log('孩子',this.props.location.state)
+        console.log('孩子',this.props.location.state)
         this.state={
             change_id:[],
-            child_id:'',
-            cindex_src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575287176951&di=956b2ed9d8a0421af46e81e7b2a0f45b&imgtype=0&src=http%3A%2F%2Fwww.gacedesign.com%2Fuploads%2Fimage%2F20170710%2F1499689128.jpg',
+            child_id:this.props.location.state.cid,
+            cindex_src:this.props.location.state.cpic,
             cnews:[{
                 ctime:'现在',
                 cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
@@ -22,7 +23,37 @@ export default class Child extends Component {
             }]
         }
     }
-    componentDidMount(){
+    // componentWillMount(){
+    //     fetch('http://localhost:3001/child')
+    //     .then((res)=>res.json())
+    //     .then((json)=>{
+    //         this.setState({
+    //             child_id:json[0].id,
+    //             cindex_src:json[0].background
+    //         });
+    //     })
+    // }
+    // componentDidMount(){
+    //     fetch('http://localhost:3001/child')
+    //     .then((res)=>res.json())
+    //     .then((json)=>{
+    //         this.setState({
+    //             child_id:json[0].id,
+    //             cindex_src:json[0].background
+    //         });
+    //     })
+    // }
+    componentWillUpdate(){
+        fetch('http://localhost:3001/child')
+        .then((res)=>res.json())
+        .then((json)=>{
+            this.setState({
+                child_id:json[0].id,
+                cindex_src:json[0].background
+            });
+        })
+    }
+    componentDidUpdate(){
         fetch('http://localhost:3001/child')
         .then((res)=>res.json())
         .then((json)=>{
@@ -99,7 +130,6 @@ export default class Child extends Component {
                     /></span>
                     <div>
                         <img 
-                        style={{}}
                         src={this.state.cindex_src} alt='自定义照片墙'/>
                     </div>    
                 </div>

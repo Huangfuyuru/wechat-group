@@ -58,18 +58,36 @@ export default class Child_index extends Component {
         }).then(res=>res.json())
         .then(json=>{
             console.log(json);
-            console.log(json[0]);
-            // console.log(json[0].id);
+            console.log(json[0].background);
+            console.log(json[0].id);
             switch(eid){
                 case 'child':
+                    console.log('eid')
                     this.setState({
                         cid:json[0].id,
                         cpic:json[0].background
+                    },()=>{
+                        this.props.history.push({
+                            pathname:'/index/child',
+                            state:{
+                                cid:this.state.cid,
+                                cpic:this.state.cpic
+                            }
+                        });
                     })
                     break;
                 case 'lover':
                     this.setState({
-                        lid:json.id
+                        lid:json[0].id,
+                        lpic:json[0].background
+                    },()=>{
+                        this.props.history.push({
+                            pathname:'/index/lover',
+                            state:{
+                                lid:this.state.lid,
+                                lpic:this.state.lpic
+                            }
+                        });
                     })
                     break;
                 default:
@@ -79,6 +97,7 @@ export default class Child_index extends Component {
         })
     }
     render() {
+        console.log('cid',this.state.cid)
         return (
             <div className='index'>
                 <div>
@@ -87,10 +106,7 @@ export default class Child_index extends Component {
                 <footer className='index_footer'>
                     <Link  
                     onClick={this.getMessage} 
-                    to={{
-                        pathname:'/index/child',
-                        state:this.state.userid
-                    }}>
+                    >
                         <div id='child'  onClick={this.addClass} className='index_tab'>
                             <i
                             className='iconfont icon-qinzi'
@@ -100,10 +116,7 @@ export default class Child_index extends Component {
                     </Link>
                     <Link 
                     onClick={this.getMessage} 
-                    to={{
-                        pathname:'/index/lover',
-                        state:this.state.userid
-                    }}>
+                    >
                         <div id='lover'  onClick={this.addClass} className='index_tab'>
                             <i
                             className='iconfont icon-aiqing'
