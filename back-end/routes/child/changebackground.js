@@ -2,7 +2,6 @@ const express = require('express'),
       router = express.Router(),
       qs = require('querystring'),
       url = require('url'),
-      bodyParser = require("body-parser");
 const {childM} = require("../../database/dateMethod");//引入数据库
 
 //更改图片
