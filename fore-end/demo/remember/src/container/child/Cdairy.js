@@ -53,7 +53,7 @@ export default class Cdairy extends Component {
                     </div>
                     ))
                 }
-                <Link to='/daiCreate'>
+                <Link to='/child/cdairy/ccdairy'>
                     <div className="Cloud_add">
                         <div>-----------------------------------------------------------</div>
                         <a href="#" target="_blank"><img className="Cloud_img" src={require("../../image/add.png")}/></a>

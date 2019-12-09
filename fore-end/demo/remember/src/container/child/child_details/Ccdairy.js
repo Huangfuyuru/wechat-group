@@ -19,7 +19,7 @@ export default class daiCreate extends Component {
                     }}
                     mode="light"
                     icon={<Icon type="left" style={{color:'white'}}/>}
-                    onLeftClick={() => this.props.history.push('/Cdairy')}
+                    onLeftClick={() => this.props.history.push('/child/Cdairy')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
@@ -50,7 +50,7 @@ export default class daiCreate extends Component {
                             <p>添加位置</p>
                         </div>
                     </div> */}
-                    <Link to="/Cdairy">
+                    <Link to="/child/Cdairy">
                         <button type="submit" className="Create_picture">保存</button>
                     </Link>
                 </form>

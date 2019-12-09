@@ -20,7 +20,7 @@ export default class Create extends Component {
                     }}                    
                     mode="light"
                     icon={<Icon type="left" style={{color:"white"}}/>}
-                    onLeftClick={() => this.props.history.push('/Cpicture')}
+                    onLeftClick={() => this.props.history.push('/child/cpictures/ccpicture')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
@@ -42,7 +42,7 @@ export default class Create extends Component {
                         <input className="one" type="text" placeholder="Enter date"></input>
                     </div>
                     {/* 点击创建 */}
-                    <Link to="/Pages">
+                    <Link to="/child/cpictures/show">
                         <button type="submit" className="Create_picture">创建相册</button>
                     </Link>
                 </form>

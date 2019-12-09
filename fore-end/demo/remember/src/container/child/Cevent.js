@@ -55,7 +55,7 @@ export default class Cevent extends Component {
                         </div>
                     ))
                 }
-                <Link to='/eventAdd'>
+                <Link to='/child/cevents/ccevent'>
                     <div className="Cloud_add">
                         <div>-----------------------------------------------------------</div>
                         <a href="#" target="_blank"><img className="Cloud_img" src={require("../../image/add.png")}/></a>

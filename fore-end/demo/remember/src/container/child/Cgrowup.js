@@ -93,7 +93,7 @@ export default class Write extends Component {
                     <p>身高：<span>{number.num1}cm&nbsp;&nbsp;</span>体重：<span>{number.num2}kg</span></p>
                     <p className="one">日期：{moment().format('YYYY-MM-DD')}</p>
                   </div>
-                  <Link to='/growAdd'>
+                  <Link to='/child/cgrowup/ccgrow'>
                     <div className="Cloud_add">
                       <div>-------------------------------------------------------------</div>
                       <a href="#" target="_blank"><img className="Cloud_img" src={require("../../image/add.png")}/></a>
