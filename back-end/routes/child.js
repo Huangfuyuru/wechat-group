@@ -18,7 +18,11 @@ const cpictures = require('./child/cpictures'),
       change = require('./child/change');
 
 router.post('/',async function(req,res,next){
-    var uid = req.body.uid;
+    var uid = Number(req.body.uid);
+    console.log(req.body.uid);
+    console.log(req.body)
+    console.log(typeof uid);
+    console.log(uid)
     var data = await childM.findIdByUid(uid);
     res.json(data);
 })
