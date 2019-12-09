@@ -16,10 +16,12 @@ export default class growAdd extends Component {
                 <NavBar
                     style={{
                         background:'#FFBF2D',
-                        height:'8vh'
+                        height:'8vh',
+                        color:'#fff',
+                        fontWeight:'bolder',
                     }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:"white"}}/>}
+                    icon={'𡿨'}
                     onLeftClick={() => this.props.history.push('/child/cgrowup')}
                     ><span style={{
                         fontWeight:'bold',

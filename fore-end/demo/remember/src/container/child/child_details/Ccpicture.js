@@ -16,11 +16,13 @@ export default class Create extends Component {
                 <NavBar
                     style={{
                         background:'#FFBF2D',
-                        height:'8vh'
-                    }}                    
+                        height:'8vh',
+                        color:'#fff',
+                        fontWeight:'bolder',
+                    }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:"white"}}/>}
-                    onLeftClick={() => this.props.history.push('/child/cpictures/ccpicture')}
+                    icon={'𡿨'}
+                    onLeftClick={() => this.props.history.push('child/cpictures')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',

@@ -40,13 +40,13 @@ export default class Cevent extends Component {
                 {
                     this.state.cnews.map((cnews)=>(
                         <div className="Write_body">
-                            <Link to='small'>
+                            <Link to='/child/cevents/show'>
                                 <div className="one">
                                     <p>{cnews.cmom}</p>
                                     <img src={cnews.cpic}/>
                                 </div>
                             </Link>
-                            <Link to='/small'>
+                            <Link to='/child/cevents/show'>
                                 <div className="one">
                                     <p>{cnews.cdad}</p>
                                     <img src={cnews.cpic2}/>

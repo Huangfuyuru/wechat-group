@@ -39,11 +39,13 @@ export default class Showevent extends Ccevent {
                 <NavBar
                     style={{
                         background:'#FFBF2D',
-                        height:'8vh'
+                        height:'8vh',
+                        color:'#fff',
+                        fontWeight:'bolder',
                     }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:"white"}}/>}
-                    onLeftClick={() => this.props.history.push('/child/cevents/ccevent')}
+                    icon={'𡿨'}
+                    onLeftClick={() => this.props.history.push('/child/cevents')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',

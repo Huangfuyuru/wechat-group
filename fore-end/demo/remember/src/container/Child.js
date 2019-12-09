@@ -3,9 +3,11 @@ import { NavBar,Flex,Icon } from 'antd-mobile';
 import '../css/child.css'
 import {Link} from 'react-router-dom'
 export default class Child extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        console.log('孩子',this.props.location.state)
         this.state={
+            change_id:[],
             child_id:'',
             cindex_src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575287176951&di=956b2ed9d8a0421af46e81e7b2a0f45b&imgtype=0&src=http%3A%2F%2Fwww.gacedesign.com%2Fuploads%2Fimage%2F20170710%2F1499689128.jpg',
             cnews:[{
@@ -21,11 +23,13 @@ export default class Child extends Component {
         }
     }
     componentDidMount(){
-        fetch('')
-        
+        fetch('http://localhost:3001/child')
         .then((res)=>res.json())
-        .then((res)=>{
-            this.setState({child_id:res.data,cindex_src:res.data,cnews:res.data});
+        .then((json)=>{
+            this.setState({
+                child_id:json[0].id,
+                cindex_src:json[0].background
+            });
         })
     }
     upfile=()=>{

@@ -15,17 +15,19 @@ export default class daiCreate extends Component {
                 <NavBar
                     style={{
                         background:'#FFBF2D',
-                        height:'8vh'
+                        height:'8vh',
+                        color:'#fff',
+                        fontWeight:'bolder',
                     }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:'white'}}/>}
-                    onLeftClick={() => this.props.history.push('/child/Cdairy')}
+                    icon={'𡿨'}
+                    onLeftClick={() => this.props.history.push('/child/cdairy')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
                         textIndent:'3vw',
                         letterSpacing:'3vw',
-                        color:'white'
+                        color:"white"
                     }}
                     >创建日记</span>
                 </NavBar>
@@ -50,7 +52,7 @@ export default class daiCreate extends Component {
                             <p>添加位置</p>
                         </div>
                     </div> */}
-                    <Link to="/child/Cdairy">
+                    <Link to="/child/cdairy">
                         <button type="submit" className="Create_picture">保存</button>
                     </Link>
                 </form>

@@ -37,42 +37,61 @@ import Showevent from './container/child/child_details/Showevent'
 function App() {
   return (
     <Router>
-      <Route path='/child/cpictures/ccpicture' component={Ccpicture}/>
-      <Route path='/child/cpictures/show' component={Showpicture}/>
-      <Route path='/child/cdairy/ccdairy' component={Ccdairy}/>
-      <Route path='/child/cevents/ccevent' component={Ccevent}/>
-      <Route path='/child/cstudy/ccstudy' component={Ccstudy}/>
-      <Route path='/child/cgrowup/ccgrow' component={Ccgrow}/>
-      <Route path='/child/cevents/show' component={Showevent}/>
-
       <Route exact path='/' component={Start}/>
       <Route path='/menus' component={Menus}/>
-      <Route path='/resign/message' component={Message}/>
+      {/* <Route path='/resign/message' component={Message}/> */}
       <Route path='/index' component={Index}/>
+
+      {/* 亲子 */}
       <Route path='/index/child' component={Child}/>
-      <Route path='/index/lover' component={Lover}/>
-      <Route path='/index/friends' component={Friends}/>
-      <Route path='/index/my' component={My}/>
-      
       <Route exact path='/child/cpictures' component={Cpictures}/>
+      <Route path='/child/cpictures/show' component={Showpicture}/>
+      <Route path='/child/cpictures/ccpicture' component={Ccpicture}/>
+
       <Route exact path='/child/csound' component={Csound}/>
+
       <Route exact path='/child/cevents' component={Cevents}/>
+      <Route path='/child/cevents/show' component={Showevent}/>
+      <Route path='/child/cevents/ccevent' component={Ccevent}/>
+
       <Route exact path='/child/cgrowup' component={Cgrowup}/>
+      <Route path='/child/cgrowup/ccgrow' component={Ccgrow}/>
+
       <Route exact path='/child/cstudy' component={Cstudy}/>
+      <Route path='/child/cstudy/ccstudy' component={Ccstudy}/>
+
       <Route exact path='/child/cdairy' component={Cdairy}/>
+      <Route path='/child/cdairy/ccdairy' component={Ccdairy}/>
       
+      {/* 爱人 */}
+      <Route path='/index/lover' component={Lover}/>
 
       <Route path='/lover/lpictures' component={Lpictures}/>
-      <Route path='/lover/lsound' component={Lsound}/>
-      <Route path='/lover/ldairy' component={Ldairy}/>
-      <Route path='/lover/llists' component={Llists}/>
-      <Route path='/lover/lsouvenir' component={Lsouvenir}/>
-      <Route path='/lover/lclist' component={LClists}/>
-      <Route path='/lover/lcdairy' component={LCdairy}/>
-      <Route path='/lover/lcpictures' component={LCpictures}/>
-      <Route path='/lover/lcsouvenir' component={LCsouvenir}/>
-      <Route path='/lover/lslists' component={LSlists}/>
       <Route path='/lover/lspictures' component={LSpictures}/>
+      <Route path='/lover/lcpictures' component={LCpictures}/>
+
+      <Route path='/lover/lsound' component={Lsound}/>
+
+      <Route path='/lover/ldairy' component={Ldairy}/>
+      <Route path='/lover/lcdairy' component={LCdairy}/>
+
+      <Route path='/lover/llists' component={Llists}/>
+      <Route path='/lover/lclist' component={LClists}/>
+      <Route path='/lover/lslists' component={LSlists}/>
+
+      <Route path='/lover/lsouvenir' component={Lsouvenir}/>
+      <Route path='/lover/lcsouvenir' component={LCsouvenir}/>
+
+
+
+      <Route path='/index/friends' component={Friends}/>
+      <Route path='/index/my' component={My}/>
+
+
+
+      
+      
+
   </Router>
   );
 }

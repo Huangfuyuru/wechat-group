@@ -41,10 +41,12 @@ export default class Add extends Component {
                 <NavBar
                     style={{
                         background:'#FFBF2D',
-                        height:'8vh'
+                        height:'8vh',
+                        color:'#fff',
+                        fontWeight:'bolder',
                     }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:"white"}}/>}
+                    icon={'𡿨'}
                     onLeftClick={() => this.props.history.push('/child/cstudy')}
                     ><span style={{
                         fontWeight:'bold',

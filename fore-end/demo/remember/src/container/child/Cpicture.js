@@ -63,13 +63,13 @@ export default class Cloud extends Component {
                 {
                     this.state.picture.map((picture)=>(
                         <div>
-                            <Link to='/Pages'>
+                            <Link to='/child/cpictures/show'>
                                 <div className="Cloud_">
                                     <div className="one"><img src={picture.pic1} /></div>
                                     <div className="two">{picture.txt1}</div>
                                 </div>
                             </Link>
-                            <Link to='/Pages'>
+                            <Link to='/child/cpictures/show'>
                                 <div className="Cloud_">
                                     <div className="one"><img src={picture.pic2} /></div>
                                     <div className="two">{picture.txt2}</div>
