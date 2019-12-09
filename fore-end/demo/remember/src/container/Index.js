@@ -12,7 +12,7 @@ export default class Child_index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          userid:this.props.location.state.userid
+          userid:''
         };
         console.log(this.state.userid)
         // console.log(this.props.location.state)
@@ -20,8 +20,15 @@ export default class Child_index extends Component {
     componentDidMount(){
         fetch('http://localhost:3001/child')
         .then((res)=>res.json())
-        .then((res)=>{
-            this.setState({child_id:res.data,cindex_src:res.data,cnews:res.data});
+        .then((json)=>{
+            this.setState({userid:json.id});
+        })
+    }
+    componentDidUpdate(){
+        fetch('http://localhost:3001/child')
+        .then((res)=>res.json())
+        .then((json)=>{
+            this.setState({userid:json.id});
         })
     }
     addClass=(e)=>{

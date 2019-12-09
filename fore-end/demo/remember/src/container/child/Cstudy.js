@@ -3,7 +3,7 @@ import { Tabs, WhiteSpace,NavBar,Icon,TabBar } from 'antd-mobile';
 import moment from 'moment';
 import {Link} from 'react-router-dom';
 
-export default class Csdtudy extends Component {
+export default class Cstudy extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -113,7 +113,7 @@ export default class Csdtudy extends Component {
                               <p>数学：<span>{number.num2}&nbsp;&nbsp;</span>英语：<span>{number.num1}</span></p>
                               <p className="one">日期：{moment().format('YYYY-MM-DD')}</p>
                             </div>
-                            <Link to='/stuAdd'>
+                            <Link to='/child/cstudy/ccstudy'>
                               <div className="Cloud_add">
                                 <div>-------------------------------------------------------------</div>
                                 <a href="#" target="_blank"><img className="Cloud_img" src={require("../../image/add.png")}/></a>

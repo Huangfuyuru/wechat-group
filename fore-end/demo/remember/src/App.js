@@ -27,9 +27,24 @@ import Child from "./container/Child"
 import My from './container/My';
 import Friends from './container/Friends';
 
+import Ccpicture from './container/child/child_details/Ccpicture'
+import Showpicture from './container/child/child_details/Showpicture'
+import Ccdairy from './container/child/child_details/Ccdairy'
+import Ccevent from './container/child/child_details/Ccevent'
+import Ccstudy from './container/child/child_details/Ccstudy'
+import Ccgrow from './container/child/child_details/Ccgrow'
+import Showevent from './container/child/child_details/Showevent'
 function App() {
   return (
     <Router>
+      <Route path='/child/cpictures/ccpicture' component={Ccpicture}/>
+      <Route path='/child/cpictures/show' component={Showpicture}/>
+      <Route path='/child/cdairy/ccdairy' component={Ccdairy}/>
+      <Route path='/child/cevents/ccevent' component={Ccevent}/>
+      <Route path='/child/cstudy/ccstudy' component={Ccstudy}/>
+      <Route path='/child/cgrowup/ccgrow' component={Ccgrow}/>
+      <Route path='/child/cevents/show' component={Showevent}/>
+
       <Route exact path='/' component={Start}/>
       <Route path='/menus' component={Menus}/>
       <Route path='/resign/message' component={Message}/>
@@ -39,12 +54,13 @@ function App() {
       <Route path='/index/friends' component={Friends}/>
       <Route path='/index/my' component={My}/>
       
-      <Route path='/child/cpictures' component={Cpictures}/>
-      <Route path='/child/csound' component={Csound}/>
-      <Route path='/child/cevents' component={Cevents}/>
-      <Route path='/child/cgrowup' component={Cgrowup}/>
-      <Route path='/child/cstudy' component={Cstudy}/>
-      <Route path='/child/cdairy' component={Cdairy}/>
+      <Route exact path='/child/cpictures' component={Cpictures}/>
+      <Route exact path='/child/csound' component={Csound}/>
+      <Route exact path='/child/cevents' component={Cevents}/>
+      <Route exact path='/child/cgrowup' component={Cgrowup}/>
+      <Route exact path='/child/cstudy' component={Cstudy}/>
+      <Route exact path='/child/cdairy' component={Cdairy}/>
+      
 
       <Route path='/lover/lpictures' component={Lpictures}/>
       <Route path='/lover/lsound' component={Lsound}/>
