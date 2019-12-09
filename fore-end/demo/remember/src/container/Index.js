@@ -116,6 +116,10 @@ export default class Child_index extends Component {
                     </Link>
                     <Link 
                     onClick={this.getMessage} 
+                    to={{
+                        pathname:'/index/lover',
+                        state:this.state.userid
+                    }}
                     >
                         <div id='lover'  onClick={this.addClass} className='index_tab'>
                             <i

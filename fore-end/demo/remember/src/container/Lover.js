@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
 import { NavBar,Flex } from 'antd-mobile';
-
 import "../css/lover.css"
 export default class lover_home extends Component {
     constructor(){
@@ -20,6 +19,37 @@ export default class lover_home extends Component {
             }]
         }
     }
+    componentWillUpdate(){
+        fetch('http://localhost:3001/lover')
+        .then((res)=>res.json())
+        .then((json)=>{
+            this.setState({
+                child_id:json[0].id,
+                cindex_src:json[0].background
+            });
+        })
+    }
+    componentDidUpdate(){
+        fetch('http://localhost:3001/lover')
+        .then((res)=>res.json())
+        .then((json)=>{
+            this.setState({
+                child_id:json[0].id,
+                cindex_src:json[0].background
+            });
+        })
+    }
+    upfile=()=>{
+        var file=document.getElementById('img').files[0];
+        var url = 'http://localhost:3001/img';
+        var form = new FormData();
+        form.append("file",file);
+        fetch(url,{
+            method:'POST',
+            body:form
+        }).then(res=>res.json())
+        .then(res=>(this.setState({cindex_src:res.path})))
+    }
     render() {
         return (
             <div style={{height:"100%",width:"100%"}}>
@@ -30,7 +60,29 @@ export default class lover_home extends Component {
                     letterSpacing:'3vw'
                 }}
                 >爱人</span></NavBar>
-                 <img src={this.state.cindex_src} alt=""  style={{height:"28%",width:"94%",paddingTop:"5%",marginLeft:"3%"}} ></img>  
+                  <div className='lover_first'>                   
+                    <span style={{
+                        zIndex:'10',
+                        display:'inline-block',
+                        width:'100%',
+                        fontSize:'5vw',
+                        position:'relative',
+                        color:'#000',
+                        background:'rgb(255,191,45,0.3)'
+                    }}>轻触上传精选照片<input 
+                    id='img'
+                    onChange={this.upfile}                           
+                    type='file'  
+                    accept="image/*" 
+                    capture="camera" 
+                    name='uimage' 
+                    /></span>
+                    <div>
+                        <img 
+                        src={this.state.cindex_src} alt='自定义照片墙'/>
+                    </div>  
+            </div> 
+                 {/* <img src={this.state.cindex_src} alt=""  style={{height:"28%",width:"94%",paddingTop:"5%",marginLeft:"3%"}} ></img>   */}
                 <div className="lover-home-first">
                  <Link to ="/lover/lpictures"><button className="lover-button">云相册</button></Link>
                  <button className="lover-button">语音记事</button>
@@ -39,6 +91,8 @@ export default class lover_home extends Component {
                  <Link to ="/lover/llists"><button className="lover-button">恋爱清单</button></Link> 
                  <Link to ="/lover/lsouvenir"><button className="lover-button">纪念日</button></Link>    
                 </div>
+               
+            
    
                 <div style={{paddingBottom:'9vh'}}>
                     {

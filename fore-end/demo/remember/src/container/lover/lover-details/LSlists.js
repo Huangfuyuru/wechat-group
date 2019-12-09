@@ -76,11 +76,25 @@ export default class LSlists extends Component {
     render() {
         return (
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
-                <NavBar style={{background:'#FFBF2D',height:'8vh'}}
-                 leftContent={[
-                    <Link to="/lover/llists" style={{color:"white"}}><div className="iconfont icon-arror_left_blod" style={{ marginRight: '26px' }} /></Link>,
-                   ]}
-                ><span style={{fontWeight:'bold',fontSize:'6vw',textIndent:'3vw',letterSpacing:'3vw'}}>所有清单</span></NavBar>
+              <NavBar
+                    style={{
+                        background:'#FFBF2D',
+                        height:'8vh',
+                        color:'#fff',
+                        fontWeight:'bolder',
+                    }}
+                    mode="light"
+                    icon={'𡿨'}
+                    onLeftClick={() => this.props.history.push('/lover/llists')}
+                    ><span style={{
+                        fontWeight:'bold',
+                        fontSize:'6vw',
+                        textIndent:'3vw',
+                        letterSpacing:'3vw',
+                        color:"white"
+                    }}
+                    >清单列表</span>
+                </NavBar>
     <WingBlank><button style={{height:"20%",width:"100%",backgroundColor:"white",fontSize:"5vw",marginTop:"2%"}}>已完成3/{this.state.imgArr.length}</button></WingBlank>
                 {
                     this.state.imgArr.map((item,idex)=>(

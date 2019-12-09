@@ -6,11 +6,26 @@ export default class Lcreate_list extends Component {
     render() {
         return (
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
-            <NavBar style={{backgroundColor:"#FFBF2D",color:"white"}}
-                   leftContent={[
-                    <Link to="/lover/list" style={{color:"white"}}><div className="iconfont icon-arror_left_blod" style={{ marginRight: '26px' }} /></Link>,
-                   ]}
-            >新建清单</NavBar>
+            <NavBar
+                    style={{
+                        background:'#FFBF2D',
+                        height:'8vh',
+                        color:'#fff',
+                        fontWeight:'bolder',
+                    }}
+                    mode="light"
+                    icon={'𡿨'}
+                    onLeftClick={() => this.props.history.push('/lover/llists')}
+                    ><span style={{
+                        fontWeight:'bold',
+                        fontSize:'6vw',
+                        textIndent:'3vw',
+                        letterSpacing:'3vw',
+                        color:"white"
+                    }}
+                    >新建清单</span>
+                </NavBar>
+
             <p style={{fontSize:"5vw",float:"left",margin:"5% 5%"}}> 用一张图记录</p>
             <img className="createlist-first" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3560880680,1309107465&fm=26&gp=0.jpg" alt="" ></img>
             <p style={{fontSize:"5vw",float:"left",margin:"5% 5%"}}> 用一句话记录</p>
