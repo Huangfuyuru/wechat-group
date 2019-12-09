@@ -23,26 +23,26 @@ export default class Child extends Component {
             }]
         }
     }
-    // componentWillMount(){
-    //     fetch('http://localhost:3001/child')
-    //     .then((res)=>res.json())
-    //     .then((json)=>{
-    //         this.setState({
-    //             child_id:json[0].id,
-    //             cindex_src:json[0].background
-    //         });
-    //     })
-    // }
-    // componentDidMount(){
-    //     fetch('http://localhost:3001/child')
-    //     .then((res)=>res.json())
-    //     .then((json)=>{
-    //         this.setState({
-    //             child_id:json[0].id,
-    //             cindex_src:json[0].background
-    //         });
-    //     })
-    // }
+    componentWillMount(){
+        fetch('http://localhost:3001/child')
+        .then((res)=>res.json())
+        .then((json)=>{
+            this.setState({
+                child_id:json[0].id,
+                cindex_src:json[0].background
+            });
+        })
+    }
+    componentDidMount(){
+        fetch('http://localhost:3001/child')
+        .then((res)=>res.json())
+        .then((json)=>{
+            this.setState({
+                child_id:json[0].id,
+                cindex_src:json[0].background
+            });
+        })
+    }
     componentWillUpdate(){
         fetch('http://localhost:3001/child')
         .then((res)=>res.json())
@@ -72,7 +72,17 @@ export default class Child extends Component {
             method:'POST',
             body:form
         }).then(res=>res.json())
-        .then(res=>(this.setState({cindex_src:res.path})))
+        .then(res=>(this.setState({
+            cindex_src:res.path
+        },()=>{
+            fetch(`http://localhost:3001/child/changebackground?childsid=${this.state.child_id}&background=${this.state.cpic_src}`,{
+            method:'GET',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+        })}
+        )))
     }
     // componentDidUpdate(prevProps,prevState){
     //     if(prevProps.match.params.page!==this.props.match.params.page){

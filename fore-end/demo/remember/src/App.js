@@ -84,7 +84,7 @@ function App() {
 
 
 
-      <Route path='/index/friends' component={Friends}/>
+      <Route path='/index/friend' component={Friends}/>
       <Route path='/index/my' component={My}/>
 
 
