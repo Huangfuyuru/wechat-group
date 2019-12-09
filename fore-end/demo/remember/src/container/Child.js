@@ -71,24 +71,23 @@ export default class Child extends Component {
         .then(res=>(this.setState({
             cindex_src:res.path
         },()=>{
-            fetch(`http://localhost:3001/child/changebackground?childsid=${this.state.child_id}&background=${this.state.cpic_src}`,{
+            console.log(this.state.cindex_src)
+            fetch(`http://localhost:3001/child/changebackground?childsid=${this.state.child_id}&background=${this.state.cindex_src}`,{
             method:'GET',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
+            // mode:'cors',
+            // headers:{
+            //     'Content-Type':"application/x-www-form-urlencoded"
+            // },
+            // fetch(`http://localhost:3001/child/changebackground`,{
+            // method:'POST',
+            // mode:'cors',
+            // headers:{
+            //     'Content-Type':"application/x-www-form-urlencoded"
+            // },
+            // body:`childsid=${this.state.child_id}&background=${this.state.cindex_src}`
         })}
         )))
     }
-    // componentDidUpdate(prevProps,prevState){
-    //     if(prevProps.match.params.page!==this.props.match.params.page){
-    //         fetch('https://cnodejs.org/api/v1/topics?page='+1)
-    //             .then((res)=>res.json())
-    //             .then((res)=>{
-    //                     this.setState({data:res.data});
-    //                 })
-    //     }
-    // }
     render() {
         return (
             <div className='child'>
