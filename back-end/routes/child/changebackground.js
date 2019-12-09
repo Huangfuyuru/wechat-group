@@ -10,7 +10,7 @@ router.get('/',async function(req,res,next){
     var childsid = Number(request.childsid);
     var imgurl = request.background;
     var data = await childM.changeBackGroundById(childsid,imgurl);
-    res.json(data)
+    res.json({code:data})
 })
 
 module.exports = router;
