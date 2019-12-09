@@ -12,7 +12,7 @@ const cpictures = require('./child/cpictures'),
       cdairy = require('./child/cdairy'),
       change = require('./child/change');
 
-router.get('/',function(req,res,next){
+router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(request.uid);
     var data = await childM.findIdByUid(uid);
