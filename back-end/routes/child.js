@@ -1,8 +1,13 @@
 const express = require('express'),
       router = express.Router(),
       qs = require('querystring'),
-      url = require('url');
+      url = require('url'),
+      bodyParser = require("body-parser");
 const {childM,userM} = require('../database/dateMethod')
+
+//配置bodyparser中间件
+router.use(bodyParser.urlencoded({extended:true}));
+router.use(bodyParser.json());
 
 const cpictures = require('./child/cpictures'),
       csound = require('./child/csound'),
@@ -12,9 +17,8 @@ const cpictures = require('./child/cpictures'),
       cdairy = require('./child/cdairy'),
       change = require('./child/change');
 
-router.get('/',async function(req,res,next){
-    var request = qs.parse(url.parse(req.url).query);
-    var uid = Number(request.uid);
+router.post('/',async function(req,res,next){
+    var uid = req.body.uid;
     var data = await childM.findIdByUid(uid);
     res.json(data);
 })
