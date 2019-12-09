@@ -17,6 +17,31 @@ router.get('/',async function(req,res,next){
     var id = req.query.loverid;
     console.log(id);
     var data =await lover.loverDiaryM.findByPid(id);
-    console.log(data);
+    res.json(data);
 });
+
+router.post('/ldairy/addDairy',async function(req,res,next){
+    console.log(req.body);
+    var text ={
+        lid:req.body.loverid,
+        name:req.body.name,
+        content:req.body.content,
+        imgurl:req.body.imgurl
+    }
+    // await lover.loverDiaryM.addLoverDiary(text);
+    console.log('增加后查看日记所有信息',await lover.loverDiaryM.findAll());
+
+    //增加成功需要返回什么信息！ 暂定！商量
+    res.json(' 日记添加成功！');
+});
+
+router.get('/delDairy',async function(){
+    var daid = req.query.loverDiaryid;
+    console.log(daid);
+    // await lover.loverDiaryM.delLoverDiary(daid);
+    console.log('删除后查看日记所有信息',await lover.loverDiaryM.findAll());
+    res.json(' 日记删除成功！');
+
+})
+
 module.exports = router;
