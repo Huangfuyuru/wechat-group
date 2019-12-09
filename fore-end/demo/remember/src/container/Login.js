@@ -33,7 +33,7 @@ export default class Login extends Component {
             body:`utel=${this.state.tel}&pass=${this.state.pass}`
         }).then(res=>res.json())
         .then(json=>{
-            console.log(json)
+            // console.log(json)
             if(json.code==0){
                 this.props.history.push({
                     pathname:'/index/my',
@@ -52,7 +52,7 @@ export default class Login extends Component {
                 
                 console.log(json.msg)
             }
-            // console.log(json)
+            console.log(json)
         })
     }
     render() {

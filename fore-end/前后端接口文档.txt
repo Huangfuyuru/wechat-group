@@ -69,27 +69,14 @@ Weibo登录：
 接口地址：http://localhost:3001/child
 发送数据：uid
 返回数据：返回随便一个亲子id，name
-    {"id":300002,"name":"小明","setdate":"2019-11-25T16:00:00.000Z","gender":"男","birthday":"2019-01-01T16:00:00.000Z","uid":100002}
+    {"id":300002,"name":"小明","setdate":"2019-11-25T16:00:00.000Z","gender":"男","birthday":"2019-01-01T16:00:00.000Z","uid":100002,"background":}
 method：get
 需要获取的数据：
-照片墙的图片地址：
-    例如：https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1111897272,37524471&fm=26&gp=0.jpg
-说说展示列表数据：
-    说明：获取的数据是一个对象数组，
-        存放的对象的属性包括说说的发送时间，说说图片，说说内容
-        （即：ctime、cpic_src、ccontent）
-    例如：
-    [{
-        ctime:'现在',
-        cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
-        ccontent:'你的脖子真可爱，顶着一个猪脑袋'
-    },
-    {
-        ctime:'刚才',
-        cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
-        ccontent:'醒来觉得甚是爱你~'
-    }]
 
+背景墙：
+    接口地址:http://localhost:3001/child/changebackground?childsid= &background = 
+    请求数据：亲子childsid  背景地址background
+    返回数据:{code：0/1}
 
 切换亲子：
     接口地址：http://localhost:3001/child/change?usersid=
@@ -219,23 +206,10 @@ method：get
     
 method：get
 需要获取的数据：
-照片墙的图片地址：
-    例如：https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1111897272,37524471&fm=26&gp=0.jpg
-说说展示列表数据：
-    说明：获取的数据是一个对象数组，
-        存放的对象的属性包括说说的发送时间，说说图片，说说内容
-        （即：ctime、cpic_src、ccontent）
-    例如：
-    [{
-        ctime:'现在',
-        cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
-        ccontent:'你的脖子真可爱，顶着一个猪脑袋'
-    },
-    {
-        ctime:'刚才',
-        cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
-        ccontent:'醒来觉得甚是爱你~'
-    }]
+    背景墙：
+    接口地址:http://localhost:3001/lover/changebackground?loversid= &background = 
+    请求数据：爱人childsid  背景地址background
+    返回数据:{code：0/1}
 
     云相册：（请求的所有id均为表名+id）
         接口地址：http://localhost:3001/lover/lpictures?loversid=

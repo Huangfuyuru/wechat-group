@@ -106,8 +106,24 @@ async function changeById(id,text){
     }
 }
 
+/**
+ *
+ *通过id更新背景图片
+ * @param {*} id
+ * @param {*} background
+ * @returns
+ */
+async function changeBackGroundById(id,background){
+    let sql = 'update lovers set background=$1 where id = $2'
+    let ret = await pgdb.query(sql,[text.backgournd,id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0;
+    }
+}
 var loverM = {
-    addLover,findAll,findById,findIdByUid,delLover,changeById
+    addLover,findAll,findById,findIdByUid,delLover,changeById,changeBackGroundById
 }
 module.exports = loverM;
 

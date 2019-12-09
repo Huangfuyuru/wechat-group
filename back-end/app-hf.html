@@ -29,7 +29,7 @@
 </script>
 </html> -->
 
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -39,14 +39,16 @@
 </head>
 <body>
     
-        <input type="file" id="file">
-        <input type="button" value="提交" onclick="UpFile()"/>
+        <!-- <input type="file" id="file">
+        <input type="button" value="提交" onclick="UpFile()"/> -->
+        <audio src="http://localhost:3001/voice/showvoice/upload_940920c38c660941a4cf131df65c68dd.mp3">
+        </audio>
     
 </body>
 <script>
     function UpFile(){
         var fileObj = document.getElementById('file').files[0];
-        var url = 'http://localhost:3000/voice/';
+        var url = 'http://localhost:3001/voice/';
         var form = new FormData();
         form.append("file",fileObj);
         fetch(url,{
@@ -58,9 +60,9 @@
         })
     }
 </script>
-</html> -->
+</html>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -75,7 +77,7 @@
         <input type="submit" value="提交"/>
     </form>
 </body>
-<script>
+<script> -->
 
     <!-- // function UpFile(){
     //     var fileObj = document.getElementById('file').files[0];
@@ -90,8 +92,8 @@
     //         console.log(res)
     //     })
     // } -->
-</script>
-</html>
+<!-- </script>
+</html> -->
 
 <!-- <!DOCTYPE html>
 <html lang="en">
@@ -122,4 +124,4 @@
         })
     }
 </script> -->
-</html> -->
+<!-- </html> --> -->

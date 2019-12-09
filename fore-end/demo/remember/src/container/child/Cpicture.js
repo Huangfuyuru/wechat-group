@@ -78,7 +78,7 @@ export default class Cloud extends Component {
                         </div>
                     ))
                 }
-                <Link to='/Create'>
+                <Link to='/child/cpictures/ccpicture'>
                     <div className="Cloud_add">
                         <div>-----------------------------------------------------------</div>
                         <a href="#" target="_blank"><img className="Cloud_img" src={require("../../image/add.png")}/></a>

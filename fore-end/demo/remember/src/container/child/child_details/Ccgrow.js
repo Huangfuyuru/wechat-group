@@ -20,7 +20,7 @@ export default class growAdd extends Component {
                     }}
                     mode="light"
                     icon={<Icon type="left" style={{color:"white"}}/>}
-                    onLeftClick={() => this.props.history.push('/Cgrowup')}
+                    onLeftClick={() => this.props.history.push('/child/cgrowup')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
@@ -48,7 +48,7 @@ export default class growAdd extends Component {
                         <div>日期：{moment().format('YYYY-MM-DD')}</div>
                     </div>
                     {/* 点击创建 */}
-                    <Link to='/Cgrowup'>
+                    <Link to='/child/cgrowup'>
                         <button type="submit" className="Create_picture">添加记录</button>
                     </Link>
                 </form>

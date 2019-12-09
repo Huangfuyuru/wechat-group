@@ -31,6 +31,7 @@
 const express = require('express');
 const app = express();
 const fs = require("fs");
+// const voice = require("./routes/voice")
 
 app.all('*', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -50,7 +51,7 @@ app.get("/page", function(req, res, next) {
     res.end(fileContent);
 })
 
-app.use('/login',login)
+app.use('/login',login);
 // //imgs
 // var imgs = require('./routes/imgs');
 // app.use('/imgs',imgs);
@@ -58,7 +59,7 @@ app.use('/login',login)
 // var img = require('./routes/img');
 // app.use('/img',img);
 
-// //voice
-// var voice = require('./routes/voice');
-// app.use('/voice',voice);
+//voice
+var voice = require('./routes/voice');
+app.use('/voice',voice);
 app.listen(3001)

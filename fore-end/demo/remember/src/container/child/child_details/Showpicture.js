@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { NavBar, Icon } from 'antd-mobile';
-export default class Pages extends Component {
+export default class Showpicture extends Component {
     constructor(){
         super();
         this.state={
@@ -23,7 +23,7 @@ export default class Pages extends Component {
                     }}
                     mode="light"
                     icon={<Icon type="left" style={{color:"white"}}/>}
-                    onLeftClick={() => this.props.history.push('/Cpicture')}
+                    onLeftClick={() => this.props.history.push('/child/cpictures')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',

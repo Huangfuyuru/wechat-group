@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import {Link} from 'react-router-dom';
 import { NavBar, Icon } from 'antd-mobile';
-import Cevent from './Cevent.js';
+import Ccevent from './Ccevent.js';
 
-export default class small extends Cevent {
+export default class Showevent extends Ccevent {
     constructor(){
         super();
         this.state={
@@ -43,7 +43,7 @@ export default class small extends Cevent {
                     }}
                     mode="light"
                     icon={<Icon type="left" style={{color:"white"}}/>}
-                    onLeftClick={() => this.props.history.push('/Cevent')}
+                    onLeftClick={() => this.props.history.push('/child/cevents/ccevent')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',

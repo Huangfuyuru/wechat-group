@@ -43,7 +43,8 @@ router.post('/confirm',async function(req,res,next){
 router.post('/', async function(req,res,next){
   
     // console.log('resign body',req.body);
-    if(info.code === 1){
+    if(info.code == 1){
+        console.log(info)
         res.json(info);
     }else{
         // console.log('code =0了');

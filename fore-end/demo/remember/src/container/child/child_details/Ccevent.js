@@ -21,7 +21,7 @@ export default class eventAdd extends Component {
                     }}
                     mode="light"
                     icon={<Icon type="left" style={{color:"white"}}/>}
-                    onLeftClick={() => this.props.history.push('/Cevent')}
+                    onLeftClick={() => this.props.history.push('/child/cevents')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
@@ -43,7 +43,7 @@ export default class eventAdd extends Component {
                         <div><input className="input3" type="text" placeholder="Enter Date"/></div>
                     </div>
                     {/* 保存 */}
-                    <Link to="/Cevent">
+                    <Link to="/child/cevents">
                         <button type="submit" className="Create_picture">保存</button>
                     </Link>
                 </form>
