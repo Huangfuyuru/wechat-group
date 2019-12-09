@@ -4,6 +4,10 @@ const express = require('express'),
 
 router.get('/',function(req,res,next){
     res.end('hello loveSouvenir');
+    
 })
 
+router.get('/',function(req,res,next){
+
+})
 module.exports = router;

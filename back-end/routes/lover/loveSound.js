@@ -3,7 +3,7 @@ const express = require('express'),
       router = express.Router(),
       qs =require('querystring'),
       bodyParser = require("body-parser"),
-      user =require('../database/dateMethod'),
+      user =require('../../database/dateMethod'),
       info={} //后端返回给前端的信息
 
 router.get('/',function(req,res,next){

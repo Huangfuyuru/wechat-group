@@ -12,10 +12,10 @@ const lovePictures = require('./lover/lovePictures'),
        
 // })
 
-router.use('/lovePictures',lovePictures);
-router.use('/loveSound',loveSound);
-router.use('/loveDinary',loveDinary);
-router.use('/loveList',loveList);
-router.use('/loveSouvenir',loveSouvenir);
+router.use('/lpictures',lovePictures);
+router.use('/lsound',loveSound);
+router.use('/ldairy',loveDinary);
+// router.use('/loveList',loveList);
+router.use('/lsouvenir',loveSouvenir);
 
 module.exports = router;

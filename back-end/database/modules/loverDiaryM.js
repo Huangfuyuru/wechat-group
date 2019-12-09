@@ -57,7 +57,7 @@ async function delLoverDiary(id){
  */
 async function findByPid(lid){
     let sql = 'select * from loverDiary where lid = $1';
-    let ret = await pgdb.query(sql,[pid]);
+    let ret = await pgdb.query(sql,[lid]);
     if(ret.rowCount<=0){
         return 1
     }else{
