@@ -15,7 +15,7 @@ router.post('/',function(req,res){
         }
         var a = files.file.path.split("\\");
         var b = a[a.length-1];
-        var message = {err:0, path:`http://localhost:3000/voice/showvoice/${b}`};
+        var message = {err:0, path:`http://localhost:3001/voice/showvoice/${b}`};
         res.write(JSON.stringify(message));   
         res.end();
     });
@@ -24,10 +24,9 @@ router.post('/',function(req,res){
 
 router.get('/showvoice/:name',function(req,res){
     var filename = req.params.name;
-    var ext = filename.split('.')[1];
-    var voice = fs.readFileSync(`D:/database/voice/${filename}`);
+    var voice = fs.readFileSync(`D:/database/voice/${filename}`)
     res.writeHead(200,{
-        "Content-Type":'video/mpeg'
+        "Content-Type":'audio/mp3'
     })
     res.end(voice)
 })
