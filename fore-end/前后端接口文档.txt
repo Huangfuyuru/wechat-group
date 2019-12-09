@@ -409,10 +409,11 @@ method：get
             修改头像
             修改昵称
             修改密码
+            修改性别
             修改提交:
 	method（http请求方式）：post
                 接口地址：http://localhost:3001/my/information、
-                发送数据：uimage=&uname=&pass=&uid=
+                发送数据：uimage=&uname=&pass=&uid= &gender= 
                 返回数据：{code:0/1}
     退出登录：
         路由跳转到登陆界面

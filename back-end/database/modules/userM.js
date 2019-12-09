@@ -113,7 +113,27 @@ async function findAll(){
     }
 }
 
+/**
+ *根据id修改用户信息
+ 传入要修改的用户id,以及要修改的内容
+ 注意id类的都不能修改,所以text中可以没有id
+ setdate类不用修改，所有text中可以没有setdate字段
+ 有些内容不需要修改，但是要传入原内容  看函数中的字段
+ *
+ * @param {int} id
+ * @param {Object} text
+ * @returns
+ */
+async function changeById(id,text){
+    let sql = 'update users set name = $1,imgurl=$2,pass=$3,gender=$4 where id = $5'
+    let ret = await pgdb.query(sql,[text.name,text.imgurl,text.pass,text.gender,id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0;
+    }
+}
 var userM = {
-    login,findTel,addUser,delUser,findIdByTel,findTelById,findAll
+    login,findTel,addUser,delUser,findIdByTel,findTelById,findAll,changeById
 }
 module.exports = userM;
