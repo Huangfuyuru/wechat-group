@@ -11,6 +11,28 @@ export default class Delrelation extends Component {
             }]
         }
     }
+    componentDidMount(){
+        let path = this.props.match.params.id
+        console.log('path',path)
+        fetch(`http://localhost:3001/my/dellover`)
+        .then((res)=>res.json())
+        .then((res)=>{
+            this.setState({data:res.data});
+            console.log('更新前',res.data)
+        })
+    }
+    componentDidUpdate(prevProps,prevState){
+        if(prevProps.location.search !==this.props.location.search){
+            let path = this.props.match.params.id
+            console.log('path',path)
+            fetch(`http://localhost:3001/my/dellover`)
+            .then((res)=>res.json())
+            .then((res)=>{
+                this.setState({data:res.data});
+                console.log('更新后',res.data)
+            })
+        }
+    }
     render(){
         return(
             <div className="All">
