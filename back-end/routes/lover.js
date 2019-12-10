@@ -16,7 +16,7 @@ const lovePictures = require('./lover/lovePictures'),
 
 
       
-router.get('/',async function(req,res,next){
+router.post('/',async function(req,res,next){
 
        var uid = req.body.uid;
        var data = await lover.loverM.findIdByUid(uid);
