@@ -13,7 +13,8 @@ const lovePictures = require('./lover/lovePictures'),
       loveSound = require('./lover/loveSound'),
       loveDinary = require('./lover/loveDinary'),
       loveList = require('./lover/loveList'),
-      loveSouvenir = require('./lover/loveSouvenir');
+      loveSouvenir = require('./lover/loveSouvenir'),
+      loveBackground = require('./lover/changBack');
 
 
 router.get('/',function(req,res,next){
@@ -38,5 +39,6 @@ router.use('/lsound',loveSound);
 router.use('/ldairy',loveDinary);
 // router.use('/loveList',loveList);
 router.use('/lsouvenir',loveSouvenir);
+router.use('/changebackground',loveBackground);
 
 module.exports = router;
