@@ -89,6 +89,9 @@ export default class My extends Component {
                         <Link to='/my/delrelation2'>
                             <div className="line2">删除亲子</div>
                         </Link>
+                        <Link to='/menus'>
+                            <div className="line2">退出登录</div>
+                        </Link>
                     </div>
                 </div>
                 {/* 图片 */}
