@@ -25,9 +25,46 @@ router.get('/',async function(req,res,next){
 })
 
 //增加语音
-// router.post('/lcsound',async function(req,res,next){
+router.post('/lcsound',async function(req,res,next){
+    var text ={
+        voicecurl:req.body.voicecurl,
+        name:req.body.name,
+        lid:req.body.lid
+    }
+    var addVoice = await lover.loverVoiceM.addLoverVoice(text);
+    if(addVoice === 0){
+        var data = await lover.loverVoiceM.findByLid(req.body.loverid);
+        info = {
+            code:0,
+            msg:data
+        }
+        res.json(info);
+    }else{
+        info={
+            code:1,
+            msg:'增加语音失败'
+        };
+        res.json(info);
+    }
+})
 
-// })
-
-
+//删除语音
+route.get('/lrsound',async function(res,req,next){
+    var lid = req.query.loverid,
+    id = req.query.loverVoiceid
+    var delvoice = await lover.loverVoiceM.delLoverVoice(id);
+    if(delvoice === 0){
+        var data = await lover.loverVoiceM.findByLid(lid);
+        info={
+            code:0,
+            msg:data
+        }
+        res.json(info);
+    }else{
+        info={
+            code:1,
+            msg:'删除语音失败'
+        }
+    }
+})
 module.exports = router;
