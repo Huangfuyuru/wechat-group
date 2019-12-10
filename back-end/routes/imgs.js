@@ -9,7 +9,6 @@ router.post('/',function(req,res){
     form.keepExtensions = true; 
     form.maxFieldSize = 2*1024*1024;
     form.on('file', function(field, file) {
-        // console.log(file.name);
         files.push(file);
     })
     form.on('end', function() {

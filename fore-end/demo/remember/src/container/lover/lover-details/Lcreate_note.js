@@ -25,16 +25,19 @@ export default class Lcreate_note extends Component {
         })
     }
     upfile=()=>{
-        var file=document.getElementById('img1').files[0];
+        var file=document.getElementById('img1').files;
         var url = 'http://localhost:3001/imgs';
         var form = new FormData();
-        form.append("file",file);
+        for(var i=0;i<file.length;i++){
+            form.append("file",file[i]);
+        };
         fetch(url,{
             method:'POST',
+            enctype:'multipart/form-data',
             body:form
         }).then(res=>res.json())
         .then(json=>(this.setState({
-            imgurl:json[0].path
+            imgurl:json[0].path//还有问题！
         })
         )
     )}
