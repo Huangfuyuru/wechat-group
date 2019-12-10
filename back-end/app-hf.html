@@ -1,4 +1,5 @@
-<!-- <!DOCTYPE html>
+<!--
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,9 +28,11 @@
         })
     }
 </script>
-</html> -->
+</html>
+-->
 
-<!DOCTYPE html>
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -39,8 +42,8 @@
 </head>
 <body>
     
-        <!-- <input type="file" id="file">
-        <input type="button" value="提交" onclick="UpFile()"/> -->
+        <input type="file" id="file">
+        <input type="button" value="提交" onclick="UpFile()"/>
         <audio src="http://localhost:3001/voice/showvoice/upload_940920c38c660941a4cf131df65c68dd.mp3">
         </audio>
     
@@ -60,7 +63,9 @@
         })
     }
 </script>
-</html>
+</html> -->
+
+
 
 <!-- <!DOCTYPE html>
 <html lang="en">
@@ -71,29 +76,31 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="POST" action="http://localhost:3001/login">
+    <form method="GET" action="http://localhost:3001/child/changebackground">
         <input type="text" name="utel">
         <input type="password" name="pass"/>
         <input type="submit" value="提交"/>
     </form>
 </body>
-<script> -->
+<script>
 
-    <!-- // function UpFile(){
-    //     var fileObj = document.getElementById('file').files[0];
-    //     var url = 'http://localhost:3000/voice/';
-    //     var form = new FormData();
-    //     form.append("file",fileObj);
-    //     fetch(url,{
-    //         method:'POST',
-    //         body:form
-    //     }).then(res=>res.json())
-    //     .then(res=>{
-    //         console.log(res)
-    //     })
-    // } -->
-<!-- </script>
+    function UpFile(){
+        var fileObj = document.getElementById('file').files[0];
+        var url = 'http://localhost:3000/voice/';
+        var form = new FormData();
+        form.append("file",fileObj);
+        fetch(url,{
+            method:'POST',
+            body:form
+        }).then(res=>res.json())
+        .then(res=>{
+            console.log(res)
+        })
+    }
+</script>
 </html> -->
+
+
 
 <!-- <!DOCTYPE html>
 <html lang="en">
@@ -109,7 +116,7 @@
         <input type="submit">
     </form>
 </body>
-<!-- <script>
+ <script>
     function UpFile(){
         var fileObj = document.getElementById('file').files[0];
         var url = 'http://localhost:3000/img/';
@@ -123,5 +130,45 @@
             console.log(res)
         })
     }
-</script> -->
-<!-- </html> --> -->
+</script>
+</html>  -->
+
+
+
+ <!-- <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>Document</title>
+ </head>
+ <body>
+    <input type="file" id="file" accept="image/png,image/jpeg,image/gif,image/jpg">
+    <input type="button" value="提交" onclick="upfile()"/>
+     <img id="img" src="#"/>
+ </body>
+ <script>
+  function upfile(){
+      var file = document.getElementById('file').files[0];
+      var img = document.getElementById('img');
+      console.log(img.src)
+      var url = 'http://localhost:3001/img';
+      var form = new FormData();
+      form.append("file",file);
+      fetch(url,{
+          method:"POST",
+          body:form
+      }).then(res=>res.json())
+      .then(res=>{
+          console.log(res)
+          img.src = res.path
+      },()=>{
+          var url1 = `http://localhost:3001/child/changebackground?childsid=300001&background=${img.src}`
+          fetch(url1,{
+              method:"GET"
+          })
+      })
+  }
+ </script>
+ </html> -->
