@@ -1,7 +1,7 @@
 const express = require('express'),
       router = express.Router(),
       bodyParser = require("body-parser"),
-const {childM} = require('../../database/dateMethod');//引入数据库
+      {childM} = require('../../database/dateMethod');//引入数据库
 
 //配置bodyparser中间件
 router.use(bodyParser.urlencoded({extended:true}));
