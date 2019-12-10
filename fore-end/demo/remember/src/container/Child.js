@@ -137,7 +137,6 @@ export default class Child extends Component {
                         fontWeight:'lighter'
                     }}
                     onClick={()=>{
-<<<<<<< HEAD
                         var tag = document.getElementById('tag');
                         if(this.state.menu_count%2==0){
                             console.log('进入')
@@ -165,9 +164,6 @@ export default class Child extends Component {
                         });
                         console.log('切换亲子');
 
-=======
-                        console.log('切换亲子')
->>>>>>> a26256f4c0f42b7a3a8bee23c7291a9cd8e09635
                     }} 
                     key="1" type="ellipsis" />,
                     ]}
