@@ -19,7 +19,7 @@ router.get('/',async function(req,res,next){
 
 });
 
-//添加纪念日
+//增加纪念日
 router.post('/lcsouvenir',async function(req,res,next){
     var daid = req.bady.loverid;
     var text ={
@@ -43,9 +43,31 @@ router.post('/lcsouvenir',async function(req,res,next){
     }else{
         info={
             code:1,
-            msg:'删除纪念日失败'
+            msg:'增加纪念日失败'
+        }
+    }
+});
+
+//删除纪念日
+router.get('/delSouvenir',async function(req,res,next){
+    var lid = req.query.loverid,
+        limpDid = req.query.loverImpDateid;
+    console.log('delete loverid',lid);
+    console.log('delete limpDid',limpDid);
+    var delsou =  await lover.loverImpDateM.delLoverImpDate(limpDid);
+    if(delsou === 0 ){
+        var data = await lover.loverImpDateM.findByPid(lid);
+        info = {
+            code:0,
+            msg:data
+        }
+    }else{
+        info= {
+            code:1,
+            msg:'删除失败'
         }
     }
 })
+
 
 module.exports = router;
