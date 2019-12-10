@@ -55,11 +55,23 @@ export default class Lcreate_note extends Component {
     render() {
         return (
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
-            <NavBar style={{backgroundColor:"#FFBF2D",color:"white"}}
-                       leftContent={[
-                        <Link to="/lover/ldairy" style={{color:"white"}}><div className="iconfont icon-arror_left_blod" style={{ marginRight: '26px' }} /></Link>,
-                       ]}
-            >创建日记</NavBar>
+           <NavBar 
+                 style={{
+                     background:'#FFBF2D',
+                     height:'8vh',
+                     color:'#fff',
+                     fontWeight:'bolder',
+                    }}
+                    mode="light"
+                    icon={'𡿨'}
+                    onLeftClick={() => this.props.history.push('/lover/ldairy')}
+                 ><span style={{
+                     color:'#fff',
+                     fontWeight:'bold',
+                     fontSize:'6vw',
+                     textIndent:'3vw',
+                     letterSpacing:'3vw'}}>创建日记</span>
+                </NavBar>
                 <div className="note-title">
                   <p >标题:</p>
                   <input  type="text" placeholder="请输入"  onChange={this.changeTitle}/>
