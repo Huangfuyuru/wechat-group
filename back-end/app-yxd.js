@@ -31,7 +31,7 @@ app.get('/resign/confirm',function(req,res,next){
     res.end(html);
 });
 */
-app.get('/resign',function(req,res,next){
+app.get('/resign/message',function(req,res,next){
     var html=fs.readFileSync('./testing-yxd/message.html').toString('utf8');
     res.writeHead(200,{
         'Content-Type':'text/html;charset=UTF8',
@@ -42,14 +42,14 @@ app.get('/resign',function(req,res,next){
 
 
 
-// app.get('/lover/ldinary',function(req,res,next){
-//     var html=fs.readFileSync('./testing-yxd/loveDinary.html').toString('utf8');
-//     res.writeHead(200,{
-//         'Content-Type':'text/html;charset=UTF8',
-//         'Content-Length':'Buffer.byteLength(html)'
-//     });
-//     res.end(html);
-// })
+app.get('/lover/ldinary',function(req,res,next){
+    var html=fs.readFileSync('./testing-yxd/loveDinary.html').toString('utf8');
+    res.writeHead(200,{
+        'Content-Type':'text/html;charset=UTF8',
+        'Content-Length':'Buffer.byteLength(html)'
+    });
+    res.end(html);
+})
 
 
 //登录

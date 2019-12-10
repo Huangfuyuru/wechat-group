@@ -28,8 +28,8 @@ router.get('/',async function(req,res,next){
             code:1,
             msg:'传入的爱人lid有误'
         }
+        res.json(data);
     }
-    res.json(data);
     
 });
 
@@ -44,6 +44,7 @@ router.post('/addDairy',async function(req,res,next){
         imgurl:req.body.imgurl
     }
     var addDairy = await lover.loverDiaryM.addLoverDiary(text);
+    console.log('add',addDairy);
     if(addDairy ===0){
         var data =await lover.loverDiaryM.findByPid(id);
         info = {
@@ -61,7 +62,7 @@ router.post('/addDairy',async function(req,res,next){
     
 });
 
-router.get('/delDairy',async function(){
+router.get('/delDairy',async function(req,res,next){
     var daid = req.query.loverDiaryid;
     console.log(daid);
     var delDairy = await lover.loverDiaryM.delLoverDiary(daid);
