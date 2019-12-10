@@ -11,6 +11,8 @@ router.get('/',async function(req,res,next){
     var imgurl = request.background;
     console.log('back')
     var data = await childM.changeBackGroundById(imgurl,childsid);
+    var data1 = await childM.findAll();
+    console.log(data1)
     res.json({code:data})
 })
 
