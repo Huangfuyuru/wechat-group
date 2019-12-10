@@ -6,7 +6,6 @@ export default class Child extends Component {
     constructor(props){
         super(props);
         var uid = JSON.parse(localStorage.getItem('uid'));
-        // console.log('孩子',this.props.location.state)
         this.state={
             menu_count:0,
             uid:uid,
@@ -29,24 +28,31 @@ export default class Child extends Component {
     }
     componentDidMount(){
         // console.log('完成')
-        fetch(`http://localhost:3001/child`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`uid=${this.state.uid}`
-        }).then(res=>res.json())
-        .then(json=>{
-            // console.log(json)
-            this.setState({
-                child_id:json[0].id,
-                cindex_src:json[0].background
-            });
-        })
+        // fetch(`http://localhost:3001/child`,{
+        //     method:'POST',
+        //     mode:'cors',
+        //     headers:{
+        //         'Content-Type':"application/x-www-form-urlencoded"
+        //     },
+        //     body:`uid=${this.state.uid}`
+        // }).then(res=>res.json())
+        // .then(json=>{
+        //     // console.log(json)
+        //     this.setState({
+        //         child_id:json[0].id,
+        //         cindex_src:json[0].background
+        //     });
+        // })
     }
     componentDidUpdate(prevProps,prevState){
         if(prevState !== this.state){
+            console.log('BJ',this.state.cindex_src)
+            fetch(`http://localhost:3001/child/changebackground?childsid=${this.state.child_id} &background = ${this.state.cindex_src}`)
+            .then(res=>res.json)
+            .then(json=>{
+                console.log('json',json)
+                // console.log(this.state.cindex_src)
+            })
             console.log('现在',this.state)
             console.log('之前',prevState)
             // console.log('d')
@@ -75,34 +81,27 @@ export default class Child extends Component {
         fetch(url,{
             method:'POST',
             body:form
-        }).then(res=>res.json())
-        .then(res=>(this.setState({
+        })
+        .then(res=>res.json())
+        .then(res=>(
+            console.log(res.path),
+            this.setState({
             cindex_src:res.path
-        },()=>{
-            // console.log(this.state.cindex_src)
-            fetch(`http://localhost:3001/child/changebackground?childsid=${this.state.child_id}&background=${this.state.cindex_src}`,{
-            method:'GET',
-            // mode:'cors',
-            // headers:{
-            //     'Content-Type':"application/x-www-form-urlencoded"
-            // },
-            // fetch(`http://localhost:3001/child/changebackground`,{
-            // method:'POST',
-            // mode:'cors',
-            // headers:{
-            //     'Content-Type':"application/x-www-form-urlencoded"
-            // },
-            // body:`childsid=${this.state.child_id}&background=${this.state.cindex_src}`
-        })}
-        )))
+        },console.log('POST',this.state.cindex_src))
+        ))
+        
     }
     changeChild=(e)=>{
-        console.log('e',e.target.value)
-        console.log('e',e.target.key)
-        this.setState({
-            child_id:e.target.key,
-            cindex_src:e.target.value
-        })
+        // this.setState({
+        //     child_id:e.target.key,
+        //     cindex_src:e.target.value
+        // })
+        console.log('li',e.target)
+        // console.log(this.state.change_id)
+        console.log('value',e.target.value)
+        console.log('id',e.target.id)
+        // console.log('e',e.target.value[0])
+        // console.log('e',e.target.value[1])
         // ,()=>{
         //     for(var i=0;i<this.state.change_id.length;i++){
         //         if(this.state.child_id==this.state.change_id[i]){
@@ -146,7 +145,6 @@ export default class Child extends Component {
                             .then(json=>{
                                 var array=[];
                                 for(var i=0;i<json.length;i++){
-                                    console.log(json[i]);
                                     array[i]=json[i];
                                 }
                                 this.setState({
@@ -178,8 +176,9 @@ export default class Child extends Component {
                     <div></div>
                     <p>
                         {
-                            this.state.change_id.map(item=>(
-                            <li key={item.id} value={item.background} onClick={this.changeChild}>{item.name}</li>
+                            this.state.change_id.map((item,idx)=>(
+                            <li key={idx} id={item.id} value={item.background} 
+                            onClick={this.changeChild}>{item.name}</li>
                             ))
                         }
                     </p>
