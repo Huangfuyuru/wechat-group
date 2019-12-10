@@ -23,7 +23,7 @@ router.get('/confirm',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childid = Number(request.childid);
     var result = await childM.delChild(childid);
-    if(result == 0){
+    if(result !== 1){
         var message = {code:0,msg:"删除亲子成功"}
     }else{
         var message = {code:1,msg:"删除亲子失败"}

@@ -1,10 +1,13 @@
 const express = require('express'),
-      app = express(),
       router = express.Router(),
       qs =require('querystring'),
       bodyParser = require("body-parser"),
       lover =require('../../database/dateMethod');
 var info={}; //后端返回给前端的信息
+
+router.use(bodyParser.urlencoded({extended:true}));
+router.use(bodyParser.json());
+
 
 router.get('/',async function(req,res,next){
     var id = req.query.loverid;
@@ -49,7 +52,7 @@ router.post('/lcsound',async function(req,res,next){
 })
 
 //删除语音
-route.get('/lrsound',async function(res,req,next){
+router.get('/lrsound',async function(res,req,next){
     var lid = req.query.loverid,
     id = req.query.loverVoiceid
     var delvoice = await lover.loverVoiceM.delLoverVoice(id);
