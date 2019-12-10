@@ -22,7 +22,7 @@ router.post('/',async function(req,res,next){
         uid:uid,
         gender:gender
     })
-    if(result == 0){
+    if(result !== 1){
         var message = {code:0,msg:"用户修改成功"}
     }else{
         var message = {code:1,msg:"用户修改失败"}

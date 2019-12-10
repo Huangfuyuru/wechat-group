@@ -21,7 +21,7 @@ router.post('/',async function(req,res,next){
         gender:gender,
         uid:uid
     })
-    if(result == 0){
+    if(result !== 1){
         var message = {code:0,msg:"添加爱人成功"}
     }else{
         var message = {code:1,msg:"添加爱人失败"}

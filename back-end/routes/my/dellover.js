@@ -23,7 +23,7 @@ router.get('/confirm',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var loverid = Number(request.loverid);
     var result = await loverM.delLover(loverid);
-    if(result == 0){
+    if(result !== 1){
         var message = {code:0,msg:"删除爱人成功"}
     }else{
         var message = {code:1,msg:"删除爱人失败"}

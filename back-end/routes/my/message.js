@@ -16,7 +16,7 @@ router.post('/',async function(req,res,next){
         uid:uid,
         content:content
     })
-    if(result == 0){
+    if(result !== 1){
         var message = {code:0,msg:"消息反馈成功"}
     }else{
         var message = {code:1,msg:"消息反馈失败"}
