@@ -5,27 +5,19 @@ import {Link} from "react-router-dom"
 export default class Ldairy extends Component {
     constructor(props){
         super(props);
-        console.log("日记",this.props.location.state)
-       
         this.state={
              lover_id:this.props.location.state.lover_id,
-            noteArr:[]
+            noteArr:[],
+            arr:[]
         }
     }
     componentDidMount(){
-        fetch(`http://localhost:3001/lover/ldairy`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`loverid=${this.state.lover_id}`
-        })
+        fetch(`http://localhost:3001/lover/ldairy?loverid=${this.state.lover_id}`)
         .then(res=>res.json())
         .then(json=>{ 
-            console.log("shuzu",json)
+            console.log("shzu",json)
             this.setState({
-                noteArr:json
+                noteArr:json.msg
             });
         })
     }
@@ -64,16 +56,25 @@ export default class Ldairy extends Component {
                  {
                      this.state.noteArr.map((item)=>(
                         <div className="lovernote-first">
-                        <img  src={require("../../image/qian.jpg")} alt=""  style={{float:"left",margin:"4% 10%",height:"13%",width:"13%"}}></img>
-                     <p style={{fontSize:"5vw"}}>{item.time}</p>
-                     <p style={{fontSize:"5vw",float:"left",margin:"2% 2%"}}>{item.note}</p>
-                        <img src={item.src}  alt="" style={{height:"40%",width:"40%",border:"solid 0.5px red" ,float:"left",margin:"2% 2%"}}></img>
-                        <img src={item.src}  alt="" style={{height:"40%",width:"40%",border:"solid 0.5px red" ,float:"left",margin:"2% 2%"}}></img>
+                        <img  src={require("../../image/qian.jpg")} alt=""  style={{float:"left",margin:"3% 0 0 0%",height:"10%",width:"13%"}}></img>
+                     <p style={{fontSize:"5vw",float:"left",margin:" 8% 0% 0 0"}}>{item.name}       {item.setdate.split(".")[0]}</p>
+                     <p style={{fontSize:"5vw",float:"left",margin:"0"}}>{item.content}</p>
+                        <div style={{height:"40%",width:"94%",float:"left",margin:"0 0 0 3%"}}>
+                        <img src={item.imgurl[0]}  alt="" style={{height:"100%",width:"48%",border:"solid 0.5px red" ,float:"left",marginLeft:"1%"}}></img>
+                        <img src={item.imgurl[1]}  alt="" style={{height:"100%",width:"48%",border:"solid 0.5px red" ,float:"left",marginLeft:"1%"}}></img>
+                        </div>
                         </div>
                      ))
                
                 }
-               <Link to="/lover/lcdairy"> <img src={require("../../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
+               <Link to=
+               {{
+                pathname:"/lover/lcdairy",
+                state:{
+                    lover_id:this.state.lover_id
+                }
+            }}
+               > <img src={require("../../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
             </div>
         )
     }

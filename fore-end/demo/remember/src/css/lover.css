@@ -182,7 +182,7 @@
     margin:5% 0 0 10%
   }
   .lovernote-first{
-    height:38%;
+    height:48%;
     width:90%;
     border:solid 0.5px #C7C7CC;
     margin:4% 5%;
@@ -328,4 +328,21 @@
     height:80%;
     width:100%;
   }
+  .note-title{
+    margin-top:5%;
+  }
+  .note-title p{
+    float:left;
+    font-size:5vw;
+    padding:0 0 0 9%;
+    line-height: 10px;
+  }
+  .note-title input{
+    float:left;
+    height:55%;
+    width:45%;
+    font-size:5vw;
+    margin:3% 0 0 18%;
+    border-radius: 8px;
   
+  }
