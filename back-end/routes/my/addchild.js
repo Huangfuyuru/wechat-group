@@ -4,6 +4,8 @@ const express = require('express'),
 //引入数据库
 const {childM} = require("../../database/dateMethod");
 
+var info = {};
+
 //配置bodyparser中间件
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
@@ -21,12 +23,16 @@ router.post('/',async function(req,res,next){
         gender:gender,
         uid:uid
     })
-    if(result !== 1){
-        var message = {code:0,msg:"添加亲子成功"}
+    if(result === 0){
+        var data = await childM.findById(uid);
+        info = {code:0,msg:data}
+        console.log('添加亲子后查看所有信息',await childM.findAll();
+        res.json(data)
+
     }else{
-        var message = {code:1,msg:"添加亲子失败"}
+        info = {code:1,msg:"添加亲子失败"}
     }
-    res.json(message)
+    
 })
 
 module.exports = router;
