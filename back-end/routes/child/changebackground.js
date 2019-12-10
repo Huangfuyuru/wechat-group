@@ -11,14 +11,12 @@ router.use(bodyParser.json());
 router.post('/',async function(req,res,next){
     var childsid = Number(req.body.childsid);
     var imgurl = req.body.background;
-    console.log("childsid",childsid);
-    console.log("imgurl",imgurl)
     var data = await childM.changeBackGroundById({
         id:childsid,
         background:imgurl
     });
-    console.log(data)
     res.json({code:data})
+    res.end('ok')
 })
 
 module.exports = router;

@@ -45,6 +45,8 @@ export default class Write extends Component {
         <div className="All">
           <NavBar
             style={{
+              // position:'fixed',
+              // top:'0',
               background:'#FFBF2D',
               height:'8vh',
               color:'#fff',
@@ -63,7 +65,7 @@ export default class Write extends Component {
             >成长记录</span>
           </NavBar>
             {/* Tabs组件 */}
-          <div style={{position:'fixed',height:'100%',width:'100%',top:'50px'}}>
+          <div style={{height:'100%',width:'100%',top:'50px'}}>
             <TabBar unselectedTintColor="#808080" tintColor="#FFBF2D" barTintColor="white" tabBarPosition="top">
               <TabBar.Item
                 title="记录列"

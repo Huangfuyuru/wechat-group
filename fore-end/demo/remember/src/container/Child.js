@@ -11,9 +11,7 @@ export default class Child extends Component {
             uid:uid,
             change_id:[],
             child_id:'',
-            cindex_src:'',
-            // child_id:this.props.location.state.cid,
-            // cindex_src:this.props.location.state.cpic,
+            cindex_src:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2037612692,2923078042&fm=26&gp=0.jpg',
             cnews:[{
                 ctime:'现在',
                 cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
@@ -27,50 +25,39 @@ export default class Child extends Component {
         }
     }
     componentDidMount(){
-        // console.log('完成')
-        // fetch(`http://localhost:3001/child`,{
-        //     method:'POST',
-        //     mode:'cors',
-        //     headers:{
-        //         'Content-Type':"application/x-www-form-urlencoded"
-        //     },
-        //     body:`uid=${this.state.uid}`
-        // }).then(res=>res.json())
-        // .then(json=>{
-        //     // console.log(json)
-        //     this.setState({
-        //         child_id:json[0].id,
-        //         cindex_src:json[0].background
-        //     });
-        // })
+        console.log('完成')
+        fetch(`http://localhost:3001/child`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`uid=${this.state.uid}`
+        }).then(res=>res.json())
+        .then(json=>{
+            // console.log(json)
+            this.setState({
+                child_id:json[0].id,
+                cindex_src:json[0].background
+            });
+        })
     }
     componentDidUpdate(prevProps,prevState){
         if(prevState !== this.state){
             console.log('BJ',this.state.cindex_src)
-            fetch(`http://localhost:3001/child/changebackground?childsid=${this.state.child_id} &background = ${this.state.cindex_src}`)
-            .then(res=>res.json)
-            .then(json=>{
-                console.log('json',json)
-                // console.log(this.state.cindex_src)
+            console.log('id',this.state.child_id)
+            fetch(`http://localhost:3001/child/changebackground`,{
+                method:'POST',
+                mode:'cors',
+                headers:{
+                    'Content-Type':"application/x-www-form-urlencoded"
+                },
+                body:`childsid=${this.state.child_id}&background=${this.state.cindex_src}`
             })
-            console.log('现在',this.state)
-            console.log('之前',prevState)
-            // console.log('d')
-            // fetch(`http://localhost:3001/child`,{
-            //     method:'POST',
-            //     mode:'cors',
-            //     headers:{
-            //         'Content-Type':"application/x-www-form-urlencoded"
-            //     },
-            //     body:`uid=${this.state.uid}`
-            // }).then(res=>res.json())
-            // .then(json=>{
-            //     console.log('d')
-            //     this.setState({
-            //         // child_id:json[0].id,
-            //         // cindex_src:json[0].background
-            //     });
-            // })
+            .then(res=>res.json())
+            .then(json=>(
+                console.log(json)
+            ))
         }
     }
     upfile=()=>{
@@ -97,7 +84,6 @@ export default class Child extends Component {
         //     cindex_src:e.target.value
         // })
         console.log('li',e.target)
-        // console.log(this.state.change_id)
         console.log('value',e.target.value)
         console.log('id',e.target.id)
         // console.log('e',e.target.value[0])
@@ -124,8 +110,11 @@ export default class Child extends Component {
             <div className='child'>
                 <NavBar
                     style={{
+                        width:'100%',
+                        zIndex:'11',
+                        position:'fixed',
                         background:'#FFBF2D',
-                        height:'8vh'
+                        height:'8vh',
                     }}
                     rightContent={[
                     <i
@@ -189,6 +178,7 @@ export default class Child extends Component {
                         display:'inline-block',
                         width:'100%',
                         fontSize:'5vw',
+                        top:'8vh',
                         position:'relative',
                         color:'#000',
                         background:'rgb(255,191,45,0.3)'
@@ -200,7 +190,9 @@ export default class Child extends Component {
                     capture="camera" 
                     name='uimage' 
                     /></span>
-                    <div>
+                    <div style={{
+                        marginTop:'8.8vh'
+                    }}>
                         <img 
                         src={this.state.cindex_src} alt='自定义照片墙'/>
                     </div>    
