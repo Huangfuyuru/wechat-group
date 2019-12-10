@@ -12,7 +12,7 @@ export default class Child_index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          userid:this.props.location.state.userid,
+        //   userid:this.props.location.state.userid,
           cpic:'',
           lpic:'',
           cid:'',
