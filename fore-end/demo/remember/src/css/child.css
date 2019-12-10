@@ -5,6 +5,13 @@
     background: #fff;
     /* min-height: 111vh; */
 }
+#tag{
+    background: #fff;
+    width: 35%;
+    position: fixed;
+    z-index: 100;
+    right: 0;
+}
 .child_first{
     margin: 0 auto;
     padding: 4vh 5vw;

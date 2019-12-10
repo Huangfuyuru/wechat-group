@@ -109,8 +109,7 @@ export default class Child_index extends Component {
                     to={{
                         pathname:'/index/lover',
                         state:{
-                            lid:this.state.lid,
-                            lpic:this.state.lpic
+                            uid:this.state.userid
                         }
                     }}
                     >

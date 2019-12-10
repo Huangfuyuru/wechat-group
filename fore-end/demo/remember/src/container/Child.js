@@ -74,17 +74,6 @@ export default class Child extends Component {
             console.log(this.state.cindex_src)
             fetch(`http://localhost:3001/child/changebackground?childsid=${this.state.child_id}&background=${this.state.cindex_src}`,{
             method:'GET',
-            // mode:'cors',
-            // headers:{
-            //     'Content-Type':"application/x-www-form-urlencoded"
-            // },
-            // fetch(`http://localhost:3001/child/changebackground`,{
-            // method:'POST',
-            // mode:'cors',
-            // headers:{
-            //     'Content-Type':"application/x-www-form-urlencoded"
-            // },
-            // body:`childsid=${this.state.child_id}&background=${this.state.cindex_src}`
         })}
         )))
     }
@@ -105,7 +94,8 @@ export default class Child extends Component {
                         fontWeight:'lighter'
                     }}
                     onClick={()=>{
-                        console.log('切换亲子')
+                        console.log('切换亲子');
+
                     }} 
                     key="1" type="ellipsis" />,
                     ]}
@@ -116,6 +106,10 @@ export default class Child extends Component {
                     letterSpacing:'3vw'
                 }}
                 >亲子</span></NavBar>
+                <div id="tag">
+                    <div></div>
+                    <p>我是下拉菜单</p>
+                </div>
                 <div className='child_first'>                   
                     <span style={{
                         zIndex:'10',
