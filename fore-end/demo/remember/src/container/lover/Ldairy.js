@@ -3,46 +3,43 @@ import { NavBar} from 'antd-mobile';
 import "../../css/lover.css"
 import {Link} from "react-router-dom"
 export default class Ldairy extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props);
+        console.log("日记",this.props.location.state)
+       
         this.state={
-            noteArr:[
-               { 
-                   time:"今天19：02",
-                   note:"今天又是开心的日子，吃饭饭,逛街，看电影，玩游戏",
-                   src:"../image/qian.jpg"
-            },
-            { 
-                time:"今天19：02",
-                note:"今天又是开心的日子，吃饭饭,逛街，看电影，玩游戏",
-                src:"../image/qian.jpg"
-         }, { 
-            time:"今天19：02",
-            note:"今天又是开心的日子，吃饭饭,逛街，看电影，玩游戏",
-            src:"../../image/qian.jpg"
-     },
-            ]
+             lover_id:this.props.location.state.lover_id,
+            noteArr:[]
         }
     }
     componentDidMount(){
-        let path = this.props.match.params.id
-        fetch(``)
-        .then((res)=>res.json())
-        .then((res)=>{
-            this.setState({data:res.data});
+        fetch(`http://localhost:3001/lover/ldairy`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`loverid=${this.state.lover_id}`
+        })
+        .then(res=>res.json())
+        .then(json=>{ 
+            console.log("shuzu",json)
+            this.setState({
+                noteArr:json
+            });
         })
     }
-    componentDidUpdate(Props,State){
-        if(Props.location.search !== this.props.location.search){
-            let path = this.props.match.params.id
-            console.log('path',path)
-            fetch( ``)
-            .then((res)=>res.json())
-            .then((res)=>{
-                this.setState({data:res.data});
-            })
-        }
-    }
+    // componentDidUpdate(Props,State){
+    //     if(Props.location.search !== this.props.location.search){
+    //         let path = this.props.match.params.id
+    //         console.log('path',path)
+    //         fetch( ``)
+    //         .then((res)=>res.json())
+    //         .then((res)=>{
+    //             this.setState({data:res.data});
+    //         })
+    //     }
+    // }
 
     render() {
         return (

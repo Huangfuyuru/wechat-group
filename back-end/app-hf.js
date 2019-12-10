@@ -56,8 +56,11 @@ app.use('/login',login);
 // var imgs = require('./routes/imgs');
 // app.use('/imgs',imgs);
 
-// var img = require('./routes/img');
-// app.use('/img',img);
+var img = require('./routes/img');
+app.use('/img',img);
+
+var child = require('./routes/child');
+app.use('/child',child)
 
 //voice
 var voice = require('./routes/voice');

@@ -82,6 +82,17 @@ export default class Child extends Component {
             // console.log(this.state.cindex_src)
             fetch(`http://localhost:3001/child/changebackground?childsid=${this.state.child_id}&background=${this.state.cindex_src}`,{
             method:'GET',
+            // mode:'cors',
+            // headers:{
+            //     'Content-Type':"application/x-www-form-urlencoded"
+            // },
+            // fetch(`http://localhost:3001/child/changebackground`,{
+            // method:'POST',
+            // mode:'cors',
+            // headers:{
+            //     'Content-Type':"application/x-www-form-urlencoded"
+            // },
+            // body:`childsid=${this.state.child_id}&background=${this.state.cindex_src}`
         })}
         )))
     }
@@ -126,6 +137,7 @@ export default class Child extends Component {
                         fontWeight:'lighter'
                     }}
                     onClick={()=>{
+<<<<<<< HEAD
                         var tag = document.getElementById('tag');
                         if(this.state.menu_count%2==0){
                             console.log('进入')
@@ -153,6 +165,9 @@ export default class Child extends Component {
                         });
                         console.log('切换亲子');
 
+=======
+                        console.log('切换亲子')
+>>>>>>> a26256f4c0f42b7a3a8bee23c7291a9cd8e09635
                     }} 
                     key="1" type="ellipsis" />,
                     ]}
@@ -163,6 +178,7 @@ export default class Child extends Component {
                     letterSpacing:'3vw'
                 }}
                 >亲子</span></NavBar>
+<<<<<<< HEAD
                 <div id="tag">
                     <div></div>
                     <p>
@@ -173,6 +189,8 @@ export default class Child extends Component {
                         }
                     </p>
                 </div>
+=======
+>>>>>>> a26256f4c0f42b7a3a8bee23c7291a9cd8e09635
                 <div className='child_first'>                   
                     <span style={{
                         zIndex:'10',
