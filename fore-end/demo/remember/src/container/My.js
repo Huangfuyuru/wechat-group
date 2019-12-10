@@ -83,15 +83,24 @@ export default class My extends Component {
                         </div>
                     </div>
                     <div className="two">
-                        <Link to='/my/delrelation'>
-                            <div className="line2">删除爱人</div>
-                        </Link>
-                        <Link to='/my/delrelation2'>
-                            <div className="line2">删除亲子</div>
-                        </Link>
-                        <Link to='/menus'>
-                            <div className="line2">退出登录</div>
-                        </Link>
+                        <div className="line">
+                            <img src={require("../image/del.png")}/>
+                            <Link to='/my/delrelation'>
+                                <div className="add">删除爱人</div>
+                            </Link>
+                        </div>
+                        <div className="line">
+                            <img src={require("../image/del.png")}/>
+                            <Link to='/my/delrelation2'>
+                                <div className="add">删除亲子</div>
+                            </Link>
+                        </div>
+                        <div className="line">
+                            <img src={require("../image/out.png")}/>
+                            <Link to='/menus'>
+                                <div className="add">退出登录</div>
+                            </Link>
+                        </div>
                     </div>
                 </div>
                 {/* 图片 */}
