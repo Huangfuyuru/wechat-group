@@ -35,7 +35,8 @@ export default class lover_home extends Component {
         .then(json=>{ 
             this.setState({
                 lover_id:json[0].id,
-                lover_name:json[0].name
+                lover_name:json[0].name,
+                cindex_src:json[0].background
             });
         })
     }
