@@ -52,9 +52,9 @@ app.get("/page", function(req, res, next) {
 })
 
 app.use('/login',login);
-// //imgs
-// var imgs = require('./routes/imgs');
-// app.use('/imgs',imgs);
+//imgs
+var imgs = require('./routes/imgs');
+app.use('/imgs',imgs);
 
 var img = require('./routes/img');
 app.use('/img',img);
