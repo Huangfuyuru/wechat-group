@@ -29,6 +29,7 @@ router.get('/',async function(req,res,next){
             msg:'传入的爱人lid有误'
         }
     }
+    res.json(data);
     
 });
 
@@ -49,16 +50,15 @@ router.post('/addDairy',async function(req,res,next){
             code:0,
             msg:data
         };
+        res.json(info);
     }else{
-        sinfo ={
+        info ={
             code :1,
             msg:'增加日记失败'
         };
+        res.json(info);
     }
     
-    //增加成功需要返回什么信息！
-    
-    res.json(data);
 });
 
 router.get('/delDairy',async function(){
@@ -78,6 +78,7 @@ router.get('/delDairy',async function(){
             code:1,
             msg:'删除日记失败'
         }
+        res.json(data);
     }
     
 })
