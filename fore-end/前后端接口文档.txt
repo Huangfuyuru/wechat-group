@@ -210,18 +210,18 @@ method：get
     背景墙：
     接口地址:http://localhost:3001/lover/changebackground?loverid= &background = 
     请求数据：爱人loverid  背景地址background
-    返回数据:{code：0/1}
+    返回数据:{code：0，msg:'更换背景成功'} / {code：1，msg:'更换背景失败'}
 
     云相册：（请求的所有id均为表名+id）
         接口地址：http://localhost:3001/lover/lpictures?loverid=
         请求数据：爱人loversid
         返回数据：需要该爱人的所有云相册loverPhotoListid，name，setdate（数组）
-            [{"id":2300002,"name":"一百天","setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
+           {code：0， msg：[{"id":2300002,"name":"一百天","setdate":"2019-11-26T16:00:00.000Z","lid":200001}] }
         点击具体相册：
             接口地址：http://localhost:3001/lover/lpictures/show?loverPhotoListid=
             请求数据：爱人具体相册loverPhotoListid
             返回数据：该爱人相册的照片loverPhotoid，照片地址imgurl
-                [{"id":2600002,"imgurl":"#","pid":2300001}]
+                {code：0，msg：[{"id":2600002,"imgurl":"#","pid":2300001}] }
 
         增加相册：
             接口地址：http://localhost:3001/lover/lpictures/lcpictures?loverid=&name=
