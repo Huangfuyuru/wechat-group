@@ -1,8 +1,11 @@
 const express = require('express'),
       router = express.Router(),
-      qs = require('querystring'),
-      url = require('url');
-const {lover} = require('../../database/dateMethod');//引入数据库
+      bodyParser = require("body-parser"),
+      lover =require('../../database/dateMethod');
+var info={}; //后端返回给前端的信息
+
+router.use(bodyParser.urlencoded({extended:true}));
+router.use(bodyParser.json());
 
 // 更换背景照片
 
@@ -16,7 +19,7 @@ router.get('/',async function(req,res,next){
     var data = await lover.loverBackgroundM.changeByid(text);
     if(data === 0 ){
         info={
-            code=0,
+            code:0,
             msg:'更换背景成功'
         }
         res.json(info);
@@ -25,6 +28,10 @@ router.get('/',async function(req,res,next){
             code:1,
             msg:'更换背景失败'
         }
+        res.json(info);
+
     }
     
 });
+
+module.exports = router;

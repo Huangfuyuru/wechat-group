@@ -13,7 +13,7 @@ const lovePictures = require('./lover/lovePictures'),
       loveSound = require('./lover/loveSound'),
       loveDinary = require('./lover/loveDinary'),
       loveList = require('./lover/loveList'),
-      loveSouvenir = require('./lover/loveSouvenir'),
+      loveSouvenir = require('./lover/loveSouvenir');
       loveBackground = require('./lover/changBack');
 
 
@@ -24,7 +24,7 @@ router.get('/',function(req,res,next){
               'Content-Length':'Buffer.byteLength(html)'
        });
        res.end(html);
-})
+});
       
 router.post('/',async function(req,res,next){
        console.log('uid',req.body.uid);

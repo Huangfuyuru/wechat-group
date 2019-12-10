@@ -3,7 +3,7 @@ const express = require('express'),
 var app =new express();
 var login = require('./routes/login');
 var register =require('./routes/register');
-var img = require('./routes/img');
+var img = require('./routes/img.js');
 var imgs= require('./routes/imgs')
 var voice = require('./routes/voice.js');
 var lover = require('./routes/lover');
@@ -30,7 +30,7 @@ app.get('/resign/confirm',function(req,res,next){
     });
     res.end(html);
 });
-
+*/
 app.get('/resign',function(req,res,next){
     var html=fs.readFileSync('./testing-yxd/message.html').toString('utf8');
     res.writeHead(200,{
@@ -39,7 +39,7 @@ app.get('/resign',function(req,res,next){
     });
     res.end(html);
 });
-*/
+
 
 
 // app.get('/lover/ldinary',function(req,res,next){
