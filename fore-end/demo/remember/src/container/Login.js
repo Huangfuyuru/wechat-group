@@ -34,13 +34,17 @@ export default class Login extends Component {
         }).then(res=>res.json())
         .then(json=>{
             // console.log(json)
+            localStorage.setItem('uid',JSON.stringify(json.id))
+            var uid = JSON.parse(localStorage.getItem('uid'));
+            console.log(uid)
             if(json.code==0){
                 this.props.history.push({
                     pathname:'/index/my',
                     state:{
-                        userid:json.id
+                        userid:uid
                     }
                 });
+                console.log(uid)
                 console.log('登录成功')
             }else{
                 this.setState({

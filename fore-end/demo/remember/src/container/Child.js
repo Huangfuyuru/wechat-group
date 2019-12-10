@@ -5,10 +5,11 @@ import {Link} from 'react-router-dom'
 export default class Child extends Component {
     constructor(props){
         super(props);
-        let a = this.props.location.state
-        console.log('孩子',this.props.location.state)
+        var uid = JSON.parse(localStorage.getItem('uid'));
+        // console.log('孩子',this.props.location.state)
         this.state={
-            uid:a.uid,
+            menu_count:0,
+            uid:uid,
             change_id:[],
             child_id:'',
             cindex_src:'',
@@ -27,7 +28,7 @@ export default class Child extends Component {
         }
     }
     componentDidMount(){
-        console.log('完成')
+        // console.log('完成')
         fetch(`http://localhost:3001/child`,{
             method:'POST',
             mode:'cors',
@@ -37,27 +38,34 @@ export default class Child extends Component {
             body:`uid=${this.state.uid}`
         }).then(res=>res.json())
         .then(json=>{
+            // console.log(json)
             this.setState({
                 child_id:json[0].id,
                 cindex_src:json[0].background
             });
         })
     }
-    componentDidUpdate(){
-        fetch(`http://localhost:3001/child`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`uid=${this.state.uid}`
-        }).then(res=>res.json())
-        .then(json=>{
-            this.setState({
-                child_id:json[0].id,
-                cindex_src:json[0].background
-            });
-        })
+    componentDidUpdate(prevProps,prevState){
+        if(prevState !== this.state){
+            console.log('现在',this.state)
+            console.log('之前',prevState)
+            // console.log('d')
+            // fetch(`http://localhost:3001/child`,{
+            //     method:'POST',
+            //     mode:'cors',
+            //     headers:{
+            //         'Content-Type':"application/x-www-form-urlencoded"
+            //     },
+            //     body:`uid=${this.state.uid}`
+            // }).then(res=>res.json())
+            // .then(json=>{
+            //     console.log('d')
+            //     this.setState({
+            //         // child_id:json[0].id,
+            //         // cindex_src:json[0].background
+            //     });
+            // })
+        }
     }
     upfile=()=>{
         var file=document.getElementById('img').files[0];
@@ -71,11 +79,35 @@ export default class Child extends Component {
         .then(res=>(this.setState({
             cindex_src:res.path
         },()=>{
-            console.log(this.state.cindex_src)
+            // console.log(this.state.cindex_src)
             fetch(`http://localhost:3001/child/changebackground?childsid=${this.state.child_id}&background=${this.state.cindex_src}`,{
             method:'GET',
         })}
         )))
+    }
+    changeChild=(e)=>{
+        console.log('e',e.target.value)
+        console.log('e',e.target.key)
+        this.setState({
+            child_id:e.target.key,
+            cindex_src:e.target.value
+        })
+        // ,()=>{
+        //     for(var i=0;i<this.state.change_id.length;i++){
+        //         if(this.state.child_id==this.state.change_id[i]){
+        //             this.setState({
+        //                 cindex_src:this.state.change_id[i].background
+        //             })
+        //         }
+        //     }
+        // })
+        // console.log('state',this.state.child_id)
+        // console.log('state',this.state.cindex_src)
+        var tag = document.getElementById('tag');
+        tag.style.display='none';
+        this.setState({
+            menu_count:this.state.menu_count+1
+        })
     }
     render() {
         return (
@@ -94,6 +126,31 @@ export default class Child extends Component {
                         fontWeight:'lighter'
                     }}
                     onClick={()=>{
+                        var tag = document.getElementById('tag');
+                        if(this.state.menu_count%2==0){
+                            console.log('进入')
+                            tag.style.display='block';
+                            fetch(`http://localhost:3001/child/change?usersid=${this.state.uid}`)
+                            .then(res=>res.json())
+                            .then(json=>{
+                                var array=[];
+                                for(var i=0;i<json.length;i++){
+                                    console.log(json[i]);
+                                    array[i]=json[i];
+                                }
+                                this.setState({
+                                    change_id:array
+                                })
+                                // console.log(json)
+                                // console.log(this.state.change_id)
+                            })
+                        }else{
+                            console.log('退出')
+                            tag.style.display='none';
+                        }
+                        this.setState({
+                            menu_count:this.state.menu_count+1
+                        });
                         console.log('切换亲子');
 
                     }} 
@@ -108,7 +165,13 @@ export default class Child extends Component {
                 >亲子</span></NavBar>
                 <div id="tag">
                     <div></div>
-                    <p>我是下拉菜单</p>
+                    <p>
+                        {
+                            this.state.change_id.map(item=>(
+                            <li key={item.id} value={item.background} onClick={this.changeChild}>{item.name}</li>
+                            ))
+                        }
+                    </p>
                 </div>
                 <div className='child_first'>                   
                     <span style={{
@@ -173,9 +236,6 @@ export default class Child extends Component {
                             </div>
                         ))
                     }
-                </div>
-                <div className='choosechild'>
-
                 </div>
             </div>
         )
