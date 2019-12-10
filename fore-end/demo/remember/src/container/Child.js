@@ -174,7 +174,6 @@ export default class Child extends Component {
                     letterSpacing:'3vw'
                 }}
                 >亲子</span></NavBar>
-<<<<<<< HEAD
                 <div id="tag">
                     <div></div>
                     <p>
@@ -185,8 +184,6 @@ export default class Child extends Component {
                         }
                     </p>
                 </div>
-=======
->>>>>>> a26256f4c0f42b7a3a8bee23c7291a9cd8e09635
                 <div className='child_first'>                   
                     <span style={{
                         zIndex:'10',
