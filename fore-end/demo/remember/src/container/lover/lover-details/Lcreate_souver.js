@@ -7,11 +7,23 @@ export default class Lcreate_souver extends Component {
     render() {
         return (
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
-            <NavBar style={{backgroundColor:"#FFBF2D",color:"white"}}
-         leftContent={[
-            <Link to="/lover/lsouvenir" style={{color:"white"}}><div className="iconfont icon-arror_left_blod" style={{ marginRight: '26px' }} /></Link>,
-           ]}
-            >新建纪念日</NavBar>
+            <NavBar 
+                 style={{
+                     background:'#FFBF2D',
+                     height:'8vh',
+                     color:'#fff',
+                     fontWeight:'bolder',
+                    }}
+                    mode="light"
+                    icon={'𡿨'}
+                    onLeftClick={() => this.props.history.push('/lover/lsouvenir')}
+                 ><span style={{
+                     color:'#fff',
+                     fontWeight:'bold',
+                     fontSize:'6vw',
+                     textIndent:'3vw',
+                     letterSpacing:'3vw'}}>新建纪念日</span>
+                </NavBar>
                   <div className="createsou-first">
                   <p >纪念日:</p>
                   <input  type="text" placeholder="please input"/>

@@ -62,6 +62,7 @@ export default class Ldairy extends Component {
                         <div style={{height:"40%",width:"94%",float:"left",margin:"0 0 0 3%"}}>
                         <img src={item.imgurl[0]}  alt="" style={{height:"100%",width:"48%",border:"solid 0.5px red" ,float:"left",marginLeft:"1%"}}></img>
                         <img src={item.imgurl[1]}  alt="" style={{height:"100%",width:"48%",border:"solid 0.5px red" ,float:"left",marginLeft:"1%"}}></img>
+                        
                         </div>
                         </div>
                      ))

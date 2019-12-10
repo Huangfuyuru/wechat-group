@@ -76,7 +76,13 @@ export default class lover_home extends Component {
     render() {
         return (
             <div style={{height:"100%",width:"100%"}}>
-                 <NavBar style={{backgroundColor:"#FFBF2D",color:"white"}}><span style={{
+                 <NavBar style={{
+                     width:'100%',
+                     zIndex:'11',
+                     position:'fixed',
+                     background:'#FFBF2D',
+                     height:'8vh',
+                }}><span style={{
                     fontWeight:'bold',
                     fontSize:'6vw',
                     textIndent:'3vw',
@@ -85,13 +91,14 @@ export default class lover_home extends Component {
                 >爱人</span></NavBar>
                   <div className='lover_first'>                   
                     <span style={{
-                        zIndex:'10',
-                        display:'inline-block',
-                        width:'100%',
-                        fontSize:'5vw',
-                        position:'relative',
-                        color:'#000',
-                        background:'rgb(255,191,45,0.3)'
+                         zIndex:'10',
+                         display:'inline-block',
+                         width:'100%',
+                         fontSize:'5vw',
+                         top:'8vh',
+                         position:'relative',
+                         color:'#000',
+                         background:'rgb(255,191,45,0.3)'
                     }}>轻触上传精选照片<input 
                     id='img'
                     onChange={this.upfile}                           
@@ -100,7 +107,10 @@ export default class lover_home extends Component {
                     capture="camera" 
                     name='uimage' 
                     /></span>
-                    <div>
+                    <div style={{
+                        marginTop:'8.8vh'
+                    }}
+                    >
                         <img 
                         src={this.state.cindex_src} alt='自定义照片墙'/>
                     </div>  
@@ -121,9 +131,6 @@ export default class lover_home extends Component {
                  <Link to ="/lover/llists"><button className="lover-button">恋爱清单</button></Link> 
                  <Link to ="/lover/lsouvenir"><button className="lover-button">纪念日</button></Link>    
                 </div>
-               
-            
-   
                 <div style={{paddingBottom:'9vh'}}>
                     {
                         this.state.cnews.map((cnews,idx)=>(
