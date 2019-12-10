@@ -3,10 +3,13 @@ import {Link} from 'react-router-dom';
 import { NavBar,Flex } from 'antd-mobile';
 import "../css/lover.css"
 export default class lover_home extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        console.log('爱人',this.props.location.state.uid)
         this.state={
-            cindex_src:"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3855483388,2908594882&fm=26&gp=0.jpg",
+            uid:this.props.location.state.uid,
+            lover_id:'',
+            cindex_src:"",
             cnews:[{
                 ctime:'现 在',
                 cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
@@ -16,29 +19,49 @@ export default class lover_home extends Component {
                 ctime:'刚 才',
                 cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
                 ccontent:'醒来觉得甚是爱你~'
-            }]
+            }],
         }
     }
-    componentWillUpdate(){
-        fetch('http://localhost:3001/lover')
-        .then((res)=>res.json())
-        .then((json)=>{
+    componentDidMount(){
+        fetch(`http://localhost:3001/lover`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`uid=${this.state.uid}`
+        })
+        .then(res=>res.json())
+        .then(json=>{ 
             this.setState({
-                child_id:json[0].id,
+                lover_id:json[0].id,
+                lover_name:json[0].name,
                 cindex_src:json[0].background
             });
         })
     }
-    componentDidUpdate(){
-        fetch('http://localhost:3001/lover')
-        .then((res)=>res.json())
-        .then((json)=>{
-            this.setState({
-                child_id:json[0].id,
-                cindex_src:json[0].background
-            });
-        })
-    }
+    // componentDidUpdate(Props){
+    //     console.log('props id',Props.location);
+    //     console.log('this id',this.state.uid)
+    //     if(Props.location.state.uid !== this.state.uid){
+    //         console.log()
+    //     fetch(`http://localhost:3001/lover`,{
+    //         method:'POST',
+    //         mode:'cors',
+    //         headers:{
+    //             'Content-Type':"application/x-www-form-urlencoded"
+    //         },
+    //         body:`uid=${this.state.uid}`
+    //     })
+    //     .then((res)=>res.json())
+    //     .then((json)=>{
+    //         this.setState({
+    //             lover_id:json[0].id,
+    //             lover_name:json[0].name
+    //         });
+    //     })
+    // }
+    // }
     upfile=()=>{
         var file=document.getElementById('img').files[0];
         var url = 'http://localhost:3001/img';
@@ -86,7 +109,14 @@ export default class lover_home extends Component {
                 <div className="lover-home-first">
                  <Link to ="/lover/lpictures"><button className="lover-button">云相册</button></Link>
                  <button className="lover-button">语音记事</button>
-                 <Link to ="/lover/ldairy"> <button className="lover-button">日记</button> </Link>
+                 <Link to =
+                 {{
+                    pathname:"/lover/ldairy",
+                    state:{
+                        lover_id:this.state.lover_id
+                    }
+                }}
+                 > <button className="lover-button">日记</button> </Link>
                  <p style={{float:"left",color:"white"}}>hhhhhh</p>
                  <Link to ="/lover/llists"><button className="lover-button">恋爱清单</button></Link> 
                  <Link to ="/lover/lsouvenir"><button className="lover-button">纪念日</button></Link>    
