@@ -8,7 +8,6 @@ export default class Delrelation extends Component {
         this.state={
             message:[{
                 msg1:'爱人1',
-                msg2:'爱人2'
             }]
         }
     }
@@ -45,10 +44,10 @@ export default class Delrelation extends Component {
                             </div>
                             <div className="two">
                                 <div className="line">
-                                    <label><input type="checkbox" name="checkfruit" value="three"/>{message.msg2}</label>
+                                    <label><input type="checkbox" name="checkfruit" value="three"/>{message.msg1}</label>
                                 </div>
                                 <div className="line">
-                                    <label><input type="checkbox" name="checkfruit" value="four"/>{message.msg2}</label>
+                                    <label><input type="checkbox" name="checkfruit" value="four"/>{message.msg1}</label>
                                 </div>
                             </div>
                         </div>

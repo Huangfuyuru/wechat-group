@@ -29,8 +29,20 @@ export default class Message extends Component {
                     }}
                     >消息反馈</span>
                 </NavBar>
-                <form method='post' action=''>
-                </form>
+                {/* <form method='post' action=''>
+                </form> */}
+                <div style={{marginTop:"20px"}} className="msg1">
+                    <img src={require('../../image/server.png')} />
+                    你好，请问有什么问题吗？
+                </div>
+                <div className="msg2">
+                    不能上传头像
+                    <img src={require('../../image/user.png')}/>
+                </div>
+                <div className="msg1">
+                    <img src={require('../../image/server.png')} />
+                    反馈已收到，尽快解决
+                </div>
             </div>
         )
     }
