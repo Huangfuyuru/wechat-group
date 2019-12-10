@@ -3,7 +3,8 @@ const express = require('express'),
 var app =new express();
 var login = require('./routes/login');
 var register =require('./routes/register');
-var img = require('./routes/img.js');
+var img = require('./routes/img');
+var imgs= require('./routes/imgs')
 var voice = require('./routes/voice.js');
 var lover = require('./routes/lover');
 
@@ -57,8 +58,11 @@ app.use('/login',login);
 //注册 
 app.use('/resign',register);
 
-//头像上传
+//单张头像上传
 app.use('/img',img);
+
+//多张图片上传
+app.use('/imgs',imgs)
 
 //音频上传
 app.use('/voice',voice);
