@@ -33,7 +33,7 @@ router.get('/',async function(req,res,next){
 });
 
 //增加日记
-router.post('/ldairy/addDairy',async function(req,res,next){
+router.post('/addDairy',async function(req,res,next){
     console.log(req.body);
     var id = req.body.loverid;
     var text ={
