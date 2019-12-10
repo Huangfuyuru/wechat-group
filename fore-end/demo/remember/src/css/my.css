@@ -5,60 +5,120 @@
     background-color: #fff;
     text-align: center;
 }
-.My_picture .one{
+.My_message{
     width:100%;
-    text-align: center;
+    height:100px;
+    margin-top:30px;
+    display:flex;
 }
-.My_picture .two{
-    width:100%;
-    text-align: center;
+.My_message .one{
+    width:40%;
+    text-align: right;
+}
+.My_message .one img{
+    width:50px;
+    height:50px;
+    margin-top:10%;
+    border:solid lightgray;
+}
+.My_message .two{
+    width:60%;
+    text-align:left;
+}
+.My_message .two p{
+    font-size:4vw;
+}
+.My_message .two span{
+    font-size:5vw;
+    font-weight: bold;
 }
 .My_body{
-    width:100%;
-    height:8vh;
-    line-height: 8vh;
-    font-size:5.5vw;
-    font-weight:bold;
-    text-align: center;
-    /* padding-top:1.5vh; */
+    width:80%;
+    height:230px;
+    margin-left:10%;
+    border:solid lightgray;
     display: flex;
-    border-bottom:solid Lightgray;
 }
-.Img{
-    width:9vw;
-    height:9vw;
-    float: right;
-    margin-top: 1.8vh;
-    margin-right: 5vw;
+.My_body .one{
+    width:50%;
+    height:300px;
 }
-.My_write{
-    width: 100%;
-    height:10vh;
-    font-size:8vw;
+.line{
+    width:90%;
+    height:30px;
+    margin-top: 15%;
+    margin-left: 10%;
+}
+.My_body img{
+    width:25px;
+    height:25px;
+    float: left;
+}
+.add{
+    width:80px;
+    height:25px;
+    margin-left:6%;
+    border:solid lightgray;
+    float: left;
+    font-size:4vw;
+    line-height: 6vw;
+}
+.My_body .two{
+    width:50%;
+    height:300px;
+}
+.My_bottom{
+    width:80%;
+    height:200px;
+    margin-left: 10%;
+    margin-top:5%;
+}
+.My_bottom img{
+    width:100%;
+    height:100%;
+    overflow: hidden;
+}
+/* 增加爱人 */
+.create_Relation{
+    width:80%;
+    height:40px;
+    margin-top: 20px;
+    padding-left:20%;
+    text-align: left;
+    font-size:4vw;
+}
+.relation_button{
+    width:200px;
+    height:45px;
+    margin-top:10%;
+    color:white;
     font-weight: bold;
-    padding-top:25px;
-    text-align: center;
+    font-size:5vw;
+    text-align:center;
+    background-color: #fff;
+    margin-top: 20px;
+    border:none;
+    background-color:#FFBF2D;
+    border-radius: 10px;
 }
-.My_count{
+/* 设置 */
+.img-up{
+    width:60%;
+    height:30px;
+    margin-top:5%;
+    margin-left:20%;
+    text-align:left;
+}
+.img-up .one{
+    z-index:10;
+    display:inline-block;
     width:100%;
-    height:8vh;
-    font-size:18px;
-    font-weight:bold;
-    text-align: center;
-    margin-top:15px;
-    line-height: 8vh;
-    /* padding-top:8px; */
-    display: flex;
-    border-radius: 5px;
-    background: #FFBF2D;
+    font-size:5vw;
+    position:relative;
+    color:#000;
+    background:rgb(255,191,45,0.3);
 }
-.My_count a{
-    /* text-decoration: none; */
-    width:100%;
-    text-align: center;
-    color:#fff;
-    font-size: 5vw;
-}
-.My_count button{
-    width: 100%;
+/* 删除 */
+body{
+    font-size:4.5vw;
 }

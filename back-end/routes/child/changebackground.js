@@ -9,8 +9,13 @@ router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var imgurl = request.background;
-    console.log('back')
-    var data = await childM.changeBackGroundById(imgurl,childsid);
+    console.log("childsid",childsid);
+    console.log("imgurl",imgurl)
+    var data = await childM.changeBackGroundById({
+        id:childsid,
+        background:imgurl
+    });
+    console.log(data)
     res.json({code:data})
 })
 

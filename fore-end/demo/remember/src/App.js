@@ -34,6 +34,14 @@ import Ccevent from './container/child/child_details/Ccevent'
 import Ccstudy from './container/child/child_details/Ccstudy'
 import Ccgrow from './container/child/child_details/Ccgrow'
 import Showevent from './container/child/child_details/Showevent'
+
+import Crelation from './container/my/Crelation'
+import Crelation2 from './container/my/Crelation2'
+import Delrelation from './container/my/Delrelation'
+import Delrelation2 from './container/my/Delrelation2'
+import message from './container/my/Message'
+import Use from './container/my/Use'
+
 function App() {
   return (
     <Router>
@@ -82,16 +90,16 @@ function App() {
       <Route path='/lover/lsouvenir' component={Lsouvenir}/>
       <Route path='/lover/lcsouvenir' component={LCsouvenir}/>
 
-
-
       <Route path='/index/friend' component={Friends}/>
+
+      {/* 我的 */}
       <Route path='/index/my' component={My}/>
-
-
-
-      
-      
-
+      <Route exact path='/my/crelation' component={Crelation}/>
+      <Route exact path='/my/crelation2' component={Crelation2}/>
+      <Route exact path='/my/delrelation' component={Delrelation}/>
+      <Route exact path='/my/delrelation2' component={Delrelation2}/>
+      <Route exact path='/my/use' component={Use}/>
+      <Route exact path='/my/message' component={message}/>
   </Router>
   );
 }

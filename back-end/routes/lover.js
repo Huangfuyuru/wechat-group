@@ -1,5 +1,6 @@
 const express = require('express'),
        router = express.Router(),
+       fs = require('fs'),
        bodyParser = require("body-parser");
        lover = require('../database/dateMethod');
 
@@ -12,14 +13,24 @@ const lovePictures = require('./lover/lovePictures'),
       loveSound = require('./lover/loveSound'),
       loveDinary = require('./lover/loveDinary'),
       loveList = require('./lover/loveList'),
-      loveSouvenir = require('./lover/loveSouvenir');
+      loveSouvenir = require('./lover/loveSouvenir'),
+      loveBackground = require('./lover/changBack');
 
 
+router.get('/',function(req,res,next){
+       var html=fs.readFileSync('./testing-yxd/loveDinary.html').toString('utf8');
+       res.writeHead(200,{
+              'Content-Type':'text/html;charset=UTF8',
+              'Content-Length':'Buffer.byteLength(html)'
+       });
+       res.end(html);
+})
       
-router.get('/',async function(req,res,next){
-
+router.post('/',async function(req,res,next){
+       console.log('uid',req.body.uid);
        var uid = req.body.uid;
        var data = await lover.loverM.findIdByUid(uid);
+       console.log(data);
        res.json(data);
 });
 
@@ -28,5 +39,6 @@ router.use('/lsound',loveSound);
 router.use('/ldairy',loveDinary);
 // router.use('/loveList',loveList);
 router.use('/lsouvenir',loveSouvenir);
+router.use('/changebackground',loveBackground);
 
 module.exports = router;

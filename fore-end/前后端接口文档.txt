@@ -200,7 +200,8 @@ method：get
             [{"id":3100002,"name":"叫爸爸","setdate":"2019-11-25T16:00:00.000Z","content":"今天小明第一次叫妈妈","imgurl":["#1","#2","#3"],"cid":300003}]
 
 10.爱人（返回的数据有时候会比需要的多，挑需要的，所有本地图片，语音上传先传文件，然后用返回的地址）
-接口地址：http://localhost:3001/lover?uid=
+接口地址：http://localhost:3001/lover
+请求方式：post
 发送数据：uid
 返回数据：该用户爱人id，name
     
@@ -209,18 +210,18 @@ method：get
     背景墙：
     接口地址:http://localhost:3001/lover/changebackground?loverid= &background = 
     请求数据：爱人loverid  背景地址background
-    返回数据:{code：0/1}
+    返回数据:{code：0，msg:'更换背景成功'} / {code：1，msg:'更换背景失败'}
 
     云相册：（请求的所有id均为表名+id）
         接口地址：http://localhost:3001/lover/lpictures?loverid=
         请求数据：爱人loversid
         返回数据：需要该爱人的所有云相册loverPhotoListid，name，setdate（数组）
-            [{"id":2300002,"name":"一百天","setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
+           {code：0， msg：[{"id":2300002,"name":"一百天","setdate":"2019-11-26T16:00:00.000Z","lid":200001}] }
         点击具体相册：
             接口地址：http://localhost:3001/lover/lpictures/show?loverPhotoListid=
             请求数据：爱人具体相册loverPhotoListid
             返回数据：该爱人相册的照片loverPhotoid，照片地址imgurl
-                [{"id":2600002,"imgurl":"#","pid":2300001}]
+                {code：0，msg：[{"id":2600002,"imgurl":"#","pid":2300001}] }
 
         增加相册：
             接口地址：http://localhost:3001/lover/lpictures/lcpictures?loverid=&name=
@@ -252,16 +253,16 @@ method：get
         请求数据：爱人loversid
         返回数据：要该爱人的语音name、语音文件地址voiceurl，创建日期setdate，语音id
             [{"id":2200002,"name":"sad","voiceurl":"#","setdate":"2019-11-26T16:00:00.000Z","lid":200001}](lid是爱人id)
+
         增加语音：（先把文件上传，然后再用返回的语音地址）
             method（http请求方式）：post
             接口地址：http://localhost:3000/lover/lsound/lcsound
             提交数据: 
                         voiceurl= & name= & loverid=
-            返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音id
+            返回数据：该爱人的语音name、语音文件地址voiceurl，创建日期setdate，语音id
                 [{"id":2200002,"name":"sad","voiceurl":"#","setdate":"2019-11-26T16:00:00.000Z","lid":200001}](lid是爱人id)
 
         删除语音：
-            method（http请求方式）：post
             接口地址：http://localhost:3001/lover/lsound/lrsound？loverid = &  loverVoiceid
             提交数据: 爱人loverid 语音的loverVoiceid
             返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音id
@@ -277,7 +278,7 @@ method：get
        //暂时先什么都返回 
        增加纪念日：
             method（http请求方式）：post
-            接口地址：http://localhost:3000/lover/lsouvenir/lcsouvenir
+            接口地址：http://localhost:3001/lover/lsouvenir/lcsouvenir
             提交数据: 纪念日名称name，内容content，图片地址imgurl，标签item，提醒日期date，铃声地址voiceurl，爱人loverid
                     item= & name= & imgurl= & content= &item = &loverid =& date（格式类似这个）
             返回数据:
@@ -285,8 +286,8 @@ method：get
                 [{"id":2700001,"name":"生日","content":"一起吃饭","imgurl":"#","item":["纪念日"],"setdate":"2019-11-26T16:00:00.000Z","date":"2019-05-02T06:00:00.000Z","voiceurl":"#","lid":200001}]
 
         删除纪念日：
-            接口地址：http://localhost:3001/child/lsouvenir/lrsouvenir？loversid = &  loverImpDateid=
-            提交数据: 爱人loverImpDateid 纪念日loverImpDateid
+            接口地址：http://localhost:3001/lover/lsouvenir/delSouvenir？loverid = &  loverImpDateid=
+            提交数据: 爱人loverid 纪念日loverImpDateid
             返回数据：
                 (具体是什么属性看数据库表)
                 [{"id":2700001,"name":"生日","content":"一起吃饭","imgurl":"#","item":["纪念日"],"setdate":"2019-11-26T16:00:00.000Z","date":"2019-05-02T06:00:00.000Z","voiceurl":"#","lid":200001}]

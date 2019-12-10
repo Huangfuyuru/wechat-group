@@ -114,9 +114,9 @@ async function changeById(id,text){
  * @param {*} background
  * @returns
  */
-async function changeBackGroundById(id,background){
+async function changeBackGroundById(text){
     let sql = 'update childs set background=$1 where id = $2'
-    let ret = await pgdb.query(sql,[background,id]);
+    let ret = await pgdb.query(sql,[text.background,text.id]);
     if(ret.rowCount<=0){
         return 1
     }else{

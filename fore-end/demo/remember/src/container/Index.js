@@ -11,8 +11,9 @@ import Friends from "./Friends"
 export default class Child_index extends Component {
     constructor(props) {
         super(props);
+        var uid = JSON.parse(localStorage.getItem('uid'));
         this.state = {
-          userid:this.props.location.state.userid,
+          userid:uid,
           cpic:'',
           lpic:'',
           cid:'',
@@ -20,7 +21,7 @@ export default class Child_index extends Component {
         };
         // console.log(this.props.location)
         // console.log(this.props.location.state)
-        console.log(this.state.userid)
+        // console.log(this.state.userid)
       }
     // componentDidMount(){
     //     fetch('http://localhost:3001/login')
@@ -42,12 +43,12 @@ export default class Child_index extends Component {
             tabs[i].classList.remove('active');
         };
         e.target.classList.add('active');
-        console.log(e.target.className);
+        // console.log(e.target.className);
     }
     getMessage=(e)=>{
         var eid=e.target.id;
-        console.log(e.target.id);
-        console.log('id:',this.state.userid);
+        // console.log(e.target.id);
+        // console.log('id:',this.state.userid);
         fetch(`http://localhost:3001/${eid}`,{
             method:'POST',
             mode:'cors',
@@ -57,12 +58,12 @@ export default class Child_index extends Component {
             body:`uid=${this.state.userid}`
         }).then(res=>res.json())
         .then(json=>{
-            console.log(json);
-            console.log(json[0].background);
-            console.log(json[0].id);
+            // console.log(json);
+            // console.log(json[0].background);
+            // console.log(json[0].id);
             switch(eid){
                 case 'child':
-                    console.log('eid')
+                    // console.log('eid')
                     this.setState({
                         cid:json[0].id,
                         cpic:json[0].background
@@ -75,13 +76,13 @@ export default class Child_index extends Component {
                     })
                     break;
                 default:
-                    console.log(`this is ${eid}`);
+                    // console.log(`this is ${eid}`);
                     break;
             }
         })
     }
     render() {
-        console.log('cid',this.state.cid)
+        // console.log('cid',this.state.cid)
         return (
             <div className='index'>
                 <div>
@@ -109,8 +110,7 @@ export default class Child_index extends Component {
                     to={{
                         pathname:'/index/lover',
                         state:{
-                            lid:this.state.lid,
-                            lpic:this.state.lpic
+                            uid:this.state.userid
                         }
                     }}
                     >

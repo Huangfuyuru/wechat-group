@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
 import {Link} from 'react-router-dom';
-
 import '../css/my.css'
+
 export default class My extends Component {
     constructor(){
         super();
         this.state={
             message:[{
-                msg1:'微微一笑',
+                msg1:'Dior',
                 msg2:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3183274783,1271682948&fm=26&gp=0.jpg',
                 msg3:'女',
-                msg4:'计算机/互联网',
-                msg5:256
+                msg4:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg'
             }]
         }
     }
@@ -25,7 +24,6 @@ export default class My extends Component {
                         height:'8vh'
                     }}
                     mode="light"
-                    onLeftClick={() => this.props.history.push('/Cstudy')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
@@ -38,65 +36,81 @@ export default class My extends Component {
                 {/* 个人信息 */}
                 {
                     this.state.message.map((message)=>(
-                        <div className="My_body">
-                            <div style={{width:"250px"}}><img className="Img" src={require("../image/love.png")}/></div>
-                            <div style={{width:"150px",textAlign:"left"}}>昵称:</div>
-                            <div style={{width:"100%",textAlign:"left"}}>{message.msg1}</div>
-                        </div>
-                    ))
-                }
-                {
-                    this.state.message.map((message)=>(
-                        <div className="My_body">
-                            <div style={{width:"250px"}}><img className="Img" src={require("../image/sex.png")}/></div>
-                            <div style={{width:"150px",textAlign:"left"}}>头像:</div>
-                            <div style={{width:"100%",textAlign:"left"}}>
-                                <img style={{wdith:"30px",height:"40px"}} src={message.msg2}/>
+                        <div className="My_message">
+                            <div className="one">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <img src={message.msg2}/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div className="two">
+                                <p>
+                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名:&nbsp;&nbsp;&nbsp;
+                                    <span>{message.msg1}</span>
+                                </p>
+                                <p>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别:&nbsp;&nbsp;&nbsp;
+                                    <span>{message.msg3}</span>
+                                </p>
                             </div>
                         </div>
                     ))
                 }
-                {
-                    this.state.message.map((message)=>(
-                        <div className="My_body">
-                            <div style={{width:"250px"}}><img className="Img" src={require("../image/work2.png")}/></div>
-                            <div style={{width:"150px",textAlign:"left"}}>性别:</div>
-                            <div style={{width:"100%",textAlign:"left"}}>{message.msg3}</div>
+                <div className="My_body">
+                    <div className="one">
+                        <div className="line">
+                            <img style={{width:"28px",height:"28px"}} src={require("../image/a-love.png")}/>
+                            <Link to='/my/crelation'>
+                                <div className="add">&nbsp;增加爱人&nbsp;</div>
+                            </Link>
                         </div>
-                    ))
-                }
-                {
-                    this.state.message.map((message)=>(
-                        <div className="My_body">
-                            <div style={{width:"250px"}}><img className="Img" src={require("../image/work.png")}/></div>
-                            <div style={{width:"150px",textAlign:"left"}}>职业:</div>
-                            <div style={{width:"100%",textAlign:"left"}}>{message.msg4}</div>
+                        <div className="line">
+                            <img style={{width:"30px",height:"30px"}} src={require("../image/a-child.png")}/>
+                            <Link to='/my/crelation2'>
+                                <div className="add">&nbsp;增加亲子&nbsp;</div>
+                            </Link>                        
                         </div>
-                    ))
-                }
-                {
-                    this.state.message.map((message)=>(
-                        <div className="My_body">
-                            <div style={{width:"250px"}}><img className="Img" src={require("../image/time.png")}/></div>
-                            <div style={{width:"180px",textAlign:"left"}}>已使用:</div>
-                            <div style={{width:"100%",textAlign:"left"}}>{message.msg5}天</div>
+                        <div className="line">
+                            <img src={require("../image/a-message.png")}/>
+                            <Link to='/my/message'>
+                               <div style={{marginLeft:"8%"}} className="add">&nbsp;消息反馈&nbsp;</div>
+                            </Link>                        
                         </div>
-                    ))
-                }
-                {/* 我的记录 */}
-                <div className="My_write">
-                    我的记录
+                        <div className="line">
+                            <img src={require("../image/a-use.png")}/>
+                            <Link to='/my/use'>
+                                <div style={{marginLeft:"8%"}} className="add">&nbsp;设&nbsp;置&nbsp;</div>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="two">
+                        <div className="line">
+                            <img src={require("../image/del.png")}/>
+                            <Link to='/my/delrelation'>
+                                <div className="add">删除爱人</div>
+                            </Link>
+                        </div>
+                        <div className="line">
+                            <img src={require("../image/del.png")}/>
+                            <Link to='/my/delrelation2'>
+                                <div className="add">删除亲子</div>
+                            </Link>
+                        </div>
+                        <div className="line">
+                            <img src={require("../image/out.png")}/>
+                            <Link to='/menus'>
+                                <div className="add">退出登录</div>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
-                {/* <form method='post' action=''> */}
-                    <div className="My_count">
-                        <Link >亲子记录</Link>
-                        {/* <button type="submit">亲子记录</button> */}
-                    </div>
-                    <div className="My_count">
-                        <Link>爱人记录</Link>
-                        {/* <button type="submit">爱人记录</button> */}
-                    </div>
-                {/* </form> */}
+                {/* 图片 */}
+                {
+                    this.state.message.map((message)=>(
+                        <div className="My_bottom">
+                            <img src={message.msg4} />
+                        </div>
+                    ))
+                }
             </div>
         )
     }

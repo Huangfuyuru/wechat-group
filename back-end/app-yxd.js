@@ -3,7 +3,8 @@ const express = require('express'),
 var app =new express();
 var login = require('./routes/login');
 var register =require('./routes/register');
-var img = require('./routes/img.js');
+var img = require('./routes/img');
+var imgs= require('./routes/imgs')
 var voice = require('./routes/voice.js');
 var lover = require('./routes/lover');
 
@@ -50,14 +51,6 @@ app.get('/resign',function(req,res,next){
 //     res.end(html);
 // })
 
-// app.get('/lover/lsouvenir',function(req,res,next){
-//     var html=fs.readFileSync('./testing-yxd/loveDinary.html').toString('utf8');
-//     res.writeHead(200,{
-//         'Content-Type':'text/html;charset=UTF8',
-//         'Content-Length':'Buffer.byteLength(html)'
-//     });
-//     res.end(html);
-// })
 
 //登录
 app.use('/login',login);
@@ -65,8 +58,11 @@ app.use('/login',login);
 //注册 
 app.use('/resign',register);
 
-//头像上传
+//单张头像上传
 app.use('/img',img);
+
+//多张图片上传
+app.use('/imgs',imgs)
 
 //音频上传
 app.use('/voice',voice);

@@ -5,10 +5,10 @@ import {Link} from 'react-router-dom'
 export default class Child extends Component {
     constructor(props){
         super(props);
-        let a = this.props.location.state
-        console.log('孩子',this.props.location.state)
+        var uid = JSON.parse(localStorage.getItem('uid'));
         this.state={
-            uid:a.uid,
+            menu_count:0,
+            uid:uid,
             change_id:[],
             child_id:'',
             cindex_src:'',
@@ -27,37 +27,51 @@ export default class Child extends Component {
         }
     }
     componentDidMount(){
-        console.log('完成')
-        fetch(`http://localhost:3001/child`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`uid=${this.state.uid}`
-        }).then(res=>res.json())
-        .then(json=>{
-            this.setState({
-                child_id:json[0].id,
-                cindex_src:json[0].background
-            });
-        })
+        // console.log('完成')
+        // fetch(`http://localhost:3001/child`,{
+        //     method:'POST',
+        //     mode:'cors',
+        //     headers:{
+        //         'Content-Type':"application/x-www-form-urlencoded"
+        //     },
+        //     body:`uid=${this.state.uid}`
+        // }).then(res=>res.json())
+        // .then(json=>{
+        //     // console.log(json)
+        //     this.setState({
+        //         child_id:json[0].id,
+        //         cindex_src:json[0].background
+        //     });
+        // })
     }
-    componentDidUpdate(){
-        fetch(`http://localhost:3001/child`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`uid=${this.state.uid}`
-        }).then(res=>res.json())
-        .then(json=>{
-            this.setState({
-                child_id:json[0].id,
-                cindex_src:json[0].background
-            });
-        })
+    componentDidUpdate(prevProps,prevState){
+        if(prevState !== this.state){
+            console.log('BJ',this.state.cindex_src)
+            fetch(`http://localhost:3001/child/changebackground?childsid=${this.state.child_id} &background = ${this.state.cindex_src}`)
+            .then(res=>res.json)
+            .then(json=>{
+                console.log('json',json)
+                // console.log(this.state.cindex_src)
+            })
+            console.log('现在',this.state)
+            console.log('之前',prevState)
+            // console.log('d')
+            // fetch(`http://localhost:3001/child`,{
+            //     method:'POST',
+            //     mode:'cors',
+            //     headers:{
+            //         'Content-Type':"application/x-www-form-urlencoded"
+            //     },
+            //     body:`uid=${this.state.uid}`
+            // }).then(res=>res.json())
+            // .then(json=>{
+            //     console.log('d')
+            //     this.setState({
+            //         // child_id:json[0].id,
+            //         // cindex_src:json[0].background
+            //     });
+            // })
+        }
     }
     upfile=()=>{
         var file=document.getElementById('img').files[0];
@@ -67,26 +81,43 @@ export default class Child extends Component {
         fetch(url,{
             method:'POST',
             body:form
-        }).then(res=>res.json())
-        .then(res=>(this.setState({
+        })
+        .then(res=>res.json())
+        .then(res=>(
+            console.log(res.path),
+            this.setState({
             cindex_src:res.path
-        },()=>{
-            console.log(this.state.cindex_src)
-            fetch(`http://localhost:3001/child/changebackground?childsid=${this.state.child_id}&background=${this.state.cindex_src}`,{
-            method:'GET',
-            // mode:'cors',
-            // headers:{
-            //     'Content-Type':"application/x-www-form-urlencoded"
-            // },
-            // fetch(`http://localhost:3001/child/changebackground`,{
-            // method:'POST',
-            // mode:'cors',
-            // headers:{
-            //     'Content-Type':"application/x-www-form-urlencoded"
-            // },
-            // body:`childsid=${this.state.child_id}&background=${this.state.cindex_src}`
-        })}
-        )))
+        },console.log('POST',this.state.cindex_src))
+        ))
+        
+    }
+    changeChild=(e)=>{
+        // this.setState({
+        //     child_id:e.target.key,
+        //     cindex_src:e.target.value
+        // })
+        console.log('li',e.target)
+        // console.log(this.state.change_id)
+        console.log('value',e.target.value)
+        console.log('id',e.target.id)
+        // console.log('e',e.target.value[0])
+        // console.log('e',e.target.value[1])
+        // ,()=>{
+        //     for(var i=0;i<this.state.change_id.length;i++){
+        //         if(this.state.child_id==this.state.change_id[i]){
+        //             this.setState({
+        //                 cindex_src:this.state.change_id[i].background
+        //             })
+        //         }
+        //     }
+        // })
+        // console.log('state',this.state.child_id)
+        // console.log('state',this.state.cindex_src)
+        var tag = document.getElementById('tag');
+        tag.style.display='none';
+        this.setState({
+            menu_count:this.state.menu_count+1
+        })
     }
     render() {
         return (
@@ -105,7 +136,32 @@ export default class Child extends Component {
                         fontWeight:'lighter'
                     }}
                     onClick={()=>{
-                        console.log('切换亲子')
+                        var tag = document.getElementById('tag');
+                        if(this.state.menu_count%2==0){
+                            console.log('进入')
+                            tag.style.display='block';
+                            fetch(`http://localhost:3001/child/change?usersid=${this.state.uid}`)
+                            .then(res=>res.json())
+                            .then(json=>{
+                                var array=[];
+                                for(var i=0;i<json.length;i++){
+                                    array[i]=json[i];
+                                }
+                                this.setState({
+                                    change_id:array
+                                })
+                                // console.log(json)
+                                // console.log(this.state.change_id)
+                            })
+                        }else{
+                            console.log('退出')
+                            tag.style.display='none';
+                        }
+                        this.setState({
+                            menu_count:this.state.menu_count+1
+                        });
+                        console.log('切换亲子');
+
                     }} 
                     key="1" type="ellipsis" />,
                     ]}
@@ -116,6 +172,17 @@ export default class Child extends Component {
                     letterSpacing:'3vw'
                 }}
                 >亲子</span></NavBar>
+                <div id="tag">
+                    <div></div>
+                    <p>
+                        {
+                            this.state.change_id.map((item,idx)=>(
+                            <li key={idx} id={item.id} value={item.background} 
+                            onClick={this.changeChild}>{item.name}</li>
+                            ))
+                        }
+                    </p>
+                </div>
                 <div className='child_first'>                   
                     <span style={{
                         zIndex:'10',
@@ -179,9 +246,6 @@ export default class Child extends Component {
                             </div>
                         ))
                     }
-                </div>
-                <div className='choosechild'>
-
                 </div>
             </div>
         )
