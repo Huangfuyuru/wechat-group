@@ -7,21 +7,43 @@ export default class Crelation extends Component {
         super(props);
         var uid = JSON.parse(localStorage.getItem('uid'));
         this.state={
-            name:"s",
-            ldate:"2019",
-            gender:"女",
+            name:'',
+            ldate:'',
+            gender:'',
             uid:uid,
             loverid:''
         }
     }
-    componentDidMount(){
+    inputChange1=(e)=>{
+        var a=e.target.value;
+        this.setState({
+            name:a
+        })
+        console.log(this.state.name)
+    }
+    inputChange2=(e)=>{
+        var a=e.target.value;
+        this.setState({
+            ldate:a
+        })
+        console.log(this.state.ldate)
+    }
+    inputChange3=(e)=>{
+        var a=e.target.value;
+        this.setState({
+            gender:a
+        })
+        console.log(this.state.gender)
+    }
+    Finally=()=>{
+        console.log(this.state.name,this.state.birthday,this.state.gender,this.state.uid)
         fetch(`http://localhost:3001/my/addlover`,{
             method:'POST',
             mode:'cors',
             headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`loverid=${this.state.loverid}`
+            body:`name=${this.state.name}&ldate=${this.state.ldate}&gender=${this.state.gender}&uid=${this.state.uid}`
         }).then(res=>res.json())
         .then(json=>{
             console.log(json)
@@ -29,24 +51,6 @@ export default class Crelation extends Component {
                 loverid:json[0].loverid
             });
         })
-    }
-    componentDidUpdate(prevProps,prevState){
-        if(prevState !== this.state){
-            console.log('BJ',this.state.cindex_src)
-            console.log('id',this.state.child_id)
-            fetch(`http://localhost:3001/my/addlover`,{
-                method:'POST',
-                mode:'cors',
-                headers:{
-                    'Content-Type':"application/x-www-form-urlencoded"
-                },
-                body:`name=${this.state.name}&ldate=${this.state.ldate}&gender=${this.state.ldate}&uid=${this.state.uid}`
-            })
-            .then(res=>res.json())
-            .then(json=>(
-                console.log(json)
-            ))
-        }
     }
     render(){
         return(
@@ -71,18 +75,18 @@ export default class Crelation extends Component {
                 <form method='post' action=''>
                     <div className="create_Relation">
                         对方昵称：&nbsp;
-                        <input className="one" type="text" placeholder="单行输入"></input>
+                        <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="单行输入"></input>
                     </div>
                     <div className="create_Relation">
                         关系确认日期：&nbsp;
-                        <input className="one" type="text" placeholder="单行输入"></input>
+                        <input onChange={(e)=>this.inputChange2(e)} className="one" type="text" placeholder="请输入汉字"></input>
                     </div>
                     <div className="create_Relation">
                         对方性别：&nbsp;
-                        <input className="one" type="text" placeholder="单行输入"></input>
+                        <input onChange={(e)=>this.inputChange3(e)} className="one" type="text" placeholder="女/男"></input>
                     </div>
                     <Link to="/index/my">
-                        <button type="submit" className="relation_button">创建关系</button>
+                        <button onClick={()=>this.Finally} className="relation_button">创建关系</button>
                     </Link>
                 </form>
             </div>

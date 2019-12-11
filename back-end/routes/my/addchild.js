@@ -13,10 +13,14 @@ router.use(bodyParser.json());
 //点击增加亲子
 //亲子name，出生日期birthday，性别gender，用户uid
 router.post('/',async function(req,res,next){
+    console.log('xxxxxxx')
     var name = req.body.name;
     var birthday = req.body.birthday;
     var gender = req.body.gender;
     var uid = req.body.uid;
+    console.log(req.body)
+    console.log(birthday);
+    console.log(name)
     var result = await childM.addChild({
         name:name,
         birthday:birthday,
@@ -24,13 +28,11 @@ router.post('/',async function(req,res,next){
         uid:uid
     })
     if(result === 0){
-        var data = await childM.findById(uid);
-        info = {code:0,msg:data}
-        console.log('添加亲子后查看所有信息',await childM.findAll())
-        res.json(data)
-
+        info = {code:0,msg:"添加成功"}
+        res.json(info)
     }else{
-        info = {code:1,msg:"添加亲子失败"}
+        info = {code:1,msg:"添加失败"};
+        res.json(info)
     }
     
 })

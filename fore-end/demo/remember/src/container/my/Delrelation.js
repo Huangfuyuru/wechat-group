@@ -11,29 +11,42 @@ export default class Delrelation extends Component {
         list:['你好'],
         name:''
     }
+  }
+  componentDidMount(){
+    fetch(`http://localhost:3001/my/dellover?uid=${this.state.uid}`)
+    .then(res=>res.json())
+    .then(json=>{ 
+        this.setState({
+            list:[json[0].loverid]
+        });
+    })
+  }
+  componentDidMount(){
+    fetch(`http://localhost:3001/my/dellover/confirm?uid=${this.state.uid}`)
+    .then(res=>res.json())
+    .then(json=>{ 
+        this.setState({
+            a:json[0].code
+        });
+    })
 }
-// componentDidMount(){
-//     fetch(`http://localhost:3001/my/dellover`)
-//     .then(res=>res.json())
-//     .then(json=>{ 
-//         console.log("shzu",json)
-//         this.setState({
-//             name:json[0].name,
-//             // json[0].loverid
-//             list:['你还']
-//         });
-//         console.log(this.state.list);
-//     })
-// }
-    del(index){
-      //展开数组
-      var list = [...this.state.list]
-      //删除元素
-      list.splice(index,1)
-      this.setState({
-        list:list
-      })
-    }
+  del(index){
+    //展开数组
+    var list = [...this.state.list]
+    //删除元素
+    list.splice(index,1)
+    this.setState({
+      list:list
+    })
+  }
+  bounce=(index)=>{
+    // 弹出选择框
+    this.state.a=index;
+    console.log(index);
+    var lwarn=document.getElementById('lwarn');
+    var btn1=document.getElementById('btn1');
+    lwarn.style.display='block';
+  }
     render(){
         return(
             <div className="All">
@@ -58,9 +71,47 @@ export default class Delrelation extends Component {
             <div>
                 {
                   this.state.list.map((ele,index)=>{
-                      return <div className="new" key={index} >{ele}<button onClick={this.del.bind(this,index)}>删除</button></div>
+                      return <div className="new" key={index} >{ele}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
                   })
                 }
+              </div>
+              <div id='lwarn'>
+                <div>请再次确认</div>
+                  <button 
+                  id="btn1"
+                  onClick={(index)=>{
+                      var warn=document.getElementById('lwarn');
+                      warn.style.display='none';
+                      this.del();
+                  }}
+                  style={{
+                    width:'25%',
+                    height:'15%',
+                    color:'#FFBF2D',
+                    border:'none',
+                    marginTop:'2vh',
+                    background:'#fff',
+                    borderRadius:'5px',
+                    fontSize:'6vw'
+                  }}>确定</button>
+                <button 
+                id="btn1"
+                onClick={()=>{
+                    var warn=document.getElementById('lwarn');
+                    warn.style.display='none';
+                    
+                }}
+                style={{
+                  width:'25%',
+                  height:'15%',
+                  color:'#FFBF2D',
+                  border:'none',
+                  marginTop:'2vh',
+                  marginLeft:'2vh',
+                  background:'#fff',
+                  borderRadius:'5px',
+                  fontSize:'6vw'
+                }}>取消</button>
               </div>
           </div>
         )
