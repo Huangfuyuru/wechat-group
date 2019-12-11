@@ -1,6 +1,8 @@
 const express = require('express'),
     router = express.Router(),
     bodyParser = require('body-parser'),
+    qs = require('querystring'),
+      url = require('url'),
     lover = require('../../database/dateMethod');
 var info ={};//返回给前端的数据
 
@@ -16,13 +18,14 @@ router.get('/',async function(req,res,next){
     console.log('点击日记')
     var id = req.query.loverid;
     console.log('loverid',id);
-    var data =await lover.loverDiaryM.findByPid(id);
+    console.log('查看日记所有信息',await lover.loverDiaryM.findAll());
+    var data =await lover.loverDiaryM.findByLid(id);
     if(data !== 1){
         info ={
             code:0,
             msg:data
         }
-        console.log(info);
+        console.log('点击日记前端返回',info);
         res.json(info);
     }else{
         info ={
@@ -46,7 +49,7 @@ router.post('/addDairy',async function(req,res,next){
     }
     console.log('addDairy',addDairy);
     if(addDairy ===0){
-        // var data =await lover.loverDiaryM.findByPid(id);
+        // var data =await lover.loverDiaryM.findByLid(id);
         info = {
             code:0,
             msg:data
@@ -71,21 +74,21 @@ router.get('/delDairy',async function(req,res,next){
     console.log(delDairy);
     
     if(delDairy === 0 ){
-        var data =await lover.loverDiaryM.findByPid(lid);
+        var data =await lover.loverDiaryM.findByLid(lid);
         info ={
             code:0,
             msg:data
         };
         console.log('删除后查看日记所有信息',await lover.loverDiaryM.findAll());
-        res.json(data);
+        res.json(info);
     }else{
         info={
             code:1,
             msg:'删除日记失败'
         }
-        res.json(data);
+        console.log(info)
+        res.json(info);
     }
-    console.log()
 })
 
 module.exports = router;

@@ -40,7 +40,7 @@ async function findAll(){
  * @returns
  */
 async function delLoverDiary(id){
-    let sql = 'delete from childPhoto where id = $1';
+    let sql = 'delete from loverdiary where id = $1';
     let ret = await pgdb.query(sql,[id]);
     if(ret.rowCount<=0){
         return 1
@@ -55,7 +55,7 @@ async function delLoverDiary(id){
  * @param {int} lid
  * @returns 所有爱人日记的内容
  */
-async function findByPid(lid){
+async function findByLid(lid){
     let sql = 'select * from loverDiary where lid = $1';
     let ret = await pgdb.query(sql,[lid]);
     if(ret.rowCount<=0){
@@ -87,8 +87,8 @@ async function findById(id){
  * @param {int} lid
  * @returns 返回id
  */
-async function findIdByPid(lid){
-    let sql = 'select id from loverDiary where pid = $1';
+async function findIdByLid(lid){
+    let sql = 'select id from loverDiary where lid = $1';
     let ret = await pgdb.query(sql,[lid]);
     if(ret.rowCount<=0){
         return 1
@@ -119,6 +119,6 @@ async function changeById(id,text){
 }
 
 var loverDiaryM = {
-    addLoverDiary,delLoverDiary,findAll,findById,findByPid,findIdByPid,changeById
+    addLoverDiary,delLoverDiary,findAll,findById,findByLid,findIdByLid,changeById
 }
 module.exports = loverDiaryM;

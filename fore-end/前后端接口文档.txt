@@ -271,8 +271,8 @@ method：get
 
 
     纪念日：
-        接口地址：http://localhost:3001/lover/lsouvenir?loversid=
-        请求数据：爱人loversid
+        接口地址：http://localhost:3001/lover/lsouvenir?loverid=
+        请求数据：爱人loverid
         返回数据：
             (具体是什么属性看数据库表)
             [{"id":2700001,"name":"生日","content":"一起吃饭","imgurl":"#","item":["纪念日"],"setdate":"2019-11-26T16:00:00.000Z","date":"2019-05-02T06:00:00.000Z","voiceurl":"#","lid":200001}]
