@@ -41,7 +41,7 @@ export default class growAdd extends Component {
             headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`length=${this.state.height}&weight=${this.state.weight}&age=${this,this.state.age}&childsid=${this.state.cid}`
+            body:`length=${this.state.height}&weight=${this.state.weight}&age=${this.state.age}&childsid=${this.state.cid.cid}`
         }).then(res=>res.json())
         .then(json=>{
             this.setState({
@@ -94,16 +94,36 @@ export default class growAdd extends Component {
                     </div>
 
                     <button onClick={this.buttonPost}>添加记录</button>
-
-                    <div id='addwarn'>
+                    <form id='addwarn'>
                         <div>{this.state.code}</div>
                         <button 
                         onClick={()=>{
                             var addwarn=document.getElementById('addwarn');
                             addwarn.style.display='none';
+                            this.props.history.push('/child/cgrowup');
                         }}
                         style={{
-                            width:'25%',
+                            width:'35%',
+                            height:'15%',
+                            color:'#FFBF2D',
+                            border:'none',
+                            marginTop:'2vh',
+                            background:'#fff',
+                            borderRadius:'5px',
+                            fontSize:'6vw',
+                            marginRight:'2vw'
+                        }}>返回记录</button>
+                        <button 
+                        onClick={()=>{
+                            var addwarn=document.getElementById('addwarn');
+                            addwarn.style.display='none';
+                            // var inps = document.getElementsByTagName('input');
+                            // document.getElementsByTagName('input').value = "";
+                            this.props.form.resetFields();
+                            
+                        }}
+                        style={{
+                            width:'35%',
                             height:'15%',
                             color:'#FFBF2D',
                             border:'none',
@@ -111,8 +131,8 @@ export default class growAdd extends Component {
                             background:'#fff',
                             borderRadius:'5px',
                             fontSize:'6vw'
-                        }}>确定</button>
-                    </div>
+                        }}>继续添加</button>
+                    </form>
                     <Link
                     to={{
                         pathname:'/child/cgrowup'

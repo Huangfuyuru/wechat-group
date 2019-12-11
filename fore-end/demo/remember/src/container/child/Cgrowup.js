@@ -7,103 +7,24 @@ import '../../css/child.css'
 export default class Write extends Component {
   constructor(props) {
     super(props);
+    var cid = JSON.parse(localStorage.getItem('cid'));
     // console.log(this.props.location.state)
     this.state = {
       selectedTab: 'blueTab',
       hidden: false,
       fullScreen: false,
       // cid:this.props.location.state,
-      cid:300001,
+      cid:cid,
+      childGrowid:'',
+      code:'',
       lists:[
-        {
-          length:'170cm',
-          weight:'50kg',
-          age:'20',
-          setdate:'2019-12-10'
-        },
-        {
-          length:'170cm',
-          weight:'50kg',
-          age:'20',
-          setdate:'2019-12-10'
-        },
-        {
-          length:'170cm',
-          weight:'50kg',
-          age:'20',
-          setdate:'2019-12-10'
-        },
-        {
-          length:'170cm',
-          weight:'50kg',
-          age:'20',
-          setdate:'2019-12-10'
-        },
-        {
-          length:'170cm',
-          weight:'50kg',
-          age:'20',
-          setdate:'2019-12-10'
-        },
-        {
-          length:'170cm',
-          weight:'50kg',
-          age:'20',
-          setdate:'2019-12-10'
-        },
-        {
-          length:'170cm',
-          weight:'50kg',
-          age:'20',
-          setdate:'2019-12-10'
-        },
-        {
-          length:'170cm',
-          weight:'50kg',
-          age:'20',
-          setdate:'2019-12-10'
-        },
-        {
-          length:'170cm',
-          weight:'50kg',
-          age:'20',
-          setdate:'2019-12-10'
-        },
-        {
-          length:'170cm',
-          weight:'50kg',
-          age:'20',
-          setdate:'2019-12-10'
-        },
-        {
-          length:'170cm',
-          weight:'50kg',
-          age:'20',
-          setdate:'2019-12-10'
-        },
-        {
-          length:'170cm',
-          weight:'50kg',
-          age:'20',
-          setdate:'2019-12-10'
-        },
-        
       ],
-      number:[{
-          num1:100,
-          num2:30,
-          src1:"https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3073295182,3150460296&fm=26&gp=0.jpg",
-          src2:"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=506811022,40650669&fm=26&gp=0.jpg"
-      }]
     };
   }
   componentDidMount(){
-    // let path = this.props.match.params.id
-    console.log(this.state.cid)
     fetch(`http://localhost:3001/child/cgrowup?childsid=${this.state.cid}`)
     .then((res)=>res.json())
     .then((res)=>{
-      console.log('成长',res)
         this.setState({
           lists:res
         });
@@ -111,16 +32,30 @@ export default class Write extends Component {
   }
   //setState()结束之后都会自动调用componentDidUpdate()
   //如果有更新会进componentDidUpdate里面
-  componentDidUpdate(Props,State){
-    // if(Props.location.search !== this.props.location.search){
-    //   let path = this.props.match.params.id
-    //   console.log('path',path)
-    //   fetch( `http://localhost:3001/child/cgrowup?childsid=`)
-    //       .then((res)=>res.json())
-    //       .then((res)=>{
-    //           this.setState({data:res.data});
-    //       })
-    // }
+  componentDidUpdate(prevProps,prevState){
+      fetch(`http://localhost:3001/child/cgrowup?childsid=${this.state.cid}`)
+      .then((res)=>res.json())
+      .then((res)=>{
+          this.setState({
+            lists:res
+          });
+      })
+  }
+  delPOST=(e)=>{
+      fetch(`http://localhost:3001/child/cgrowup/crgrowup?childsid=${this.state.cid}&childGrowid=${this.state.childGrowid}`,{
+        method:'GET',
+      })
+      .then(res=>res.json())
+      .then(json=>{
+        this.setState({
+          code:json.msg
+        })
+        console.log(json)
+      })
+      var delwarn=document.getElementById('delwarn');
+      delwarn.style.display='none';
+      var warnagain=document.getElementById('warnagain');
+      warnagain.style.display='block';
   }
   render() {
     return (
@@ -176,9 +111,9 @@ export default class Write extends Component {
               
               <div className='cgrowup_inner'>
                 {
-                  this.state.lists.map((item,idx)=>{
+                  this.state.lists&&this.state.lists.map((item,idx)=>{
                       var date = moment(item.setdate).format("YYYY-MM-DD HH:mm:ss");
-                      console.log(item.setdate)
+                      // console.log(item)
                       return <div className='cgrowup_block'
                       style={{
                         border:'1px solid #FFBF2D',
@@ -188,7 +123,18 @@ export default class Write extends Component {
                         marginBottom:'2vh',
                         paddingTop:'3vh'
                       }} 
-                      key={idx}>
+                      key={idx}
+                      value={item.id}>
+                        <i
+                        onClick={(e)=>{
+                          var itemid = e.target.parentNode.getAttribute('value');
+                          this.setState({
+                            childGrowid:itemid
+                          })
+                          var delwarn=document.getElementById('delwarn');
+                          delwarn.style.display='block';
+                        }}  
+                        className='iconfont icon-shanchu1'></i>
                         <li>身高：<span>{item.length}</span></li>
                         <li>体重：<span>{item.weight}</span></li>
                         <li>年龄：<span>{item.age}</span></li>
@@ -208,6 +154,55 @@ export default class Write extends Component {
                 }}
                 ><i className='iconfont icon-jia'></i></Link>
               </div>
+              <div id='delwarn'>
+                <div>确认删除？</div>
+                    <button 
+                    onClick={()=>{
+                        var delwarn=document.getElementById('delwarn');
+                        delwarn.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw',
+                        marginRight:'10vw'
+                    }}>返回</button>
+                    <button 
+                    onClick={this.delPOST}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确认</button>
+                </div>
+              <div id='warnagain'>
+                <div>{this.state.code}</div>
+                    <button 
+                    onClick={()=>{
+                        var warnagain=document.getElementById('warnagain');
+                        warnagain.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确认</button>
+                </div>
             </TabBar.Item>
 
             <TabBar.Item

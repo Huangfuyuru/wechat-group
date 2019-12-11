@@ -36,7 +36,6 @@ export default class Login extends Component {
             // console.log(json)
             localStorage.setItem('uid',JSON.stringify(json.id))
             var uid = JSON.parse(localStorage.getItem('uid'));
-            console.log(uid)
             if(json.code==0){
                 this.props.history.push({
                     pathname:'/index/my',
