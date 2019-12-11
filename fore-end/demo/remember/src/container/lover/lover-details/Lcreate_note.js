@@ -7,8 +7,9 @@ import imgsrc from "../../../image/tu.jpg"
 export default class Lcreate_note extends Component {
     constructor(props){
         super(props);
+        var lid = JSON.parse(localStorage.getItem('lid'));
         this.state={
-            lover_id:this.props.location.state.lover_id,
+            lover_id:lid,
             name:"",
             content:"",
             imgurl:[]
@@ -114,10 +115,11 @@ export default class Lcreate_note extends Component {
                     <img src={require("../../../image/ri.jpg")}  style={{height:"76%",width:"22%" ,float:"left",marginLeft:"3%"}} alt=""></img>
                     <img src={require("../../../image/wei.jpg")}  style={{height:"76%",width:"22%" ,float:"left",marginLeft:"3%"}} alt=""></img>
                 </div>
-
+                <Link to={{pathname:"/lover/ldairy"}}>
                 <WingBlank>
                <button className="createnote-foot" onClick={this.upDairy}>保存</button>
                </WingBlank>
+               </Link>
             </div>
 
         )
