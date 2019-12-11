@@ -4,7 +4,7 @@ const express = require('express'),
 //引入数据库
 const {loverM} = require("../../database/dateMethod");
 
-var info ={};
+var info ={};//返回给前端的数据
 
 //配置bodyparser中间件
 router.use(bodyParser.urlencoded({extended:true}));
@@ -13,6 +13,7 @@ router.use(bodyParser.json());
 //点击增加爱人
 // 爱人name，关系确认日期ldate，性别gender，用户uid
 router.post('/',async function(req,res,next){
+    console.log(req.body);
     var name = req.body.name;
     var ldate = req.body.ldate;
     var gender = req.body.gender;
