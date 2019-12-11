@@ -4,6 +4,7 @@ const express = require('express'),
 //引入数据库
 const {loverM} = require("../../database/dateMethod");
 
+var info = {}
 //配置bodyparser中间件
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
@@ -23,12 +24,14 @@ router.get('/confirm',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var loverid = Number(request.loverid);
     var result = await loverM.delLover(loverid);
-    if(result !== 1){
-        var message = {code:0,msg:"删除爱人成功"}
+    if(result === 0){
+        var data = await loverM.findById(uid)
+        info = {code:0,msg:"删除爱人成功"}
+        res.json(data)
     }else{
-        var message = {code:1,msg:"删除爱人失败"}
+        info = {code:1,msg:"删除爱人失败"}
     }
-    res.json(message)
+    
 })
 
 module.exports = router;

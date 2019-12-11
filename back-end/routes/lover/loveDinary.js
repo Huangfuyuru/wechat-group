@@ -28,12 +28,13 @@ router.get('/',async function(req,res,next){
             code:1,
             msg:'传入的爱人lid有误'
         }
+        res.json(data);
     }
     
 });
 
 //增加日记
-router.post('/ldairy/addDairy',async function(req,res,next){
+router.post('/addDairy',async function(req,res,next){
     console.log(req.body);
     var id = req.body.loverid;
     var text ={
@@ -43,27 +44,27 @@ router.post('/ldairy/addDairy',async function(req,res,next){
         imgurl:req.body.imgurl
     }
     var addDairy = await lover.loverDiaryM.addLoverDiary(text);
+    console.log('add',addDairy);
     if(addDairy ===0){
         var data =await lover.loverDiaryM.findByPid(id);
         info = {
             code:0,
             msg:data
         };
+        res.json(info);
     }else{
-        sinfo ={
+        info ={
             code :1,
             msg:'增加日记失败'
         };
+        res.json(info);
     }
     
-    //增加成功需要返回什么信息！
-    
-    res.json(data);
 });
 
-router.get('/delDairy',async function(){
+router.get('/delDairy',async function(req,res,next){
     var daid = req.query.loverDiaryid;
-    console.log(daid);
+    console.log('dairyid',daid);
     var delDairy = await lover.loverDiaryM.delLoverDiary(daid);
     if(delDairy === 0 ){
         var data =await lover.loverDiaryM.findByPid(daid);
@@ -78,6 +79,7 @@ router.get('/delDairy',async function(){
             code:1,
             msg:'删除日记失败'
         }
+        res.json(data);
     }
     
 })
