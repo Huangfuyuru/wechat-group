@@ -63,9 +63,7 @@ router.post('/addDairy',async function(req,res,next){
 });
 
 router.get('/delDairy',async function(req,res,next){
-    console.log('删除日记');
-    var lid = Number(req.query.loverid);
-    var daid = Number(req.query.loverDiaryid);
+    var daid =Number( req.query.loverDiaryid);
     console.log('dairyid',daid);
     var delDairy = await lover.loverDiaryM.delLoverDiary(daid);
     console.log(delDairy);

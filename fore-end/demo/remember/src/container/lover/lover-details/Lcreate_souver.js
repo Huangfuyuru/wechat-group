@@ -32,6 +32,7 @@ export default class Lcreate_souver extends Component {
                   <p >日期:</p>
                   <input  type="text" placeholder="例:1999-11-28"/>
                   </div>
+                  <textarea className="createsou-second" >内容：</textarea>
                   <h1 style={{margin:"5% 0 0  9%"}}>设置提醒</h1>
                   <WingBlank>
                <button className="createsou-foot">保存</button>

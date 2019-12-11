@@ -3,43 +3,25 @@ import { NavBar} from 'antd-mobile';
 import {Link} from "react-router-dom"
 import "../../css/lover.css"
 export default class Lsouvenir extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
-            lover_souvenir:[
-                {
-                    title:"结婚纪念日",
-                    date:"2018-11-18"
-                },
-                {
-                    title:"结婚纪念日",
-                    date:"2018-11-18"
-                },  
-                {
-                    title:"结婚纪念日",
-                    date:"2018-11-18"
-                }
-            ]
+            lover_id:this.props.location.state.lover_id,
+            name:"",
+            content:"",
+            imgurl:"",
+            data:""
         }
     }
     componentDidMount(){
-        let path = this.props.match.params.id
-        fetch(``)
-        .then((res)=>res.json())
-        .then((res)=>{
-            this.setState({data:res.data});
+        fetch(`http://localhost:3001/lover/lsouvenir?loversid=${this.state.lover_id}`)
+        .then(res=>res.json())
+        .then(json=>{ 
+            this.setState({
+            },()=>{
+                console.log(json)
+            });
         })
-    }
-    componentDidUpdate(Props,State){
-        if(Props.location.search !== this.props.location.search){
-            let path = this.props.match.params.id
-            console.log('path',path)
-            fetch( ``)
-            .then((res)=>res.json())
-            .then((res)=>{
-                this.setState({data:res.data});
-            })
-        }
     }
     render() {
         return (
@@ -60,15 +42,15 @@ export default class Lsouvenir extends Component {
                      color:'#fff',
                      letterSpacing:'3vw'}}>纪念日</span>
                 </NavBar>
-              <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1996765656,1986455071&fm=26&gp=0.jpg" alt="" style={{height:"40%",width:"92%",margin:"4% 0 0 4%"}}></img>
+              {/* <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1996765656,1986455071&fm=26&gp=0.jpg" alt="" style={{height:"40%",width:"92%",margin:"4% 0 0 4%"}}></img> */}
                {
-                   this.state.lover_souvenir.map((item)=>(
-                    <div className="loversou-first">
-                    <img  src={require("../../image/xin.jpg")} alt=""  style={{float:"left",margin:"4% 10%"}}></img>
-                   <h1>{item.title}</h1>
-                   <p style={{fontSize:"5vw"}}>日期：{item.date}</p>
-                    </div>
-                   ))
+                //    this.state.lover_souvenir.map((item)=>(
+                //     <div className="loversou-first">
+                //     <img  src={require("../../image/xin.jpg")} alt=""  style={{float:"left",margin:"4% 10%"}}></img>
+                //    <h1>{item.title}</h1>
+                //    <p style={{fontSize:"5vw"}}>日期：{item.date}</p>
+                //     </div>
+                //    ))
                }
               <Link to="/lover/lcsouvenir"><img src={require("../../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
             </div>

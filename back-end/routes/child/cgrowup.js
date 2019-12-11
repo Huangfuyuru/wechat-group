@@ -14,7 +14,12 @@ router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var data = await childGrowM.findByCid(childsid);
-    res.json(data)
+    if(data == 1){
+        res.json([])
+    }else{
+        res.json(data)
+    }
+    
 })
 
 //增加成长记录
@@ -49,8 +54,19 @@ router.get('/crgrowup',async function(req,res,next){
     var childsid = Number(request.childsid);
     var childGrowid = Number(request.childGrowid);
     await childGrowM.delChildGrow(childGrowid);
-    var data = await childGrowM.findByCid(childsid);
-    res.json(data)
+    var data1 = await childGrowM.findByCid(childsid);
+    if(data1 == 1){
+        var message = {
+            data:null,
+            msg:"删除失败"
+        }
+    }else{
+        var message = {
+            data:data1,
+            msg:"删除成功"
+        }
+    }
+    res.json(message)
 })
 
 module.exports = router;
