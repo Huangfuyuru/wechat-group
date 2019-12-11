@@ -6,11 +6,13 @@
     /* min-height: 111vh; */
 }
 #tag{
+    background: #FFBF2D;
     display: none;
     width: 30%;
-    position: absolute;
+    position: fixed;
     z-index: 100;
     right: 0;
+    top: 6vh;
     padding: 1vw 1vw;
 }
 #tag div{

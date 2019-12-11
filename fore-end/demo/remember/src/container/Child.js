@@ -13,19 +13,15 @@ export default class Child extends Component {
             child_id:'',
             cindex_src:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2037612692,2923078042&fm=26&gp=0.jpg',
             cnews:[{
-                ctime:'现在',
+                ctime:'引导',
                 cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
-                ccontent:'你的脖子真可爱，顶着一个猪脑袋'
-            },
-            {
-                ctime:'刚才',
-                cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
-                ccontent:'醒来觉得甚是爱你~'
+                ccontent:'在这里展示您最近三篇日记大致内容'
             }]
         }
     }
     componentDidMount(){
-        console.log('完成')
+        console.log('第一次加载');
+        console.log(localStorage.getItem('cid'))
         fetch(`http://localhost:3001/child`,{
             method:'POST',
             mode:'cors',
@@ -35,32 +31,32 @@ export default class Child extends Component {
             body:`uid=${this.state.uid}`
         }).then(res=>res.json())
         .then(json=>{
-            // console.log(json)
             this.setState({
                 child_id:json[0].id,
-                cindex_src:json[0].background
+                cindex_src:json[0].background,
+                change_id:json
             },()=>{
                 localStorage.setItem('cid',JSON.stringify(this.state.child_id))
             });
         })
     }
     componentDidUpdate(prevProps,prevState){
-        if(prevState !== this.state){
-            // console.log('BJ',this.state.cindex_src)
-            // console.log('id',this.state.child_id)
-            fetch(`http://localhost:3001/child/changebackground`,{
-                method:'POST',
-                mode:'cors',
-                headers:{
-                    'Content-Type':"application/x-www-form-urlencoded"
-                },
-                body:`childsid=${this.state.child_id}&background=${this.state.cindex_src}`
-            })
-            .then(res=>res.json())
-            .then(json=>(
-                console.log(json)
-            ))
-        }
+        console.log('更新')
+
+        // 
+
+        // fetch(`http://localhost:3001/child/changebackground`,{
+        //     method:'POST',
+        //     mode:'cors',
+        //     headers:{
+        //         'Content-Type':"application/x-www-form-urlencoded"
+        //     },
+        //     body:`childsid=${Number(this.state.child_id)}&background=${this.state.cindex_src}`
+        // })
+        // .then(res=>res.json())
+        // .then(json=>(
+        //     console.log('54',json)
+        // ))
     }
     upfile=()=>{
         var file=document.getElementById('img').files[0];
@@ -75,25 +71,24 @@ export default class Child extends Component {
         .then(res=>(
             console.log(res.path),
             this.setState({
-            cindex_src:res.path
-        },console.log('POST',this.state.cindex_src))
+                cindex_src:res.path
+            })
         ))
         
     }
     changeChild=(e)=>{
+        var ecid = e.target.id;
+        var esrc = e.target.getAttribute('value');
+        console.log(ecid)
         this.setState({
-            child_id:e.target.id,
-            cindex_src:e.target.getAttribute('value')
+            child_id:ecid,
+            menu_count:this.state.menu_count+1,
+            cindex_src:esrc
+        },()=>{
+            localStorage.setItem('cid',JSON.stringify(ecid))
         })
         var tag = document.getElementById('tag');
         tag.style.display='none';
-        this.setState({
-            menu_count:this.state.menu_count+1,
-            child_id:e.target.id,
-            cpic_src:e.target.getAttribute('value')
-        },()=>{
-            localStorage.setItem('cid',JSON.stringify(this.state.child_id));
-        })
     }
     render() {
         return (
@@ -122,15 +117,9 @@ export default class Child extends Component {
                             fetch(`http://localhost:3001/child/change?usersid=${this.state.uid}`)
                             .then(res=>res.json())
                             .then(json=>{
-                                var array=[];
-                                for(var i=0;i<json.length;i++){
-                                    array[i]=json[i];
-                                }
                                 this.setState({
-                                    change_id:array
+                                    change_id:json
                                 })
-                                // console.log(json)
-                                // console.log(this.state.change_id)
                             })
                         }else{
                             console.log('退出')
