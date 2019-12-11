@@ -11,17 +11,18 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
 // 匹配 /lover/ldairy
-
+//点击日记
 router.get('/',async function(req,res,next){
-
+    console.log('点击日记')
     var id = req.query.loverid;
-    console.log(id);
+    console.log('loverid',id);
     var data =await lover.loverDiaryM.findByPid(id);
     if(data !== 1){
         info ={
             code:0,
             msg:data
         }
+        console.log(info);
         res.json(info);
     }else{
         info ={
@@ -35,7 +36,7 @@ router.get('/',async function(req,res,next){
 
 //增加日记
 router.post('/addDairy',async function(req,res,next){
-    console.log(req.body);
+    console.log('添加日记',req.body);
     var id = req.body.loverid;
     var text ={
         lid:id,
@@ -43,10 +44,9 @@ router.post('/addDairy',async function(req,res,next){
         content:req.body.content,
         imgurl:req.body.imgurl
     }
-    var addDairy = await lover.loverDiaryM.addLoverDiary(text);
-    console.log('add',addDairy);
+    console.log('addDairy',addDairy);
     if(addDairy ===0){
-        var data =await lover.loverDiaryM.findByPid(id);
+        // var data =await lover.loverDiaryM.findByPid(id);
         info = {
             code:0,
             msg:data
@@ -63,11 +63,15 @@ router.post('/addDairy',async function(req,res,next){
 });
 
 router.get('/delDairy',async function(req,res,next){
-    var daid = req.query.loverDiaryid;
+    console.log('删除日记');
+    var lid = Number(req.query.loverid);
+    var daid = Number(req.query.loverDiaryid);
     console.log('dairyid',daid);
     var delDairy = await lover.loverDiaryM.delLoverDiary(daid);
+    console.log(delDairy);
+    
     if(delDairy === 0 ){
-        var data =await lover.loverDiaryM.findByPid(daid);
+        var data =await lover.loverDiaryM.findByPid(lid);
         info ={
             code:0,
             msg:data
@@ -81,7 +85,7 @@ router.get('/delDairy',async function(req,res,next){
         }
         res.json(data);
     }
-    
+    console.log()
 })
 
 module.exports = router;

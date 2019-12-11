@@ -36,11 +36,17 @@ export default class Lcreate_note extends Component {
             enctype:'multipart/form-data',
             body:form
         }).then(res=>res.json())
-        .then(json=>(this.setState({
-            imgurl:json[0].path//还有问题！
+        .then(json=>(
+            this.setState((state)=>{
+                for(var i=0;i<json.length;i++){
+                    state.imgurl[i]=json[i].path
+                }
+        },()=>{
+            console.log(this.state)
         })
         )
     )}
+
     upDairy=()=>{
         fetch(`http://localhost:3001/lover/ldairy/addDairy`,{
             method:'POST',
@@ -79,9 +85,18 @@ export default class Lcreate_note extends Component {
                   <p >标题:</p>
                   <input  type="text" placeholder="请输入"  onChange={this.changeTitle}/>
                   </div>
-                <input 
-                onChange={this.changeContent}
-                type="text"  className="createnote-first"></input>
+                <textarea onChange={this.changeContent} className="createnote-first">
+                </textarea>
+                
+                <div style={{height:"10%"}}>
+                     {
+                         this.state.imgurl.map((item)=>(
+                             <div>
+                             <img src="http://localhost:3001/img/showimg/upload_b5e11943f2e5fe2fc398e3b572a7bb94.jpg" alt="" />
+                             </div>
+                         ))
+                     }
+                 </div>
                 <div className="createnote-second">
                     <div  style={{height:"76%",width:"22%" ,float:"left",marginLeft:"3%",backgroundImage:`url(${imgsrc})`,backgroundSize:"100% 100%"}} >
                     <input  
@@ -95,7 +110,6 @@ export default class Lcreate_note extends Component {
                     multiple="multiple"
                     alt=""/>
                     </div>
-                    
                     <img src={require("../../../image/biao.jpg")}  style={{height:"76%",width:"22%" ,float:"left",marginLeft:"3%"}} alt=""></img>
                     <img src={require("../../../image/ri.jpg")}  style={{height:"76%",width:"22%" ,float:"left",marginLeft:"3%"}} alt=""></img>
                     <img src={require("../../../image/wei.jpg")}  style={{height:"76%",width:"22%" ,float:"left",marginLeft:"3%"}} alt=""></img>

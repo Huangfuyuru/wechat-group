@@ -39,13 +39,15 @@ export default class Child extends Component {
             this.setState({
                 child_id:json[0].id,
                 cindex_src:json[0].background
+            },()=>{
+                localStorage.setItem('cid',JSON.stringify(this.state.child_id))
             });
         })
     }
     componentDidUpdate(prevProps,prevState){
         if(prevState !== this.state){
-            console.log('BJ',this.state.cindex_src)
-            console.log('id',this.state.child_id)
+            // console.log('BJ',this.state.cindex_src)
+            // console.log('id',this.state.child_id)
             fetch(`http://localhost:3001/child/changebackground`,{
                 method:'POST',
                 mode:'cors',
@@ -79,30 +81,18 @@ export default class Child extends Component {
         
     }
     changeChild=(e)=>{
-        // this.setState({
-        //     child_id:e.target.key,
-        //     cindex_src:e.target.value
-        // })
-        console.log('li',e.target)
-        console.log('value',e.target.value)
-        console.log('id',e.target.id)
-        // console.log('e',e.target.value[0])
-        // console.log('e',e.target.value[1])
-        // ,()=>{
-        //     for(var i=0;i<this.state.change_id.length;i++){
-        //         if(this.state.child_id==this.state.change_id[i]){
-        //             this.setState({
-        //                 cindex_src:this.state.change_id[i].background
-        //             })
-        //         }
-        //     }
-        // })
-        // console.log('state',this.state.child_id)
-        // console.log('state',this.state.cindex_src)
+        this.setState({
+            child_id:e.target.id,
+            cindex_src:e.target.getAttribute('value')
+        })
         var tag = document.getElementById('tag');
         tag.style.display='none';
         this.setState({
-            menu_count:this.state.menu_count+1
+            menu_count:this.state.menu_count+1,
+            child_id:e.target.id,
+            cpic_src:e.target.getAttribute('value')
+        },()=>{
+            localStorage.setItem('cid',JSON.stringify(this.state.child_id));
         })
     }
     render() {
@@ -164,7 +154,7 @@ export default class Child extends Component {
                 <div id="tag">
                     <div></div>
                     <p>
-                        {
+                        { 
                             this.state.change_id.map((item,idx)=>(
                             <li key={idx} id={item.id} value={item.background} 
                             onClick={this.changeChild}>{item.name}</li>

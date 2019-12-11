@@ -6,6 +6,7 @@ const express = require('express'),
       img = require('./routes/img'),      //单张图片
       imgs = require('./routes/imgs'),    //多张图片
       voice = require('./routes/voice');  //语音
+      
 
 
 //解决跨域

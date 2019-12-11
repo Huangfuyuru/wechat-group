@@ -8,16 +8,27 @@ export default class Ldairy extends Component {
         this.state={
             lover_id:this.props.location.state.lover_id,
             noteArr:[],
-            arr:[]
+            arr:[],
+            lid:"",
+            id:""
         }
     }
     componentDidMount(){
         fetch(`http://localhost:3001/lover/ldairy?loverid=${this.state.lover_id}`)
         .then(res=>res.json())
         .then(json=>{ 
-            console.log("shzu",json)
             this.setState({
                 noteArr:json.msg
+            });
+        })
+    }
+    deleteNote=(lid,nid)=>{
+        fetch(`http://localhost:3001/lover/ldairy/delDairy?loverid=${lid}&loverDiaryid=${nid}`)
+        .then(res=>res.json())
+        .then(json=>{ 
+            console.log("shzu",json)
+            this.setState({
+                // noteArr:json.msg
             });
         })
     }
@@ -62,7 +73,8 @@ export default class Ldairy extends Component {
                         <div style={{height:"40%",width:"94%",float:"left",margin:"0 0 0 3%"}}>
                         <img src={item.imgurl[0]}  alt="" style={{height:"100%",width:"48%",border:"solid 0.5px red" ,float:"left",marginLeft:"1%"}}></img>
                         <img src={item.imgurl[1]}  alt="" style={{height:"100%",width:"48%",border:"solid 0.5px red" ,float:"left",marginLeft:"1%"}}></img>
-                        
+                        </div>
+                        <div className="iconfont icon-lajixiang1" onClick={()=>this.deleteNote(item.lid,item.id)}> 
                         </div>
                         </div>
                      ))

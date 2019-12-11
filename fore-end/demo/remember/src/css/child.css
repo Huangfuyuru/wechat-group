@@ -198,6 +198,7 @@
 }
 /* 成长记录 */
 .cgrowup_inner{
+    min-height: 80vh;
     margin-top: 2vw;
     box-shadow: 0px  1px  5px  0px  #bdbbb8  inset;
     padding: 3vh 5vw;
@@ -211,6 +212,60 @@
     margin-left: 10vw;
     font-size: 5vw;
     margin-top: 1.5vw;
+}
+.cgrowup_block i{
+    float: right;
+    font-size: 8vw;
+    color: #bdbbb8;
+    margin-right: 4vw;
+}
+#delwarn{
+    display: none;
+    text-align: center;
+    border-radius: 20px;
+    background:rgba(255,191,45,0.4);
+    position: fixed;
+    top:28vh;
+    width: 80%;
+    height: 30vh;
+    z-index: 100;
+    margin-left: 10vw;
+}
+#delwarn div{
+    text-align: center;
+    padding:4vh 5vw;
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 50%;
+    color: rgb(148, 145, 145);
+}
+#warnagain{
+    display: none;
+    text-align: center;
+    border-radius: 20px;
+    background:rgba(255,191,45,0.4);
+    position: fixed;
+    top:28vh;
+    width: 80%;
+    height: 30vh;
+    z-index: 100;
+    margin-left: 10vw;
+}
+#warnagain div{
+    text-align: center;
+    padding:4vh 5vw;
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 50%;
+    color: rgb(148, 145, 145);
 }
 .cgrowup_block span{
     color: #FFBF2D;
@@ -230,11 +285,14 @@
     bottom: 0;
     text-align: center;
     padding: 0 5vw;
+    box-shadow: 0px  1px  5px  0px  #bdbbb8  inset;
 }
 .cgrowup_add p{
     background: #bdbbb8;
     height: 0.2vh;
     width: 100%;
+    margin-top: 4vh;
+    bottom: 5vh;
 }
 .cgrowup_add i{
     font-size: 10vw;
@@ -291,6 +349,7 @@
 }
 #addwarn{
     display: none;
+    text-align: center;
     border-radius: 20px;
     background:rgba(255,191,45,0.4);
     position: fixed;

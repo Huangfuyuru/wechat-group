@@ -14,7 +14,12 @@ router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var data = await childGrowM.findByCid(childsid);
-    res.json(data)
+    if(data == 1){
+        res.json([])
+    }else{
+        res.json(data)
+    }
+    
 })
 
 //增加成长记录
@@ -23,14 +28,24 @@ router.post('/ccgrowup',async function(req,res,next){
     var length = req.body.length;
     var weight = req.body.weight;
     var age = req.body.age;
-    await childGrowM.addChildGrow({
+    var message = {
+        msg:'',
+        data:[]
+    }
+    var a =await childGrowM.addChildGrow({
         weight:weight,
         length:length,
         age:age,
         cid:childsid
-    })
-    var data = await childGrowM.findByCid(childsid);
-    res.json(data)
+    });
+    if(a == 1){
+        message.msg = '添加失败';
+    }else{
+        message.msg = '添加成功';
+        var data1 = await childGrowM.findByCid(childsid);
+        message.data = data1;
+    }
+    res.json(message)
 })
 
 //删除成长记录
@@ -38,9 +53,20 @@ router.get('/crgrowup',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var childGrowid = Number(request.childGrowid);
-    await childGrowM.delChildGrow(childGrowid);
-    var data = await childGrowM.findByCid(childsid);
-    res.json(data)
+    var data2 = await childGrowM.delChildGrow(childGrowid);
+    var data1 = await childGrowM.findByCid(childsid);
+    if(data2 == 1){
+        var message = {
+            data:data1,
+            msg:"删除失败"
+        }
+    }else{
+        var message = {
+            data:data1,
+            msg:"删除成功"
+        }
+    }
+    res.json(message)
 })
 
 module.exports = router;

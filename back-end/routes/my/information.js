@@ -26,13 +26,14 @@ router.post('/',async function(req,res,next){
     if(result === 0){
         //修改用户成功后需要给前端返回userM的修改后的信息
         //目前返回的是所用户的信息  肯定是不行的！
-        var data  = await userM.findAll()
+        // var data  = await userM.findAll()
         info = {code:0,msg:"用户修改成功"}
-        res.json(data)
+        // res.json(data)
     }else{
         info = {code:1,msg:"用户修改失败"}
     }
-    
+    //只是返回了结果
+    res.json(result)
 })
 
 
