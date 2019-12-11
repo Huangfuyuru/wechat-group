@@ -5,9 +5,9 @@ import "../css/lover.css"
 export default class lover_home extends Component {
     constructor(props){
         super(props);
-        console.log('爱人',this.props.location.state.uid)
+        var uid = JSON.parse(localStorage.getItem('uid'));
         this.state={
-            uid:this.props.location.state.uid,
+            uid:uid,
             lover_id:'',
             cindex_src:"",
             cnews:[{
@@ -37,31 +37,24 @@ export default class lover_home extends Component {
                 lover_id:json[0].id,
                 lover_name:json[0].name,
                 cindex_src:json[0].background
-            });
+            },()=>{
+                localStorage.setItem('lid',JSON.stringify(this.state.lover_id))
+            }
+            );
         })
     }
-    // componentDidUpdate(Props){
-    //     console.log('props id',Props.location);
-    //     console.log('this id',this.state.uid)
-    //     if(Props.location.state.uid !== this.state.uid){
-    //         console.log()
-    //     fetch(`http://localhost:3001/lover`,{
-    //         method:'POST',
-    //         mode:'cors',
-    //         headers:{
-    //             'Content-Type':"application/x-www-form-urlencoded"
-    //         },
-    //         body:`uid=${this.state.uid}`
-    //     })
-    //     .then((res)=>res.json())
-    //     .then((json)=>{
-    //         this.setState({
-    //             lover_id:json[0].id,
-    //             lover_name:json[0].name
-    //         });
-    //     })
-    // }
-    // }
+    
+    componentDidUpdate(prevProps,prevState){
+        if(prevState !== this.state){
+            // console.log('BJ',this.state.cindex_src)
+            // console.log('id',this.state.child_id)
+            fetch(`http://localhost:3001/lover/changebackground?loverid= ${this.lover_id}&background =${this.state.cindex_src}`)
+            .then(res=>res.json())
+            .then(json=>(
+                console.log(json)
+            ))
+        }
+    }
     upfile=()=>{
         var file=document.getElementById('img').files[0];
         var url = 'http://localhost:3001/img';
@@ -119,14 +112,7 @@ export default class lover_home extends Component {
                 <div className="lover-home-first">
                  <Link to ="/lover/lpictures"><button className="lover-button">云相册</button></Link>
                  <Link to= "/lover/lsound"><button className="lover-button">语音记事</button></Link>
-                 <Link to =
-                 {{
-                    pathname:"/lover/ldairy",
-                    state:{
-                        lover_id:this.state.lover_id
-                    }
-                }}
-                 > <button className="lover-button">日记</button> </Link>
+                 <Link to ={{pathname:"/lover/ldairy"}}> <button className="lover-button">日记</button> </Link>
                  <p style={{float:"left",color:"white"}}>hhhhhh</p>
                  <Link to ="/lover/llists"><button className="lover-button">恋爱清单</button></Link> 
                  <Link to =

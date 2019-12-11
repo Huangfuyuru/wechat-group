@@ -186,18 +186,18 @@ method：get
     日记：
         接口地址：http://localhost:3001/child/cdairy/?childsid=
         请求数据：亲子childsid
-        返回数据：日记childDiaryid,name,content,setdate,imgurl 
+        返回数据：日记childDiaryid,backcolor,content,setdate,imgurl 
         增加日记：
             method（http请求方式）：post
             接口地址：http://localhost:3001/child/cdairy/ccdairy
             提交数据: 
-                    childsid=  & name= & content= & imgurl= (imgurl是一个数组)
+                    childsid=  & backcolor= & content= & imgurl= (imgurl是一个数组)
             返回数据：日记childDiaryid,name,content,setdate,imgurl
         删除日记：
             接口地址：http://localhost:3001/child/cdairy/crdairy?childsid= & childDiaryid=
             提交数据: 亲子childsid 日记的childDiaryid
-            返回数据：日记childDiaryid,name,content,setdate,imgurl
-            [{"id":3100002,"name":"叫爸爸","setdate":"2019-11-25T16:00:00.000Z","content":"今天小明第一次叫妈妈","imgurl":["#1","#2","#3"],"cid":300003}]
+            返回数据：日记childDiaryid,backcolor,content,setdate,imgurl
+            [{"id":3100002,"backcolor":0,"setdate":"2019-11-25T16:00:00.000Z","content":"今天小明第一次叫妈妈","imgurl":["#1","#2","#3"],"cid":300003}]
 
 10.爱人（返回的数据有时候会比需要的多，挑需要的，所有本地图片，语音上传先传文件，然后用返回的地址）
 接口地址：http://localhost:3001/lover
@@ -271,8 +271,8 @@ method：get
 
 
     纪念日：
-        接口地址：http://localhost:3001/lover/lsouvenir?loversid=
-        请求数据：爱人loversid
+        接口地址：http://localhost:3001/lover/lsouvenir?loverid=
+        请求数据：爱人loverid
         返回数据：
             (具体是什么属性看数据库表)
             [{"id":2700001,"name":"生日","content":"一起吃饭","imgurl":"#","item":["纪念日"],"setdate":"2019-11-26T16:00:00.000Z","date":"2019-05-02T06:00:00.000Z","voiceurl":"#","lid":200001}]

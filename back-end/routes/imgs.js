@@ -25,7 +25,7 @@ router.post('/',function(req,res){
                 return message;
             })
         }
-        console.log(newFiles)
+        // console.log(newFiles)
         res.write(JSON.stringify(newFiles));   
         res.end();
     });
