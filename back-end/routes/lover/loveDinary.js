@@ -18,14 +18,14 @@ router.get('/',async function(req,res,next){
     console.log('点击日记')
     var id = req.query.loverid;
     console.log('loverid',id);
-    console.log('查看日记所有信息',await lover.loverDiaryM.findAll());
+    // console.log('查看日记所有信息',await lover.loverDiaryM.findAll());
     var data =await lover.loverDiaryM.findByLid(id);
     if(data !== 1){
         info ={
             code:0,
             msg:data
         }
-        console.log('点击日记前端返回',info);
+        // console.log('点击日记前端返回',info);
         res.json(info);
     }else{
         info ={
@@ -41,15 +41,17 @@ router.get('/',async function(req,res,next){
 router.post('/addDairy',async function(req,res,next){
     console.log('添加日记',req.body);
     var id = req.body.loverid;
+    var imgs = req.body.imgurl.split(',');
     var text ={
         lid:id,
         name:req.body.name,
         content:req.body.content,
-        imgurl:req.body.imgurl
+        imgurl:imgs
     }
+    var addDairy = await lover.loverDiaryM.addLoverDiary(text);
     console.log('addDairy',addDairy);
     if(addDairy ===0){
-        // var data =await lover.loverDiaryM.findByLid(id);
+        var data =await lover.loverDiaryM.findByLid(id);
         info = {
             code:0,
             msg:data
