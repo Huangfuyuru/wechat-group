@@ -15,7 +15,6 @@ router.get('/',async function(req,res,next){
     // console.log('lid',req.query.loverid);
     var data = await lover.loverImpDateM.findByPid(lid)
     res.json(data);
-    // console.log(await lover.loverImpDateM.findByPid(lid));
 
 });
 
@@ -45,6 +44,8 @@ router.post('/lcsouvenir',async function(req,res,next){
             code:1,
             msg:'增加纪念日失败'
         }
+        res.json(info);
+
     }
 });
 
@@ -61,11 +62,13 @@ router.get('/delSouvenir',async function(req,res,next){
             code:0,
             msg:data
         }
+        res.json(info);
     }else{
         info= {
             code:1,
             msg:'删除失败'
         }
+        res.json(info);
     }
 })
 

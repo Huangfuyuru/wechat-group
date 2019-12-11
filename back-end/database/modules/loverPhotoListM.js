@@ -39,7 +39,7 @@ async function findAll(){
  * @param {int} idC
  * @returns
  */
-async function delLoverVoice(id){
+async function delLoverPhotoList(id){
     let sql = 'delete from loverPhotoList where id = $1';
     let ret = await pgdb.query(sql,[id]);
     if(ret.rowCount<=0){
@@ -119,6 +119,6 @@ async function changeById(id,text){
 }
 
 var loverPhotoListM = {
-    addLoverPhotoList,delLoverVoice,findAll,findById,findByLid,findIdByLid,changeById
+    addLoverPhotoList,delLoverPhotoList,findAll,findById,findByLid,findIdByLid,changeById
 }
 module.exports = loverPhotoListM;

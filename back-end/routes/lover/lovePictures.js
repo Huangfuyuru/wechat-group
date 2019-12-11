@@ -29,5 +29,114 @@ router.get('/',async function(req,res,next){
     }
 });
 
+//点击具体相册
+router.get('/show',async function(req,res,next){
+    var photoListid = req.query;
+    console.log(photoListid);
+    var data = await lover.loverPhotoListM.findById(photoListid);
+    if(data!== 1){
+        info ={
+            code:0,
+            msg:data
+        }
+        res.json(info);
+    }else{
+        info ={
+            code:1,
+            msg:'查看相册详细信息失败'
+        }
+        res.json(info);
+    }
+});
+
+router.post('lcpictures',async function(req,res,next){
+    var lid = req.body.loverid,
+        name = req.body.name,
+        text={
+            lid:lid,
+            name:name
+        }
+    var addPList =  await lover.loverPhotoListM.addLoverPhotoList(text);
+    if(addPList === 0){
+        var data = await lover.loverPhotoListM.findByLid(lid);
+        info={
+            code:0,
+            msg:data
+        }
+        res.json(info);
+    }else{
+        info={
+            code:1,
+            msg:'增加相册失败'
+        }
+        res.json(info);
+    }
+});
+
+//删除相册失败
+router.get('/lrpictures',async function(req,res,next){
+    var lPLid = req.query.loverPhotoListid,
+    lid = rq.query.loverid;
+    var delPL = await lover.loverPhotoListM.delLoverPhotoList(lPLid);
+    if(delPL === 0){
+        var data= lover.loverPhotoListM.findByLid(lid); 
+        info ={
+            code:0,
+            info:data
+        }
+        res.json(info);
+    }else{
+        info ={
+            code:1,
+            msg:'删除相册失败'
+        }
+        res.json(info);
+    }
+})
+
+//增加照片
+router.post('/laddpictures',async function(req,res,next){
+    var lPLid = req.body.loverPhotoListid,
+        imgs = req.body.imgurl;
+    var text = {
+        lid:lPLid,
+        imgurl:imgs
+    };
+    var addPhoto = await lover.loverPhotoM.addLoverPhoto(text);
+    if(addPhoto === 0){
+        var data= lover.loverPhotoM.findByPid(lPLid);
+        info={
+            code:0,
+            msg:data
+        }
+        res.json(info);
+    }else{
+        info={
+            code:1,
+            msg:'增加相片失败'
+        }
+        res.json(info);
+    }    
+});
+
+router.post('/ldelpictures',async function(req,res,next){
+    var lPLid = req.body.loverPhotoListid,
+        lPid = req.body.loverPhotoid 
+    var delPhoto = await lover.loverPhotoM.delLoverPhoto('lPid');
+    if(delPhoto === 0){
+        var data = await lover.loverPhotoM.findByPid(lPLid);
+        info={
+            code:0,
+            msg:data
+        }
+        res.json(info);
+    }else{
+        info ={
+            code:1,
+            msg:'删除照片失败'
+        }
+        res.json(info);
+    }s
+})
 
 module.exports = router;

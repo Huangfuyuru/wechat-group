@@ -46,7 +46,7 @@ router.post('/addDairy',async function(req,res,next){
     var addDairy = await lover.loverDiaryM.addLoverDiary(text);
     console.log('add',addDairy);
     if(addDairy ===0){
-        var data =await lover.loverDiaryM.findByPid(id);
+        // var data =await lover.loverDiaryM.findByPid(id);
         info = {
             code:0,
             msg:data

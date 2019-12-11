@@ -24,6 +24,8 @@ router.get('/',async function(req,res,next){
             code:1,
             msg:'传入的爱人lid有误'
         }
+        res.json(info);
+
     }
 })
 
@@ -68,6 +70,8 @@ router.get('/lrsound',async function(res,req,next){
             code:1,
             msg:'删除语音失败'
         }
+        res.json(info);
+
     }
 })
 module.exports = router;
