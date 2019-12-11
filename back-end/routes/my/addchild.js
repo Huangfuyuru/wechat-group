@@ -13,6 +13,7 @@ router.use(bodyParser.json());
 //点击增加亲子
 //亲子name，出生日期birthday，性别gender，用户uid
 router.post('/',async function(req,res,next){
+    console.log(req.body);
     var name = req.body.name;
     var birthday = req.body.birthday;
     var gender = req.body.gender;
