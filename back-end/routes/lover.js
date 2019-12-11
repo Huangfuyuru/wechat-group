@@ -17,11 +17,10 @@ const lovePictures = require('./lover/lovePictures'),
       loveBackground = require('./lover/changBack');
       
 router.post('/',async function(req,res,next){
-       console.log('lover.js')
-       console.log('uid',req.body.uid);
+       console.log('爱人的uid',req.body.uid);
        var uid = req.body.uid;
        var data = await lover.loverM.findIdByUid(uid);
-       console.log('该爱人的所有信息',data);
+       // console.log('该爱人的所有信息',data[0].uid);
        res.json(data);
 });
 
