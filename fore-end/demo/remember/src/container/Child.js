@@ -114,7 +114,7 @@ export default class Child extends Component {
                         zIndex:'11',
                         position:'fixed',
                         background:'#FFBF2D',
-                        height:'8vh',
+                        height:'8vh'
                     }}
                     rightContent={[
                     <i
@@ -200,24 +200,54 @@ export default class Child extends Component {
                 <div className='child_second'>
                     <Flex>
                         <Flex.Item>
-                            <Link to='/child/cpictures'>云相册</Link>
+                            <Link 
+                            to={{
+                                pathname:'/child/cpictures',
+                                state:this.state.child_id
+                            }}
+                            >云相册</Link>
                         </Flex.Item>
                         <Flex.Item>
-                            <Link to='/child/csound'>语音记事</Link>
+                            <Link 
+                            to={{
+                                pathname:'/child/csound',
+                                state:this.state.child_id
+                            }}
+                            >语音记事</Link>
                         </Flex.Item>
                         <Flex.Item>
-                            <Link to='/child/cevents'>大事记</Link>
+                            <Link 
+                            to={{
+                                pathname:'/child/cevents',
+                                state:this.state.child_id
+                            }}
+                            >大事记</Link>
                         </Flex.Item>
                     </Flex>
                     <Flex>
                         <Flex.Item>
-                            <Link to='/child/cgrowup'>成长记录</Link>
+                            <Link 
+                            to={{
+                                pathname:'/child/cgrowup',
+                                state:this.state.child_id
+                            }}
+                            >成长记录</Link>
                         </Flex.Item>
                         <Flex.Item>
-                            <Link to='/child/cstudy'>学业记录</Link>
+                            <Link
+                            to={{
+                                pathname:'/child/cstudy',
+                                state:this.state.child_id
+                            }} 
+                            >学业记录</Link>
                         </Flex.Item>
                         <Flex.Item>
-                            <Link to='/child/cdairy'>日记</Link>
+                            <Link 
+                            to={{
+                                pathname:'/child/cdairy',
+                                state:this.state.child_id
+                            }}
+                            >日记</Link>
                         </Flex.Item>
                     </Flex>
                 </div>

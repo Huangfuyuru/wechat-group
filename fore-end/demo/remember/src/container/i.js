@@ -152,3 +152,27 @@ export default class Child_index extends Component {
         )
     }
 }
+
+
+
+{/* 添加身高 */}
+<form method='post' action='http://localhost:3001/child/cgrowup/ccgrowup'>
+<div className="Create_">
+    身高(cm)：
+    <input name='length' className="one" type="text" placeholder="单行输入"></input>
+</div>
+{/* 添加体重 */}
+<div className="Create_">
+    体重(kg)：
+    <input name='weight' className="one" type="text" placeholder="单行输入"></input>
+</div>
+{/* 日期 */}
+<div className="Create_">
+    年龄(岁)：
+    <input name='age' className="one" type="text" placeholder="单行输入"></input>
+</div>
+{/* 点击创建 */}
+{/* <Link to='/child/cgrowup'> */}
+    <button type="submit" className="Create_picture">添加记录</button>
+{/* </Link> */}
+</form>

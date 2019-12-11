@@ -44,7 +44,7 @@ import Use from './container/my/Use'
 
 function App() {
   return (
-    <Router>
+    <Router> 
       <Route exact path='/' component={Start}/>
       <Route path='/menus' component={Menus}/>
       {/* <Route path='/resign/message' component={Message}/> */}
