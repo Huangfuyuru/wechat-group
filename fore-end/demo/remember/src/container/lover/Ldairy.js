@@ -9,7 +9,6 @@ export default class Ldairy extends Component {
         this.state={
              lover_id:lid,
             noteArr:[],
-            arr:[],
             lid:"",
             id:""
         }
@@ -27,23 +26,25 @@ export default class Ldairy extends Component {
         fetch(`http://localhost:3001/lover/ldairy/delDairy?loverid=${lid}&loverDiaryid=${nid}`)
         .then(res=>res.json())
         .then(json=>{ 
-            console.log("shzu",json)
             this.setState({
                 noteArr:json.msg
             });
         })
     }
-    // componentDidUpdate(Props,State){
-    //     if(Props.location.search !== this.props.location.search){
-    //         let path = this.props.match.params.id
-    //         console.log('path',path)
-    //         fetch( ``)
-    //         .then((res)=>res.json())
-    //         .then((res)=>{
-    //             this.setState({data:res.data});
-    //         })
-    //     }
-    // }
+    componentDidUpdate(prevProps,prevState){
+        console.log("zhiqin",prevState);
+        console.log(this.state)
+        if(prevState !== this.state){
+
+        // fetch(`http://localhost:3001/lover/ldairy?loverid=${this.state.lover_id}`)
+        // .then(res=>res.json())
+        // .then(json=>{ 
+        //     this.setState({
+        //         noteArr:json.msg
+        //     });
+        // })
+    }
+    }
 
     render() {
         return (
