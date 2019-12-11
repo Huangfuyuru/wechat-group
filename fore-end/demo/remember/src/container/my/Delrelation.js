@@ -3,12 +3,11 @@ import { NavBar, Icon } from 'antd-mobile';
 import {Link} from 'react-router-dom';
 
 export default class Delrelation extends Component {
-    constructor(){
-        super();
-        this.state={
-            message:[{
-                msg1:'爱人1',
-            }]
+    constructor(props){
+        super(props)
+        this.state = {
+          list:["爱人1"],
+          inputValue:""
         }
     }
     componentDidMount(){
@@ -36,7 +35,7 @@ export default class Delrelation extends Component {
     render(){
         return(
             <div className="All">
-                <NavBar
+                 <NavBar
                     style={{
                         background:'#FFBF2D',
                         height:'8vh'
@@ -53,34 +52,29 @@ export default class Delrelation extends Component {
                     }}
                     >删除关系</span>
                 </NavBar>
+                <h4>您的爱人记录只有唯一的一个</h4>
+            <div>
                 {
-                    this.state.message.map((message)=>(
-                        <div className="My_body" style={{marginTop:"10%"}}>
-                            <div className="one">
-                                <div className="line">
-                                    <label><input type="checkbox" name="checkfruit" value="one"/>{message.msg1}</label>
-                                </div>
-                                <div className="line">
-                                    <label><input type="checkbox" name="checkfruit" value="two"/>{message.msg1}</label>
-                                </div>
-                            </div>
-                            <div className="two">
-                                <div className="line">
-                                    <label><input type="checkbox" name="checkfruit" value="three"/>{message.msg1}</label>
-                                </div>
-                                <div className="line">
-                                    <label><input type="checkbox" name="checkfruit" value="four"/>{message.msg1}</label>
-                                </div>
-                            </div>
-                        </div>
-                    ))
+                    this.state.list.map((ele,index)=>{
+                        return <div className="new" key={index} >{ele}<button onClick={this.del.bind(this,index)}>删除</button></div>
+                    })
                 }
-                <form method='post' action=''>
-                    <Link to="/index/my">
-                        <button type="submit" className="relation_button">确认删除</button>
-                    </Link>
-                </form>
-            </div>
+              </div>
+          </div>
         )
+      }
+      change(e){
+        this.setState({
+          inputValue:e.target.value
+        })
+      }
+      del(index){
+        //展开数组
+        var list = [...this.state.list]
+        //删除元素
+        list.splice(index,1)
+        this.setState({
+          list:list
+        })
+      }
     }
-}
