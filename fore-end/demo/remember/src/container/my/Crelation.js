@@ -3,10 +3,49 @@ import { NavBar, Icon } from 'antd-mobile';
 import {Link} from 'react-router-dom';
 
 export default class Crelation extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        var uid = JSON.parse(localStorage.getItem('uid'));
         this.state={
-    
+            name:"s",
+            ldate:"2019",
+            gender:"女",
+            uid:uid,
+            loverid:''
+        }
+    }
+    componentDidMount(){
+        fetch(`http://localhost:3001/my/addlover`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`loverid=${this.state.loverid}`
+        }).then(res=>res.json())
+        .then(json=>{
+            console.log(json)
+            this.setState({
+                loverid:json[0].loverid
+            });
+        })
+    }
+    componentDidUpdate(prevProps,prevState){
+        if(prevState !== this.state){
+            console.log('BJ',this.state.cindex_src)
+            console.log('id',this.state.child_id)
+            fetch(`http://localhost:3001/my/addlover`,{
+                method:'POST',
+                mode:'cors',
+                headers:{
+                    'Content-Type':"application/x-www-form-urlencoded"
+                },
+                body:`name=${this.state.name}&ldate=${this.state.ldate}&gender=${this.state.ldate}&uid=${this.state.uid}`
+            })
+            .then(res=>res.json())
+            .then(json=>(
+                console.log(json)
+            ))
         }
     }
     render(){

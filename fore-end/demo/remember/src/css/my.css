@@ -140,8 +140,9 @@ body{
 }
 #new button{
     float:right;
-    margin-top:6%;
+    margin-top:7%;
     margin-right:5%;
+    background-color:#FFBF2D;
 }
 #lwarn{
     margin-left:3vh;

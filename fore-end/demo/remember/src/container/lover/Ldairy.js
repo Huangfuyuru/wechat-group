@@ -6,7 +6,7 @@ export default class Ldairy extends Component {
     constructor(props){
         super(props);
         this.state={
-             lover_id:this.props.location.state.lover_id,
+            lover_id:this.props.location.state.lover_id,
             noteArr:[],
             arr:[]
         }

@@ -8,7 +8,7 @@ export default class Delrelation2 extends Component {
         this.state = {
           list:["亲子1","亲子2","亲子3"],
           inputValue:"",
-          a:false
+          a:0
         }
     }
     change(e){
@@ -16,29 +16,23 @@ export default class Delrelation2 extends Component {
         inputValue:e.target.value
       })
     }
-    bounce=()=>{
+    bounce=(index)=>{
       // 弹出选择框
+      this.state.a=index;
+      console.log(index);
       var lwarn=document.getElementById('lwarn');
       var btn1=document.getElementById('btn1');
       lwarn.style.display='block';
     }
-    del(index){
-      // 判断是否删除
-      if(this.state.a===true){
+    del=()=>{
+      // 判断是否删
         //展开数组
+        console.log(this.state.a);
         var list = [...this.state.list]
-        list.splice(index,1)
+        list.splice(this.state.a,1)
         this.setState({
           list:list
-        })
-      }
-      else{
-        this.state.a=false;
-      }
-    }
-    All(index){
-      this.state.bounce;
-      this.state.del;
+        });
     }
     // componentDidMount(){
     //     let path = this.props.match.params.id
@@ -82,12 +76,12 @@ export default class Delrelation2 extends Component {
                   }}
                   >删除关系</span>
               </NavBar>
-              <h4>请选择要删除的亲子记录</h4>
+              <h4>亲子记录</h4>
               <div>
                 {
                   this.state.list.map((ele,index)=>{
                     // 把index传入
-                    return <div id="new" key={index} >{ele}<button onClick={this.All.bind(this,index)}>删除</button></div>
+                    return <div id="new" key={index} >{ele}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
                   })
                 }
               </div>
@@ -99,7 +93,7 @@ export default class Delrelation2 extends Component {
                   onClick={(index)=>{
                       var warn=document.getElementById('lwarn');
                       warn.style.display='none';
-                      this.state.a=true;
+                      this.del();
                   }}
                   style={{
                     width:'25%',
@@ -116,7 +110,7 @@ export default class Delrelation2 extends Component {
                 onClick={()=>{
                     var warn=document.getElementById('lwarn');
                     warn.style.display='none';
-                    this.state.a=true;
+                    
                 }}
                 style={{
                   width:'25%',

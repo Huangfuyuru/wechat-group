@@ -3,34 +3,36 @@ import { NavBar, Icon } from 'antd-mobile';
 import {Link} from 'react-router-dom';
 
 export default class Delrelation extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-          list:["爱人1"],
-          inputValue:""
-        }
+  constructor(props){
+    super(props);
+    var uid = JSON.parse(localStorage.getItem('uid'));
+    this.state={
+        uid:uid,
+        list:['你好'],
+        name:''
     }
-    componentDidMount(){
-        let path = this.props.match.params.id
-        console.log('path',path)
-        fetch(`http://localhost:3001/my/dellover`)
-        .then((res)=>res.json())
-        .then((res)=>{
-            this.setState({data:res.data});
-            console.log('更新前',res.data)
-        })
-    }
-    componentDidUpdate(prevProps,prevState){
-        if(prevProps.location.search !==this.props.location.search){
-            let path = this.props.match.params.id
-            console.log('path',path)
-            fetch(`http://localhost:3001/my/dellover`)
-            .then((res)=>res.json())
-            .then((res)=>{
-                this.setState({data:res.data});
-                console.log('更新后',res.data)
-            })
-        }
+}
+// componentDidMount(){
+//     fetch(`http://localhost:3001/my/dellover`)
+//     .then(res=>res.json())
+//     .then(json=>{ 
+//         console.log("shzu",json)
+//         this.setState({
+//             name:json[0].name,
+//             // json[0].loverid
+//             list:['你还']
+//         });
+//         console.log(this.state.list);
+//     })
+// }
+    del(index){
+      //展开数组
+      var list = [...this.state.list]
+      //删除元素
+      list.splice(index,1)
+      this.setState({
+        list:list
+      })
     }
     render(){
         return(
@@ -52,29 +54,15 @@ export default class Delrelation extends Component {
                     }}
                     >删除关系</span>
                 </NavBar>
-                <h4>您的爱人记录只有唯一的一个</h4>
+                <h4>爱人记录：</h4>
             <div>
                 {
-                    this.state.list.map((ele,index)=>{
-                        return <div className="new" key={index} >{ele}<button onClick={this.del.bind(this,index)}>删除</button></div>
-                    })
+                  this.state.list.map((ele,index)=>{
+                      return <div className="new" key={index} >{ele}<button onClick={this.del.bind(this,index)}>删除</button></div>
+                  })
                 }
               </div>
           </div>
         )
-      }
-      change(e){
-        this.setState({
-          inputValue:e.target.value
-        })
-      }
-      del(index){
-        //展开数组
-        var list = [...this.state.list]
-        //删除元素
-        list.splice(index,1)
-        this.setState({
-          list:list
-        })
       }
     }
