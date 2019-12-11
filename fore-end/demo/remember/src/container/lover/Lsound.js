@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavBar, Icon } from 'antd-mobile';
-
+import {Link} from  "react-router-dom"
 export default class Lsound extends Component {
     render() {
         return (
@@ -24,6 +24,8 @@ export default class Lsound extends Component {
                     }}
                     >语音记事</span>
                 </NavBar>
+
+                <Link to="/lover/lcsouvenir"><img src={require("../../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
             </div>
         )
     }

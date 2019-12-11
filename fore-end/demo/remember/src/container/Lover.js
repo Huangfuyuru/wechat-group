@@ -118,7 +118,7 @@ export default class lover_home extends Component {
                  {/* <img src={this.state.cindex_src} alt=""  style={{height:"28%",width:"94%",paddingTop:"5%",marginLeft:"3%"}} ></img>   */}
                 <div className="lover-home-first">
                  <Link to ="/lover/lpictures"><button className="lover-button">云相册</button></Link>
-                 <button className="lover-button">语音记事</button>
+                 <Link to= "/lover/lsound"><button className="lover-button">语音记事</button></Link>
                  <Link to =
                  {{
                     pathname:"/lover/ldairy",
