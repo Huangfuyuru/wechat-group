@@ -53,6 +53,7 @@ router.post('/lcsouvenir',async function(req,res,next){
 
 //删除纪念日
 router.get('/delSouvenir',async function(req,res,next){
+    console.log('删除日记')
     var lid = Number(req.query.loverid),
         limpDid = Number(req.query.loverImpDateid);
     console.log('delete loverid',lid);

@@ -16,21 +16,21 @@ router.get('/',async function(req,res,next){
         id:lid,
         background:backround
     }
-    var data = await lover.loverBackgroundM.changeByid(text);
-    if(data === 0 ){
-        info={
-            code:0,
-            msg:'更换背景成功'
-        }
-        res.json(info);
-    }else{
-        info= {
-            code:1,
-            msg:'更换背景失败'
-        }
-        res.json(info);
+    // var data = await lover.loverBackgroundM.changeByid(text);
+    // if(data === 0 ){
+    //     info={
+    //         code:0,
+    //         msg:'更换背景成功'
+    //     }
+    //     res.json(info);
+    // }else{
+    //     info= {
+    //         code:1,
+    //         msg:'更换背景失败'
+    //     }
+    //     res.json(info);
 
-    }
+    // }
     
 });
 

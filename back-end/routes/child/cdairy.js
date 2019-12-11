@@ -20,11 +20,11 @@ router.get('/',async function(req,res,next){
 //增加日记
 router.post('/ccdairy',async function(req,res,next){
     var childsid = req.body.childsid
-    var name = req.body.name;
+    var backcolor = req.body.backcolor;
     var content = req.body.content;
     var imgurl = req.body.imgurl;
     await childDiaryM.addChildDiary({
-        name:name,
+        backcolor:backcolor,
         content:content,
         imgurl:imgurl,
         cid:childsid

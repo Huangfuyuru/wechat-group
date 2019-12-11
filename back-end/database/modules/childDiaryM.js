@@ -8,8 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addChildDiary(text){
-    let sql = 'insert into childDiary(name,content,imgurl,cid) values ($1,$2,$3,$4)';
-    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.cid]);
+    let sql = 'insert into childDiary(backcolor,content,imgurl,cid) values ($1,$2,$3,$4)';
+    let ret = await pgdb.query(sql,[text.backcolor,text.content,text.imgurl,text.cid]);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -93,8 +93,8 @@ async function findById(id){
  * @returns
  */
 async function changeById(id,text){
-    let sql = 'update childDiary set name=$1,content=$2,imgurl=$3 where id = $4'
-    let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,id]);
+    let sql = 'update childDiary set backcolor=$1,content=$2,imgurl=$3 where id = $4'
+    let ret = await pgdb.query(sql,[text.backcolor,text.content,text.imgurl,id]);
     if(ret.rowCount<=0){
         return 1
     }else{
