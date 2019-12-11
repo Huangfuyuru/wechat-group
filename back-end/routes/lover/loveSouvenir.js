@@ -13,7 +13,7 @@ router.use(bodyParser.json());
 router.get('/',async function(req,res,next){
     console.log('点击纪念日');
     var lid = Number(req.query.loverid);
-    // console.log('lid',req.query.loverid);
+    console.log('lid',lid);
     var data = await lover.loverImpDateM.findByPid(lid);
     console.log('data',data)
     res.json(data);
