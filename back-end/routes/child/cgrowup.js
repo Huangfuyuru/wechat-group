@@ -53,11 +53,11 @@ router.get('/crgrowup',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var childGrowid = Number(request.childGrowid);
-    await childGrowM.delChildGrow(childGrowid);
+    var data2 = await childGrowM.delChildGrow(childGrowid);
     var data1 = await childGrowM.findByCid(childsid);
-    if(data1 == 1){
+    if(data2 == 1){
         var message = {
-            data:null,
+            data:data1,
             msg:"删除失败"
         }
     }else{
