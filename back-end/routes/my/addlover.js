@@ -13,6 +13,7 @@ router.use(bodyParser.json());
 //点击增加爱人
 // 爱人name，关系确认日期ldate，性别gender，用户uid
 router.post('/',async function(req,res,next){
+    console.log(req.body);
     var name = req.body.name;
     var ldate = req.body.ldate;
     var gender = req.body.gender;
