@@ -4,7 +4,7 @@ const express = require('express'),
 //引入数据库
 const {loverM} = require("../../database/dateMethod");
 
-var info ={};
+var info ={};//返回给前端的数据
 
 //配置bodyparser中间件
 router.use(bodyParser.urlencoded({extended:true}));
