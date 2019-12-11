@@ -15,22 +15,13 @@ const lovePictures = require('./lover/lovePictures'),
       loveList = require('./lover/loveList'),
       loveSouvenir = require('./lover/loveSouvenir');
       loveBackground = require('./lover/changBack');
-
-
-router.get('/',function(req,res,next){
-       var html=fs.readFileSync('./testing-yxd/loveDinary.html').toString('utf8');
-       res.writeHead(200,{
-              'Content-Type':'text/html;charset=UTF8',
-              'Content-Length':'Buffer.byteLength(html)'
-       });
-       res.end(html);
-});
       
 router.post('/',async function(req,res,next){
+       console.log('lover.js')
        console.log('uid',req.body.uid);
        var uid = req.body.uid;
        var data = await lover.loverM.findIdByUid(uid);
-       console.log(data);
+       console.log('该爱人的所有信息',data);
        res.json(data);
 });
 

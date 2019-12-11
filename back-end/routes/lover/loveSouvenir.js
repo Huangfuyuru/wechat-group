@@ -11,16 +11,18 @@ router.use(bodyParser.json());
 
 //匹配路由  /lover/lsouvenir
 router.get('/',async function(req,res,next){
-    var lid = req.query.loverid;
+    console.log('点击纪念日');
+    var lid = Number(req.query.loverid);
     // console.log('lid',req.query.loverid);
-    var data = await lover.loverImpDateM.findByPid(lid)
+    var data = await lover.loverImpDateM.findByPid(lid);
+    console.log('data',data)
     res.json(data);
 
 });
 
 //增加纪念日
 router.post('/lcsouvenir',async function(req,res,next){
-    var daid = req.bady.loverid;
+    var daid = Number(req.bady.loverid);
     var text ={
         name:req.body.name,
         contnet: req.body.contnent,
@@ -51,8 +53,8 @@ router.post('/lcsouvenir',async function(req,res,next){
 
 //删除纪念日
 router.get('/delSouvenir',async function(req,res,next){
-    var lid = req.query.loverid,
-        limpDid = req.query.loverImpDateid;
+    var lid = Number(req.query.loverid),
+        limpDid = Number(req.query.loverImpDateid);
     console.log('delete loverid',lid);
     console.log('delete limpDid',limpDid);
     var delsou =  await lover.loverImpDateM.delLoverImpDate(limpDid);
