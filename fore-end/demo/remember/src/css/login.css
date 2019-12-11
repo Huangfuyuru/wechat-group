@@ -123,6 +123,29 @@
     text-align: inherit;
     letter-spacing: 1vw;
 }
+#lwarn{
+    display: none;
+    border-radius: 20px;
+    background:rgba(255,191,45,0.4);
+    position: fixed;
+    top:28vh;
+    width: 90%;
+    height: 35vh;
+    z-index: 100;
+    margin: 0;
+}
+#lwarn div{
+    text-align: center;
+    padding:4vh 5vw;
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 30%;
+    color: rgb(148, 145, 145);
+}
 
 /* 注册小块 */
 .resign{
@@ -170,29 +193,6 @@
     margin: 0;
 }
 #warn div{
-    text-align: center;
-    padding:4vh 5vw;
-    margin-top:10%;
-    margin-left: auto;
-    margin-right: auto;
-    background: #fff;
-    font-size: 6.5vw;
-    width: 70%;
-    height: 30%;
-    color: rgb(148, 145, 145);
-}
-#lwarn{
-    display: none;
-    border-radius: 20px;
-    background:rgba(255,191,45,0.4);
-    position: fixed;
-    top:28vh;
-    width: 90%;
-    height: 35vh;
-    z-index: 100;
-    margin: 0;
-}
-#lwarn div{
     text-align: center;
     padding:4vh 5vw;
     margin-top:10%;

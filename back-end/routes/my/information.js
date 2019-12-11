@@ -4,6 +4,7 @@ const express = require('express'),
 //引入数据库
 const {userM} = require("../../database/dateMethod");
 
+var info = {}
 //配置bodyparser中间件
 router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
@@ -22,12 +23,17 @@ router.post('/',async function(req,res,next){
         uid:uid,
         gender:gender
     })
-    if(result !== 1){
-        var message = {code:0,msg:"用户修改成功"}
+    if(result === 0){
+        //修改用户成功后需要给前端返回userM的修改后的信息
+        //目前返回的是所用户的信息  肯定是不行的！
+        // var data  = await userM.findAll()
+        info = {code:0,msg:"用户修改成功"}
+        // res.json(data)
     }else{
-        var message = {code:1,msg:"用户修改失败"}
+        info = {code:1,msg:"用户修改失败"}
     }
-    res.json(message)
+    //只是返回了结果
+    res.json(result)
 })
 
 

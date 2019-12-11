@@ -22,6 +22,7 @@ import LCpictures from "./container/lover/lover-details/Lcreate_photo"
 import LCsouvenir from "./container/lover/lover-details/Lcreate_souver"
 import LSlists from "./container/lover/lover-details/LSlists"
 import LSpictures from "./container/lover/lover-details/LSpictures"
+import LCsound from "./container/lover/lover-details/Lcreate_sound"
 import Lover from "./container/Lover"
 import Child from "./container/Child"
 import My from './container/My';
@@ -44,7 +45,7 @@ import Use from './container/my/Use'
 
 function App() {
   return (
-    <Router>
+    <Router> 
       <Route exact path='/' component={Start}/>
       <Route path='/menus' component={Menus}/>
       {/* <Route path='/resign/message' component={Message}/> */}
@@ -79,6 +80,7 @@ function App() {
       <Route path='/lover/lcpictures' component={LCpictures}/>
 
       <Route path='/lover/lsound' component={Lsound}/>
+      <Route path='/lover/lcsound' component={LCsound}/>
 
       <Route path='/lover/ldairy' component={Ldairy}/>
       <Route path='/lover/lcdairy' component={LCdairy}/>

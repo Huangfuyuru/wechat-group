@@ -4,21 +4,68 @@ import {Link} from 'react-router-dom';
 import { NavBar, Icon } from 'antd-mobile';
 
 export default class growAdd extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        console.log(this.props.location.state)
         this.state={
+            cid:this.props.location.state,
+            height:'',
+            weight:'',
+            age:'',
+            code:''
         }
+    }
+    changeHeight=(e)=>{
+        this.setState({
+            height:e.target.value
+        })
+        // console.log(this.state.height)
+    }
+    changeWeight=(e)=>{
+        this.setState({
+            weight:e.target.value
+        })
+        // console.log(this.state.tel)
+    }
+    changeAge=(e)=>{
+        this.setState({
+            age:e.target.value
+        })
+        // console.log(this.state.tel)
+    }
+    buttonPost=()=>{
+        var addwarn=document.getElementById('addwarn');
+        fetch('http://localhost:3001/child/cgrowup/ccgrowup',{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`length=${this.state.height}&weight=${this.state.weight}&age=${this,this.state.age}&childsid=${this.state.cid}`
+        }).then(res=>res.json())
+        .then(json=>{
+            this.setState({
+                code:json.msg
+            },()=>{
+                addwarn.style.display='block';
+            })
+            console.log(json)
+        })
     }
     render() {
         return (
             // 成长记录
-            <div className="All">
+            <div className="ccgrow">
                 <NavBar
                     style={{
-                        background:'#FFBF2D',
-                        height:'8vh',
-                        color:'#fff',
-                        fontWeight:'bolder',
+                    width:'100%',
+                    zIndex:'11',
+                    position:'fixed',
+                    top:0,
+                    height:'8vh',
+                    background:'#FFBF2D',
+                    color:'#fff',
+                    fontWeight:'bolder',
                     }}
                     mode="light"
                     icon={'𡿨'}
@@ -32,28 +79,47 @@ export default class growAdd extends Component {
                     }}
                     >添加记录</span>
                 </NavBar>
-                {/* 添加身高 */}
-                <form method='post' action=''>
-                    <div className="Create_">
-                        身高(cm)：
-                        <input className="one" type="text" placeholder="单行输入"></input>
+                <div className='ccgrow_inner'>
+                    <div>
+                        <span>身高（cm）：</span>
+                        <input onChange={this.changeHeight} name='length' type='text' placeholder='单行输入'/>
                     </div>
-                    {/* 添加体重 */}
-                    <div className="Create_">
-                        体重(kg)：
-                        <input className="one" type="text" placeholder="单行输入"></input>
+                    <div>
+                        <span>体重（kg）：</span>
+                        <input onChange={this.changeWeight} name='weight' type='text' placeholder='单行输入'/>
                     </div>
-                    {/* 日期 */}
-                    <div className="Add_date">
-                        <div></div>
-                        <div style={{width:"100px"}}></div>
-                        <div>日期：{moment().format('YYYY-MM-DD')}</div>
+                    <div>
+                        <span>年龄（岁）：</span>
+                        <input onChange={this.changeAge} name='age' type='text' placeholder='单行输入'/>
                     </div>
-                    {/* 点击创建 */}
-                    <Link to='/child/cgrowup'>
-                        <button type="submit" className="Create_picture">添加记录</button>
+
+                    <button onClick={this.buttonPost}>添加记录</button>
+
+                    <div id='addwarn'>
+                        <div>{this.state.code}</div>
+                        <button 
+                        onClick={()=>{
+                            var addwarn=document.getElementById('addwarn');
+                            addwarn.style.display='none';
+                        }}
+                        style={{
+                            width:'25%',
+                            height:'15%',
+                            color:'#FFBF2D',
+                            border:'none',
+                            marginTop:'2vh',
+                            background:'#fff',
+                            borderRadius:'5px',
+                            fontSize:'6vw'
+                        }}>确定</button>
+                    </div>
+                    <Link
+                    to={{
+                        pathname:'/child/cgrowup'
+                    }}>
                     </Link>
-                </form>
+                </div>
+                
             </div>
         )
     }
