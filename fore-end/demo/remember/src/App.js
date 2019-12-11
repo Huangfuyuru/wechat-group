@@ -22,7 +22,7 @@ import LCpictures from "./container/lover/lover-details/Lcreate_photo"
 import LCsouvenir from "./container/lover/lover-details/Lcreate_souver"
 import LSlists from "./container/lover/lover-details/LSlists"
 import LSpictures from "./container/lover/lover-details/LSpictures"
-import LCsound from "./container/Lover/lover-details/Lcreate_sound"
+import LCsound from "./container/lover/lover-details/Lcreate_sound"
 import Lover from "./container/Lover"
 import Child from "./container/Child"
 import My from './container/My';
