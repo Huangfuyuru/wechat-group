@@ -2,8 +2,35 @@ import React, { Component } from 'react'
 import { NavBar,WingBlank} from 'antd-mobile';
 import "../../../css/lover.css"
 import {Link} from "react-router-dom"
-
 export default class Lcreate_souver extends Component {
+    constructor(props){
+        super(props)
+        var lid = JSON.parse(localStorage.getItem('lid'));
+        this.state={
+            lover_id:lid,
+            item:"",
+            name:"",
+            imgurl:"",
+            content:"",
+            date:""
+        }
+    }
+    getTitle=(e)=>{
+        this.setState({
+                name:e.target.value
+            
+        })
+    }
+    getDate=(e)=>{
+        this.setState({
+            date:e.target.value
+    })
+    }
+    getContent=(e)=>{
+        this.setState({
+            content:e.target.value
+    })
+    }
     render() {
         return (
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
@@ -26,13 +53,13 @@ export default class Lcreate_souver extends Component {
                 </NavBar>
                   <div className="createsou-first">
                   <p >纪念日:</p>
-                  <input  type="text" placeholder="please input"/>
+                  <input  type="text" placeholder="please input" onChange={this.getTitle}/>
                   </div>
                   <div className="createsou-first">
                   <p >日期:</p>
-                  <input  type="text" placeholder="例:1999-11-28"/>
+                  <input  type="text" placeholder="例:1999-11-28" onChange={this.getDate}/>
                   </div>
-                  <textarea className="createsou-second" >内容：</textarea>
+                  <textarea className="createsou-second" onChange={this.getContent} >内容：</textarea>
                   <h1 style={{margin:"5% 0 0  9%"}}>设置提醒</h1>
                   <WingBlank>
                <button className="createsou-foot">保存</button>

@@ -5,8 +5,9 @@ import {Link} from "react-router-dom"
 export default class Ldairy extends Component {
     constructor(props){
         super(props);
+        var lid = JSON.parse(localStorage.getItem('lid'));
         this.state={
-             lover_id:this.props.location.state.lover_id,
+             lover_id:lid,
             noteArr:[],
             arr:[],
             lid:"",
@@ -28,7 +29,7 @@ export default class Ldairy extends Component {
         .then(json=>{ 
             console.log("shzu",json)
             this.setState({
-                // noteArr:json.msg
+                noteArr:json.msg
             });
         })
     }
@@ -69,10 +70,10 @@ export default class Ldairy extends Component {
                         <div className="lovernote-first">
                         <img  src={require("../../image/qian.jpg")} alt=""  style={{float:"left",margin:"3% 0 0 0%",height:"10%",width:"13%"}}></img>
                      <p style={{fontSize:"5vw",float:"left",margin:" 8% 0% 0 0"}}>{item.name}       {item.setdate.split(".")[0]}</p>
-                     <p style={{fontSize:"5vw",float:"left",margin:"0"}}>{item.content}</p>
-                        <div style={{height:"40%",width:"94%",float:"left",margin:"0 0 0 3%"}}>
-                        <img src={item.imgurl[0]}  alt="" style={{height:"100%",width:"48%",border:"solid 0.5px red" ,float:"left",marginLeft:"1%"}}></img>
-                        <img src={item.imgurl[1]}  alt="" style={{height:"100%",width:"48%",border:"solid 0.5px red" ,float:"left",marginLeft:"1%"}}></img>
+                     <textarea style={{fontSize:"5vw",float:"left",height:"25%",width:"90%",margin:"5% 0 0 5%",border:"0.5px solid #888888"}} readOnly="readOnly">{item.content}</textarea>
+                        <div style={{height:"30%",width:"94%",float:"left",margin:"2% 0 0 3%"}}>
+                        <img src={item.imgurl[0]}  alt="" style={{height:"100%",width:"48%",float:"left",marginLeft:"1%"}}></img>
+                        <img src={item.imgurl[1]}  alt="" style={{height:"100%",width:"48%",float:"left",marginLeft:"1%"}}></img>
                         </div>
                         <div className="iconfont icon-lajixiang1" onClick={()=>this.deleteNote(item.lid,item.id)}> 
                         </div>
