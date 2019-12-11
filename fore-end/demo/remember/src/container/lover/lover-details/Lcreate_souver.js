@@ -55,7 +55,7 @@ export default class Lcreate_souver extends Component {
             headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`item=${this.state.item}&name=${this.state.name}&imgurl=${this.state.imgurl}&loverid=${this.lover_id}&date=${this.state.date}`
+            body:`item=${this.state.item}&name=${this.state.name}&imgurl=${this.state.imgurl}&loverid=${this.state.lover_id}&date=${this.state.date}`
         })
         .then(res=>res.json())
         .then(json=>{ 
