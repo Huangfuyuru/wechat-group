@@ -62,7 +62,7 @@ router.post('/addDairy',async function(req,res,next){
 });
 
 router.get('/delDairy',async function(req,res,next){
-    var daid = req.query.loverDiaryid;
+    var daid =Number( req.query.loverDiaryid);
     console.log('dairyid',daid);
     var delDairy = await lover.loverDiaryM.delLoverDiary(daid);
     if(delDairy === 0 ){
