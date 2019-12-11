@@ -198,6 +198,17 @@
     position: relative;
     top:-50px;
 }
+
+/* 语音记事 */
+.csound_inner{
+    min-height: 80vh;
+    margin-top: 8.1vh;
+
+    background: #bdbbb8;
+
+}
+
+
 /* 成长记录 */
 .cgrowup_inner{
     min-height: 80vh;
