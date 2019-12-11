@@ -14,7 +14,12 @@ router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var data = await childGrowM.findByCid(childsid);
-    res.json(data)
+    if(data == 1){
+        res.json([])
+    }else{
+        res.json(data)
+    }
+    
 })
 
 //增加成长记录
