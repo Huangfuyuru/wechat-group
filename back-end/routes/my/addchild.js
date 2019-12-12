@@ -25,13 +25,17 @@ router.post('/',async function(req,res,next){
         uid:uid
     })
     if(result === 0){
-        var data = await childM.findById(uid);
-        info = {code:0,msg:data}
-        console.log('添加亲子后查看所有信息',await childM.findAll())
-        res.json(data)
+        // var data = await childM.findById(uid);
+        // info = {code:0,msg:data}
+        // console.log('添加亲子后查看所有信息',await childM.findAll())
+        // res.json(data)
+        info = {code:0,msg:"添加亲子成功"}
+        
+
 
     }else{
         info = {code:1,msg:"添加亲子失败"}
+        res.json(ScopedCredentialInfo)
     }
     
 })

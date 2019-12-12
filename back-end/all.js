@@ -5,7 +5,8 @@ const express = require('express'),
       child = require('./routes/child'),  //亲子
       img = require('./routes/img'),      //单张图片
       imgs = require('./routes/imgs'),    //多张图片
-      voice = require('./routes/voice');  //语音
+      voice = require('./routes/voice'),  //语音
+      my = require('./routes/my')
       
 
 
@@ -25,6 +26,7 @@ app.use('/child',child);
 app.use('/img',img);
 app.use('/imgs',imgs);
 app.use('/voice',voice);
+app.use('/my',my);
 app.listen(3001);
 
 
