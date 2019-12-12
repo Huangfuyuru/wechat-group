@@ -8,8 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addLoverPhotoList(text){
-    let sql = 'insert into loverPhotoList(name,lid) values ($1,$2)';
-    let ret = await pgdb.query(sql,[text.name,text.lid]);
+    let sql = 'insert into loverPhotoList(name,lid,background) values ($1,$2,$3)';
+    let ret = await pgdb.query(sql,[text.name,text.lid,text.background]);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -109,8 +109,8 @@ async function findIdByLid(lid){
  * @returns
  */
 async function changeById(id,text){
-    let sql = 'update loverPhotoList set name=$1 where id = $2'
-    let ret = await pgdb.query(sql,[text.name,id]);
+    let sql = 'update loverPhotoList set name=$1,background=$2 where id = $3'
+    let ret = await pgdb.query(sql,[text.name,text.background,id]);
     if(ret.rowCount<=0){
         return 1
     }else{

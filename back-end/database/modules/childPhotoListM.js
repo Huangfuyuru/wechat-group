@@ -8,8 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addChildPhotoList(text){
-    let sql = 'insert into childPhotoList(name,cid) values ($1,$2)';
-    let ret = await pgdb.query(sql,[text.name,text.cid]);
+    let sql = 'insert into childPhotoList(name,cid,background) values ($1,$2,$3)';
+    let ret = await pgdb.query(sql,[text.name,text.cid,text.background]);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -108,8 +108,8 @@ async function findIdByCid(cid){
  * @returns
  */
 async function changeById(id,text){
-    let sql = 'update childPhotoList set name=$1 where id = $4'
-    let ret = await pgdb.query(sql,[text.name,id]);
+    let sql = 'update childPhotoList set name=$1,background=$2 where id = $3'
+    let ret = await pgdb.query(sql,[text.name,text.background,id]);
     if(ret.rowCount<=0){
         return 1
     }else{
