@@ -13,8 +13,16 @@ router.use(bodyParser.json());
 router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
+    console.log('xx')
     var data = await childAdolesceM.findByCid(childsid);
-    res.json(data);
+    console.log(data)
+    if(data == 1){
+        res.json(null)
+    }else{
+        res.json(data);
+        
+    }
+    
 })
 
 //增加大事
