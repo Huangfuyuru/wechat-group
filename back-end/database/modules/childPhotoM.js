@@ -109,7 +109,7 @@ async function findIdByPid(pid){
  * @returns
  */
 async function changeById(id,text){
-    let sql = 'update childPhoto set imgurl=$1 where id = $2'
+    let sql = 'update  set imgurl=$1 where id = $2'
     let ret = await pgdb.query(sql,[text.name,id]);
     if(ret.rowCount<=0){
         return 1
@@ -118,7 +118,23 @@ async function changeById(id,text){
     }
 }
 
+
+/**
+ *根据相册pid 删除这个相册所有照片
+ *
+ * @param {*} pid
+ * @returns
+ */
+async function delAllByPid(pid){
+    let sql = 'delete from delete from childPhoto where pid=$1'
+    let ret = await pgdb.query(sql,[pid]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0;
+    }
+}
 var childPhotoM = {
-    addChildPhoto,delChildPhoto,findAll,findById,findByPid,findIdByPid,changeById
+    addChildPhoto,delChildPhoto,findAll,findById,findByPid,findIdByPid,changeById,delAllByPid
 }
 module.exports = childPhotoM;

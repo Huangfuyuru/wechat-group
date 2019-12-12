@@ -4,11 +4,13 @@ import {Link} from 'react-router-dom';
 import { NavBar, Icon } from 'antd-mobile';
 
 export default class eventAdd extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        var cid = JSON.parse(localStorage.getItem('cid'));
         this.state={
-            
+            cid:cid,
         }
+        console.log(this.state.cid)
     }
     render() {
         return (
@@ -33,8 +35,10 @@ export default class eventAdd extends Component {
                     }}
                     >添加大事记</span>
                 </NavBar>
-                <form method='post' action=''>
-                    <p className="Add_body_one">第一次</p>
+                <form>
+                    <label><input type="checkbox" name="item" value="第一次" checked/>第一次</label>
+{/*                     
+                    <p className="Add_body_one">第一次</p> */}
                     <input className="input1" type="text" placeholder="单行输入"/>
                     <p className="Add_body_two">描述文字</p>
                     <textarea rows="3" cols="20" placeholder='请输入内容' className="input2">
