@@ -245,10 +245,10 @@
 }
 .csound_block{
     width:80vw;
-    height:15vh;
+    height:18vh;
     margin-top:2vh;
     margin-bottom:2vh;
-    padding-top:3vh;
+    padding-top:2vh;
     margin: 2vh auto;
     border:1px solid #FFBF2D;
     border-radius:10px;
@@ -270,7 +270,7 @@
     font-size: 3.5vw;
     float: right;
     margin-right: 4vw;
-    margin-top: 0.5vh;
+    margin-top: 1.5vh;
 }
 #delcsound{
     display: none;
