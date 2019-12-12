@@ -15,8 +15,7 @@ const cpictures = require('./child/cpictures'),
       cgrowup = require('./child/cgrowup'),
       cstudy = require('./child/cstudy'),
       cdairy = require('./child/cdairy'),
-      change = require('./child/change'),
-      changebackground = require('./child/changebackground');
+      change = require('./child/change');
 
 router.post('/',async function(req,res,next){
     var uid = Number(req.body.uid);
