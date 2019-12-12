@@ -31,9 +31,9 @@ router.get('/',async function(req,res,next){
 
 //点击具体相册
 router.get('/show',async function(req,res,next){
-    var photoid = Number(req.query.loverPhotoid);
-    console.log(photoid);
-    var data = await lover.loverPhotoM.findById(photoid);
+    var photoListid = Number(req.query.loverPhotoListid);
+    console.log(photoListid);
+    var data = await lover.loverPhotoM.findById(photoListid);
     if(data!== 1){
         info ={
             code:0,
