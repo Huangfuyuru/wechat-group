@@ -13,7 +13,6 @@ router.use(bodyParser.json());
 router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
-    console.log('xx')
     var data = await childAdolesceM.findByCid(childsid);
     console.log(data)
     if(data == 1){
@@ -32,15 +31,25 @@ router.post('/ccevents',async function(req,res,next){
     var name = req.body.name;
     var imgurl = req.body.imgurl;
     var content = req.body.content;
+    var setdate = req.body.setdate;
+    // console.log(item,imgurl)
     await childAdolesceM.addChildAdolesce({
         item:item,
         imgurl:imgurl,
         content:content,
         cid:childsid,
-        name:name
+        name:name,
+        setdate:setdate
     })
     var data = await childAdolesceM.findByCid(childsid);
-    res.json(data);
+    if(data == 1){
+        var message={code:1,msg:"添加失败"};
+        console.log('添加失败')
+    }else{
+        var message={code:0,msg:"添加成功"};
+        console.log('添加失败')
+    }
+    res.json(message);
 })
 
 //删除大事

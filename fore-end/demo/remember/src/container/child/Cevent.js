@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { NavBar, Icon } from 'antd-mobile';
 import { relativeTimeThreshold } from 'moment';
 import moment from 'moment';
-// import '../../css/child.css'
+import '../../css/child.css'
 
 export default class Cevent extends Component {
     constructor(props){
