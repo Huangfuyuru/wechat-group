@@ -3,6 +3,7 @@ const express = require('express'),
       login = require('./routes/login'), //登陆
       resign =require('./routes/register'),  //注册
       child = require('./routes/child'),  //亲子
+      lover = require('/router/lover');   //爱人
       img = require('./routes/img'),      //单张图片
       imgs = require('./routes/imgs'),    //多张图片
       voice = require('./routes/voice'),  //语音
@@ -23,6 +24,7 @@ app.all('*', function (req, res, next) {
 app.use('/login',login);
 app.use('/resign',resign);
 app.use('/child',child);
+app.use('/lover',lover);
 app.use('/img',img);
 app.use('/imgs',imgs);
 app.use('/voice',voice);
