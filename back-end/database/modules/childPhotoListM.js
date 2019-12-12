@@ -117,7 +117,23 @@ async function changeById(id,text){
     }
 }
 
+/**
+ *根据亲子cid删除childPhotoList 中该亲子创建的内容
+ *
+ * @param {*} cid
+ * @returns
+ */
+async function delAllByCid(cid){
+    let sql = 'delete from childPhotoList where cid = $1'
+    let ret = await pgdb.query(sql,[cid]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0;
+    }
+}
+
 var childPhotoListM = {
-    addChildPhotoList,findById,findByCid,findAll,findIdByCid,changeById,delChildPhotoList
+    addChildPhotoList,findById,findByCid,findAll,findIdByCid,changeById,delChildPhotoList,delAllByCid
 }
 module.exports = childPhotoListM;

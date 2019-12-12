@@ -118,7 +118,23 @@ async function changeById(id,text){
     }
 }
 
+
+/**
+ *根据爱人lid删除loverPhotoList 中该爱人创建的内容
+ *
+ * @param {*} cid
+ * @returns
+ */
+async function delAllByCid(cid){
+    let sql = 'delete from loverPhotoList where lid = $1'
+    let ret = await pgdb.query(sql,[lid]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0;
+    }
+}
 var loverPhotoListM = {
-    addLoverPhotoList,delLoverPhotoList,findAll,findById,findByLid,findIdByLid,changeById
+    addLoverPhotoList,delLoverPhotoList,findAll,findById,findByLid,findIdByLid,changeById,delAllByCid
 }
 module.exports = loverPhotoListM;
