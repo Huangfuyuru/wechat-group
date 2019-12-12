@@ -23,7 +23,7 @@ router.get('/',async function(req,res,next){
 //增加纪念日
 router.post('/lcsouvenir',async function(req,res,next){
     console.log('增加纪念日');
-    var daid = Number(req.bady.loverid);
+    var daid = Number(req.body.loverid);
     var text ={
         name:req.body.name,
         contnet: req.body.contnent,
