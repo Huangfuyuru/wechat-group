@@ -41,7 +41,7 @@ export default class Write extends Component {
           });
       })
   }
-  delPOST=(e)=>{
+  delPOST=()=>{
       fetch(`http://localhost:3001/child/cgrowup/crgrowup?childsid=${this.state.cid}&childGrowid=${this.state.childGrowid}`,{
         method:'GET',
       })
@@ -112,7 +112,7 @@ export default class Write extends Component {
               <div className='cgrowup_inner'>
                 {
                   this.state.lists&&this.state.lists.map((item,idx)=>{
-                      var date = moment(item.setdate).format("YYYY-MM-DD HH:mm:ss");
+                      var date = moment(item.setdate).format("YYYY-MM-DD");
                       // console.log(item)
                       return <div className='cgrowup_block'
                       style={{
@@ -155,7 +155,7 @@ export default class Write extends Component {
                 ><i className='iconfont icon-jia'></i></Link>
               </div>
               <div id='delwarn'>
-                <div>确认删除？</div>
+                <div>确定删除？</div>
                     <button 
                     onClick={()=>{
                         var delwarn=document.getElementById('delwarn');
@@ -183,7 +183,7 @@ export default class Write extends Component {
                         background:'#fff',
                         borderRadius:'5px',
                         fontSize:'6vw'
-                    }}>确认</button>
+                    }}>确定</button>
                 </div>
               <div id='warnagain'>
                 <div>{this.state.code}</div>
@@ -201,7 +201,7 @@ export default class Write extends Component {
                         background:'#fff',
                         borderRadius:'5px',
                         fontSize:'6vw'
-                    }}>确认</button>
+                    }}>确定</button>
                 </div>
             </TabBar.Item>
 
@@ -223,26 +223,7 @@ export default class Write extends Component {
             >
             {/* 身高曲线 */}
             <div className='cgrowup_inner'>
-                {
-                  this.state.lists.map((item,idx)=>(
-                    <div className='cgrowup_block'
-                    style={{
-                      border:'1px solid #FFBF2D',
-                      height:'20vh',
-                      borderRadius:'10px',
-                      marginTop:'2vh',
-                      marginBottom:'2vh',
-                      paddingTop:'3vh'
-                    }} 
-                    key={idx}>
-                      <li>身高：<span>{item.length}</span></li>
-                      <li>体重：<span>{item.weight}</span></li>
-                      <li>年龄：<span>{item.age}</span></li>
-                      <p>记录创建日期:{item.setdate}</p>
-                    </div>
-                    
-                  ))
-                }
+                
               </div>
           </TabBar.Item>
 
@@ -264,26 +245,7 @@ export default class Write extends Component {
           >
           {/* 体重曲线 */}
           <div className='cgrowup_inner'>
-                {
-                  this.state.lists.map((item,idx)=>(
-                    <div className='cgrowup_block'
-                    style={{
-                      border:'1px solid #FFBF2D',
-                      height:'20vh',
-                      borderRadius:'10px',
-                      marginTop:'2vh',
-                      marginBottom:'2vh',
-                      paddingTop:'3vh'
-                    }} 
-                    key={idx}>
-                      <li>身高：<span>{item.height}</span></li>
-                      <li>体重：<span>{item.weight}</span></li>
-                      <li>年龄：<span>{item.age}</span></li>
-                      <p>记录创建日期:{item.date}</p>
-                    </div>
-                    
-                  ))
-                }
+               
               </div>
           </TabBar.Item>
         </TabBar>
