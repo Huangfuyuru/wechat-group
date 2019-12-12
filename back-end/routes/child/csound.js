@@ -36,7 +36,8 @@ router.post('/ccsound',async function(req,res,next){
 router.get('/crsound',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
-    var childVoiceid = Number(reqest.childVoiceid);
+    var childVoiceid = Number(request.childVoiceid);
+    console.log('xxx',childsid,childVoiceid)
     await childVoiceM.delChildVoice(childVoiceid);
     var data = await childVoiceM.findByCid(childsid);
     if(data == 1){
