@@ -31,7 +31,7 @@ router.post('/lcsouvenir',async function(req,res,next){
         name:req.body.name,
         imgurl:req.body.imgurl,
         lid:daid,
-        date:req.query.date,
+        date:req.body.date,
         contnet: '纪念日',
         voiceurl:'#'
     }
@@ -58,11 +58,13 @@ router.post('/lcsouvenir',async function(req,res,next){
 //删除纪念日
 router.get('/delSouvenir',async function(req,res,next){
     console.log('删除日记')
+    console.log('query',req.query);
     var lid = Number(req.query.loverid),
         limpDid = Number(req.query.loverImpDateid);
     console.log('delete loverid',lid);
     console.log('delete limpDid',limpDid);
     var delsou =  await lover.loverImpDateM.delLoverImpDate(limpDid);
+   console.log(delsou);
     if(delsou === 0 ){
         var data = await lover.loverImpDateM.findByPid(lid);
         info = {
