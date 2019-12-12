@@ -31,7 +31,7 @@ router.get('/',async function(req,res,next){
 
 //点击具体相册
 router.get('/show',async function(req,res,next){
-    var photoListid = Number(req.query);
+    var photoListid = Number(req.query.loverPhotoListid);
     console.log(photoListid);
     var data = await lover.loverPhotoListM.findById(photoListid);
     if(data!== 1){
