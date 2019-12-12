@@ -118,8 +118,6 @@ export default class growAdd extends Component {
                         onClick={()=>{
                             var addwarn=document.getElementById('addwarn');
                             addwarn.style.display='none';
-                            // var inps = document.getElementsByTagName('input');
-                            // document.getElementsByTagName('input').value = "";
                             this.props.form.resetFields();
                             
                         }}
@@ -134,11 +132,6 @@ export default class growAdd extends Component {
                             fontSize:'6vw'
                         }}>继续添加</button>
                     </form>
-                    <Link
-                    to={{
-                        pathname:'/child/cgrowup'
-                    }}>
-                    </Link>
                 </div>
                 
             </div>
