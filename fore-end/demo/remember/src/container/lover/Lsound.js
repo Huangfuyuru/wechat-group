@@ -2,6 +2,23 @@ import React, { Component } from 'react'
 import { NavBar, Icon } from 'antd-mobile';
 import {Link} from  "react-router-dom"
 export default class Lsound extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            lover_id:JSON.parse(localStorage.getItem('lid')),
+            arr:[]
+        }
+    }
+    
+    componentDidMount(){
+        console.log('sound');
+        console.log(this.state.lover_id);
+        fetch(`http://localhost:3001/lover/lsound?loverid=${this.state.lover_id}`)
+        .then(res=>res.json())
+        .then(json=>{
+            console.log('json',json);
+        })
+    }
     render() {
         return (
             <div>
