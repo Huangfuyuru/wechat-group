@@ -30,7 +30,16 @@ export default class Start extends Component {
                             关于你的一切，我都会记得~
                         </p>                 
                     </div>
-                    <Link className='start_button' to='/menus'>进入APP</Link>
+                    <button className='start_button' onClick={()=>{
+                        var uid = localStorage.getItem('uid');
+                        if(uid === JSON.stringify("over")){
+                            this.props.history.push('/menus')
+                        }else{
+                            this.props.history.push('/index/my')
+                        }
+                        console.log(uid)
+                    }
+                    }>进入APP</button>
                 </div>
             </div>
         )

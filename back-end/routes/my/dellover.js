@@ -1,6 +1,7 @@
 const express = require('express'),
       router = express.Router(),
-      bodyParser = require("body-parser");
+      bodyParser = require("body-parser"),
+      qs = require('qs');
 //引入数据库
 const {loverM} = require("../../database/dateMethod");
 

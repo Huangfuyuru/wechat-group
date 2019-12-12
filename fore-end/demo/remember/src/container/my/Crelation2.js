@@ -11,7 +11,8 @@ export default class Crelation2 extends Component {
             birthday:'',
             gender:'',
             uid:uid,
-            childsid:''
+            childsid:'',
+            code:0,
         }
     }
     inputChange1=(e)=>{
@@ -19,21 +20,18 @@ export default class Crelation2 extends Component {
         this.setState({
             name:a
         })
-        console.log(this.state.name)
     }
     inputChange2=(e)=>{
         var a=e.target.value;
         this.setState({
             birthday:a
         })
-        console.log(this.state.birthday)
     }
     inputChange3=(e)=>{
         var a=e.target.value;
         this.setState({
             gender:a
         })
-        console.log(this.state.gender)
     }
     Finally=()=>{
         console.log(this.state.name,this.state.birthday,this.state.gender,this.state.uid)
@@ -48,9 +46,10 @@ export default class Crelation2 extends Component {
         .then(json=>{
             console.log(json)
             this.setState({
-                childsid:json[0].childid
+                code:json.code
             });
         })
+        console.log(this.state.code)
     }
     render(){
         return(
@@ -79,11 +78,11 @@ export default class Crelation2 extends Component {
                     </div>
                     <div className="create_Relation">
                         对方生日：&nbsp;
-                        <input onChange={(e)=>this.inputChange2(e)} className="one" type="text" placeholder="单行输入"></input>
+                        <input onChange={(e)=>this.inputChange2(e)} className="one" type="text" placeholder="xxxx-xx-xx"></input>
                     </div>
                     <div className="create_Relation">
                         对方性别：&nbsp;
-                        <input onChange={(e)=>this.inputChange3(e)} className="one" type="text" placeholder="单行输入"></input>
+                        <input onChange={(e)=>this.inputChange3(e)} className="one" type="text" placeholder="男/女"></input>
                     </div>
                     <Link to="/index/my">
                         <button onClick={this.Finally} className="relation_button">创建关系</button>

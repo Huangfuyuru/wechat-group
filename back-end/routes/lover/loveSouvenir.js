@@ -22,6 +22,7 @@ router.get('/',async function(req,res,next){
 
 //增加纪念日
 router.post('/lcsouvenir',async function(req,res,next){
+    console.log('增加纪念日');
     var daid = Number(req.bady.loverid);
     var text ={
         name:req.body.name,
@@ -30,9 +31,10 @@ router.post('/lcsouvenir',async function(req,res,next){
         item:req.body.item,
         date:req.body.date,
         voiceurl:req.body.voiceurl,
-        lid:req.body.loverid
+        lid:daid
     }
     var addsou = await lover.loverImpDateM.addLoverImpDate(text);
+    console.log(addsou);
     if(addsou ===0){
         var data = await lover.loverImpDateM.findByPid(daid);
         info ={
@@ -53,6 +55,7 @@ router.post('/lcsouvenir',async function(req,res,next){
 
 //删除纪念日
 router.get('/delSouvenir',async function(req,res,next){
+    console.log('删除日记')
     var lid = Number(req.query.loverid),
         limpDid = Number(req.query.loverImpDateid);
     console.log('delete loverid',lid);

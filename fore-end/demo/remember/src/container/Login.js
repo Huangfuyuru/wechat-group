@@ -15,13 +15,11 @@ export default class Login extends Component {
         this.setState({
             tel:e.target.value
         })
-        // console.log(this.state.tel)
     }
     changePass=(e)=>{
         this.setState({
             pass:e.target.value
         })
-        // console.log(this.state.tel)
     }
     getData=()=>{
         fetch('http://localhost:3001/login',{
@@ -33,7 +31,6 @@ export default class Login extends Component {
             body:`utel=${this.state.tel}&pass=${this.state.pass}`
         }).then(res=>res.json())
         .then(json=>{
-            // console.log(json)
             localStorage.setItem('uid',JSON.stringify(json.id))
             var uid = JSON.parse(localStorage.getItem('uid'));
             if(json.code==0){
@@ -52,10 +49,7 @@ export default class Login extends Component {
                     var lwarn=document.getElementById('lwarn');
                     lwarn.style.display='block';
                 })
-                
-                console.log(json.msg)
             }
-            console.log(json)
         })
     }
     render() {

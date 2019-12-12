@@ -11,7 +11,7 @@ export default class Crelation extends Component {
             ldate:'',
             gender:'',
             uid:uid,
-            loverid:''
+            code:0,
         }
     }
     inputChange1=(e)=>{
@@ -19,24 +19,21 @@ export default class Crelation extends Component {
         this.setState({
             name:a
         })
-        console.log(this.state.name)
     }
     inputChange2=(e)=>{
         var a=e.target.value;
         this.setState({
             ldate:a
         })
-        console.log(this.state.ldate)
     }
     inputChange3=(e)=>{
         var a=e.target.value;
         this.setState({
             gender:a
         })
-        console.log(this.state.gender)
     }
     Finally=()=>{
-        console.log(this.state.name,this.state.birthday,this.state.gender,this.state.uid)
+        console.log(this.state.name,this.state.ldate,this.state.gender,this.state.uid)
         fetch(`http://localhost:3001/my/addlover`,{
             method:'POST',
             mode:'cors',
@@ -48,9 +45,10 @@ export default class Crelation extends Component {
         .then(json=>{
             console.log(json)
             this.setState({
-                loverid:json[0].loverid
+                code:json.code
             });
         })
+        console.log(this.state.code);
     }
     render(){
         return(
@@ -79,14 +77,14 @@ export default class Crelation extends Component {
                     </div>
                     <div className="create_Relation">
                         关系确认日期：&nbsp;
-                        <input onChange={(e)=>this.inputChange2(e)} className="one" type="text" placeholder="请输入汉字"></input>
+                        <input onChange={(e)=>this.inputChange2(e)} className="one" type="text" placeholder="xxxx-xx-xx"></input>
                     </div>
                     <div className="create_Relation">
                         对方性别：&nbsp;
-                        <input onChange={(e)=>this.inputChange3(e)} className="one" type="text" placeholder="女/男"></input>
+                        <input onChange={(e)=>this.inputChange3(e)} className="one" type="text" placeholder="男/女"></input>
                     </div>
                     <Link to="/index/my">
-                        <button onClick={()=>this.Finally} className="relation_button">创建关系</button>
+                        <button onClick={this.Finally} className="relation_button">创建关系</button>
                     </Link>
                 </form>
             </div>

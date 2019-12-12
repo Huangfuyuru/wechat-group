@@ -16,24 +16,31 @@ router.post('/',async function(req,res,next){
     var pass = req.body.pass;
     var uid = req.body.uid;
     var gender = req.body.gender;
-    var result = await userM.changeById({
+    var id = req.body.id;
+
+    console.log('req.body',req.body)
+    var result = await userM.changeById(id,{
         uimage:uimage,
         uname:uname,
         pass:pass,
         uid:uid,
         gender:gender
     })
+    console.log('----------------------------------')
+    console.log(result)
+    // res.json({message:'success'})
     if(result === 0){
         //修改用户成功后需要给前端返回userM的修改后的信息
         //目前返回的是所用户的信息  肯定是不行的！
         // var data  = await userM.findAll()
         info = {code:0,msg:"用户修改成功"}
-        // res.json(data)
+        res.json(info)
     }else{
         info = {code:1,msg:"用户修改失败"}
+        res.json(info)
     }
-    //只是返回了结果
-    res.json(result)
+    // 只是返回了结果
+    // res.json(result)
 })
 
 

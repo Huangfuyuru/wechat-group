@@ -6,9 +6,10 @@ import { NavBar, Icon } from 'antd-mobile';
 export default class growAdd extends Component {
     constructor(props){
         super(props);
-        console.log(this.props.location.state)
+        var cid = JSON.parse(localStorage.getItem('cid'));
+        // console.log(cid)
         this.state={
-            cid:this.props.location.state,
+            cid:cid,
             height:'',
             weight:'',
             age:'',
@@ -41,7 +42,7 @@ export default class growAdd extends Component {
             headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`length=${this.state.height}&weight=${this.state.weight}&age=${this.state.age}&childsid=${this.state.cid.cid}`
+            body:`length=${this.state.height}&weight=${this.state.weight}&age=${this.state.age}&childsid=${Number(this.state.cid)}`
         }).then(res=>res.json())
         .then(json=>{
             this.setState({

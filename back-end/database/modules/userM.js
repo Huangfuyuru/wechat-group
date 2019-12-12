@@ -125,8 +125,16 @@ async function findAll(){
  * @returns
  */
 async function changeById(id,text){
+    console.log(text)
+    text.imgurl='xx'
     let sql = 'update users set name = $1,imgurl=$2,pass=$3,gender=$4 where id = $5'
+  console.log(sql)
     let ret = await pgdb.query(sql,[text.name,text.imgurl,text.pass,text.gender,id]);
+    console.log('11')
+   
+    console.log(ret)
+   console.log('11')
+   
     if(ret.rowCount<=0){
         return 1
     }else{

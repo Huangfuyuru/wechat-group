@@ -10,7 +10,7 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
 router.get('/',async function(req,res,next){
-    var lid = req.query.loverid;
+    var lid = Number(req.query.loverid);
     console.log('photoList ',lid);
     var photoList =await lover.loverPhotoListM.findByLid(lid);
     if(photoList !== 1){
@@ -31,7 +31,7 @@ router.get('/',async function(req,res,next){
 
 //点击具体相册
 router.get('/show',async function(req,res,next){
-    var photoListid = req.query;
+    var photoListid = Number(req.query);
     console.log(photoListid);
     var data = await lover.loverPhotoListM.findById(photoListid);
     if(data!== 1){
@@ -50,7 +50,7 @@ router.get('/show',async function(req,res,next){
 });
 
 router.post('lcpictures',async function(req,res,next){
-    var lid = req.body.loverid,
+    var lid = Number(req.body.loverid),
         name = req.body.name,
         text={
             lid:lid,
@@ -75,8 +75,8 @@ router.post('lcpictures',async function(req,res,next){
 
 //删除相册失败
 router.get('/lrpictures',async function(req,res,next){
-    var lPLid = req.query.loverPhotoListid,
-    lid = rq.query.loverid;
+    var lPLid = Number(req.query.loverPhotoListid),
+    lid = Number(rq.query.loverid);
     var delPL = await lover.loverPhotoListM.delLoverPhotoList(lPLid);
     if(delPL === 0){
         var data= lover.loverPhotoListM.findByLid(lid); 
@@ -96,7 +96,7 @@ router.get('/lrpictures',async function(req,res,next){
 
 //增加照片
 router.post('/laddpictures',async function(req,res,next){
-    var lPLid = req.body.loverPhotoListid,
+    var lPLid = Number(req.body.loverPhotoListid),
         imgs = req.body.imgurl;
     var text = {
         lid:lPLid,
@@ -120,8 +120,8 @@ router.post('/laddpictures',async function(req,res,next){
 });
 
 router.post('/ldelpictures',async function(req,res,next){
-    var lPLid = req.body.loverPhotoListid,
-        lPid = req.body.loverPhotoid 
+    var lPLid = Number(req.body.loverPhotoListid),
+        lPid = Number(req.body.loverPhotoid)
     var delPhoto = await lover.loverPhotoM.delLoverPhoto('lPid');
     if(delPhoto === 0){
         var data = await lover.loverPhotoM.findByPid(lPLid);

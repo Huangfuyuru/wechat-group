@@ -10,9 +10,11 @@ router.use(bodyParser.json());
 
 
 router.get('/',async function(req,res,next){
+    console.log('点击语音记事');
     var id = req.query.loverid;
     console.log('sound query',req.query);
     var data =await lover.loverDiaryM.findByPid(id);
+    console.log(data);
     if(data !== 1){
         info ={
             code:0,
@@ -31,14 +33,16 @@ router.get('/',async function(req,res,next){
 
 //增加语音
 router.post('/lcsound',async function(req,res,next){
+    console.log('增加语音');
+    var lid = Number(req.body.loverid);
     var text ={
         voicecurl:req.body.voicecurl,
         name:req.body.name,
-        lid:req.body.lid
+        lid:lid
     }
     var addVoice = await lover.loverVoiceM.addLoverVoice(text);
     if(addVoice === 0){
-        var data = await lover.loverVoiceM.findByLid(req.body.loverid);
+        var data = await lover.loverVoiceM.findByLid(lid);
         info = {
             code:0,
             msg:data
@@ -51,12 +55,14 @@ router.post('/lcsound',async function(req,res,next){
         };
         res.json(info);
     }
+    console.log(info);
 })
 
 //删除语音
 router.get('/lrsound',async function(res,req,next){
-    var lid = req.query.loverid,
-    id = req.query.loverVoiceid
+    console.log('删除语音');
+    var lid = Number(req.query.loverid),
+    id = Number(req.query.loverVoiceid);
     var delvoice = await lover.loverVoiceM.delLoverVoice(id);
     if(delvoice === 0){
         var data = await lover.loverVoiceM.findByLid(lid);
