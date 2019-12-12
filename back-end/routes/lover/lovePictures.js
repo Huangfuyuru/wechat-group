@@ -48,6 +48,7 @@ router.get('/show',async function(req,res,next){
         }
         res.json(info);
     }
+
 });
 
 router.post('/lcpictures',async function(req,res,next){
