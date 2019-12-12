@@ -3,7 +3,7 @@ const express = require('express'),
       bodyParser = require("body-parser"),
       qs = require('qs');
 //引入数据库
-const {childM,childAdolesceM,childDiaryM,childPhotoListM,childVoiceM} = require("../../database/dateMethod");
+const {childM,childAdolesceM,childDiaryM,childGrowM,childPhotoListM,childVoiceM} = require("../../database/dateMethod");
 var info = {}
 
 //配置bodyparser中间件
@@ -24,11 +24,12 @@ router.get('/',async function(req,res,next){
 router.get('/confirm',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childid = Number(request.childid);
-    var result1 = await childAdolesceM(childid);
-    var result2 = await childDiaryM(childid);
-    var result3 = await childPhotoListM(childid);
-    var result4 = await childVoiceM(childid);
-    if(result1 === 0 && result2 === 0 && result3 === 0 && result4 === 0){
+    var result1 = await childAdolesceM.delAllByCid(childid);
+    var result2 = await childDiaryM.delAllByCid(childid);
+    var result3 = await childPhotoListM.delAllByCid(childid);
+    var result4 = await childVoiceM.delAllByCid(childid);
+    var result5 = await childGrowM.delAllByCid(childid);
+    if(result1 === 0 && result2 === 0 && result3 === 0 && result4 === 0 && result5 === 0){
         var result = await childM.delChild(childid);
         if(result === 0){
             var data = await childM.findById(uid)

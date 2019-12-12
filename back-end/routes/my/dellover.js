@@ -3,7 +3,7 @@ const express = require('express'),
       bodyParser = require("body-parser"),
       qs = require('qs');
 //引入数据库
-const {loverM,} = require("../../database/dateMethod");
+const {loverM,loveListM,loverDiaryM,loverImpDateM,loverPhotoListM,loverVoiceM} = require("../../database/dateMethod");
 
 var info = {}
 //配置bodyparser中间件
@@ -24,15 +24,22 @@ router.get('/',async function(req,res,next){
 router.get('/confirm',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var loverid = Number(request.loverid);
-    var result = await loverM.delLover(loverid);
-    if(result === 0){
-        var data = await loverM.findById(uid)
-        info = {code:0,msg:"删除爱人成功"}
-        res.json(data)
-    }else{
-        info = {code:1,msg:"删除爱人失败"}
+    // delAllByLid
+    var result1 = await loveListM.delAllByCid(loverid);
+    var result2 = await loverDiaryM.delAllByCid(loverid);
+    var result3 = await loverImpDateM.delAllByCid(loverid);
+    var result4 = await loverPhotoListM.delAllByCid(loverid);
+    var result5 = await loverVoiceM.delAllByCid(loverid);
+    if(result1 === 0 && result2 === 0 && result3 === 0 && result4 === 0 && result5 === 0){
+        var result = await loverM.delLover(loverid);
+        if(result === 0){
+            var data = await loverM.findById(uid)
+            info = {code:0,msg:"删除爱人成功"}
+            res.json(data)
+        }else{
+            info = {code:1,msg:"删除爱人失败"}
+        }
     }
-    
 })
 
 module.exports = router;
