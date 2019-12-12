@@ -24,7 +24,12 @@ router.post('/ccsound',async function(req,res,next){
     var voiceurl = req.body.voiceurl;
     await childVoiceM.addChildVoice({name:name,voiceurl:voiceurl,cid:childsid});
     var data = await childVoiceM.findByCid(childsid);
-    res.json(data)
+    if(data == 1){
+        var message = {data:[],msg:"添加失败"}
+    }else{
+        var message = {data:data,msg:"添加成功"}
+    }
+    res.json(message)
 })
 
 //删除语音
@@ -34,6 +39,11 @@ router.get('/crsound',async function(req,res,next){
     var childVoiceid = Number(reqest.childVoiceid);
     await childVoiceM.delChildVoice(childVoiceid);
     var data = await childVoiceM.findByCid(childsid);
-    res.json(data)
+    if(data == 1){
+        var message = {data:[],msg:"删除失败"}
+    }else{
+        var message = {data:data,msg:"删除成功"}
+    }
+    res.json(message)
 })
 module.exports = router;
