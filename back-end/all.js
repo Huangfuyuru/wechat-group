@@ -7,11 +7,7 @@ const express = require('express'),
       img = require('./routes/img'),      //单张图片
       imgs = require('./routes/imgs'),    //多张图片
       voice = require('./routes/voice'),  //语音
-<<<<<<< HEAD
-      my = require('./routes/my');
-=======
       my = require('./routes/my')
->>>>>>> 494d2599a666ae54efa8b1c8e401003fe127a8bf
       
 
 
