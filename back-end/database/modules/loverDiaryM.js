@@ -118,7 +118,23 @@ async function changeById(id,text){
     }
 }
 
+/**
+ *根据爱人lid删除loverDiary 中该爱人创建的内容
+ *
+ * @param {*} lid
+ * @returns
+ */
+async function delAllByLid(lid){
+    let sql = 'delete from loverDiary where lid = $1'
+    let ret = await pgdb.query(sql,[lid]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0;
+    }
+}
+
 var loverDiaryM = {
-    addLoverDiary,delLoverDiary,findAll,findById,findByLid,findIdByLid,changeById
+    addLoverDiary,delLoverDiary,findAll,findById,findByLid,findIdByLid,changeById,delAllByLid
 }
 module.exports = loverDiaryM;

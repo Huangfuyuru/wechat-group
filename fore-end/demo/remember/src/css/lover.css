@@ -124,7 +124,7 @@
   object-fit: scale-down;
   width: 100%;
   height:100%;
-  transform: scale(1.5);
+  transform: scale(1.4);
 }
   .lover-home-second{
     height:25%;
@@ -353,3 +353,35 @@
     border-radius: 8px;
   
   }
+  .allpage_add{
+    width: 100%;
+    background: #fff;
+    position: fixed;
+    height: 8vh;
+    bottom: 0;
+    text-align: center;
+    box-shadow: 0px  1px  5px  0px  #bdbbb8  inset;
+}
+.allpage_add p{
+    background: #bdbbb8;
+    height: 0.2vh;
+    width: 90%;
+    margin-right: 5vw;
+    margin-left: 5vw;
+    margin-top: 4vh;
+    bottom: 5vh;
+}
+.allpage_add i{
+    font-size: 10vw;
+    text-align: center;
+    color: #FFBF2D;
+    
+}
+.allpage_add a{
+    display: inline-block;
+    width: 15vw;
+    height: 8vh;
+    background: #fff;
+    position: relative;
+    bottom: 6vh;
+}

@@ -48,13 +48,18 @@ export default class Ldairy extends Component {
 
     render() {
         return (
-            <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
+            <div style={{height:"100%",width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
                  <NavBar 
                  style={{
                      background:'#FFBF2D',
                      height:'8vh',
                      color:'#fff',
                      fontWeight:'bolder',
+                     zIndex:'11',
+                     position:'fixed',
+                     width:'100%',
+                     left:0,
+                     top:0
                     }}
                     mode="light"
                     icon={'𡿨'}
@@ -67,29 +72,29 @@ export default class Ldairy extends Component {
                      letterSpacing:'3vw'}}>日记</span>
                 </NavBar>
                  {
-                     this.state.noteArr.map((item)=>(
-                        <div className="lovernote-first">
-                        <img  src={require("../../image/qian.jpg")} alt=""  style={{float:"left",margin:"3% 0 0 0%",height:"10%",width:"13%"}}></img>
-                     <p style={{fontSize:"5vw",float:"left",margin:" 8% 0% 0 0"}}>{item.name}       {item.setdate.split(".")[0]}</p>
-                     <textarea style={{fontSize:"5vw",float:"left",height:"25%",width:"90%",margin:"5% 0 0 5%",border:"0.5px solid #888888"}} readOnly="readOnly">{item.content}</textarea>
-                        <div style={{height:"30%",width:"94%",float:"left",margin:"2% 0 0 3%"}}>
-                        <img src={item.imgurl[0]}  alt="" style={{height:"100%",width:"48%",float:"left",marginLeft:"1%"}}></img>
-                        <img src={item.imgurl[1]}  alt="" style={{height:"100%",width:"48%",float:"left",marginLeft:"1%"}}></img>
-                        </div>
-                        <div className="iconfont icon-lajixiang1" onClick={()=>this.deleteNote(item.lid,item.id)}> 
-                        </div>
+                     this.state.noteArr.map((item,value)=>(
+                        <div className="lovernote-first" key={{value}}>
+                            <img  src={require("../../image/qian.jpg")} alt=""  style={{float:"left",margin:"3% 0 0 0%",height:"10%",width:"13%"}}></img>
+                            <p style={{fontSize:"5vw",float:"left",margin:" 8% 0% 0 0",fontWeight:"bold"}}>{item.name}  {item.setdate.split(".")[0].replace('T',' ')}</p>
+                            <textarea style={{fontSize:"5vw",float:"left",height:"35%",width:"88%",margin:"5% 0 0 4%",padding:"3% 0 0 3%",border:"0.5px solid #888888"}} readOnly="readOnly" value={item.content}></textarea>
+                            <div style={{height:"30%",width:"94%",float:"left",margin:"2% 0 0 3%"}}>
+                            <img src={item.imgurl[0]}  alt="" style={{height:"100%",width:"48%",float:"left",marginLeft:"1%"}}></img>
+                            <img src={item.imgurl[1]}  alt="" style={{height:"100%",width:"48%",float:"left",marginLeft:"1%"}}></img>
+                            </div>
+                            <div className="iconfont icon-lajixiang1" onClick={()=>this.deleteNote(item.lid,item.id)}> 
+                            </div>
                         </div>
                      ))
                
                 }
-               <Link to=
-               {{
-                pathname:"/lover/lcdairy",
-                state:{
-                    lover_id:this.state.lover_id
-                }
-            }}
-               > <img src={require("../../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
+                <div className='allpage_add'>
+                    <p></p>
+                    <Link
+                    to={{
+                    pathname:'/lover/lcdairy',
+                    }}
+                    ><i className='iconfont icon-jia'></i></Link>
+              </div>
             </div>
         )
     }

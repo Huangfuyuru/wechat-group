@@ -49,6 +49,7 @@ export default class Lcreate_souver extends Component {
     )}
     upSouver=()=>{
         console.log('lcsouenir');
+        console.log(this.state);
         fetch(`http://localhost:3001/lover/lsouvenir/lcsouvenir`,{
             method:'POST',
             mode:'cors',
@@ -64,13 +65,18 @@ export default class Lcreate_souver extends Component {
     }
     render() {
         return (
-            <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
+            <div style={{height:"100%",width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
             <NavBar 
                  style={{
-                     background:'#FFBF2D',
-                     height:'8vh',
-                     color:'#fff',
-                     fontWeight:'bolder',
+                    background:'#FFBF2D',
+                    height:'8vh',
+                    color:'#fff',
+                    fontWeight:'bolder',
+                    zIndex:'11',
+                    position:'fixed',
+                    width:'100%',
+                    left:0,
+                    top:0
                     }}
                     mode="light"
                     icon={'𡿨'}

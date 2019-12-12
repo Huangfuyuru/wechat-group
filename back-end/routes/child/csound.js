@@ -14,7 +14,13 @@ router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var data = await childVoiceM.findByCid(childsid);
-    res.json(data)
+    if(data == 1){
+        data = null;
+        res.json(data)
+    }else{
+        res.json(data)
+    }
+    
 })
 
 //增加语音
@@ -24,16 +30,27 @@ router.post('/ccsound',async function(req,res,next){
     var voiceurl = req.body.voiceurl;
     await childVoiceM.addChildVoice({name:name,voiceurl:voiceurl,cid:childsid});
     var data = await childVoiceM.findByCid(childsid);
-    res.json(data)
+    if(data == 1){
+        var message = {data:[],msg:"添加失败"}
+    }else{
+        var message = {data:data,msg:"添加成功"}
+    }
+    res.json(message)
 })
 
 //删除语音
 router.get('/crsound',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
-    var childVoiceid = Number(reqest.childVoiceid);
+    var childVoiceid = Number(request.childVoiceid);
+    console.log('xxx',childsid,childVoiceid)
     await childVoiceM.delChildVoice(childVoiceid);
     var data = await childVoiceM.findByCid(childsid);
-    res.json(data)
+    if(data == 1){
+        var message = {data:[],msg:"删除失败"}
+    }else{
+        var message = {data:data,msg:"删除成功"}
+    }
+    res.json(message)
 })
 module.exports = router;

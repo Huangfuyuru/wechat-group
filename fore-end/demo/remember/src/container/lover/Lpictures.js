@@ -2,10 +2,14 @@ import React, { Component } from 'react'
 import { NavBar} from 'antd-mobile'; 
 import '../../css/lover.css'
 import {Link} from "react-router-dom"
+import Item from 'antd-mobile/lib/popover/Item';
 export default class Lpictures extends Component {
   constructor(){
     super();
+    var lid = JSON.parse(localStorage.getItem('lid'));
         this.state={
+          lover_id:lid,
+          arr:[],
           image:[
             "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg",
             "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg"
@@ -13,23 +17,25 @@ export default class Lpictures extends Component {
         }
   }
   componentDidMount(){
-    let path = this.props.match.params.id
-    fetch(``)
-    .then((res)=>res.json())
-    .then((res)=>{
-        this.setState({data:res.data});
+    console.log(this.state.lover_id);
+    fetch(`http://localhost:3001/lover/lpictures?loverid=${this.state.lover_id}`)
+    .then(res=>res.json())
+    .then(json=>{ 
+        this.setState({
+          arr:json.msg
+        });
     })
-}
-componentDidUpdate(Props,State){
-    if(Props.location.search !== this.props.location.search){
-        let path = this.props.match.params.id
-        console.log('path',path)
-        fetch( ``)
-        .then((res)=>res.json())
-        .then((res)=>{
-            this.setState({data:res.data});
-        })
-    }
+  //   for(var i=0;i<this.state.arr.length;i++){
+  //   fetch(`http://localhost:3001/lover/lpictures/show?loverPhotoListid=${this.state.arr.id[i]}`)
+  //   .then(res=>res.json())
+  //   .then(json=>{ 
+  //       this.setState({
+  //         // arr:json.msg
+  //       },()=>{
+  //           console.log(json)
+  //       });
+  //   })
+  // }
 }
     render() {
         return (
@@ -51,10 +57,19 @@ componentDidUpdate(Props,State){
                   letterSpacing:'3vw'}}>云相册</span>
                 </NavBar>
                 {
-                  this.state.image.map((index)=>(
+                  this.state.arr.map((index)=>(
                 <div className="loveImage-header">
-                  <img src={index} style={{height:"80%",width:"94%",marginLeft:"3%",marginTop:"2%"}} alt=""></img>
-                 <Link to="/lover/lspictures" style={{color:"black"}}><p style={{fontSize:"5vw",float:"left",margin:"2% 64% 0 3%"}}>所有照片</p><span  style={{color:"#C7C7CC",fontSize:"8vw"}}>></span></Link>
+                  <img  style={{height:"80%",width:"94%",marginLeft:"3%",marginTop:"2%"}} alt=""></img>
+                  <Link to={{
+                    pathname:"/lover/lspictures",
+                    state:{
+                      id:index.id
+                    }
+                    }} style={{color:"black"}}>
+                    <div>
+                  <p style={{fontSize:"5vw",float:"left",margin:"2% 0% 0 5%"}}>{index.name}</p><span  style={{color:"#C7C7CC",fontSize:"8vw" ,float:"right",marginRight:"2%"}}>></span>
+                    </div>
+                    </Link>
                 </div>
                   )
                   )

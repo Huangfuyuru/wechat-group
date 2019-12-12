@@ -118,7 +118,16 @@ async function changeById(id,text){
     }
 }
 
+async function delAllByCid(cid){
+    let sql = 'delete from childAdolesce where cid = $1'
+    let ret = await pgdb.query(sql,[cid]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return 0;
+    }
+}
 var childAdolesceM = {
-    addChildAdolesce,findAll,delChildAdolesce,findByCid,findById,findIdByCid,changeById
+    addChildAdolesce,findAll,delChildAdolesce,findByCid,findById,findIdByCid,changeById,delAllByCid
 }
 module.exports = childAdolesceM;

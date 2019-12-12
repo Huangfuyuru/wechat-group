@@ -15,7 +15,7 @@ router.get('/',async function(req,res,next){
     var lid = Number(req.query.loverid);
     console.log('lid',lid);
     var data = await lover.loverImpDateM.findByPid(lid);
-    console.log('data',data)
+    // console.log('data',data)
     res.json(data);
 
 });
@@ -23,15 +23,17 @@ router.get('/',async function(req,res,next){
 //增加纪念日
 router.post('/lcsouvenir',async function(req,res,next){
     console.log('增加纪念日');
-    var daid = Number(req.bady.loverid);
+    console.log(req.body);
+    var daid = Number(req.body.loverid);
+    var item = req.body.item.split( );
     var text ={
+        item:item,
         name:req.body.name,
-        contnet: req.body.contnent,
         imgurl:req.body.imgurl,
-        item:req.body.item,
+        lid:daid,
         date:req.body.date,
-        voiceurl:req.body.voiceurl,
-        lid:daid
+        contnet: '纪念日',
+        voiceurl:'#'
     }
     var addsou = await lover.loverImpDateM.addLoverImpDate(text);
     console.log(addsou);
@@ -41,7 +43,7 @@ router.post('/lcsouvenir',async function(req,res,next){
             code:0,
             msg:data
         };
-        console.log('增加纪念日后查看所有信息',await lover.loverDiaryM.findAll());
+        console.log('增加纪念日后查看所有信息',await lover.loverImpDateM.findByPid(daid));
         res.json(data);
     }else{
         info={
@@ -56,11 +58,13 @@ router.post('/lcsouvenir',async function(req,res,next){
 //删除纪念日
 router.get('/delSouvenir',async function(req,res,next){
     console.log('删除日记')
+    console.log('query',req.query);
     var lid = Number(req.query.loverid),
         limpDid = Number(req.query.loverImpDateid);
     console.log('delete loverid',lid);
     console.log('delete limpDid',limpDid);
     var delsou =  await lover.loverImpDateM.delLoverImpDate(limpDid);
+   console.log(delsou);
     if(delsou === 0 ){
         var data = await lover.loverImpDateM.findByPid(lid);
         info = {
