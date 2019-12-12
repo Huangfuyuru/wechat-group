@@ -49,8 +49,9 @@ router.get('/show',async function(req,res,next){
     }
 });
 
-router.post('lcpictures',async function(req,res,next){
-    var lid = Number(req.body.loverid),
+router.post('/lcpictures',async function(req,res,next){
+    console.log('添加相册');
+    var lid = Number(req.body.loverid);
         name = req.body.name,
         text={
             lid:lid,
@@ -76,7 +77,8 @@ router.post('lcpictures',async function(req,res,next){
 //删除相册失败
 router.get('/lrpictures',async function(req,res,next){
     var lPLid = Number(req.query.loverPhotoListid),
-    lid = Number(rq.query.loverid);
+    lid = Number(req.query.loverid);
+    console.log(req.query);
     var delPL = await lover.loverPhotoListM.delLoverPhotoList(lPLid);
     if(delPL === 0){
         var data= lover.loverPhotoListM.findByLid(lid); 

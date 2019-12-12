@@ -7,7 +7,7 @@ export default class LSpictures extends Component {
         super(props)
         console.log(this.props.location.state.id)
         this.state={
-            id:this.props.location.state.id,
+            pid:this.props.location.state.id,
             arr:[
                 "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
                 "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
@@ -20,7 +20,7 @@ export default class LSpictures extends Component {
     }
     componentDidMount(){
         console.log("hh")
-            fetch(`http://localhost:3001/lover/lpictures/show?loverPhotoListid=${this.state.id}`)
+            fetch(`http://localhost:3001/lover/lpictures/show?loverPhotoid=${this.state.pid}`)
             .then(res=>res.json())
             .then(json=>{ 
                 this.setState({

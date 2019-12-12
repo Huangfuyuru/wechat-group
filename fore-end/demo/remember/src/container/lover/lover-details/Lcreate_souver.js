@@ -48,8 +48,7 @@ export default class Lcreate_souver extends Component {
         )
     )}
     upSouver=()=>{
-        console.log('lcsouenir');
-        console.log(this.state);
+        
         fetch(`http://localhost:3001/lover/lsouvenir/lcsouvenir`,{
             method:'POST',
             mode:'cors',
