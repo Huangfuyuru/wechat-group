@@ -11,7 +11,7 @@ router.use(bodyParser.json());
 
 router.get('/',async function(req,res,next){
     var lid = Number(req.query.loverid);
-    console.log('photoList ',lid);
+    console.log('photoid ',lid);
     var photoList =await lover.loverPhotoListM.findByLid(lid);
     if(photoList !== 1){
         info = {
@@ -31,9 +31,9 @@ router.get('/',async function(req,res,next){
 
 //点击具体相册
 router.get('/show',async function(req,res,next){
-    var photoListid = Number(req.query);
-    console.log(photoListid);
-    var data = await lover.loverPhotoListM.findById(photoListid);
+    var photoid = Number(req.query.loverPhotoid);
+    console.log(photoid);
+    var data = await lover.loverPhotoM.findById(photoid);
     if(data!== 1){
         info ={
             code:0,

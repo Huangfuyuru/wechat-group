@@ -16,11 +16,12 @@ router.post('/',async function(req,res,next){
     var pass = req.body.pass;
     var uid = req.body.uid;
     var gender = req.body.gender;
-    var result = await userM.changeById({
-        uimage:uimage,
-        uname:uname,
+    var id = req.body.id;
+    var result = await userM.changeById(id,{
+        image:uimage,
+        name:uname,
         pass:pass,
-        uid:uid,
+        id:uid,
         gender:gender
     })
     if(result === 0){

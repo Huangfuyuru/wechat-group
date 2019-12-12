@@ -53,7 +53,7 @@ async function delLoverVoice(id){
  *根据爱人id找到所有 该爱人的创建的爱人语音信息
  *
  * @param {int} lid
- * @returns 所有爱人日记的内容
+ * @returns 所有爱人语音的内容
  */
 async function findByLid(lid){
     let sql = 'select * from loverVoice where lid = $1';

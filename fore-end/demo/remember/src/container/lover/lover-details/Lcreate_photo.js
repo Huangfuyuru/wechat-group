@@ -2,7 +2,32 @@ import React, { Component } from 'react'
 import { NavBar,WingBlank} from 'antd-mobile';
 import "../../../css/lover.css"
 import {Link} from "react-router-dom"
-export default class Lcreate_photo extends Component {
+export default class Lcreate_photo extends Component{
+    constructor(props){
+        super(props);
+        var lid = JSON.parse(localStorage.getItem('lid'));
+        this.state={
+            lover_id:lid,
+            name:"",
+        }
+    }
+    getName=(e)=>{
+        this.setState({
+            name:e.target.value
+        })
+    }
+    componentDidMount(){
+            fetch(`http://localhost:3001/lover/lpictures/lcpictures`,{
+                method:"POST"
+            })
+            .then(res=>res.json())
+            .then(json=>{ 
+                this.setState({
+                },()=>{
+                    console.log(json)
+                });
+            })
+    }
     render() {
         return (
             <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
@@ -25,11 +50,7 @@ export default class Lcreate_photo extends Component {
                 </NavBar>
             <div className="photo-first">
                   <p >相册名称:</p>
-                  <input  type="text" placeholder="please input"/>
-                  </div>
-                  <div className="photo-first">
-                  <p >创建日期:</p>
-                  <input  type="text" placeholder="例:1999-11-28"/>
+                  <input  type="text" placeholder="please input" onChange={this.getName}/>
                   </div>
                   <WingBlank>
                <button className="photo-foot">创建相册</button>

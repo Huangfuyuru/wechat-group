@@ -97,7 +97,13 @@ export default class My extends Component {
                         </div>
                         <div className="line">
                             <img src={require("../image/out.png")}/>
-                            <Link to='/menus'>
+                            <Link
+                            onClick={
+                                ()=>{
+                                    localStorage.setItem('uid',JSON.stringify('over'));
+                                }
+                            }
+                             to='/menus'>
                                 <div className="add">退出登录</div>
                             </Link>
                         </div>

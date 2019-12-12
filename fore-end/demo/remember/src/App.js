@@ -49,7 +49,7 @@ function App() {
     <Router> 
       <Route exact path='/' component={Start}/>
       <Route path='/menus' component={Menus}/>
-      {/* <Route path='/resign/message' component={Message}/> */}
+      <Route path='/resign/message' component={Message}/>
       <Route path='/index' component={Index}/>
 
       {/* 亲子 */}
