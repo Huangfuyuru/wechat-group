@@ -41,7 +41,7 @@ export default class Lpictures extends Component {
   // }
 delPhoto=(id,lid)=>{
   console.log(id,lid)
-  fetch(`http://localhost:3001/lover/lpictures/lrpictures?loversid=${lid}&loverPhotoListid=${id}`)
+  fetch(`http://localhost:3001/lover/lpictures/lrpictures?loverid=${lid}&loverPhotoListid=${id}`)
     .then(res=>res.json())
     .then(json=>{ 
         this.setState({
