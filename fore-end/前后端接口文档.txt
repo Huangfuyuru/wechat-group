@@ -89,7 +89,7 @@ method：get
     云相册：（请求的所有id均为表名+id）
         接口地址：http://localhost:3001/child/cpictures?childsid=
         请求数据：亲子childsid
-        返回数据：该亲子的所有云相册childPhotoListid，name，setdate，background
+        返回数据：该亲子的所有云相册childPhotoListid，name，setdate
         点击具体相册：
             接口地址：http://localhost:3001/child/cpictures/show?childPhotoListid=
             请求数据：亲子具体相册childPhotoListid
@@ -98,14 +98,14 @@ method：get
                 [{"id":3600001,"imgurl":"#","pid":3300001}]
         增加相册：
             接口地址：http://localhost:3001/child/cpictures/ccpictures?childsid=&name=
-            请求数据：亲子childsid，相册名称name,相册背景background
-            返回数据：该亲子的所有云相册childPhotoListid，name，setdate，background
+            请求数据：亲子childsid，相册名称name
+            返回数据：该亲子的所有云相册childPhotoListid，name，setdate
                 （返回数据的id就是需要的那个，cid是亲子id）
                 [{"id":3300002,"name":"宝宝满月","setdate":"2019-11-25T16:00:00.000Z","cid":300003}]
         删除相册：
             接口地址：http://localhost:3001/child/cpictures/crpictures?childsid = & childPhotoListid=
             请求数据：亲子childsid,要删掉相册childPhotoListid
-            返回数据：该亲子的所有云相册childPhotoListid，name，setdate，background
+            返回数据：该亲子的所有云相册childPhotoListid，name，setdate
                 （返回数据的id就是需要的那个，cid是亲子id）
                 [{"id":3300002,"name":"宝宝满月","setdate":"2019-11-25T16:00:00.000Z","cid":300003}]
         增加照片：先向imgs发请求
@@ -215,7 +215,7 @@ method：get
     云相册：（请求的所有id均为表名+id）
         接口地址：http://localhost:3001/lover/lpictures?loverid=
         请求数据：爱人loversid
-        返回数据：需要该爱人的所有云相册loverPhotoid，name，setdate，background
+        返回数据：需要该爱人的所有云相册loverPhotoListid，name，setdate（数组）
            {code：0， msg：[{"id":2300002,"name":"一百天","setdate":"2019-11-26T16:00:00.000Z","lid":200001}] }
         点击具体相册：
             接口地址：http://localhost:3001/lover/lpictures/show?loverPhotoListid=
@@ -226,8 +226,8 @@ method：get
         增加相册：
             method（http请求方式）：post
             接口地址：http://localhost:3001/lover/lpictures/lcpictures?loverid=&name=
-            请求数据：loverid=&name=&background=
-            返回数据：该爱人的所有云相册loverPhotoListid，name，setdate,background
+            请求数据：loverid=&name=
+            返回数据：该爱人的所有云相册loverPhotoListid，name，setdate
                 [{"id":2300002,"name":"一百天","setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
         删除相册：
             接口地址：http://localhost:3001/lover/lpictures/lrpictures?loversid=&loverPhotoListid=

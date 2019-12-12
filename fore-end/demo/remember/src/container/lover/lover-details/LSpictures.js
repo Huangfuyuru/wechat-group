@@ -20,12 +20,12 @@ export default class LSpictures extends Component {
     }
     componentDidMount(){
         console.log("hh")
-            fetch(`http://localhost:3001/lover/lpictures/show?loverPhotoid=${this.state.pid}`)
+            fetch(`http://localhost:3001/lover/lpictures/show?loverPhotoListid=${this.state.pid}`)
             .then(res=>res.json())
             .then(json=>{ 
                 this.setState({
                 },()=>{
-                    console.log(json)
+                    console.log("图片详情",json)
                 });
             })
     }
