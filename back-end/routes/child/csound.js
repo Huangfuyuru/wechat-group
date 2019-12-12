@@ -14,7 +14,13 @@ router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var data = await childVoiceM.findByCid(childsid);
-    res.json(data)
+    if(data == 1){
+        data = null;
+        res.json(data)
+    }else{
+        res.json(data)
+    }
+    
 })
 
 //增加语音
