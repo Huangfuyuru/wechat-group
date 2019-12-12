@@ -121,10 +121,10 @@ async function changeById(id,text){
 /**
  *根据爱人lid删除loveList 中该爱人创建的内容
  *
- * @param {*} cid
+ * @param {*} lid
  * @returns
  */
-async function delAllByCid(cid){
+async function delAllByLid(lid){
     let sql = 'delete from loveList where lid = $1'
     let ret = await pgdb.query(sql,[lid]);
     if(ret.rowCount<=0){
@@ -135,6 +135,6 @@ async function delAllByCid(cid){
 }
 
 var loveListM = {
-    addloveList,findAll,delLoveList,findById,findByLid,findIdByLid,changeById,delAllByCid
+    addloveList,findAll,delLoveList,findById,findByLid,findIdByLid,changeById,delAllByLid
 }
 module.exports = loveListM;

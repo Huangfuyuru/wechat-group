@@ -122,10 +122,10 @@ async function changeById(id,text){
 /**
  *根据爱人lid删除loverImpDate 中该爱人创建的内容
  *
- * @param {*} cid
+ * @param {*} lid
  * @returns
  */
-async function delAllByCid(cid){
+async function delAllByLid(lid){
     let sql = 'delete from loverImpDate where lid = $1'
     let ret = await pgdb.query(sql,[lid]);
     if(ret.rowCount<=0){
@@ -135,6 +135,6 @@ async function delAllByCid(cid){
     }
 }
 var loverImpDateM = {
-    addLoverImpDate,delLoverImpDate,findAll,findById,findByPid,findIdByPid,changeById,delAllByCid
+    addLoverImpDate,delLoverImpDate,findAll,findById,findByPid,findIdByPid,changeById,delAllByLid
 }
 module.exports = loverImpDateM;
