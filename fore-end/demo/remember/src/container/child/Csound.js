@@ -8,6 +8,7 @@ export default class Csound extends Component {
         super(props);
         var cid = JSON.parse(localStorage.getItem('cid'));
         this.state={
+            childVoiceid:'',
             cid:cid,
             voiceurl:'',
             lists:[
@@ -25,9 +26,10 @@ export default class Csound extends Component {
         fetch(`http://localhost:3001/child/csound?childsid=${this.state.cid}`)
         .then((res)=>res.json())
         .then((res)=>{
+            console.log('aaaaa',res);
             this.setState({
               lists:res
-            },()=>console.log(this.state.lists));
+            });
         })
       }
       componentDidUpdate(prevProps,prevState){
@@ -40,15 +42,18 @@ export default class Csound extends Component {
           })
       }
     delCsound=(e)=>{
-        fetch(`http://localhost:3001/child/csound/crsound?childsid${Number(this.state.cid)}=&childVoiceid=${this.state.voiceurl}`,{
+        console.log(this.state.childVoiceid)
+        console.log(this.state.cid)
+        fetch(`http://localhost:3001/child/csound/crsound?childsid=${this.state.cid}&childVoiceid=${this.state.childVoiceid}`,{
           method:'GET',
         })
         .then(res=>res.json())
         .then(json=>{
           this.setState({
-            code:json.msg
+              lists:json.data,
+              code:json.msg,
           })
-          console.log(json)
+          console.log('你好',json)
         })
         var delcsound=document.getElementById('delcsound');
         delcsound.style.display='none';
@@ -85,23 +90,39 @@ export default class Csound extends Component {
                 <div className='csound_inner'>
                     {
                         this.state.lists&&this.state.lists.map((item,idx)=>{
+                            // console.log(item)
                             var date = moment(item.setdate).format("YYYY-MM-DD");
                             return <div className='csound_block'
                             key={idx}
-                            value={item.voiceurl}>
+                            value={item.id}>
                                 <i
                                 onClick={(e)=>{
-                                var itemurl = e.target.parentNode.getAttribute('value');
-                                console.log(itemurl)
+                                var itemid = e.target.parentNode.getAttribute('value');
                                 this.setState({
-                                    voiceurl:itemurl
+                                    childVoiceid:itemid
                                 })
                                 var delcsound=document.getElementById('delcsound');
                                 delcsound.style.display='block';
                                 }}  
                                 className='iconfont icon-shanchu1'></i>
                                 <li>{item.name}</li>
-                                <li>{item.voiceurl}</li>
+                                <audio
+                                id='audios'
+                                style={{
+                                    width:'90%',
+                                    float:'left',
+                                    marginLeft:'4vw',
+                                    marginTop:'1vh',
+                                    background:''
+                                }} 
+                                src={this.state.voiceurl} controls='controls'>
+                                    您的设备无法播放该语音
+                                </audio>
+                                <li>
+                                    <input type='button' value="播放" id="playaudio"  onclick = "play()" />
+	                                <input type="button" value="暂停" id="pauseaudio" disabled="disabled"  onclick = "pause()" />
+	                                <button id="forward" onclick="forward()">快进</button>
+                                </li>
                                 <p>记录日期:{date}</p>
                             </div>
                         })
@@ -112,8 +133,8 @@ export default class Csound extends Component {
                     <div>确定删除？</div>
                     <button 
                     onClick={()=>{
-                        var delwarn=document.getElementById('delwarn');
-                        delwarn.style.display='none';
+                        var delcsound=document.getElementById('delcsound');
+                        delcsound.style.display='none';
                     }}
                     style={{
                         width:'25%',

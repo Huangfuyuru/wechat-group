@@ -18,6 +18,9 @@ router.post('/',async function(req,res,next){
     var ldate = req.body.ldate;
     var gender = req.body.gender;
     var uid = req.body.uid;
+    console.log(req.body)
+    console.log(ldate);
+    console.log(name)
     var result = await loverM.addLover({
         name:name,
         ldate:ldate,
@@ -25,12 +28,11 @@ router.post('/',async function(req,res,next){
         uid:uid
     })
     if(result === 0){
-        var data =await loverM.findById(uid)
-        info = {code:0,msg:"添加爱人成功"}
-        console.log('添加爱人后查看所有信息',await loverM.findAll());
-        res.json(data)
+        info = {code:0,msg:"添加成功"}
+        res.json(info)
     }else{
-        info = {code:1,msg:"添加爱人失败"}
+        info = {code:1,msg:"添加失败"}
+        res.json(info)
     }
     
 })

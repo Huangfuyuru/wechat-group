@@ -3,9 +3,11 @@ import { NavBar} from 'antd-mobile';
 import {Link} from "react-router-dom"
 import "../../../css/lover.css"
 export default class LSpictures extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
+        console.log(this.props.location.state.id)
         this.state={
+            id:this.props.location.state.id,
             arr:[
                 "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
                 "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
@@ -17,33 +19,42 @@ export default class LSpictures extends Component {
         }
     }
     componentDidMount(){
-        let path = this.props.match.params.id
-        fetch(``)
-        .then((res)=>res.json())
-        .then((res)=>{
-            this.setState({data:res.data});
-        })
-    }
-    componentDidUpdate(Props,State){
-        if(Props.location.search !== this.props.location.search){
-            let path = this.props.match.params.id
-            console.log('path',path)
-            fetch( ``)
-            .then((res)=>res.json())
-            .then((res)=>{
-                this.setState({data:res.data});
+        console.log("hh")
+            fetch(`http://localhost:3001/lover/lpictures/show?loverPhotoListid=${this.state.id}`)
+            .then(res=>res.json())
+            .then(json=>{ 
+                this.setState({
+                },()=>{
+                    console.log(json)
+                });
             })
-        }
     }
     render() {
 
         return (
-            <div style={{height:"100%",width:"100%" ,backgroundColor:"white"}}>
-                  <NavBar style={{backgroundColor:"#FFBF2D",color:"white"}}
-                       leftContent={[
-                        <Link to="/lover/lpictures" style={{color:"white"}}><div className="iconfont icon-arror_left_blod" style={{ marginRight: '26px' }} /></Link>,
-                       ]}
-            ><span style={{fontWeight:'bold',fontSize:'6vw',textIndent:'3vw',letterSpacing:'3vw'}}>相册页面</span></NavBar>
+            <div style={{height:"100%",width:"100%" ,backgroundColor:"white",marginTop:"10vh"}}>
+                  <NavBar 
+                 style={{
+                    background:'#FFBF2D',
+                    height:'8vh',
+                    color:'#fff',
+                    fontWeight:'bolder',
+                    zIndex:'11',
+                    position:'fixed',
+                    width:'100%',
+                    left:0,
+                    top:0
+                    }}
+                    mode="light"
+                    icon={'𡿨'}
+                    onLeftClick={() => this.props.history.push('/lover/lpictures')}
+                 ><span style={{
+                     color:'#fff',
+                     fontWeight:'bold',
+                     fontSize:'6vw',
+                     textIndent:'3vw',
+                     letterSpacing:'3vw'}}>相册详情</span>
+                </NavBar>
 
             {
                 this.state.arr.map((item)=>(

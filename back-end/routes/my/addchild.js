@@ -18,6 +18,9 @@ router.post('/',async function(req,res,next){
     var birthday = req.body.birthday;
     var gender = req.body.gender;
     var uid = req.body.uid;
+    console.log(req.body)
+    console.log(birthday);
+    console.log(name)
     var result = await childM.addChild({
         name:name,
         birthday:birthday,
@@ -25,6 +28,13 @@ router.post('/',async function(req,res,next){
         uid:uid
     })
     if(result === 0){
+<<<<<<< HEAD
+        info = {code:0,msg:"添加成功"}
+        res.json(info)
+    }else{
+        info = {code:1,msg:"添加失败"};
+        res.json(info)
+=======
         // var data = await childM.findById(uid);
         // info = {code:0,msg:data}
         // console.log('添加亲子后查看所有信息',await childM.findAll())
@@ -36,6 +46,7 @@ router.post('/',async function(req,res,next){
     }else{
         info = {code:1,msg:"添加亲子失败"}
         res.json(ScopedCredentialInfo)
+>>>>>>> 494d2599a666ae54efa8b1c8e401003fe127a8bf
     }
     
 })

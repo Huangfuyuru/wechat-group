@@ -11,7 +11,7 @@ router.use(bodyParser.json());
 
 router.get('/',async function(req,res,next){
     console.log('点击语音记事');
-    var id = req.query.loverid;
+    var id = Number(req.query.loverid);
     console.log('sound query',req.query);
     var data =await lover.loverDiaryM.findByPid(id);
     console.log(data);

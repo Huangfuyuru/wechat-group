@@ -42,14 +42,14 @@ import Delrelation from './container/my/Delrelation'
 import Delrelation2 from './container/my/Delrelation2'
 import message from './container/my/Message'
 import Use from './container/my/Use'
-// import Ccsound from './container/child/child_details/Ccsound';
+import Ccsound from './container/child/child_details/Ccsound';
 
 function App() {
   return (
     <Router> 
       <Route exact path='/' component={Start}/>
       <Route path='/menus' component={Menus}/>
-      {/* <Route path='/resign/message' component={Message}/> */}
+      <Route path='/resign/message' component={Message}/>
       <Route path='/index' component={Index}/>
 
       {/* 亲子 */}
@@ -59,7 +59,7 @@ function App() {
       <Route path='/child/cpictures/ccpicture' component={Ccpicture}/>
 
       <Route exact path='/child/csound' component={Csound}/>
-      {/* <Route exact path='/child/csound/ccsound' component={Ccsound}/> */}
+      <Route exact path='/child/csound/ccsound' component={Ccsound}/>
 
       <Route exact path='/child/cevents' component={Cevents}/>
       <Route path='/child/cevents/show' component={Showevent}/>

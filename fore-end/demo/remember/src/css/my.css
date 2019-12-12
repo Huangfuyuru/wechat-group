@@ -126,6 +126,27 @@
 body{
     font-size:4.5vw;
 }
+#new{
+    font-size:4.5vw;
+    line-height: 6.5vh;
+    width:30%;
+    height:40px;
+    margin-left:35%;
+    margin-top:10px;
+    border-bottom:solid lightgray;
+    border-radius: 5px;
+    display: block;
+    text-align: left;
+}
+#new button{
+    float:right;
+    margin-top:7%;
+    margin-right:5%;
+    background-color:#FFBF2D;
+}
+#lwarn{
+    margin-left:3vh;
+}
 /* 消息反馈 */
 .msg1{
     width:80%;

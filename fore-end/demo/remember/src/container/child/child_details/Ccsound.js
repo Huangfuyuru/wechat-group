@@ -24,9 +24,19 @@ export default class Ccsound extends Component {
         })
         .then(res=>res.json())
         .then(res=>(
-            console.log(res.path),
+            console.log(res),
             this.setState({
                 voiceurl:res.path
+            },()=>{
+                if(res.err==0){
+                    this.setState({
+                        code:'上传成功！'
+                    })
+                }else{
+                    this.setState({
+                        code:'上传失败，请重新上传！'
+                    })
+                }
             })
         ))
         
