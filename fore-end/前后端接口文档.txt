@@ -136,16 +136,12 @@ method：get
             提交数据: 
                         voiceurl= & name= & childsid=
             返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音childVoiceid
-                {data:[],msg:"添加失败"}
-	{data:[...],msg:"添加成功"}      
-	[{"id":3200002,"name":"sad","setdate":"2019-11-25T16:00:00.000Z","voiceurl":"#","cid":300001}]
+                [{"id":3200002,"name":"sad","setdate":"2019-11-25T16:00:00.000Z","voiceurl":"#","cid":300001}]
         删除语音：
             接口地址：http://localhost:3001/child/csound/crsound?childsid = &  childVoiceid
             提交数据: 亲子childsid 语音的childVoiceid
             返回数据：该亲子的语音name、语音文件地址voiceurl，创建日期setdate，语音childVoiceid
-	{data:[],msg:"删除失败"}
-	{data:[...],msg:"删除成功"}               
- [{"id":3200002,"name":"sad","setdate":"2019-11-25T16:00:00.000Z","voiceurl":"#","cid":300001}]
+                [{"id":3200002,"name":"sad","setdate":"2019-11-25T16:00:00.000Z","voiceurl":"#","cid":300001}]
 
     大事记：
         接口地址：http://localhost:3001/child/cevents?childsid=
@@ -219,11 +215,11 @@ method：get
     云相册：（请求的所有id均为表名+id）
         接口地址：http://localhost:3001/lover/lpictures?loverid=
         请求数据：爱人loversid
-        返回数据：需要该爱人的所有云相册loverPhotoListid，name，setdate（数组）
+        返回数据：需要该爱人的所有云相册loverPhotoid，name，setdate（数组）
            {code：0， msg：[{"id":2300002,"name":"一百天","setdate":"2019-11-26T16:00:00.000Z","lid":200001}] }
         点击具体相册：
             接口地址：http://localhost:3001/lover/lpictures/show?loverPhotoListid=
-            请求数据：爱人具体相册loverPhotoListid
+            请求数据：爱人具体相册loverPhotoid
             返回数据：该爱人相册的照片loverPhotoid，照片地址imgurl
                 {code：0，msg：[{"id":2600002,"imgurl":"#","pid":2300001}] }
 

@@ -75,7 +75,18 @@ export default class Lpictures extends Component {
                   )
                 }
                
-          <Link to="/lover/lcpictures"><img src={require("../../image/jia.jpg")}  className="loveImage-foot"   alt=""></img></Link>
+               <div className='allpage_add'>
+                    <p></p>
+                    <Link
+                    to={{
+                    pathname:'/lover/lcpictures',
+                    state:{
+                        cid:this.state.cid
+                    }
+                    }}
+                    ><i className='iconfont icon-jia'></i></Link>
+              </div>
+
             </div>
         )
     }
