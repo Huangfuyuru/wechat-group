@@ -24,6 +24,15 @@ export default class Cevent extends Component {
             });
         })
     }
+    delItem=(itemid)=>{
+        fetch(`http://localhost:3001/child/cevents/crevents?childAdolesceid=${itemid}&childsid=${this.state.cid}`)
+        .then((res)=>res.json())
+        .then((res)=>{
+            this.setState({
+            lists:res
+            });
+        })
+    }
     render() {
         return (
             //大事记
@@ -64,11 +73,16 @@ export default class Cevent extends Component {
                 {
                     this.state.lists&&this.state.lists.map((cnews)=>{
                        
-                return    <div className='inner' key={cnews.id} style={{height:'20vh'}}>
+                return    <div className='inner' key={cnews.id} style={{height:'20vh',marginBottom:'1vh',border:'1px solid rgb(255, 191, 45)',borderRadius:5,position:'relative'}}>
+                                    <i
+                                    onClick={()=>this.delItem(cnews.id)}  
+                                    className='iconfont icon-shanchu1' style={{position:'absolute',top:'2vh',right:'2vh'}}></i>
                             <Link to={{
                                 pathname:'/child/cevents/show',
+                                state:{cnews}
                             }}>
                                 <div style={{height:"100%"}}>
+                                
                                     <div style={{float:'left',
                                     width:"50%",
                                     height:'100%',
@@ -83,7 +97,7 @@ export default class Cevent extends Component {
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: "center"}}>
-                                        <img src={cnews.imgurl[0]||'#'} style={{width:'100%'}}/>
+                                        <img src={cnews.imgurl[0]||'#'} style={{width:'auto',height:'auto',maxWidth:'100%',maxHeight:'100%'}}/>
                                     </div>
                                     
                                 </div>

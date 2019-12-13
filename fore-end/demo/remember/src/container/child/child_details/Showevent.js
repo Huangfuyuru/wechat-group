@@ -5,35 +5,23 @@ import { NavBar, Icon } from 'antd-mobile';
 import Ccevent from './Ccevent.js';
 
 export default class Showevent extends Ccevent {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        var all = this.props.location.state.cnews;
         this.state={
-            
+           name:all.name,
+           content:all.content,
+           imgurl:all.imgurl,
+           setdate:all.setdate
         }
     }
     // 加载外部数据用componentDidMount
     componentDidMount(){
-        let path = this.props.match.params.id
-        fetch(``)
-        .then((res)=>res.json())
-        .then((res)=>{
-            this.setState({data:res.data});
-        })
+        console.log(this.props.location.state.cnews)
     }
-    //setState()结束之后都会自动调用componentDidUpdate()
-    //如果有更新会进componentDidUpdate里面
-    componentDidUpdate(Props,State){
-        if(Props.location.search !== this.props.location.search){
-            let path = this.props.match.params.id
-            console.log('path',path)
-            fetch( ``)
-            .then((res)=>res.json())
-            .then((res)=>{
-                this.setState({data:res.data});
-            })
-        }
-    }
+    
     render() {
+        var date = moment(this.state.setdate).format("YYYY-MM-DD");
         return (
             <div className="All">
                 <NavBar
@@ -53,8 +41,26 @@ export default class Showevent extends Ccevent {
                         letterSpacing:'3vw',
                         color:"white"
                     }}
-                    >第一次叫妈妈</span>
+                >第一次{this.state.name}</span>
                 </NavBar>
+                <div>
+                    <p>{this.state.content}</p>
+                    <div>
+                        {
+                            this.state.imgurl&&this.state.imgurl.map((item)=>{
+                                return <div style={{width:'50%',display:'inline-block'}}>
+                                    <img src={item} style={{
+                                        width:'auto',
+                                        height:'auto',
+                                        maxWidth:'100%',
+                                        maxHeight:'100%'
+                                    }}/>
+                                </div>
+                            })
+                        }
+                    </div>
+                <p>具体日期:{date}</p>
+                </div>
             </div>
         )
     }

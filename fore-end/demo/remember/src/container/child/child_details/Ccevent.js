@@ -55,6 +55,7 @@ export default class eventAdd extends Component {
         })
     }
     buttonPost=()=>{
+        console.log(this.state.cid)
         var url = 'http://localhost:3001/child/cevents/ccevents';
         fetch(url,{
             method:'POST',
@@ -62,7 +63,7 @@ export default class eventAdd extends Component {
             headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`cid=${this.state.cid}&name=${this.state.name}&item=${JSON.stringify(this.state.item)}&content=${this.state.content}&imgurl=${JSON.stringify(this.state.imgurl)}&setdate=${this.state.setdate}`
+            body:`cid=${this.state.cid}&name=${this.state.name}&item=${this.state.item}&content=${this.state.content}&imgurl=${this.state.imgurl}&setdate=${this.state.setdate}`
         }).then(res=>res.json())
         .then(res=>{
             console.log(res)
@@ -94,9 +95,9 @@ export default class eventAdd extends Component {
                 </NavBar>
                 <form>
                     <label><input type="checkbox" name="item" value="第一次"/>第一次</label>
-                    <input className="input1" type="text" placeholder="名称" name="name" onChange={this.changeName}/>
-                    <p className="Add_body_two">宝宝做了什么</p>
-                    <textarea rows="3" cols="20" placeholder='请输入内容' className="input2" name="content" onChange={this.changeContent}>
+                    <input type="text" placeholder="名称" name="name" onChange={this.changeName}/>
+                    <p>宝宝做了什么</p>
+                    <textarea rows="3" cols="20" placeholder='请输入内容' name="content" onChange={this.changeContent}>
                     </textarea>
                     <input type='file' id='file' onChange={this.UpFile} multiple/>
                     <input id="date" type="date" value={this.state.setdate} onChange={this.changeDate} style={{border:'none'}}/>
@@ -107,7 +108,7 @@ export default class eventAdd extends Component {
                         })
                     }
                     </div>
-                    <button type="button" className="Create_picture" onClick={this.buttonPost}>保存</button>
+                    <button type="button" onClick={this.buttonPost}>保存</button>
                     
                 </form>
             </div>

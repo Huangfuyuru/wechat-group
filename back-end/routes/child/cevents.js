@@ -26,7 +26,7 @@ router.get('/',async function(req,res,next){
 
 //增加大事
 router.post('/ccevents',async function(req,res,next){
-    var childsid = req.body.childsid;
+    var childsid = req.body.cid;
     var item = req.body.item;
     var name = req.body.name;
     var imgurl = req.body.imgurl;
@@ -59,6 +59,11 @@ router.get('/crevents',async function(req,res,next){
     var childAdolesceid = Number(request.childAdolesceid);
     await childAdolesceM.delChildAdolesce(childAdolesceid);
     var data = await childAdolesceM.findByCid(childsid);
-    res.json(data);
+    if(data == 1){
+        res.json(null)
+    }else{
+        res.json(data);
+        
+    }
 })
 module.exports = router;
