@@ -9,13 +9,10 @@ export default class LSpictures extends Component {
         this.state={
             pid:this.props.location.state.id,
             arr:[
-                "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
-                "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
-                "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
-                "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
-                "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
-                "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
-            ]
+                "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg",
+            "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg"
+            ],
+            upArr:[]
         }
     }
     componentDidMount(){
@@ -24,11 +21,32 @@ export default class LSpictures extends Component {
             .then(res=>res.json())
             .then(json=>{ 
                 this.setState({
+                    // arr:json.msg
                 },()=>{
-                    console.log("图片详情",json)
+                    console.log(json)
                 });
             })
     }
+    upImages=()=>{
+        var file=document.getElementById('imgs').files;
+        var url = 'http://localhost:3001/imgs';
+        var form = new FormData();
+        for(var i=0;i<file.length;i++){
+            form.append("file",file[i]);
+        };
+        fetch(url,{
+            method:'POST',
+            enctype:'multipart/form-data',
+            body:form
+        }).then(res=>res.json())
+        .then(json=>(
+            this.setState((state)=>{
+                for(var i=0;i<json.length;i++){
+                    state.upArr[i]=json[i].path
+                }
+        })
+        ) )
+    }    
     render() {
 
         return (
@@ -58,7 +76,7 @@ export default class LSpictures extends Component {
 
             {
                 this.state.arr.map((item)=>(
-                    <div style={{height:"35%",width:"46%",margin:" 2% 2% 0 2%",float:"left"}}>
+                    <div style={{height:"24%",width:"44%",margin:"3%",float:"left"}}>
                         <img src={item} style={{height:"100%",width:"100%" ,float:"left"}} alt=""></img>
                     </div>
                 ))
@@ -71,23 +89,24 @@ export default class LSpictures extends Component {
                         margin:"5% 0 0 30%",
                         color:"#FFBF2D",
                         textAlign:"center",
-                        paddingTop:"3%",
-                        border:"solid 0.5px black"
+                        border:"solid 0.5px black",
+                        paddingTop:"3%"
                     }}>轻触上传照片<input 
                     style={{
                         opacity: 0,
-                        height:"1%",
-                        width:"1%",
-                        border:"solid 0.5px black"
-                    }}
-                    onChange={(e)=>{
-                        this.setState({src:e.target.files[0].name})
-                    console.log(e.target.files[0])
-                    }}                             
+                        height:"80%",
+                        width:"100%",
+                        border:"solid 0.5px black",
+                        float:"left"
+                    }}  
+                    id="imgs"  
+                    onChange={this.upImages}                         
                     type='file'  
                     accept="image/*" 
                     capture="camera" 
                     name='uimage' 
+                    multiple="multiple"
+                    alt=""
                     />
                     </span>
             </div>
