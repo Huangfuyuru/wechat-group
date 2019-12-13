@@ -64,7 +64,7 @@ export default class Lcreate_souver extends Component {
     }
     render() {
         return (
-            <div style={{height:"100%",width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
+            <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
             <NavBar 
                  style={{
                     background:'#FFBF2D',

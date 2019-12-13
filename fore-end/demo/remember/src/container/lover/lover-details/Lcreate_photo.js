@@ -9,6 +9,7 @@ export default class Lcreate_photo extends Component{
         this.state={
             lover_id:lid,
             name:"",
+            background:"",
         }
     }
     getName=(e)=>{
@@ -24,7 +25,7 @@ export default class Lcreate_photo extends Component{
                 headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`loverid=${this.state.lover_id}&name=${this.state.name}`
+            body:`loverid=${this.state.lover_id}&name=${this.state.name}&background=${this.state.background}`
             })
             .then(res=>res.json())
             .then(json=>{ 
@@ -34,9 +35,28 @@ export default class Lcreate_photo extends Component{
                 });
             })
     }
+    upBack=()=>{
+        var file=document.getElementById('back').files[0];
+        var url = 'http://localhost:3001/img';
+        var form = new FormData();
+        form.append("file",file);
+        fetch(url,{
+            method:'POST',
+            enctype:'multipart/form-data',
+            body:form
+        }).then(res=>res.json())
+        .then(json=>( 
+            this.setState({
+                background:json.path
+            },()=>{
+                var img=document.getElementById("background");
+                img.setAttribute("src",this.state.background);
+            })
+        ))
+    }
     render() {
         return (
-            <div style={{height:"100%",width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
+            <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
            <NavBar 
                  style={{
                      background:'#FFBF2D',
@@ -63,6 +83,21 @@ export default class Lcreate_photo extends Component{
                   <p >相册名称:</p>
                   <input  type="text" placeholder="please input" onChange={this.getName}/>
                   </div>
+                  <div style={{float:"left",margin:"4%"}} >
+                  <input  
+                    style={{width:"90%",height:"100%"}}
+                    id="back"   
+                    onChange={this.upBack}
+                    type='file'  
+                    accept="image/*" 
+                    capture="camera" 
+                    name="imgurl"
+                    multiple="multiple"
+                    alt=""/>
+                    </div>
+                    <div id="yuBack" style={{height:"15%",width:"40%",float:"left",marginLeft:"30%"}}>
+                        <img id="background"  alt="封面预览"/>
+                    </div>
                   <Link to="/lover/lpictures">
                   <WingBlank>
                <button className="photo-foot" onClick={this.upPhoto}>创建相册</button>

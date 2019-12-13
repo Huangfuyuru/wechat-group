@@ -28,17 +28,6 @@ export default class Lpictures extends Component {
         });
     })
   }
-  //   for(var i=0;i<this.state.arr.length;i++){
-  //   fetch(`http://localhost:3001/lover/lpictures/show?loverPhotoListid=${this.state.arr.id[i]}`)
-  //   .then(res=>res.json())
-  //   .then(json=>{ 
-  //       this.setState({
-  //         // arr:json.msg
-  //       },()=>{
-  //           console.log(json)
-  //       });
-  //   })
-  // }
 delPhoto=(id,lid)=>{
   console.log(id,lid)
   fetch(`http://localhost:3001/lover/lpictures/lrpictures?loverid=${lid}&loverPhotoListid=${id}`)
@@ -54,7 +43,7 @@ delPhoto=(id,lid)=>{
 }
     render() {
         return (
-            <div style={{height:"100%",width:"100%" ,backgroundColor:"white",marginTop:"10vh"}}>
+            <div style={{width:"100%" ,backgroundColor:"white",marginTop:"10vh",paddingBottom:"10vh"}}>
                 <NavBar style={{
                      background:'#FFBF2D',
                      height:'8vh',
@@ -79,7 +68,7 @@ delPhoto=(id,lid)=>{
                 {
                   this.state.arr.map((index)=>(
                 <div className="loveImage-header">                    
-                 <img  style={{height:"80%",width:"94%",margin:"2% 0 0% 3%"}} alt=""></img>
+                 <img  style={{height:"80%",width:"94%",margin:"2% 0 0% 3%"}} alt="" src={index.background}></img>
                     <div>
                     <Link to={{
                     pathname:"/lover/lspictures",

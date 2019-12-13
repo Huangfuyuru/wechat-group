@@ -22,7 +22,7 @@ router.get('/',async function(req,res,next){
     }else{
         info ={
             code:1,
-            msg:'此loverid还未创建相册'
+            msg:'获取爱人相册信息失败'
         }
         res.json(info)
 
@@ -35,6 +35,7 @@ router.get('/show',async function(req,res,next){
     var photoListid = Number(req.query.loverPhotoListid);
     // console.log(photoListid);
     var data = await lover.loverPhotoM.findByPid(photoListid);
+    console.log(data);
     if(data!== 1){
         info ={
             code:0,
@@ -53,13 +54,11 @@ router.get('/show',async function(req,res,next){
 
 router.post('/lcpictures',async function(req,res,next){
     console.log('添加相册');
-    var lid = Number(req.body.loverid),
+    var lid = Number(req.body.loverid);
         name = req.body.name,
-        background = req.body.background;
         text={
             lid:lid,
-            name:name,
-            background:background
+            name:name
         }
     var addPList =  await lover.loverPhotoListM.addLoverPhotoList(text);
     if(addPList === 0){
@@ -118,17 +117,15 @@ router.get('/lrpictures',async function(req,res,next){
 
 //增加照片
 router.post('/laddpictures',async function(req,res,next){
-    console.log('增加照片',req.body);
     var lPLid = Number(req.body.loverPhotoListid),
         imgs = req.body.imgurl;
     var text = {
-        pid:lPLid,
+        lid:lPLid,
         imgurl:imgs
     };
     var addPhoto = await lover.loverPhotoM.addLoverPhoto(text);
-    console.log(addPhoto);
     if(addPhoto === 0){
-        var data= await lover.loverPhotoM.findByPid(lPLid);
+        var data= lover.loverPhotoM.findByPid(lPLid);
         info={
             code:0,
             msg:data
@@ -141,7 +138,6 @@ router.post('/laddpictures',async function(req,res,next){
         }
         res.json(info);
     }    
-    // console.log(data);
 });
 
 router.post('/ldelpictures',async function(req,res,next){

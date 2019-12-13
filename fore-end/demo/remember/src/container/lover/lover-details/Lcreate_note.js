@@ -48,6 +48,7 @@ export default class Lcreate_note extends Component {
                 var img = document.createElement("img");
                 img.setAttribute("src",this.state.imgurl[i]);
                 img.setAttribute("id","lan");
+                img.setAttribute("alt","图片预览");
                 yu.appendChild(img)
             }
         })
@@ -70,7 +71,7 @@ export default class Lcreate_note extends Component {
     }
     render() {
         return (
-            <div style={{height:"100%",width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
+            <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
            <NavBar 
                  style={{
                      background:'#FFBF2D',
@@ -100,7 +101,7 @@ export default class Lcreate_note extends Component {
                 <textarea onChange={this.changeContent} className="createnote-first">
                 </textarea>
                 
-                <div style={{height:"10%"}} id="yulan">
+                <div style={{height:"12vh"}} id="yulan">
 
                  </div>
                 <div className="createnote-second">
