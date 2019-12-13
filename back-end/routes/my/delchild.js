@@ -3,7 +3,7 @@ const express = require('express'),
       bodyParser = require("body-parser"),
       qs = require('qs');
 //引入数据库
-const {childM,childAdolesceM,childDiaryM,childGrowM,childPhotoListM,childVoiceM} = require("../../database/dateMethod");
+const {childM,childAdolesceM,childDiaryM,childGrowM,childPhotoM,childPhotoListM,childVoiceM} = require("../../database/dateMethod");
 var info = {}
 
 //配置bodyparser中间件
@@ -24,24 +24,32 @@ router.get('/',async function(req,res,next){
 router.get('/confirm',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childid = Number(request.childid);
+    var childPhotoListid = childPhotoM.findIdByPid(childid);
     var result1 = await childAdolesceM.delAllByCid(childid);
     var result2 = await childDiaryM.delAllByCid(childid);
     var result3 = await childPhotoListM.delAllByCid(childid);
     var result4 = await childVoiceM.delAllByCid(childid);
     var result5 = await childGrowM.delAllByCid(childid);
-    if(result1 === 0 && result2 === 0 && result3 === 0 && result4 === 0 && result5 === 0){
-        var result = await childM.delChild(childid);
-        if(result === 0){
-            var data = await childM.findById(uid)
-            info = {code:0,msg:"删除亲子id成功"}
-            res.json(data)
-        }else{
-            info = {code:1,msg:"删除亲子id失败"}
+    var result6 = await childPhotoM.delChildPhoto(childid);
+    var result7 = await childPhotoListM.delChildPhotoList(childPhotoListid);
+    if(result7 === 0){ //删除相册
+        if(result6 === 0){ //删除该相册中所有照片
+            if(result1 === 0 && result2 === 0 && result3 === 0 && result4 === 0 && result5 === 0){
+                var result = await childM.delChild(childid);
+                if(result === 0){
+                    var data = await childM.findById(uid)
+                    info = {code:0,msg:"删除亲子id成功"}
+                    res.json(data)
+                }else{
+                    info = {code:1,msg:"删除亲子id失败"}
+                    res.json(info)
+                }
+            }else{
+                info = {msg:"删除亲子内容失败"}
+                res.json(info)
+            }
         }
-    }else{
-        info = {msg:"删除亲子内容失败"}
     }
-    
     
 })
 

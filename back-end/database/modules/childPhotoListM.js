@@ -35,7 +35,7 @@ async function findAll(){
 
 /**
  *
- *根据childPhotoList id删除日记
+ *根据childPhotoList id删除相册
  * @param {int} id
  * @returns
  */
