@@ -23,8 +23,11 @@ export default class Lpictures extends Component {
     .then(json=>{ 
         this.setState({
           arr:json.msg
+        },()=>{
+          console.log("加载后",json)
         });
     })
+  }
   //   for(var i=0;i<this.state.arr.length;i++){
   //   fetch(`http://localhost:3001/lover/lpictures/show?loverPhotoListid=${this.state.arr.id[i]}`)
   //   .then(res=>res.json())
@@ -36,15 +39,32 @@ export default class Lpictures extends Component {
   //       });
   //   })
   // }
+delPhoto=(id,lid)=>{
+  console.log(id,lid)
+  fetch(`http://localhost:3001/lover/lpictures/lrpictures?loverid=${lid}&loverPhotoListid=${id}`)
+    .then(res=>res.json())
+    .then(json=>{ 
+        this.setState({
+          arr:json.info
+        },()=>{
+          console.log("删除返回",json)
+        });
+    })
+
 }
     render() {
         return (
-            <div style={{height:"100%",width:"100%" ,backgroundColor:"white"}}>
+            <div style={{height:"100%",width:"100%" ,backgroundColor:"white",marginTop:"10vh"}}>
                 <NavBar style={{
                      background:'#FFBF2D',
                      height:'8vh',
                      color:'#fff',
                      fontWeight:'bolder',
+                     zIndex:'11',
+                     position:'fixed',
+                     width:'100%',
+                     left:0,
+                     top:0
                     }}
                     mode="light"
                     icon={'𡿨'}
@@ -58,18 +78,19 @@ export default class Lpictures extends Component {
                 </NavBar>
                 {
                   this.state.arr.map((index)=>(
-                <div className="loveImage-header">
-                  <img  style={{height:"80%",width:"94%",marginLeft:"3%",marginTop:"2%"}} alt=""></img>
-                  <Link to={{
+                <div className="loveImage-header">                    
+                 <img  style={{height:"80%",width:"94%",margin:"2% 0 0% 3%"}} alt=""></img>
+                    <div>
+                    <Link to={{
                     pathname:"/lover/lspictures",
                     state:{
                       id:index.id
                     }
                     }} style={{color:"black"}}>
-                    <div>
-                  <p style={{fontSize:"5vw",float:"left",margin:"2% 0% 0 5%"}}>{index.name}</p><span  style={{color:"#C7C7CC",fontSize:"8vw" ,float:"right",marginRight:"2%"}}>></span>
-                    </div>
-                    </Link>
+                  <p style={{fontSize:"5vw",float:"left",margin:"2% 0% 0 5%"}}>{index.name}</p>
+                  </Link>
+                  <span  style={{color:"#C7C7CC",fontSize:"8vw" ,float:"right",marginRight:"2%"}} onClick={()=>this.delPhoto(index.id,this.state.lover_id)}><img src={require("../../image/la.jpg")}/></span>
+                    </div> 
                 </div>
                   )
                   )

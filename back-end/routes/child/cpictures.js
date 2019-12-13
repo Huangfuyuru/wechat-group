@@ -29,8 +29,9 @@ router.get('/show',async function(req,res,next){
 router.get('/ccpictures',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
+    var background = request.background;
     var name = request.name;
-    await childPhotoListM.addChildPhotoList({name:name,cid:childsid});
+    await childPhotoListM.addChildPhotoList({name:name,cid:childsid,background:background});
     var data = await childPhotoListM.findByCid(childsid);
     res.json(data)
 })

@@ -132,45 +132,6 @@
     position: relative;
     bottom: 6vh;
 }
-.Create_{
-    width:100%;
-    height:50px;
-    text-align: center;
-    margin-top:40px;
-    font-weight: bold;
-    font-size:4vw;
-}
-.Create_ .one{
-    width:180px;
-    height:30px;
-    margin-left:40px;
-}
-.Create_picture{
-    width:200px;
-    height:45px;
-    color:white;
-    font-weight: bold;
-    font-size:5vw;
-    text-align:center;
-    background-color: #fff;
-    margin-top: 20px;
-    border:none;
-    background-color:#FFBF2D;
-    border-radius: 10px;
-}
- .Create_a{
-    text-decoration: none;
-    color:#FFBF2D;
-    font-weight: bold;
-    font-size: 18px;
-    display: block;
-    width:280px;
-    height:35px;
-    border:solid lightgray;
-    margin-top: 20px;
-    text-align: center;
-    padding-top:5px;
-}
 /* 相册页面 */
 .Pages_picture{
     margin-top:20px;
@@ -184,54 +145,50 @@
     background-size:contain/cover;
 }
 /* 云相册*/
-.Cloud_{
-    width:100%;
-    height:250px;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    margin-top: 20px;
-    border: solid lightgray;
-}
-.Cloud_ img{
-    width:340px;
-    height:210px;
-}
-.Cloud_ .one{
-    width:100%;
-    height:210px;
-    margin-top: 10px;
+.cpicture_inner{
+    margin-top: 10vh;
     text-align: center;
 }
-.Cloud_ .two{
-    width:100%;
-    height:40px;
-    margin-left: 10px;
-    text-align: left;
-    font-size: 5vw;
-    font-weight: bold;
-    color:#FFBF2D;
+.cpicture_block{
+    margin: 1.5vh auto;
+    display: inline-block;
+    width: 90vw;
+    height: 35vh;
+    /* background: #FFBF2D; */
+    border:1px solid #ccc;
 }
-.Cloud_add {
-    width:100%;
-    height:50px;
-    margin-top:60px;
+/* 创建相册 */
+.ccpicture_inner{
+    margin-top: 10vh;
+    text-align: center;
 }
-.Cloud_add div{
-    width:100%;
-    line-height: 50px;
+.ccpicture_inner input{
+    margin:''
 }
-.Cloud_add a{
-    text-decoration: none;
+#ccpicturewarn{
+    display: none;
+    text-align: center;
+    border-radius: 20px;
+    background:rgba(255,191,45,0.4);
+    position: fixed;
+    top:23vh;
+    width: 90%;
+    height: 35vh;
+    z-index: 100;
+    margin-left: 5vw;
 }
-.Cloud_add img{
-    width:50px;
-    height:50px;
-    position: relative;
-    top:-50px;
+#ccpicturewarn div{
+    text-align: center;
+    padding:4vh 5vw;
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 30%;
+    color: rgb(148, 145, 145);
 }
-
 /* 语音记事 */
 .csound{
     background: #fff;
