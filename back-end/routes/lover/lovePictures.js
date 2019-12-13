@@ -35,6 +35,7 @@ router.get('/show',async function(req,res,next){
     var photoListid = Number(req.query.loverPhotoListid);
     // console.log(photoListid);
     var data = await lover.loverPhotoM.findByPid(photoListid);
+    console.log(data);
     if(data!== 1){
         info ={
             code:0,
@@ -43,8 +44,8 @@ router.get('/show',async function(req,res,next){
         res.json(info);
     }else{
         info ={
-            code:1,
-            msg:'查看相册详细信息失败'
+            code:0,
+            msg:'相册中无照片'
         }
         res.json(info);
     }
