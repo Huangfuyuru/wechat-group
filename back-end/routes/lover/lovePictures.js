@@ -128,7 +128,7 @@ router.post('/laddpictures',async function(req,res,next){
     var addPhoto = await lover.loverPhotoM.addLoverPhoto(text);
     console.log(addPhoto);
     if(addPhoto === 0){
-        var data= lover.loverPhotoM.findByPid(lPLid);
+        var data= await lover.loverPhotoM.findByPid(lPLid);
         info={
             code:0,
             msg:data
@@ -141,6 +141,7 @@ router.post('/laddpictures',async function(req,res,next){
         }
         res.json(info);
     }    
+    console.log(data);
 });
 
 router.post('/ldelpictures',async function(req,res,next){
