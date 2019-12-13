@@ -8,8 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addLoverPhoto(text){
-    let sql = 'insert into loverPhoto(imgurl,lid) values ($1,$2)';
-    let ret = await pgdb.query(sql,[text.imgurl,text.lid]);
+    let sql = 'insert into loverPhoto(imgurl,pid) values ($1,$2)';
+    let ret = await pgdb.query(sql,[text.imgurl,text.pid]);
     if(ret.rowCount<=0){
         return 1
     }else{

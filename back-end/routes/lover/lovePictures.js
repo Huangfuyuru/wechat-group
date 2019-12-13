@@ -118,13 +118,15 @@ router.get('/lrpictures',async function(req,res,next){
 
 //增加照片
 router.post('/laddpictures',async function(req,res,next){
+    console.log('增加照片',req.body);
     var lPLid = Number(req.body.loverPhotoListid),
         imgs = req.body.imgurl;
     var text = {
-        lid:lPLid,
+        pid:lPLid,
         imgurl:imgs
     };
     var addPhoto = await lover.loverPhotoM.addLoverPhoto(text);
+    console.log(addPhoto);
     if(addPhoto === 0){
         var data= lover.loverPhotoM.findByPid(lPLid);
         info={
