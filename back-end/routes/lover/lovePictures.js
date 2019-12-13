@@ -21,7 +21,7 @@ router.get('/',async function(req,res,next){
         res.json(info)
     }else{
         info ={
-            code:0,
+            code:1,
             msg:'此loverid还未创建相册'
         }
         res.json(info)
@@ -43,7 +43,7 @@ router.get('/show',async function(req,res,next){
         res.json(info);
     }else{
         info ={
-            code:0,
+            code:1,
             msg:'相册中无照片'
         }
         res.json(info);
