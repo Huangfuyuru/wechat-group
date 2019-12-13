@@ -76,13 +76,14 @@ export default class Ldairy extends Component {
                         <div className="lovernote-first" key={{value}}>
                             <img  src={require("../../image/qian.jpg")} alt=""  style={{float:"left",margin:"3% 0 0 0%",height:"10%",width:"13%"}}></img>
                             <p style={{fontSize:"5vw",float:"left",margin:" 8% 0% 0 0",fontWeight:"bold"}}>{item.name}  {item.setdate.split(".")[0].replace('T',' ')}</p>
-                            <textarea style={{fontSize:"5vw",float:"left",height:"35%",width:"88%",margin:"5% 0 0 4%",padding:"3% 0 0 3%",border:"0.5px solid #888888"}} readOnly="readOnly" value={item.content}></textarea>
+                            <img src={require("../../image/la.jpg")} onClick={()=>this.deleteNote(item.lid,item.id)} alt="" style={{float:"right"}}/> 
+
+                            <textarea style={{fontSize:"5vw",float:"left",height:"35%",width:"88%",margin:"5% 0 0 4%",padding:"3% 0 0 3%",border:"none"}} readOnly="readOnly" value={item.content}></textarea>
                             <div style={{height:"30%",width:"94%",float:"left",margin:"2% 0 0 3%"}}>
                             <img src={item.imgurl[0]}  alt="" style={{height:"100%",width:"48%",float:"left",marginLeft:"1%"}}></img>
                             <img src={item.imgurl[1]}  alt="" style={{height:"100%",width:"48%",float:"left",marginLeft:"1%"}}></img>
                             </div>
-                            <div className="iconfont icon-lajixiang1" onClick={()=>this.deleteNote(item.lid,item.id)}> 
-                            </div>
+                            
                         </div>
                      ))
                
