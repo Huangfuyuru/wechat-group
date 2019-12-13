@@ -141,7 +141,7 @@ router.post('/laddpictures',async function(req,res,next){
         }
         res.json(info);
     }    
-    console.log(data);
+    // console.log(data);
 });
 
 router.post('/ldelpictures',async function(req,res,next){
