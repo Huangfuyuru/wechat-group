@@ -8,9 +8,9 @@ export default class LSpictures extends Component {
         console.log(this.props.location.state.id)
         this.state={
             pid:this.props.location.state.id,
+            tip:"",
             arr:[
                 "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg",
-            "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg"
             ],
             upArr:[]
         }
@@ -19,11 +19,18 @@ export default class LSpictures extends Component {
             fetch(`http://localhost:3001/lover/lpictures/show?loverPhotoListid=${this.state.pid}`)
             .then(res=>res.json())
             .then(json=>{ 
-                this.setState({
-                    // arr:json.msg
-                },()=>{
-                    console.log(json)
-                });
+                if(json.code===0){
+                    this.setState({
+                        tip:"当前相册为空!,仅为示例图片"
+                    });
+                }
+                else{
+                    this.setState({
+                        // arr:json.msg
+                    },()=>{
+                        console.log(json)
+                    });
+                }
             })
     }
     upImages=()=>{
@@ -107,10 +114,14 @@ export default class LSpictures extends Component {
                      textIndent:'3vw',
                      letterSpacing:'3vw'}}>相册详情</span>
                 </NavBar>
-
+                {
+                    <p style={{margin:"0",textAlign:"center"}}>{this.state.tip}</p>
+                }
             {
+               
                 this.state.arr.map((item)=>(
                     <div style={{height:"24%",width:"44%",margin:"3%",float:"left"}}>
+                        
                         <img src={item} style={{height:"80%",width:"100%" ,float:"left"}} alt=""></img>
                         <img src={require("../../../image/la.jpg")} alt="" style={{float:"right"}} onClick={()=>this.delImg(item.pid,item.id)}/>
                     </div>
