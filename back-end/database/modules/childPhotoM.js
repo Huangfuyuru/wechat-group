@@ -126,7 +126,7 @@ async function changeById(id,text){
  * @returns
  */
 async function delAllByPid(pid){
-    let sql = 'delete from delete from childPhoto where pid=$1'
+    let sql = 'delete from childPhoto where pid=$1'
     let ret = await pgdb.query(sql,[pid]);
     if(ret.rowCount<=0){
         return 1
