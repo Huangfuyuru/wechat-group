@@ -16,7 +16,6 @@ export default class LSpictures extends Component {
         }
     }
     componentDidMount(){
-        console.log("hh")
             fetch(`http://localhost:3001/lover/lpictures/show?loverPhotoListid=${this.state.pid}`)
             .then(res=>res.json())
             .then(json=>{ 
@@ -44,9 +43,44 @@ export default class LSpictures extends Component {
                 for(var i=0;i<json.length;i++){
                     state.upArr[i]=json[i].path
                 }
+        },()=>{
+            fetch(`http://localhost:3001/lover/lpictures/laddpictures`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`loverPhotoListid=${this.state.pid}&imgurl=${this.state.upArr}`
+        }).then(res=>res.json())
+        .then(json=>(
+            this.setState((state)=>{
+                
+        },()=>{
+            console.log("上传后",json)
         })
-        ) )
-    }    
+        ));
+        })
+        ));
+    } 
+    delImg=(pid,id)=>{
+        fetch(`http://localhost:3001/lover/lpictures/ldelpictures`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`loverPhotoListid=${pid}&loverPhotoid=${id}`
+        })
+        .then(res=>res.json())
+        .then(json=>(
+            this.setState((state)=>{
+                
+            },()=>{
+                console.log("删除后",json)
+            }) 
+        )
+        )
+    }   
     render() {
 
         return (
@@ -77,9 +111,11 @@ export default class LSpictures extends Component {
             {
                 this.state.arr.map((item)=>(
                     <div style={{height:"24%",width:"44%",margin:"3%",float:"left"}}>
-                        <img src={item} style={{height:"100%",width:"100%" ,float:"left"}} alt=""></img>
+                        <img src={item} style={{height:"80%",width:"100%" ,float:"left"}} alt=""></img>
+                        <img src={require("../../../image/la.jpg")} alt="" style={{float:"right"}} onClick={()=>this.delImg(item.pid,item.id)}/>
                     </div>
                 ))
+                
             }
              <span style={{
                         zIndex:'10',
@@ -100,7 +136,8 @@ export default class LSpictures extends Component {
                         float:"left"
                     }}  
                     id="imgs"  
-                    onChange={this.upImages}                         
+                    onChange={this.upImages}  
+                    onClick={this.addPhoto}                       
                     type='file'  
                     accept="image/*" 
                     capture="camera" 
