@@ -42,7 +42,6 @@ export default class Child extends Component {
     }
     componentDidUpdate(prevProps,prevState){
         console.log('更新')
-
         fetch(`http://localhost:3001/child/changebackground`,{
             method:'POST',
             mode:'cors',

@@ -6,24 +6,10 @@ import moment from 'moment'
 export default class Cloud extends Component {
     constructor(){
         super();
-        var cid = localStorage.getItem('cid');
+        var cid = JSON.parse(localStorage.getItem('cid'));
         this.state={
             cid:cid,
-            lists:
-            [
-                {
-                childPhotoListid:'111',
-                name:'222',
-                setdate:'333',
-                backgroundurl:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1961296464,1745767450&fm=26&gp=0.jpg'
-                },
-                {
-                childPhotoListid:'111',
-                name:'222',
-                setdate:'333',
-                backgroundurl:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1961296464,1745767450&fm=26&gp=0.jpg'
-                },
-            ]
+            lists:[]
         }
     }
       // 加载外部数据用componentDidMount
@@ -31,18 +17,22 @@ export default class Cloud extends Component {
         fetch(`http://localhost:3001/child/cpictures?childsid=${this.state.cid}`)
         .then((res)=>res.json())
         .then((res)=>{
-            console.log(res)
-            // this.setState({data:res.data});
+            console.log('点击云相册',res)
+            this.setState({
+                lists:res
+            });
+            
         })
     }
-    //setState()结束之后都会自动调用componentDidUpdate()
-    //如果有更新会进componentDidUpdate里面
-    componentDidUpdate(Props,State){
-        fetch(`http://localhost:3001/child/cpictures?childsid=${this.state.cid}`)
+    rmCpicture=(itemid)=>{
+        console.log(itemid,this.state.cid)
+        fetch(`http://localhost:3001/child/cpictures/crpictures?childsid=${this.state.cid}&childPhotoListid=${itemid}`)
         .then((res)=>res.json())
         .then((res)=>{
             console.log(res)
-            // this.setState({data:res.data});
+            this.setState({
+            lists:res
+            });
         })
     }
     render() {
@@ -75,20 +65,23 @@ export default class Cloud extends Component {
                 <div className='cpicture_inner'>
                     {
                         this.state.lists&&this.state.lists.map((item,idx)=>(
-                            <Link 
-                            className='cpicture_block'
-                            to='/child/cpictures/show'>
-                                <div style={{
-                                    width:'95%',
-                                    height:'75%',
-                                    margin:'1.5vh auto',
-                                    background:`url(${item.backgroundurl}) center center/cover no-repeat`,
+                            <div className='cpicture_block'>
+                                <Link to={{
+                                    pathname:'/child/cpictures/show',
+                                    state:item.name
                                 }}>
-                                </div>
+                                    <div style={{
+                                        width:'95%',
+                                        height:'75%',
+                                        margin:'1.5vh auto',
+                                        background:`url(${item.background}) center center/cover no-repeat`,
+                                    }}>
+                                    </div>
+                                </Link>
                                 <p style={{
                                     borderTop:'1px solid #ccc',
                                     margin:'0',
-                                    lineHeight:'5vh',
+                                    lineHeight:'7vh',
                                     textAlign:'left',
                                     paddingLeft:'5vw',
                                     color:'#FFBF2D',
@@ -97,17 +90,18 @@ export default class Cloud extends Component {
                                     
                                     {item.name}
                                     <span
+                                    onClick={()=>this.rmCpicture(item.id)}
                                     style={{
                                         color:'#bdbbb8',
-                                        lineHeight:'5vh',
+                                        lineHeight:'6.5vh',
                                         float:'right',
-                                        marginRight:'5vw'
+                                        marginRight:'4vw'
                                     }}
                                     >
-                                        <i className='iconfont icon-you'/>
+                                        <i className='iconfont icon-shanchu1'/>
                                     </span>
                                 </p>
-                            </Link>
+                            </div>
                         ))
                     }
                 </div>

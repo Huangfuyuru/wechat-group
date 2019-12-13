@@ -5,9 +5,12 @@ import { NavBar, Icon } from 'antd-mobile';
 export default class Create extends Component {
     constructor(){
         super();
+        var cid = JSON.parse(localStorage.getItem('cid'));
         this.state={
+            code:'',
+            cid:cid,
             name:'',
-            backgroundurl:''
+            backgroundurl:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1961296464,1745767450&fm=26&gp=0.jpg'
         }
     }
     upfile=()=>{
@@ -31,6 +34,20 @@ export default class Create extends Component {
     nameChange=(e)=>{
         this.setState({
             name:e.target.value
+        })
+    }
+    ccpicturePost=()=>{
+        var ccpicturewarn=document.getElementById('ccpicturewarn');
+        ccpicturewarn.style.display='block';
+        console.log(this.state.cid)
+        fetch(`http://localhost:3001/child/cpictures/ccpictures?childsid=${this.state.cid}&name=${this.state.name}&background=${this.state.backgroundurl}`,{
+            method:'GET',
+        }).then(res=>res.json())
+        .then(json=>{
+            this.setState({
+                code:json.msg
+            })
+            console.log(json)
         })
     }
     render() {
@@ -61,27 +78,28 @@ export default class Create extends Component {
                     >创建相册</span>
                 </NavBar>
                 <div className='ccpicture_inner'>
-                    <div>
+                    <div className='ccpicture_name'>
                         相册名称：
                         <input 
-                        onClick={this.nameChange} 
+                        onChange={this.nameChange} 
                         type="text" 
                         placeholder="单行输入"/>
                     </div>
-                    {/* 创建日期 */}
                     <div>
-                        创建日期：
                         <span 
                         style={{
                             zIndex:'10',
                             display:'inline-block',
-                            width:'50%',
-                            fontSize:'5vw',
-                            // top:'8vh',
-                            position:'relative',
+                            width:'45vw',
+                            lineHeight:'6vh',
+                            height:'6vh',
+                            fontSize:'6.5vw',
+                            top:'28vh',
+                            left:'28vw',
+                            position:'absolute',
                             color:'#000',
-                            background:'rgb(255,191,45,0.3)'
-                        }}>轻触上传相册封面<input 
+                            background:'rgb(255,191,45,0.2)'
+                        }}>轻触上传封面<input 
                         id='img'
                         onChange={this.upfile}                           
                         type='file'  
@@ -92,18 +110,18 @@ export default class Create extends Component {
                         <span
                         style={{
                             display:'inline-block',
-                            height:'10vh',
-                            width:'10vh',
-                            background:'#ccc'
+                            position:'relative',
+                            top:'13vh',
+                            right:'0vw',
+                            height:'15vh',
+                            width:'45vw',
+                            margin:'0',
+                            background:`url(${this.state.backgroundurl}) center center/cover no-repeat`
                         }}>
-                            <img 
-                            src={this.state.backgroundurl} alt='封面预览'/>
                         </span>
                     </div>
                     {/* 点击创建 */}
-                    <button >创建相册</button>
-                    <Link to="/child/cpictures/show"> 
-                    </Link>
+                    <button onClick={this.ccpicturePost} className='alladd_button'>创建相册</button>
                 </div>
 
                 <form id='ccpicturewarn'>
