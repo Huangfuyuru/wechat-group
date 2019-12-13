@@ -53,11 +53,13 @@ router.get('/show',async function(req,res,next){
 
 router.post('/lcpictures',async function(req,res,next){
     console.log('添加相册');
-    var lid = Number(req.body.loverid);
+    var lid = Number(req.body.loverid),
         name = req.body.name,
+        background = req.body.background;
         text={
             lid:lid,
-            name:name
+            name:name,
+            background:background
         }
     var addPList =  await lover.loverPhotoListM.addLoverPhotoList(text);
     if(addPList === 0){
