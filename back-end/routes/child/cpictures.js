@@ -14,7 +14,12 @@ router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var data = await childPhotoListM.findByCid(childsid);
-    res.json(data);
+    if(data == 1){
+        res.json(null)
+    }else{
+        res.json(data);
+    }
+    
 })
 
 //点击具体相册
@@ -44,9 +49,12 @@ router.get('/crpictures',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var childPhotoListid = request.childPhotoListid;
-    await childPhotoListM.delChildPhotoList(childPhotoListid);
-    var data = await childPhotoListM.findByCid(childsid);
-    res.json(data)
+    var data = await childPhotoListM.delChildPhotoList(childPhotoListid);
+    if(data == 1){
+        var message={code:1,msg:"删除失败"}
+    }else{
+        var message={code:0,msg:"删除成功"}
+    }
 })
 
 
