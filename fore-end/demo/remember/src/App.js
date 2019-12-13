@@ -43,6 +43,7 @@ import Delrelation2 from './container/my/Delrelation2'
 import message from './container/my/Message'
 import Use from './container/my/Use'
 import Ccsound from './container/child/child_details/Ccsound';
+import Addpictures from './container/child/child_details/Addpictures';
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
       <Route exact path='/child/cpictures' component={Cpictures}/>
       <Route path='/child/cpictures/show' component={Showpicture}/>
       <Route path='/child/cpictures/ccpicture' component={Ccpicture}/>
+      <Route path='/child/cpictures/addpictures' component={Addpictures}/>
 
       <Route exact path='/child/csound' component={Csound}/>
       <Route exact path='/child/csound/ccsound' component={Ccsound}/>

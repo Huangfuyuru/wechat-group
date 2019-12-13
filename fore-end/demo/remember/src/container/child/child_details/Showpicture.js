@@ -39,36 +39,18 @@ export default class Showpicture extends Component {
                     icon={'𡿨'}
                     onLeftClick={() => this.props.history.push('/child/cpictures')}
                     rightContent={[
-                        <i
-                        className='iconfont icon-qiehuan'
+                        <span
+                        className='iconfont icon-bianji'
                         style={{
                             marginRight:'2vw',
-                            fontSize:'8.5vw',
-                            fontWeight:'lighter'
+                            fontSize:'5vw',
+                            fontWeight:'lighter',
+                            letterSpacing:'1vw'
                         }}
                         onClick={()=>{
-                            var tag = document.getElementById('tag');
-                            if(this.state.menu_count%2==0){
-                                console.log('进入')
-                                tag.style.display='block';
-                                fetch(`http://localhost:3001/child/change?usersid=${this.state.uid}`)
-                                .then(res=>res.json())
-                                .then(json=>{
-                                    this.setState({
-                                        change_id:json
-                                    })
-                                })
-                            }else{
-                                console.log('退出')
-                                tag.style.display='none';
-                            }
-                            this.setState({
-                                menu_count:this.state.menu_count+1
-                            });
-                            console.log('切换亲子');
-    
+                            console.log('ni')
                         }} 
-                        key="1" type="ellipsis" />,
+                        >编辑</span>,
                         ]}
                     ><span style={{
                         fontWeight:'bold',
@@ -90,6 +72,18 @@ export default class Showpicture extends Component {
                         ))
                     }
                 </div>
+
+                <div className='allpage_add'>
+                    <p></p>
+                    <Link
+                    to={{
+                    pathname:'/child/cpictures/addpictures',
+                    state:{
+                        cid:this.state.cid
+                    }
+                    }}
+                    ><i className='iconfont icon-jia'></i></Link>
+              </div>
             </div>
         )
     }
