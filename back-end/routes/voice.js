@@ -9,7 +9,7 @@ router.post('/',function(req,res){
     form.keepExtensions = true; 
     form.maxFieldSize = 2*1024*1024;
     form.parse(req, function (error, fields, files) { 
-        console.log(files); 
+        // console.log(files); 
         if(error) {
             var message = {err:1, msg:"文件解析失败"};
         }
