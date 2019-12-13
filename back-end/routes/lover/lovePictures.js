@@ -21,8 +21,8 @@ router.get('/',async function(req,res,next){
         res.json(info)
     }else{
         info ={
-            code:1,
-            msg:'获取爱人相册信息失败'
+            code:0,
+            msg:'此loverid还未创建相册'
         }
         res.json(info)
 
@@ -35,7 +35,6 @@ router.get('/show',async function(req,res,next){
     var photoListid = Number(req.query.loverPhotoListid);
     // console.log(photoListid);
     var data = await lover.loverPhotoM.findByPid(photoListid);
-    console.log(data);
     if(data!== 1){
         info ={
             code:0,
