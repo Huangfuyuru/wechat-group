@@ -26,7 +26,6 @@ export default class Csound extends Component {
         fetch(`http://localhost:3001/child/csound?childsid=${this.state.cid}`)
         .then((res)=>res.json())
         .then((res)=>{
-            console.log('aaaaa',res);
             this.setState({
               lists:res
             });
@@ -59,6 +58,26 @@ export default class Csound extends Component {
         delcsound.style.display='none';
         var csoundagain=document.getElementById('csoundagain');
         csoundagain.style.display='block';
+    }
+    audioPlay=()=>{
+        var playbutton = document.getElementById('playaudio');
+		var pausebutton = document.getElementById('pauseaudio');
+		var audio = document.getElementById('audios');
+		audio.play();
+		playbutton.disabled = true;	
+		pausebutton.disabled = false;
+    }
+    audioPause=()=>{
+        var audio = document.getElementById('audios');
+		var playbutton = document.getElementById('playaudio');
+		var pausebutton = document.getElementById('pauseaudio');
+		pausebutton.disabled = true;//disabled默认是不可用的
+		playbutton.disabled = false;
+		audio.pause();
+    }
+    audioForward=()=>{
+        var audio = document.getElementById('audios');
+		audio.currentTime += 5;
     }
     render() {
         return (
@@ -118,11 +137,12 @@ export default class Csound extends Component {
                                 src={this.state.voiceurl} controls='controls'>
                                     您的设备无法播放该语音
                                 </audio>
-                                <li>
-                                    <input type='button' value="播放" id="playaudio"  onclick = "play()" />
-	                                <input type="button" value="暂停" id="pauseaudio" disabled="disabled"  onclick = "pause()" />
-	                                <button id="forward" onclick="forward()">快进</button>
-                                </li>
+
+                                {/* <li>
+                                    <input type='button' value="播放" id="playaudio"  onclick ={this.audioPlay} />
+	                                <input type="button" value="暂停" id="pauseaudio" disabled="disabled"  onclick ={this.audioPause} />
+	                                <button id="forward" onclick={this.audioForward}>快进</button>
+                                </li> */}
                                 <p>记录日期:{date}</p>
                             </div>
                         })
