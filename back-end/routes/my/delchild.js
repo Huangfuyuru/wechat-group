@@ -30,10 +30,10 @@ router.get('/confirm',async function(req,res,next){
     var result3 = await childPhotoListM.delAllByCid(childid);
     var result4 = await childVoiceM.delAllByCid(childid);
     var result5 = await childGrowM.delAllByCid(childid);
-    var result6 = await childPhotoM.delChildPhoto(childid);
-    var result7 = await childPhotoListM.delChildPhotoList(childPhotoListid);
-    if(result7 === 0){ //删除相册
-        if(result6 === 0){ //删除该相册中所有照片
+    var result6 = await childPhotoM.delAllByPid(childPhotoListid); //删除所有照片
+    var result7 = await childPhotoListM.delChildPhotoList(childPhotoListid); //删除相册
+    if(result6 === 0){ //删除该相册中所有照片
+        if(result7 === 0){ //删除相册
             if(result1 === 0 && result2 === 0 && result3 === 0 && result4 === 0 && result5 === 0){
                 var result = await childM.delChild(childid);
                 if(result === 0){

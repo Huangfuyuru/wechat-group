@@ -30,18 +30,23 @@ router.get('/confirm',async function(req,res,next){
     var result3 = await loverImpDateM.delAllByCid(loverid);
     var result4 = await loverPhotoListM.delAllByCid(loverid);
     var result5 = await loverVoiceM.delAllByCid(loverid);
-    var result6 = await loverPhotoM.delChildPhoto();
-    var result7 = await loverPhotoListM.delChildPhotoList(loverPhotoListid);
-    if(result1 === 0 && result2 === 0 && result3 === 0 && result4 === 0 && result5 === 0){
-        var result = await loverM.delLover(loverid);
-        if(result === 0){
-            var data = await loverM.findById(uid)
-            info = {code:0,msg:"删除爱人成功"}
-            res.json(data)
-        }else{
-            info = {code:1,msg:"删除爱人失败"}
+    var result6 = await loverPhotoM.delChildPhoto(loverPhotoListid); //删除所有照片
+    var result7 = await loverPhotoListM.delChildPhotoList(loverPhotoListid); //删除相册
+    if(result6 === 0){
+        if(result7 === 0 ){
+            if(result1 === 0 && result2 === 0 && result3 === 0 && result4 === 0 && result5 === 0){
+                var result = await loverM.delLover(loverid);
+                if(result === 0){
+                    var data = await loverM.findById(uid)
+                    info = {code:0,msg:"删除爱人成功"}
+                    res.json(data)
+                }else{
+                    info = {code:1,msg:"删除爱人失败"}
+                }
+            }
         }
     }
+    
 })
 
 module.exports = router;
