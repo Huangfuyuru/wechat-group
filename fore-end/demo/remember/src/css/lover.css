@@ -385,3 +385,9 @@
     position: relative;
     bottom: 6vh;
 }
+#lan{
+  float: left;
+  height:100%;
+  width:40%;
+  margin-left:4%;
+}

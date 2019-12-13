@@ -43,7 +43,13 @@ export default class Lcreate_note extends Component {
                     state.imgurl[i]=json[i].path
                 }
         },()=>{
-            console.log(this.state)
+            var yu =document.getElementById("yulan");
+            for (var i = 0; i <this.state.imgurl.length; i++) {
+                var img = document.createElement("img");
+                img.setAttribute("src",this.state.imgurl[i]);
+                img.setAttribute("id","lan");
+                yu.appendChild(img)
+            }
         })
         )
     )}
@@ -59,7 +65,7 @@ export default class Lcreate_note extends Component {
         })
         .then(res=>res.json())
         .then(json=>{ 
-            console.log(json)
+            // console.log(json)
         })
     }
     render() {
@@ -94,14 +100,8 @@ export default class Lcreate_note extends Component {
                 <textarea onChange={this.changeContent} className="createnote-first">
                 </textarea>
                 
-                <div style={{height:"10%"}}>
-                     {
-                         this.state.imgurl.map((item)=>(
-                             <div>
-                             <img src="http://localhost:3001/img/showimg/upload_b5e11943f2e5fe2fc398e3b572a7bb94.jpg" alt="" />
-                             </div>
-                         ))
-                     }
+                <div style={{height:"10%"}} id="yulan">
+
                  </div>
                 <div className="createnote-second">
                     <div  style={{height:"76%",width:"22%" ,float:"left",marginLeft:"3%",backgroundImage:`url(${imgsrc})`,backgroundSize:"100% 100%"}} >

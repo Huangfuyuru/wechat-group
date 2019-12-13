@@ -91,7 +91,8 @@ export default class LSpictures extends Component {
     render() {
 
         return (
-            <div style={{height:"100%",width:"100%" ,backgroundColor:"white",marginTop:"10vh"}}>
+            
+            <div style={{height:"100%",width:"100%" ,backgroundColor:"white",marginTop:"10vh",marginBottom:"10vh",}}>
                   <NavBar 
                  style={{
                     background:'#FFBF2D',
@@ -158,7 +159,7 @@ export default class LSpictures extends Component {
                     />
                     </span>
             </div>
-
+        
         )
     }
 }
