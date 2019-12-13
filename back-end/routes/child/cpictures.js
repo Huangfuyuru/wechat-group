@@ -31,9 +31,12 @@ router.get('/ccpictures',async function(req,res,next){
     var childsid = Number(request.childsid);
     var background = request.background;
     var name = request.name;
-    await childPhotoListM.addChildPhotoList({name:name,cid:childsid,background:background});
-    var data = await childPhotoListM.findByCid(childsid);
-    res.json(data)
+    var data = await childPhotoListM.addChildPhotoList({name:name,cid:childsid,background:background});
+    if(data == 1){
+        res.json({code:1,msg:"创建失败"})
+    }else{
+        res.json({code:0,msg:"创建成功"})
+    }
 })
 
 //删除相册
