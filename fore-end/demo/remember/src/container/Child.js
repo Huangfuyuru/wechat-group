@@ -11,7 +11,7 @@ export default class Child extends Component {
             uid:uid,
             change_id:[],
             child_id:'',
-            cindex_src:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2037612692,2923078042&fm=26&gp=0.jpg',
+            cindex_src:'',
             cnews:[{
                 ctime:'引导',
                 cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
@@ -32,29 +32,31 @@ export default class Child extends Component {
         }).then(res=>res.json())
         .then(json=>{
             this.setState({
-                child_id:json[0].id,
-                cindex_src:json[0].background,
+                child_id:JSON.parse(localStorage.getItem('cid'))||json[0].id,
+                cindex_src:JSON.parse(localStorage.getItem('cbackground'))||json[0].background,
                 change_id:json
             },()=>{
-                localStorage.setItem('cid',JSON.stringify(this.state.child_id))
+                localStorage.setItem('cid',JSON.stringify(this.state.child_id));
+                localStorage.setItem('cbackground',JSON.stringify(this.state.cindex_src))
             });
         })
     }
-    componentDidUpdate(prevProps,prevState){
-        console.log('更新')
-        fetch(`http://localhost:3001/child/changebackground`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`childsid=${Number(this.state.child_id)}&background=${this.state.cindex_src}`
-        })
-        .then(res=>res.json())
-        .then(json=>(
-            console.log('54',json)
-        ))
-    }
+    // componentDidUpdate(prevProps,prevState){
+    //     console.log('更新')
+
+    //     fetch(`http://localhost:3001/child/changebackground`,{
+    //         method:'POST',
+    //         mode:'cors',
+    //         headers:{
+    //             'Content-Type':"application/x-www-form-urlencoded"
+    //         },
+    //         body:`childsid=${Number(this.state.child_id)}&background=${this.state.cindex_src}`
+    //     })
+    //     .then(res=>res.json())
+    //     .then(json=>(
+    //         console.log('54',json)
+    //     ))
+    // }
     upfile=()=>{
         var file=document.getElementById('img').files[0];
         var url = 'http://localhost:3001/img';
@@ -73,16 +75,14 @@ export default class Child extends Component {
         ))
         
     }
-    changeChild=(e)=>{
-        var ecid = e.target.id;
-        var esrc = e.target.getAttribute('value');
-        console.log(ecid)
+    changeChild=(id,background)=>{
         this.setState({
-            child_id:ecid,
+            child_id:id,
             menu_count:this.state.menu_count+1,
-            cindex_src:esrc
+            cindex_src:background
         },()=>{
-            localStorage.setItem('cid',JSON.stringify(ecid))
+            localStorage.setItem('cid',JSON.stringify(this.state.child_id));
+            localStorage.setItem('cbackground',JSON.stringify(this.state.cindex_src))
         })
         var tag = document.getElementById('tag');
         tag.style.display='none';
@@ -109,23 +109,13 @@ export default class Child extends Component {
                     onClick={()=>{
                         var tag = document.getElementById('tag');
                         if(this.state.menu_count%2==0){
-                            console.log('进入')
                             tag.style.display='block';
-                            fetch(`http://localhost:3001/child/change?usersid=${this.state.uid}`)
-                            .then(res=>res.json())
-                            .then(json=>{
-                                this.setState({
-                                    change_id:json
-                                })
-                            })
                         }else{
-                            console.log('退出')
                             tag.style.display='none';
                         }
                         this.setState({
                             menu_count:this.state.menu_count+1
                         });
-                        console.log('切换亲子');
 
                     }} 
                     key="1" type="ellipsis" />,
@@ -141,9 +131,9 @@ export default class Child extends Component {
                     <div></div>
                     <p>
                         { 
-                            this.state.change_id.map((item,idx)=>(
-                            <li key={idx} id={item.id} value={item.background} 
-                            onClick={this.changeChild}>{item.name}</li>
+                            this.state.change_id&&this.state.change_id.map((item,idx)=>(
+                            <li key={item.id}
+                            onClick={()=>this.changeChild(item.id,item.background)}>{item.name}</li>
                             ))
                         }
                     </p>
