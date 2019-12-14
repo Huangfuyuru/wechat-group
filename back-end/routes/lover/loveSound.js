@@ -34,13 +34,15 @@ router.get('/',async function(req,res,next){
 //增加语音
 router.post('/lcsound',async function(req,res,next){
     console.log('增加语音');
+    console.log(req.body);
     var lid = Number(req.body.loverid);
     var text ={
-        voicecurl:req.body.voicecurl,
+        voiceurl:req.body.voiceurl,
         name:req.body.name,
         lid:lid
     }
     var addVoice = await lover.loverVoiceM.addLoverVoice(text);
+    console.log('addVoice',addVoice);
     if(addVoice === 0){
         var data = await lover.loverVoiceM.findByLid(lid);
         info = {

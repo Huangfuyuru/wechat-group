@@ -41,7 +41,8 @@ export default class Lsound extends Component {
                     }}
                     >语音记事</span>
                 </NavBar>
-
+                <div className="sounds">记录声音 记录你</div>
+                
                 <Link to="/lover/lcsound"><img src={require("../../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
             </div>
         )
