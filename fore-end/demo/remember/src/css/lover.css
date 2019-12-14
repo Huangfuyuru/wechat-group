@@ -399,7 +399,18 @@
 /* 语音记事 */
 .sounds{
   width: 100vw;
-  font-size: 25px;
+  font-size: 2em;
   font-weight: bold;
   margin:5% ;
+}
+.soundList{
+    border:2px solid #FFBF2D;
+    border-radius: 5%;
+    padding:7%;
+    margin:5%;
+}
+
+.audio{
+  width: 100%;
+  margin: 2%;
 }
