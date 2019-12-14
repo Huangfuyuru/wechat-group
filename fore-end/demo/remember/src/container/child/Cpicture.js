@@ -8,6 +8,7 @@ export default class Cloud extends Component {
         super();
         var cid = JSON.parse(localStorage.getItem('cid'));
         this.state={
+            delpics:[],
             cid:cid,
             lists:[]
         }
@@ -31,8 +32,28 @@ export default class Cloud extends Component {
         .then((res)=>{
             console.log(res)
             this.setState({
-            lists:res
+                lists:res
             });
+        })
+        fetch(`http://localhost:3001/child/cpictures/show?childPhotoListid=${itemid}`)
+        .then((res)=>res.json())
+        .then(json=>{
+            this.setState({
+                delpics:json
+            })
+        })
+        fetch(`http://localhost:3001/child/cpictures/cdelpictures`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`childPhotoListid=${itemid}&imgurl=${this.state.delpics} `
+        }).then(res=>res.json())
+        .then(json=>{
+            this.setState({
+                code:json.msg
+            })
         })
     }
     render() {
@@ -66,18 +87,31 @@ export default class Cloud extends Component {
                     {
                         this.state.lists&&this.state.lists.map((item,idx)=>(
                             <div className='cpicture_block'>
-                                <Link to={{
-                                    pathname:'/child/cpictures/show',
-                                    state:item.name
+                                <div 
+                                onClick={()=>{
+                                    var cpicture={
+                                        pname:item.name,
+                                        pid:item.id
+                                    }
+                                    localStorage.setItem('cpicture',JSON.stringify(cpicture));
+                                    this.props.history.push('/child/cpictures/show')
+                                    
+                                }}
+                                style={{
+                                    width:'95%',
+                                    height:'75%',
+                                    margin:'1.5vh auto',
+                                    background:`url(${item.background}) center center/cover no-repeat`,
                                 }}>
-                                    <div style={{
-                                        width:'95%',
-                                        height:'75%',
-                                        margin:'1.5vh auto',
-                                        background:`url(${item.background}) center center/cover no-repeat`,
-                                    }}>
-                                    </div>
-                                </Link>
+                                </div>
+                                {/* <Link to={{
+                                    pathname:'/child/cpictures/show',
+                                    state:{
+                                        pname:item.name,
+                                        pid:item.id
+                                    }
+                                }}>
+                                </Link> */}
                                 <p style={{
                                     borderTop:'1px solid #ccc',
                                     margin:'0',

@@ -7,12 +7,12 @@ import Ccevent from './Ccevent.js';
 export default class Showevent extends Ccevent {
     constructor(props){
         super(props);
-        var all = this.props.location.state.cnews;
+        var eventcontent = this.props.location.state.item;
         this.state={
-           name:all.name,
-           content:all.content,
-           imgurl:all.imgurl,
-           setdate:all.setdate
+           name:eventcontent.name,
+           content:eventcontent.content,
+           imgurl:eventcontent.imgurl,
+           setdate:eventcontent.setdate
         }
     }
     // 加载外部数据用componentDidMount
@@ -23,7 +23,7 @@ export default class Showevent extends Ccevent {
     render() {
         var date = moment(this.state.setdate).format("YYYY-MM-DD");
         return (
-            <div className="All">
+            <div className="showevent">
                 <NavBar
                     style={{
                         background:'#FFBF2D',
@@ -41,25 +41,20 @@ export default class Showevent extends Ccevent {
                         letterSpacing:'3vw',
                         color:"white"
                     }}
-                >第一次{this.state.name}</span>
+                >{this.state.name}</span>
                 </NavBar>
-                <div>
+                <div className='showevent_inner'>
                     <p>{this.state.content}</p>
                     <div>
                         {
                             this.state.imgurl&&this.state.imgurl.map((item)=>{
-                                return <div style={{width:'50%',display:'inline-block'}}>
-                                    <img src={item} style={{
-                                        width:'auto',
-                                        height:'auto',
-                                        maxWidth:'100%',
-                                        maxHeight:'100%'
-                                    }}/>
+                                return <div className='showevent_block'>
+                                    <img src={item} alt='大事记图片'/>
                                 </div>
                             })
                         }
                     </div>
-                <p>具体日期:{date}</p>
+                    <p>具体日期:{date}</p>
                 </div>
             </div>
         )
