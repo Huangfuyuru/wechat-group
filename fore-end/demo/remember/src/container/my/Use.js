@@ -104,7 +104,7 @@ export default class Use extends Component {
                     </div>
                     <div className="create_Relation">
                         性别：&nbsp;
-                        <input onChange={(e)=>this.inputChange2(e)} className="one" type="text" placeholder="男\女"></input>
+                        <input onChange={(e)=>this.inputChange2(e)} className="one" type="text" placeholder="男/女"></input>
                     </div>
                     <div className="create_Relation">
                         新密码：&nbsp;

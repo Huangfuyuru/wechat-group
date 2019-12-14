@@ -9,27 +9,28 @@ export default class Delrelation extends Component {
     this.state={
         uid:uid,
         list:['你好'],
-        name:''
+        code:0,
+        loverid:'',
     }
   }
-  componentDidMount(){
-    fetch(`http://localhost:3001/my/dellover?uid=${this.state.uid}`)
-    .then(res=>res.json())
-    .then(json=>{ 
-        this.setState({
-            list:[json[0].loverid]
-        });
-    })
-  }
-  componentDidMount(){
-    fetch(`http://localhost:3001/my/dellover/confirm?uid=${this.state.uid}`)
-    .then(res=>res.json())
-    .then(json=>{ 
-        this.setState({
-            a:json[0].code
-        });
-    })
-}
+  //componentDidMount(){
+    //   fetch(`http://localhost:3001/my/dellover?uid=${this.state.uid}`)
+    //   .then(res=>res.json())
+    //   .then(json=>{ 
+    //       this.setState({
+    //           list:[json[0].name],
+    //           loverid:json[0].loverid
+    //       });
+    //   })
+    //   // 获取code
+    //   fetch(`http://localhost:3001/my/dellover/confirm?uid=${this.state.uid}`)
+    //   .then(res=>res.json())
+    //   .then(json=>{ 
+    //       this.setState({
+    //           code:json.code
+    //       });
+    //   })
+    // }
   del(index){
     //展开数组
     var list = [...this.state.list]

@@ -11,27 +11,27 @@ export default class Delrelation2 extends Component {
           uid:uid,
           inputValue:"",
           childid:'',
-          a:0
+          code:0
         }
     }
-    componentDidMount(){
-      fetch(`http://localhost:3001/my/delchild?uid=${this.state.uid}`)
-      .then(res=>res.json())
-      .then(json=>{ 
-          this.setState({
-              list:[json[0].childid]
-          });
-      })
-    }
-    componentDidMount(){
-      fetch(`http://localhost:3001/my/delchild/confirm?uid=${this.state.uid}`)
-      .then(res=>res.json())
-      .then(json=>{ 
-          this.setState({
-              a:json[0].code
-          });
-      })
-  }
+    //componentDidMount(){
+    //   fetch(`http://localhost:3001/my/delchild?uid=${this.state.uid}`)
+    //   .then(res=>res.json())
+    //   .then(json=>{ 
+    //       this.setState({
+    //           list:[json[0].name],
+    //           childid:json[0].childid
+    //       });
+    //   })
+    //   // 获取code
+    //   fetch(`http://localhost:3001/my/delchild/confirm?uid=${this.state.uid}`)
+    //   .then(res=>res.json())
+    //   .then(json=>{ 
+    //       this.setState({
+    //           code:json.code
+    //       });
+    //   })
+    // }
   bounce=(index)=>{
     // 弹出选择框
     this.state.a=index;
