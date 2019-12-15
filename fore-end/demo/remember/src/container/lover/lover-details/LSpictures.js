@@ -7,32 +7,93 @@ export default class LSpictures extends Component {
         super(props)
         console.log(this.props.location.state.id)
         this.state={
-            id:this.props.location.state.id,
+            pid:this.props.location.state.id,
+            tip:"",
             arr:[
-                "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
-                "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
-                "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
-                "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
-                "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
-                "http://img3.imgtn.bdimg.com/it/u=3777141573,3920211760&fm=26&gp=0.jpg",
-            ]
+                {imgurl:"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg"},
+            ],
+            upArr:[]
         }
     }
     componentDidMount(){
-        console.log("hh")
-            fetch(`http://localhost:3001/lover/lpictures/show?loverPhotoListid=${this.state.id}`)
+            fetch(`http://localhost:3001/lover/lpictures/show?loverPhotoListid=${this.state.pid}`)
             .then(res=>res.json())
             .then(json=>{ 
-                this.setState({
-                },()=>{
-                    console.log(json)
-                });
+                console.log(json)
+                if(json.code===1){
+                    this.setState({
+                        tip:"当前相册为空!,仅为示例图片"
+                    },()=>{
+                        console.log(json)
+                    });
+                }
+                else{
+                    this.setState({
+                        arr:json.msg
+                    },()=>{
+                        console.log("添加后",this.state.arr)
+                    });
+                }
             })
     }
+    upImages=()=>{
+        var file=document.getElementById('imgs').files;
+        var url = 'http://localhost:3001/imgs';
+        var form = new FormData();
+        for(var i=0;i<file.length;i++){
+            form.append("file",file[i]);
+        };
+        fetch(url,{
+            method:'POST',
+            enctype:'multipart/form-data',
+            body:form
+        }).then(res=>res.json())
+        .then(json=>(
+            this.setState((state)=>{
+                for(var i=0;i<json.length;i++){
+                    state.upArr[i]=json[i].path
+                }
+        },()=>{
+            fetch(`http://localhost:3001/lover/lpictures/laddpictures`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`loverPhotoListid=${this.state.pid}&imgurl=${this.state.upArr}`
+        }).then(res=>res.json())
+        .then(json=>(
+            this.setState((state)=>{
+                state.arr=json.msg    
+        })
+        ));
+        })
+        ));
+    } 
+    delImg=(pid,id)=>{
+        fetch(`http://localhost:3001/lover/lpictures/ldelpictures`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`loverPhotoListid=${pid}&loverPhotoid=${id}`
+        })
+        .then(res=>res.json())
+        .then(json=>(
+            this.setState((state)=>{
+                
+            },()=>{
+                console.log("删除后",json)
+            }) 
+        )
+        )
+    }   
     render() {
 
         return (
-            <div style={{height:"100%",width:"100%" ,backgroundColor:"white",marginTop:"10vh"}}>
+            
+            <div style={{width:"100%" ,backgroundColor:"white",marginTop:"10vh",marginBottom:"10vh",paddingBottom:"10vh"}}>
                   <NavBar 
                  style={{
                     background:'#FFBF2D',
@@ -55,13 +116,18 @@ export default class LSpictures extends Component {
                      textIndent:'3vw',
                      letterSpacing:'3vw'}}>相册详情</span>
                 </NavBar>
-
+                {
+                    <p style={{margin:"0",textAlign:"center"}}>{this.state.tip}</p>
+                }
             {
+               
                 this.state.arr.map((item)=>(
-                    <div style={{height:"35%",width:"46%",margin:" 2% 2% 0 2%",float:"left"}}>
-                        <img src={item} style={{height:"100%",width:"100%" ,float:"left"}} alt=""></img>
+                    <div style={{height:"26vh",width:"44%",margin:"2vh",float:"left"}}>
+                        <img src={item.imgurl} style={{height:"80%",width:"100%" ,float:"left"}} alt=""></img>
+                        <img src={require("../../../image/la.jpg")} alt="" style={{float:"right"}} onClick={()=>this.delImg(item.pid,item.id)}/>
                     </div>
                 ))
+                
             }
              <span style={{
                         zIndex:'10',
@@ -71,27 +137,29 @@ export default class LSpictures extends Component {
                         margin:"5% 0 0 30%",
                         color:"#FFBF2D",
                         textAlign:"center",
-                        paddingTop:"3%",
-                        border:"solid 0.5px black"
+                        border:"solid 0.5px black",
+                        paddingTop:"3%"
                     }}>轻触上传照片<input 
                     style={{
                         opacity: 0,
-                        height:"1%",
-                        width:"1%",
-                        border:"solid 0.5px black"
-                    }}
-                    onChange={(e)=>{
-                        this.setState({src:e.target.files[0].name})
-                    console.log(e.target.files[0])
-                    }}                             
+                        height:"80%",
+                        width:"100%",
+                        border:"solid 0.5px black",
+                        float:"left"
+                    }}  
+                    id="imgs"  
+                    onChange={this.upImages}  
+                    onClick={this.addPhoto}                       
                     type='file'  
                     accept="image/*" 
                     capture="camera" 
                     name='uimage' 
+                    multiple="multiple"
+                    alt=""
                     />
                     </span>
             </div>
-
+        
         )
     }
 }

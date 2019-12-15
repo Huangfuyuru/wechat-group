@@ -133,7 +133,7 @@
     margin-top:4%
   }
   .loveImage-header{
-    height:36%;
+    height:40vh;
     width:92%;
     margin-left: 4%;
     margin-top: 5%;
@@ -172,7 +172,7 @@
     margin:19% 0 0 70%
   }
   .loversou-first{
-    height:18%;
+    height:20vh;
     width:92%;
     margin: 4% 0 0 4%;
     border:solid 0.5px #C7C7CC;
@@ -184,7 +184,7 @@
     margin:5% 0 0 10%
   }
   .lovernote-first{
-    height:40%;
+    height:50vh;
     width:90%;
     border:solid 0.5px #C7C7CC;
     margin:4% 5%;
@@ -210,7 +210,7 @@
   }
   .photo-foot{
     height:50px;
-    margin-top: 18%;
+    margin-top: 8%;
     background-color: #ffffff;
     color:#FFBF2D;
     font-size: 5vw;
@@ -219,14 +219,14 @@
     border-radius: 4px;
   }
   .createnote-first{
-    height:40%;
+    height:40vh;
     width:92%;
     border:solid 0.5px #C7C7CC;
-    margin:4% 4%;
+    margin:2vh;
   }
   .createnote-second{
     width:100%;
-    height:15%;
+    height:18vh;
   }
   .createnote-foot{
     height:50px;
@@ -384,4 +384,14 @@
     background: #fff;
     position: relative;
     bottom: 6vh;
+}
+#lan{
+  float: left;
+  height:100%;
+  width:40%;
+  margin-left:4%;
+}
+#background{
+  width:100%;
+  height:100%
 }

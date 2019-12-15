@@ -32,15 +32,15 @@ export default class Write extends Component {
   }
   //setState()结束之后都会自动调用componentDidUpdate()
   //如果有更新会进componentDidUpdate里面
-  componentDidUpdate(prevProps,prevState){
-      fetch(`http://localhost:3001/child/cgrowup?childsid=${this.state.cid}`)
-      .then((res)=>res.json())
-      .then((res)=>{
-          this.setState({
-            lists:res
-          });
-      })
-  }
+  // componentDidUpdate(prevProps,prevState){
+  //     fetch(`http://localhost:3001/child/cgrowup?childsid=${this.state.cid}`)
+  //     .then((res)=>res.json())
+  //     .then((res)=>{
+  //         this.setState({
+  //           lists:res
+  //         });
+  //     })
+  // }
   delPOST=()=>{
       fetch(`http://localhost:3001/child/cgrowup/crgrowup?childsid=${this.state.cid}&childGrowid=${this.state.childGrowid}`,{
         method:'GET',

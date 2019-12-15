@@ -1,9 +1,10 @@
 const express = require('express'),
       router = express.Router(),
       bodyParser = require("body-parser"),
+      url = require('url'),
       qs = require('qs');
 //引入数据库
-const {loverM,} = require("../../database/dateMethod");
+const {loverM,loveListM,loverDiaryM,loverPhotoM,loverImpDateM,loverPhotoListM,loverVoiceM} = require("../../database/dateMethod");
 
 var info = {}
 //配置bodyparser中间件
@@ -24,13 +25,27 @@ router.get('/',async function(req,res,next){
 router.get('/confirm',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var loverid = Number(request.loverid);
-    var result = await loverM.delLover(loverid);
-    if(result === 0){
-        var data = await loverM.findById(uid)
-        info = {code:0,msg:"删除爱人成功"}
-        res.json(data)
-    }else{
-        info = {code:1,msg:"删除爱人失败"}
+    var loverPhotoListid = loverPhotoListM.findIdByLid(loverid);
+    var result1 = await loveListM.delAllByCid(loverid);
+    var result2 = await loverDiaryM.delAllByCid(loverid);
+    var result3 = await loverImpDateM.delAllByCid(loverid);
+    var result4 = await loverPhotoListM.delAllByCid(loverid);
+    var result5 = await loverVoiceM.delAllByCid(loverid);
+    var result6 = await loverPhotoM.delChildPhoto(loverPhotoListid); //删除所有照片
+    var result7 = await loverPhotoListM.delChildPhotoList(loverPhotoListid); //删除相册
+    if(result6 === 0){
+        if(result7 === 0 ){
+            if(result1 === 0 && result2 === 0 && result3 === 0 && result4 === 0 && result5 === 0){
+                var result = await loverM.delLover(loverid);
+                if(result === 0){
+                    var data = await loverM.findById(uid)
+                    info = {code:0,msg:"删除爱人成功"}
+                    res.json(data)
+                }else{
+                    info = {code:1,msg:"删除爱人失败"}
+                }
+            }
+        }
     }
     
 })

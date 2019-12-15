@@ -94,7 +94,7 @@ export default class growAdd extends Component {
                         <input onChange={this.changeAge} name='age' type='text' placeholder='单行输入'/>
                     </div>
 
-                    <button onClick={this.buttonPost}>添加记录</button>
+                    <button className='alladd_button' onClick={this.buttonPost}>添加记录</button>
                     <form id='addwarn'>
                         <div>{this.state.code}</div>
                         <button 

@@ -11,7 +11,7 @@ router.use(bodyParser.json());
 
 router.get('/',async function(req,res,next){
     var lid = Number(req.query.loverid);
-    console.log('photoid ',lid);
+    // console.log('photoid ',lid);
     var photoList =await lover.loverPhotoListM.findByLid(lid);
     if(photoList !== 1){
         info = {
@@ -31,9 +31,11 @@ router.get('/',async function(req,res,next){
 
 //点击具体相册
 router.get('/show',async function(req,res,next){
-    var photoid = Number(req.query.loverPhotoid);
-    console.log(photoid);
-    var data = await lover.loverPhotoM.findById(photoid);
+    console.log('点击具体相册',req.query);
+    var photoListid = Number(req.query.loverPhotoListid);
+    // console.log(photoListid);
+    var data = await lover.loverPhotoM.findByPid(photoListid);
+    console.log(data);
     if(data!== 1){
         info ={
             code:0,
@@ -43,14 +45,16 @@ router.get('/show',async function(req,res,next){
     }else{
         info ={
             code:1,
-            msg:'查看相册详细信息失败'
+            msg:'相册中无照片'
         }
         res.json(info);
     }
+
 });
 
-router.post('lcpictures',async function(req,res,next){
-    var lid = Number(req.body.loverid),
+router.post('/lcpictures',async function(req,res,next){
+    console.log('添加相册');
+    var lid = Number(req.body.loverid);
         name = req.body.name,
         text={
             lid:lid,
@@ -73,13 +77,30 @@ router.post('lcpictures',async function(req,res,next){
     }
 });
 
-//删除相册失败
+//删除相册
+//要想删除相册需要先删除photoM中对应pid的内容
+//但是可能pid中没有内容所以要判空
+//删除掉之后再去删除photoList中pid 对应的东西
 router.get('/lrpictures',async function(req,res,next){
+    console.log('删除相册',req.query);
     var lPLid = Number(req.query.loverPhotoListid),
-    lid = Number(rq.query.loverid);
-    var delPL = await lover.loverPhotoListM.delLoverPhotoList(lPLid);
+    lid = Number(req.query.loverid);
+    try{
+        //内容判空，可能只有相册，没有照片！
+        var delP = await lover.loverPhotoM.delAllByPid(lPLid);
+        console.log('delPL',delP);
+        //delP === 1//即相册对应的相片为空
+        //删除photoList 里面的pid
+        var delPL = await lover.loverPhotoListM.delLoverPhotoList(lPLid);
+        console.log('delPl',delPL);
+       
+    }catch(err){
+        console.log(err);
+    }
+
     if(delPL === 0){
-        var data= lover.loverPhotoListM.findByLid(lid); 
+        var data= await lover.loverPhotoListM.findByLid(lid); 
+        console.log('data',data)
         info ={
             code:0,
             info:data
@@ -136,7 +157,7 @@ router.post('/ldelpictures',async function(req,res,next){
             msg:'删除照片失败'
         }
         res.json(info);
-    }s
+    }
 })
 
 module.exports = router;

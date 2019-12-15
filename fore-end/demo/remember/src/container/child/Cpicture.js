@@ -1,51 +1,54 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { NavBar, Icon } from 'antd-mobile';
+import moment from 'moment'
 
 export default class Cloud extends Component {
     constructor(){
         super();
+        var cid = JSON.parse(localStorage.getItem('cid'));
         this.state={
-            picture:[{
-                pic1:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
-                pic2:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2037612692,2923078042&fm=26&gp=0.jpg',
-                txt1:"所有照片",
-                txt2:"百天纪念",
-            }]
+            cid:cid,
+            lists:[]
         }
     }
       // 加载外部数据用componentDidMount
     componentDidMount(){
-        let path = this.props.match.params.id
-        fetch(``)
+        fetch(`http://localhost:3001/child/cpictures?childsid=${this.state.cid}`)
         .then((res)=>res.json())
         .then((res)=>{
-            this.setState({data:res.data});
+            console.log('点击云相册',res)
+            this.setState({
+                lists:res
+            });
+            
         })
     }
-    //setState()结束之后都会自动调用componentDidUpdate()
-    //如果有更新会进componentDidUpdate里面
-    componentDidUpdate(Props,State){
-        if(Props.location.search !== this.props.location.search){
-            let path = this.props.match.params.id
-            console.log('path',path)
-            fetch( ``)
-            .then((res)=>res.json())
-            .then((res)=>{
-                this.setState({data:res.data});
-            })
-        }
+    rmCpicture=(itemid)=>{
+        console.log(itemid,this.state.cid)
+        fetch(`http://localhost:3001/child/cpictures/crpictures?childsid=${this.state.cid}&childPhotoListid=${itemid}`)
+        .then((res)=>res.json())
+        .then((res)=>{
+            console.log(res)
+            this.setState({
+            lists:res
+            });
+        })
     }
     render() {
         return (
             // 云相册
-            <div className="All">
+            <div className="cpicture">
                 <NavBar
                     style={{
-                        background:'#FFBF2D',
-                        height:'8vh',
-                        color:'#fff',
-                        fontWeight:'bolder',
+                    top:0,
+                    width:'100%',
+                    zIndex:'11',
+                    position:'fixed',
+                    height:'8vh',
+                    background:'#FFBF2D',
+                    color:'#fff',
+                    fontWeight:'bolder',
                     }}
                     mode="light"
                     icon={'𡿨'}
@@ -59,31 +62,61 @@ export default class Cloud extends Component {
                     }}
                     >云相册</span>
                 </NavBar>
-                {/* 照片及描述 */}
-                {
-                    this.state.picture.map((picture)=>(
-                        <div>
-                            <Link to='/child/cpictures/show'>
-                                <div className="Cloud_">
-                                    <div className="one"><img src={picture.pic1} /></div>
-                                    <div className="two">{picture.txt1}</div>
-                                </div>
-                            </Link>
-                            <Link to='/child/cpictures/show'>
-                                <div className="Cloud_">
-                                    <div className="one"><img src={picture.pic2} /></div>
-                                    <div className="two">{picture.txt2}</div>
-                                </div>
-                            </Link>
-                        </div>
-                    ))
-                }
-                <Link to='/child/cpictures/ccpicture'>
-                    <div className="Cloud_add">
-                        <div>-----------------------------------------------------------</div>
-                        <a href="#" target="_blank"><img className="Cloud_img" src={require("../../image/add.png")}/></a>
-                    </div>
-                </Link>
+                <div className='cpicture_inner'>
+                    {
+                        this.state.lists&&this.state.lists.map((item,idx)=>(
+                            <div className='cpicture_block'>
+                                <Link to={{
+                                    pathname:'/child/cpictures/show',
+                                    state:item.name
+                                }}>
+                                    <div style={{
+                                        width:'95%',
+                                        height:'75%',
+                                        margin:'1.5vh auto',
+                                        background:`url(${item.background}) center center/cover no-repeat`,
+                                    }}>
+                                    </div>
+                                </Link>
+                                <p style={{
+                                    borderTop:'1px solid #ccc',
+                                    margin:'0',
+                                    lineHeight:'7vh',
+                                    textAlign:'left',
+                                    paddingLeft:'5vw',
+                                    color:'#FFBF2D',
+                                    fontSize:'6vw'
+                                }}>
+                                    
+                                    {item.name}
+                                    <span
+                                    onClick={()=>this.rmCpicture(item.id)}
+                                    style={{
+                                        color:'#bdbbb8',
+                                        lineHeight:'6.5vh',
+                                        float:'right',
+                                        marginRight:'4vw'
+                                    }}
+                                    >
+                                        <i className='iconfont icon-shanchu1'/>
+                                    </span>
+                                </p>
+                            </div>
+                        ))
+                    }
+                </div>
+
+                <div className='allpage_add'>
+                    <p></p>
+                    <Link
+                    to={{
+                    pathname:'/child/cpictures/ccpicture',
+                    state:{
+                        cid:this.state.cid
+                    }
+                    }}
+                    ><i className='iconfont icon-jia'></i></Link>
+              </div>
             </div>
         )
     }

@@ -14,7 +14,12 @@ router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var data = await childPhotoListM.findByCid(childsid);
-    res.json(data);
+    if(data == 1){
+        res.json(null)
+    }else{
+        res.json(data);
+    }
+    
 })
 
 //点击具体相册
@@ -29,10 +34,14 @@ router.get('/show',async function(req,res,next){
 router.get('/ccpictures',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
+    var background = request.background;
     var name = request.name;
-    await childPhotoListM.addChildPhotoList({name:name,cid:childsid});
-    var data = await childPhotoListM.findByCid(childsid);
-    res.json(data)
+    var data = await childPhotoListM.addChildPhotoList({name:name,cid:childsid,background:background});
+    if(data == 1){
+        res.json({code:1,msg:"创建失败"})
+    }else{
+        res.json({code:0,msg:"创建成功"})
+    }
 })
 
 //删除相册
@@ -40,9 +49,15 @@ router.get('/crpictures',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var childPhotoListid = request.childPhotoListid;
-    await childPhotoListM.delChildPhotoList(childPhotoListid);
+    var delallphoto = await childPhotoM.delAllByPid(childPhotoListid);
+    var delphotolist = await childPhotoListM.delChildPhotoList(childPhotoListid);
     var data = await childPhotoListM.findByCid(childsid);
-    res.json(data)
+    if(delallphoto==1 || delphotolist == 1){
+        res.json(null)
+    }else{
+        res.json(data)
+    }
+    
 })
 
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavBar, Icon } from 'antd-mobile';
-
+import '../../../css/child.css'
 export default class Ccsound extends Component {
     constructor(){
         super();
@@ -116,7 +116,7 @@ export default class Ccsound extends Component {
                             </li>
                         </div>
                     </div>
-                    <button
+                    <button className='alladd_button'
                     onClick={this.voicePost}>点击上传</button>
                 </div>
                 

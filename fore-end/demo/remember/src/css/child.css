@@ -132,44 +132,18 @@
     position: relative;
     bottom: 6vh;
 }
-.Create_{
-    width:100%;
-    height:50px;
-    text-align: center;
-    margin-top:40px;
-    font-weight: bold;
-    font-size:4vw;
-}
-.Create_ .one{
-    width:180px;
-    height:30px;
-    margin-left:40px;
-}
-.Create_picture{
-    width:200px;
-    height:45px;
-    color:white;
-    font-weight: bold;
-    font-size:5vw;
-    text-align:center;
-    background-color: #fff;
-    margin-top: 20px;
-    border:none;
-    background-color:#FFBF2D;
-    border-radius: 10px;
-}
- .Create_a{
-    text-decoration: none;
-    color:#FFBF2D;
-    font-weight: bold;
-    font-size: 18px;
-    display: block;
-    width:280px;
-    height:35px;
-    border:solid lightgray;
-    margin-top: 20px;
-    text-align: center;
-    padding-top:5px;
+
+.alladd_button{
+    margin-top: 6vh;
+    width: 90vw;
+    height: 9vh;
+    /* background: rgba(224,223,223,0.2); */
+    background: rgba(255,255,255,0.1);
+    border: 1px solid #FFBF2D;
+    border-radius: 5px;
+    color: #FFBF2D;
+    font-size: 7vw;
+    /* font-weight: bold; */
 }
 /* 相册页面 */
 .Pages_picture{
@@ -184,54 +158,81 @@
     background-size:contain/cover;
 }
 /* 云相册*/
-.Cloud_{
-    width:100%;
-    height:250px;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    margin-top: 20px;
-    border: solid lightgray;
+.cpicture{
+    background: #fff;
 }
-.Cloud_ img{
-    width:340px;
-    height:210px;
-}
-.Cloud_ .one{
-    width:100%;
-    height:210px;
-    margin-top: 10px;
+.cpicture_inner{
+    margin-top: 10vh;
     text-align: center;
+    padding-bottom: 10vh;
 }
-.Cloud_ .two{
-    width:100%;
-    height:40px;
-    margin-left: 10px;
-    text-align: left;
-    font-size: 5vw;
-    font-weight: bold;
-    color:#FFBF2D;
+.cpicture_block{
+    margin: 1.5vh auto;
+    display: inline-block;
+    width: 90vw;
+    height: 40vh;
+    /* background: #FFBF2D; */
+    border:1px solid #ccc;
 }
-.Cloud_add {
-    width:100%;
-    height:50px;
-    margin-top:60px;
-}
-.Cloud_add div{
-    width:100%;
-    line-height: 50px;
-}
-.Cloud_add a{
-    text-decoration: none;
-}
-.Cloud_add img{
-    width:50px;
-    height:50px;
-    position: relative;
-    top:-50px;
-}
+.cpicture_block i{
+    font-size: 8vw;
 
+}
+/* 创建相册 */
+.ccpicture_inner{
+    margin-top: 15vh;
+    text-align: center;
+    padding-bottom: 10vh;
+}
+.ccpicture_name{
+    width: 80%;
+    margin: 0 auto;
+    font-size: 6.5vw;
+}
+.ccpicture_name input{
+    height: 7vh;
+    width: 58%;
+    font-size: 5.2vw;
+    border:1px solid #bdbbb8;
+}
+.ccpicture_name input::placeholder{
+    padding-left: 3vw;
+    height: 7vh;
+    border:none;
+    width: 58%;
+    font-size: 5.2vw;
+}
+#ccpicturewarn{
+    display: none;
+    text-align: center;
+    border-radius: 20px;
+    background:rgba(255,191,45,0.4);
+    position: fixed;
+    top:23vh;
+    width: 90%;
+    height: 35vh;
+    z-index: 100;
+    margin-left: 5vw;
+}
+.ccpicture_inner button{
+    margin-top: 20vh;
+}
+#ccpicturewarn div{
+    text-align: center;
+    padding:4vh 5vw;
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 30%;
+    color: rgb(148, 145, 145);
+}
+/* 具体相册 */
+.scpicture{
+    
+}
 /* 语音记事 */
 .csound{
     background: #fff;
@@ -355,14 +356,6 @@
 }
 .ccsound_inner button{
     margin-top:45vh;
-    width:80vw;
-    height:8vh;
-    position:fixed;
-    left: 10vw;
-    background: #FFBF2D;
-    border: none;
-    color: #fff;
-    font-size: 7vw;
 }
 #ccsoundwarn{
     display: none;
@@ -531,18 +524,7 @@
     padding-left: 4vw;
     font-size: 5vw;
 }
-.ccgrow_inner button{
-    margin-top: 6vh;
-    width: 90vw;
-    height: 9vh;
-    /* background: rgba(224,223,223,0.2); */
-    background: rgba(255,255,255,0.1);
-    border: 1px solid #FFBF2D;
-    border-radius: 5px;
-    color: #FFBF2D;
-    font-size: 7vw;
-    /* font-weight: bold; */
-}
+
 #addwarn{
     display: none;
     text-align: center;
