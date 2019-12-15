@@ -65,6 +65,8 @@ export default class LSpictures extends Component {
         .then(json=>(
             this.setState((state)=>{
                 state.arr=json.msg    
+        },()=>{
+            console.log("增加后",json)
         })
         ));
         })

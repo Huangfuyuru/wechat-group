@@ -29,12 +29,13 @@ export default class Lsound extends Component {
         .then(json=>{
             this.setState((state)=>{
                 if(json.code === 0){
-                    state.arr=json.msg
+                    for(var i=0;i<json.msg.length;i++){
+                    state.arr[i]=json.msg[i]
+                    }
                 }else{
                     console.log('json',json)
                 }
             })
-            console.log('arr',this.state.arr);
         })
     }
 
@@ -68,13 +69,18 @@ export default class Lsound extends Component {
     }
     render() {
         return (
-            <div>
+            <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh",paddingBottom:"10vh"}}>
                 <NavBar
                     style={{
                         background:'#FFBF2D',
                         height:'8vh',
                         color:'#fff',
                         fontWeight:'bolder',
+                        zIndex:'11',
+                        position:'fixed',
+                        width:'100%',
+                        left:0,
+                        top:0
                        }}
                        mode="light"
                        icon={'𡿨'}
@@ -114,7 +120,14 @@ export default class Lsound extends Component {
                         })
                     }
                 </div>
-                <Link to="/lover/lcsound"><img src={require("../../image/jia.jpg")}  className="lovesou-foot"   alt=""></img></Link>
+                <div className='allpage_add'>
+                    <p></p>
+                    <Link
+                    to={{
+                    pathname:'/lover/lcsound',
+                    }}
+                    ><i className='iconfont icon-jia'></i></Link>
+              </div>
             </div>
         )
     }
