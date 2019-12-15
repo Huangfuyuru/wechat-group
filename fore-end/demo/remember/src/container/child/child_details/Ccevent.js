@@ -20,7 +20,7 @@ export default class eventAdd extends Component {
         }
     }
     changeName=(e)=>{
-        this.setState({
+        this.setState({ 
             name:e.target.value
         })
     }
@@ -73,7 +73,7 @@ export default class eventAdd extends Component {
         
         return (
             // 添加大事记
-            <div className="All">
+            <div className="ccevent">
                 <NavBar
                     style={{
                         background:'#FFBF2D',
@@ -93,14 +93,41 @@ export default class eventAdd extends Component {
                     }}
                     >添加大事记</span>
                 </NavBar>
-                <form>
-                    <label><input type="checkbox" name="item" value="第一次"/>第一次</label>
-                    <input type="text" placeholder="名称" name="name" onChange={this.changeName}/>
+                <form className='ccevent_inner'>
+                    <label>
+                        <input 
+                        type="checkbox" 
+                        name="item" 
+                        value="第一次"/>
+                        第一次
+                    </label>
+                    <input 
+                    type="text" 
+                    placeholder="名称" 
+                    name="name" 
+                    onChange={this.changeName}/>
                     <p>宝宝做了什么</p>
-                    <textarea rows="3" cols="20" placeholder='请输入内容' name="content" onChange={this.changeContent}>
+                    <textarea 
+                    rows="3"
+                    cols="20" 
+                    placeholder='请输入内容' 
+                    name="content" 
+                    onChange={this.changeContent}>
                     </textarea>
-                    <input type='file' id='file' onChange={this.UpFile} multiple/>
-                    <input id="date" type="date" value={this.state.setdate} onChange={this.changeDate} style={{border:'none'}}/>
+                    <input 
+                    type='file'  
+                    accept="image/*" 
+                    capture="camera"  
+                    id='file' 
+                    onChange={this.UpFile} 
+                    multiple
+                    />
+                    <input 
+                    id="date" 
+                    type="date" 
+                    value={this.state.setdate} 
+                    onChange={this.changeDate} 
+                    style={{border:'none'}}/>
                     <div>
                     {
                         this.state.imgurl&&this.state.imgurl.map((item,index)=>{
@@ -108,8 +135,7 @@ export default class eventAdd extends Component {
                         })
                     }
                     </div>
-                    <button type="button" onClick={this.buttonPost}>保存</button>
-                    
+                    <button type="button" onClick={this.buttonPost}>保存</button>      
                 </form>
             </div>
         )

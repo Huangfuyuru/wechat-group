@@ -11,9 +11,14 @@ export default class Lcreate_sound extends Component {
             name:'',
             voiceurl:'',
             date:'',
-            lover_id:''
+            lover_id:lid
         }
         
+    }
+    getName=(e)=>{
+        this.setState({
+            name:e.target.value
+        })
     }
     upfile=()=>{
         var file=document.getElementById('voice').files[0];
@@ -25,16 +30,19 @@ export default class Lcreate_sound extends Component {
             enctype:'multipart/form-data',
             body:form
         }).then(res=>res.json())
-        .then(json=>(
-            console.log(json),
-            this.setState((state)=>{
-                state.voiceurl=json.voiceurl
-        })
+        .then(res=>(
+            this.setState({
+                voiceurl:res.path
+            },()=>{
+                console.log(res.path)
+            })
         )
     )};
     //增加语音
     upSound=()=>{
-        fetch(`http://localhost:3000/lover/lsound/lcsound`,{
+
+        console.log('增加语音')
+        fetch(`http://localhost:3001/lover/lsound/lcsound`,{
             method:'POST',
             mode:'cors',
             headers:{
@@ -70,7 +78,7 @@ export default class Lcreate_sound extends Component {
                      letterSpacing:'3vw'}}>添加语音</span>
                 </NavBar>
                 
-                {/* <span>添加录音文件</span> */}
+                {/* <span>记录声音 记录你</span> */}
                 <div>
                     <input 
                     id ='voice'
@@ -82,7 +90,7 @@ export default class Lcreate_sound extends Component {
                     />
                 </div>
                 <span>语音名称:</span>
-                <input type='text' name='name' />
+                <input type='text' name='name' onChange={this.getName}/>
                 <button onClick={this.upSound}>提交</button>
             </div>
         )

@@ -7,7 +7,7 @@ export default class Ldairy extends Component {
         super(props);
         var lid = JSON.parse(localStorage.getItem('lid'));
         this.state={
-             lover_id:lid,
+            lover_id:lid,
             noteArr:[],
             lid:"",
             id:""

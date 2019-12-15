@@ -29,14 +29,13 @@ export default class Cevent extends Component {
         .then((res)=>res.json())
         .then((res)=>{
             this.setState({
-            lists:res
+                lists:res
             });
         })
     }
     render() {
         return (
-            //大事记
-            <div className="All">
+            <div className="cevent">
                 <NavBar
                     style={{
                     top:0,
@@ -60,51 +59,44 @@ export default class Cevent extends Component {
                     }}
                     >大事记</span>
                 </NavBar>
-                <div className="ceventBody"
-                style={{
-                    minHeight: "78vh",
-                    marginTop: "15vw",
-                    boxShadow: "0px 1px 5px 0px #bdbbb8 inset",
-                    padding: "3vh 5vw",
-                    textAlgin: "center",
-                    marginBottom: "15vh"
-                }}
-                >
-                {
-                    this.state.lists&&this.state.lists.map((cnews)=>{
-                       
-                return    <div className='inner' key={cnews.id} style={{height:'20vh',marginBottom:'1vh',border:'1px solid rgb(255, 191, 45)',borderRadius:5,position:'relative'}}>
-                                    <i
-                                    onClick={()=>this.delItem(cnews.id)}  
-                                    className='iconfont icon-shanchu1' style={{position:'absolute',top:'2vh',right:'2vh'}}></i>
+                <div className="cevent_inner">
+                    {
+                        this.state.lists&&this.state.lists.map((item)=>{
+                        return  <div
+                        className='cevent_block' 
+                        key={item.id} 
+                        >
+                            <i
+                            onClick={()=>this.delItem(item.id)}  
+                            className='iconfont icon-shanchu1' 
+                            style={{
+                                fontSize:'4.3vh',
+                                position:'relative',
+                                top:'2vh',
+                                right:'-95%',
+                                color:'#bdbbb8'
+                            }}></i>
+                            <p>
+                                <span style={{
+                                    marginRight:'3vw'
+                                }}>
+                                    {item.item[0]}
+                                </span>
+                                {item.name}
+                            </p>
                             <Link to={{
                                 pathname:'/child/cevents/show',
-                                state:{cnews}
+                                state:{item}
                             }}>
-                                <div style={{height:"100%"}}>
-                                
-                                    <div style={{float:'left',
-                                    width:"50%",
-                                    height:'100%',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: "center"}}>
-                                        <p><span>{cnews.item[0]}</span>{cnews.name}</p>
-                                    </div>
-                                    <div style={{float:'right',
-                                    width:"50%",
-                                    height:'100%',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: "center"}}>
-                                        <img src={cnews.imgurl[0]||'#'} style={{width:'auto',height:'auto',maxWidth:'100%',maxHeight:'100%'}}/>
-                                    </div>
-                                    
+                                <div style={{
+                                    background:`url(${item.imgurl[0]||'#'}) center center/cover no-repeat`
+                                }}>
+
                                 </div>
                             </Link>
                         </div>
-                    })
-                }
+                        })
+                    }
                 </div>
                 <div className='allpage_add'>
                     <p></p>

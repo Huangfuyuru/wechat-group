@@ -5,20 +5,64 @@ import '../../../css/child.css'
 export default class Showpicture extends Component {
     constructor(props){
         super(props);
+        var cpicture = JSON.parse(localStorage.getItem('cpicture'));
         this.state={
-            pname:this.props.location.state,
-            lists:[
-                {
-                    imgurl:'http://n1.itc.cn/img8/wb/recom/2016/08/22/147185560609215845.JPEG'
-                },
-                {
-                    imgurl:'http://n1.itc.cn/img8/wb/recom/2016/08/22/147185560609215845.JPEG'
-                },
-                {
-                    imgurl:'http://n1.itc.cn/img8/wb/recom/2016/08/22/147185560609215845.JPEG'
-                },
-            ]
+            count:0,
+            pname:cpicture.pname,
+            pid:cpicture.pid,
+            dellist:[],
+            lists:[]
         }
+    }
+    componentDidMount(){
+        fetch(`http://localhost:3001/child/cpictures/show?childPhotoListid=${this.state.pid}`)
+        .then((res)=>res.json())
+        .then(json=>{
+            console.log(json)
+        })
+    }
+    delboxAppear=()=>{
+        var delbox = document.getElementsByTagName('input');
+        var delpictureswarn = document.getElementById('delpictureswarn');
+        if(this.state.count%2==0){
+            for(var i=0;i<delbox.length;i++){
+                delbox[i].style.display='block';
+                delbox[i].checked=false;
+            }
+        }else{
+            for(var i=0;i<delbox.length;i++){
+                delbox[i].style.display='none';
+                delpictureswarn.style.display='none';
+            }
+        }
+        this.setState({
+            count:this.state.count+1
+        })
+    }
+    check=()=>{
+        var delpictureswarn = document.getElementById('delpictureswarn');
+        var delbox = document.getElementsByTagName('input');
+        for(var i=0;i<delbox.length;i++){
+            if(delbox[i].checked){
+                delpictureswarn.style.display = 'block'
+            }
+        }
+    }
+    delPictures=()=>{
+        console.log(this.state.dellist)
+        fetch(`http://localhost:3001/child/cpictures/cdelpictures`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`pid=${this.state.pid}&childPhotoid=${this.state.dellist}`
+        }).then(res=>res.json())
+        .then(json=>{
+            console.log(json)
+        })
+        var delpicsconfirm=document.getElementById('delpicsconfirm');
+        delpicsconfirm.style.display='none'
     }
     render() {
         return (
@@ -47,9 +91,7 @@ export default class Showpicture extends Component {
                             fontWeight:'lighter',
                             letterSpacing:'1vw'
                         }}
-                        onClick={()=>{
-                            console.log('ni')
-                        }} 
+                        onClick={this.delboxAppear} 
                         >编辑</span>,
                         ]}
                     ><span style={{
@@ -63,16 +105,61 @@ export default class Showpicture extends Component {
                 </NavBar>
                 <div className='scpicture_inner'>
                     {
-                        this.state.lists&&this.state.lists.map((item)=>(
+                        this.state.lists&&this.state.lists.map((item,idx)=>(
                             <div className="scpicture_block"
+                            key={item.id}
+                            value={item.id}
                             style={{
                                 background:`url(${item.imgurl}) center center/cover no-repeat`,
                             }}>
+                                <input
+                                onClick={this.check}
+                                name="pictures" 
+                                type="checkbox" 
+                                value={item.id} 
+                                />
                             </div>
                         ))
                     }
                 </div>
 
+                <div id='delpictureswarn'>
+                    <button
+                    onClick={(e)=>{
+                        e.target.parentNode.style.display='none'
+                        var delbox = document.getElementsByTagName('input');
+                        for(var i=0;i<delbox.length;i++){
+                            delbox[i].style.display='none';
+                            delbox[i].checked=false;
+                        }
+                        // console.log(e.target.parentNode.id)
+                    }}>返回</button>
+                    <button
+                    onClick={()=>{
+                        var delpicsconfirm = document.getElementById('delpicsconfirm')
+                        delpicsconfirm.style.display='block';
+                        var delbox = document.getElementsByTagName('input');
+                        var dels=[]
+                        for(var i=0;i<delbox.length;i++){
+                            if(delbox[i].checked){
+                                dels.push(delbox[i].parentNode.getAttribute('value'))
+                                // console.log(delbox[i].parentNode.getAttribute('value'))
+                            }
+                        }
+                        this.setState({
+                            dellist:dels
+                        })
+                    }}
+                    >删除</button>
+                </div>
+
+                <div id='delpicsconfirm'>
+                    <div>确定删除？</div>
+                    <button onClick={(e)=>{
+                        e.target.parentNode.style.display='none';
+                    }}>返回</button>
+                    <button onClick={this.delPictures}>确定</button>
+                </div>
                 <div className='allpage_add'>
                     <p></p>
                     <Link
