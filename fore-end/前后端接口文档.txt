@@ -319,7 +319,19 @@ method：get
             返回数据：所有日记信息，是个数组
                 [{"id":2100002,"name":"接吻","content":"今天我们接吻了","imgurl":["#1","#2","#3"],"setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
 
+        恋爱清单:
+	接口地址：http://localhost:3001/lover/loverlist?loverid=
+	请求数据：爱人loverid
+                返回数据：所有该爱人的创建的恋爱清单，是个数组
+           
+	点击所有清单 
+	接口地址:http://localhost:3001/lover/list?loverid=
+                具体当面说
 
+	增加该爱人的清单，不是系统清单
+	接口地址http://localhost:3001/lover/loverlist
+	方法：POST
+	提交数据：名称name,内容content,图片地址imgurl,地点local,创建日期setdate,系统清单listid,爱人lid
 11.上传图片文件：
     method（http请求方式）：post
     接口地址：http://localhost:3001/img
