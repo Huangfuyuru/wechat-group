@@ -134,7 +134,23 @@ async function delAllByLid(lid){
     }
 }
 
+/**
+ *根据lid listid查找该爱人是否创建这个清单
+ *
+ * @param {*} lid
+ * @param {*} listid
+ * @returns
+ */
+async function findExist(lid,listid){
+    let sql = 'select * from loveList where lid=$1 and listid=$2';
+    let ret = await pgdb.query(sql,[lid,listid]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows;
+    }
+}
 var loveListM = {
-    addloveList,findAll,delLoveList,findById,findByLid,findIdByLid,changeById,delAllByLid
+    addloveList,findAll,delLoveList,findById,findByLid,findIdByLid,changeById,delAllByLid,findExist
 }
 module.exports = loveListM;
