@@ -13,20 +13,20 @@ export default class Addpictures extends Component {
     }
     upfiles=()=>{
         var fileObj = document.getElementById('img').files;
-            var url = 'http://localhost:3001/imgs/';
-            var form = new FormData();
-            for(var i = 0;i<fileObj.length;i++){
-                form.append("file",fileObj[i]);
-            }
-            fetch(url,{
-                method:'POST',
-                body:form,
-            }).then(res=>res.json())
-            .then(res=>{
-                this.setState({
-                    lists:res
-                })
+        var url = 'http://localhost:3001/imgs/';
+        var form = new FormData();
+        for(var i = 0;i<fileObj.length;i++){
+            form.append("file",fileObj[i]);
+        }
+        fetch(url,{
+            method:'POST',
+            body:form,
+        }).then(res=>res.json())
+        .then(res=>{
+            this.setState({
+                lists:res
             })
+        })
     }
     addPictures=()=>{
         console.log(this.state.lists,this.state.pid)
@@ -145,9 +145,8 @@ export default class Addpictures extends Component {
                 <form id='addcpictureswarn'>
                     <div>{this.state.code}</div>
                     <button 
-                    onClick={()=>{
-                        var addwarn=document.getElementById('addwarn');
-                        addwarn.style.display='none';
+                    onClick={(e)=>{
+                        e.target.parentNode.style.display='none'
                         this.props.history.push('/child/cpictures/show');
                     }}
                     style={{
@@ -162,9 +161,8 @@ export default class Addpictures extends Component {
                         marginRight:'2vw'
                     }}>返回相册</button>
                     <button 
-                    onClick={()=>{
-                        var addcpictureswarn=document.getElementById('addcpictureswarn');
-                        addcpictureswarn.style.display='none';
+                    onClick={(e)=>{
+                        e.target.parentNode.style.display='none'
                         this.props.form.resetFields(); 
                     }}
                     style={{

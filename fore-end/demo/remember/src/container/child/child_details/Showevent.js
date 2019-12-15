@@ -17,7 +17,7 @@ export default class Showevent extends Ccevent {
     }
     // 加载外部数据用componentDidMount
     componentDidMount(){
-        console.log(this.props.location.state.cnews)
+        console.log(this.props.location.state.item)
     }
     
     render() {
@@ -26,10 +26,14 @@ export default class Showevent extends Ccevent {
             <div className="showevent">
                 <NavBar
                     style={{
-                        background:'#FFBF2D',
-                        height:'8vh',
-                        color:'#fff',
-                        fontWeight:'bolder',
+                    top:0,
+                    width:'100%',
+                    zIndex:'11',
+                    position:'fixed',
+                    height:'8vh',
+                    background:'#FFBF2D',
+                    color:'#fff',
+                    fontWeight:'bolder',
                     }}
                     mode="light"
                     icon={'𡿨'}
@@ -41,10 +45,11 @@ export default class Showevent extends Ccevent {
                         letterSpacing:'3vw',
                         color:"white"
                     }}
-                >{this.state.name}</span>
+                    >{this.state.name}</span>
                 </NavBar>
                 <div className='showevent_inner'>
-                    <p>{this.state.content}</p>
+                    <p>标题：<span>{this.state.name}</span></p>
+                    <p>内容：<span>{this.state.content}</span></p>
                     <div>
                         {
                             this.state.imgurl&&this.state.imgurl.map((item)=>{
@@ -54,7 +59,12 @@ export default class Showevent extends Ccevent {
                             })
                         }
                     </div>
-                    <p>具体日期:{date}</p>
+                    <p style={{
+                        float:'right',
+                        marginRight:'10vw',
+                        fontSize:'6vw',
+                        fontWeight:'normal'
+                    }}>具体日期:{date}</p>
                 </div>
             </div>
         )
