@@ -1,7 +1,7 @@
 /* 登录注册菜单 */
 .menu{
-    min-height: 111vh;
-    background: #FFBF2D;
+    min-height: 115vh;
+    /* background: #FFBF2D; */
     margin: 0;
 }
 .menu_inner{
@@ -133,6 +133,7 @@
     height: 35vh;
     z-index: 100;
     margin: 0;
+    left: 0vw;
 }
 #lwarn div{
     text-align: center;

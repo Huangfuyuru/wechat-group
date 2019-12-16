@@ -4,7 +4,7 @@ import logo from '../image/logo.png'
 import '../css/login.css'
 import Login from './Login'
 import Resign from './Resign'
-
+import img from '../image/aaa.jpg'
 export default class Menus extends Component {
     constructor(){
         super();
@@ -26,7 +26,11 @@ export default class Menus extends Component {
     }
     render() {
         return (
-            <div className='menu'>
+            <div className='menu'
+            style={{
+               background:`url(https://ae01.alicdn.com/kf/H5a63404f2edf495e980e7440f204f15bC.jpg
+               ) center center/cover no-repeat`
+            }}>
                 <nav style={{textAlign:'center'}}><img src={logo} alt='logo' width='60%'/></nav>
                 <div className='menu_inner'>
                     <div className='inner_header'>
