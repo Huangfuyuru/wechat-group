@@ -84,10 +84,10 @@ export default class Lcreate_photo extends Component{
                   <input  type="text" placeholder="please input" onChange={this.getName}/>
                   </div>
                   <div className="cover-div" >
-                    <span className="cover-font">点击上传封面照片</span>
+                    <span className="cover-font">轻触上传相册封面</span>
                     <input  
                         className="cover"
-                        id="back"   
+                        id="back"  
                         onChange={this.upBack}
                         type='file'  
                         accept="image/*" 
