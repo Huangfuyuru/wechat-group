@@ -61,8 +61,8 @@ router.post('/lcsound',async function(req,res,next){
 })
 
 //删除语音
-router.get('/lrsound',async function(res,req,next){
-    console.log('删除语音');
+router.get('/lrsound',async function(req,res,next){
+    console.log('删除语音',req.query);
     var lid = Number(req.query.loverid),
     id = Number(req.query.loverVoiceid);
     var delvoice = await lover.loverVoiceM.delLoverVoice(id);
