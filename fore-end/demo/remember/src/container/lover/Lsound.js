@@ -4,64 +4,47 @@ import {Link} from  "react-router-dom"
 export default class Lsound extends Component {
     constructor(props){
         super(props);
+        var lid=JSON.parse(localStorage.getItem('lid'));
         this.state={
-            lover_id:JSON.parse(localStorage.getItem('lid')),
-            name:'',
-            voiceurl:'',
-            setdate:'',
-            loverVoiceid:'',
-            arr:[
-                {
-                    name:'语音',
-                    voiceurl:'地址',
-                    setdate:'2019-12-14',
-                    loverVoived:''
-                }
-            ]
+            lover_id:lid,
+            arr:[]
         }
-    }
-    
+    }  
     componentDidMount(){
+        console.log(this.state.arr)
         console.log('sound');
-        console.log(this.state.lover_id);
         fetch(`http://localhost:3001/lover/lsound?loverid=${this.state.lover_id}`)
         .then(res=>res.json())
-        .then(json=>{
-            this.setState((state)=>{
-                if(json.code === 0){
-                    for(var i=0;i<json.msg.length;i++){
-                    state.arr[i]=json.msg[i]
-                    }
-                }else{
-                    console.log('json',json)
-                }
+        .then(json=>(
+            this.setState({
+                arr:json.msg
             })
-        })
+        ))
     }
 
-    componentDidUpdate(){
-        fetch(`http://localhost:3001/lover/lsound?loverid=${this.state.lover_id}`)
-        .then(res=>res.json())
-        .then(json=>{
-            this.setState((state)=>{
-                if(json.code === 0){
-                    state.arr=json.msg
-                }else{
-                    console.log('json',json)
-                }
-            })
-            console.log('arr',this.state.arr);
-        })
-    }
+    // componentDidUpdate(){
+    //     fetch(`http://localhost:3001/lover/lsound?loverid=${this.state.lover_id}`)
+    //     .then(res=>res.json())
+    //     .then(json=>{
+    //         this.setState((state)=>{
+    //             if(json.code === 0){
+    //                 state.arr=json.msg
+    //             }else{
+    //                 console.log('json',json)
+    //             }
+    //         })
+    //     })
+    // }
 
     delSound=(lid,id)=>{
         console.log('deletesound');
+        console.log(id)
         fetch(`http://localhost:3001/lover/lsound/lrsound?loverid=${lid}&loverVoiceid=${id}`,{
             method:'GET'
         })
         .then(res=>res.josn)
-        .then(res=>{
-            console.log(res);
+        .then(json=>{
+            console.log(json);
             // this.setState({
 
             // })
@@ -95,17 +78,15 @@ export default class Lsound extends Component {
                     >语音记事</span>
                 </NavBar>
                 <div className="sounds">记录声音 记录你</div>
-                <div className='soundList'>
+               
                     {
-                        this.state.arr.map((item,idx)=>{
-                            return (
-                            <div 
-                                key={idx}
-                                style={{width:"100%"}}
-                            >
+                        
+                       this.state.arr&&this.state.arr.map((item)=>(
+                        <div className='soundList'>
+
+                            <div style={{width:"100%"}}>
                                 <span style={{lineHeight:"5vh",fontSize:'1.5em'}}>{item.name}</span>
                                 <img src={require("../../image/la.jpg")} onClick={()=>this.delSound(item.lid,item.id)} alt="" style={{float:"right"}}/> 
-
                                 <audio id='audio'
                                     src={this.state.voiceurl} 
                                     controls='controls'
@@ -113,13 +94,14 @@ export default class Lsound extends Component {
                                 >
                                 您的设备无法播放改语音
                                 </audio>
-                                <span style={{float:"right"}}>记录时间：{item.setdate}</span>
+                                <span style={{float:"right"}}>记录时间：{item.setdate.split("T")[0]}</span>
                             </div>
-                            )
+                            </div>
+
                             
-                        })
+                        ))
                     }
-                </div>
+          
                 <div className='allpage_add'>
                     <p></p>
                     <Link

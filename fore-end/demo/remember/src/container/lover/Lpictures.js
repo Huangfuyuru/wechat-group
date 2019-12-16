@@ -67,17 +67,17 @@ delPhoto=(id,lid)=>{
                 </NavBar>
                 {
                   this.state.arr.map((index)=>(
-                <div className="loveImage-header">                    
-                 <img  style={{height:"80%",width:"94%",margin:"2% 0 0% 3%"}} alt="" src={index.background}></img>
-                    <div>
-                    <Link to={{
+                <div className="loveImage-header"> 
+                <Link to={{
                     pathname:"/lover/lspictures",
                     state:{
                       id:index.id
                     }
-                    }} style={{color:"black"}}>
+                    }} style={{color:"black"}}>                  
+                 <img  style={{height:"80%",width:"94%",margin:"2% 0 0% 3%"}} alt="" src={index.background}></img>
+                 </Link> 
+                    <div> 
                   <p style={{fontSize:"5vw",float:"left",margin:"2% 0% 0 5%"}}>{index.name}</p>
-                  </Link>
                   <span  style={{color:"#C7C7CC",fontSize:"8vw" ,float:"right",marginRight:"2%"}} onClick={()=>this.delPhoto(index.id,this.state.lover_id)}><img src={require("../../image/la.jpg")}/></span>
                     </div> 
                 </div>

@@ -12,6 +12,7 @@ export default class Lsouvenir extends Component {
         }
     }
     componentDidMount(){
+        
         fetch(`http://localhost:3001/lover/lsouvenir?loverid=${this.state.lover_id}`)
         .then(res=>res.json())
         .then(json=>{ 

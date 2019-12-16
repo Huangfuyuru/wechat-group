@@ -18,7 +18,7 @@ export default class Lcreate_photo extends Component{
         })
     }
     upPhoto=()=>{
-        console.log("执行")
+        console.log("执行");
             fetch(`http://localhost:3001/lover/lpictures/lcpictures`,{
                 method:"POST",
                 mode:'cors',
