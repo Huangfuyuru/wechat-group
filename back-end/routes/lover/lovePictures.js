@@ -35,7 +35,7 @@ router.get('/show',async function(req,res,next){
     var photoListid = Number(req.query.loverPhotoListid);
     // console.log(photoListid);
     var data = await lover.loverPhotoM.findByPid(photoListid);
-    // console.log(data);
+    console.log(data);
     if(data!== 1){
         info ={
             code:0,
