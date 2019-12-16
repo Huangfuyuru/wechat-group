@@ -42,9 +42,9 @@ export default class Lsound extends Component {
         .then(res=>res.json())
         .then(json=>{
             console.log(json);
-            // this.setState({
-
-            // })
+            this.setState({
+                arr:json.msg
+            })
         })
         var delcsound=document.getElementById('delcsound');
         delcsound.style.display='none';
