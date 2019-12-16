@@ -90,7 +90,7 @@ export default class My extends Component {
                             </Link>
                         </div>
                         <div className="line">
-                            <img src={require("../image/del.png")}/>
+                            <img src={require("../image/del3.png")}/>
                             <Link to='/my/delrelation2'>
                                 <div className="add">删除亲子</div>
                             </Link>

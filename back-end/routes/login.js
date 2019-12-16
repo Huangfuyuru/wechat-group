@@ -20,7 +20,8 @@ router.post('/',async function(req,res,next){
             var message = {code:1,id:null,msg:"手机号或密码有误"}
         }else{
             var getId = data.id;
-            var message = {code:0,id:getId,msg:"登陆成功"}
+            var data1 = await userM.findById(getId)
+            var message = {code:0,id:getId,msg:"登陆成功",data:data1}
         }
     }
     res.json(message)

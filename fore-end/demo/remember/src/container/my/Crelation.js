@@ -70,7 +70,8 @@ export default class Crelation extends Component {
                     }}
                     >建立关系</span>
                 </NavBar>
-                <form method='post' action=''>
+                <h3>爱人关系</h3>
+                <form action=''>
                     <div className="create_Relation">
                         对方昵称：&nbsp;
                         <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="单行输入"></input>

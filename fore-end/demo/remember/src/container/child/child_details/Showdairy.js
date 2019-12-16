@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import {Link} from 'react-router-dom';
 import { NavBar, Icon } from 'antd-mobile';
-import Ccevent from './Ccevent.js';
+import Cdairy from '../Cdairy.js';
 
-export default class Showevent extends Ccevent {
+export default class Showdairy extends Cdairy {
     constructor(props){
         super(props);
-        var eventcontent = this.props.location.state.item;
+        var dairycontent = this.props.location.state.item;
+        console.log(dairycontent)
         this.state={
-           name:eventcontent.name,
-           content:eventcontent.content,
-           imgurl:eventcontent.imgurl,
-           setdate:eventcontent.setdate
+            backcolor:dairycontent.color,
+            name:dairycontent.name,
+            content:dairycontent.content,
+            imgurl:dairycontent.imgurl,
+            setdate:dairycontent.setdate
         }
     }
     // 加载外部数据用componentDidMount
@@ -23,7 +25,7 @@ export default class Showevent extends Ccevent {
     render() {
         var date = moment(this.state.setdate).format("YYYY-MM-DD");
         return (
-            <div className="showevent">
+            <div className="showdairy">
                 <NavBar
                     style={{
                     top:0,
@@ -37,7 +39,7 @@ export default class Showevent extends Ccevent {
                     }}
                     mode="light"
                     icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/child/cevents')}
+                    onLeftClick={() => this.props.history.push('/child/cdairy')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
@@ -45,27 +47,22 @@ export default class Showevent extends Ccevent {
                         letterSpacing:'3vw',
                         color:"white"
                     }}
-                    >{this.state.name}</span>
+                    >{this.state.setdate}</span>
                 </NavBar>
-                <div className='showevent_inner'>
-                    <p>标题：<span>{this.state.name}</span></p>
-                    <p>内容：<span>{this.state.content}</span></p>
-                    <div>
+                <div className='showdairy_inner'>
+                    <p>{this.state.content}</p>
+                    <div style={{
+                        height:'70vh',
+                        overflowY:'scroll'
+                    }}>
                         {
                             this.state.imgurl&&this.state.imgurl.map((item)=>{
-                                return <div className='showevent_block'>
+                                return <div className='showdairy_block'>
                                     <img src={item} alt='大事记图片'/>
                                 </div>
                             })
                         }
                     </div>
-                    <p style={{
-                        float:'right',
-                        marginTop:'3vh',
-                        marginRight:'-30vw',
-                        fontSize:'6vw',
-                        fontWeight:'normal'
-                    }}>具体日期:{date}</p>
                 </div>
             </div>
         )

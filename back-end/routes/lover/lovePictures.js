@@ -117,8 +117,13 @@ router.get('/lrpictures',async function(req,res,next){
 
 //增加照片
 router.post('/laddpictures',async function(req,res,next){
+<<<<<<< HEAD
     console.log("添加照片");
     console.log(req.body);
+=======
+    console.log('添加照片');
+    console.log('req.bosy',req.body)
+>>>>>>> 7c47b27fbaf7fed8aff7fff9716d770fcd455253
     var lPLid = Number(req.body.loverPhotoListid),
         imgs = req.body.imgurl;
     var text = {
@@ -128,6 +133,10 @@ router.post('/laddpictures',async function(req,res,next){
     var addPhoto = await lover.loverPhotoM.addLoverPhoto(text);
     if(addPhoto === 0){
         var data= await lover.loverPhotoM.findByPid(lPLid);
+<<<<<<< HEAD
+=======
+        console.log(addPhoto,'data',data)
+>>>>>>> 7c47b27fbaf7fed8aff7fff9716d770fcd455253
         info={
             code:0,
             msg:data

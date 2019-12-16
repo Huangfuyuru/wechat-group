@@ -3,25 +3,58 @@ import {Link} from 'react-router-dom';
 import { NavBar, Icon } from 'antd-mobile';
 
 export default class Cdairy extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        var cid = JSON.stringify(localStorage.getItem('cid'))
         this.state={
-            text:[{
-                txt1:'今天 19:02',
-                txt2:'今天宝宝又长高了，真滴好开森，每一天都会有好事情发生呢~',
-                src1:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1547148758,4026467388&fm=26&gp=0.jpg',
-                src2:'http://img3.imgtn.bdimg.com/it/u=1624962778,2099820845&fm=26&gp=0.jpg',
-            }]
+            cid:cid,
+            lists:[
+                {
+                    id:1,
+                    backcolor:'#ccddee',
+                    content:'非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心',
+                    setdate:'12-15',
+                    imgurl:[
+                        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1861071085,645113708&fm=26&gp=0.jpg',
+                        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1861071085,645113708&fm=26&gp=0.jpg',
+                        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1861071085,645113708&fm=26&gp=0.jpg',
+                        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1861071085,645113708&fm=26&gp=0.jpg'
+                    ]
+                }
+            ]
         }
+    }
+    componentDidMount(){
+        fetch(`http://localhost:3001/child/cdairy/?childsid=${this.state.cid}`)
+        .then(res=>res.json())
+        .then(json=>{
+            console.log(json)
+        })
+    }
+    componentDidUpdate(){
+        console.log(this.state.cid)
+    }
+    delDiary=(itemid)=>{
+        console.log(itemid)
+        fetch(`http://localhost:3001/child/cdairy/crdairy?childsid=${this.state.cid}&childDiaryid=${itemid}`)
+        .then((res)=>res.json())
+        .then((res)=>{
+            this.setState({
+                lists:res
+            });
+        })
     }
     render() {
         return (
-            // 写日记
-            <div className="All">
+            <div className="cdairy">
                 <NavBar
                     style={{
-                    background:'#FFBF2D',
+                    top:0,
+                    width:'100%',
+                    zIndex:'11',
+                    position:'fixed',
                     height:'8vh',
+                    background:'#FFBF2D',
                     color:'#fff',
                     fontWeight:'bolder',
                     }}
@@ -33,32 +66,66 @@ export default class Cdairy extends Component {
                         fontSize:'6vw',
                         textIndent:'3vw',
                         letterSpacing:'3vw',
-                        color:'white'
+                        color:"white"
                     }}
                     >日记</span>
                 </NavBar>
-                {
-                    this.state.text.map((text)=>(
-                    <div className="Write_body">
-                        <div className="Write_body_one">
-                        <div className="one"><img src={require("../../image/qian.jpg")}/>{text.txt1}</div>
-                        <div className="two">{text.txt2}</div>
-                            <div className="three"><img src={text.src1}/><img src={text.src2}/></div>
-                        </div>
-                        <div className="Write_body_one">
-                            <div className="one"><img src={require("../../image/qian.jpg")}/>{text.txt1}</div>
-                            <div className="two">{text.txt2}</div>
-                            <div className="three"><img src={text.src1}/><img src={text.src2}/></div>
-                        </div>
-                    </div>
-                    ))
-                }
-                <Link to='/child/cdairy/ccdairy'>
-                    <div className="Cloud_add">
-                        <div>-----------------------------------------------------------</div>
-                        <a href="#" target="_blank"><img className="Cloud_img" src={require("../../image/add.png")}/></a>
-                    </div>
-                </Link>
+                <div className='cdairy_inner'>
+                    {
+                        this.state.lists&&this.state.lists.map((item)=>(
+                            <div
+                            style={{
+                                background:`${item.backcolor}`
+                            }} 
+                            key={item.id} 
+                            className='cdairy_block'
+                            >
+                                <p>
+                                    <i className='iconfont icon-xieriji'/>
+                                    {item.setdate}
+                                    <span
+                                    style={{
+                                        fontSize:'4.3vh',
+                                        float:'right',
+                                        color:'#bdbbb8'
+                                    }}
+                                    onClick={()=>this.delDiary(item.id)} 
+                                    className='iconfont icon-shanchu1'
+                                    ></span>
+                                </p>
+                                <Link 
+                                style={{color:'#000'}}
+                                to={{
+                                    pathname:'/child/cdairy/show',
+                                    state:{item}
+                                }}>
+                                    <p style={{height:'9vh'}}>{item.content}</p>
+                                </Link>
+                                <div style={{
+                                    background:`url(${item.imgurl[0]}) center center/cover no-repeat`
+                                }}></div>
+                                <div style={{
+                                    background:`url(${item.imgurl[1]}}) center center/cover no-repeat`
+                                }}></div>
+                                <div style={{
+                                    background:`url(${item.imgurl[2]}}) center center/cover no-repeat`
+                                }}></div>
+                            </div>
+                        ))
+                    }
+                </div>
+
+                <div className='allpage_add'>
+                    <p></p>
+                    <Link
+                    to={{
+                    pathname:'/child/cdairy/ccdairy',
+                    state:{
+                        cid:this.state.cid
+                    }
+                    }}
+                    ><i className='iconfont icon-jia'></i></Link>
+              </div>
             </div>
         )
     }
