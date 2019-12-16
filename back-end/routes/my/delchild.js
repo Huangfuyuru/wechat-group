@@ -26,12 +26,12 @@ router.get('/confirm',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childid = Number(request.id);
     console.log(childid);
-    var pid = req.pid;
-    console.log(pid);
     //无法获取到childPhotoListid 
     var childPhotoListid = childPhotoListM.findIdByCid(childid);
     console.log(childPhotoListid);
     console.log('dfdf')
+    //下边先注释掉 
+
     // var result1 = await childAdolesceM.delAllByCid(childid);
     // var result2 = await childDiaryM.delAllByCid(childid);
     // var result3 = await childPhotoListM.delAllByCid(childid);
