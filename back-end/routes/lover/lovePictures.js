@@ -148,9 +148,10 @@ router.post('/laddpictures',async function(req,res,next){
 });
 
 router.post('/ldelpictures',async function(req,res,next){
+    console.log('删除照片')
     var lPLid = Number(req.body.loverPhotoListid),
         lPid = Number(req.body.loverPhotoid)
-    var delPhoto = await lover.loverPhotoM.delLoverPhoto('lPid');
+    var delPhoto = await lover.loverPhotoM.delLoverPhoto(lPid);
     if(delPhoto === 0){
         var data = await lover.loverPhotoM.findByPid(lPLid);
         info={
