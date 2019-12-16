@@ -101,7 +101,18 @@ export default class Cdairy extends Component {
                                 }}>
                                     <p style={{height:'9vh'}}>{item.content}</p>
                                 </Link>
-                                <div style={{
+                                <div>
+                                    {
+                                        item.imgurl&&item.imgurl.map((img,idx)=>(
+                                            <div>
+                                                <div style={{
+                                                    background:`url(${img}) center center/cover no-repeat`
+                                                }}></div>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                                {/* <div style={{
                                     background:`url(${item.imgurl[0]}) center center/cover no-repeat`
                                 }}></div>
                                 <div style={{
@@ -109,7 +120,7 @@ export default class Cdairy extends Component {
                                 }}></div>
                                 <div style={{
                                     background:`url(${item.imgurl[2]}}) center center/cover no-repeat`
-                                }}></div>
+                                }}></div> */}
                             </div>
                         ))
                     }
