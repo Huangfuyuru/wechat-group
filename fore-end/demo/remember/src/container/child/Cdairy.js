@@ -7,7 +7,9 @@ export default class Cdairy extends Component {
         super(props);
         var cid = JSON.stringify(localStorage.getItem('cid'))
         this.state={
+            childDiaryid:'',
             cid:cid,
+            code:'',
             lists:[]
         }
     }
@@ -16,6 +18,7 @@ export default class Cdairy extends Component {
         fetch(`http://localhost:3001/child/cdairy?childsid=${this.state.cid}`)
         .then(res=>res.json())
         .then(json=>{
+            console.log(json)
             this.setState({
                 lists:json
             })
@@ -24,13 +27,17 @@ export default class Cdairy extends Component {
     componentDidUpdate(){
         console.log(this.state.cid)
     }
-    delDiary=(itemid)=>{
-        console.log(itemid)
-        fetch(`http://localhost:3001/child/cdairy/crdairy?childsid=${this.state.cid}&childDiaryid=${itemid}`)
+    delCdiary=(e)=>{
+        e.target.parentNode.style.display='none'
+        var cdiaryagain = document.getElementById('cdiaryagain')
+        cdiaryagain.style.display='block'
+        fetch(`http://localhost:3001/child/cdairy/crdairy?childsid=${this.state.cid}&childDiaryid=${this.state.childDiaryid}`)
         .then((res)=>res.json())
         .then((res)=>{
+            console.log(res)
             this.setState({
-                lists:res
+                lists:res.data,
+                code:res.msg
             });
         })
     }
@@ -79,7 +86,13 @@ export default class Cdairy extends Component {
                                         float:'right',
                                         color:'#bdbbb8'
                                     }}
-                                    onClick={()=>this.delDiary(item.id)} 
+                                    onClick={()=>{
+                                        this.setState({
+                                            childDiaryid:item.id
+                                        })
+                                        var delcdiary = document.getElementById('delcdiary');
+                                        delcdiary.style.display='block'
+                                    }} 
                                     className='iconfont icon-shanchu1'
                                     ></span>
                                 </p>
@@ -128,6 +141,55 @@ export default class Cdairy extends Component {
                     ><i className='iconfont icon-jia'></i></Link>
               </div>
 
+              <div id='delcdiary'>
+                    <div>确定删除？</div>
+                    <button 
+                    onClick={()=>{
+                        var delcdiary=document.getElementById('delcdiary');
+                        delcdiary.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw',
+                        marginRight:'10vw'
+                    }}>返回</button>
+                    <button 
+                    onClick={this.delCdiary}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                </div>
+                <div id='cdiaryagain'>
+                <div>{this.state.code}</div>
+                    <button 
+                    onClick={()=>{
+                        var cdiaryagain=document.getElementById('cdiaryagain');
+                        cdiaryagain.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                </div>
 
               
             </div>

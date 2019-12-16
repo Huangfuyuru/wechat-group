@@ -49,7 +49,11 @@ export default class Showdairy extends Cdairy {
                     }}
                     >{this.state.setdate}</span>
                 </NavBar>
-                <div className='showdairy_inner'>
+                <div 
+                style={{
+                    background:`${this.state.backcolor}`
+                }}
+                className='showdairy_inner'>
                     <p>{this.state.content}</p>
                     <div style={{
                         height:'70vh',

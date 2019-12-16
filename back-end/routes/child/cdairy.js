@@ -24,21 +24,20 @@ router.get('/',async function(req,res,next){
 
 //增加日记
 router.post('/ccdairy',async function(req,res,next){
-    var childsid = req.body.childsid
+    var childsid = JSON.parse(req.body.childsid)
     var backcolor = req.body.backcolor;
     var content = req.body.content;
     var imgurl = JSON.parse(req.body.imgurl);
-    await childDiaryM.addChildDiary({
+    var data = await childDiaryM.addChildDiary({
         backcolor:backcolor,
         content:content,
         imgurl:imgurl,
         cid:childsid
     });
-    var data = await childDiaryM.findByCid(childsid);
     if(data == 1){
         var message = {code:1,msg:"添加失败"}
     }else{
-        var message = {code:0,msg:"添加失败"}
+        var message = {code:0,msg:"添加成功"}
     }
     res.json(message)
 })
@@ -46,10 +45,22 @@ router.post('/ccdairy',async function(req,res,next){
 //删除日记
 router.get('/crdairy',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
-    var childsid = Number(request.childsid);
-    var childDiaryid = Number(request.childDiaryid);
-    await childDiaryM.delChildDiary(childDiaryid);
-    var data = await childDiaryM.findByCid(childsid);
-    res.json(data)
+    var childsid = Number(JSON.parse(request.childsid));
+    var childDiaryid = Number(JSON.parse(request.childDiaryid));
+    var data = await childDiaryM.delChildDiary(childDiaryid);
+    var data1 = await childDiaryM.findByCid(childsid);
+    if(data == 1){
+        if(data1 == 1){
+            var message = {msg:"删除失败",data:null}
+        }else{
+            var message = {msg:"删除失败",data:data1}
+        }
+    }else{
+        if(data1 == 1){
+            var message = {msg:"删除成功",data:null}
+        }else{
+            var message = {msg:"删除成功",data:data1}
+        }
+    }
 })
 module.exports = router;

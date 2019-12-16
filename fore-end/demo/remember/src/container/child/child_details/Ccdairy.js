@@ -55,7 +55,7 @@ export default class daiCreate extends Component {
             headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`cid=${this.state.cid}&backcolor=${this.state.color}&content=${this.state.content}&imgurl=${imgurl}`
+            body:`childsid=${this.state.cid}&backcolor=${this.state.color}&content=${this.state.content}&imgurl=${imgurl}`
         }).then(res=>res.json())
         .then(res=>{
             console.log(res)
