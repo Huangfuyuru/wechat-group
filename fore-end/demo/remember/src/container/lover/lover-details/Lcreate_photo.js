@@ -83,20 +83,21 @@ export default class Lcreate_photo extends Component{
                   <p >相册名称:</p>
                   <input  type="text" placeholder="please input" onChange={this.getName}/>
                   </div>
-                  <div style={{float:"left",margin:"4%"}} >
-                  <input  
-                    style={{width:"90%",height:"100%"}}
-                    id="back"   
-                    onChange={this.upBack}
-                    type='file'  
-                    accept="image/*" 
-                    capture="camera" 
-                    name="imgurl"
-                    multiple="multiple"
-                    alt=""/>
+                  <div className="cover-div" >
+                    <span className="cover-font">点击上传封面照片</span>
+                    <input  
+                        className="cover"
+                        id="back"   
+                        onChange={this.upBack}
+                        type='file'  
+                        accept="image/*" 
+                        capture="camera" 
+                        name="imgurl"
+                        multiple="multiple"
+                        alt=""/>
                     </div>
-                    <div id="yuBack" style={{height:"15%",width:"40%",float:"left",marginLeft:"30%"}}>
-                        <img id="background"  alt="封面预览"/>
+                    <div id="yuBack" style={{height:"20%",width:"40%",float:"left",marginLeft:"30%"}}>
+                        <img id="background" style={{width:"100%",height:"100%"}} src="http://img3.imgtn.bdimg.com/it/u=4100812006,4207999617&fm=26&gp=0.jpg" alt="封面预览"/>
                     </div>
                   <Link to="/lover/lpictures">
                   <WingBlank>
