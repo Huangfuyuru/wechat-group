@@ -31,11 +31,11 @@ router.get('/',async function(req,res,next){
 
 //点击具体相册
 router.get('/show',async function(req,res,next){
-    console.log('点击具体相册',req.query);
+    console.log('点击具体相册');
     var photoListid = Number(req.query.loverPhotoListid);
     // console.log(photoListid);
     var data = await lover.loverPhotoM.findByPid(photoListid);
-    console.log(data);
+    // console.log(data);
     if(data!== 1){
         info ={
             code:0,
@@ -125,7 +125,7 @@ router.post('/laddpictures',async function(req,res,next){
     var lPLid = Number(req.body.loverPhotoListid),
         imgs = req.body.imgurl;
     var text = {
-        lid:lPLid,
+        pid:lPLid,
         imgurl:imgs
     };
     var addPhoto = await lover.loverPhotoM.addLoverPhoto(text);
