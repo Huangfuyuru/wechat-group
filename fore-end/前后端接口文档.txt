@@ -369,8 +369,8 @@ method：get
                 发送数据：用户id
                 返回数据：所有亲子id，name
             接口地址2：http://localhost:3001/my/delchild/confirm
-                method（http请求方式）：post
-                提交数据: 要删的亲子childids 数组，用户uid
+                method（http请求方式）:get
+                提交数据: 要删的亲子childid 用户uid
                 返回数据：{code:0,msg:"删除成功",data:该用户现在还有的亲子信息}
 		{code:1,msg:"删除失败",data:该用户现在还有的亲子信息}
                     {code:0/1}

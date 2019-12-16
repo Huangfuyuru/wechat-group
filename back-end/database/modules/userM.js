@@ -133,7 +133,17 @@ async function changeById(id,text){
         return 0;
     }
 }
+
+async function findById(id){
+    let sql = 'select * from users where id = $1';
+    let ret = await pgdb.query(sql,[id]);
+    if(ret.rowCount<=0){
+        return 1
+    }else{
+        return ret.rows[0]
+    }
+}
 var userM = {
-    login,findTel,addUser,delUser,findIdByTel,findTelById,findAll,changeById
+    login,findTel,addUser,delUser,findIdByTel,findTelById,findAll,changeById,findById
 }
 module.exports = userM;
