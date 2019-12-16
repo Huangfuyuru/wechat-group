@@ -73,8 +73,10 @@ delPhoto=(id,lid)=>{
                     state:{
                       id:index.id
                     }
-                    }} style={{color:"black"}}>                  
-                 <img  style={{height:"80%",width:"94%",margin:"2% 0 0% 3%"}} alt="" src={index.background}></img>
+                    }} style={{color:"black"}}> 
+                    <div style={{height:"80%",width:"94%",margin:"2% 0 0% 3%",border:"solid 0.5px #888888"}} >              
+                 <img  style={{height:"100%",width:"100%"}} alt="" src={index.background}/>
+                 </div>  
                  </Link> 
                     <div> 
                   <p style={{fontSize:"5vw",float:"left",margin:"2% 0% 0 5%"}}>{index.name}</p>

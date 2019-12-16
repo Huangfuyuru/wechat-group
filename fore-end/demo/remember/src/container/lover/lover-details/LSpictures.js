@@ -11,6 +11,11 @@ export default class LSpictures extends Component {
             tip:"",
             arr:[
                 {imgurl:"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg"},
+                {imgurl:"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg"},
+                {imgurl:"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg"},
+                {imgurl:"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg"},
+                {imgurl:"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg"},
+                {imgurl:"https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg"},
             ],
             upArr:[]
         }
@@ -124,9 +129,8 @@ export default class LSpictures extends Component {
             {
                
                 this.state.arr.map((item)=>(
-                    <div style={{height:"26vh",width:"44%",margin:"2vh",float:"left"}}>
-                        <img src={item.imgurl} style={{height:"80%",width:"100%" ,float:"left"}} alt=""></img>
-                        <img src={require("../../../image/la.jpg")} alt="" style={{float:"right"}} onClick={()=>this.delImg(item.pid,item.id)}/>
+                    <div style={{height:"29vw",width:"31vw",margin:"2vw 1vw 0 1vw",float:"left"}}>
+                        <img src={item.imgurl} style={{height:"100%",width:"100%" ,float:"left"}} alt=""></img>
                     </div>
                 ))
                 
