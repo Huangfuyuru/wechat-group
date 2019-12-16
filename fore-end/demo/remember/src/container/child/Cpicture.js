@@ -25,8 +25,24 @@ export default class Cloud extends Component {
             
         })
     }
+    componentDidUpdate(){
+        
+    }
     rmCpicture=(itemid)=>{
         console.log(itemid,this.state.cid)
+            fetch(`http://localhost:3001/child/cpictures/cdelpictures`,{
+                method:'POST',
+                mode:'cors',
+                headers:{
+                    'Content-Type':"application/x-www-form-urlencoded"
+                },
+                body:`childPhotoListid=${itemid}&imgurl=${this.state.delpics} `
+            }).then(res=>res.json())
+            .then(json=>{
+                this.setState({
+                    code:json.msg
+                })
+            })
         fetch(`http://localhost:3001/child/cpictures/crpictures?childsid=${this.state.cid}&childPhotoListid=${itemid}`)
         .then((res)=>res.json())
         .then((res)=>{
@@ -40,19 +56,6 @@ export default class Cloud extends Component {
         .then(json=>{
             this.setState({
                 delpics:json
-            })
-        })
-        fetch(`http://localhost:3001/child/cpictures/cdelpictures`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`childPhotoListid=${itemid}&imgurl=${this.state.delpics} `
-        }).then(res=>res.json())
-        .then(json=>{
-            this.setState({
-                code:json.msg
             })
         })
     }

@@ -18,6 +18,9 @@ export default class Showpicture extends Component {
         fetch(`http://localhost:3001/child/cpictures/show?childPhotoListid=${this.state.pid}`)
         .then((res)=>res.json())
         .then(json=>{
+            this.setState({
+                lists:json
+            })
             console.log(json)
         })
     }
@@ -50,13 +53,14 @@ export default class Showpicture extends Component {
     }
     delPictures=()=>{
         console.log(this.state.dellist)
+        var dellist = JSON.stringify(this.state.dellist)
         fetch(`http://localhost:3001/child/cpictures/cdelpictures`,{
             method:'POST',
             mode:'cors',
             headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`pid=${this.state.pid}&childPhotoid=${this.state.dellist}`
+            body:`pid=${this.state.pid}&childPhotoid=${dellist}`
         }).then(res=>res.json())
         .then(json=>{
             console.log(json)
