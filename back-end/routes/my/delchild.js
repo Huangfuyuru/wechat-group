@@ -23,6 +23,7 @@ router.get('/confirm',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(request.uid);
     var cid = Number(request.cid);
+    console.log(cid);
     var arr = [];
     async function delChild(cid){
         var childAdolesce = await childAdolesceM.delAllByCid(cid);

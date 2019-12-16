@@ -48,7 +48,7 @@ export default class Delrelation2 extends Component {
   }
   del=()=>{
     this.state.loverid=this.state.list3[this.state.a];
-    fetch(`http://localhost:3001/my/dellover/confirm?id=${this.state.loverid}`)
+    fetch(`http://localhost:3001/my/dellover/confirm?loversid=${this.state.loverid}`)
       .then(res=>res.json())
       .then(json=>{ 
           this.setState({
