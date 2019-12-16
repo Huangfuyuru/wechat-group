@@ -48,7 +48,7 @@ export default class Delrelation2 extends Component {
   }
   del=()=>{
     this.state.childid=this.state.list3[this.state.a];
-    fetch(`http://localhost:3001/my/delchild/confirm?id=${this.state.childid}`)
+    fetch(`http://localhost:3001/my/delchild/confirm?cid=${this.state.childid}&uid=${this.state.uid}`)
       .then(res=>res.json())
       .then(json=>{ 
           this.setState({
