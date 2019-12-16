@@ -11,6 +11,7 @@ export default class Lcreate_sound extends Component {
             name:'',
             voiceurl:'',
             date:'',
+            code:"",
             lover_id:lid
         }
         
@@ -34,13 +35,23 @@ export default class Lcreate_sound extends Component {
             this.setState({
                 voiceurl:res.path
             },()=>{
-                console.log(res.path)
+                if(res.err==0){
+                    this.setState({
+                        code:'上传成功！'
+                    })
+                }else{
+                    this.setState({
+                        code:'上传失败，请重新上传！'
+                    })
+                }
             })
         )
     )};
     //增加语音
     upSound=()=>{
         console.log('增加语音')
+        var llsoundwarn=document.getElementById('llsoundwarn');
+        llsoundwarn.style.display='block';
         fetch(`http://localhost:3001/lover/lsound/lcsound`,{
             method:'POST',
             mode:'cors',
@@ -97,6 +108,42 @@ export default class Lcreate_sound extends Component {
                 <input type='text' name='name' onChange={this.getName} style={{border:" 1px solid #bdbbb8",width: "35vw",height: "5vh"}}/>
                 </div>
                 <button onClick={this.upSound}  className="addButton">提交</button>
+                <form id='llsoundwarn'>
+                    <div>{this.state.code}</div>
+                    <button 
+                    onClick={()=>{
+                        var llsoundwarn=document.getElementById('llsoundwarn');
+                        llsoundwarn.style.display='none';
+                        this.props.history.push('/lover/lsound');
+                    }}
+                    style={{
+                        width:'35%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw',
+                        marginRight:'2vw'
+                    }}>返回列表</button>
+                    <button 
+                    onClick={()=>{
+                        var llsoundwarn=document.getElementById('llsoundwarn');
+                        llsoundwarn.style.display='none';
+                        this.props.form.resetFields();
+                    }}
+                    style={{
+                        width:'35%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>继续上传</button>
+                </form>
             </div>
         )
     }
