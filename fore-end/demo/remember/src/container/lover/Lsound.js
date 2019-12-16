@@ -7,6 +7,8 @@ export default class Lsound extends Component {
         var lid=JSON.parse(localStorage.getItem('lid'));
         this.state={
             lover_id:lid,
+            loverVoiceid:"",
+            code:"",
             arr:[]
         }
     }  
@@ -21,34 +23,26 @@ export default class Lsound extends Component {
             })
         ))
     }
-
-    // componentDidUpdate(){
-    //     fetch(`http://localhost:3001/lover/lsound?loverid=${this.state.lover_id}`)
-    //     .then(res=>res.json())
-    //     .then(json=>{
-    //         this.setState((state)=>{
-    //             if(json.code === 0){
-    //                 state.arr=json.msg
-    //             }else{
-    //                 console.log('json',json)
-    //             }
-    //         })
-    //     })
-    // }
-
-    delSound=(lid,id)=>{
+   delSound=()=>{
+        console.log(this.state.loverVoiceid)
         console.log('deletesound');
-        console.log(id)
-        fetch(`http://localhost:3001/lover/lsound/lrsound?loverid=${lid}&loverVoiceid=${id}`,{
+        fetch(`http://localhost:3001/lover/lsound/lrsound?loverid=${this.state.lover_id}&loverVoiceid=${this.state.loverVoiceid}`,{
             method:'GET'
         })
-        .then(res=>res.josn)
+        .then(res=>res.json())
         .then(json=>{
             console.log(json);
-            // this.setState({
-
-            // })
+            if(json.code==0){
+            this.setState({
+                arr:json.msg,
+                code:"删除成功！"
+            })
+        }
         })
+        var dellsound=document.getElementById('dellsound');
+        dellsound.style.display='none';
+        var csoundagain=document.getElementById('csoundagain');
+        csoundagain.style.display='block';
     }
     render() {
         return (
@@ -84,9 +78,18 @@ export default class Lsound extends Component {
                        this.state.arr&&this.state.arr.map((item)=>(
                         <div className='soundList'>
 
-                            <div style={{width:"100%"}}>
+                            <div style={{width:"100%"}} value={item.id}>
                                 <span style={{lineHeight:"5vh",fontSize:'1.5em'}}>{item.name}</span>
-                                <img src={require("../../image/la.jpg")} onClick={()=>this.delSound(item.lid,item.id)} alt="" style={{float:"right"}}/> 
+                                <img src={require("../../image/la.jpg")} 
+                                onClick={(e)=>{
+                                    var itemid = e.target.parentNode.getAttribute('value');
+                                    this.setState({
+                                        loverVoiceid:itemid
+                                    })
+                                    var dellsound=document.getElementById('dellsound');
+                                    dellsound.style.display='block';
+                                    }} 
+                                 alt="" style={{float:"right"}}/> 
                                 <audio id='audio'
                                     src={this.state.voiceurl} 
                                     controls='controls'
@@ -101,6 +104,55 @@ export default class Lsound extends Component {
                             
                         ))
                     }
+                    <div id='dellsound'>
+                    <div>确定删除？</div>
+                    <button 
+                    onClick={()=>{
+                        var dellsound=document.getElementById('dellsound');
+                        dellsound.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw',
+                        marginRight:'10vw'
+                    }}>返回</button>
+                    <button 
+                    onClick={this.delSound}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                </div>
+                <div id='csoundagain'>
+                <div>删除成功</div>
+                    <button 
+                    onClick={()=>{
+                        var csoundagain=document.getElementById('csoundagain');
+                        csoundagain.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                 </div>   
           
                 <div className='allpage_add'>
                     <p></p>
