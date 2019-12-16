@@ -31,15 +31,15 @@ export default class Csound extends Component {
             });
         })
       }
-      componentDidUpdate(prevProps,prevState){
-          fetch(`http://localhost:3001/child/csound?childsid=${this.state.cid}`)
-          .then((res)=>res.json())
-          .then((res)=>{
-              this.setState({
-                lists:res
-              });
-          })
-      }
+    //   componentDidUpdate(prevProps,prevState){
+    //       fetch(`http://localhost:3001/child/csound?childsid=${this.state.cid}`)
+    //       .then((res)=>res.json())
+    //       .then((res)=>{
+    //           this.setState({
+    //             lists:res
+    //           });
+    //       })
+    //   }
     delCsound=(e)=>{
         console.log(this.state.childVoiceid)
         console.log(this.state.cid)
@@ -58,26 +58,6 @@ export default class Csound extends Component {
         delcsound.style.display='none';
         var csoundagain=document.getElementById('csoundagain');
         csoundagain.style.display='block';
-    }
-    audioPlay=()=>{
-        var playbutton = document.getElementById('playaudio');
-		var pausebutton = document.getElementById('pauseaudio');
-		var audio = document.getElementById('audios');
-		audio.play();
-		playbutton.disabled = true;	
-		pausebutton.disabled = false;
-    }
-    audioPause=()=>{
-        var audio = document.getElementById('audios');
-		var playbutton = document.getElementById('playaudio');
-		var pausebutton = document.getElementById('pauseaudio');
-		pausebutton.disabled = true;//disabled默认是不可用的
-		playbutton.disabled = false;
-		audio.pause();
-    }
-    audioForward=()=>{
-        var audio = document.getElementById('audios');
-		audio.currentTime += 5;
     }
     render() {
         return (

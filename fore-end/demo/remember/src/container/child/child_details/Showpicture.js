@@ -24,6 +24,16 @@ export default class Showpicture extends Component {
             console.log(json)
         })
     }
+    componentDidMount(){
+        fetch(`http://localhost:3001/child/cpictures/show?childPhotoListid=${this.state.pid}`)
+        .then((res)=>res.json())
+        .then(json=>{
+            this.setState({
+                lists:json
+            })
+            console.log(json)
+        })
+    }
     delboxAppear=()=>{
         var delbox = document.getElementsByTagName('input');
         var delpictureswarn = document.getElementById('delpictureswarn');

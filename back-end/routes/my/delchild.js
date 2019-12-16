@@ -19,33 +19,31 @@ router.get('/',async function(req,res,next){
 })
 
 //确认删除
-router.post('/confirm',async function(req,res,next){
+router.get('/confirm',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(request.uid);
     var cid = Number(request.cid);
     var arr = [];
     async function delChild(cid){
-        var childPhotoList = await childPhotoListM.findIdByCid(cid)
-        console.log(childPhotoList);
         var childAdolesce = await childAdolesceM.delAllByCid(cid);
         var childGrow = await childGrowM.delAllByCid(cid);
         var childDiary = await childDiaryM.delAllByCid(cid);
         var childVoice = await childVoiceM.delAllByCid(cid);
-        var child = await childM.delChild(cid);
-        arr.push(child)
+        var childPhotoList = await childPhotoListM.findIdByCid(cid)
+        if(childPhotoList == 1){
+            var child = await childM.delChild(cid);
+        }else{
+            childPhotoList.map(async (item)=>{
+                await childPhotoM.delAllByPid(item.id);
+            })
+            await childPhotoListM.delAllByCid(cid);
+            var child = await childM.delChild(cid);
+        }
+        var message = {code:0,msg:"删除成功"};
+        res.json(message)
     }
     delChild(cid);
-    // var data = await childM.findById(uid);
-    // all.map((item)=>{
-    //     item.then((res)=>{
-    //         if(res!=0){
-    //             var message = {code:1,msg:"删除失败",data:data};
-    //             res.json(message)
-    //         }
-    //     })
-    // })
-    // var message = {code:0,msg:"删除成功",data:data};
-    // res.json(message0)
+    
 })
 
 module.exports = router;

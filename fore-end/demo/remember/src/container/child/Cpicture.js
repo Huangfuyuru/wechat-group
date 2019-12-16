@@ -26,23 +26,38 @@ export default class Cloud extends Component {
         })
     }
     componentDidUpdate(){
-        
+        // fetch(`http://localhost:3001/child/cpictures?childsid=${this.state.cid}`)
+        // .then((res)=>res.json())
+        // .then((res)=>{
+        //     console.log('点击云相册',res)
+        //     this.setState({
+        //         lists:res
+        //     });
+            
+        // })
     }
     rmCpicture=(itemid)=>{
         console.log(itemid,this.state.cid)
-            fetch(`http://localhost:3001/child/cpictures/cdelpictures`,{
-                method:'POST',
-                mode:'cors',
-                headers:{
-                    'Content-Type':"application/x-www-form-urlencoded"
-                },
-                body:`childPhotoListid=${itemid}&imgurl=${this.state.delpics} `
-            }).then(res=>res.json())
-            .then(json=>{
-                this.setState({
-                    code:json.msg
-                })
+        fetch(`http://localhost:3001/child/cpictures/show?childPhotoListid=${itemid}`)
+        .then((res)=>res.json())
+        .then(json=>{
+            this.setState({
+                delpics:json
             })
+        })
+
+        fetch(`http://localhost:3001/child/cpictures/cdelpictures`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`childPhotoListid=${itemid}&imgurl=${this.state.delpics} `
+        }).then(res=>res.json())
+        .then(json=>{
+            console.log(json)
+        })
+
         fetch(`http://localhost:3001/child/cpictures/crpictures?childsid=${this.state.cid}&childPhotoListid=${itemid}`)
         .then((res)=>res.json())
         .then((res)=>{
@@ -51,13 +66,7 @@ export default class Cloud extends Component {
                 lists:res
             });
         })
-        fetch(`http://localhost:3001/child/cpictures/show?childPhotoListid=${itemid}`)
-        .then((res)=>res.json())
-        .then(json=>{
-            this.setState({
-                delpics:json
-            })
-        })
+        
     }
     render() {
         return (
@@ -107,14 +116,6 @@ export default class Cloud extends Component {
                                     background:`url(${item.background}) center center/cover no-repeat`,
                                 }}>
                                 </div>
-                                {/* <Link to={{
-                                    pathname:'/child/cpictures/show',
-                                    state:{
-                                        pname:item.name,
-                                        pid:item.id
-                                    }
-                                }}>
-                                </Link> */}
                                 <p style={{
                                     borderTop:'1px solid #ccc',
                                     margin:'0',
@@ -154,6 +155,8 @@ export default class Cloud extends Component {
                     }}
                     ><i className='iconfont icon-jia'></i></Link>
               </div>
+
+              
             </div>
         )
     }

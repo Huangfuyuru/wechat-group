@@ -33,6 +33,7 @@ export default class Login extends Component {
         .then(json=>{
             localStorage.setItem('uid',JSON.stringify(json.id))
             var uid = JSON.parse(localStorage.getItem('uid'));
+            localStorage.setItem('umsg',JSON.stringify(json.data))
             if(json.code==0){
                 this.props.history.push({
                     pathname:'/index/my',
@@ -40,6 +41,7 @@ export default class Login extends Component {
                         userid:uid
                     }
                 });
+                console.log(json)
                 console.log(uid)
                 console.log('登录成功')
             }else{
