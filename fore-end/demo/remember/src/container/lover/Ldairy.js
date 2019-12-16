@@ -10,7 +10,9 @@ export default class Ldairy extends Component {
             lover_id:lid,
             noteArr:[],
             lid:"",
-            id:""
+            id:"",
+            code:"",
+            loverDiaryid:""
         }
     }
     componentDidMount(){
@@ -19,33 +21,30 @@ export default class Ldairy extends Component {
         .then(json=>{ 
             this.setState({
                 noteArr:json.msg
+            },()=>{
+                console.log(json)
             });
         })
     }
-    deleteNote=(lid,nid)=>{
-        fetch(`http://localhost:3001/lover/ldairy/delDairy?loverid=${lid}&loverDiaryid=${nid}`)
+    deleteNote=()=>{
+        console.log(this.state.loverDiaryid)
+        fetch(`http://localhost:3001/lover/ldairy/delDairy?loverid=${this.state.lover_id}&loverDiaryid=${this.state.loverDiaryid}`)
         .then(res=>res.json())
         .then(json=>{ 
-            this.setState({
-                noteArr:json.msg
-            });
+            console.log(json);
+            if(json.code===0){
+                this.setState({
+                    noteArr:json.msg,
+                    code:"删除成功！"
+                })
+            }
         })
+        var dellsound=document.getElementById('dellsound');
+        dellsound.style.display='none';
+        var csoundagain=document.getElementById('csoundagain');
+        csoundagain.style.display='block';
     }
-    componentDidUpdate(prevProps,prevState){
-        console.log("zhiqin",prevState);
-        console.log(this.state)
-        if(prevState !== this.state){
-
-        // fetch(`http://localhost:3001/lover/ldairy?loverid=${this.state.lover_id}`)
-        // .then(res=>res.json())
-        // .then(json=>{ 
-        //     this.setState({
-        //         noteArr:json.msg
-        //     });
-        // })
-    }
-    }
-
+   
     render() {
         return (
             <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh",paddingBottom:"10vh"}}>
@@ -72,11 +71,20 @@ export default class Ldairy extends Component {
                      letterSpacing:'3vw'}}>日记</span>
                 </NavBar>
                  {
-                     this.state.noteArr.map((item,value)=>(
-                        <div className="lovernote-first" key={{value}}>
+                     this.state.noteArr&&this.state.noteArr.map((item,value)=>(
+                        <div className="lovernote-first" key={{value}} value={item.id}>
                             <img  src={require("../../image/qian.jpg")} alt=""  style={{float:"left",margin:"3% 0 0 0%",height:"10%",width:"13%"}}></img>
                             <p style={{fontSize:"5vw",float:"left",margin:" 8% 0% 0 0",fontWeight:"bold"}}>{item.name}  {item.setdate.split(".")[0].replace('T',' ')}</p>
-                            <img src={require("../../image/la.jpg")} onClick={()=>this.deleteNote(item.lid,item.id)} alt="" style={{float:"right"}}/> 
+                            <img src={require("../../image/la.jpg")}
+                             onClick={(e)=>{
+                                var itemid = e.target.parentNode.getAttribute('value');
+                                this.setState({
+                                    loverDiaryid:itemid
+                                })
+                                var dellsound=document.getElementById('dellsound');
+                                dellsound.style.display='block';
+                                }} 
+                             alt="" style={{float:"right"}}/> 
 
                             <textarea style={{fontSize:"5vw",float:"left",height:"35%",width:"88%",margin:"5% 0 0 4%",padding:"3% 0 0 3%",border:"none"}} readOnly="readOnly" value={item.content}></textarea>
                             <div style={{height:"30%",width:"94%",float:"left",margin:"2% 0 0 3%"}}>
@@ -88,6 +96,55 @@ export default class Ldairy extends Component {
                      ))
                
                 }
+                <div id='dellsound'>
+                    <div>确定删除？</div>
+                    <button 
+                    onClick={()=>{
+                        var dellsound=document.getElementById('dellsound');
+                        dellsound.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw',
+                        marginRight:'10vw'
+                    }}>返回</button>
+                    <button 
+                    onClick={this.deleteNote}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                </div>
+                <div id='csoundagain'>
+                <div>{this.state.code}</div>
+                    <button 
+                    onClick={()=>{
+                        var csoundagain=document.getElementById('csoundagain');
+                        csoundagain.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                 </div>   
                 <div className='allpage_add'>
                     <p></p>
                     <Link
