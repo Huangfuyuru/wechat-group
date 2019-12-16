@@ -49,7 +49,11 @@ export default class Showdairy extends Cdairy {
                     }}
                     >{this.state.setdate}</span>
                 </NavBar>
-                <div className='showdairy_inner'>
+                <div 
+                style={{
+                    background:`${this.state.backcolor}`
+                }}
+                className='showdairy_inner'>
                     <p>{this.state.content}</p>
                     <div style={{
                         height:'70vh',
@@ -58,7 +62,7 @@ export default class Showdairy extends Cdairy {
                         {
                             this.state.imgurl&&this.state.imgurl.map((item)=>{
                                 return <div className='showdairy_block'>
-                                    <img src={item} alt='大事记图片'/>
+                                    <img src={item} alt='日记图片'/>
                                 </div>
                             })
                         }

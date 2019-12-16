@@ -8,9 +8,10 @@ export default class Cloud extends Component {
         super();
         var cid = JSON.parse(localStorage.getItem('cid'));
         this.state={
-            delpics:[],
+            childPhotoListid:'',
             cid:cid,
-            lists:[]
+            lists:[],
+            code:""
         }
     }
       // 加载外部数据用componentDidMount
@@ -36,37 +37,19 @@ export default class Cloud extends Component {
             
         // })
     }
-    rmCpicture=(itemid)=>{
-        console.log(itemid,this.state.cid)
-        fetch(`http://localhost:3001/child/cpictures/show?childPhotoListid=${itemid}`)
-        .then((res)=>res.json())
-        .then(json=>{
-            this.setState({
-                delpics:json
-            })
-        })
-
-        fetch(`http://localhost:3001/child/cpictures/cdelpictures`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`childPhotoListid=${itemid}&imgurl=${this.state.delpics} `
-        }).then(res=>res.json())
-        .then(json=>{
-            console.log(json)
-        })
-
-        fetch(`http://localhost:3001/child/cpictures/crpictures?childsid=${this.state.cid}&childPhotoListid=${itemid}`)
+    rmCpicture=(e)=>{
+        e.target.parentNode.style.display = 'none';
+        var  cpictureagain = document.getElementById('cpictureagain');
+        cpictureagain.style.display = 'block';
+        fetch(`http://localhost:3001/child/cpictures/crpictures?childsid=${this.state.cid}&childPhotoListid=${this.state.childPhotoListid}`)
         .then((res)=>res.json())
         .then((res)=>{
             console.log(res)
             this.setState({
-                lists:res
+                lists:res.data,
+                code:res.msg
             });
         })
-        
     }
     render() {
         return (
@@ -128,7 +111,13 @@ export default class Cloud extends Component {
                                     
                                     {item.name}
                                     <span
-                                    onClick={()=>this.rmCpicture(item.id)}
+                                    onClick={()=>{
+                                        var delcpicture = document.getElementById('delcpicture');
+                                        delcpicture.style.display='block';
+                                        this.setState({
+                                            childPhotoListid:item.id
+                                        })
+                                    }}
                                     style={{
                                         color:'#bdbbb8',
                                         lineHeight:'6.5vh',
@@ -156,7 +145,53 @@ export default class Cloud extends Component {
                     ><i className='iconfont icon-jia'></i></Link>
               </div>
 
-              
+              <div id='delcpicture'>
+                    <div>删除相册及相册中所有照片？</div>
+                    <button 
+                    onClick={(e)=>{
+                        e.target.parentNode.style.display='none'
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw',
+                        marginRight:'10vw'
+                    }}>返回</button>
+                    <button 
+                    onClick={this.rmCpicture}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                </div>
+                <div id='cpictureagain'>
+                    <div>{this.state.code}</div>
+                    <button 
+                    onClick={(e)=>{
+                        e.target.parentNode.style.display='none'; 
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                </div>
             </div>
         )
     }

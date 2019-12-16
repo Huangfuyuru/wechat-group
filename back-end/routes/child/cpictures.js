@@ -53,15 +53,24 @@ router.get('/crpictures',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var childPhotoListid = request.childPhotoListid;
-    var delallphoto = await childPhotoM.delAllByPid(childPhotoListid);
+    await childPhotoM.delAllByPid(childPhotoListid);
     var delphotolist = await childPhotoListM.delChildPhotoList(childPhotoListid);
+    console.log('a',delphotolist)
     var data = await childPhotoListM.findByCid(childsid);
-    if(delallphoto==1 || delphotolist == 1){
-        res.json(null)
+    if(delphotolist == 1){
+        if(data == 1){
+            var message ={msg:"删除失败",data:null}
+        }else{
+            var message ={msg:"删除失败",data:data}
+        }
     }else{
-        res.json(data)
+        if(data == 1){
+            var message ={msg:"删除成功",data:null}
+        }else{
+            var message ={msg:"删除成功",data:data}
+        }
     }
-    
+    res.json(message)
 })
 
 
