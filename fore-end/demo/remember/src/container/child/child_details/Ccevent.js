@@ -130,8 +130,12 @@ export default class eventAdd extends Component {
                     </p>
                     <p>详细记录</p>
                     <textarea 
-                    rows="6"
-                    cols="28" 
+                    style={{
+                        border:'1px solid #bdbbb8',
+                        padding:'2vh 2vw'
+                    }}
+                    rows="5"
+                    cols="26" 
                     placeholder='请输入内容' 
                     name="content" 
                     onChange={this.changeContent}>
@@ -145,7 +149,7 @@ export default class eventAdd extends Component {
                         height:'6vh',
                         fontSize:'6.5vw',
                         textAlign:'center',
-                        top:'68vh',
+                        top:'65vh',
                         left:'28vw',
                         position:'absolute',
                         color:'#000',

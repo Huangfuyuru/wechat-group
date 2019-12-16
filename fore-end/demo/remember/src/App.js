@@ -35,6 +35,7 @@ import Ccevent from './container/child/child_details/Ccevent'
 import Ccstudy from './container/child/child_details/Ccstudy'
 import Ccgrow from './container/child/child_details/Ccgrow'
 import Showevent from './container/child/child_details/Showevent'
+import Showdairy from './container/child/child_details/Showdairy';
 
 import Crelation from './container/my/Crelation'
 import Crelation2 from './container/my/Crelation2'
@@ -74,6 +75,7 @@ function App() {
       <Route path='/child/cstudy/ccstudy' component={Ccstudy}/>
 
       <Route exact path='/child/cdairy' component={Cdairy}/>
+      <Route path='/child/cdairy/show' component={Showdairy}/>
       <Route path='/child/cdairy/ccdairy' component={Ccdairy}/>
       
       {/* 爱人 */}

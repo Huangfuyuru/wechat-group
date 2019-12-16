@@ -23,6 +23,7 @@ export default class Addpictures extends Component {
             body:form,
         }).then(res=>res.json())
         .then(res=>{
+            console.log(res)
             this.setState({
                 lists:res
             })

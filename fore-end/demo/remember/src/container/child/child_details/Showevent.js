@@ -61,7 +61,8 @@ export default class Showevent extends Ccevent {
                     </div>
                     <p style={{
                         float:'right',
-                        marginRight:'10vw',
+                        marginTop:'3vh',
+                        marginRight:'-30vw',
                         fontSize:'6vw',
                         fontWeight:'normal'
                     }}>具体日期:{date}</p>
