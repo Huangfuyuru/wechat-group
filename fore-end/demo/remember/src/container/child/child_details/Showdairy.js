@@ -7,19 +7,18 @@ import Cdairy from '../Cdairy.js';
 export default class Showdairy extends Cdairy {
     constructor(props){
         super(props);
-        var dairycontent = this.props.location.state.item;
-        console.log(dairycontent)
+        var dairycontent = this.props.location.state;
+        var date = moment(dairycontent.setdate).format("YYYY-MM-DD");
         this.state={
-            backcolor:dairycontent.color,
+            backcolor:dairycontent.backcolor,
             name:dairycontent.name,
             content:dairycontent.content,
             imgurl:dairycontent.imgurl,
-            setdate:dairycontent.setdate
+            setdate:date
         }
     }
-    // 加载外部数据用componentDidMount
     componentDidMount(){
-        console.log(this.props.location.state.item)
+        console.log(this.props.location.state)
     }
     
     render() {
@@ -56,7 +55,7 @@ export default class Showdairy extends Cdairy {
                 className='showdairy_inner'>
                     <p>{this.state.content}</p>
                     <div style={{
-                        height:'70vh',
+                        height:'50vh',
                         overflowY:'scroll'
                     }}>
                         {

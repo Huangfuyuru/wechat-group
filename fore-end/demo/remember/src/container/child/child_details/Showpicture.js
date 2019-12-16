@@ -73,7 +73,10 @@ export default class Showpicture extends Component {
             body:`pid=${this.state.pid}&childPhotoid=${dellist}`
         }).then(res=>res.json())
         .then(json=>{
-            console.log(json)
+           this.setState({
+               lists:json.data,
+               code:json.msg
+           })
         })
         var delpicsconfirm=document.getElementById('delpicsconfirm');
         delpicsconfirm.style.display='none'

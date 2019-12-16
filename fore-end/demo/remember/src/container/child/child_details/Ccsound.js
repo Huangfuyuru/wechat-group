@@ -44,18 +44,29 @@ export default class Ccsound extends Component {
     voicePost=()=>{
         var ccsoundwarn=document.getElementById('ccsoundwarn');
         ccsoundwarn.style.display='block';
-        fetch(`http://localhost:3001/child/csound/ccsound`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`voiceurl=${this.state.voiceurl}&name=${this.state.name}&childsid=${Number(this.state.cid)}`
-        })
-        .then(res=>res.json())
-        .then(json=>(
-            console.log('54',json)
-        ))
+        var name = this.state.name;
+        var voiceurl = this.state.voiceurl;
+        if(name == ''){
+            name = '未命名的语音文件'
+        }
+        if(voiceurl == ''){
+            this.setState({
+                code:'请上传语音'
+            })
+        }else{
+            fetch(`http://localhost:3001/child/csound/ccsound`,{
+                method:'POST',
+                mode:'cors',
+                headers:{
+                    'Content-Type':"application/x-www-form-urlencoded"
+                },
+                body:`voiceurl=${this.state.voiceurl}&name=${name}&childsid=${Number(this.state.cid)}`
+            })
+            .then(res=>res.json())
+            .then(json=>(
+                console.log('54',json)
+            ))
+        }
     }
     nameChange=(e)=>{
         this.setState({

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { NavBar,Flex } from 'antd-mobile';
 import '../css/child.css'
 import {Link} from 'react-router-dom'
-export default class Child extends Component {
+export default class Recommend extends Component {
     constructor(){
         super();
         this.state={
@@ -40,18 +40,21 @@ export default class Child extends Component {
     render() {
         return (
             <div className='child'>
-                <NavBar
-                style={{
-                    background:'#FFBF2D',
-                    height:'8vh'
-                }}
+                    <NavBar
+                    style={{
+                        width:'100%',
+                        zIndex:'11',
+                        position:'fixed',
+                        background:'#FFBF2D',
+                        height:'8vh'
+                    }}
                 ><span style={{
                     fontWeight:'bold',
                     fontSize:'6vw',
                     textIndent:'3vw',
                     letterSpacing:'3vw'
                 }}
-                >好友</span></NavBar>
+                >推荐</span></NavBar>
                 
             </div>
         )

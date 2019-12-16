@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { NavBar, Icon } from 'antd-mobile';
+import moment from 'moment';
+
 
 export default class Cdairy extends Component {
     constructor(props){
@@ -22,9 +24,6 @@ export default class Cdairy extends Component {
                 lists:json
             })
         })
-    }
-    componentDidUpdate(){
-        console.log(this.state.cid)
     }
     delCdiary=(e)=>{
         e.target.parentNode.style.display='none'
@@ -68,8 +67,11 @@ export default class Cdairy extends Component {
                 </NavBar>
                 <div className='cdairy_inner'>
                     {
-                        this.state.lists&&this.state.lists.map((item)=>(
-                            <div
+                        this.state.lists&&this.state.lists.map((item)=>{
+                            if(item.content == 'undefined'){
+                                item.content = '没有添加文字内容哦~'
+                            }
+                            return <div
                             style={{
                                 background:`${item.backcolor}`
                             }} 
@@ -78,12 +80,12 @@ export default class Cdairy extends Component {
                             >
                                 <p>
                                     <i className='iconfont icon-xieriji'/>
-                                    {item.setdate}
+                                    { moment(item.setdate).format("YYYY-MM-DD")}
                                     <span
                                     style={{
                                         fontSize:'4.3vh',
                                         float:'right',
-                                        color:'#bdbbb8'
+                                        color:'#000'
                                     }}
                                     onClick={()=>{
                                         this.setState({
@@ -99,7 +101,7 @@ export default class Cdairy extends Component {
                                 style={{color:'#000'}}
                                 to={{
                                     pathname:'/child/cdairy/show',
-                                    state:{item}
+                                    state:item
                                 }}>
                                     <p style={{height:'9vh'}}>{item.content}</p>
                                 </Link>
@@ -114,18 +116,9 @@ export default class Cdairy extends Component {
                                         ))
                                     }
                                 </div>
-                                {/* <div style={{
-                                    background:`url(${item.imgurl[0]}) center center/cover no-repeat`
-                                }}></div>
-                                <div style={{
-                                    background:`url(${item.imgurl[1]}}) center center/cover no-repeat`
-                                }}></div>
-                                <div style={{
-                                    background:`url(${item.imgurl[2]}}) center center/cover no-repeat`
-                                }}></div> */}
                             </div>
-                        ))
-                    }
+                        }
+                    )}
                 </div>
 
                 <div className='allpage_add'>
