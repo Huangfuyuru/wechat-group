@@ -167,13 +167,6 @@ export default class Showpicture extends Component {
                     >删除</button>
                 </div>
 
-                <div id='delpicsconfirm'>
-                    <div>确定删除？</div>
-                    <button onClick={(e)=>{
-                        e.target.parentNode.style.display='none';
-                    }}>返回</button>
-                    <button onClick={this.delPictures}>确定</button>
-                </div>
                 <div className='allpage_add'>
                     <p></p>
                     <Link
@@ -184,7 +177,55 @@ export default class Showpicture extends Component {
                     }
                     }}
                     ><i className='iconfont icon-jia'></i></Link>
-              </div>
+                </div>
+                <div id='delpicsconfirm'>
+                    <div>确定删除？</div>
+                    <button 
+                    onClick={(e)=>{
+                        e.target.parentNode.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw',
+                        marginRight:'10vw'
+                    }}>返回</button>
+                    <button 
+                    onClick={this.delPictures}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                </div>
+                <div id='picsconfirmagain'>
+                <div>{this.state.code}</div>
+                    <button 
+                    onClick={()=>{
+                        var picsconfirmagain=document.getElementById('picsconfirmagain');
+                        picsconfirmagain.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                </div>
             </div>
         )
     }

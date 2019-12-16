@@ -18,7 +18,6 @@ export default class Cdairy extends Component {
         fetch(`http://localhost:3001/child/cdairy?childsid=${this.state.cid}`)
         .then(res=>res.json())
         .then(json=>{
-            console.log(json)
             this.setState({
                 lists:json
             })

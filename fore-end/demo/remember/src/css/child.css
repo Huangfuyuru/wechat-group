@@ -309,36 +309,53 @@
 }
 #delpicsconfirm{
     display: none;
-    padding: 2vh 0;
-    border-radius: 10px;
-    position: absolute;
-    top: 25vh;
-    left: 10vw;
-    width: 80vw;
-    height: 20vh;
-    background:rgba(255,191,45,0.8);
+    text-align: center;
+    border-radius: 20px;
+    background:rgba(255,191,45,0.4);
+    position: fixed;
+    top:28vh;
+    width: 80%;
+    height: 30vh;
+    z-index: 100;
+    margin-left: 10vw;
 }
 #delpicsconfirm div{
-    position: relative;
-    padding: 2vh 20%;
-    margin: 0 auto;
     text-align: center;
-    font-size: 6vw;
-    width: 40%;
-    height: 40%;
+    padding:4vh 5vw;
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
     background: #fff;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 30%;
+    color: rgb(148, 145, 145);
 }
-#delpicsconfirm button{
-    border: none;
+#picsconfirmagain{
+    display: none;
+    text-align: center;
+    border-radius: 20px;
+    background:rgba(255,191,45,0.4);
+    position: fixed;
+    top:28vh;
+    width: 80%;
+    height: 30vh;
+    z-index: 100;
+    margin-left: 10vw;
+}
+#picsconfirmagain div{
+    text-align: center;
+    padding:4vh 5vw;
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
     background: #fff;
-    border-radius: 5px;
-    margin: 0 1vw;
-    position: relative;
-    top: 2vh;
-    left: 10vw;
-    width: 28vw;
-    height: 5vh;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 30%;
+    color: rgb(148, 145, 145);
 }
+
 /* 添加照片 */
 .addpictures{
     background: #fff;
@@ -859,13 +876,12 @@
     background: #fff;
 }
 .cdairy_inner{
-    position: fixed;
-    /* background: #FFBF2D; */
     width: 90vw;
     left: 5vw;
-    /* margin-left: auto;
-    margin-right: auto; */
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 12vh;
+    padding-bottom: 10vh;
 }
 .cdairy_block{
     /* background: #ccc; */

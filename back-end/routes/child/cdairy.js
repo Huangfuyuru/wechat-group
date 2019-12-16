@@ -62,5 +62,6 @@ router.get('/crdairy',async function(req,res,next){
             var message = {msg:"删除成功",data:data1}
         }
     }
+    res.json(message)
 })
 module.exports = router;

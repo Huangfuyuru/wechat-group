@@ -8,7 +8,7 @@ export default class daiCreate extends Component {
         var cid = JSON.stringify(localStorage.getItem('cid'));
         this.state={
             cid:cid,
-            color:'',
+            color:'#ffffff',
             lists:[],
             code:''
         }
