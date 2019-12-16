@@ -8,6 +8,7 @@ export default class Lsound extends Component {
         this.state={
             lover_id:lid,
             loverVoiceid:"",
+            code:"",
             arr:[]
         }
     }  
@@ -22,18 +23,7 @@ export default class Lsound extends Component {
             })
         ))
     }
-
-    // componentDidUpdate(){
-    //     fetch(`http://localhost:3001/lover/lsound?loverid=${this.state.lover_id}`)
-    //     .then(res=>res.json())
-    //     .then(json=>{
-    //         this.setState({
-    //             arr:json.msg
-    //         })
-    //     })
-    // }
-
-    delSound=()=>{
+   delSound=()=>{
         console.log(this.state.loverVoiceid)
         console.log('deletesound');
         fetch(`http://localhost:3001/lover/lsound/lrsound?loverid=${this.state.lover_id}&loverVoiceid=${this.state.loverVoiceid}`,{
@@ -42,12 +32,15 @@ export default class Lsound extends Component {
         .then(res=>res.json())
         .then(json=>{
             console.log(json);
+            if(json.code==0){
             this.setState({
-                arr:json.msg
+                arr:json.msg,
+                code:"删除成功！"
             })
+        }
         })
-        var delcsound=document.getElementById('delcsound');
-        delcsound.style.display='none';
+        var dellsound=document.getElementById('dellsound');
+        dellsound.style.display='none';
         var csoundagain=document.getElementById('csoundagain');
         csoundagain.style.display='block';
     }
@@ -93,8 +86,8 @@ export default class Lsound extends Component {
                                     this.setState({
                                         loverVoiceid:itemid
                                     })
-                                    var delcsound=document.getElementById('delcsound');
-                                    delcsound.style.display='block';
+                                    var dellsound=document.getElementById('dellsound');
+                                    dellsound.style.display='block';
                                     }} 
                                  alt="" style={{float:"right"}}/> 
                                 <audio id='audio'
@@ -111,12 +104,12 @@ export default class Lsound extends Component {
                             
                         ))
                     }
-                    <div id='delcsound'>
+                    <div id='dellsound'>
                     <div>确定删除？</div>
                     <button 
                     onClick={()=>{
-                        var delcsound=document.getElementById('delcsound');
-                        delcsound.style.display='none';
+                        var dellsound=document.getElementById('dellsound');
+                        dellsound.style.display='none';
                     }}
                     style={{
                         width:'25%',

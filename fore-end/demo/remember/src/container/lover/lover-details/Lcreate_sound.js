@@ -50,8 +50,8 @@ export default class Lcreate_sound extends Component {
     //增加语音
     upSound=()=>{
         console.log('增加语音')
-        var ccsoundwarn=document.getElementById('ccsoundwarn');
-        ccsoundwarn.style.display='block';
+        var upsoundwarn=document.getElementById('upsoundwarn');
+        upsoundwarn.style.display='block';
         fetch(`http://localhost:3001/lover/lsound/lcsound`,{
             method:'POST',
             mode:'cors',
@@ -108,12 +108,12 @@ export default class Lcreate_sound extends Component {
                 <input type='text' name='name' onChange={this.getName} style={{border:" 1px solid #bdbbb8",width: "35vw",height: "5vh"}}/>
                 </div>
                 <button onClick={this.upSound}  className="addButton">提交</button>
-                <form id='ccsoundwarn'>
+                <form id='upsoundwarn'>
                     <div>{this.state.code}</div>
                     <button 
                     onClick={()=>{
-                        var ccsoundwarn=document.getElementById('ccsoundwarn');
-                        ccsoundwarn.style.display='none';
+                        var upsoundwarn=document.getElementById('upsoundwarn');
+                        upsoundwarn.style.display='none';
                         this.props.history.push('/lover/lsound');
                     }}
                     style={{
@@ -129,8 +129,8 @@ export default class Lcreate_sound extends Component {
                     }}>返回列表</button>
                     <button 
                     onClick={()=>{
-                        var ccsoundwarn=document.getElementById('ccsoundwarn');
-                        ccsoundwarn.style.display='none';
+                        var upsoundwarn=document.getElementById('upsoundwarn');
+                        upsoundwarn.style.display='none';
                         this.props.form.resetFields();
                     }}
                     style={{
