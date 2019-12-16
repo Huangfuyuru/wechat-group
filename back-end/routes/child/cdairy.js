@@ -12,9 +12,14 @@ router.use(bodyParser.json());
 //点击日记
 router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
-    var childsid = Number(request.childsid);
+    var childsid = Number(JSON.parse(request.childsid));
+    console.log('childsid',childsid)
     var data = await childDiaryM.findByCid(childsid);
-    res.json(data)
+    if(data == 1){
+        res.json(null)
+    }else{
+        res.json(data)
+    }
 })
 
 //增加日记
@@ -22,7 +27,7 @@ router.post('/ccdairy',async function(req,res,next){
     var childsid = req.body.childsid
     var backcolor = req.body.backcolor;
     var content = req.body.content;
-    var imgurl = req.body.imgurl;
+    var imgurl = JSON.parse(req.body.imgurl);
     await childDiaryM.addChildDiary({
         backcolor:backcolor,
         content:content,
@@ -30,7 +35,12 @@ router.post('/ccdairy',async function(req,res,next){
         cid:childsid
     });
     var data = await childDiaryM.findByCid(childsid);
-    res.json(data)
+    if(data == 1){
+        var message = {code:1,msg:"添加失败"}
+    }else{
+        var message = {code:0,msg:"添加失败"}
+    }
+    res.json(message)
 })
 
 //删除日记

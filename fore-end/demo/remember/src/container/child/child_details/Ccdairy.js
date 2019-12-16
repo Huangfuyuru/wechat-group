@@ -48,13 +48,14 @@ export default class daiCreate extends Component {
         var url = 'http://localhost:3001/child/cdairy/ccdairy';
         var ccdairywarn = document.getElementById('ccdairywarn');
         ccdairywarn.style.display='block';
+        var imgurl = JSON.stringify(this.state.lists)
         fetch(url,{
             method:'POST',
             mode:'cors',
             headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`cid=${this.state.cid}&backcolor=${this.state.color}&content=${this.state.content}&imgurl=${this.state.lists}`
+            body:`cid=${this.state.cid}&backcolor=${this.state.color}&content=${this.state.content}&imgurl=${imgurl}`
         }).then(res=>res.json())
         .then(res=>{
             console.log(res)

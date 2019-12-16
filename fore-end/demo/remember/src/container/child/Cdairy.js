@@ -8,27 +8,17 @@ export default class Cdairy extends Component {
         var cid = JSON.stringify(localStorage.getItem('cid'))
         this.state={
             cid:cid,
-            lists:[
-                {
-                    id:1,
-                    backcolor:'#ccddee',
-                    content:'非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心',
-                    setdate:'12-15',
-                    imgurl:[
-                        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1861071085,645113708&fm=26&gp=0.jpg',
-                        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1861071085,645113708&fm=26&gp=0.jpg',
-                        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1861071085,645113708&fm=26&gp=0.jpg',
-                        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1861071085,645113708&fm=26&gp=0.jpg'
-                    ]
-                }
-            ]
+            lists:[]
         }
     }
     componentDidMount(){
-        fetch(`http://localhost:3001/child/cdairy/?childsid=${this.state.cid}`)
+        console.log(this.state.cid)
+        fetch(`http://localhost:3001/child/cdairy?childsid=${this.state.cid}`)
         .then(res=>res.json())
         .then(json=>{
-            console.log(json)
+            this.setState({
+                lists:json
+            })
         })
     }
     componentDidUpdate(){
@@ -101,7 +91,7 @@ export default class Cdairy extends Component {
                                 }}>
                                     <p style={{height:'9vh'}}>{item.content}</p>
                                 </Link>
-                                <div>
+                                <div className='cdairy_imgblock'>
                                     {
                                         item.imgurl&&item.imgurl.map((img,idx)=>(
                                             <div>
@@ -137,6 +127,9 @@ export default class Cdairy extends Component {
                     }}
                     ><i className='iconfont icon-jia'></i></Link>
               </div>
+
+
+              
             </div>
         )
     }
