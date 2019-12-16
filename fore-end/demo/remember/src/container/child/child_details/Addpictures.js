@@ -31,6 +31,7 @@ export default class Addpictures extends Component {
     }
     addPictures=()=>{
         console.log(this.state.lists,this.state.pid)
+        var lists=JSON.stringify(this.state.lists)
         var addcpictureswarn = document.getElementById('addcpictureswarn');
         addcpictureswarn.style.display='block';
         if(this.state.lists.length==0){
@@ -44,7 +45,7 @@ export default class Addpictures extends Component {
                 headers:{
                     'Content-Type':"application/x-www-form-urlencoded"
                 },
-                body:`childPhotoListid=${this.state.pid}&imgurl=${this.state.lists} `
+                body:`childPhotoListid=${this.state.pid}&imgurl=${lists} `
             }).then(res=>res.json())
             .then(json=>{
                 this.setState({
