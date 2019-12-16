@@ -27,7 +27,11 @@ router.get('/show',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childPhotoListid = Number(request.childPhotoListid);
     var data = await childPhotoM.findByPid(childPhotoListid);
-    res.json(data)
+    if(data == 1){
+        res.json(null)
+    }else{
+        res.json(data);
+    }
 })
 
 //增加相册

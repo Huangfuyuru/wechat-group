@@ -19,8 +19,30 @@ router.get('/',async function(req,res,next){
 })
 
 //确认删除
-router.get('/confirm',async function(req,res,next){
-    
+router.post('/confirm',async function(req,res,next){
+    var uid = Number(req.body.uid);
+    var childids = JSON.parse(req.body.childids);
+    var all = childids.map(async function(cid){
+        var childPhotoList = await childPhotoListM.findIdByCid(cid)
+        console.log(childPhotoList);
+        var childAdolesce = await childAdolesceM.delAllByCid(cid);
+        var childGrow = await childGrowM.delAllByCid(cid);
+        var childDiary = await childDiaryM.delAllByCid(cid);
+        var childVoice = await childVoiceM.delAllByCid(cid);
+        var child = await childM.delChild(cid);
+        return child;
+    });
+    var data = await childM.findById(uid);
+    all.map((item)=>{
+        item.then((res)=>{
+            if(res!=0){
+                var message = {code:1,msg:"删除失败",data:data};
+                res.json(message)
+            }
+        })
+    })
+    var message = {code:0,msg:"删除成功",data:data};
+    res.json(message0)
 })
 
 module.exports = router;
