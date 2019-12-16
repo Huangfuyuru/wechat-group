@@ -405,10 +405,10 @@
     bottom: 6vh;
 }
 #lan{
-  float: left;
-  height:100%;
-  width:40%;
-  margin-left:4%;
+  display: inline-block;
+    width: 28vw;
+    height: 15vh;
+    margin: 0.5vh 1vw;
 }
 #background{
   width:100%;
@@ -484,6 +484,30 @@
     margin-left: 5vw;
 }
 #upsoundwarn div{
+  text-align: center;
+    padding: 4vh 5vw;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 30%;
+    color: rgb(148, 145, 145);
+}
+#updairywarn{
+  display: none;
+    text-align: center;
+    border-radius: 20px;
+    background: rgba(255,191,45,0.4);
+    position: fixed;
+    top: 23vh;
+    width: 90%;
+    height: 35vh;
+    z-index: 100;
+    margin-left: 5vw;
+}
+#updairywarn div{
   text-align: center;
     padding: 4vh 5vw;
     margin-top: 10%;

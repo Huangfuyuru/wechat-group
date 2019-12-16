@@ -30,10 +30,11 @@ router.get('/',async function(req,res,next){
     }else{
         info ={
             code:1,
-            msg:'传入的爱人lid有误'
+            msg:'该爱人日记列表为空'
         }
         res.json(data);
     }
+    console.log(data);
     
 });
 

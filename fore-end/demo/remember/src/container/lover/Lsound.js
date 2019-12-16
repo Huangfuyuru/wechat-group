@@ -136,7 +136,7 @@ export default class Lsound extends Component {
                     }}>确定</button>
                 </div>
                 <div id='csoundagain'>
-                <div>删除成功</div>
+                <div>{this.state.code}</div>
                     <button 
                     onClick={()=>{
                         var csoundagain=document.getElementById('csoundagain');
