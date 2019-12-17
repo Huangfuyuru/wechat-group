@@ -65,69 +65,67 @@ export default class Message extends Component {
             <div className='message'>
                 <nav style={{textAlign:'center'}}><img src={logo} alt='logo' width='60%'/></nav>
                 <div className='message_detail'>
-                    {/* <form action='http://localhost:3001/resign/message' method='post'> */}
-                        <p className='img'>
-                            <i className='iconfont icon-touxiangshangchuan'></i>  
-                            <span>轻触上传头像<input 
-                            id='img'
-                            onChange={this.upfile}                         
-                            type='file'  
-                            accept="image/*" 
-                            capture="camera" 
-                            name='uimage' 
-                            placeholder='轻触上传头像'/></span>                          
-                            <div style={{
-                                width:'20vw',
-                                height:'10vh',
-                                display:'inline-block',
-                                marginLeft:'6vw'}}>
-                                    <img src={this.state.src} 
-                                    alt='默认头像'
-                                    width='100%'/>              
-                            </div>
-                        </p>
-                        <p className='message_details' >
-                            <i className='iconfont icon-zhanghao'></i>
-                            <input
-                            onChange={this.changeName}                           
-                            type='text' 
-                            name='uname' 
-                            placeholder='请输入昵称'/>
-                        </p>
-                        <p className='message_details message_box' onClick={this.changeSex}>
-                            <i className='iconfont icon-zu'></i>
-                            <input
-                            type='radio' 
-                            name='usex' 
-                            value='woman' 
-                            checked/>女
-                            <input 
-                            id='man'
-                            type='radio' 
-                            name='usex' 
-                            value='man'/>男
-                        </p>
-                        <p className='message_details'>
-                            <i className='iconfont icon-_'></i>
-                            <input 
-                            onChange={this.changeTel}                            
-                            type='tel' 
-                            name='utel' 
-                            placeholder='请输入手机号'/>
-                        </p>
-                        <p className='message_details'>
-                            <i className='iconfont icon-queren'></i>
-                            <input
-                            onChange={this.changePass}                            
-                            type='password' 
-                            name='pass' 
-                            placeholder='请确认密码'/>
-                        </p>
-                        <button className='message_but'>
-                            <Link to='/menus/resign'>返回</Link>
-                        </button>
-                        <button onClick={this.buttonPost} className='message_but' type='submit'>提交</button>
-                    {/* </form> */}
+                    <p className='img'>
+                        <i className='iconfont icon-touxiangshangchuan'></i>  
+                        <span>轻触上传头像<input 
+                        id='img'
+                        onChange={this.upfile}                         
+                        type='file'  
+                        accept="image/*" 
+                        capture="camera" 
+                        name='uimage' 
+                        placeholder='轻触上传头像'/></span>                          
+                        <div style={{
+                            width:'20vw',
+                            height:'10vh',
+                            display:'inline-block',
+                            marginLeft:'6vw'}}>
+                                <img src={this.state.src} 
+                                alt='默认头像'
+                                width='100%'/>              
+                        </div>
+                    </p>
+                    <p className='message_details' >
+                        <i className='iconfont icon-zhanghao'></i>
+                        <input
+                        onChange={this.changeName}                           
+                        type='text' 
+                        name='uname' 
+                        placeholder='请输入昵称'/>
+                    </p>
+                    <p className='message_details message_box' onClick={this.changeSex}>
+                        <i className='iconfont icon-zu'></i>
+                        <input
+                        type='radio' 
+                        name='usex' 
+                        value='woman' 
+                        checked/>女
+                        <input 
+                        id='man'
+                        type='radio' 
+                        name='usex' 
+                        value='man'/>男
+                    </p>
+                    <p className='message_details'>
+                        <i className='iconfont icon-_'></i>
+                        <input 
+                        onChange={this.changeTel}                            
+                        type='tel' 
+                        name='utel' 
+                        placeholder='请输入手机号'/>
+                    </p>
+                    <p className='message_details'>
+                        <i className='iconfont icon-queren'></i>
+                        <input
+                        onChange={this.changePass}                            
+                        type='password' 
+                        name='pass' 
+                        placeholder='请确认密码'/>
+                    </p>
+                    <button className='message_but'>
+                        <Link to='/menus/resign'>返回</Link>
+                    </button>
+                    <button onClick={this.buttonPost} className='message_but' type='submit'>提交</button>
                 </div>
             </div>
         )
