@@ -43,23 +43,24 @@ export default class Child extends Component {
     }
     componentDidUpdate(prevProps,prevState){
         console.log('更新')
-        fetch(`http://localhost:3001/child/changebackground`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`childsid=${Number(this.state.child_id)}&background=${this.state.cindex_src}`
-        })
-        .then(res=>res.json())
-        .then(json=>(
-            console.log('54',json)
-        ))
+        // fetch(`http://localhost:3001/child/changebackground`,{
+        //     method:'POST',
+        //     mode:'cors',
+        //     headers:{
+        //         'Content-Type':"application/x-www-form-urlencoded"
+        //     },
+        //     body:`childsid=${Number(this.state.child_id)}&background=${this.state.cindex_src}`
+        // })
+        // .then(res=>res.json())
+        // .then(json=>(
+        //     console.log('54',json)
+        // ))
     }
     upfile=()=>{
         var file=document.getElementById('img').files[0];
         var url = 'http://localhost:3001/img';
         var form = new FormData();
+        var img='';
         form.append("file",file);
         fetch(url,{
             method:'POST',
@@ -68,9 +69,25 @@ export default class Child extends Component {
         .then(res=>res.json())
         .then(res=>(
             console.log(res.path),
+            img=res.path,
             this.setState({
                 cindex_src:res.path
+            },()=>{
+                localStorage.setItem('cbackground',JSON.stringify(this.state.cindex_src))
             })
+        ))
+
+        fetch(`http://localhost:3001/child/changebackground`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`childsid=${Number(this.state.child_id)}&background=${img}`
+        })
+        .then(res=>res.json())
+        .then(json=>(
+            console.log('传文件',json)
         ))
         
     }
