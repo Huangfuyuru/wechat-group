@@ -8,12 +8,6 @@ export default class My extends Component {
         super();
         var umsg = JSON.parse(localStorage.getItem('umsg'));
         this.state={
-            // message:[{
-            //     msg1:'Dior',
-            //     msg2:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3183274783,1271682948&fm=26&gp=0.jpg',
-            //     msg3:'女',
-            //     msg4:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg'
-            // }]
             umsg:umsg
         }
         console.log(umsg);
@@ -44,27 +38,23 @@ export default class My extends Component {
                     >我的</span>
                 </NavBar>
                 {/* 个人信息 */}
-                {/* {
-                    this.state.message.map((message)=>( */}
-                        <div className="My_message">
-                            <div className="one">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <img src={this.state.umsg.imgurl}/>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
-                            <div className="two">
-                                <p>
-                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名:&nbsp;&nbsp;&nbsp;
-                                    <span>{this.state.umsg.name}</span>
-                                </p>
-                                <p>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别:&nbsp;&nbsp;&nbsp;
-                                    <span>{this.state.umsg.gender}</span>
-                                </p>
-                            </div>
-                        </div>
-                    {/* ))
-                } */}
+                <div className="My_message">
+                    <div className="one">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <img src={this.state.umsg.imgurl}/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div className="two">
+                        <p>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名:&nbsp;&nbsp;&nbsp;
+                            <span>{this.state.umsg.name}</span>
+                        </p>
+                        <p>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别:&nbsp;&nbsp;&nbsp;
+                            <span>{this.state.umsg.gender}</span>
+                        </p>
+                    </div>
+                </div>
                 <div className="My_body">
                     <div className="one">
                         <div className="line">
@@ -121,13 +111,9 @@ export default class My extends Component {
                     </div>
                 </div>
                 {/* 图片 */}
-                {/* {
-                    this.state.message.map((message)=>( */}
-                        <div className="My_bottom">
-                            <img src={'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg'} />
-                        </div>
-                    {/* ))
-                } */}
+                <div className="My_bottom">
+                    <img src={'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg'} />
+                </div>
             </div>
         )
     }

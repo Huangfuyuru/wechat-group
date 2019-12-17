@@ -17,20 +17,25 @@ export default class LSpictures extends Component {
             fetch(`http://localhost:3001/lover/lpictures/show?loverPhotoListid=${this.state.pid}`)
             .then(res=>res.json())
             .then(json=>{ 
-                if(json.code===1){
-                    this.setState({
-                        tip:"当前相册为空!"
-                    },()=>{
-                        console.log(json)
-                    });
-                }
-                else{
-                    this.setState({
-                        arr:json.msg
-                    },()=>{
-                        console.log("刷新页面后",this.state.arr)
-                    });
-                }
+                this.setState({
+                    arr:json.msg
+                },()=>{
+                    console.log('点击具体相册',json)
+                })
+                // if(json.code===1){
+                //     this.setState({
+                //         tip:"当前相册为空!"
+                //     },()=>{
+                //         console.log(json)
+                //     });
+                // }
+                // else{
+                //     this.setState({
+                //         arr:json.msg
+                //     },()=>{
+                //         console.log("刷新页面后",this.state.arr)
+                //     });
+                // }
             })
     }
     upImages=()=>{
@@ -44,7 +49,8 @@ export default class LSpictures extends Component {
             method:'POST',
             enctype:'multipart/form-data',
             body:form
-        }).then(res=>res.json())
+        })
+        .then(res=>res.json())
         .then(json=>(
             this.setState((state)=>{
                 for(var i=0;i<json.length;i++){
@@ -53,21 +59,20 @@ export default class LSpictures extends Component {
         },()=>{
             
             fetch(`http://localhost:3001/lover/lpictures/laddpictures`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`loverPhotoListid=${this.state.pid}&imgurl=${this.state.upArr}`
-        }).then(res=>res.json())
-        .then(json=>(
-            this.setState({
-                arr:json.msg    
-        },()=>{
-            console.log(json)
-        })
-        ));
-        })
+                method:'POST',
+                mode:'cors',
+                headers:{
+                    'Content-Type':"application/x-www-form-urlencoded"
+                },
+                body:`loverPhotoListid=${this.state.pid}&imgurl=${this.state.upArr}`
+                })
+                .then(res=>res.json())
+                .then(json=>(
+                    this.setState({
+                        arr:json.msg    
+                    })
+                ));
+            })
         ));
     } 
     render() {

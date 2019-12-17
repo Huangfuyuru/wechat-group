@@ -1,21 +1,48 @@
 import React, { Component } from 'react';
 import { Tabs, WhiteSpace,NavBar,Icon,TabBar } from 'antd-mobile';
 import moment from 'moment';
+import '../../css/child.css'
 import {Link} from 'react-router-dom';
-
+import line from '../../image/line2.png'
 export default class Cstudy extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'redTab',
+      selectedTab: 'blueTab',
       hidden: false,
       fullScreen: false,
-      number:[{
-          num1:90,
-          num2:88,
-          num3:93,
-          src1:"https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=774845037,279801609&fm=26&gp=0.jpg",
-      }]
+      lists:[
+        {
+          chinese:'98',
+          math:'100',
+          english:'95',
+          setdate:'12-16'
+        },
+        {
+          chinese:'98',
+          math:'100',
+          english:'95',
+          setdate:'12-16'
+        },
+        {
+          chinese:'98',
+          math:'100',
+          english:'95',
+          setdate:'12-16'
+        },
+        {
+          chinese:'98',
+          math:'100',
+          english:'95',
+          setdate:'12-16'
+        },
+        {
+          chinese:'98',
+          math:'100',
+          english:'95',
+          setdate:'12-16'
+        },
+      ]
     };
   }
   // 加载外部数据用componentDidMount
@@ -26,9 +53,8 @@ export default class Cstudy extends Component {
     .then((res)=>{
         this.setState({data:res.data});
     })
-}
-  //setState()结束之后都会自动调用componentDidUpdate()
-  //如果有更新会进componentDidUpdate里面
+  }
+
   componentDidUpdate(Props,State){
     if(Props.location.search !== this.props.location.search){
         let path = this.props.match.params.id
@@ -43,34 +69,41 @@ export default class Cstudy extends Component {
     render() {
         return (
             //学业记录
-            <div className="All">
+            <div className="cstudy">
                 <NavBar
-                    style={{
-                      background:'#FFBF2D',
-                      height:'8vh',
-                      color:'#fff',
-                      fontWeight:'bolder',
-                    }}
-                    mode="light"
-                    icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/index/child')}
-                    ><span style={{
-                        fontWeight:'bold',
-                        fontSize:'6vw',
-                        textIndent:'3vw',
-                        letterSpacing:'3vw',
-                        color:"white"
-                    }}
-                    >学业记录</span>
+                  style={{
+                    top:0,
+                    width:'100%',
+                    zIndex:'11',
+                    position:'fixed',
+                    height:'8vh',
+                    background:'#FFBF2D',
+                    color:'#fff',
+                    fontWeight:'bolder',
+                  }}
+                  mode="light"
+                  icon={'𡿨'}
+                  onLeftClick={() => this.props.history.push('/index/child')}
+                  ><span style={{
+                      fontWeight:'bold',
+                      fontSize:'6vw',
+                      textIndent:'3vw',
+                      letterSpacing:'3vw',
+                      color:"white"
+                  }}
+                  >学业记录</span>
                 </NavBar>
                 {/* Tabs组件 
                 <TabExample />  */}
-                 <div style={{ 
-                    position: 'fixed', 
-                    height: '100%', 
-                    width: '100%', 
-                    top: '50px'
-                    }}>
+                 <div 
+                 style={{ 
+                  position:'fixed',
+                  height:'100%',
+                  width:'100%',
+                  top:'8vh',
+                  zIndex:'10',
+                  marginTop:'0.5vh',
+                  }}>
                     <TabBar
                     tabBarPosition="top"
                     unselectedTintColor="#808080"
@@ -82,12 +115,12 @@ export default class Cstudy extends Component {
                         key="index"
                         icon={
                         <i
-                        className='iconfont icon-qinzi'
+                        className='iconfont icon-jiluliebiao'
                         />
                         }
                         selectedIcon={
                         <i
-                        className='iconfont icon-qinzi'
+                        className='iconfont icon-jiluliebiao'
                         />
                         }
                         selected={this.state.selectedTab === 'blueTab'}
@@ -98,41 +131,51 @@ export default class Cstudy extends Component {
                         }}
                     >
                       {/* 记录列 */}
-                      {
-                        this.state.number.map((number)=>(
-                          <div style={{ display: 'flex',flexDirection:"column", height: '100%', backgroundColor: '#fff' }}>
-                            <div className="Write_">
-                              <p>数学：<span>{number.num1}&nbsp;&nbsp;</span>英语：<span>{number.num2}</span></p>
-                              <p className="one">日期：{moment().format('YYYY-MM-DD')}</p>
-                            </div>
-                            <div className="Write_">
-                              <p>数学：<span>{number.num3}&nbsp;&nbsp;</span>英语：<span>{number.num2}</span></p>
-                              <p className="one">日期：{moment().format('YYYY-MM-DD')}</p>
-                            </div>
-                            <div className="Write_">
-                              <p>数学：<span>{number.num2}&nbsp;&nbsp;</span>英语：<span>{number.num1}</span></p>
-                              <p className="one">日期：{moment().format('YYYY-MM-DD')}</p>
-                            </div>
-                            <Link to='/child/cstudy/ccstudy'>
-                              <div className="Cloud_add">
-                                <div>-------------------------------------------------------------</div>
-                                <a href="#" target="_blank"><img className="Cloud_img" src={require("../../image/add.png")}/></a>
+                      <div className='cstudy_inner'>
+
+                        {
+                          this.state.lists&&this.state.lists.map((item)=>(
+                              <div className='cgrowup_block'
+                              style={{
+                                border:'1px solid #FFBF2D',
+                                height:'20vh',
+                                borderRadius:'10px',
+                                marginTop:'2vh',
+                                marginBottom:'2vh',
+                                paddingTop:'3vh'
+                              }} >
+                                  <i className='iconfont icon-shanchu1'></i>
+                                  <li>语文：{item.chinese}</li>
+                                  <li>数学：{item.math}</li>
+                                  <li>英语：{item.english}</li>
+                                  <p>添加日期：{item.setdate}</p>
                               </div>
-                            </Link>
-                          </div>
-                           ))
+                            ))
+                        }
+                      </div>
+
+                      <div className='cgrowup_add'>
+                        <p></p>
+                        <Link
+                        to={{
+                          pathname:'/child/cstudy/ccstudy',
+                          state:{
+                            cid:this.state.cid
                           }
+                        }}
+                        ><i className='iconfont icon-jia'></i></Link>
+                      </div>
                     </TabBar.Item>
                     
                     <TabBar.Item
                         icon={
                         <i
-                        className='iconfont icon-aiqing'
+                        className='iconfont icon-chengjifenxi'
                         />
                         }
                         selectedIcon={
                         <i
-                        className='iconfont icon-aiqing'
+                        className='iconfont icon-chengjifenxi'
                         />
                         }
                         title="成绩曲线"
@@ -145,15 +188,12 @@ export default class Cstudy extends Component {
                         }}
                     >
                       {/* 成绩曲线 */}
-                      {
-                        this.state.number.map((number)=>(
-                          <div style={{ display: 'flex', flexDirection:"column",height: '100%', backgroundColor: '#fff' }}>
-                            <div className="Write_two">
-                              <img src={number.src1}/>
-                            </div>
-                          </div>
-                        ))
-                      }
+                      <div className='cstudy_inner'>
+                        <img style={{
+                          marginTop:'10vh',
+                          width:"100%"
+                        }} src={line}/>
+                      </div>
                     </TabBar.Item>
                     </TabBar>
                 </div>

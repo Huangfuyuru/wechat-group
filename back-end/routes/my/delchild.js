@@ -26,6 +26,7 @@ router.get('/confirm',async function(req,res,next){
     console.log(cid);
     var arr = [];
     async function delChild(cid){
+        
         var childAdolesce = await childAdolesceM.delAllByCid(cid);
         var childGrow = await childGrowM.delAllByCid(cid);
         var childDiary = await childDiaryM.delAllByCid(cid);
@@ -35,14 +36,19 @@ router.get('/confirm',async function(req,res,next){
             var child = await childM.delChild(cid);
             var data = await childM.findIdByUid(uid);
         }else{
-            childPhotoList.map(async (item)=>{
-                await childPhotoM.delAllByPid(item.id);
-            })
+            await Promise.all(childPhotoList.map(async function(item){
+                await childPhotoM.delChildPhoto(JSON.parse(item));
+            }))
             await childPhotoListM.delAllByCid(cid);
             var child = await childM.delChild(cid);
-            var data = await childM.findIdByUid(uid)
+            var data = await childM.findIdByUid(uid);
+        }        
+        if(data == 1){
+            var message = {code:0,msg:"删除成功",data:[]};
+        }else{
+            var message = {code:0,msg:"删除成功",data:data};
         }
-        var message = {code:0,msg:"删除成功",data:data};
+        
         res.json(message)
     }
     delChild(cid);

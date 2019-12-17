@@ -95,7 +95,7 @@ export default class Use extends Component {
                     >设置</span>
                 </NavBar>
                 <div style={{width:"100%",height:"10px",marginTop:"15%"}}></div>
-                <p style={{}}>
+                <p className="img">
                     <i className='iconfont icon-touxiangshangchuan'></i>  
                     <span>轻触上传头像<input 
                     id='img'
