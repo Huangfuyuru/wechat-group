@@ -21,7 +21,6 @@ export default class Child extends Component {
     }
     componentDidMount(){
         console.log('第一次加载');
-        console.log(localStorage.getItem('cid'))
         fetch(`http://localhost:3001/child`,{
             method:'POST',
             mode:'cors',
@@ -31,6 +30,7 @@ export default class Child extends Component {
             body:`uid=${this.state.uid}`
         }).then(res=>res.json())
         .then(json=>{
+            console.log('json',json)
             this.setState({
                 child_id:JSON.parse(localStorage.getItem('cid'))||json[0].id,
                 cindex_src:JSON.parse(localStorage.getItem('cbackground'))||json[0].background,
@@ -41,22 +41,21 @@ export default class Child extends Component {
             });
         })
     }
-    // componentDidUpdate(prevProps,prevState){
-    //     console.log('更新')
-
-    //     fetch(`http://localhost:3001/child/changebackground`,{
-    //         method:'POST',
-    //         mode:'cors',
-    //         headers:{
-    //             'Content-Type':"application/x-www-form-urlencoded"
-    //         },
-    //         body:`childsid=${Number(this.state.child_id)}&background=${this.state.cindex_src}`
-    //     })
-    //     .then(res=>res.json())
-    //     .then(json=>(
-    //         console.log('54',json)
-    //     ))
-    // }
+    componentDidUpdate(prevProps,prevState){
+        console.log('更新')
+        fetch(`http://localhost:3001/child/changebackground`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`childsid=${Number(this.state.child_id)}&background=${this.state.cindex_src}`
+        })
+        .then(res=>res.json())
+        .then(json=>(
+            console.log('54',json)
+        ))
+    }
     upfile=()=>{
         var file=document.getElementById('img').files[0];
         var url = 'http://localhost:3001/img';
@@ -73,9 +72,9 @@ export default class Child extends Component {
                 cindex_src:res.path
             })
         ))
-        
     }
     changeChild=(id,background)=>{
+        console.log(id,background)
         this.setState({
             child_id:id,
             menu_count:this.state.menu_count+1,
