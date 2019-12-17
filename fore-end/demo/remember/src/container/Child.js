@@ -80,18 +80,6 @@ export default class Child extends Component {
         ))
 
         console.log(img)
-        // fetch(`http://localhost:3001/child/changebackground`,{
-        //     method:'POST',
-        //     mode:'cors',
-        //     headers:{
-        //         'Content-Type':"application/x-www-form-urlencoded"
-        //     },
-        //     body:`childsid=${Number(this.state.child_id)}&background=${img}`
-        // })
-        // .then(res=>res.json())
-        // .then(json=>(
-        //     console.log('传文件',json)
-        // ))
         
     }
     changeChild=(id,background)=>{

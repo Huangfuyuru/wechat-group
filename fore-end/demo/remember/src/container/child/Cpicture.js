@@ -48,7 +48,7 @@ export default class Cloud extends Component {
             this.setState({
                 lists:res.data,
                 code:res.msg
-            });
+            }); 
         })
     }
     render() {

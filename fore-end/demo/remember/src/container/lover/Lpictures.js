@@ -10,11 +10,7 @@ export default class Lpictures extends Component {
         this.state={
           lover_id:lid,
           arr:[],
-          loverPhotoListid:"",
-          image:[
-            "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg",
-            "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg"
-          ]
+          loverPhotoListid:""
         }
   }
   componentDidMount(){
@@ -72,16 +68,20 @@ delPhoto=()=>{
                 {
                   this.state.arr&&this.state.arr.map((index)=>(
                 <div className="loveImage-header"> 
-                <Link to={{
-                    pathname:"/lover/lspictures",
-                    state:{
-                      id:index.id
+                  <div 
+                  onClick={()=>{
+                    var lpicture={
+                      lname:index.name,
+                      lid:index.id
                     }
-                    }} style={{color:"black"}}> 
-                    <div style={{height:"80%",width:"94%",margin:"2% 0 0% 3%",border:"solid 0.5px #888888"}} >              
-                 <img  style={{height:"100%",width:"100%"}} alt="" src={index.background}/>
-                 </div>  
-                 </Link> 
+                    localStorage.setItem('lpicture',JSON.stringify(lpicture));
+                    this.props.history.push('/lover/lspictures')
+                    }}
+                 style={{color:"black"}}> 
+                      <div style={{height:"80%",width:"94%",margin:"2% 0 0% 3%",border:"solid 0.5px #888888"}} >              
+                        <img  style={{height:"100%",width:"100%"}} alt="" src={index.background}/>
+                      </div>  
+                  </div> 
                  <div value={index.id}> 
                   <p style={{fontSize:"5vw",float:"left",margin:"2% 0% 0 5%"}}>{index.name}</p>
                   <img  style={{color:"#C7C7CC",fontSize:"8vw" ,float:"right",marginRight:"2%"}} 
