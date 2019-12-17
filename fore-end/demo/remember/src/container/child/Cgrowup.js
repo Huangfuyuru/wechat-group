@@ -3,7 +3,8 @@ import { Tabs, WhiteSpace,NavBar,Icon,TabBar } from 'antd-mobile';
 import {Link} from 'react-router-dom';
 import moment from 'moment';
 import '../../css/child.css'
-
+import line1 from '../../image/line3.png'
+import line2 from '../../image/line4.png'
 export default class Write extends Component {
   constructor(props) {
     super(props);
@@ -85,9 +86,16 @@ export default class Write extends Component {
             >成长记录</span>
           </NavBar>
             {/* Tabs组件 */}
-          <div style={{position:'fixed',height:'100%',width:'100%',top:'8vh',zIndex:'10'}}>
+          <div style={{
+            position:'fixed',
+            height:'100%',
+            width:'100%',
+            top:'8vh',
+            zIndex:'10',
+            marginTop:'0.5vh',
+            }}>
             <TabBar
-            unselectedTintColor="#808080" 
+            unselectedTintColor="#808080"
             tintColor="#FFBF2D" 
             barTintColor="white" 
             tabBarPosition="top">
@@ -95,10 +103,10 @@ export default class Write extends Component {
                 title="记录列"
                 key="index"
                 icon={
-                  <i className='iconfont icon-qinzi'/>
+                  <i className='iconfont icon-jiluliebiao'/>
                 }
                 selectedIcon={
-                  <i className='iconfont icon-qinzi'/>
+                  <i className='iconfont icon-jiluliebiao'/>
                 }
                 selected={this.state.selectedTab === 'blueTab'}
                 onPress={() => {
@@ -207,10 +215,10 @@ export default class Write extends Component {
 
             <TabBar.Item
               icon={
-                <i className='iconfont icon-aiqing'/>
+                <i className='iconfont icon-qinziAPPtubiao-'/>
               }
               selectedIcon={
-                <i className='iconfont icon-aiqing'/>
+                <i className='iconfont icon-qinziAPPtubiao-'/>
               }
               title="身高曲线"
               key="idea"
@@ -223,16 +231,19 @@ export default class Write extends Component {
             >
             {/* 身高曲线 */}
             <div className='cgrowup_inner'>
-                
-              </div>
+                <img style={{
+                  width:"100%",
+                  marginTop:'10vh'
+                }} src={line1}/>
+            </div>
           </TabBar.Item>
 
           <TabBar.Item
             icon={
-              <i className='iconfont icon-haoyou'/>
+              <i className='iconfont icon-tizhong'/>
             }
             selectedIcon={
-              <i className='iconfont icon-haoyou'/>
+              <i className='iconfont icon-tizhong'/>
             }
             title="体重曲线"
             key="mall"
@@ -245,8 +256,11 @@ export default class Write extends Component {
           >
           {/* 体重曲线 */}
           <div className='cgrowup_inner'>
-               
-              </div>
+            <img style={{
+              width:"100%",
+              marginTop:'10vh'
+            }} src={line2}/>
+          </div>
           </TabBar.Item>
         </TabBar>
       </div>
