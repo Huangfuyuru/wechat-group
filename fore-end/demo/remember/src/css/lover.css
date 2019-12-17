@@ -653,3 +653,19 @@
   height: 30%;
   color: rgb(148, 145, 145);
 }
+
+.cpicture_inner{
+  margin-top: 10vh;
+  text-align: center;
+  padding-bottom: 10vh;
+}
+.cpicture_block{
+  margin: 1.5vh auto;
+  display: inline-block;
+  width: 90vw;
+  height: 40vh;
+  border:1px solid #ccc;
+}
+.cpicture_block i{
+  font-size: 8vw;
+}

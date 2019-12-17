@@ -9,7 +9,7 @@ export default class Lcreate_photo extends Component{
         this.state={
             lover_id:lid,
             name:"",
-            background:"",
+            background:"http://img3.imgtn.bdimg.com/it/u=4100812006,4207999617&fm=26&gp=0.jpg",
             code:"",
         }
     }
@@ -64,52 +64,75 @@ export default class Lcreate_photo extends Component{
     }
     render() {
         return (
-            <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
-           <NavBar 
-                 style={{
-                     background:'#FFBF2D',
-                     height:'8vh',
-                     color:'#fff',
-                     fontWeight:'bolder',
-                     zIndex:'11',
-                     position:'fixed',
-                     width:'100%',
-                     left:0,
-                     top:0
+            <div className='ccpicture'>
+                <NavBar 
+                style={{
+                    background:'#FFBF2D',
+                    height:'8vh',
+                    color:'#fff',
+                    fontWeight:'bolder',
+                    zIndex:'11',
+                    position:'fixed',
+                    width:'100%',
+                    left:0,
+                    top:0
                     }}
                     mode="light"
                     icon={'𡿨'}
                     onLeftClick={() => this.props.history.push('/lover/lpictures')}
-                 ><span style={{
-                     color:'#fff',
-                     fontWeight:'bold',
-                     fontSize:'6vw',
-                     textIndent:'3vw',
-                     letterSpacing:'3vw'}}>创建相册</span>
+                ><span style={{
+                    color:'#fff',
+                    fontWeight:'bold',
+                    fontSize:'6vw',
+                    textIndent:'3vw',
+                    letterSpacing:'3vw'}}>创建相册</span>
                 </NavBar>
-            <div className="photo-first">
-                  <p >相册名称:</p>
-                  <input  type="text" placeholder="please input" onChange={this.getName}/>
-                  </div>
-                  <div className="cover-div" >
-                    <span className="cover-font">轻触上传相册封面</span>
-                    <input  
-                        className="cover"
-                        id="back"  
-                        onChange={this.upBack}
+            <div className='ccpicture_inner'>
+                    <div className='ccpicture_name'>
+                        相册名称：
+                        <input 
+                        onChange={this.getName} 
+                        type="text" 
+                        placeholder="单行输入"/>
+                    </div>
+                    <div>
+                        <span 
+                        style={{
+                            zIndex:'10',
+                            display:'inline-block',
+                            width:'45vw',
+                            lineHeight:'6vh',
+                            height:'6vh',
+                            fontSize:'6.5vw',
+                            top:'28vh',
+                            left:'28vw',
+                            position:'absolute',
+                            color:'#000',
+                            background:'rgb(255,191,45,0.2)'
+                        }}>轻触上传封面<input 
+                        id='img'
+                        onChange={this.upBack}                           
                         type='file'  
                         accept="image/*" 
                         capture="camera" 
-                        name="imgurl"
-                        multiple="multiple"
-                        alt=""/>
+                        name='uimage' 
+                        /></span>
+                        <span
+                        style={{
+                            display:'inline-block',
+                            position:'relative',
+                            top:'13vh',
+                            right:'0vw',
+                            height:'15vh',
+                            width:'45vw',
+                            margin:'0',
+                            background:`url(${this.state.backgroundurl}) center center/cover no-repeat`
+                        }}>
+                        </span>
                     </div>
-                    <div id="yuBack" style={{height:"20%",width:"40%",float:"left",marginLeft:"30%"}}>
-                        <img id="background" style={{width:"100%",height:"100%"}} src="http://img3.imgtn.bdimg.com/it/u=4100812006,4207999617&fm=26&gp=0.jpg" alt="封面预览"/>
-                    </div>
-                  <WingBlank>
-               <button className="photo-foot" onClick={this.upPhoto}>创建相册</button>
-               </WingBlank>
+                    {/* 点击创建 */}
+                    <button onClick={this.ccpicturePost} className='alladd_button'>创建相册</button>
+            </div>
                
                <form id='upsoundwarn'>
                     <div>{this.state.code}</div>
