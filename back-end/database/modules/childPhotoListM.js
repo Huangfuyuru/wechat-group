@@ -8,6 +8,7 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addChildPhotoList(text){
+    console.log(text)
     let sql = 'insert into childPhotoList(name,cid,background) values ($1,$2,$3)';
     let ret = await pgdb.query(sql,[text.name,text.cid,text.background]);
     if(ret.rowCount<=0){

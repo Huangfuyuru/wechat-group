@@ -29,11 +29,33 @@ export default class Delrelation2 extends Component {
             list3:this.state.list4.split(','),
           });
         }
+<<<<<<< HEAD
         var last=json.length-1;
         this.state.list[last]=json[last].name;
         console.log(this.state.list);
     })
   }
+=======
+    }
+    componentDidMount(){
+      fetch(`http://localhost:3001/my/delchild?uid=${this.state.uid}`)
+      .then(res=>res.json())
+      .then(json=>{ 
+        console.log('json',json);
+        console.log(json.length);
+          for(var i=0;i<json.length;i++){
+            this.setState({
+              list2:this.state.list2+json[i].name+',',
+              list:this.state.list2.split(','),
+              list4:this.state.list4+json[i].id+',',
+              list3:this.state.list4.split(',')
+            });
+          }
+          console.log(this.state.list);
+      })
+      // 获取code
+    }
+>>>>>>> 23a9b5a4e743d09bbc05d6f7e2a937d969d9ea4e
   bounce=(index)=>{
     // 弹出选择框
     this.state.a=index;

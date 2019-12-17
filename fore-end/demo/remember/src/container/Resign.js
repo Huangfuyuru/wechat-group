@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
 import '../css/login.css'
-import { nodeInternals } from 'stack-utils';
-import { nonsense } from 'antd-mobile/lib/picker';
 export default class Resign extends Component {
     constructor(){
         super();
@@ -18,28 +15,23 @@ export default class Resign extends Component {
         this.setState({
             tel:e.target.value
         })
-        // console.log(this.state.tel)
     }
     changeConfirm=(e)=>{
         this.setState({
             confirm:e.target.value
         })
-        // console.log(this.state.tel)
     }
     changePasswd=(e)=>{
         this.setState({
             passwd:e.target.value
         })
-        // console.log(this.state.tel)
     }
     changePass=(e)=>{
         this.setState({
             conpass:e.target.value
         })
-        // console.log(this.state.tel)
     }
     buttonPost=()=>{
-        // console.log(this.state.tel)
         var warn=document.getElementById('warn');
         fetch('http://localhost:3001/resign/confirm',{
             method:'POST',
@@ -117,7 +109,6 @@ export default class Resign extends Component {
                     placeholder='请确认密码'/>
                 </p>
                 <button onClick={this.post} className='but' type='submit'>
-                    {/* <Link className='but' to='/resign/message'>立即注册</Link> */}
                     立即注册
                 </button>
                 <li>注册即同意《用户协议》</li>

@@ -22,7 +22,7 @@ router.get('/',async function(req,res,next){
     }else{
         info ={
             code:1,
-            msg:'获取爱人相册信息失败'
+            msg:null
         }
         res.json(info)
 
@@ -31,7 +31,7 @@ router.get('/',async function(req,res,next){
 
 //点击具体相册
 router.get('/show',async function(req,res,next){
-    console.log('点击具体相册',req.query);
+    console.log('点击具体相册');
     var photoListid = Number(req.query.loverPhotoListid);
     // console.log(photoListid);
     var data = await lover.loverPhotoM.findByPid(photoListid);
@@ -54,11 +54,13 @@ router.get('/show',async function(req,res,next){
 
 router.post('/lcpictures',async function(req,res,next){
     console.log('添加相册');
+    // console.log(req.body);
     var lid = Number(req.body.loverid);
         name = req.body.name,
         text={
             lid:lid,
-            name:name
+            name:name,
+            background:req.body.background
         }
     var addPList =  await lover.loverPhotoListM.addLoverPhotoList(text);
     if(addPList === 0){
@@ -68,6 +70,7 @@ router.post('/lcpictures',async function(req,res,next){
             msg:data
         }
         res.json(info);
+        
     }else{
         info={
             code:1,
@@ -118,36 +121,65 @@ router.get('/lrpictures',async function(req,res,next){
 //增加照片
 router.post('/laddpictures',async function(req,res,next){
     console.log('添加照片');
-    console.log('req.bosy',req.body)
     var lPLid = Number(req.body.loverPhotoListid),
-        imgs = req.body.imgurl;
-    var text = {
-        lid:lPLid,
-        imgurl:imgs
-    };
-    var addPhoto = await lover.loverPhotoM.addLoverPhoto(text);
-    if(addPhoto === 0){
-        var data= await lover.loverPhotoM.findByPid(lPLid);
-        console.log(addPhoto,'data',data)
+        img =req.body.imgurl;
+    var imgs = img.split(',');
+    console.log('imgs',imgs);
+    console.log(req.body)
+
+    imgs.map(async function(item){
+        var text = {
+            pid:lPLid,
+            imgurl:item
+        };
+        await lover.loverPhotoM.addLoverPhoto(text);
+    })
+    var data= await lover.loverPhotoM.findByPid(lPLid);
+    if(data !== 1){
         info={
             code:0,
             msg:data
         }
         res.json(info);
-        console.log(info)
     }else{
         info={
             code:1,
             msg:'增加相片失败'
         }
         res.json(info);
-    }    
+    }
+    console.log(data);
+    // for(var i=0;i<imgs.length;i++){
+    //     var text = {
+    //         pid:lPLid,
+    //         imgurl:imgs[i]
+    //     };
+    //     var addPhoto = 
+    // }
+    // if(addPhoto === 0){
+    //     var data= await lover.loverPhotoM.findByPid(lPLid);
+    //     console.log(addPhoto,'data',data)
+    //     info={
+    //         code:0,
+    //         msg:data
+    //     }
+    //     res.json(info);
+    // }else{
+    //     info={
+    //         code:1,
+    //         msg:'增加相片失败'
+    //     }
+    //     res.json(info);
+    // }
+    
+    
 });
 
 router.post('/ldelpictures',async function(req,res,next){
+    console.log('删除照片')
     var lPLid = Number(req.body.loverPhotoListid),
         lPid = Number(req.body.loverPhotoid)
-    var delPhoto = await lover.loverPhotoM.delLoverPhoto('lPid');
+    var delPhoto = await lover.loverPhotoM.delLoverPhoto(lPid);
     if(delPhoto === 0){
         var data = await lover.loverPhotoM.findByPid(lPLid);
         info={

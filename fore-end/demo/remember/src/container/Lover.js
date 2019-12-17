@@ -34,27 +34,17 @@ export default class lover_home extends Component {
         .then(res=>res.json())
         .then(json=>{ 
             this.setState({
-                lover_id:json[0].id,
+                lover_id:JSON.parse(localStorage.getItem('lid'))||json[0].id,
                 lover_name:json[0].name,
-                cindex_src:json[0].background
+                cindex_src:JSON.parse(localStorage.getItem('lbackground'))||json[0].background
             },()=>{
                 localStorage.setItem('lid',JSON.stringify(this.state.lover_id))
+                localStorage.setItem('lbackground',JSON.stringify(this.state.cindex_src))
             }
             );
         })
     }
     
-    componentDidUpdate(prevProps,prevState){
-        if(prevState !== this.state){
-            // console.log('BJ',this.state.cindex_src)
-            // console.log('id',this.state.child_id)
-            fetch(`http://localhost:3001/lover/changebackground?loverid= ${this.lover_id}&background =${this.state.cindex_src}`)
-            .then(res=>res.json())
-            .then(json=>(
-                console.log(json)
-            ))
-        }
-    }
     upfile=()=>{
         var file=document.getElementById('img').files[0];
         var url = 'http://localhost:3001/img';
@@ -64,7 +54,10 @@ export default class lover_home extends Component {
             method:'POST',
             body:form
         }).then(res=>res.json())
-        .then(res=>(this.setState({cindex_src:res.path})))
+        .then(res=>(this.setState({
+            cindex_src:res.path},()=>{
+                localStorage.setItem('lbackground',JSON.stringify(this.state.cindex_src))
+            })))
     }
     render() {
         return (

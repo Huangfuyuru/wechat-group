@@ -8,28 +8,38 @@ export default class Lsouvenir extends Component {
         var lid = JSON.parse(localStorage.getItem('lid'));
         this.state={
             lover_id:lid,
+            loverImpDateid:"",
+            code:"",
             arr:[]
         }
     }
     componentDidMount(){
-        
         fetch(`http://localhost:3001/lover/lsouvenir?loverid=${this.state.lover_id}`)
         .then(res=>res.json())
         .then(json=>{ 
             this.setState({
-                arr:json
+                arr:json.msg
+            },()=>{
+                console.log(json);
             });
         })
     }
-    delSou=(lid,sid)=>{
+    delSou=()=>{
         console.log("删除")
-        fetch(`http://localhost:3001/lover/lsouvenir/delSouvenir?loverid=${lid}&loverImpDateid=${sid}`)
+        fetch(`http://localhost:3001/lover/lsouvenir/delSouvenir?loverid=${this.state.lover_id}&loverImpDateid=${this.state.loverImpDateid}`)
         .then(res=>res.json())
         .then(json=>{ 
+            if(json.code===0){
             this.setState({
-                arr:json.msg
+                arr:json.msg,
+                code:"删除成功！"
             });
+        }
         })
+        var dellsound=document.getElementById('dellsound');
+        dellsound.style.display='none';
+        var csoundagain=document.getElementById('csoundagain');
+        csoundagain.style.display='block';
     }
     render() {
         return (
@@ -60,16 +70,76 @@ export default class Lsouvenir extends Component {
                 <h2></h2>
               {/* <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1996765656,1986455071&fm=26&gp=0.jpg" alt="" style={{height:"40%",width:"92%",margin:"4% 0 0 4%"}}></img> */}
                {
-                   this.state.arr.map((item)=>(
-                    <div className="loversou-first" style={{}}>
+                   this.state.arr&&this.state.arr.map((item)=>(
+                    <div className="loversou-first"  value={item.id}>
                     <img  src={item.imgurl} alt=""  style={{float:"left",height:"100%",width:"50%"}}></img>
                     <h2 style={{marginTop:"8%",textAlign:"center"}}>{item.name}</h2>
                     <p style={{fontSize:"5vw" ,margin:"0 0 0 10%",float:"left"}}>{item.date.split("T")[0]}</p>
                      {/* <textarea style={{fontSize:"5vw",float:"right",width:"53%",height:"80%",border:"0.5px solid #888888"}} readonly="readonly">{item.content}</textarea> */}
-                   <img alt="" src={require("../../image/la.jpg")} style={{float:"right"}}  onClick={()=>this.delSou(item.lid,item.id)}/>
+                   <img alt="" src={require("../../image/la.jpg")} style={{float:"right"}} 
+                   onClick={(e)=>{
+                    var itemid = e.target.parentNode.getAttribute('value');
+                    this.setState({
+                        loverImpDateid:itemid
+                    })
+                    var dellsound=document.getElementById('dellsound');
+                    dellsound.style.display='block';
+                    }} 
+                   />
                     </div>
                    ))
                }
+
+            <div id='dellsound'>
+                    <div>确定删除？</div>
+                    <button 
+                    onClick={()=>{
+                        var dellsound=document.getElementById('dellsound');
+                        dellsound.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw',
+                        marginRight:'10vw'
+                    }}>返回</button>
+                    <button 
+                    onClick={this.delSou}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                </div>
+                <div id='csoundagain'>
+                <div>{this.state.code}</div>
+                    <button 
+                    onClick={()=>{
+                        var csoundagain=document.getElementById('csoundagain');
+                        csoundagain.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                 </div>   
+          
                <div className='allpage_add'>
                     <p></p>
                     <Link

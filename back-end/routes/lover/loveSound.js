@@ -24,10 +24,9 @@ router.get('/',async function(req,res,next){
     }else{
         info ={
             code:1,
-            msg:'传入的爱人lid有误'
+            msg:null
         }
         res.json(info);
-
     }
 })
 
@@ -66,20 +65,19 @@ router.get('/lrsound',async function(req,res,next){
     var lid = Number(req.query.loverid),
     id = Number(req.query.loverVoiceid);
     var delvoice = await lover.loverVoiceM.delLoverVoice(id);
-    if(delvoice === 0){
-        var data = await lover.loverVoiceM.findByLid(lid);
-        info={
+    var data = await lover.loverVoiceM.findByLid(lid);
+    if(data !== 1){
+        info ={
             code:0,
             msg:data
         }
         res.json(info);
     }else{
-        info={
+        info ={
             code:1,
-            msg:'删除语音失败'
+            msg:null
         }
         res.json(info);
-
     }
 })
 module.exports = router;

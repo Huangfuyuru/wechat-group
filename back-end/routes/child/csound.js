@@ -43,13 +43,20 @@ router.get('/crsound',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var childVoiceid = Number(request.childVoiceid);
-    console.log('xxx',childsid,childVoiceid)
-    await childVoiceM.delChildVoice(childVoiceid);
+    var data1 = await childVoiceM.delChildVoice(childVoiceid);
     var data = await childVoiceM.findByCid(childsid);
-    if(data == 1){
-        var message = {data:[],msg:"删除失败"}
+    if(data1 == 1){
+        if(data == 1){
+            var message = {data:null,msg:"删除失败"}
+        }else{
+            var message = {data:data,msg:"删除失败"}
+        }
     }else{
-        var message = {data:data,msg:"删除成功"}
+        if(data == 1){
+            var message = {data:null,msg:"删除成功"}
+        }else{
+            var message = {data:data,msg:"删除成功"}
+        }
     }
     res.json(message)
 })

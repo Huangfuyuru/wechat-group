@@ -55,7 +55,7 @@
 }
 
 .child_second {
-    margin-top: 2vw;
+    margin-top: 2vh;
     padding: 0 5vw;
     text-align: center;
 }
@@ -165,6 +165,54 @@
     font-size: 8vw;
 
 }
+#delcpicture{
+    display: none;
+    text-align: center;
+    border-radius: 20px;
+    background:rgba(255,191,45,0.4);
+    position: fixed;
+    top:28vh;
+    width: 80%;
+    height: 30vh;
+    z-index: 100;
+    margin-left: 10vw;
+}
+#delcpicture div{
+    text-align: center;
+    padding:4vh 5vw;
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 30%;
+    color: rgb(148, 145, 145);
+}
+#cpictureagain{
+    display: none;
+    text-align: center;
+    border-radius: 20px;
+    background:rgba(255,191,45,0.4);
+    position: fixed;
+    top:28vh;
+    width: 80%;
+    height: 30vh;
+    z-index: 100;
+    margin-left: 10vw;
+}
+#cpictureagain div{
+    text-align: center;
+    padding:4vh 5vw;
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 30%;
+    color: rgb(148, 145, 145);
+}
 /* 创建相册 */
 .ccpicture_inner{
     margin-top: 15vh;
@@ -261,36 +309,53 @@
 }
 #delpicsconfirm{
     display: none;
-    padding: 2vh 0;
-    border-radius: 10px;
-    position: absolute;
-    top: 25vh;
-    left: 10vw;
-    width: 80vw;
-    height: 20vh;
-    background:rgba(255,191,45,0.8);
+    text-align: center;
+    border-radius: 20px;
+    background:rgba(255,191,45,0.4);
+    position: fixed;
+    top:28vh;
+    width: 80%;
+    height: 30vh;
+    z-index: 100;
+    margin-left: 10vw;
 }
 #delpicsconfirm div{
-    position: relative;
-    padding: 2vh 20%;
-    margin: 0 auto;
     text-align: center;
-    font-size: 6vw;
-    width: 40%;
-    height: 40%;
+    padding:4vh 5vw;
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
     background: #fff;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 30%;
+    color: rgb(148, 145, 145);
 }
-#delpicsconfirm button{
-    border: none;
+#picsconfirmagain{
+    display: none;
+    text-align: center;
+    border-radius: 20px;
+    background:rgba(255,191,45,0.4);
+    position: fixed;
+    top:28vh;
+    width: 80%;
+    height: 30vh;
+    z-index: 100;
+    margin-left: 10vw;
+}
+#picsconfirmagain div{
+    text-align: center;
+    padding:4vh 5vw;
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
     background: #fff;
-    border-radius: 5px;
-    margin: 0 1vw;
-    position: relative;
-    top: 2vh;
-    left: 10vw;
-    width: 28vw;
-    height: 5vh;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 30%;
+    color: rgb(148, 145, 145);
 }
+
 /* 添加照片 */
 .addpictures{
     background: #fff;
@@ -633,6 +698,7 @@
     background:rgba(255,191,45,0.4);
     position: fixed;
     top:28vh;
+    left: 5vw;
     width: 90%;
     height: 35vh;
     z-index: 100;
@@ -764,6 +830,209 @@
     height: 30%;
     color: rgb(148, 145, 145);
 }
+/* 日记 */
+.cdairy{
+    background: #fff;
+}
+.cdairy_inner{
+    width: 90vw;
+    left: 5vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 12vh;
+    padding-bottom: 10vh;
+}
+.cdairy_block{
+    /* background: #ccc; */
+    width: 80vw;
+    padding: 1vh 5vw;
+    margin: 1vh auto;
+    
+}
+.cdairy_block p{
+    /* background: #ccc; */
+    overflow: hidden;
+    font-size: 5vw;
+    line-height: 4.5vh;
+    letter-spacing: 0.5vw;
+    
+    
+}
+.cdairy_imgblock{
+    height: 18vh;
+    overflow: hidden;
+}
+.cdairy_imgblock div{
+    display: inline-block;
+    width: 25.5vw;
+    height: 15vh;
+    margin: 1vh 0.5vw;
+    
+}
+.cdairy_block i{
+    font-size: 10vw;
+    color: #FFBF2D;
+    margin-right: 6vw;
+}
+#delcdiary{
+    display: none;
+    text-align: center;
+    border-radius: 20px;
+    background:rgba(255,191,45,0.4);
+    position: fixed;
+    top:28vh;
+    width: 80%;
+    height: 30vh;
+    z-index: 100;
+    margin-left: 10vw;
+}
+#delcdiary div{
+    text-align: center;
+    padding:4vh 5vw;
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 30%;
+    color: rgb(148, 145, 145);
+}
+#cdiaryagain{
+    display: none;
+    text-align: center;
+    border-radius: 20px;
+    background:rgba(255,191,45,0.4);
+    position: fixed;
+    top:28vh;
+    width: 80%;
+    height: 30vh;
+    z-index: 100;
+    margin-left: 10vw;
+}
+#cdiaryagain div{
+    text-align: center;
+    padding:4vh 5vw;
+    margin-top:10%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 30%;
+    color: rgb(148, 145, 145);
+}
+
+/* 写日记 */
+.ccdairy{
+    background: #fff;
+}
+.ccdairy_inner{
+    width: 90vw;
+    text-align: center;
+    /* background: #FFBF2D; */
+    left: 5vw;
+    font-size: 5vw;
+    position: fixed;
+    margin-top: 10vh;
+    color: #000;
+}
+.ccdairy_inner textarea{
+    padding: 2vh 3vw;
+    
+}
+.ccdairy_inner textarea::placeholder{
+    padding: 1vh 2vw;
+    color: #000;
+    
+}
+.ccdairy_inner p{
+    padding-left: 5vw;
+    text-align: left;
+}
+.ccdairy_block{
+    width: 90vw;
+    left: 5vw;
+    position: fixed;
+    top: 54vh;
+}
+.ccdairy_block p{
+    font-size: 5.5vw;
+    margin-bottom: 1.5vh;
+}
+.ccdairy_pics{
+    margin: 0 auto;
+    background: rgba(211, 209, 113, 0.1);
+    overflow-y:scroll;
+    height: 25vh;
+}
+.ccdairy_pics div{
+    display: inline-block;
+    width: 28vw;
+    height: 15vh;
+    margin: 0.5vh 1vw;
+}
+
+#ccdairywarn{
+    display: none;
+    position: fixed;
+    width: 80vw;
+    height: 25vh;
+    left: 10vw;
+    background: rgba(255,191,45,0.6);
+    top: 25vh;
+    border-radius: 10px;
+    text-align: center;
+}
+#ccdairywarn p{
+    width: 70%;
+    padding: 4vh 5vw;
+    display: inline-block;
+    margin-top: 3vh;
+    height: 5vh;
+    font-size: 6vw;
+    background: #fff;
+    color: #bdbbb8;
+    margin-bottom: 0;
+}
+#ccdairywarn button{
+    display:inline-block;
+    width: 20vw;
+    height: 5vh;
+    margin-top: 2vh;
+    border: none;
+    background: #fff;
+    color: #FFBF2D;
+    font-size: 6vw;
+    border-radius: 5px;
+}
+/* 展示日记 */
+.showdairy{
+    background: #fff;
+}
+.showdairy_inner{
+    width: 90vw;
+    left: 5vw;
+    position: fixed;
+    margin-top: 10vh;
+}
+.showdairy_inner p{
+    padding:0 5vw;
+    font-size: 5vw;
+    line-height: 4vh;
+    height: 30vh;
+    letter-spacing: 0.5vw;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80vw;
+    overflow-y:scroll
+    
+}
+.showdairy_block img{
+    display: block;
+    margin: 1vh auto;
+    width: 80vw;
+}
 /* 添加学业记录 */
 .Create_study1{
     margin-top: 20px;
@@ -805,151 +1074,4 @@
 }
 .am-tab-bar-bar .am-tab-bar-tab .am-tab-bar-tab-title{
     font-size: 5vw;
-}
-/* 日记 */
-.cdairy{
-    background: #fff;
-}
-.cdairy_inner{
-    position: fixed;
-    /* background: #FFBF2D; */
-    width: 90vw;
-    left: 5vw;
-    /* margin-left: auto;
-    margin-right: auto; */
-    margin-top: 12vh;
-}
-.cdairy_block{
-    /* background: #ccc; */
-    width: 80vw;
-    padding: 1vh 5vw;
-    margin: 1vh auto;
-
-}
-.cdairy_block p{
-    /* background: #ccc; */
-    overflow: hidden;
-    font-size: 5vw;
-    line-height: 4.5vh;
-    letter-spacing: 0.5vw;
-    
-
-}
-.cdairy_block div{
-    display: inline-block;
-    width: 25.5vw;
-    height: 15vh;
-    margin: 1vh 0.5vw;
-
-}
-.cdairy_block i{
-    font-size: 10vw;
-    color: #FFBF2D;
-    margin-right: 6vw;
-}
-/* 写日记 */
-.ccdairy{
-    background: #fff;
-}
-.ccdairy_inner{
-    width: 90vw;
-    text-align: center;
-    /* background: #FFBF2D; */
-    left: 5vw;
-    font-size: 5vw;
-    position: fixed;
-    margin-top: 10vh;
-    color: #000;
-}
-.ccdairy_inner textarea{
-    padding: 2vh 3vw;
-
-}
-.ccdairy_inner textarea::placeholder{
-    padding: 1vh 2vw;
-    color: #000;
-
-}
-.ccdairy_inner p{
-    padding-left: 5vw;
-    text-align: left;
-}
-.ccdairy_block{
-    width: 90vw;
-    left: 5vw;
-    position: fixed;
-    top: 54vh;
-}
-.ccdairy_block p{
-    font-size: 5.5vw;
-    margin-bottom: 1.5vh;
-}
-.ccdairy_pics{
-    margin: 0 auto;
-    background: rgba(211, 209, 113, 0.1);
-    overflow-y:scroll;
-    height: 25vh;
-}
-.ccdairy_pics div{
-    display: inline-block;
-    width: 28vw;
-    height: 15vh;
-    margin: 0.5vh 1vw;
-}
-
-#ccdairywarn{
-    display: none;
-    position: fixed;
-    width: 80vw;
-    height: 25vh;
-    left: 10vw;
-    background: rgba(255,191,45,0.6);
-    top: 25vh;
-    border-radius: 10px;
-    text-align: center;
-}
-#ccdairywarn p{
-    width: 80%;
-    display: inline-block;
-    margin-top: 3vh;
-    height: 15vh;
-    background: #fff;
-    color: #FFBF2D;
-    margin-bottom: 0;
-}
-#ccdairywarn button{
-    display:inline-block;
-    width: 20vw;
-    height: 5vh;
-    margin-top: 1vh;
-    border: none;
-    background: #fff;
-    color: #FFBF2D;
-    font-size: 6vw;
-    border-radius: 5px;
-}
-/* 展示日记 */
-.showdairy{
-    background: #fff;
-}
-.showdairy_inner{
-    width: 100%;
-    position: fixed;
-    margin-top: 10vh;
-}
-.showdairy_inner p{
-    font-size: 5vw;
-    line-height: 4vh;
-    height: 10vh;
-    letter-spacing: 0.5vw;
-    margin-left: auto;
-    margin-right: auto;
-    width: 90vw;
-    overflow-y:scroll
-
-}
-.showdairy_block img{
-    display: block;
-    margin: 1vh auto;
-    width: 80vw;
 }

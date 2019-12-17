@@ -22,7 +22,7 @@ export default class Delrelation2 extends Component {
       fetch(`http://localhost:3001/my/dellover?uid=${this.state.uid}`)
       .then(res=>res.json())
       .then(json=>{ 
-        console.log(json);
+        console.log('现在',json);
         console.log(json.length);
           for(var i=0;i<json.length;i++){
             this.setState({
@@ -32,7 +32,7 @@ export default class Delrelation2 extends Component {
               list3:this.state.list4.split(',')
             });
           }
-          console.log(this.state.list);
+          
       })
       // 获取code
     }
@@ -48,7 +48,7 @@ export default class Delrelation2 extends Component {
   }
   del=()=>{
     this.state.loverid=this.state.list3[this.state.a];
-    fetch(`http://localhost:3001/my/dellover/confirm?id=${this.state.loverid}`)
+    fetch(`http://localhost:3001/my/dellover/confirm?loversid=${this.state.loverid}`)
       .then(res=>res.json())
       .then(json=>{ 
           this.setState({

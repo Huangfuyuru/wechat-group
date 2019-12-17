@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavBar, Icon } from 'antd-mobile';
+import { NavBar} from 'antd-mobile';
 import {Link} from 'react-router-dom';
 import '../css/my.css'
 

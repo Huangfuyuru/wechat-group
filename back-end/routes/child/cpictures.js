@@ -53,15 +53,24 @@ router.get('/crpictures',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var childPhotoListid = request.childPhotoListid;
-    var delallphoto = await childPhotoM.delAllByPid(childPhotoListid);
+    await childPhotoM.delAllByPid(childPhotoListid);
     var delphotolist = await childPhotoListM.delChildPhotoList(childPhotoListid);
+    console.log('a',delphotolist)
     var data = await childPhotoListM.findByCid(childsid);
-    if(delallphoto==1 || delphotolist == 1){
-        res.json(null)
+    if(delphotolist == 1){
+        if(data == 1){
+            var message ={msg:"删除失败",data:null}
+        }else{
+            var message ={msg:"删除失败",data:data}
+        }
     }else{
-        res.json(data)
+        if(data == 1){
+            var message ={msg:"删除成功",data:null}
+        }else{
+            var message ={msg:"删除成功",data:data}
+        }
     }
-    
+    res.json(message)
 })
 
 
@@ -69,7 +78,6 @@ router.get('/crpictures',async function(req,res,next){
 router.post('/caddpictures',async function(req,res,next){
     childPhotoListid = req.body.childPhotoListid;
     imgurl = JSON.parse(req.body.imgurl)
-    console.log(imgurl[0].path)
     imgurl.map(async function(item){
         await childPhotoM.addChildPhoto({imgurl:item.path,pid:childPhotoListid})
     })
@@ -86,25 +94,16 @@ router.post('/caddpictures',async function(req,res,next){
 router.post('/cdelpictures',async function(req,res,next){
     var photo = JSON.parse(req.body.childPhotoid);
     var childPhotoListid = req.body.pid;
-    var arr = photo.map(async function(item){
-        return await childPhotoM.delChildPhoto(item)
-    })
-    arr.map(async item=>{
-        item.then(async res=>{
-            if(res!=0){
-                var data = await childPhotoM.findByPid(childPhotoListid);
-                if(data == 1){
-                    var message = {msg:"删除失败1",data:null};
-                }else{
-                var message = {msg:"删除失败2",data:data};
-                }
-                res.json(message)
-            }
-        })
-    })
-    var data = await childPhotoM.findByPid(childPhotoListid);
-    var message = {msg:"删除成功",data:data}
-    res.json(message)
+    await Promise.all(photo.map(async function(item){
+        await childPhotoM.delChildPhoto(JSON.parse(item));
+    }))
+    var data = await childPhotoM.findByPid(childPhotoListid)
+    console.log(data)
+    if(data == 1){
+        res.json({msg:"删除成功",data:null})
+    }else{
+        res.json({msg:"删除成功",data:data})
+    }
 })
 
 module.exports = router;

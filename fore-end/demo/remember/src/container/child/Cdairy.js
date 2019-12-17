@@ -1,46 +1,41 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { NavBar, Icon } from 'antd-mobile';
+import moment from 'moment';
+
 
 export default class Cdairy extends Component {
     constructor(props){
         super(props);
         var cid = JSON.stringify(localStorage.getItem('cid'))
         this.state={
+            childDiaryid:'',
             cid:cid,
-            lists:[
-                {
-                    id:1,
-                    backcolor:'#ccddee',
-                    content:'非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心非常开心',
-                    setdate:'12-15',
-                    imgurl:[
-                        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1861071085,645113708&fm=26&gp=0.jpg',
-                        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1861071085,645113708&fm=26&gp=0.jpg',
-                        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1861071085,645113708&fm=26&gp=0.jpg',
-                        'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1861071085,645113708&fm=26&gp=0.jpg'
-                    ]
-                }
-            ]
+            code:'',
+            lists:[]
         }
     }
     componentDidMount(){
-        fetch(`http://localhost:3001/child/cdairy/?childsid=${this.state.cid}`)
+        console.log(this.state.cid)
+        fetch(`http://localhost:3001/child/cdairy?childsid=${this.state.cid}`)
         .then(res=>res.json())
         .then(json=>{
-            console.log(json)
+            this.setState({
+                lists:json
+            })
         })
     }
-    componentDidUpdate(){
-        console.log(this.state.cid)
-    }
-    delDiary=(itemid)=>{
-        console.log(itemid)
-        fetch(`http://localhost:3001/child/cdairy/crdairy?childsid=${this.state.cid}&childDiaryid=${itemid}`)
+    delCdiary=(e)=>{
+        e.target.parentNode.style.display='none'
+        var cdiaryagain = document.getElementById('cdiaryagain')
+        cdiaryagain.style.display='block'
+        fetch(`http://localhost:3001/child/cdairy/crdairy?childsid=${this.state.cid}&childDiaryid=${this.state.childDiaryid}`)
         .then((res)=>res.json())
         .then((res)=>{
+            console.log(res)
             this.setState({
-                lists:res
+                lists:res.data,
+                code:res.msg
             });
         })
     }
@@ -72,8 +67,11 @@ export default class Cdairy extends Component {
                 </NavBar>
                 <div className='cdairy_inner'>
                     {
-                        this.state.lists&&this.state.lists.map((item)=>(
-                            <div
+                        this.state.lists&&this.state.lists.map((item)=>{
+                            if(item.content == 'undefined'){
+                                item.content = '没有添加文字内容哦~'
+                            }
+                            return <div
                             style={{
                                 background:`${item.backcolor}`
                             }} 
@@ -82,14 +80,20 @@ export default class Cdairy extends Component {
                             >
                                 <p>
                                     <i className='iconfont icon-xieriji'/>
-                                    {item.setdate}
+                                    { moment(item.setdate).format("YYYY-MM-DD")}
                                     <span
                                     style={{
                                         fontSize:'4.3vh',
                                         float:'right',
-                                        color:'#bdbbb8'
+                                        color:'#000'
                                     }}
-                                    onClick={()=>this.delDiary(item.id)} 
+                                    onClick={()=>{
+                                        this.setState({
+                                            childDiaryid:item.id
+                                        })
+                                        var delcdiary = document.getElementById('delcdiary');
+                                        delcdiary.style.display='block'
+                                    }} 
                                     className='iconfont icon-shanchu1'
                                     ></span>
                                 </p>
@@ -97,11 +101,11 @@ export default class Cdairy extends Component {
                                 style={{color:'#000'}}
                                 to={{
                                     pathname:'/child/cdairy/show',
-                                    state:{item}
+                                    state:item
                                 }}>
                                     <p style={{height:'9vh'}}>{item.content}</p>
                                 </Link>
-                                <div>
+                                <div className='cdairy_imgblock'>
                                     {
                                         item.imgurl&&item.imgurl.map((img,idx)=>(
                                             <div>
@@ -112,18 +116,9 @@ export default class Cdairy extends Component {
                                         ))
                                     }
                                 </div>
-                                {/* <div style={{
-                                    background:`url(${item.imgurl[0]}) center center/cover no-repeat`
-                                }}></div>
-                                <div style={{
-                                    background:`url(${item.imgurl[1]}}) center center/cover no-repeat`
-                                }}></div>
-                                <div style={{
-                                    background:`url(${item.imgurl[2]}}) center center/cover no-repeat`
-                                }}></div> */}
                             </div>
-                        ))
-                    }
+                        }
+                    )}
                 </div>
 
                 <div className='allpage_add'>
@@ -137,6 +132,58 @@ export default class Cdairy extends Component {
                     }}
                     ><i className='iconfont icon-jia'></i></Link>
               </div>
+
+              <div id='delcdiary'>
+                    <div>确定删除？</div>
+                    <button 
+                    onClick={()=>{
+                        var delcdiary=document.getElementById('delcdiary');
+                        delcdiary.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw',
+                        marginRight:'10vw'
+                    }}>返回</button>
+                    <button 
+                    onClick={this.delCdiary}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                </div>
+                <div id='cdiaryagain'>
+                <div>{this.state.code}</div>
+                    <button 
+                    onClick={()=>{
+                        var cdiaryagain=document.getElementById('cdiaryagain');
+                        cdiaryagain.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                </div>
+
+              
             </div>
         )
     }

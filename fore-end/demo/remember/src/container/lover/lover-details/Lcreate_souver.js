@@ -12,6 +12,7 @@ export default class Lcreate_souver extends Component {
             name:"",
             imgurl:"",
             content:"",
+            code:"",
             date:""
         }
     }
@@ -48,7 +49,8 @@ export default class Lcreate_souver extends Component {
         )
     )}
     upSouver=()=>{
-        
+        var updairywarn=document.getElementById('updairywarn');
+        updairywarn.style.display='block';
         fetch(`http://localhost:3001/lover/lsouvenir/lcsouvenir`,{
             method:'POST',
             mode:'cors',
@@ -59,6 +61,11 @@ export default class Lcreate_souver extends Component {
         })
         .then(res=>res.json())
         .then(json=>{ 
+            
+                this.setState({
+                    code:"上传成功"
+                })
+            
             console.log(json)
         })
     }
@@ -109,11 +116,45 @@ export default class Lcreate_souver extends Component {
                     </div>
                   {/* <textarea className="createsou-second" onChange={this.getContent} >内容：</textarea> */}
                   <h1 style={{margin:"5% 0 0  9%"}}>设置提醒</h1>
-                  <Link to="/lover/lsouvenir">
                   <WingBlank>
                <button className="createsou-foot" onClick={this.upSouver}>保存</button>
                </WingBlank>
-               </Link>
+               <form id='updairywarn'>
+                    <div>{this.state.code}</div>
+                    <button 
+                    onClick={()=>{
+                        var updairywarn=document.getElementById('updairywarn');
+                        updairywarn.style.display='none';
+                        this.props.history.push('/lover/lsouvenir');
+                    }}
+                    style={{
+                        width:'35%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw',
+                        marginRight:'2vw'
+                    }}>返回列表</button>
+                    <button 
+                    onClick={()=>{
+                        var updairywarn=document.getElementById('updairywarn');
+                        updairywarn.style.display='none';
+                        this.props.form.resetFields();
+                    }}
+                    style={{
+                        width:'35%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>继续上传</button>
+                </form>
             </div>
         )
     }

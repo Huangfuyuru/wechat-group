@@ -30,10 +30,11 @@ router.get('/',async function(req,res,next){
     }else{
         info ={
             code:1,
-            msg:'传入的爱人lid有误'
+            msg:null
         }
-        res.json(data);
+        res.json(info);
     }
+    console.log(data);
     
 });
 
@@ -72,25 +73,26 @@ router.get('/delDairy',async function(req,res,next){
     var lid = Number(req.query.loverid);
     var daid = Number(req.query.loverDiaryid);
     console.log('dairyid',daid);
-    var delDairy = await lover.loverDiaryM.delLoverDiary(daid);
+    await lover.loverDiaryM.delLoverDiary(daid);
     console.log(delDairy);
-    
-    if(delDairy === 0 ){
-        var data =await lover.loverDiaryM.findByLid(lid);
+
+    var data =await lover.loverDiaryM.findByLid(lid);
+    if(data !== 1){
         info ={
             code:0,
             msg:data
-        };
-        console.log('删除后查看日记所有信息',await lover.loverDiaryM.findAll());
+        }
+        // console.log('点击日记前端返回',info);
         res.json(info);
     }else{
-        info={
+        info ={
             code:1,
-            msg:'删除日记失败'
+            msg:null
         }
-        console.log(info)
         res.json(info);
     }
+    
+    
 })
 
 module.exports = router;

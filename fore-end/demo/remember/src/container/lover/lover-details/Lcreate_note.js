@@ -12,6 +12,7 @@ export default class Lcreate_note extends Component {
             lover_id:lid,
             name:"",
             content:"",
+            code:"",
             imgurl:[]
         }
     }
@@ -38,7 +39,9 @@ export default class Lcreate_note extends Component {
             body:form
         }).then(res=>res.json())
         .then(json=>(
+            
             this.setState((state)=>{
+
                 for(var i=0;i<json.length;i++){
                     state.imgurl[i]=json[i].path
                 }
@@ -54,8 +57,9 @@ export default class Lcreate_note extends Component {
         })
         )
     )}
-
     upDairy=()=>{
+        var updairywarn=document.getElementById('updairywarn');
+        updairywarn.style.display='block';
         fetch(`http://localhost:3001/lover/ldairy/addDairy`,{
             method:'POST',
             mode:'cors',
@@ -66,7 +70,11 @@ export default class Lcreate_note extends Component {
         })
         .then(res=>res.json())
         .then(json=>{ 
-            // console.log(json)
+             if(json.code===0){
+                 this.setState({
+                     code:"上传成功"
+                 })
+             }
         })
     }
     render() {
@@ -100,9 +108,8 @@ export default class Lcreate_note extends Component {
                   </div>
                 <textarea onChange={this.changeContent} className="createnote-first">
                 </textarea>
-                
-                <div style={{height:"12vh"}} id="yulan">
-
+                图片预览：
+                <div style={{height:"24vh",width:"92%",overflowY:"scroll",border:"solid 1px #888888",margin:"2vh"}} id="yulan">
                  </div>
                 <div className="createnote-second">
                     <div  style={{height:"76%",width:"22%" ,float:"left",marginLeft:"3%",backgroundImage:`url(${imgsrc})`,backgroundSize:"100% 100%"}} >
@@ -121,11 +128,45 @@ export default class Lcreate_note extends Component {
                     <img src={require("../../../image/ri.jpg")}  style={{height:"76%",width:"22%" ,float:"left",marginLeft:"3%"}} alt=""></img>
                     <img src={require("../../../image/wei.jpg")}  style={{height:"76%",width:"22%" ,float:"left",marginLeft:"3%"}} alt=""></img>
                 </div>
-                <Link to={{pathname:"/lover/ldairy"}}>
                 <WingBlank>
                <button className="createnote-foot" onClick={this.upDairy}>保存</button>
                </WingBlank>
-               </Link>
+               <form id='updairywarn'>
+                    <div>{this.state.code}</div>
+                    <button 
+                    onClick={()=>{
+                        var updairywarn=document.getElementById('updairywarn');
+                        updairywarn.style.display='none';
+                        this.props.history.push('/lover/ldairy');
+                    }}
+                    style={{
+                        width:'35%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw',
+                        marginRight:'2vw'
+                    }}>返回列表</button>
+                    <button 
+                    onClick={()=>{
+                        var updairywarn=document.getElementById('updairywarn');
+                        updairywarn.style.display='none';
+                        this.props.form.resetFields();
+                    }}
+                    style={{
+                        width:'35%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>继续上传</button>
+                </form>
             </div>
 
         )

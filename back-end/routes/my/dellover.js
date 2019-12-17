@@ -17,6 +17,7 @@ router.use(bodyParser.json());
 router.get('/',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var uid = Number(request.uid);
+    // console.log(uid);
     var data =  await loverM.findIdByUid(uid);
     res.json(data)
 })
@@ -24,30 +25,30 @@ router.get('/',async function(req,res,next){
 //确认删除
 router.get('/confirm',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
-    var loverid = Number(request.loverid);
-    var loverPhotoListid = loverPhotoListM.findIdByLid(loverid);
-    var result1 = await loveListM.delAllByLid(loverid);
-    var result2 = await loverDiaryM.delAllByLid(loverid);
-    var result3 = await loverImpDateM.delAllByLid(loverid);
-    var result4 = await loverPhotoListM.delAllByLid(loverid);
-    var result5 = await loverVoiceM.delAllByLid(loverid);
-    var result6 = await loverPhotoM.delAllByPid(loverPhotoListid); //删除所有照片
-    var result7 = await loverPhotoListM.delLoverPhotoList(loverPhotoListid); //删除相册
-    if(result6 === 0){
-        if(result7 === 0 ){
-            if(result1 === 0 && result2 === 0 && result3 === 0 && result4 === 0 && result5 === 0){
-                var result = await loverM.delLover(loverid);
-                if(result === 0){
-                    var data = await loverM.findById(uid)
-                    info = {code:0,msg:"删除爱人成功"}
-                    res.json(data)
-                }else{
-                    info = {code:1,msg:"删除爱人失败"}
-                }
-            }
+    var uid = Number(request.uid);
+    var lid = Number(request.loversid);
+    console.log(lid);
+    // var arr = [];
+    async function delLover(lid){
+        var loveList = await loveListM.delAllByLid(lid);
+        var loverDiary = await loverDiaryM.delAllByLid(lid);
+        var loverVoice = await loverVoiceM.delAllByLid(lid);
+        var loverImpDate = await loverImpDateM.delAllByLid(lid);
+        var loverPhotoList = await loverPhotoListM.findIdByLid(lid);
+        if(loverPhotoList == 1){
+            var lover = await loverM.delLover(lid);
+        }else{
+            loverPhotoList.map(async (item)=>{
+                await loverPhotoM.delAllByPid(item.id);
+            })
+            await childPhotoList.delAllByLid(lid);
+            var lover = await loverM.delLover(lid);
         }
+        var message = {code:0,msg:"删除成功"};
+        res.json(message)
     }
     
+    delLover(lid);
 })
 
 module.exports = router;
