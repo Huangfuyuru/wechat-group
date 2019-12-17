@@ -51,6 +51,7 @@ export default class Llists extends Component {
                     }}
                     mode="light"
                     icon={'𡿨'}
+                    rightContent={[<div className="iconfont icon-gengduo" key="0"   onClick={() => this.props.history.push('/index/lover')} style={{ color:"white",marginRight: '10px' }} />,]}
                     onLeftClick={() => this.props.history.push('/index/lover')}
                  ><span style={{
                      fontWeight:'bold',

@@ -45,11 +45,11 @@ export default class My extends Component {
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <div className="two">
-                        <p>
+                        <p style={{fontSize:"2.5vh"}}>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名:&nbsp;&nbsp;&nbsp;
                             <span>{this.state.umsg.name}</span>
                         </p>
-                        <p>
+                        <p style={{fontSize:"2.5vh"}}>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别:&nbsp;&nbsp;&nbsp;
                             <span>{this.state.umsg.gender}</span>
                         </p>
