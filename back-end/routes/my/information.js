@@ -24,6 +24,8 @@ router.post('/',async function(req,res,next){
         id:uid,
         gender:gender
     })
+    console.log(image);
+    console.log(result);
     if(result === 0){
         //修改用户成功后需要给前端返回userM的修改后的信息
         //目前返回的是所用户的信息  肯定是不行的！
