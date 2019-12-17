@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
-import { NavBar,Flex } from 'antd-mobile';
+import { NavBar,Flex ,WingBlank} from 'antd-mobile';
 import "../css/lover.css"
 export default class lover_home extends Component {
     constructor(props){
@@ -97,6 +97,7 @@ export default class lover_home extends Component {
                     </div>  
             </div> 
                  {/* <img src={this.state.cindex_src} alt=""  style={{height:"28%",width:"94%",paddingTop:"5%",marginLeft:"3%"}} ></img>   */}
+                 <WingBlank>
                 <div className="lover-home-first">
                  <Link to ="/lover/lpictures"><button className="lover-button">云相册</button></Link>
                  <Link to= "/lover/lsound"><button className="lover-button">语音记事</button></Link>
@@ -112,6 +113,7 @@ export default class lover_home extends Component {
                  }}
                  ><button className="lover-button">纪念日</button></Link>    
                 </div>
+                </WingBlank>
                 <div style={{paddingBottom:'9vh'}}>
                     {
                         this.state.cnews.map((cnews,idx)=>(

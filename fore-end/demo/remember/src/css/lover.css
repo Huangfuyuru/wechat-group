@@ -97,21 +97,19 @@
     }
     .lover-home-first{
       height:20vh;
-      width:86%;
-      margin-left: 7%;
+      width:100%;
       margin-top: 4%;
     }
   .lover-button{
-    height:35%;
-    width:29%;
-    background-color:#FFBF2D ;
-    color:white;
-    font-size:5vw;
-    border-radius:8px ;
-    border:solid 0.2px #FFBF2D;
-    float:left;
-    margin:2.5% 2%;
-    /* margin-top: 5%; */
+    height: 40%;
+    width: 30%;
+    background-color: #FFBF2D;
+    color: white;
+    font-size: 5.6vw;
+    border-radius: 8px;
+    border: solid 0.2px #FFBF2D;
+    float: left;
+    margin: 1% 2% 1% 1%;
   }
   .lover_first{
     margin: 0 auto;
