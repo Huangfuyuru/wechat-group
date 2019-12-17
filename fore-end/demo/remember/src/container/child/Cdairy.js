@@ -17,6 +17,7 @@ export default class Cdairy extends Component {
     }
     componentDidMount(){
         console.log(this.state.cid)
+        
         fetch(`http://localhost:3001/child/cdairy?childsid=${this.state.cid}`)
         .then(res=>res.json())
         .then(json=>{

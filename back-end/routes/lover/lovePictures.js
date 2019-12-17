@@ -13,20 +13,12 @@ router.get('/',async function(req,res,next){
     var lid = Number(req.query.loverid);
     // console.log('photoid ',lid);
     var photoList =await lover.loverPhotoListM.findByLid(lid);
-    if(photoList !== 1){
-        info = {
-            code:0,
-            msg:photoList
-        }
-        res.json(info)
+    if(photoList === 1){
+        info ={code:0,msg:null}
     }else{
-        info ={
-            code:1,
-            msg:null
-        }
-        res.json(info)
-
+        info = {code:0,msg:photoList}
     }
+    res.json(info)
 });
 
 //点击具体相册
@@ -35,7 +27,7 @@ router.get('/show',async function(req,res,next){
     var photoListid = Number(req.query.loverPhotoListid);
     // console.log(photoListid);
     var data = await lover.loverPhotoM.findByPid(photoListid);
-    console.log(data);
+    // console.log(data);
     if(data!== 1){
         info ={
             code:0,
@@ -79,6 +71,8 @@ router.post('/lcpictures',async function(req,res,next){
         res.json(info);
     }
 });
+ 
+//
 
 //删除相册
 //要想删除相册需要先删除photoM中对应pid的内容
@@ -101,21 +95,21 @@ router.get('/lrpictures',async function(req,res,next){
         console.log(err);
     }
 
+    var data= await lover.loverPhotoListM.findByLid(lid); 
     if(delPL === 0){
-        var data= await lover.loverPhotoListM.findByLid(lid); 
-        console.log('data',data)
-        info ={
-            code:0,
-            info:data
+        if(data === 1){
+            info ={code:0,msg:null}
+        }else{
+            info ={code:0,msg:data};
         }
-        res.json(info);
     }else{
-        info ={
-            code:1,
-            msg:'删除相册失败'
+        if(data === 1){
+            info ={code:1,msg:null}
+        }else{
+            info ={code:1,msg:data};
         }
-        res.json(info);
     }
+    res.json(info);
 })
 
 //增加照片
@@ -125,9 +119,10 @@ router.post('/laddpictures',async function(req,res,next){
         img =req.body.imgurl;
     var imgs = img.split(',');
     console.log('imgs',imgs);
-    console.log(req.body)
+    // console.log(req.body)
 
     imgs.map(async function(item){
+        console.log(item);
         var text = {
             pid:lPLid,
             imgurl:item
@@ -148,7 +143,7 @@ router.post('/laddpictures',async function(req,res,next){
         }
         res.json(info);
     }
-    console.log(data);
+    console.log('data',data);
     // for(var i=0;i<imgs.length;i++){
     //     var text = {
     //         pid:lPLid,

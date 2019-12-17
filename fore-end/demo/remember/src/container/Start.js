@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
 import logo from '../image/logo.png'
 import '../css/start.css'
-import Menus from './Menus'
 export default class Start extends Component {
     render() {
         return (

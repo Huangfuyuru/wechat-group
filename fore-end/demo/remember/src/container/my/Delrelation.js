@@ -8,9 +8,9 @@ export default class Delrelation2 extends Component {
         var uid = JSON.parse(localStorage.getItem('uid'));
         this.state = {
           list:[],//用来存放name
-          list2:'',
-          list3:[],//用来存放id
-          list4:'',
+          // list2:'',
+          // list3:[],//用来存放id
+          // list4:'',
           uid:uid,
           inputValue:"",
           loverid:0,
@@ -22,17 +22,19 @@ export default class Delrelation2 extends Component {
       fetch(`http://localhost:3001/my/dellover?uid=${this.state.uid}`)
       .then(res=>res.json())
       .then(json=>{ 
-        console.log('现在',json);
-        console.log(json.length);
-          for(var i=0;i<json.length;i++){
-            this.setState({
-              list2:this.state.list2+json[i].name+',',
-              list:this.state.list2.split(','),
-              list4:this.state.list4+json[i].id+',',
-              list3:this.state.list4.split(',')
-            });
-          }
-          
+        // console.log('现在',json);
+        // console.log(json.length);
+        //   for(var i=0;i<json.length;i++){
+        //     this.setState({
+        //       list2:this.state.list2+json[i].name+',',
+        //       list:this.state.list2.split(','),
+        //       list4:this.state.list4+json[i].id+',',
+        //       list3:this.state.list4.split(',')
+        //     });
+        //   }
+          this.setState({
+             list:json
+          })
       })
       // 获取code
     }
@@ -47,7 +49,7 @@ export default class Delrelation2 extends Component {
     lwarn.style.display='block';
   }
   del=()=>{
-    this.state.loverid=this.state.list3[this.state.a];
+    this.state.loverid=this.state.list[this.state.a].id;
     fetch(`http://localhost:3001/my/dellover/confirm?loversid=${this.state.loverid}`)
       .then(res=>res.json())
       .then(json=>{ 
@@ -59,12 +61,12 @@ export default class Delrelation2 extends Component {
       //展开数组
       // console.log(this.state.a);
       var list = [...this.state.list];
-      var list3= [...this.state.list3];
+      // var list3= [...this.state.list3];
       list.splice(this.state.a,1);
-      list3.splice(this.state.a,1);
+      // list3.splice(this.state.a,1);
       this.setState({
         list:list,
-        list3:list3
+        // list3:list3
       });
   }
     
@@ -73,11 +75,17 @@ export default class Delrelation2 extends Component {
       <div className="All">
         <NavBar
           style={{
-              background:'#FFBF2D',
-              height:'8vh'
+          top:0,
+          width:'100%',
+          zIndex:'11',
+          position:'fixed',
+          height:'8vh',
+          background:'#FFBF2D',
+          color:'#fff',
+          fontWeight:'bolder',
           }}
           mode="light"
-          icon={<Icon type="left" style={{color:"white"}}/>}
+          icon={'𡿨'}
           onLeftClick={() => this.props.history.push('/index/my')}
           ><span style={{
               fontWeight:'bold',
@@ -88,12 +96,13 @@ export default class Delrelation2 extends Component {
           }}
           >删除关系</span>
       </NavBar>
+      <div style={{width:"100%",height:"5px",marginTop:"15%"}}></div>
       <h4>爱人记录</h4>
       <div>
         {
           this.state.list.map((ele,index)=>{
             // 把index传入
-            return <div id="new" key={index} >{ele}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
+            return <div id="new" key={index} >爱人名：&nbsp;&nbsp;{ele.name}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
           })
         }
       </div>

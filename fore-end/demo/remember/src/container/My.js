@@ -1,60 +1,70 @@
 import React, { Component } from 'react';
-import { NavBar, Icon } from 'antd-mobile';
+import { NavBar} from 'antd-mobile';
 import {Link} from 'react-router-dom';
 import '../css/my.css'
 
 export default class My extends Component {
     constructor(){
         super();
+        var umsg = JSON.parse(localStorage.getItem('umsg'));
         this.state={
-            message:[{
-                msg1:'Dior',
-                msg2:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3183274783,1271682948&fm=26&gp=0.jpg',
-                msg3:'女',
-                msg4:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg'
-            }]
+            // message:[{
+            //     msg1:'Dior',
+            //     msg2:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3183274783,1271682948&fm=26&gp=0.jpg',
+            //     msg3:'女',
+            //     msg4:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg'
+            // }]
+            umsg:umsg
         }
+        console.log(umsg);
     }
     render() {
         return (
             <div className="All">
                 <NavBar
                     style={{
-                        background:'#FFBF2D',
-                        height:'8vh'
+                    top:0,
+                    width:'100%',
+                    zIndex:'11',
+                    position:'fixed',
+                    height:'8vh',
+                    background:'#FFBF2D',
+                    color:'#fff',
+                    fontWeight:'bolder',
                     }}
                     mode="light"
+                    icon={'𡿨'}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
                         textIndent:'3vw',
                         letterSpacing:'3vw',
-                        color:'white'
+                        color:"white"
                     }}
                     >我的</span>
                 </NavBar>
                 {/* 个人信息 */}
-                {
-                    this.state.message.map((message)=>(
+                {/* {
+                    this.state.message.map((message)=>( */}
                         <div className="My_message">
                             <div className="one">
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <img src={message.msg2}/>
+                                <img src={this.state.umsg.imgurl}/>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                             <div className="two">
                                 <p>
                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名:&nbsp;&nbsp;&nbsp;
-                                    <span>{message.msg1}</span>
+                                    <span>{this.state.umsg.name}</span>
                                 </p>
                                 <p>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别:&nbsp;&nbsp;&nbsp;
-                                    <span>{message.msg3}</span>
+                                    <span>{this.state.umsg.gender}</span>
                                 </p>
                             </div>
                         </div>
-                    ))
-                }
+                    {/* ))
+                } */}
                 <div className="My_body">
                     <div className="one">
                         <div className="line">
@@ -101,6 +111,7 @@ export default class My extends Component {
                             onClick={
                                 ()=>{
                                     localStorage.setItem('uid',JSON.stringify('over'));
+                                    localStorage.setItem('umsg',JSON.stringify('null'));
                                 }
                             }
                              to='/menus'>
@@ -110,13 +121,13 @@ export default class My extends Component {
                     </div>
                 </div>
                 {/* 图片 */}
-                {
-                    this.state.message.map((message)=>(
+                {/* {
+                    this.state.message.map((message)=>( */}
                         <div className="My_bottom">
-                            <img src={message.msg4} />
+                            <img src={'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg'} />
                         </div>
-                    ))
-                }
+                    {/* ))
+                } */}
             </div>
         )
     }

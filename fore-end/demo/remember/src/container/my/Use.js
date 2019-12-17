@@ -7,32 +7,29 @@ export default class Use extends Component {
         super(props);
         var uid = JSON.parse(localStorage.getItem('uid'));
         this.state={
-            // uimage:'./a.png',
+            uimage:'',
             uname:'',
             pass:'',
             uid:uid,
             gender:'',
             code:0,
+            src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574914271954&di=5ce6c90533745142d11594040dd0b2b1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F19%2F20150619202710_4vZ8s.thumb.224_0.jpeg'
         }
     }
-    // upfile=()=>{
-    //     var file=document.getElementById('img').files[0];
-    //     var url = 'http://localhost:3001/my/information';
-    //     var form = new FormData();
-    //     form.append("file",file);
-    //     fetch(url,{
-    //         method:'POST',
-    //         body:form
-    //     }).then(res=>res.json())
-    //     .then(res=>(this.setState({
-    //         cindex_src:res.path
-    //     },()=>{
-    //         console.log(this.state.cindex_src)
-    //         fetch(`http://localhost:3001/child/changebackground?childsid=${this.state.child_id}&background=${this.state.cindex_src}`,{
-    //         method:'GET',
-    //     })}
-    //     )))
-    // }
+    upfile=()=>{
+        var file=document.getElementById('img').files[0];
+        var url = 'http://localhost:3001/img';
+        var form = new FormData();
+        form.append("file",file);
+        fetch(url,{
+            method:'POST',
+            body:form
+        }).then(res=>res.json())
+        .then(res=>{
+            console.log(res.path);
+            this.setState({src:res.path})
+        })
+    }
     inputChange1=(e)=>{
         var a=e.target.value;
         this.setState({
@@ -76,11 +73,17 @@ export default class Use extends Component {
             <div className="All">
                 <NavBar
                     style={{
-                        background:'#FFBF2D',
-                        height:'8vh'
+                    top:0,
+                    width:'100%',
+                    zIndex:'11',
+                    position:'fixed',
+                    height:'8vh',
+                    background:'#FFBF2D',
+                    color:'#fff',
+                    fontWeight:'bolder',
                     }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:"white"}}/>}
+                    icon={'𡿨'}
                     onLeftClick={() => this.props.history.push('/index/my')}
                     ><span style={{
                         fontWeight:'bold',
@@ -91,13 +94,28 @@ export default class Use extends Component {
                     }}
                     >设置</span>
                 </NavBar>
-                <form method='post' action=''>
-                    {/* <div className="img-up">
-                        <span className="one">
-                            轻触上传精选照片
-                            <input id='img'onChange={this.upfile} type='file'accept="image/*"capture="camera" name='uimage'/>
-                        </span>
-                    </div> */}
+                <div style={{width:"100%",height:"10px",marginTop:"15%"}}></div>
+                <p style={{}}>
+                    <i className='iconfont icon-touxiangshangchuan'></i>  
+                    <span>轻触上传头像<input 
+                    id='img'
+                    onChange={this.upfile}                         
+                    type='file'  
+                    accept="image/*" 
+                    capture="camera" 
+                    name='uimage' 
+                    placeholder='轻触上传头像'/></span>                          
+                    <div style={{
+                        width:'20vw',
+                        height:'10vh',
+                        display:'inline-block',
+                        marginLeft:'6vw'}}>
+                            <img src={this.state.src} 
+                            alt='默认头像'
+                            width='100%'/>              
+                    </div>
+                </p>
+                <form action=''>
                     <div className="create_Relation">
                         昵称：&nbsp;
                         <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="单行输入"></input>
