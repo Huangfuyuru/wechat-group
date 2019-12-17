@@ -76,7 +76,8 @@ export default class Crelation extends Component {
                     }}
                     >建立关系</span>
                 </NavBar>
-                <h3>爱人关系</h3>
+                <div style={{width:"100%",height:"10vh"}}></div>
+                <p style={{fontSize:"3.5vh"}}>爱人关系</p>
                 <form action=''>
                     <div className="create_Relation" style={{marginTop:"15%"}}>
                         对方昵称：&nbsp;

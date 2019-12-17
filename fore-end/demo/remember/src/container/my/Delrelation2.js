@@ -18,10 +18,13 @@ export default class Delrelation2 extends Component {
     fetch(`http://localhost:3001/my/delchild?uid=${this.state.uid}`)
     .then(res=>res.json())
     .then(json=>{ 
+      console.log(0,json)
+      if(json==1){
+          json=[]
+      }
         this.setState({
           list:json
         })
-        console.log(json)
     })
   }
   bounce=(index)=>{
@@ -82,7 +85,7 @@ export default class Delrelation2 extends Component {
       <div>
         {
           console.log(this.state.list[0]),
-          this.state.list[0]==[]?<p>空</p>: 
+          // this.state.list[0]==[]?<p>空</p>: 
           this.state.list.map((ele,index)=>{
             // 把index传入
             return <div id="new" key={index} >亲子名:&nbsp;&nbsp;{ele.name}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
