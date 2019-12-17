@@ -71,8 +71,8 @@ delPhoto=()=>{
                   <div 
                   onClick={()=>{
                     var lpicture={
-                      lname:index.name,
-                      lid:index.id
+                      pname:index.name,
+                      pid:index.id
                     }
                     localStorage.setItem('lpicture',JSON.stringify(lpicture));
                     this.props.history.push('/lover/lspictures')
