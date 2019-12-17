@@ -9,8 +9,8 @@ export default class LSpictures extends Component {
         console.log(lpicture)
         this.state={
             count:0,
-            pname:lpicture.lname,
-            pid:lpicture.lid,
+            pname:lpicture.pname,
+            pid:lpicture.pid,
             dellist:[],
             lists:[]
         }
