@@ -18,7 +18,9 @@ const maddchild = require('./my/addchild'),
     //参照child.js 12/10
 router.post('/',async function(req,res,next){
     var uid = Number(req.body.uid);
-    var data = await childM.findIdByUid(uid);
+    // var data = await childM.findIdByUid(uid);
+    // res.json(data);
+    var data = await childM.findById(uid);
     res.json(data);
 })
 

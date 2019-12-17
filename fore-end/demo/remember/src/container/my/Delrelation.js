@@ -38,6 +38,10 @@ export default class Delrelation2 extends Component {
     fetch(`http://localhost:3001/my/dellover/confirm?loversid=${this.state.loverid}`)
       .then(res=>res.json())
       .then(json=>{ 
+        console.log(0,json)
+        if(json==1){
+            json=[]
+        }
           this.setState({
               code:json.code
           });
@@ -80,7 +84,6 @@ export default class Delrelation2 extends Component {
       <h4>爱人记录</h4>
       <div>
         {
-          // this.state.signal===0?<p>空</p>: 
           this.state.list.map((ele,index)=>{
             // 把index传入
             return <div id="new" key={index} >爱人名：&nbsp;{ele.name}<button onClick={this.bounce.bind(this,index)}>删除</button></div>

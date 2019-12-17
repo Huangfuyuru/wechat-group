@@ -1,16 +1,60 @@
 import React, { Component } from 'react';
 import { NavBar} from 'antd-mobile';
 import {Link} from 'react-router-dom';
-import '../css/my.css'
+import '../css/my.css';
+import '../css/child.css'
 
 export default class My extends Component {
     constructor(){
         super();
+        var uid = JSON.parse(localStorage.getItem('uid'));
         var umsg = JSON.parse(localStorage.getItem('umsg'));
         this.state={
-            umsg:umsg
+            umsg:umsg,
+            uid:uid,
+            src:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg'
         }
         console.log(umsg);
+    }
+    componentDidMount(){
+        fetch(`http://localhost:3001/my/`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`&uid=${this.state.uid}`
+        }).then(res=>res.json())
+        .then(json=>{
+            console.log(json)
+            // this.setState({
+            //     code:json.code
+            // });
+        })
+      }
+      upfile=()=>{
+        var file=document.getElementById('img').files[0];
+        var url = 'http://localhost:3001/img';
+        var form = new FormData();
+        var img='';
+        form.append("file",file);
+        fetch(url,{
+            method:'POST',
+            body:form
+        })
+        .then(res=>res.json())
+        .then(res=>(
+            console.log(res.path),
+            img=res.path,
+            this.setState({
+               src:res.path
+            },()=>{
+                localStorage.setItem('cbackground',JSON.stringify(this.state.src))
+            })
+        ))
+
+        console.log(img)
+        
     }
     render() {
         return (
@@ -55,6 +99,7 @@ export default class My extends Component {
                         </p>
                     </div>
                 </div>
+                
                 <div className="My_body">
                     <div className="one">
                         <div className="line" style={{marginTop:"15%"}}>
@@ -111,8 +156,30 @@ export default class My extends Component {
                     </div>
                 </div>
                 {/* 图片 */}
-                <div className="My_bottom">
-                    <img src={'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg'} />
+                <div className='my_first'>                   
+                    <span style={{
+                        zIndex:'10',
+                        display:'inline-block',
+                        width:'100%',
+                        fontSize:'5vw',
+                        top:'8vh',
+                        position:'relative',
+                        color:'#000',
+                        background:'rgb(255,191,45,0.3)'
+                    }}>轻触上传背景图<input 
+                    id='img'
+                    onChange={this.upfile}                           
+                    type='file'  
+                    accept="image/*" 
+                    capture="camera" 
+                    name='uimage' 
+                    /></span>
+                    <div style={{
+                        marginTop:'8.8vh'
+                    }}>
+                        <img style={{overflow:"hidden"}}
+                        src={this.state.src} alt='我的背景'/>
+                    </div>    
                 </div>
             </div>
         )

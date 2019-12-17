@@ -84,8 +84,6 @@ export default class Delrelation2 extends Component {
       <h4>亲子记录</h4>
       <div>
         {
-          console.log(this.state.list[0]),
-          // this.state.list[0]==[]?<p>空</p>: 
           this.state.list.map((ele,index)=>{
             // 把index传入
             return <div id="new" key={index} >亲子名:&nbsp;&nbsp;{ele.name}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
