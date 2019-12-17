@@ -45,6 +45,7 @@ import Use from './container/my/Use'
 import Ccsound from './container/child/child_details/Ccsound';
 import Addpictures from './container/child/child_details/Addpictures';
 import Recommend from './container/Recommend';
+import Laddpictures from './container/lover/lover-details/Laddpictures';
 
 function App() {
   return (
@@ -81,9 +82,11 @@ function App() {
       {/* 爱人 */}
       <Route path='/index/lover' component={Lover}/>
 
-      <Route path='/lover/lpictures' component={Lpictures}/>
+      <Route exact path='/lover/lpictures' component={Lpictures}/>
       <Route path='/lover/lspictures' component={LSpictures}/>
       <Route path='/lover/lcpictures' component={LCpictures}/>
+      <Route path='/lover/lpictures/addpictures' component={Laddpictures}/>
+
 
       <Route path='/lover/lsound' component={Lsound}/>
       <Route path='/lover/lcsound' component={LCsound}/>

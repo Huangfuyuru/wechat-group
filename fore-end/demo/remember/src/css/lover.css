@@ -1,4 +1,4 @@
-#root{
+#root{ 
     min-height: 115vh;
     width: 100%;
     background: #fff;
@@ -515,4 +515,137 @@
     width: 70%;
     height: 30%;
     color: rgb(148, 145, 145);
+}
+
+
+.scpicture{
+  background: #fff;
+}
+.scpicture_inner{
+  width: 90vw;
+  margin: 0 auto;
+  margin-top: 10vh;
+  padding-bottom: 10vh;
+}
+.scpicture_block{
+  float: left;
+  width: 28vw;
+  height: 30vw;
+  margin-top: 2vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
+}
+.scpicture_block input{
+  display: none;
+  position: relative;
+  top: -1vh;
+  left: -1vw;
+  width: 5vw;
+  height: 5vw;
+}
+#delpictureswarn{
+  display: none;
+  position: fixed;
+  width: 90vw;
+  left: 5vw;
+  height: 10vh;
+  bottom: 10vh;
+}
+#delpictureswarn button{
+  width: 40vw;
+  height: 8vh;
+  margin: 1vh 2vw;
+  background: rgb(255,255,255,0.8);
+  border: 1px solid #FFBF2D;
+  color: #FFBF2D;
+  font-size: 6vw;
+}
+#delpicsconfirm{
+  display: none;
+  text-align: center;
+  border-radius: 20px;
+  background:rgba(255,191,45,0.4);
+  position: fixed;
+  top:28vh;
+  width: 80%;
+  height: 30vh;
+  z-index: 100;
+  margin-left: 10vw;
+}
+#delpicsconfirm div{
+  text-align: center;
+  padding:4vh 5vw;
+  margin-top:10%;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fff;
+  font-size: 6.5vw;
+  width: 70%;
+  height: 30%;
+  color: rgb(148, 145, 145);
+}
+#picsconfirmagain{
+  display: none;
+  text-align: center;
+  border-radius: 20px;
+  background:rgba(255,191,45,0.4);
+  position: fixed;
+  top:28vh;
+  width: 80%;
+  height: 30vh;
+  z-index: 100;
+  margin-left: 10vw;
+}
+#picsconfirmagain div{
+  text-align: center;
+  padding:4vh 5vw;
+  margin-top:10%;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fff;
+  font-size: 6.5vw;
+  width: 70%;
+  height: 30%;
+  color: rgb(148, 145, 145);
+}
+
+.addpictures{
+  background: #fff;
+}
+.addpictures_inner{
+  width: 90vw;
+  display: flex;
+  margin:0 auto;
+  background: #fff;
+  padding-bottom: 5vh;
+}
+.addpictures_block{
+  margin-top: 5vh;
+  position: relative;
+  top: 22vh;
+  padding-bottom: 20vh;
+}
+#addcpictureswarn{
+  display: none;
+  text-align: center;
+  border-radius: 20px;
+  background:rgba(255,191,45,0.4);
+  position: fixed;
+  top:23vh;
+  width: 90%;
+  height: 35vh;
+  z-index: 100;
+  margin-left: 5vw;
+}
+#addcpictureswarn div{
+  text-align: center;
+  padding:4vh 5vw;
+  margin-top:10%;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fff;
+  font-size: 6.5vw;
+  width: 70%;
+  height: 30%;
+  color: rgb(148, 145, 145);
 }
