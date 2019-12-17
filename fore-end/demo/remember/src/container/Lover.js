@@ -14,7 +14,18 @@ export default class lover_home extends Component {
                 ctime:'现 在',
                 cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
                 ccontent:'你的脖子真可爱，顶着一个猪脑袋'
-            }]
+            },
+            {
+                ctime:'昨 天',
+                cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
+                ccontent:'你的脖子真可爱，顶着一个猪脑袋'
+            },
+            {
+                ctime:'前 天',
+                cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
+                ccontent:'你的脖子真可爱，顶着一个猪脑袋'
+            }
+        ]
         }
     }
     componentDidMount(){
@@ -56,7 +67,7 @@ export default class lover_home extends Component {
     }
     render() {
         return (
-            <div style={{width:"100%"}}>
+            <div style={{width:"100%",backgroundColor:"white"}}>
                  <NavBar style={{
                      width:'100%',
                      zIndex:'11',
