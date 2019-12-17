@@ -81,10 +81,11 @@ export default class LSlists extends Component {
     <WingBlank><div style={{width:"100%"}}>
                 {
                     this.state.imgArr.map((item,idex)=>(
-                        <div className="limages" style={{background:`url(${item.img})`,backgroundSize:"100% 100%"}} >
+                        <Link to="/lover/lclist"><div className="limages" style={{background:`url(${item.img})`,backgroundSize:"100% 100%"}} >
                             {/* <img src={item.img} alt=""></img> */}
                             <p style={{color:"#888888",textAlign:"center",lineHeight:"170px"}}>{item.note}</p>
                         </div>
+                        </Link>
                     ))
                 }
                 </div>
