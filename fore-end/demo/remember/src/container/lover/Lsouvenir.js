@@ -18,7 +18,9 @@ export default class Lsouvenir extends Component {
         .then(res=>res.json())
         .then(json=>{ 
             this.setState({
-                arr:json
+                arr:json.msg
+            },()=>{
+                console.log(json);
             });
         })
     }
@@ -68,7 +70,7 @@ export default class Lsouvenir extends Component {
                 <h2></h2>
               {/* <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1996765656,1986455071&fm=26&gp=0.jpg" alt="" style={{height:"40%",width:"92%",margin:"4% 0 0 4%"}}></img> */}
                {
-                   this.state.arr.map((item)=>(
+                   this.state.arr&&this.state.arr.map((item)=>(
                     <div className="loversou-first"  value={item.id}>
                     <img  src={item.imgurl} alt=""  style={{float:"left",height:"100%",width:"50%"}}></img>
                     <h2 style={{marginTop:"8%",textAlign:"center"}}>{item.name}</h2>

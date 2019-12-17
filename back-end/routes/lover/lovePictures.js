@@ -22,7 +22,7 @@ router.get('/',async function(req,res,next){
     }else{
         info ={
             code:1,
-            msg:'获取爱人相册信息失败'
+            msg:null
         }
         res.json(info)
 
@@ -121,30 +121,58 @@ router.get('/lrpictures',async function(req,res,next){
 //增加照片
 router.post('/laddpictures',async function(req,res,next){
     console.log('添加照片');
-    console.log('req.bosy',req.body)
     var lPLid = Number(req.body.loverPhotoListid),
-        imgs = req.body.imgurl;
-    var text = {
-        pid:lPLid,
-        imgurl:imgs
-    };
-    var addPhoto = await lover.loverPhotoM.addLoverPhoto(text);
-    if(addPhoto === 0){
-        var data= await lover.loverPhotoM.findByPid(lPLid);
-        console.log(addPhoto,'data',data)
+        img =req.body.imgurl;
+    var imgs = img.split(',');
+    console.log('imgs',imgs);
+    console.log(req.body)
+
+    imgs.map(async function(item){
+        var text = {
+            pid:lPLid,
+            imgurl:item
+        };
+        await lover.loverPhotoM.addLoverPhoto(text);
+    })
+    var data= await lover.loverPhotoM.findByPid(lPLid);
+    if(data !== 1){
         info={
             code:0,
             msg:data
         }
         res.json(info);
-        console.log(info)
     }else{
         info={
             code:1,
             msg:'增加相片失败'
         }
         res.json(info);
-    }    
+    }
+    console.log(data);
+    // for(var i=0;i<imgs.length;i++){
+    //     var text = {
+    //         pid:lPLid,
+    //         imgurl:imgs[i]
+    //     };
+    //     var addPhoto = 
+    // }
+    // if(addPhoto === 0){
+    //     var data= await lover.loverPhotoM.findByPid(lPLid);
+    //     console.log(addPhoto,'data',data)
+    //     info={
+    //         code:0,
+    //         msg:data
+    //     }
+    //     res.json(info);
+    // }else{
+    //     info={
+    //         code:1,
+    //         msg:'增加相片失败'
+    //     }
+    //     res.json(info);
+    // }
+    
+    
 });
 
 router.post('/ldelpictures',async function(req,res,next){

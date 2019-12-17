@@ -15,8 +15,21 @@ router.get('/',async function(req,res,next){
     var lid = Number(req.query.loverid);
     console.log('lid',lid);
     var data = await lover.loverImpDateM.findByPid(lid);
-    // console.log('data',data)
-    res.json(data);
+    console.log('data',data)
+    if(data === 1){
+        info={
+            code:1,
+            msg:null
+        }
+        res.json(info);
+
+    }else{
+        info={
+            code:0,
+            msg:data
+        }
+        res.json(info);
+    }
 
 });
 
@@ -64,18 +77,19 @@ router.get('/delSouvenir',async function(req,res,next){
     console.log('delete loverid',lid);
     console.log('delete limpDid',limpDid);
     var delsou =  await lover.loverImpDateM.delLoverImpDate(limpDid);
-   console.log(delsou);
-    if(delsou === 0 ){
-        var data = await lover.loverImpDateM.findByPid(lid);
-        info = {
-            code:0,
-            msg:data
+    console.log(delsou);
+    var data = await lover.loverImpDateM.findByPid(lid);
+    if(data === 1){
+        info={
+            code:1,
+            msg:null
         }
         res.json(info);
+
     }else{
-        info= {
-            code:1,
-            msg:'删除失败'
+        info={
+            code:0,
+            msg:data
         }
         res.json(info);
     }

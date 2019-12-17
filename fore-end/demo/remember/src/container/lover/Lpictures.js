@@ -66,7 +66,7 @@ delPhoto=(id,lid)=>{
                   letterSpacing:'3vw'}}>云相册</span>
                 </NavBar>
                 {
-                  this.state.arr.map((index)=>(
+                  this.state.arr&&this.state.arr.map((index)=>(
                 <div className="loveImage-header"> 
                 <Link to={{
                     pathname:"/lover/lspictures",
