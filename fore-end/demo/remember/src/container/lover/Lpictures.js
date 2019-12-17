@@ -35,7 +35,7 @@ delPhoto=()=>{
     .then(res=>res.json())
     .then(json=>{ 
         this.setState({
-          arr:json.info
+          arr:json.msg
         },()=>{
           console.log("删除返回",json)
         });
