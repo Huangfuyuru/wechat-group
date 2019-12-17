@@ -28,7 +28,7 @@ router.get('/confirm',async function(req,res,next){
     var uid = Number(request.uid);
     var lid = Number(request.loversid);
     console.log(lid);
-    // var arr = [];
+    var arr = [];
     async function delLover(lid){
         var loveList = await loveListM.delAllByLid(lid);
         var loverDiary = await loverDiaryM.delAllByLid(lid);
