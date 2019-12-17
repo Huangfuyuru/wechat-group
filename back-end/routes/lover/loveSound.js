@@ -15,19 +15,12 @@ router.get('/',async function(req,res,next){
     console.log('sound query',req.query);
     var data =await lover.loverVoiceM.findByLid(lid);
     console.log(data);
-    if(data !== 1){
-        info ={
-            code:0,
-            msg:data
-        }
-        res.json(info);
+    if(data === 1){
+        info ={code:0,msg:null}
     }else{
-        info ={
-            code:1,
-            msg:null
-        }
-        res.json(info);
+        info ={code:0,msg:data};
     }
+    res.json(info);
 })
 
 //增加语音
@@ -42,21 +35,21 @@ router.post('/lcsound',async function(req,res,next){
     }
     var addVoice = await lover.loverVoiceM.addLoverVoice(text);
     console.log('addVoice',addVoice);
+    var data = await lover.loverVoiceM.findByLid(lid);
     if(addVoice === 0){
-        var data = await lover.loverVoiceM.findByLid(lid);
-        info = {
-            code:0,
-            msg:data
+        if(data === 1){
+            info ={code:0,msg:null}
+        }else{
+            info ={code:0,msg:data};
         }
-        res.json(info);
     }else{
-        info={
-            code:1,
-            msg:'增加语音失败'
-        };
-        res.json(info);
+        if(data === 1){
+            info ={code:1,msg:null}
+        }else{
+            info ={code:1,msg:data};
+        }
     }
-    console.log(info);
+    res.json(info);
 })
 
 //删除语音
@@ -66,18 +59,21 @@ router.get('/lrsound',async function(req,res,next){
     id = Number(req.query.loverVoiceid);
     var delvoice = await lover.loverVoiceM.delLoverVoice(id);
     var data = await lover.loverVoiceM.findByLid(lid);
-    if(data !== 1){
-        info ={
-            code:0,
-            msg:data
+
+    if(delvoice === 0){
+        if(data === 1){
+            info ={code:0,msg:null}
+        }else{
+            info ={code:0,msg:data};
         }
-        res.json(info);
     }else{
-        info ={
-            code:1,
-            msg:null
+        if(data === 1){
+            info ={code:1,msg:null}
+        }else{
+            info ={code:1,msg:data};
         }
-        res.json(info);
     }
+    res.json(info);
+
 })
 module.exports = router;

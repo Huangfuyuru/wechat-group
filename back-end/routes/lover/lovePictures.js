@@ -35,7 +35,7 @@ router.get('/show',async function(req,res,next){
     var photoListid = Number(req.query.loverPhotoListid);
     // console.log(photoListid);
     var data = await lover.loverPhotoM.findByPid(photoListid);
-    console.log(data);
+    // console.log(data);
     if(data!== 1){
         info ={
             code:0,
@@ -125,9 +125,10 @@ router.post('/laddpictures',async function(req,res,next){
         img =req.body.imgurl;
     var imgs = img.split(',');
     console.log('imgs',imgs);
-    console.log(req.body)
+    // console.log(req.body)
 
     imgs.map(async function(item){
+        console.log(item);
         var text = {
             pid:lPLid,
             imgurl:item
@@ -148,7 +149,7 @@ router.post('/laddpictures',async function(req,res,next){
         }
         res.json(info);
     }
-    console.log(data);
+    console.log('data',data);
     // for(var i=0;i<imgs.length;i++){
     //     var text = {
     //         pid:lPLid,
