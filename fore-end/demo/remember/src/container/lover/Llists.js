@@ -17,24 +17,16 @@ export default class Llists extends Component {
         }
     }
     componentDidMount(){
-        let path = this.props.match.params.id
-        fetch(``)
+        fetch(`http://localhost:3001/lover/loverlist?loverid=`)
         .then((res)=>res.json())
-        .then((res)=>{
-            this.setState({data:res.data});
+        .then((json)=>{
+            this.setState({
+
+            },()=>{
+                console.log(json)
+            });
         })
     }
-    // componentDidUpdate(Props,State){
-    //     if(Props.location.search !== this.props.location.search){
-    //         let path = this.props.match.params.id
-    //         console.log('path',path)
-    //         fetch( ``)
-    //         .then((res)=>res.json())
-    //         .then((res)=>{
-    //             this.setState({data:res.data});
-    //         })
-    //     }
-    // }
     render() {
         return (
             <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh",overflow:"hidden",height:"100%"}}>
