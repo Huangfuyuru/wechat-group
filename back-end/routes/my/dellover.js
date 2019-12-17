@@ -37,14 +37,24 @@ router.get('/confirm',async function(req,res,next){
         var loverPhotoList = await loverPhotoListM.findIdByLid(lid);
         if(loverPhotoList == 1){
             var lover = await loverM.delLover(lid);
+            var data = await loverM.findIdByUid(uid);
         }else{
-            loverPhotoList.map(async (item)=>{
-                await loverPhotoM.delAllByPid(item.id);
-            })
+            await Promise.all(
+                loverPhotoList.map(async function(item){
+                    await loverPhotoM.delAllByPid(item.id);
+                })
+            )
             await childPhotoList.delAllByLid(lid);
             var lover = await loverM.delLover(lid);
+            var data = await loverM.findIdByUid(uid);
         }
-        var message = {code:0,msg:"删除成功"};
+        console.log(data);
+        if(data == 1){
+            var message = {code:0,msg:"删除成功",data:null};
+        }else{
+            var message = {code:0,msg:"删除成功",data:data};
+        }
+        
         res.json(message)
     }
     
