@@ -6,30 +6,28 @@ export default class LSlists extends Component {
     constructor(){
         super();
         this.state={
-
-          imgArr:JSON.parse(localStorage.getItem("key", this.state)) || []
-            // imgArr:[
-            //     {
-            //         img:"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=432888676,1370031587&fm=26&gp=0.jpg",
-            //         note:"一起看电影",
-            //         time:"2019-12-2",
-            //     },
-            //     {
-            //         img:"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=432888676,1370031587&fm=26&gp=0.jpg",
-            //         note:"一起看电影",
-            //         time:"2019-12-2",
-            //     },
-            //     {
-            //         img:"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=432888676,1370031587&fm=26&gp=0.jpg",
-            //         note:"一起看电影",
-            //         time:"2019-12-2",
-            //     },
-            //     {
-            //         img:"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=432888676,1370031587&fm=26&gp=0.jpg",
-            //         note:"一起看电影",
-            //         time:"2019-12-2",
-            //     }
-               
+            imgArr:[
+                {
+                    img:require('../../../image/tu1.jpg'),
+                    note:"一起看电影",
+                
+                },
+                {
+                    img:require('../../../image/tu1.jpg'),
+                    note:"一起看电影",
+                 
+                },
+                {
+                    img:require('../../../image/tu1.jpg'),
+                    note:"一起看电影",
+                   
+                },
+                {
+                    img:require('../../../image/tu1.jpg'),
+                    note:"一起看电影",
+                    
+                }
+            ]
        
         }
     }
@@ -52,36 +50,20 @@ export default class LSlists extends Component {
             })
         }
     }
-    add=()=>{
-        var item={
-            img:"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=432888676,1370031587&fm=26&gp=0.jpg",
-            note:"一起看电影",
-            time:"2019-12-2",
-        }
-        this.setState({
-            imgArr: [...this.state.imgArr,item]
-        },()=>{
-            localStorage.setItem("key",JSON.stringify(this.state.imgArr))
-        })
-    }
-    delete=(a)=>{
-        let imgArr= [...this.state.imgArr];
-        imgArr.splice(a,1);
-        this.setState({
-            imgArr:imgArr
-        },()=>{
-            localStorage.setItem("key",JSON.stringify(this.state.imgArr))
-        })
-    }
     render() {
         return (
-            <div style={{height:"100%",width:"100%",backgroundColor:"white"}}>
+            <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
               <NavBar
                     style={{
                         background:'#FFBF2D',
                         height:'8vh',
                         color:'#fff',
                         fontWeight:'bolder',
+                        zIndex:'11',
+                        position:'fixed',
+                        width:'100%',
+                        left:0,
+                        top:0
                     }}
                     mode="light"
                     icon={'𡿨'}
@@ -95,19 +77,19 @@ export default class LSlists extends Component {
                     }}
                     >清单列表</span>
                 </NavBar>
-    <WingBlank><button style={{height:"20%",width:"100%",backgroundColor:"white",fontSize:"5vw",marginTop:"2%"}}>已完成3/{this.state.imgArr.length}</button></WingBlank>
+    <WingBlank><button style={{height:"5vh",width:"100%",backgroundColor:"white",fontSize:"5vw",marginTop:"2%"}}>已完成3/{this.state.imgArr.length}</button></WingBlank>
+    <WingBlank><div style={{width:"100%"}}>
                 {
                     this.state.imgArr.map((item,idex)=>(
-                        <div className="limages" >
-                            <img src={item.img} alt=""></img>
-                            <p>{item.note}</p>
-                            <p>{item.time}</p>
-                            <button onClick={()=>this.delete(idex)} style={{backgroundColor:"white",height:"20%",width:"30%"}}>删除</button>
+                        <Link to="/lover/lclist"><div className="limages" style={{background:`url(${item.img})`,backgroundSize:"100% 100%"}} >
+                            {/* <img src={item.img} alt=""></img> */}
+                            <p style={{color:"#888888",textAlign:"center",lineHeight:"170px"}}>{item.note}</p>
                         </div>
+                        </Link>
                     ))
                 }
-                <img src={require("../../../image/jia.jpg")}  className="lovesou-foot"   alt="" onClick={this.add}></img>
-                
+                </div>
+    </WingBlank>
             </div>
         )
     }

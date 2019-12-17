@@ -13,8 +13,8 @@ const lovePictures = require('./lover/lovePictures'),
       loveSound = require('./lover/loveSound'),
       loveDinary = require('./lover/loveDinary'),
       loveList = require('./lover/loveList'),
-      loveSouvenir = require('./lover/loveSouvenir');
-//       loveChangBack = require('/lover/changBack');
+      loveSouvenir = require('./lover/loveSouvenir'),
+      loveChangBack = require('./lover/changBack');
       
 router.post('/',async function(req,res,next){
        console.log('爱人的uid',req.body.uid);
@@ -27,8 +27,8 @@ router.post('/',async function(req,res,next){
 router.use('/lpictures',lovePictures);
 router.use('/lsound',loveSound);
 router.use('/ldairy',loveDinary);
-// router.use('/loveList',loveList);
+router.use('/loveList',loveList);
 router.use('/lsouvenir',loveSouvenir);
-// router.use('/changebackground',loveChangBack);
+router.use('/changebackground',loveChangBack);
 
 module.exports = router;

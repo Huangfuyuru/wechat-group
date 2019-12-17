@@ -12,6 +12,11 @@ export default class Lcreate_list extends Component {
                         height:'8vh',
                         color:'#fff',
                         fontWeight:'bolder',
+                        zIndex:'11',
+                     position:'fixed',
+                     width:'100%',
+                     left:0,
+                     top:0
                     }}
                     mode="light"
                     icon={'𡿨'}
