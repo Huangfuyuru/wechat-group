@@ -102,7 +102,7 @@ export default class Delrelation2 extends Component {
         {
           this.state.list.map((ele,index)=>{
             // 把index传入
-            return <div id="new" key={index} >爱人名：&nbsp;&nbsp;{ele.name}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
+            return <div id="new" key={index} >爱人名：&nbsp;{ele.name}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
           })
         }
       </div>

@@ -26,6 +26,7 @@ router.get('/confirm',async function(req,res,next){
     console.log(cid);
     var arr = [];
     async function delChild(cid){
+        
         var childAdolesce = await childAdolesceM.delAllByCid(cid);
         var childGrow = await childGrowM.delAllByCid(cid);
         var childDiary = await childDiaryM.delAllByCid(cid);
