@@ -18,10 +18,9 @@ export default class Lpictures extends Component {
     fetch(`http://localhost:3001/lover/lpictures?loverid=${this.state.lover_id}`)
     .then(res=>res.json())
     .then(json=>{ 
+      console.log(json)
         this.setState({
           arr:json.msg
-        },()=>{
-          console.log("加载后",json)
         });
     })
   }
@@ -49,7 +48,7 @@ delPhoto=()=>{
                      height:'8vh',
                      color:'#fff',
                      fontWeight:'bolder',
-                     zIndex:'11',
+                     zitem:'11',
                      position:'fixed',
                      width:'100%',
                      left:0,
@@ -65,41 +64,60 @@ delPhoto=()=>{
                   textIndent:'3vw',
                   letterSpacing:'3vw'}}>云相册</span>
                 </NavBar>
-                {
-                  this.state.arr&&this.state.arr.map((index)=>(
-                <div className="loveImage-header"> 
-                  <div 
-                  onClick={()=>{
-                    var lpicture={
-                      pname:index.name,
-                      pid:index.id
-                    }
-                    localStorage.setItem('lpicture',JSON.stringify(lpicture));
-                    this.props.history.push('/lover/lspictures')
-                    }}
-                 style={{color:"black"}}> 
-                      <div style={{height:"80%",width:"94%",margin:"2% 0 0% 3%",border:"solid 0.5px #888888"}} >              
-                        <img  style={{height:"100%",width:"100%"}} alt="" src={index.background}/>
-                      </div>  
-                  </div> 
-                 <div value={index.id}> 
-                  <p style={{fontSize:"5vw",float:"left",margin:"2% 0% 0 5%"}}>{index.name}</p>
-                  <img  style={{color:"#C7C7CC",fontSize:"8vw" ,float:"right",marginRight:"2%"}} 
-                  onClick={(e)=>{
-                    var itemid = e.target.parentNode.getAttribute('value');
-                    this.setState({
-                        loverPhotoListid:itemid
-                    })
-                    var dellsound=document.getElementById('dellsound');
-                    dellsound.style.display='block';
-                    }} 
-                    src={require("../../image/la.jpg")} alt=""
-                  />
-                    </div> 
+                <div className='cpicture_inner'>
+                  {
+                    this.state.arr&&this.state.arr.map((item,idx)=>(
+                      <div key={idx} className='cpicture_block'>
+                          <div 
+                          onClick={()=>{
+                            var lpicture={
+                              pname:item.name,
+                              pid:item.id
+                            }
+                            localStorage.setItem('lpicture',JSON.stringify(lpicture));
+                            this.props.history.push('/lover/lspictures')
+                            }}
+                          style={{
+                              width:'95%',
+                              height:'75%',
+                              margin:'1.5vh auto',
+                              background:`url(${item.imgurl}) center center/cover no-repeat`,
+                          }}>
+                          </div>
+                          <p style={{
+                              borderTop:'1px solid #ccc',
+                              margin:'0',
+                              lineHeight:'7vh',
+                              textAlign:'left',
+                              paddingLeft:'5vw',
+                              color:'#FFBF2D',
+                              fontSize:'6vw'
+                          }}>
+                              
+                              {item.name}
+                              <span
+                              onClick={()=>{
+                                this.setState({
+                                    loverPhotoListid:item.id
+                                })
+                                var dellsound=document.getElementById('dellsound');
+                                dellsound.style.display='block';
+                              }} 
+                              style={{
+                                  color:'#bdbbb8',
+                                  lineHeight:'6.5vh',
+                                  float:'right',
+                                  marginRight:'4vw'
+                              }}
+                              >
+                                  <i className='iconfont icon-shanchu1'/>
+                              </span>
+                          </p>
+                      </div>
+                    )
+                    )
+                  }
                 </div>
-                  )
-                  )
-                }
                
                <div id='dellsound'>
                     <div>确定删除？</div>
@@ -155,9 +173,6 @@ delPhoto=()=>{
                     <Link
                     to={{
                     pathname:'/lover/lcpictures',
-                    state:{
-                        cid:this.state.cid
-                    }
                     }}
                     ><i className='iconfont icon-jia'></i></Link>
               </div>

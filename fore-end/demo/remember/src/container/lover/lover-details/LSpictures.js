@@ -12,15 +12,18 @@ export default class LSpictures extends Component {
             pname:lpicture.pname,
             pid:lpicture.pid,
             dellist:[],
-            lists:[]
+            lists:[],
+            code:''
         }
     }
     componentDidMount(){
+        console.log(this.state.lists)
             fetch(`http://localhost:3001/lover/lpictures/show?loverPhotoListid=${this.state.pid}`)
             .then(res=>res.json())
             .then(json=>{ 
+                console.log('json',json)
                 this.setState({
-                    arr:json.msg
+                    lists:json.msg
                 },()=>{
                     console.log('点击具体相册',json)
                 })
@@ -56,15 +59,16 @@ export default class LSpictures extends Component {
     delPictures=()=>{
         console.log(this.state.dellist)
         var dellist = JSON.stringify(this.state.dellist)
-        fetch(`http://localhost:3001/child/cpictures/cdelpictures`,{
+        fetch(`http://localhost:3001/lover/lpictures/ldelpictures`,{
             method:'POST',
             mode:'cors',
             headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`pid=${this.state.pid}&childPhotoid=${dellist}`
+            body:`pid=${this.state.pid}&loverPhotoid=${dellist}`
         }).then(res=>res.json())
         .then(json=>{
+            console.log('shan',json)
            this.setState({
                lists:json.data,
                code:json.msg
@@ -72,6 +76,8 @@ export default class LSpictures extends Component {
         })
         var delpicsconfirm=document.getElementById('delpicsconfirm');
         delpicsconfirm.style.display='none'
+        var picsconfirmagain = document.getElementById('picsconfirmagain')
+        picsconfirmagain.style.display='block'
     }
     render() {
         return (  
@@ -116,7 +122,6 @@ export default class LSpictures extends Component {
                         this.state.lists&&this.state.lists.map((item,idx)=>(
                             <div className="scpicture_block"
                             key={item.id}
-                            value={item.id}
                             style={{
                                 background:`url(${item.imgurl}) center center/cover no-repeat`,
                             }}>
@@ -140,7 +145,6 @@ export default class LSpictures extends Component {
                             delbox[i].style.display='none';
                             delbox[i].checked=false;
                         }
-                        // console.log(e.target.parentNode.id)
                     }}>返回</button>
                     <button
                     onClick={()=>{
@@ -150,10 +154,10 @@ export default class LSpictures extends Component {
                         var dels=[]
                         for(var i=0;i<delbox.length;i++){
                             if(delbox[i].checked){
-                                dels.push(delbox[i].parentNode.getAttribute('value'))
-                                // console.log(delbox[i].parentNode.getAttribute('value'))
+                                dels.push(delbox[i].getAttribute('value'))
                             }
                         }
+                        
                         this.setState({
                             dellist:dels
                         })
@@ -202,9 +206,8 @@ export default class LSpictures extends Component {
                 <div id='picsconfirmagain'>
                 <div>{this.state.code}</div>
                     <button 
-                    onClick={()=>{
-                        var picsconfirmagain=document.getElementById('picsconfirmagain');
-                        picsconfirmagain.style.display='none';
+                    onClick={(e)=>{
+                        e.target.parentNode.style.display='none';
                     }}
                     style={{
                         width:'25%',
