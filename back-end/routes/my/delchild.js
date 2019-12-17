@@ -45,7 +45,7 @@ router.get('/confirm',async function(req,res,next){
         }
         console.log(data)      
         if(data == 1){
-            var message = {code:0,msg:"删除成功",data:[]};
+            var message = {code:0,msg:"删除成功",data:null};
         }else{
             var message = {code:0,msg:"删除成功",data:data};
         }
