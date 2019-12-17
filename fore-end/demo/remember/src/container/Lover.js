@@ -29,7 +29,7 @@ export default class lover_home extends Component {
         }
     }
     componentDidMount(){
-        fetch(`http://localhost:3001/lover`,{
+        fetch(`http://localhost:3001/lover/changebackground`,{
             method:'POST',
             mode:'cors',
             headers:{
