@@ -144,20 +144,21 @@ body{
 #new{
     font-size:4.5vw;
     line-height: 6.5vh;
-    width:30%;
+    width:60%;
     height:40px;
-    margin-left:35%;
+    margin-left:20%;
     margin-top:10px;
     border-bottom:solid lightgray;
     border-radius: 5px;
     display: block;
-    text-align: left;
+    text-align: center;
 }
 #new button{
     float:right;
-    margin-top:7%;
+    margin-top:3%;
     margin-right:5%;
     background-color:#FFBF2D;
+    border-radius: 5px;
 }
 #lwarn{
     margin-left:3vh;

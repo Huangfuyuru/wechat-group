@@ -8,9 +8,9 @@ export default class Delrelation2 extends Component {
       var uid = JSON.parse(localStorage.getItem('uid'));
       this.state = {
         list:[],//用来存放name
-        list2:'',
+        // list2:'',
         list3:[],//用来存放id
-        list4:'',
+        // list4:'',
         uid:uid,
         childid:0, //要返回的孩子的id
         a:0,  //要删除的index
@@ -21,17 +21,21 @@ export default class Delrelation2 extends Component {
     fetch(`http://localhost:3001/my/delchild?uid=${this.state.uid}`)
     .then(res=>res.json())
     .then(json=>{ 
-        for(var i=0;i<json.length;i++){
-          this.setState({
-            list2:this.state.list2+json[i].name+',',
-            list:this.state.list2.split(','),
-            list4:this.state.list4+json[i].id+',',
-            list3:this.state.list4.split(','),
-          });
-        }
-        var last=json.length-1;
-        this.state.list[last]=json[last].name;
-        console.log(this.state.list);
+        this.setState({
+          list:json
+        })
+        console.log(json)
+        // for(var i=0;i<json.length;i++){
+        //   this.setState({
+        //     list2:this.state.list2+json[i].name+',',
+        //     list:this.state.list2.split(','),
+        //     list4:this.state.list4+json[i].id+',',
+        //     list3:this.state.list4.split(','),
+        //   });
+        // }
+        // var last=json.length-1;
+        // this.state.list[last]=json[last].name;
+        // console.log(this.state.list);
     })
   }
   bounce=(index)=>{
@@ -43,7 +47,9 @@ export default class Delrelation2 extends Component {
     lwarn.style.display='block';
   }
   del=()=>{
-    this.state.childid=this.state.list3[this.state.a];
+    console.log(this.state.a);
+    this.state.childid=this.state.list[this.state.a].id;
+    console.log(this.state.childid);
     fetch(`http://localhost:3001/my/delchild/confirm?cid=${this.state.childid}&uid=${this.state.uid}`)
       .then(res=>res.json())
       .then(json=>{ 
@@ -53,12 +59,12 @@ export default class Delrelation2 extends Component {
       })
       //展开数组
       var list = [...this.state.list];
-      var list3= [...this.state.list3];
+      // var list3= [...this.state.list3];
       list.splice(this.state.a,1);
-      list3.splice(this.state.a,1);
+      // list3.splice(this.state.a,1);
       this.setState({
         list:list,
-        list3:list3
+        // list3:list3
       });
   }
     
@@ -94,7 +100,7 @@ export default class Delrelation2 extends Component {
         {
           this.state.list.map((ele,index)=>{
             // 把index传入
-            return <div id="new" key={index} >{ele}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
+            return <div id="new" key={index} >亲子名:&nbsp;&nbsp;{ele.name}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
           })
         }
       </div>

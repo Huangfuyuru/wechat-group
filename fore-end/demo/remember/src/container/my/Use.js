@@ -13,6 +13,7 @@ export default class Use extends Component {
             uid:uid,
             gender:'',
             code:0,
+            src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574914271954&di=5ce6c90533745142d11594040dd0b2b1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F19%2F20150619202710_4vZ8s.thumb.224_0.jpeg'
         }
     }
     upfile=()=>{
@@ -20,19 +21,14 @@ export default class Use extends Component {
         var url = 'http://localhost:3001/img';
         var form = new FormData();
         form.append("file",file);
-        console.log(form);
         fetch(url,{
             method:'POST',
             body:form
+        }).then(res=>res.json())
+        .then(res=>{
+            console.log(res.path);
+            this.setState({src:res.path})
         })
-        .then(res=>res.json())
-        .then(res=>(
-            console.log(res.path),
-            this.setState({
-                uimage:res.path
-            })
-        ))
-        console.log(this.state.uimage);
     }
     inputChange1=(e)=>{
         var a=e.target.value;
@@ -98,31 +94,27 @@ export default class Use extends Component {
                     }}
                     >设置</span>
                 </NavBar>
-                <div className='child_first'>                   
-                    <span style={{
-                        zIndex:'10',
-                        display:'inline-block',
-                        width:'100%',
-                        fontSize:'5vw',
-                        top:'8vh',
-                        position:'relative',
-                        color:'#000',
-                        background:'rgb(255,191,45,0.3)'
-                    }}>轻触上传精选照片<input 
+                <div style={{width:"100%",height:"10px",marginTop:"15%"}}></div>
+                <p style={{}}>
+                    <i className='iconfont icon-touxiangshangchuan'></i>  
+                    <span>轻触上传头像<input 
                     id='img'
-                    onChange={this.upfile}                           
+                    onChange={this.upfile}                         
                     type='file'  
                     accept="image/*" 
                     capture="camera" 
                     name='uimage' 
-                    /></span>
+                    placeholder='轻触上传头像'/></span>                          
                     <div style={{
-                        marginTop:'8.8vh'
-                    }}>
-                        <img 
-                        src={this.state.cindex_src} alt='自定义照片墙'/>
-                    </div>    
-                </div>
+                        width:'20vw',
+                        height:'10vh',
+                        display:'inline-block',
+                        marginLeft:'6vw'}}>
+                            <img src={this.state.src} 
+                            alt='默认头像'
+                            width='100%'/>              
+                    </div>
+                </p>
                 <form action=''>
                     <div className="create_Relation">
                         昵称：&nbsp;
