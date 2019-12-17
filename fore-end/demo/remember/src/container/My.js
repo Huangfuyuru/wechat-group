@@ -57,7 +57,7 @@ export default class My extends Component {
                 </div>
                 <div className="My_body">
                     <div className="one">
-                        <div className="line">
+                        <div className="line" style={{marginTop:"15%"}}>
                             <img style={{width:"7.5vw",height:"5vh"}} src={require("../image/a-love.png")}/>
                             <Link to='/my/crelation'>
                                 <div className="add">&nbsp;增加爱人&nbsp;</div>
@@ -82,8 +82,8 @@ export default class My extends Component {
                             </Link>
                         </div>
                     </div>
-                    <div className="two">
-                        <div className="line">
+                    <div className="two" >
+                        <div className="line" style={{marginTop:"15%"}}>
                             <img src={require("../image/del.png")}/>
                             <Link to='/my/delrelation'>
                                 <div className="add">删除爱人</div>
