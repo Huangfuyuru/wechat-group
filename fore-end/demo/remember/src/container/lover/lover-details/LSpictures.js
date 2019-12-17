@@ -63,6 +63,8 @@ export default class LSpictures extends Component {
         .then(json=>(
             this.setState({
                 arr:json.msg    
+        },()=>{
+            console.log(json)
         })
         ));
         })

@@ -35,7 +35,7 @@ export default class lover_home extends Component {
             headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`uid=${this.state.uid}`
+            body:`uid=${this.state.uid}&background=${this.state.cindex_src}`
         })
         .then(res=>res.json())
         .then(json=>{ 
