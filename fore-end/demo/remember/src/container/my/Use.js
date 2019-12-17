@@ -58,7 +58,7 @@ export default class Use extends Component {
                 'Content-Type':"application/x-www-form-urlencoded"
             },
             // uimage=${this.state.uimage}
-            body:`&uname=${this.state.uname}&gender=${this.state.gender}&pass=${this.state.pass}&uid=${this.state.uid}`
+            body:`&uimage=${this.state.uimage}&uname=${this.state.uname}&gender=${this.state.gender}&pass=${this.state.pass}&uid=${this.state.uid}`
         }).then(res=>res.json())
         .then(json=>{
             console.log(json)

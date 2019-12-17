@@ -34,11 +34,6 @@ export default class Crelation2 extends Component {
         })
     }
     Finally=()=>{
-        // 弹出框
-        // var lwarn=document.getElementById('lwarn');
-        // var btn1=document.getElementById('btn1');
-        // lwarn.style.display='block';
-
         console.log(this.state.name,this.state.birthday,this.state.gender,this.state.uid)
         fetch(`http://localhost:3001/my/addchild`,{
             method:'POST',
@@ -101,42 +96,6 @@ export default class Crelation2 extends Component {
                     </Link>
                 </form>
                 {/* 确认框 */}
-                {/* <div id='lwarn'>
-                    <div>请再次确认</div>
-                    <button 
-                    id="btn1"
-                    onClick={(index)=>{
-                        var warn=document.getElementById('lwarn');
-                        warn.style.display='none';
-                    }}
-                    style={{
-                        width:'25%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw'
-                    }}>确定</button>
-                    <button 
-                    id="btn1"
-                    onClick={()=>{
-                        var warn=document.getElementById('lwarn');
-                        warn.style.display='none';
-                    }}
-                    style={{
-                    width:'25%',
-                    height:'15%',
-                    color:'#FFBF2D',
-                    border:'none',
-                    marginTop:'2vh',
-                    marginLeft:'2vh',
-                    background:'#fff',
-                    borderRadius:'5px',
-                    fontSize:'6vw'
-                    }}>取消</button>
-                </div> */}
             </div>
         )
     }
