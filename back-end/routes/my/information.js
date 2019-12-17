@@ -12,8 +12,8 @@ router.use(bodyParser.json());
 
 //消息反馈
 router.post('/',async function(req,res,next){
-    // var uimage = req.body.uimage;
-    var uimage = JSON.parse(req.body.uimage);
+    var uimage = req.body.uimage;
+    // var uimage = JSON.parse(req.body.uimage);
     var uname = req.body.uname;
     var pass = req.body.pass;
     var uid = req.body.uid;
@@ -36,6 +36,8 @@ router.post('/',async function(req,res,next){
         info = {code:1,msg:"用户修改失败"}
         res.json(info)
     }
+    var data = await userM.findById(uid);
+    console.log("修改后的用户信息",data);
     //只是返回了结果
     // res.json(result)
 })

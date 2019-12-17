@@ -21,7 +21,7 @@ router.post('/',async function(req,res,next){
     var uid = req.body.uid;
     var data = await userM.findById(uid);
     //输出该用户的信息
-    console.log(data);
+    console.log("用户目前的信息",data);
     res.json(data);
 
 })
