@@ -123,23 +123,17 @@ router.post('/laddpictures',async function(req,res,next){
 });
 
 router.post('/ldelpictures',async function(req,res,next){
-    console.log('删除照片')
-    var lPLid = Number(req.body.loverPhotoListid),
-        lPid = Number(req.body.loverPhotoid)
-    var delPhoto = await lover.loverPhotoM.delLoverPhoto(lPid);
-    if(delPhoto === 0){
-        var data = await lover.loverPhotoM.findByPid(lPLid);
-        info={
-            code:0,
-            msg:data
-        }
-        res.json(info);
+    var photo = JSON.parse(req.body.loverPhotoid);
+    var loverPhotoListid = req.body.loverPhotoListid;
+    await Promise.all(photo.map(async function(item){
+        await loverPhotoM.delChildPhoto(JSON.parse(item));
+    }))
+    var data = await loverPhotoM.findByPid(loverPhotoListid)
+    console.log(data)
+    if(data == 1){
+        res.json({msg:"删除成功",data:null})
     }else{
-        info ={
-            code:1,
-            msg:'删除照片失败'
-        }
-        res.json(info);
+        res.json({msg:"删除成功",data:data})
     }
 })
 
