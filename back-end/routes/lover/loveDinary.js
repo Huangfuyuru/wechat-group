@@ -20,21 +20,12 @@ router.get('/',async function(req,res,next){
     console.log('loverid',id);
     // console.log('查看日记所有信息',await lover.loverDiaryM.findAll());
     var data =await lover.loverDiaryM.findByLid(id);
-    if(data !== 1){
-        info ={
-            code:0,
-            msg:data
-        }
-        // console.log('点击日记前端返回',info);
-        res.json(info);
+    if(data === 1){
+        info ={code:0,msg:null}
     }else{
-        info ={
-            code:1,
-            msg:null
-        }
-        res.json(info);
+        info ={code:0,msg:data};
     }
-    console.log(data);
+    res.json(info);
     
 });
 
@@ -73,26 +64,26 @@ router.get('/delDairy',async function(req,res,next){
     var lid = Number(req.query.loverid);
     var daid = Number(req.query.loverDiaryid);
     console.log('dairyid',daid);
-    await lover.loverDiaryM.delLoverDiary(daid);
-    console.log(delDairy);
+    var delDai = await lover.loverDiaryM.delLoverDiary(daid);
 
     var data =await lover.loverDiaryM.findByLid(lid);
-    if(data !== 1){
-        info ={
-            code:0,
-            msg:data
+    console.log('data',data);
+
+    if(delDai === 0){
+        if(data === 1){
+            info ={code:0,msg:null}
+        }else{
+            info ={code:0,msg:data};
         }
-        // console.log('点击日记前端返回',info);
-        res.json(info);
     }else{
-        info ={
-            code:1,
-            msg:null
+        if(data === 1){
+            info ={code:1,msg:null}
+        }else{
+            info ={code:1,msg:data};
         }
-        res.json(info);
     }
-    
-    
+    res.json(info);
+
 })
 
 module.exports = router;

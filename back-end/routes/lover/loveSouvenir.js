@@ -17,19 +17,11 @@ router.get('/',async function(req,res,next){
     var data = await lover.loverImpDateM.findByPid(lid);
     console.log('data',data)
     if(data === 1){
-        info={
-            code:1,
-            msg:null
-        }
-        res.json(info);
-
+        info ={code:0,msg:null}
     }else{
-        info={
-            code:0,
-            msg:data
-        }
-        res.json(info);
+        info ={code:0,msg:data};
     }
+    res.json(info);
 
 });
 
@@ -70,29 +62,30 @@ router.post('/lcsouvenir',async function(req,res,next){
 
 //删除纪念日
 router.get('/delSouvenir',async function(req,res,next){
-    console.log('删除日记')
-    console.log('query',req.query);
+    console.log('删除日记 query',req.query)
     var lid = Number(req.query.loverid),
         limpDid = Number(req.query.loverImpDateid);
-    console.log('delete loverid',lid);
-    console.log('delete limpDid',limpDid);
-    var delsou =  await lover.loverImpDateM.delLoverImpDate(limpDid);
-    console.log(delsou);
-    var data = await lover.loverImpDateM.findByPid(lid);
-    if(data === 1){
-        info={
-            code:1,
-            msg:null
-        }
-        res.json(info);
 
-    }else{
-        info={
-            code:0,
-            msg:data
+    var delsou =  await lover.loverImpDateM.delLoverImpDate(limpDid);
+    console.log('delsou',delsou);
+    var data = await lover.loverImpDateM.findByPid(lid);
+    console.log('data',data);
+    if (delsou === 0){
+        if(data === 1){
+            info ={code:0,msg:null}
+        }else{
+            info ={code:0,msg:data};
         }
-        res.json(info);
+    }else{
+        if(data === 1){
+            info ={code:1,msg:null}
+        }else{
+            info ={code:1,msg:data};
+        }
     }
+    res.json(info);
+
+    
 })
 
 
