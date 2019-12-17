@@ -4,9 +4,9 @@ import { NavBar, Icon } from 'antd-mobile';
 export default class Laddpictures extends Component {
     constructor(){
         super();
-        var cpicture = JSON.parse(localStorage.getItem('cpicture'));
+        var lpicture = JSON.parse(localStorage.getItem('lpicture'));
         this.state={
-            pid:cpicture.pid,
+            pid:lpicture.pid,
             lists:[],
             code:''
         }
