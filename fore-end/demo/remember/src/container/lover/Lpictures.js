@@ -10,6 +10,7 @@ export default class Lpictures extends Component {
         this.state={
           lover_id:lid,
           arr:[],
+          loverPhotoListid:"",
           image:[
             "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg",
             "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1153077516,1329367100&fm=26&gp=0.jpg"
@@ -28,9 +29,9 @@ export default class Lpictures extends Component {
         });
     })
   }
-delPhoto=(id,lid)=>{
-  console.log(id,lid)
-  fetch(`http://localhost:3001/lover/lpictures/lrpictures?loverid=${lid}&loverPhotoListid=${id}`)
+delPhoto=()=>{
+  console.log(this.state.loverPhotoListid)
+  fetch(`http://localhost:3001/lover/lpictures/lrpictures?loverid=${this.state.lover_id}&loverPhotoListid=${this.state.loverPhotoListid}`)
     .then(res=>res.json())
     .then(json=>{ 
         this.setState({
@@ -39,7 +40,10 @@ delPhoto=(id,lid)=>{
           console.log("删除返回",json)
         });
     })
-
+    var dellsound=document.getElementById('dellsound');
+    dellsound.style.display='none';
+    var csoundagain=document.getElementById('csoundagain');
+    csoundagain.style.display='block';
 }
     render() {
         return (
@@ -78,15 +82,74 @@ delPhoto=(id,lid)=>{
                  <img  style={{height:"100%",width:"100%"}} alt="" src={index.background}/>
                  </div>  
                  </Link> 
-                    <div> 
+                 <div value={index.id}> 
                   <p style={{fontSize:"5vw",float:"left",margin:"2% 0% 0 5%"}}>{index.name}</p>
-                  <span  style={{color:"#C7C7CC",fontSize:"8vw" ,float:"right",marginRight:"2%"}} onClick={()=>this.delPhoto(index.id,this.state.lover_id)}><img src={require("../../image/la.jpg")}/></span>
+                  <img  style={{color:"#C7C7CC",fontSize:"8vw" ,float:"right",marginRight:"2%"}} 
+                  onClick={(e)=>{
+                    var itemid = e.target.parentNode.getAttribute('value');
+                    this.setState({
+                        loverPhotoListid:itemid
+                    })
+                    var dellsound=document.getElementById('dellsound');
+                    dellsound.style.display='block';
+                    }} 
+                    src={require("../../image/la.jpg")} alt=""
+                  />
                     </div> 
                 </div>
                   )
                   )
                 }
                
+               <div id='dellsound'>
+                    <div>确定删除？</div>
+                    <button 
+                    onClick={()=>{
+                        var dellsound=document.getElementById('dellsound');
+                        dellsound.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw',
+                        marginRight:'10vw'
+                    }}>返回</button>
+                    <button 
+                    onClick={this.delPhoto}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                </div>
+                <div id='csoundagain'>
+                <div>删除成功</div>
+                    <button 
+                    onClick={()=>{
+                        var csoundagain=document.getElementById('csoundagain');
+                        csoundagain.style.display='none';
+                    }}
+                    style={{
+                        width:'25%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>确定</button>
+                 </div>   
                <div className='allpage_add'>
                     <p></p>
                     <Link

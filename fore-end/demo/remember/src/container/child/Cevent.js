@@ -20,7 +20,7 @@ export default class Cevent extends Component {
         .then((res)=>res.json())
         .then((res)=>{
             this.setState({
-            lists:res
+                lists:res
             });
         })
     }

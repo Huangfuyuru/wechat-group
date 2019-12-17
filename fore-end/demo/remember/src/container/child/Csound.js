@@ -11,15 +11,7 @@ export default class Csound extends Component {
             childVoiceid:'',
             cid:cid,
             voiceurl:'',
-            lists:[
-                {
-                    name:'语音',
-                    voiceurl:'地址',
-                    setdate:'2019-12-11',
-                    childVoiceid:''
-                    
-                },
-            ]
+            lists:[]
         }
     }
     componentDidMount(){
@@ -30,16 +22,7 @@ export default class Csound extends Component {
               lists:res
             });
         })
-      }
-    //   componentDidUpdate(prevProps,prevState){
-    //       fetch(`http://localhost:3001/child/csound?childsid=${this.state.cid}`)
-    //       .then((res)=>res.json())
-    //       .then((res)=>{
-    //           this.setState({
-    //             lists:res
-    //           });
-    //       })
-    //   }
+    }
     delCsound=(e)=>{
         console.log(this.state.childVoiceid)
         console.log(this.state.cid)

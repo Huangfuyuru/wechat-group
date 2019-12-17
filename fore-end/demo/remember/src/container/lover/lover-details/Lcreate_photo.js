@@ -10,6 +10,7 @@ export default class Lcreate_photo extends Component{
             lover_id:lid,
             name:"",
             background:"",
+            code:"",
         }
     }
     getName=(e)=>{
@@ -19,6 +20,8 @@ export default class Lcreate_photo extends Component{
     }
     upPhoto=()=>{
         console.log("执行");
+        var upsoundwarn=document.getElementById('upsoundwarn');
+        upsoundwarn.style.display='block';
             fetch(`http://localhost:3001/lover/lpictures/lcpictures`,{
                 method:"POST",
                 mode:'cors',
@@ -29,13 +32,18 @@ export default class Lcreate_photo extends Component{
             })
             .then(res=>res.json())
             .then(json=>{ 
+                if(json.code===0){
                 this.setState({
+                    code:"创建成功！"
                 },()=>{
                     console.log("添加",json)
                 });
+            }
             })
+        
     }
     upBack=()=>{
+
         var file=document.getElementById('back').files[0];
         var url = 'http://localhost:3001/img';
         var form = new FormData();
@@ -99,11 +107,46 @@ export default class Lcreate_photo extends Component{
                     <div id="yuBack" style={{height:"20%",width:"40%",float:"left",marginLeft:"30%"}}>
                         <img id="background" style={{width:"100%",height:"100%"}} src="http://img3.imgtn.bdimg.com/it/u=4100812006,4207999617&fm=26&gp=0.jpg" alt="封面预览"/>
                     </div>
-                  <Link to="/lover/lpictures">
                   <WingBlank>
                <button className="photo-foot" onClick={this.upPhoto}>创建相册</button>
                </WingBlank>
-               </Link>
+               
+               <form id='upsoundwarn'>
+                    <div>{this.state.code}</div>
+                    <button 
+                    onClick={()=>{
+                        var upsoundwarn=document.getElementById('upsoundwarn');
+                        upsoundwarn.style.display='none';
+                        this.props.history.push('/lover/lpictures');
+                    }}
+                    style={{
+                        width:'35%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw',
+                        marginRight:'2vw'
+                    }}>返回列表</button>
+                    <button 
+                    onClick={()=>{
+                        var upsoundwarn=document.getElementById('upsoundwarn');
+                        upsoundwarn.style.display='none';
+                        this.props.form.resetFields();
+                    }}
+                    style={{
+                        width:'35%',
+                        height:'15%',
+                        color:'#FFBF2D',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw'
+                    }}>继续上传</button>
+                </form>
             </div>
         )
     }

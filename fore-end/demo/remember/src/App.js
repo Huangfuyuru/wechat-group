@@ -26,7 +26,6 @@ import LCsound from "./container/lover/lover-details/Lcreate_sound"
 import Lover from "./container/Lover"
 import Child from "./container/Child"
 import My from './container/My';
-import Friends from './container/Friends';
 
 import Ccpicture from './container/child/child_details/Ccpicture'
 import Showpicture from './container/child/child_details/Showpicture'
@@ -45,6 +44,7 @@ import message from './container/my/Message'
 import Use from './container/my/Use'
 import Ccsound from './container/child/child_details/Ccsound';
 import Addpictures from './container/child/child_details/Addpictures';
+import Recommend from './container/Recommend';
 
 function App() {
   return (
@@ -98,7 +98,7 @@ function App() {
       <Route path='/lover/lsouvenir' component={Lsouvenir}/>
       <Route path='/lover/lcsouvenir' component={LCsouvenir}/>
 
-      <Route path='/index/friend' component={Friends}/>
+      <Route path='/index/recommend' component={Recommend}/>
 
       {/* 我的 */}
       <Route path='/index/my' component={My}/>

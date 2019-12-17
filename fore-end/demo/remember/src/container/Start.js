@@ -9,9 +9,12 @@ export default class Start extends Component {
             <div>
                 
                 <div className='start'>
-                    <nav style={{textAlign:'center'}}><img src={logo} alt='logo' width='60%'/></nav>
+                    <nav style={{
+                        marginTop:'30vh',
+                        textAlign:'center'
+                    }}><img src={logo} alt='logo' width='60%'/></nav>
                     <div className='start_first'>
-                        <p>
+                        {/* <p>
                             经历过的事，总比想象中更美一些
                         </p>
                         <p>
@@ -25,10 +28,10 @@ export default class Start extends Component {
                         </p>
                         <p>
                             浓浓的泛着木香的旧时光扑面而来……
-                        </p>
-                        <p>
+                        </p> */}
+                        {/* <p>
                             关于你的一切，我都会记得~
-                        </p>                 
+                        </p>                  */}
                     </div>
                     <button className='start_button' onClick={()=>{
                         var uid = localStorage.getItem('uid');
