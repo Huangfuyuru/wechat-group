@@ -104,37 +104,22 @@ router.get('/lrpictures',async function(req,res,next){
 
 //增加照片
 router.post('/laddpictures',async function(req,res,next){
-    console.log('添加照片');
     var lPLid = Number(req.body.loverPhotoListid),
-        img =req.body.imgurl;
-    var imgs = img.split(',');
-    console.log('imgs',imgs);
-    // console.log(req.body)
-
-    imgs.map(async function(item){
-        console.log(item);
+        img =JSON.parse(req.body.imgurl);
+    await Promise.all(img.map(async function(item){
         var text = {
             pid:lPLid,
-            imgurl:item
+            imgurl:item.path
         };
         await lover.loverPhotoM.addLoverPhoto(text);
-    })
+    }))
     var data= await lover.loverPhotoM.findByPid(lPLid);
-    if(data !== 1){
-        info={
-            code:0,
-            msg:data
-        }
-        res.json(info);
+    if(data == 1){
+        var message = {msg:"添加失败",data:null}
     }else{
-        info={
-            code:1,
-            msg:'增加相片失败'
-        }
-        res.json(info);
+        var message = {msg:"添加成功",data:data}
     }
-    console.log('data',data);
-
+    res.json(message)
 });
 
 router.post('/ldelpictures',async function(req,res,next){

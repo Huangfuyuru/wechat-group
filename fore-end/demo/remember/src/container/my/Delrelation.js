@@ -12,7 +12,8 @@ export default class Delrelation2 extends Component {
           inputValue:"",
           loverid:0,
           a:0,
-          code:0
+          code:0,
+          signal:1
         }
     }
     componentDidMount(){
@@ -79,12 +80,7 @@ export default class Delrelation2 extends Component {
       <h4>爱人记录</h4>
       <div>
         {
-          // this.state.list===[]?<h3>暂无爱人记录</h3>
-          // :this.state.list.map((ele,index)=>{
-          //   // 把index传入
-          //   return <div id="new" key={index} >爱人名：&nbsp;{ele.name}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
-          // })
-          //  this.state.list===[]?<p>空</p>: 
+          // this.state.signal===0?<p>空</p>: 
           this.state.list.map((ele,index)=>{
             // 把index传入
             return <div id="new" key={index} >爱人名：&nbsp;{ele.name}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
