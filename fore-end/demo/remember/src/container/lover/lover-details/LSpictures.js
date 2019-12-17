@@ -6,10 +6,11 @@ export default class LSpictures extends Component {
     constructor(props){
         super(props)
         var lpicture = JSON.parse(localStorage.getItem('lpicture'));
+        console.log(lpicture)
         this.state={
             count:0,
-            pname:lpicture.name,
-            pid:lpicture.id,
+            pname:lpicture.lname,
+            pid:lpicture.lid,
             dellist:[],
             lists:[]
         }
