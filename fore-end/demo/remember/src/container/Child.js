@@ -77,6 +77,7 @@ export default class Child extends Component {
             })
         ))
 
+        console.log(img)
         fetch(`http://localhost:3001/child/changebackground`,{
             method:'POST',
             mode:'cors',

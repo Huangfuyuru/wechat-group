@@ -123,7 +123,7 @@ export default class Message extends Component {
                         placeholder='请确认密码'/>
                     </p>
                     <button className='message_but'>
-                        <Link to='/menus/resign'>返回</Link>
+                        {/* <Link to='/menus/resign'>返回</Link> */}
                     </button>
                     <button onClick={this.buttonPost} className='message_but' type='submit'>提交</button>
                 </div>
