@@ -17,9 +17,13 @@ const maddchild = require('./my/addchild'),
 
     //参照child.js 12/10
 router.post('/',async function(req,res,next){
-    var uid = Number(req.body.uid);
-    var data = await childM.findIdByUid(uid);
+    console.log('My的uid',req.body.uid);
+    var uid = req.body.uid;
+    var data = await userM.findById(uid);
+    //输出该用户的信息
+    console.log(data);
     res.json(data);
+
 })
 
 router.use('/addchild',maddchild);
