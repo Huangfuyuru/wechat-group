@@ -4,9 +4,9 @@ import { NavBar, Icon } from 'antd-mobile';
 export default class Laddpictures extends Component {
     constructor(){
         super();
-        var cpicture = JSON.parse(localStorage.getItem('cpicture'));
+        var lpicture = JSON.parse(localStorage.getItem('lpicture'));
         this.state={
-            pid:cpicture.pid,
+            pid:lpicture.pid,
             lists:[],
             code:''
         }
@@ -48,9 +48,10 @@ export default class Laddpictures extends Component {
                 body:`loverPhotoListid=${this.state.pid}&imgurl=${lists} `
             }).then(res=>res.json())
             .then(json=>{
-                this.setState({
-                    code:json.msg
-                })
+                console.log(json)
+                // this.setState({
+                //     code:json.msg
+                // })
             })
         }
     }
