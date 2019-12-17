@@ -29,33 +29,11 @@ export default class Delrelation2 extends Component {
             list3:this.state.list4.split(','),
           });
         }
-<<<<<<< HEAD
         var last=json.length-1;
         this.state.list[last]=json[last].name;
         console.log(this.state.list);
     })
   }
-=======
-    }
-    componentDidMount(){
-      fetch(`http://localhost:3001/my/delchild?uid=${this.state.uid}`)
-      .then(res=>res.json())
-      .then(json=>{ 
-        console.log('json',json);
-        console.log(json.length);
-          for(var i=0;i<json.length;i++){
-            this.setState({
-              list2:this.state.list2+json[i].name+',',
-              list:this.state.list2.split(','),
-              list4:this.state.list4+json[i].id+',',
-              list3:this.state.list4.split(',')
-            });
-          }
-          console.log(this.state.list);
-      })
-      // 获取code
-    }
->>>>>>> 23a9b5a4e743d09bbc05d6f7e2a937d969d9ea4e
   bounce=(index)=>{
     // 弹出选择框
     this.state.a=index;
@@ -87,23 +65,30 @@ export default class Delrelation2 extends Component {
   render(){
     return(
       <div className="All">
-        <NavBar
-          style={{
-              background:'#FFBF2D',
-              height:'8vh'
-          }}
-          mode="light"
-          icon={<Icon type="left" style={{color:"white"}}/>}
-          onLeftClick={() => this.props.history.push('/index/my')}
-          ><span style={{
-              fontWeight:'bold',
-              fontSize:'6vw',
-              textIndent:'3vw',
-              letterSpacing:'3vw',
-              color:"white"
-          }}
-          >删除关系</span>
-      </NavBar>
+          <NavBar
+            style={{
+            top:0,
+            width:'100%',
+            zIndex:'11',
+            position:'fixed',
+            height:'8vh',
+            background:'#FFBF2D',
+            color:'#fff',
+            fontWeight:'bolder',
+            }}
+            mode="light"
+            icon={'𡿨'}
+            onLeftClick={() => this.props.history.push('/index/my')}
+            ><span style={{
+                fontWeight:'bold',
+                fontSize:'6vw',
+                textIndent:'3vw',
+                letterSpacing:'3vw',
+                color:"white"
+            }}
+            >删除关系</span>
+        </NavBar>
+        <div style={{width:"100%",height:"5px",marginTop:"15%"}}></div>
       <h4>亲子记录</h4>
       <div>
         {

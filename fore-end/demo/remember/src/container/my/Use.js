@@ -77,11 +77,17 @@ export default class Use extends Component {
             <div className="All">
                 <NavBar
                     style={{
-                        background:'#FFBF2D',
-                        height:'8vh'
+                    top:0,
+                    width:'100%',
+                    zIndex:'11',
+                    position:'fixed',
+                    height:'8vh',
+                    background:'#FFBF2D',
+                    color:'#fff',
+                    fontWeight:'bolder',
                     }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:"white"}}/>}
+                    icon={'𡿨'}
                     onLeftClick={() => this.props.history.push('/index/my')}
                     ><span style={{
                         fontWeight:'bold',

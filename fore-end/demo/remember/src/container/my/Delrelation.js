@@ -73,11 +73,17 @@ export default class Delrelation2 extends Component {
       <div className="All">
         <NavBar
           style={{
-              background:'#FFBF2D',
-              height:'8vh'
+          top:0,
+          width:'100%',
+          zIndex:'11',
+          position:'fixed',
+          height:'8vh',
+          background:'#FFBF2D',
+          color:'#fff',
+          fontWeight:'bolder',
           }}
           mode="light"
-          icon={<Icon type="left" style={{color:"white"}}/>}
+          icon={'𡿨'}
           onLeftClick={() => this.props.history.push('/index/my')}
           ><span style={{
               fontWeight:'bold',
@@ -88,6 +94,7 @@ export default class Delrelation2 extends Component {
           }}
           >删除关系</span>
       </NavBar>
+      <div style={{width:"100%",height:"5px",marginTop:"15%"}}></div>
       <h4>爱人记录</h4>
       <div>
         {
