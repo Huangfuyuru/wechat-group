@@ -48,9 +48,10 @@ export default class Laddpictures extends Component {
                 body:`loverPhotoListid=${this.state.pid}&imgurl=${lists} `
             }).then(res=>res.json())
             .then(json=>{
-                this.setState({
-                    code:json.msg
-                })
+                console.log(json)
+                // this.setState({
+                //     code:json.msg
+                // })
             })
         }
     }
