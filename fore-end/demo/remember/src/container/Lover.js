@@ -29,13 +29,13 @@ export default class lover_home extends Component {
         }
     }
     componentDidMount(){
-        fetch(`http://localhost:3001/lover/changebackground`,{
+        fetch(`http://localhost:3001/lover`,{
             method:'POST',
             mode:'cors',
             headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`uid=${this.state.uid}&background=${this.state.cindex_src}`
+            body:`uid=${this.state.uid}`
         })
         .then(res=>res.json())
         .then(json=>{ 
@@ -51,6 +51,24 @@ export default class lover_home extends Component {
         })
     }
     
+    componentDidUpdate(prevProps,prevState){
+        console.log('更新')
+        if(prevState.cindex_src != this.state.cindex_src){
+            var url = 'http://localhost:3001/lover/changebackground';
+            fetch(url,{
+                method:'POST',
+                headers:{
+                    'Content-Type':"application/x-www-form-urlencoded"
+                },
+                body:`lover_id=${Number(this.state.lover_id)}&background=${this.state.cindex_src}`
+            }).then(res=>res.json())
+            .then(json=>{
+                console.log('json',json)
+            })
+        }
+        
+    }
+
     upfile=()=>{
         var file=document.getElementById('img').files[0];
         var url = 'http://localhost:3001/img';
