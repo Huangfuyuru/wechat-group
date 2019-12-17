@@ -8,9 +8,6 @@ export default class Delrelation2 extends Component {
         var uid = JSON.parse(localStorage.getItem('uid'));
         this.state = {
           list:[],//用来存放name
-          // list2:'',
-          // list3:[],//用来存放id
-          // list4:'',
           uid:uid,
           inputValue:"",
           loverid:0,
@@ -22,27 +19,14 @@ export default class Delrelation2 extends Component {
       fetch(`http://localhost:3001/my/dellover?uid=${this.state.uid}`)
       .then(res=>res.json())
       .then(json=>{ 
-        // console.log('现在',json);
-        // console.log(json.length);
-        //   for(var i=0;i<json.length;i++){
-        //     this.setState({
-        //       list2:this.state.list2+json[i].name+',',
-        //       list:this.state.list2.split(','),
-        //       list4:this.state.list4+json[i].id+',',
-        //       list3:this.state.list4.split(',')
-        //     });
-        //   }
           this.setState({
              list:json
           })
       })
-      // 获取code
     }
   bounce=(index)=>{
     // 弹出选择框
-    // this.state.index=index;
     this.state.a=index;
-    // console.log(index);
     console.log(this.state.a);
     var lwarn=document.getElementById('lwarn');
     var btn1=document.getElementById('btn1');
@@ -57,16 +41,11 @@ export default class Delrelation2 extends Component {
               code:json.code
           });
       })
-      // 判断是否删
       //展开数组
-      // console.log(this.state.a);
       var list = [...this.state.list];
-      // var list3= [...this.state.list3];
       list.splice(this.state.a,1);
-      // list3.splice(this.state.a,1);
       this.setState({
         list:list,
-        // list3:list3
       });
   }
     
@@ -100,6 +79,12 @@ export default class Delrelation2 extends Component {
       <h4>爱人记录</h4>
       <div>
         {
+          // this.state.list===[]?<h3>暂无爱人记录</h3>
+          // :this.state.list.map((ele,index)=>{
+          //   // 把index传入
+          //   return <div id="new" key={index} >爱人名：&nbsp;{ele.name}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
+          // })
+          //  this.state.list===[]?<p>空</p>: 
           this.state.list.map((ele,index)=>{
             // 把index传入
             return <div id="new" key={index} >爱人名：&nbsp;{ele.name}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
@@ -131,7 +116,6 @@ export default class Delrelation2 extends Component {
         onClick={()=>{
             var warn=document.getElementById('lwarn');
             warn.style.display='none';
-            
         }}
         style={{
           width:'25%',
