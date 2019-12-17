@@ -23,7 +23,6 @@ export default class Laddpictures extends Component {
             body:form,
         }).then(res=>res.json())
         .then(res=>{
-            console.log(res)
             this.setState({
                 lists:res
             })
@@ -48,10 +47,10 @@ export default class Laddpictures extends Component {
                 body:`loverPhotoListid=${this.state.pid}&imgurl=${lists} `
             }).then(res=>res.json())
             .then(json=>{
-                console.log(json)
-                // this.setState({
-                //     code:json.msg
-                // })
+                console.log('json',json)
+                this.setState({
+                    code:json.msg
+                })
             })
         }
     }

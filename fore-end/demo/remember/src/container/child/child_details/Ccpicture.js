@@ -12,7 +12,7 @@ export default class Create extends Component {
             name:'',
             backgroundurl:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1961296464,1745767450&fm=26&gp=0.jpg'
         }
-    }
+    } 
     upfile=()=>{
         var file=document.getElementById('img').files[0];
         var url = 'http://localhost:3001/img';
