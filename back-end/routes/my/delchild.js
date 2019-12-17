@@ -33,14 +33,16 @@ router.get('/confirm',async function(req,res,next){
         var childPhotoList = await childPhotoListM.findIdByCid(cid)
         if(childPhotoList == 1){
             var child = await childM.delChild(cid);
+            var data = await childM.findIdByUid(uid);
         }else{
             childPhotoList.map(async (item)=>{
                 await childPhotoM.delAllByPid(item.id);
             })
             await childPhotoListM.delAllByCid(cid);
             var child = await childM.delChild(cid);
+            var data = await childM.findIdByUid(uid)
         }
-        var message = {code:0,msg:"删除成功"};
+        var message = {code:0,msg:"删除成功",data:data};
         res.json(message)
     }
     delChild(cid);
