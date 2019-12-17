@@ -334,16 +334,14 @@
     border-radius: 4px;
   }
   .limages{
-    height:25%;
-    width: 40%;
-    margin:4%;
+    height:20vh;
+    width: 48%;
+    margin:2% 1% 0 1%;
     float:left;
     background-color: white;
   }
   .limages p{
-    float:left;
     font-size: 5vw;
-    margin:0;
   }
   .limages img{
     float:left;
