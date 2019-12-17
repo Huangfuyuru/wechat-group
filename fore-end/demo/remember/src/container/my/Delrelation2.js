@@ -3,44 +3,40 @@ import { NavBar, Icon } from 'antd-mobile';
 import {Link} from 'react-router-dom';
 
 export default class Delrelation2 extends Component {
-    constructor(props){
-        super(props);
-        var uid = JSON.parse(localStorage.getItem('uid'));
-        this.state = {
-          list:[],//用来存放name
-          list2:'',
-          list3:[],//用来存放id
-          list4:'',
-          uid:uid,
-          inputValue:"",
-          childid:0,
-          a:0,
-          code:0
+  constructor(props){
+      super(props);
+      var uid = JSON.parse(localStorage.getItem('uid'));
+      this.state = {
+        list:[],//用来存放name
+        list2:'',
+        list3:[],//用来存放id
+        list4:'',
+        uid:uid,
+        childid:0, //要返回的孩子的id
+        a:0,  //要删除的index
+        code:0  //要获取的状态
+      }
+  }
+  componentDidMount(){
+    fetch(`http://localhost:3001/my/delchild?uid=${this.state.uid}`)
+    .then(res=>res.json())
+    .then(json=>{ 
+        for(var i=0;i<json.length;i++){
+          this.setState({
+            list2:this.state.list2+json[i].name+',',
+            list:this.state.list2.split(','),
+            list4:this.state.list4+json[i].id+',',
+            list3:this.state.list4.split(','),
+          });
         }
-    }
-    componentDidMount(){
-      fetch(`http://localhost:3001/my/delchild?uid=${this.state.uid}`)
-      .then(res=>res.json())
-      .then(json=>{ 
-        console.log(json);
-        console.log(json.length);
-          for(var i=0;i<json.length;i++){
-            this.setState({
-              list2:this.state.list2+json[i].name+',',
-              list:this.state.list2.split(','),
-              list4:this.state.list4+json[i].id+',',
-              list3:this.state.list4.split(',')
-            });
-          }
-          console.log(this.state.list);
-      })
-      // 获取code
-    }
+        var last=json.length-1;
+        this.state.list[last]=json[last].name;
+        console.log(this.state.list);
+    })
+  }
   bounce=(index)=>{
     // 弹出选择框
-    // this.state.index=index;
     this.state.a=index;
-    // console.log(index);
     console.log(this.state.a);
     var lwarn=document.getElementById('lwarn');
     var btn1=document.getElementById('btn1');
@@ -55,9 +51,7 @@ export default class Delrelation2 extends Component {
               code:json.code
           });
       })
-      // 判断是否删
       //展开数组
-      // console.log(this.state.a);
       var list = [...this.state.list];
       var list3= [...this.state.list3];
       list.splice(this.state.a,1);

@@ -73,7 +73,6 @@ export default class Child extends Component {
                 cindex_src:res.path
             })
         ))
-        
     }
     changeChild=(id,background)=>{
         this.setState({

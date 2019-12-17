@@ -7,7 +7,7 @@ export default class Use extends Component {
         super(props);
         var uid = JSON.parse(localStorage.getItem('uid'));
         this.state={
-            // uimage:'./a.png',
+            uimage:'',
             uname:'',
             pass:'',
             uid:uid,
@@ -15,24 +15,25 @@ export default class Use extends Component {
             code:0,
         }
     }
-    // upfile=()=>{
-    //     var file=document.getElementById('img').files[0];
-    //     var url = 'http://localhost:3001/my/information';
-    //     var form = new FormData();
-    //     form.append("file",file);
-    //     fetch(url,{
-    //         method:'POST',
-    //         body:form
-    //     }).then(res=>res.json())
-    //     .then(res=>(this.setState({
-    //         cindex_src:res.path
-    //     },()=>{
-    //         console.log(this.state.cindex_src)
-    //         fetch(`http://localhost:3001/child/changebackground?childsid=${this.state.child_id}&background=${this.state.cindex_src}`,{
-    //         method:'GET',
-    //     })}
-    //     )))
-    // }
+    upfile=()=>{
+        var file=document.getElementById('img').files[0];
+        var url = 'http://localhost:3001/img';
+        var form = new FormData();
+        form.append("file",file);
+        console.log(form);
+        fetch(url,{
+            method:'POST',
+            body:form
+        })
+        .then(res=>res.json())
+        .then(res=>(
+            console.log(res.path),
+            this.setState({
+                uimage:res.path
+            })
+        ))
+        console.log(this.state.uimage);
+    }
     inputChange1=(e)=>{
         var a=e.target.value;
         this.setState({
@@ -91,13 +92,32 @@ export default class Use extends Component {
                     }}
                     >设置</span>
                 </NavBar>
-                <form method='post' action=''>
-                    {/* <div className="img-up">
-                        <span className="one">
-                            轻触上传精选照片
-                            <input id='img'onChange={this.upfile} type='file'accept="image/*"capture="camera" name='uimage'/>
-                        </span>
-                    </div> */}
+                <div className='child_first'>                   
+                    <span style={{
+                        zIndex:'10',
+                        display:'inline-block',
+                        width:'100%',
+                        fontSize:'5vw',
+                        top:'8vh',
+                        position:'relative',
+                        color:'#000',
+                        background:'rgb(255,191,45,0.3)'
+                    }}>轻触上传精选照片<input 
+                    id='img'
+                    onChange={this.upfile}                           
+                    type='file'  
+                    accept="image/*" 
+                    capture="camera" 
+                    name='uimage' 
+                    /></span>
+                    <div style={{
+                        marginTop:'8.8vh'
+                    }}>
+                        <img 
+                        src={this.state.cindex_src} alt='自定义照片墙'/>
+                    </div>    
+                </div>
+                <form action=''>
                     <div className="create_Relation">
                         昵称：&nbsp;
                         <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="单行输入"></input>
