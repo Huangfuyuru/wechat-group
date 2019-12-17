@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
 import '../css/login.css'
 
 export default class Login extends Component {
@@ -41,8 +40,6 @@ export default class Login extends Component {
                         userid:uid
                     }
                 });
-                console.log(json)
-                console.log(uid)
                 console.log('登录成功')
             }else{
                 this.setState({

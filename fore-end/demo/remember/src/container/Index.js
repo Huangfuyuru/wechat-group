@@ -1,13 +1,6 @@
 import React, { Component } from 'react'
-import { TabBar } from 'antd-mobile';
-// import {Route} from 'react-router-dom'
-import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import '../css/index.css'
-import Child from './Child';
-import My from './My';
-import Lover from "./Lover"
-import Friends from "./Recommend"
-// import Friends from "./Friends"
 export default class Child_index extends Component {
     constructor(props) {
         super(props);
@@ -99,7 +92,7 @@ export default class Child_index extends Component {
                         pathname:'/index/recommend',
                         state:this.state.userid
                     }} >
-                        <div id='friend' onClick={this.addClass} className='index_tab'>
+                        <div id='recommend' onClick={this.addClass} className='index_tab'>
                             <i
                             className='iconfont icon-weibiaoti-_huaban'
                             />

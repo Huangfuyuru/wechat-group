@@ -45,17 +45,6 @@ export default class lover_home extends Component {
         })
     }
     
-    componentDidUpdate(prevProps,prevState){
-        if(prevState !== this.state){
-            // console.log('BJ',this.state.cindex_src)
-            // console.log('id',this.state.child_id)
-            fetch(`http://localhost:3001/lover/changebackground?loverid= ${this.lover_id}&background =${this.state.cindex_src}`)
-            .then(res=>res.json())
-            .then(json=>(
-                console.log(json)
-            ))
-        }
-    }
     upfile=()=>{
         var file=document.getElementById('img').files[0];
         var url = 'http://localhost:3001/img';
@@ -65,7 +54,10 @@ export default class lover_home extends Component {
             method:'POST',
             body:form
         }).then(res=>res.json())
-        .then(res=>(this.setState({cindex_src:res.path})))
+        .then(res=>(this.setState({
+            cindex_src:res.path},()=>{
+                localStorage.setItem('lbackground',JSON.stringify(this.state.cindex_src))
+            })))
     }
     render() {
         return (

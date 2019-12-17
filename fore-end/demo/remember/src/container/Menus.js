@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {BrowserRouter as Router, Route,Link} from 'react-router-dom'
+import {Route,Link} from 'react-router-dom'
 import logo from '../image/logo.png'
 import '../css/login.css'
 import Login from './Login'
@@ -14,14 +14,11 @@ export default class Menus extends Component {
         var a2 = document.getElementById('a2')
         if(e.target.id == 'a1'){
             a2.classList.remove('menus_active')
-            console.log(a2.className)
         }else if(e.target.id == 'a2'){
             a1.classList.remove('menus_active')
-            console.log(a1.className)
 
         }
         e.target.classList.add('menus_active')
-        console.log(e.target.className)
 
     }
     render() {
@@ -48,11 +45,9 @@ export default class Menus extends Component {
                         <i></i>
                         <p>第三方登录</p>
                     </div>
-                    {/* <Router> */}
-                        <Link to='/menus/login/qq'><i className='iconfont icon-qqdenglufanbai'></i></Link>
-                        <Link to='/menus/login/wechat'><i className='iconfont icon-weixin'></i></Link>
-                        <Link to='/menus/login/weibo'><i className='iconfont icon-comiisweibodenglu'></i></Link>
-                    {/* </Router> */}
+                    <Link to='/menus/login/qq'><i className='iconfont icon-qqdenglufanbai'></i></Link>
+                    <Link to='/menus/login/wechat'><i className='iconfont icon-weixin'></i></Link>
+                    <Link to='/menus/login/weibo'><i className='iconfont icon-comiisweibodenglu'></i></Link>
                 </footer>
             </div>
         )
