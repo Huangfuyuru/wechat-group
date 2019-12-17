@@ -59,13 +59,19 @@ export default class Crelation2 extends Component {
     render(){
         return(
             <div className="All">
-                <NavBar
+                    <NavBar
                     style={{
-                        background:'#FFBF2D',
-                        height:'8vh'
+                    top:0,
+                    width:'100%',
+                    zIndex:'11',
+                    position:'fixed',
+                    height:'8vh',
+                    background:'#FFBF2D',
+                    color:'#fff',
+                    fontWeight:'bolder',
                     }}
                     mode="light"
-                    icon={<Icon type="left" style={{color:"white"}}/>}
+                    icon={'𡿨'}
                     onLeftClick={() => this.props.history.push('/index/my')}
                     ><span style={{
                         fontWeight:'bold',
@@ -78,7 +84,7 @@ export default class Crelation2 extends Component {
                 </NavBar>
                 <h3>亲子关系</h3>
                 <form action=''>
-                    <div className="create_Relation">
+                    <div className="create_Relation" style={{marginTop:"15%"}}>
                         对方昵称：&nbsp;
                         <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="单行输入"></input>
                     </div>
