@@ -19,12 +19,14 @@
       font-family: "iconfont" !important;
       font-size: 26px;
       font-style: normal;
+      color:black;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
     
     .icon-gengduo:before {
       content: "\e76f";
+      color:black;
     }
     
     .relation-first{
@@ -668,4 +670,14 @@
 }
 .cpicture_block i{
   font-size: 8vw;
+}
+.allpage_share{
+  width: 100%;
+  z-index:1000 ;
+  background:#FF1744;
+  position: fixed;
+  height: 8vh;
+  bottom: 0;
+  text-align: center;
+  /* box-shadow: 0px  1px  5px  0px  #bdbbb8 ; */
 }

@@ -8,12 +8,6 @@ export default class Llists extends Component {
         this.state={
             loverid: JSON.parse(localStorage.getItem('lid')),
             tabs :[
-                { name: '推荐' },
-                { name: '冬季' },
-                { name: '宜家' },
-                { name: '小清新'},
-                { name: '小户型' },
-                { name: '个性色彩'},
               ]
         }
     }
@@ -22,7 +16,7 @@ export default class Llists extends Component {
         .then((res)=>res.json())
         .then((json)=>{
             this.setState({
-
+               tabs:json.msg
             },()=>{
                 console.log(json)
             });
@@ -32,10 +26,8 @@ export default class Llists extends Component {
         return (
             <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh",overflow:"hidden",height:"100%"}}>
                  <NavBar style={{
-                     background:'#FFBF2D',
                      height:'8vh',
-                     color:'#fff',
-                     fontWeight:'bolder',
+                     color:'black',
                      zIndex:'11',
                      position:'fixed',
                      width:'100%',
@@ -47,10 +39,10 @@ export default class Llists extends Component {
                     rightContent={[<Link to="/lover/lslists"><div className="iconfont icon-gengduo" key="0"   style={{ color:"white",marginRight: '10px' }} /></Link>,]}
                     onLeftClick={() => this.props.history.push('/index/lover')}
                  ><span style={{
-                     fontWeight:'bold',
+                    
                      fontSize:'6vw',
                      textIndent:'3vw',
-                     color:'#fff',
+                     color:'black',
                      letterSpacing:'3vw'}}>恋爱清单</span>
                 </NavBar>
                 <Tabs tabs={this.state.tabs}
@@ -59,35 +51,34 @@ export default class Llists extends Component {
             tabBarActiveTextColor="#3fcccb"
             tabBarPosition="bottom"
             renderTabBar={props => <Tabs.DefaultTabBar {...props} page={2} />}
-            onChange={(tab, index) => { console.log('onChange', index, tab); }}
-            onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+            // onChange={(tab, index) => { console.log('onChange', index, tab); }}
+            // onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
           >
+              {
+                  this.state.tabs&&this.state.tabs.map((item)=>(
                 <div className="loverlist-header">
-                    <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3560880680,1309107465&fm=26&gp=0.jpg" alt="" style={{height:"65%",width:"90%",margin:"4% 0 0 5%"}}></img>
-                    <div className="loverlist-first">
-                        <h1 style={{color:"#FFBF2D",textAlign:"center"}}>第一次牵手</h1>
-                      {/* <Link to="/lover/crlist"><img src={require("../image/jia.jpg")}  className="lovelist-jia"   alt=""></img></Link>  */}
-                    </div>  
+                    <Link to={{
+                        pathname:'/lover/list',
+                        state:{
+                            arr:item
+                        }
+                        }}
+                    >
+                    <div style={{height:"65%",width:"90%",margin:"4% 0 0 5%",border:"solid 0.5px #888888"}}>
+                    <img src={item.imgurl} alt="" style={{height:"100%",width:"100%"}}/>
+                   </div>
+                   </Link>
+               <div className="loverlist-first">
+                 <p style={{color:"black",textAlign:"center",fontSize:"6vw"}}>{item.name}</p>
+            </div>  
                 </div>
-                </Tabs>
+                ))
 
-
-                <div className='allpage_add'>
-                    <p></p>
-                    <Link
-                    to={{
-                    pathname:'/lover/lcpictures',
-                    state:{
-                        cid:this.state.cid
-                    }
-                    }}
-                    ><i className='iconfont icon-jia'></i></Link>
+              }
+        </Tabs>
+                <div className='allpage_share'>
+                  <p style={{fontSize:"5.5vw",color:"white",margin:"4% 0 0 0"}}>分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;享</p>
               </div>
-
-
-               {/* <Link to="/lover/lslists"> <p className="loverlist-foot">
-                    所有清单
-                </p></Link> */}
             </div>
         )
     }

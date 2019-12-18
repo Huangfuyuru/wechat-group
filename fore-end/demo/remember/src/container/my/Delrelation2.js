@@ -18,14 +18,20 @@ export default class Delrelation2 extends Component {
     fetch(`http://localhost:3001/my/delchild?uid=${this.state.uid}`)
     .then(res=>res.json())
     .then(json=>{ 
-      console.log(0,json)
       if(json==1){
           json=[]
       }
-        this.setState({
-          list:json
-        })
+      this.setState({
+        list:json
+      })
     })
+  }
+  componentDidUpdate(){
+    if(this.state.list.length==0){
+      var lwarn2=document.getElementById('lwarn2');
+      var btn1=document.getElementById('btn1');
+      lwarn2.style.display='block';
+    }
   }
   bounce=(index)=>{
     // 弹出选择框
@@ -129,6 +135,13 @@ export default class Delrelation2 extends Component {
           fontSize:'6vw'
         }}>取消</button>
         </div>
+        {/* 为空时 */}
+        <div id='lwarn2' style={{display:'none',marginTop:"10%"}}>
+            <h3>当前暂无创建的亲子关系</h3>
+            <Link to="/my/crelation2">
+              <button className="relation_button">创建关系</button>
+            </Link>
+         </div>
       </div>
     )
   }

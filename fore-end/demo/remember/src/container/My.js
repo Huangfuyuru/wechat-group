@@ -10,11 +10,14 @@ export default class My extends Component {
         var uid = JSON.parse(localStorage.getItem('uid'));
         var umsg = JSON.parse(localStorage.getItem('umsg'));
         this.state={
+            name:'',
+            gender:'',
             umsg:umsg,
             uid:uid,
-            src:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg'
+            src:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg',
+            uimg:''
         }
-        console.log(umsg);
+        // console.log(umsg);
     }
     componentDidMount(){
         fetch(`http://localhost:3001/my/`,{
@@ -27,9 +30,13 @@ export default class My extends Component {
         }).then(res=>res.json())
         .then(json=>{
             console.log(json)
-            // this.setState({
-            //     code:json.code
-            // });
+            this.setState({
+                name:json.name,
+                gender:json.gender,
+                uimg:json.imgurl,
+                // code:json.code,
+            });
+            console.log(this.state.name);
         })
       }
       upfile=()=>{
@@ -52,9 +59,7 @@ export default class My extends Component {
                 localStorage.setItem('cbackground',JSON.stringify(this.state.src))
             })
         ))
-
         console.log(img)
-        
     }
     render() {
         return (
@@ -71,7 +76,6 @@ export default class My extends Component {
                     fontWeight:'bolder',
                     }}
                     mode="light"
-                    icon={'𡿨'}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',
@@ -85,17 +89,17 @@ export default class My extends Component {
                 <div className="My_message">
                     <div className="one">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <img src={this.state.umsg.imgurl}/>
+                        <img src={this.state.uimg}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <div className="two">
                         <p style={{fontSize:"2.5vh"}}>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名:&nbsp;&nbsp;&nbsp;
-                            <span>{this.state.umsg.name}</span>
+                            <span>{this.state.name}</span>
                         </p>
                         <p style={{fontSize:"2.5vh"}}>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别:&nbsp;&nbsp;&nbsp;
-                            <span>{this.state.umsg.gender}</span>
+                            <span>{this.state.gender}</span>
                         </p>
                     </div>
                 </div>
