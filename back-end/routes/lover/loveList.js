@@ -16,6 +16,8 @@ router.get('/',async function(req,res,next){
     }else{
         info={code:0,msg:data};
     }
+
+    res.json(info)
 })
 
 router.get('/list',async function(req,res,next){

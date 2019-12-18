@@ -85,7 +85,7 @@ export default class Lcreate_list extends Component {
                     }}
                     mode="light"
                     icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/lover/llists')}
+                    onLeftClick={() => this.props.history.push('/lover/lslists')}
                     ><span style={{
                         fontWeight:'bold',
                         fontSize:'6vw',

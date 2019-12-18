@@ -6,18 +6,19 @@ export default class Llists extends Component {
     constructor(props){
         super(props);
         this.state={
+            loverid: JSON.parse(localStorage.getItem('lid')),
             tabs :[
-                { title: '推荐', sub: '1' },
-                { title: '冬季', sub: '2' },
-                { title: '宜家', sub: '3' },
-                { title: '小清新', sub: '4' },
-                { title: '小户型', sub: '5' },
-                { title: '个性色彩', sub: '6' },
+                { name: '推荐' },
+                { name: '冬季' },
+                { name: '宜家' },
+                { name: '小清新'},
+                { name: '小户型' },
+                { name: '个性色彩'},
               ]
         }
     }
     componentDidMount(){
-        fetch(`http://localhost:3001/lover/loverlist?loverid=`)
+        fetch(`http://localhost:3001/lover/loverlist?loverid=${this.state.loverid}`)
         .then((res)=>res.json())
         .then((json)=>{
             this.setState({
@@ -53,7 +54,7 @@ export default class Llists extends Component {
                      letterSpacing:'3vw'}}>恋爱清单</span>
                 </NavBar>
                 <Tabs tabs={this.state.tabs}
-            initialPage={2}
+            initialPage={0}
             tabBarUnderlineStyle={{border:"1px solid #3fcccb"}}
             tabBarActiveTextColor="#3fcccb"
             tabBarPosition="bottom"
