@@ -42,7 +42,7 @@ app.get('/resign/message',function(req,res,next){
 
 
 
-app.get('/lover/ldinary',function(req,res,next){
+app.get('/lover/loveList/list',function(req,res,next){
     var html=fs.readFileSync('./testing-yxd/loveDinary.html').toString('utf8');
     res.writeHead(200,{
         'Content-Type':'text/html;charset=UTF8',
