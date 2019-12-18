@@ -298,7 +298,7 @@
     height:50px;
     margin-top: 10%;
     background-color: #ffffff;
-    color:#FFBF2D;
+    color:#FF1744;
     font-size: 5vw;
     width:100%;
     border:solid 0.5px #888888;
@@ -679,4 +679,28 @@
   bottom: 0;
   text-align: center;
   /* box-shadow: 0px  1px  5px  0px  #bdbbb8 ; */
+}
+#uplists{
+  display: none;
+    text-align: center;
+    border-radius: 20px;
+    background: rgba(255, 23, 68,0.4);
+    position: fixed;
+    top: 23vh;
+    width: 90%;
+    height: 35vh;
+    z-index: 100;
+    margin-left: 5vw;
+}
+#uplists div{
+  text-align: center;
+    padding: 4vh 5vw;
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+    font-size: 6.5vw;
+    width: 70%;
+    height: 30%;
+    color: rgb(148, 145, 145);
 }

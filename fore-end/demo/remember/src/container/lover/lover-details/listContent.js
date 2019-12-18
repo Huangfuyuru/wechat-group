@@ -25,11 +25,11 @@ export default class listContent extends Component {
                     icon={'𡿨'}
                     onLeftClick={() => this.props.history.push('/lover/llists')}
                  ><span style={{
-                    
                      fontSize:'6vw',
                      textIndent:'3vw',
                      color:'black',
-                 letterSpacing:'3vw'}}>{this.state.item.name}</span>
+                     textOverflow: "ellipsis",
+                 letterSpacing:'1vw'}}>{this.state.item.name}</span>
                 </NavBar>
                 <WingBlank>
                 <div style={{height:"55vh",width:"100%"}}>
