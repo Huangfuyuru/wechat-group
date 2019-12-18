@@ -7,28 +7,7 @@ export default class LSlists extends Component {
         super();
         this.state={
             lid:JSON.parse(localStorage.getItem('lid')),
-            imgArr:[
-                {
-                    img:require('../../../image/tu1.jpg'),
-                    note:"一起看电影",
-                
-                },
-                {
-                    img:require('../../../image/tu1.jpg'),
-                    note:"一起看电影",
-                 
-                },
-                {
-                    img:require('../../../image/tu1.jpg'),
-                    note:"一起看电影",
-                   
-                },
-                {
-                    img:require('../../../image/tu1.jpg'),
-                    note:"一起看电影",
-                    
-                }
-            ],
+            systemArr:[],
             listArr:[]
        
         }
@@ -37,7 +16,13 @@ export default class LSlists extends Component {
         fetch(`http://localhost:3001/lover/loverlist/list?loverid=${this.state.lid}`)
         .then((res)=>res.json())
         .then((json)=>{
-            console.log(json)
+            this.setState({
+                systemArr:json[0],
+                listArr:json[1]
+            },()=>{
+                console.log(json)
+            })
+            
         })
     }
     render() {
@@ -66,18 +51,37 @@ export default class LSlists extends Component {
                     }}
                     >清单列表</span>
                 </NavBar>
-    <button style={{height:"5vh",width:"100%",backgroundColor:"white",fontSize:"5vw",marginTop:"2%"}}>已完成3/{this.state.imgArr.length}</button>
+                <button style={{height:"5vh",width:"100%",backgroundColor:"white",fontSize:"5vw",marginTop:"2%"}}>已完成{this.state.listArr.length}/{this.state.systemArr.length}</button>
     <div style={{width:"100%",backgroundColor:"#FFEBEE",float:"left"}}>
                 {
                     
-                    this.state.imgArr.map((item,idex)=>(
-                        <div className="limages">
-                        <Link to="/lover/lclist"><div  style={{background:`url(${item.img})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
-                            <p style={{color:"#888888",textAlign:"center",lineHeight:"190px",margin:"0"}}>{item.note}</p>
-                        </div>
-                        </Link>
-                        </div>
-                    ))
+                    this.state.systemArr.map((item)=>{
+                        this.state.listArr.map((index)=>{
+                            if(item.id!==index.id){
+                                return(
+                                    <div className="limages">
+                                    <Link to="/lover/lclist"><div  style={{background:`url(${require('../../../image/tu1.jpg')})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
+                                        <p style={{color:"#888888",textAlign:"center",lineHeight:"200px",margin:"0"}}>{item.name}</p>
+                                    </div>
+                                    </Link>
+                                    </div>
+                            )
+                            }
+                            else{
+                                return(
+                                    <div className="limages">
+                                    <Link to="/lover/lclist"><div  style={{background:`url(${index.imgurl})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
+                                        <p style={{color:"#888888",textAlign:"center",lineHeight:"200px",margin:"0"}}>{index.name}</p>
+                                    </div>
+                                    </Link>
+                                    </div>
+                            )
+
+                            }
+                        })
+                        
+               
+                    })
                 }
                 </div>
    
