@@ -33,14 +33,24 @@ router.get('/',async function(req,res,next){
 router.get('/list',async function(req,res,next){
     console.log('点击所有清单',req.query);
     var lid = req.query.loverid;
-    var data = await lover.loveListM.findByLid(lid);
-    var data1 = await lover.listM.findAll();
-    var newdata={};
-    // console.log(typeof data1);
-    // console.log(data1);
+    var data = await lover.listM.findAll();
+    var data1 = await lover.loveListM.findByLid(lid);
+    var newdata =new Array(2);
+    newdata[0]=data;
+
     if(data === 1){
-        Object.assign(newdata,null,data1);
-        console.log('newdata',newdata);
+        res.json(newdata);
+    }else{
+        newdata[1]=data1;
+        res.json(newdata);
     }
+    // console.log(newdata);
+
+});
+
+router.post('/addloverlist',async function(req,res,next){
+    console.log('增加爱人清单',req.body);
+
 })
+
 module.exports = router;
