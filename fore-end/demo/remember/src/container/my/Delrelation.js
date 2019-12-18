@@ -1,30 +1,172 @@
+// import React, { Component } from 'react';
+// import { NavBar, Icon } from 'antd-mobile';
+// import {Link} from 'react-router-dom';
+
+// export default class Delrelation2 extends Component {
+//     constructor(props){
+//         super(props);
+//         var uid = JSON.parse(localStorage.getItem('uid'));
+//         this.state = {
+//           list:[],//用来存放name
+//           uid:uid,
+//           inputValue:"",
+//           loverid:0,
+//           a:0,
+//           code:0,
+//           signal:1
+//         }
+//     }
+//     componentDidMount(){
+//       fetch(`http://localhost:3001/my/dellover?uid=${this.state.uid}`)
+//       .then(res=>res.json())
+//       .then(json=>{ 
+//           this.setState({
+//              list:json
+//           })
+//       })
+//     }
+//   bounce=(index)=>{
+//     // 弹出选择框
+//     this.state.a=index;
+//     console.log(this.state.a);
+//     var lwarn=document.getElementById('lwarn');
+//     var btn1=document.getElementById('btn1');
+//     lwarn.style.display='block';
+//   }
+//   del=()=>{
+//     this.state.loverid=this.state.list[this.state.a].id;
+//     fetch(`http://localhost:3001/my/dellover/confirm?loversid=${this.state.loverid}`)
+//       .then(res=>res.json())
+//       .then(json=>{ 
+//         console.log(0,json)
+//         if(json==1){
+//             json=[]
+//         }
+//           this.setState({
+//               code:json.code
+//           });
+//       })
+//       //展开数组
+//       var list = [...this.state.list];
+//       list.splice(this.state.a,1);
+//       this.setState({
+//         list:list,
+//       });
+//   }
+    
+//   render(){
+//     return(
+//       <div className="All">
+//         <NavBar
+//           style={{
+//           top:0,
+//           width:'100%',
+//           zIndex:'11',
+//           position:'fixed',
+//           height:'8vh',
+//           background:'#FFBF2D',
+//           color:'#fff',
+//           fontWeight:'bolder',
+//           }}
+//           mode="light"
+//           icon={'𡿨'}
+//           onLeftClick={() => this.props.history.push('/index/my')}
+//           ><span style={{
+//               fontWeight:'bold',
+//               fontSize:'6vw',
+//               textIndent:'3vw',
+//               letterSpacing:'3vw',
+//               color:"white"
+//           }}
+//           >删除关系</span>
+//       </NavBar>
+//       <div style={{width:"100%",height:"5px",marginTop:"15%"}}></div>
+//       <h4>爱人记录</h4>
+//       <div>
+//         {
+//           this.state.list.map((ele,index)=>{
+//             // 把index传入
+//             return <div id="new" key={index} >爱人名：&nbsp;{ele.name}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
+//           })
+//         }
+//       </div>
+//       {/* 确认框 */}
+//       <div id='lwarn'>
+//         <div>请再次确认</div>
+//           <button 
+//           id="btn1"
+//           onClick={(index)=>{
+//               var warn=document.getElementById('lwarn');
+//               warn.style.display='none';
+//               this.del();
+//           }}
+//           style={{
+//             width:'25%',
+//             height:'15%',
+//             color:'#FFBF2D',
+//             border:'none',
+//             marginTop:'2vh',
+//             background:'#fff',
+//             borderRadius:'5px',
+//             fontSize:'6vw'
+//           }}>确定</button>
+//         <button 
+//         id="btn1"
+//         onClick={()=>{
+//             var warn=document.getElementById('lwarn');
+//             warn.style.display='none';
+//         }}
+//         style={{
+//           width:'25%',
+//           height:'15%',
+//           color:'#FFBF2D',
+//           border:'none',
+//           marginTop:'2vh',
+//           marginLeft:'2vh',
+//           background:'#fff',
+//           borderRadius:'5px',
+//           fontSize:'6vw'
+//         }}>取消</button>
+//         </div>
+//       </div>
+//     )
+//   }
+// }
 import React, { Component } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
 import {Link} from 'react-router-dom';
 
 export default class Delrelation2 extends Component {
-    constructor(props){
-        super(props);
-        var uid = JSON.parse(localStorage.getItem('uid'));
-        this.state = {
-          list:[],//用来存放name
-          uid:uid,
-          inputValue:"",
-          loverid:0,
-          a:0,
-          code:0,
-          signal:1
-        }
-    }
-    componentDidMount(){
-      fetch(`http://localhost:3001/my/dellover?uid=${this.state.uid}`)
-      .then(res=>res.json())
-      .then(json=>{ 
-          this.setState({
-             list:json
-          })
+  constructor(props){
+      super(props);
+      var uid = JSON.parse(localStorage.getItem('uid'));
+      this.state = {
+        list:[],//用来存放name
+        uid:uid,
+        loverid:0, //要返回的爱人的id
+        a:0,  //要删除的index
+        code:0  //要获取的状态
+      }
+  }
+  componentDidMount(){
+    fetch(`http://localhost:3001/my/dellover?uid=${this.state.uid}`)
+    .then(res=>res.json())
+    .then(json=>{ 
+      if(json==1){
+          json=[]
+      }
+      this.setState({
+        list:json
       })
+    })
+  }
+  componentDidUpdate(){
+    if(this.state.list.length==0){
+      var lwarn2=document.getElementById('lwarn2');
+      var btn1=document.getElementById('btn1');
+      lwarn2.style.display='block';
     }
+  }
   bounce=(index)=>{
     // 弹出选择框
     this.state.a=index;
@@ -34,14 +176,12 @@ export default class Delrelation2 extends Component {
     lwarn.style.display='block';
   }
   del=()=>{
+    console.log(this.state.a);
     this.state.loverid=this.state.list[this.state.a].id;
+    console.log(this.state.loverid);
     fetch(`http://localhost:3001/my/dellover/confirm?loversid=${this.state.loverid}`)
       .then(res=>res.json())
       .then(json=>{ 
-        console.log(0,json)
-        if(json==1){
-            json=[]
-        }
           this.setState({
               code:json.code
           });
@@ -57,36 +197,36 @@ export default class Delrelation2 extends Component {
   render(){
     return(
       <div className="All">
-        <NavBar
-          style={{
-          top:0,
-          width:'100%',
-          zIndex:'11',
-          position:'fixed',
-          height:'8vh',
-          background:'#FFBF2D',
-          color:'#fff',
-          fontWeight:'bolder',
-          }}
-          mode="light"
-          icon={'𡿨'}
-          onLeftClick={() => this.props.history.push('/index/my')}
-          ><span style={{
-              fontWeight:'bold',
-              fontSize:'6vw',
-              textIndent:'3vw',
-              letterSpacing:'3vw',
-              color:"white"
-          }}
-          >删除关系</span>
-      </NavBar>
-      <div style={{width:"100%",height:"5px",marginTop:"15%"}}></div>
+          <NavBar
+            style={{
+            top:0,
+            width:'100%',
+            zIndex:'11',
+            position:'fixed',
+            height:'8vh',
+            background:'#FFBF2D',
+            color:'#fff',
+            fontWeight:'bolder',
+            }}
+            mode="light"
+            icon={'𡿨'}
+            onLeftClick={() => this.props.history.push('/index/my')}
+            ><span style={{
+                fontWeight:'bold',
+                fontSize:'6vw',
+                textIndent:'3vw',
+                letterSpacing:'3vw',
+                color:"white"
+            }}
+            >删除关系</span>
+        </NavBar>
+        <div style={{width:"100%",height:"5px",marginTop:"15%"}}></div>
       <h4>爱人记录</h4>
       <div>
         {
           this.state.list.map((ele,index)=>{
             // 把index传入
-            return <div id="new" key={index} >爱人名：&nbsp;{ele.name}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
+            return <div id="new" key={index} >爱人名:&nbsp;&nbsp;{ele.name}<button onClick={this.bounce.bind(this,index)}>删除</button></div>
           })
         }
       </div>
@@ -115,6 +255,7 @@ export default class Delrelation2 extends Component {
         onClick={()=>{
             var warn=document.getElementById('lwarn');
             warn.style.display='none';
+            
         }}
         style={{
           width:'25%',
@@ -128,6 +269,13 @@ export default class Delrelation2 extends Component {
           fontSize:'6vw'
         }}>取消</button>
         </div>
+        {/* 为空时 */}
+        <div id='lwarn2' style={{display:'none',marginTop:"10%"}}>
+            <h3>当前暂无创建的爱人关系</h3>
+            <Link to="/my/crelation">
+              <button className="relation_button">创建关系</button>
+            </Link>
+         </div>
       </div>
     )
   }

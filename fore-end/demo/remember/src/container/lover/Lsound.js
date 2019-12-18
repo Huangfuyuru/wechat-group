@@ -13,11 +13,12 @@ export default class Lsound extends Component {
         }
     }  
     componentDidMount(){
-        console.log(this.state.arr)
-        console.log('sound');
+        // console.log(this.state.arr)
+        // console.log('sound');
         fetch(`http://localhost:3001/lover/lsound?loverid=${this.state.lover_id}`)
         .then(res=>res.json())
         .then(json=>(
+            console.log(json),
             this.setState({
                 arr:json.msg
             })
