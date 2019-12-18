@@ -17,7 +17,7 @@ export default class My extends Component {
             src:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg',
             uimg:''
         }
-        console.log(umsg);
+        // console.log(umsg);
     }
     componentDidMount(){
         fetch(`http://localhost:3001/my/`,{

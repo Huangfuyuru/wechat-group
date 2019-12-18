@@ -12,7 +12,7 @@ router.use(bodyParser.json());
 
 //消息反馈
 router.post('/',async function(req,res,next){
-    var uimage = req.body.uimage;
+    var imgurl = req.body.uimage;
     // var uimage = JSON.parse(req.body.uimage);
     var uname = req.body.uname;
     var pass = req.body.pass;
@@ -23,7 +23,7 @@ router.post('/',async function(req,res,next){
     console.log("uid",uid);
     var result = await userM.changeById(uid,{
         name:uname,
-        imgurl:uimage,
+        imgurl:imgurl,
         pass:pass,
         gender:gender
     })
@@ -38,8 +38,6 @@ router.post('/',async function(req,res,next){
     }
     var data = await userM.findById(uid);
     console.log("修改后的用户信息",data);
-    //只是返回了结果
-    // res.json(result)
 })
 
 

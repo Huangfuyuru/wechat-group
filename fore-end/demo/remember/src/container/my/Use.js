@@ -50,7 +50,7 @@ export default class Use extends Component {
     }
     Finally=()=>{
         // this.state.uimage,
-        console.log(this.state.uname,this.state.gender,this.state.pass)
+        console.log(this.state.src,this.state.uname,this.state.gender,this.state.pass)
         fetch(`http://localhost:3001/my/information`,{
             method:'POST',
             mode:'cors',
