@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import logo from '../image/logo.png'
+import logo from '../image/logo1.png'
 import '../css/start.css'
 export default class Start extends Component {
     render() {
@@ -10,7 +10,7 @@ export default class Start extends Component {
                     <nav style={{
                         marginTop:'30vh',
                         textAlign:'center'
-                    }}><img src={logo} alt='logo' width='60%'/></nav>
+                    }}><img src={logo} alt='logo' width='45%'/></nav>
                     <div className='start_first'>
                         {/* <p>
                             经历过的事，总比想象中更美一些
