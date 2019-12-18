@@ -176,6 +176,11 @@ method：get
             提交数据: 亲子childsid   成长记录childGrowid
             返回数据：成长记录childGrowid，身高length，体重weight，年龄age，创建日期setdate
                     [{"id":3400002,"weight":"121.1","length":"30","age":3,"setdate":"2019-11-25T16:00:00.000Z","cid":300002}]
+	
+        点击身高曲线
+            接口地址：http://localhost:3001/child/cgrowup/charts?childsid=
+            提交数据：亲子cid
+            返回数据：该亲子所有的成长记录信息
 
 
 

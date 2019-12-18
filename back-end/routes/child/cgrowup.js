@@ -69,4 +69,16 @@ router.get('/crgrowup',async function(req,res,next){
     res.json(message)
 })
 
+//点击身高体重曲线
+router.get('/charts',async function(req,res,next){
+    var request = qs.parse(url.parse(req.url).query);
+    var childsid = Number(request.childsid);
+    var data = childGrowM.findByCid(childsid)
+    if(data == 1){
+        var message = {data:null}
+    }else{
+        var message = {data:data}
+    }
+    res.json(message)
+})
 module.exports = router;
