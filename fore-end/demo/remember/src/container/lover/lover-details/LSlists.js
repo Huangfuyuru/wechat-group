@@ -6,6 +6,7 @@ export default class LSlists extends Component {
     constructor(){
         super();
         this.state={
+            lid:JSON.parse(localStorage.getItem('lid')),
             imgArr:[
                 {
                     img:require('../../../image/tu1.jpg'),
@@ -32,23 +33,11 @@ export default class LSlists extends Component {
         }
     }
     componentDidMount(){
-        let path = this.props.match.params.id
-        fetch(``)
+        fetch(`http://localhost:3001/lover/loverlist/list?loverid=${this.state.lid}`)
         .then((res)=>res.json())
-        .then((res)=>{
-            this.setState({data:res.data});
+        .then((json)=>{
+            console.log(json)
         })
-    }
-    componentDidUpdate(Props,State){
-        if(Props.location.search !== this.props.location.search){
-            let path = this.props.match.params.id
-            console.log('path',path)
-            fetch( ``)
-            .then((res)=>res.json())
-            .then((res)=>{
-                this.setState({data:res.data});
-            })
-        }
     }
     render() {
         return (

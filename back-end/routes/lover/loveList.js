@@ -17,6 +17,7 @@ router.get('/',async function(req,res,next){
         info={code:0,msg:data};
     }
 
+<<<<<<< HEAD
     var text={
         name:'一起看日出日落',
         content:'看日出日落',
@@ -30,6 +31,9 @@ router.get('/',async function(req,res,next){
     var data1 = await lover.loveListM.addLoveList(text);
     console.log(data1);
     res.json(data);
+=======
+    res.json(info)
+>>>>>>> 2d599f73f22effb8f273bbb5dd351a22bcd1499f
 })
 
 router.get('/list',async function(req,res,next){
