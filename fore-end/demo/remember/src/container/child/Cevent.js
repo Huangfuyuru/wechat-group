@@ -71,29 +71,46 @@ export default class Cevent extends Component {
                             className='iconfont icon-shanchu1' 
                             style={{
                                 fontSize:'4.3vh',
-                                position:'relative',
-                                top:'2vh',
-                                right:'-95%',
+                                position:'absolute',
+                                top:'1vh',
+                                right:'5%',
                                 color:'#bdbbb8'
                             }}></i>
-                            <p>
-                                <span style={{
-                                    marginRight:'3vw'
-                                }}>
-                                    {item.item[0]}
-                                </span>
-                                {item.name}
-                            </p>
-                            <Link to={{
-                                pathname:'/child/cevents/show',
-                                state:{item}
+                            <div style={{
+                                width:'100%',height:'20vh'
                             }}>
-                                <div style={{
-                                    background:`url(${item.imgurl[0]||'#'}) center center/cover no-repeat`
-                                }}>
-
+                                <div style={{float:'right',
+                                width:'50%',
+                                height:'100%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'}}>
+                                    <p>
+                                        <span style={{
+                                            marginRight:'3vw'
+                                        }}>
+                                            {item.item[0]}
+                                        </span>
+                                        {item.name}
+                                    </p>
                                 </div>
-                            </Link>
+                                <div style={{
+                                    float:'left',width:'50%',height:'100%',textAlign:'center'
+                            }}>
+                                    <Link to={{
+                                        pathname:'/child/cevents/show',
+                                        state:{item}
+                                    }}>
+                                        <img src={item.imgurl[0] || '#'} style={{
+                                            width:'auto',
+                                            height:'auto',
+                                            maxWidth:'100%',
+                                            maxHeight:'100%',
+                                           
+                                        }}/>
+                                    </Link>
+                                </div>
+                            </div>
                         </div>
                         })
                     }
