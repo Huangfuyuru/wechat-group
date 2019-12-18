@@ -10,7 +10,6 @@ export default class Csound extends Component {
         this.state={
             childVoiceid:'',
             cid:cid,
-            voiceurl:'',
             lists:[]
         }
     }
@@ -23,7 +22,6 @@ export default class Csound extends Component {
               lists:res
             });
         })
-        console.log(this.state.lists)
     }
     delCsound=(e)=>{
         console.log(this.state.childVoiceid)
@@ -97,9 +95,10 @@ export default class Csound extends Component {
                                     float:'left',
                                     marginLeft:'4vw',
                                     marginTop:'1vh',
-                                    background:''
+                                    background:`url('https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1121421973,2502596349&fm=26&gp=0.jpgi') center center/cover no-repeat`,
                                 }} 
-                                src={item.voiceurl} controls='controls'>
+                                src={item.voiceurl} 
+                                controls='controls'>
                                     您的设备无法播放该语音
                                 </audio>
                                 <p>记录日期:{date}</p>
