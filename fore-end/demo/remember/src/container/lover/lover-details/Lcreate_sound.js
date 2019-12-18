@@ -32,6 +32,7 @@ export default class Lcreate_sound extends Component {
             body:form
         }).then(res=>res.json())
         .then(res=>(
+            console.log(res),
             this.setState({
                 voiceurl:res.path
             },()=>{

@@ -18,10 +18,12 @@ export default class Csound extends Component {
         fetch(`http://localhost:3001/child/csound?childsid=${this.state.cid}`)
         .then((res)=>res.json())
         .then((res)=>{
+            console.log(res)
             this.setState({
               lists:res
             });
         })
+        console.log(this.state.lists)
     }
     delCsound=(e)=>{
         console.log(this.state.childVoiceid)
@@ -97,15 +99,9 @@ export default class Csound extends Component {
                                     marginTop:'1vh',
                                     background:''
                                 }} 
-                                src={this.state.voiceurl} controls='controls'>
+                                src={item.voiceurl} controls='controls'>
                                     您的设备无法播放该语音
                                 </audio>
-
-                                {/* <li>
-                                    <input type='button' value="播放" id="playaudio"  onclick ={this.audioPlay} />
-	                                <input type="button" value="暂停" id="pauseaudio" disabled="disabled"  onclick ={this.audioPause} />
-	                                <button id="forward" onclick={this.audioForward}>快进</button>
-                                </li> */}
                                 <p>记录日期:{date}</p>
                             </div>
                         })

@@ -15,7 +15,7 @@ router.get('/',async function(req,res,next){
     var childsid = Number(request.childsid);
     var data = await childGrowM.findByCid(childsid);
     if(data == 1){
-        res.json([])
+        res.json(null)
     }else{
         res.json(data)
     }
@@ -73,7 +73,8 @@ router.get('/crgrowup',async function(req,res,next){
 router.get('/charts',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
-    var data = childGrowM.findByCid(childsid)
+    var data = await childGrowM.findByCid(childsid);
+    console.log(data)
     if(data == 1){
         var message = {data:null}
     }else{
