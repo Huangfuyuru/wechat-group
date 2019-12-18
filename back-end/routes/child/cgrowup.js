@@ -74,7 +74,6 @@ router.get('/charts',async function(req,res,next){
     var request = qs.parse(url.parse(req.url).query);
     var childsid = Number(request.childsid);
     var data = await childGrowM.findByCid(childsid);
-    console.log(data)
     if(data == 1){
         var message = {data:null}
     }else{

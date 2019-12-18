@@ -4,7 +4,13 @@ import {Link} from 'react-router-dom';
 import moment from 'moment';
 import '../../css/child.css'
 import line1 from '../../image/line3.png'
-import line2 from '../../image/line4.png'
+import line2 from '../../image/line4.png';
+import echarts from 'echarts/lib/echarts';
+// 引入柱状图
+import  'echarts/lib/chart/bar';
+// 引入提示框和标题组件
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
 export default class Write extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +26,9 @@ export default class Write extends Component {
       code:'',
       lists:[
       ],
+      list:[
+
+      ]
     };
   }
   componentDidMount(){
@@ -33,15 +42,17 @@ export default class Write extends Component {
   }
   //setState()结束之后都会自动调用componentDidUpdate()
   //如果有更新会进componentDidUpdate里面
-  componentDidUpdate(prevProps,prevState){
-      fetch(`http://localhost:3001/child/cgrowup?childsid=${this.state.cid}`)
-      .then((res)=>res.json())
-      .then((res)=>{
-          this.setState({
-            lists:res
-          });
-      })
-  }
+  // componentDidUpdate(prevProps,prevState){
+  //   if(prevState.lists.length != this.state.lists.length){
+  //     fetch(`http://localhost:3001/child/cgrowup?childsid=${this.state.cid}`)
+  //     .then((res)=>res.json())
+  //     .then((res)=>{
+  //         this.setState({
+  //           lists:res
+  //         });
+  //     })
+  //   }
+  // }
   delPOST=()=>{
       fetch(`http://localhost:3001/child/cgrowup/crgrowup?childsid=${this.state.cid}&childGrowid=${this.state.childGrowid}`,{
         method:'GET',
@@ -49,7 +60,8 @@ export default class Write extends Component {
       .then(res=>res.json())
       .then(json=>{
         this.setState({
-          code:json.msg
+          code:json.msg,
+          lists:json.data
         })
         console.log(json)
       })
@@ -224,22 +236,48 @@ export default class Write extends Component {
               key="idea"
               selected={this.state.selectedTab === 'redTab'}
               onPress={() => {
+                var month = [];
+                var height = [];
                 fetch(`http://localhost:3001/child/cgrowup/charts?childsid=${this.state.cid}`)
                 .then(res=>res.json())
                 .then(json=>{
-                  console.log(json)
+                  console.log(this)
+                  this.setState({
+                    list:json.data
+                  },()=>{
+                    this.state.list.map((item)=>{
+                      month.push(item.age);
+                      height.push(item.length)
+                    })
+                    myChart.setOption({
+                      title: { text: '身高曲线' },
+                      tooltip: {},
+                      xAxis: {
+                          data: month
+                      },
+                      yAxis: {},
+                      series: [{
+                          name: '销量',
+                          type: 'bar',
+                          data: height
+                      }]
+                    });
+                  })
                 })
                 this.setState({
                     selectedTab: 'redTab',
                 });
+                console.log('xx',this.state.list)
+                var myChart = echarts.init(document.getElementById('cgrowup-length'));
+                
+                
               }}
             >
             {/* 身高曲线 */}
-            <div className='cgrowup_inner'>
-                <img style={{
-                  width:"100%",
-                  marginTop:'10vh'
-                }} src={line1}/>
+            <div className='cgrowup_inner' id="cgrowup-length" style={{
+              width:'100%',
+              height:500
+            }}>
             </div>
           </TabBar.Item>
 
@@ -254,22 +292,47 @@ export default class Write extends Component {
             key="mall"
             selected={this.state.selectedTab === 'greenTab'}
             onPress={() => {
+              var month = [];
+              var weight = [];
               fetch(`http://localhost:3001/child/cgrowup/charts?childsid=${this.state.cid}`)
-                .then(res=>res.json())
-                .then(json=>{
-                  console.log(json)
+              .then(res=>res.json())
+              .then(json=>{
+                console.log(this)
+                this.setState({
+                  list:json.data
+                },()=>{
+                  this.state.list.map((item)=>{
+                    month.push(item.age);
+                    weight.push(item.weight)
+                  })
+                  myChart.setOption({
+                    title: { text: '体重曲线' },
+                    tooltip: {},
+                    xAxis: {
+                        data: month
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: '销量',
+                        type: 'bar',
+                        data: weight
+                    }]
+                  });
                 })
+              })
               this.setState({
                   selectedTab: 'greenTab',
               });
+              var myChart = echarts.init(document.getElementById('cgrowup-weight'));
+              
+              
             }}
           >
           {/* 体重曲线 */}
-          <div className='cgrowup_inner'>
-            <img style={{
-              width:"100%",
-              marginTop:'10vh'
-            }} src={line2}/>
+          <div className='cgrowup_inner' id="cgrowup-weight" style={{
+              width:'100%',
+              height:500
+            }}>
           </div>
           </TabBar.Item>
         </TabBar>
