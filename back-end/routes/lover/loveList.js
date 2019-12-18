@@ -18,16 +18,6 @@ router.get('/',async function(req,res,next){
     }
     res.json(data);
 
-    // var text={
-    //     name:'一起看日出日落',
-    //     content:'看日出日落',
-    //     imgurl:'#',
-    //     local:'石家庄',
-    //     lid:lid
-        
-    // }
-    // var data1 = await lover.loveListM.addLoveList(text);
-    // console.log(data1);
 })
 
 router.get('/list',async function(req,res,next){
@@ -50,7 +40,35 @@ router.get('/list',async function(req,res,next){
 
 router.post('/addloverlist',async function(req,res,next){
     console.log('增加爱人清单',req.body);
-
+    var lid = Number(req.body.loverid);
+    var listid = Number(req.body.listid);
+    var text={
+        name:req.body.name,
+        content:req.body.content,
+        imgurl:req.body.imgurl,
+        local:req.bodylocal,
+        setdate:req.body.setdate,
+        listid:listid,
+        lid:lid
+    }
+    var addlL = await lover.loveListM.addloveList(text);
+    // var data = await lover.loveListM.findByLid(lid);
+    if(addlL=== 0 ){
+        info={code:0,msg:'增加成功'};
+    }else{
+        info={code:1,msg:'增加失败'};
+    }
+    res.json(info);
 })
 
+router.get('/listdetail',async function(req,res,next){
+    console.log('详情页id',req.query.id);
+    var data = await lover.loveListM.findById(id);
+    if(data === 1){
+        info={code:0,msg:null};
+    }else{
+        info={code:1,msg:data}
+    }
+    res.json(info);
+})
 module.exports = router;
