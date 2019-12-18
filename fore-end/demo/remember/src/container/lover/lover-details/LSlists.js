@@ -7,9 +7,7 @@ export default class LSlists extends Component {
         super();
         this.state={
             lid:JSON.parse(localStorage.getItem('lid')),
-            systemArr:[],
             listArr:[]
-       
         }
     }
     componentDidMount(){
@@ -17,8 +15,7 @@ export default class LSlists extends Component {
         .then((res)=>res.json())
         .then((json)=>{
             this.setState({
-                systemArr:json[0],
-                listArr:json[1]
+                listArr:json
             },()=>{
                 console.log(json)
             })
@@ -26,6 +23,7 @@ export default class LSlists extends Component {
         })
     }
     render() {
+        let num=0;
         return (
             <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
               <NavBar
@@ -51,18 +49,24 @@ export default class LSlists extends Component {
                     }}
                     >清单列表</span>
                 </NavBar>
-                <button style={{height:"5vh",width:"100%",backgroundColor:"white",fontSize:"5vw",marginTop:"2%"}}>已完成{this.state.listArr.length}/{this.state.systemArr.length}</button>
+                { 
+                     this.state.listArr.map((item)=>{
+                        if(item.imgurl!==undefined){
+                            num+=1
+                        }
+                     }
+                     )
+                }
+    <button style={{height:"5vh",width:"100%",backgroundColor:"white",fontSize:"5vw",marginTop:"2%"}}>已完成{num}/{this.state.listArr.length}</button>
     <div style={{width:"100%",backgroundColor:"#FFEBEE",float:"left"}}>
                 {
                     
-                    this.state.systemArr.map((item)=>{
-                        var arr=this.state.listArr;
-                        var a="";
-                        (function(item){
-                            arr.map((index)=>{
-                            if(item.id!==index.listid){
-                               a=
-                                <div className="limages">
+                     this.state.listArr.map((item)=>{
+                         var a;
+                         if(item.imgurl===undefined)
+                         {
+                         
+                             a=  <div className="limages">
                                <Link to={{
                                    pathname:"/lover/lclist",
                                    state:{
@@ -75,30 +79,26 @@ export default class LSlists extends Component {
                                </div>
                                </Link>
                                </div>
-                                
-                           }
-                           else{
-                              
-                                   a=
-                               <div className="limages">
-                                       <Link to=
-                                       {{
-                                        pathname:"/lover/list",
-                                        state:{
-                                            arr:arr
-                                     }
-                                    }}
-                                       ><div  style={{background:`url(${index.imgurl})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
-                                           <p style={{color:"white",textAlign:"center",lineHeight:"200px",margin:"0"}}>{index.name}</p>
-                                       </div>
-                                       </Link>
-                               </div>;
-                           } 
-                           return a;
-                        })  
-                        }(item))  
-                        return a;
-                    })
+                         
+                            }
+                            else{
+                                a=  <div className="limages">
+                                <Link to={{
+                                    pathname:"/lover/lclist",
+                                    state:{
+                                     listid:item.id,
+                                     name:item.name
+                                 }
+                                }}>
+                                    <div  style={{background:`url(${item.imgurl})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
+                                    <p style={{color:"white",textAlign:"center",lineHeight:"200px",margin:"0"}}>{item.name}</p>
+                                </div>
+                                </Link>
+                                </div>
+
+                            }
+                            return a;
+                })      
                 }
                 </div>
    
