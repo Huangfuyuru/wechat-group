@@ -50,7 +50,7 @@ export default class Use extends Component {
     }
     Finally=()=>{
         // this.state.uimage,
-        console.log(this.state.uname,this.state.gender,this.state.pass)
+        console.log(this.state.src,this.state.uname,this.state.gender,this.state.pass)
         fetch(`http://localhost:3001/my/information`,{
             method:'POST',
             mode:'cors',
@@ -58,7 +58,7 @@ export default class Use extends Component {
                 'Content-Type':"application/x-www-form-urlencoded"
             },
             // uimage=${this.state.uimage}
-            body:`&uimage=${this.state.uimage}&uname=${this.state.uname}&gender=${this.state.gender}&pass=${this.state.pass}&uid=${this.state.uid}`
+            body:`&uimage=${this.state.src}&uname=${this.state.uname}&gender=${this.state.gender}&pass=${this.state.pass}&uid=${this.state.uid}`
         }).then(res=>res.json())
         .then(json=>{
             console.log(json)
