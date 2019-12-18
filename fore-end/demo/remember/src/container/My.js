@@ -17,7 +17,6 @@ export default class My extends Component {
             src:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg',
             uimg:''
         }
-        // console.log(umsg);
     }
     componentDidMount(){
         fetch(`http://localhost:3001/my/`,{
@@ -34,7 +33,6 @@ export default class My extends Component {
                 name:json.name,
                 gender:json.gender,
                 uimg:json.imgurl,
-                // code:json.code,
             });
             console.log(this.state.name);
         })
@@ -89,17 +87,17 @@ export default class My extends Component {
                 <div className="My_message">
                     <div className="one">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <img src={this.state.uimg}/>
+                        <img src={this.state.uimg==''?this.state.uimg.imgurl:this.state.uimg}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <div className="two">
                         <p style={{fontSize:"2.5vh"}}>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名:&nbsp;&nbsp;&nbsp;
-                            <span>{this.state.name}</span>
+                            <span>{this.state.name==''?this.state.uimg.name:this.state.name}</span>
                         </p>
                         <p style={{fontSize:"2.5vh"}}>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别:&nbsp;&nbsp;&nbsp;
-                            <span>{this.state.gender}</span>
+                            <span>{this.state.gender==''?this.state.uimg.gender:this.state.gender}</span>
                         </p>
                     </div>
                 </div>
