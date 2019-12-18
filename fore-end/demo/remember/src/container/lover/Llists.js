@@ -16,7 +16,7 @@ export default class Llists extends Component {
         .then((res)=>res.json())
         .then((json)=>{
             this.setState({
-               tabs:json.msg
+               tabs:json
             },()=>{
                 console.log(json)
             });
