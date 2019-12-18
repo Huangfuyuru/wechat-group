@@ -45,14 +45,14 @@ export default class lover_home extends Component {
                 cindex_src:JSON.parse(localStorage.getItem('lbackground'))||json[0].background
             },()=>{
                 localStorage.setItem('lid',JSON.stringify(this.state.lover_id))
-                localStorage.setItem('lbackground',JSON.stringify(this.state.cindex_src))
+                // localStorage.setItem('lbackground',JSON.stringify(this.state.cindex_src))
             }
             );
         })
     }
     
     componentDidUpdate(prevProps,prevState){
-        
+        console.log("更新")
         if(prevState.cindex_src != ""){
             var url = 'http://localhost:3001/lover/changebackground';
             fetch(url,{
@@ -80,7 +80,7 @@ export default class lover_home extends Component {
         }).then(res=>res.json())
         .then(res=>(this.setState({
             cindex_src:res.path},()=>{
-                localStorage.setItem('lbackground',JSON.stringify(this.state.cindex_src))
+                // localStorage.setItem('lbackground',JSON.stringify(this.state.cindex_src))
             })))
     }
     render() {
