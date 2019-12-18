@@ -57,7 +57,7 @@ export default class Lcreate_list extends Component {
             headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`name=${this.state.name}&=content=${this.state.content}&imgurl=${this.state.imgurl}&local=${this.state.local}&listid=${this.state.listid}&lid=${this.state.lid}`
+            body:`name=${this.state.name}&content=${this.state.content}&imgurl=${this.state.imgurl}&local=${this.state.local}&listid=${this.state.listid}&lid=${this.state.lid}&setdate=${this.state.setdate}`
         })
         .then(res=>res.json())
         .then(json=>{ 
