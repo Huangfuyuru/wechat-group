@@ -56,10 +56,13 @@ export default class LSlists extends Component {
                 {
                     
                     this.state.systemArr.map((item)=>{
+                        var arr=this.state.listArr;
                         var a="";
-                        for(var i =0;i<this.state.listArr.length;i++){
-                            if(item.id!==this.state.listArr[i].listid){
-                                a= <div className="limages">
+                        (function(item){
+                            arr.map((index)=>{
+                            if(item.id!==index.listid){
+                               a=
+                                <div className="limages">
                                <Link to={{
                                    pathname:"/lover/lclist",
                                    state:{
@@ -72,19 +75,28 @@ export default class LSlists extends Component {
                                </div>
                                </Link>
                                </div>
+                                
                            }
                            else{
                               
                                    a=
                                <div className="limages">
-                                       <Link to="/lover/lclist"><div  style={{background:`url(${this.state.listArr[i].imgurl})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
-                                           <p style={{color:"white",textAlign:"center",lineHeight:"200px",margin:"0"}}>{this.state.listArr[i].name}</p>
+                                       <Link to=
+                                       {{
+                                        pathname:"/lover/list",
+                                        state:{
+                                            arr:arr
+                                     }
+                                    }}
+                                       ><div  style={{background:`url(${index.imgurl})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
+                                           <p style={{color:"white",textAlign:"center",lineHeight:"200px",margin:"0"}}>{index.name}</p>
                                        </div>
                                        </Link>
                                </div>;
-                           }
-                            
-                        }
+                           } 
+                           return a;
+                        })  
+                        }(item))  
                         return a;
                     })
                 }
