@@ -16,6 +16,20 @@ router.get('/',async function(req,res,next){
     }else{
         info={code:0,msg:data};
     }
+
+    var text={
+        name:'一起看日出日落',
+        content:'看日出日落',
+        imgurl:'#',
+        local:'石家庄',
+        listid:'2500002',
+        lid:lid,
+        setdate:'2019-5-20'
+        
+    }
+    var data1 = await lover.loveListM.addLoveList(text);
+    console.log(data1);
+    res.json(data);
 })
 
 router.get('/list',async function(req,res,next){
