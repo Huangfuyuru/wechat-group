@@ -73,10 +73,8 @@ export default class Lcreate_list extends Component {
             <div style={{width:"100%",backgroundColor:"white"}}>
             <NavBar
                     style={{
-                        background:'#FFBF2D',
                         height:'8vh',
-                        color:'#fff',
-                        fontWeight:'bolder',
+                        color:'black',
                         zIndex:'11',
                      position:'fixed',
                      width:'100%',
@@ -87,11 +85,11 @@ export default class Lcreate_list extends Component {
                     icon={'𡿨'}
                     onLeftClick={() => this.props.history.push('/lover/lslists')}
                     ><span style={{
-                        fontWeight:'bold',
+                        // fontWeight:'bold',
                         fontSize:'6vw',
                         textIndent:'3vw',
                         letterSpacing:'3vw',
-                        color:"white"
+                        color:"black"
                     }}
                     >新建清单</span>
                 </NavBar>

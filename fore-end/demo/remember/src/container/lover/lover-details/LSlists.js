@@ -28,7 +28,8 @@ export default class LSlists extends Component {
                     note:"一起看电影",
                     
                 }
-            ]
+            ],
+            listArr:[]
        
         }
     }
@@ -44,10 +45,9 @@ export default class LSlists extends Component {
             <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
               <NavBar
                     style={{
-                        background:'#FFBF2D',
+                        backgroundColor:"white",
                         height:'8vh',
-                        color:'#fff',
-                        fontWeight:'bolder',
+                        color:'black',
                         zIndex:'11',
                         position:'fixed',
                         width:'100%',
@@ -58,27 +58,29 @@ export default class LSlists extends Component {
                     icon={'𡿨'}
                     onLeftClick={() => this.props.history.push('/lover/llists')}
                     ><span style={{
-                        fontWeight:'bold',
+                    
                         fontSize:'6vw',
                         textIndent:'3vw',
                         letterSpacing:'3vw',
-                        color:"white"
+                        color:"black"
                     }}
                     >清单列表</span>
                 </NavBar>
-    <WingBlank><button style={{height:"5vh",width:"100%",backgroundColor:"white",fontSize:"5vw",marginTop:"2%"}}>已完成3/{this.state.imgArr.length}</button></WingBlank>
-    <WingBlank><div style={{width:"100%"}}>
+    <button style={{height:"5vh",width:"100%",backgroundColor:"white",fontSize:"5vw",marginTop:"2%"}}>已完成3/{this.state.imgArr.length}</button>
+    <div style={{width:"100%",backgroundColor:"#FFEBEE",float:"left"}}>
                 {
+                    
                     this.state.imgArr.map((item,idex)=>(
-                        <Link to="/lover/lclist"><div className="limages" style={{background:`url(${item.img})`,backgroundSize:"100% 100%"}} >
-                            {/* <img src={item.img} alt=""></img> */}
-                            <p style={{color:"#888888",textAlign:"center",lineHeight:"170px"}}>{item.note}</p>
+                        <div className="limages">
+                        <Link to="/lover/lclist"><div  style={{background:`url(${item.img})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
+                            <p style={{color:"#888888",textAlign:"center",lineHeight:"190px",margin:"0"}}>{item.note}</p>
                         </div>
                         </Link>
+                        </div>
                     ))
                 }
                 </div>
-    </WingBlank>
+   
             </div>
         )
     }
