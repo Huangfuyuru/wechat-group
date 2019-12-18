@@ -28,29 +28,25 @@ router.get('/list',async function(req,res,next){
     var newdata =new Array(2);
     newdata[0]=data;
 
-    // newdata[1]=data1;
-    // for(var i=0;i<data1.length;i++){
-    //     for(var j=0;j<data.length;j++){
+    newdata[1]=data1;
+    for(var i=0;i<data1.length;i++){
+        for(var j=0;j<data.length;j++){
+            data[j].id == data1[i].listid?data[j] = data1[i]: data[j] 
+            
+            // console.log(data1[i].listid );
+        }
+    }
+    res.json(data);
+    console.log('data',data)
 
-    //         console.log(data1[i].listid );
-    //     }
-
-    //     // data[i].id == data1[i].listid
-    //     // listid
-    //     // console.log(data);
-    //     // if(data[i].id == data1[i].listid){
-
-    //     // }
+    // if(data === 1){
+    //     res.json(newdata);
+    // }else{
+    //     newdata[1]=data1;
+    //     res.json(newdata);
     // }
 
-    if(data === 1){
-        res.json(newdata);
-    }else{
-        newdata[1]=data1;
-        res.json(newdata);
-    }
-
-    console.log(newdata);
+    // console.log(newdata);
 
 });
 
