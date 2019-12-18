@@ -90,7 +90,7 @@ export default class LSlists extends Component {
                                  }
                                 }}>
                                     <div  style={{height:"100%",width:"100%",backgroundColor:"rgb(0,0,0,0.5)",zIndex:"10",float:"left"}} >
-                                    <p style={{color:"white",textAlign:"center",lineHeight:"22vh",margin:"0",overflow: "hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>{item.name}</p>
+                                    <p style={{color:"white",textAlign:"center",lineHeight:"20vh",margin:"0",overflow: "hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>{item.name}</p>
                                    </div>
                                 </Link>
                                 </div>

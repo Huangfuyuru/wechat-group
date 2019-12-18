@@ -46,7 +46,7 @@ export default class Llists extends Component {
                      letterSpacing:'3vw'}}>恋爱清单</span>
                 </NavBar>
                 <Tabs tabs={this.state.tabs}
-            initialPage={9}
+            initialPage={0}
             tabBarUnderlineStyle={{border:"1px solid #3fcccb"}}
             tabBarActiveTextColor="#3fcccb"
             tabBarPosition="bottom"
