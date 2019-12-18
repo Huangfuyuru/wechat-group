@@ -28,7 +28,9 @@ export default class listContent extends Component {
                      fontSize:'6vw',
                      textIndent:'3vw',
                      color:'black',
-                     textOverflow: "ellipsis",
+                     overflowX:"hidden",
+                     textOverflow:"ellipsis",
+                     whiteSpace:"nowrap",
                  letterSpacing:'1vw'}}>{this.state.item.name}</span>
                 </NavBar>
                 <WingBlank>

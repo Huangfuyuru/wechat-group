@@ -82,16 +82,16 @@ export default class LSlists extends Component {
                          
                             }
                             else{
-                                a=  <div className="limages">
+                                a=  <div className="limages" style={{background:`url(${item.imgurl}) `,backgroundSize:"100% 100%"}}>
                                 <Link to={{
                                     pathname:"/lover/list",
                                     state:{
                                      arr:item
                                  }
                                 }}>
-                                    <div  style={{background:`url(${item.imgurl}) `,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
+                                    <div  style={{height:"100%",width:"100%",backgroundColor:"rgb(0,0,0,0.5)",zIndex:"10",float:"left"}} >
                                     <p style={{color:"white",textAlign:"center",lineHeight:"200px",margin:"0"}}>{item.name}</p>
-                                </div>
+                                   </div>
                                 </Link>
                                 </div>
 
