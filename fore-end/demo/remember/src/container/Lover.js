@@ -39,6 +39,7 @@ export default class lover_home extends Component {
         })
         .then(res=>res.json())
         .then(json=>{ 
+            console.log(json)
             this.setState({
                 lover_id:JSON.parse(localStorage.getItem('lid'))||json[0].id,
                 lover_name:json[0].name,
@@ -52,7 +53,6 @@ export default class lover_home extends Component {
     }
     
     componentDidUpdate(prevProps,prevState){
-        
         if(prevState.cindex_src != ""){
             var url = 'http://localhost:3001/lover/changebackground';
             fetch(url,{
