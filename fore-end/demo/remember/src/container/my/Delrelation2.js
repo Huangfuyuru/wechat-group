@@ -87,7 +87,7 @@ export default class Delrelation2 extends Component {
             >删除关系</span>
         </NavBar>
         <div style={{width:"100%",height:"5px",marginTop:"15%"}}></div>
-      <h4>亲子记录</h4>
+      <h3>亲子记录</h3>
       <div>
         {
           this.state.list.map((ele,index)=>{

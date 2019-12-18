@@ -87,19 +87,50 @@
     transform: scale(1.5);
 }
 /* 增加爱人 */
-#all{
-    background: linear-gradient(rgb(255,191,45,0.2), rgb(255, 191, 45,0.6),rgb(255, 191, 45,1));
-}
 .create_Relation{
-    width:100%;
-    height:10vh;
-    text-align: center;
+    width:80%;
+    margin-left:10%;
+    height:8vh;
+    text-align:center;
     font-size:2.8vh;
     border-style:none;
+    padding-top:2vh;
+    text-align: l;
 }
 .create_Relation input{
+    margin-top:-1vh;
+    float:right;
     width:40vw;
     height:4vh;
+}
+.create_Relation2{
+    width:80%;
+    height:10vh;
+    margin-left:10%;
+    text-align: left;
+    font-size:2.8vh;
+    border-style:none;
+    text-align: left;
+}
+.create_Relation2 input{
+    float:right;
+    width:40vw;
+    height:4vh;
+}
+.create_Relation3{
+    width:66%;
+    height:9vh;
+    margin-left:17%;
+    text-align: left;
+    font-size:2.8vh;
+    border-style:none;
+    padding-top:1vh;
+}
+.create_Relation3 input{
+    float:right;
+    width:40vw;
+    height:4vh;
+    margin-top:0px;
 }
 .relation_button{
     width:200px;

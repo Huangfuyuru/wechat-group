@@ -78,9 +78,9 @@ export default class Crelation2 extends Component {
                 >建立关系</span>
             </NavBar>
             <div style={{width:"100%",height:"10vh"}}></div>
-            <p style={{fontSize:"3.5vh"}}>亲子关系</p>
+            <h3>亲子关系</h3>
             <form action=''>
-                <div className="create_Relation" style={{marginTop:"15%"}}>
+                <div className="create_Relation" style={{marginTop:"10%"}}>
                     对方昵称：&nbsp;
                     <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="单行输入"></input>
                 </div>

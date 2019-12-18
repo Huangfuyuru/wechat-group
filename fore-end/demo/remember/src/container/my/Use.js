@@ -116,15 +116,15 @@ export default class Use extends Component {
                     </div>
                 </p>
                 <form action=''>
-                    <div className="create_Relation">
+                    <div className="create_Relation3">
                         昵称：&nbsp;
                         <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="单行输入"></input>
                     </div>
-                    <div className="create_Relation">
+                    <div className="create_Relation3">
                         性别：&nbsp;
                         <input onChange={(e)=>this.inputChange2(e)} className="one" type="text" placeholder="男/女"></input>
                     </div>
-                    <div className="create_Relation">
+                    <div className="create_Relation3">
                         新密码：&nbsp;
                         <input onChange={(e)=>this.inputChange3(e)} className="one" type="text" placeholder="单行输入"></input>
                     </div>

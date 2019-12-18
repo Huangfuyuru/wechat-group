@@ -10,15 +10,16 @@ export default class My extends Component {
         var uid = JSON.parse(localStorage.getItem('uid'));
         var umsg = JSON.parse(localStorage.getItem('umsg'));
         this.state={
+            uimg:'',
             name:'',
             gender:'',
             umsg:umsg,
             uid:uid,
             src:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg',
-            uimg:''
         }
     }
     componentDidMount(){
+        console.log('umsg',this.state.umsg);
         fetch(`http://localhost:3001/my/`,{
             method:'POST',
             mode:'cors',
@@ -28,14 +29,25 @@ export default class My extends Component {
             body:`&uid=${this.state.uid}`
         }).then(res=>res.json())
         .then(json=>{
-            console.log(json)
+            // console.log(json)
             this.setState({
                 name:json.name,
                 gender:json.gender,
                 uimg:json.imgurl,
             });
-            console.log(this.state.name);
+            console.log( 'name',typeof(json.name));
+            console.log('gender',json.gender);
         })
+        if(this.state.uimg==''){
+            this.state.uimg=this.state.umsg.imgurl;
+            console.log(this.state.uimg);
+        }else if(this.state.name==''){
+            this.state.name=this.state.umsg.name;
+            console.log(this.state.name);
+        }else if(this.state.gender==''){
+            this.state.gender=this.state.umsg.gender;
+            console.log(this.state.gender);
+        }
       }
       upfile=()=>{
         var file=document.getElementById('img').files[0];
@@ -87,17 +99,17 @@ export default class My extends Component {
                 <div className="My_message">
                     <div className="one">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <img src={this.state.uimg==''?this.state.uimg.imgurl:this.state.uimg}/>
+                        <img src={this.state.uimg}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <div className="two">
                         <p style={{fontSize:"2.5vh"}}>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名:&nbsp;&nbsp;&nbsp;
-                            <span>{this.state.name==''?this.state.uimg.name:this.state.name}</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>用户名:</span>&nbsp;&nbsp;&nbsp;
+                            {this.state.name}
                         </p>
                         <p style={{fontSize:"2.5vh"}}>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别:&nbsp;&nbsp;&nbsp;
-                            <span>{this.state.gender==''?this.state.uimg.gender:this.state.gender}</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>性别:</span>&nbsp;&nbsp;&nbsp;
+                            {this.state.gender}
                         </p>
                     </div>
                 </div>
