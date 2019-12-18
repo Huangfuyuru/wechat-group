@@ -56,7 +56,7 @@ router.get('/list',async function(req,res,next){
 
 router.post('/addloverlist',async function(req,res,next){
     console.log('增加爱人清单',req.body);
-    var lid = Number(req.body.loverid);
+    var lid = Number(req.body.lid);
     var listid = Number(req.body.listid);
     var text={
         name:req.body.name,
