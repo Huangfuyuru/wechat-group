@@ -224,6 +224,11 @@ export default class Write extends Component {
               key="idea"
               selected={this.state.selectedTab === 'redTab'}
               onPress={() => {
+                fetch(`http://localhost:3001/child/cgrowup/charts?childsid=${this.state.cid}`)
+                .then(res=>res.json())
+                .then(json=>{
+                  console.log(json)
+                })
                 this.setState({
                     selectedTab: 'redTab',
                 });
@@ -249,9 +254,14 @@ export default class Write extends Component {
             key="mall"
             selected={this.state.selectedTab === 'greenTab'}
             onPress={() => {
-            this.setState({
-                selectedTab: 'greenTab',
-            });
+              fetch(`http://localhost:3001/child/cgrowup/charts?childsid=${this.state.cid}`)
+                .then(res=>res.json())
+                .then(json=>{
+                  console.log(json)
+                })
+              this.setState({
+                  selectedTab: 'greenTab',
+              });
             }}
           >
           {/* 体重曲线 */}
