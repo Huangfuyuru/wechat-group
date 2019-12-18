@@ -315,11 +315,11 @@
     line-height: 10px;
   }
   .createsou-first input{
-    float:left;
+    float:right;
     height:30px;
     width:45%;
     font-size:5vw;
-    margin:1% 0 0 0;
+    margin:1% 4% 0 0;
     border-radius:4px;
   
   }

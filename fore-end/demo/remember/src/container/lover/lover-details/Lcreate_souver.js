@@ -45,6 +45,9 @@ export default class Lcreate_souver extends Component {
         .then(json=>(
             this.setState((state)=>{
                 state.imgurl=json.path
+        },()=>{
+            var img=document.getElementById("souBack");
+            img.setAttribute("src",this.state.imgurl);
         })
         )
     )}
@@ -102,7 +105,26 @@ export default class Lcreate_souver extends Component {
                   <p >日期:</p>
                   <input  type="text" placeholder="例:1999-11-28" onChange={this.getDate}/>
                   </div>
-                  <div style={{float:"left",margin:"8%"}} >
+
+                  <div style={{marginTop:"5vh"}}>
+                    <div style={{height:"6vh",width:"40%",backgroundColor:"rgb(255, 191, 45,0.5)",margin:"auto"}} >
+                    <span style={{position:"relative",top:"30%",left:"15%"}}>轻触上传封面</span>
+                    <input  
+                        style={{height:"100%",width:"100%",opacity:"0"}}
+                        id="img1"  
+                        onChange={this.upfile}
+                        type='file'  
+                        accept="image/*" 
+                        capture="camera" 
+                        name="imgurl"
+                        multiple="multiple"
+                        alt=""/>
+                     </div>
+                 </div>
+                 <div style={{width:"60%",height:"20vh",float:"left",margin:"5vh 0 0 20%"}}>
+                     <img  id="souBack"  alt="图片预览" style={{height:"100%",width:"100%",float:"left"}}/>
+                 </div>
+                  {/* <div style={{float:"left",margin:"8%"}} >
                   <input  
                     style={{width:"90%",height:"100%"}}
                     id="img1"   
@@ -113,9 +135,9 @@ export default class Lcreate_souver extends Component {
                     name="imgurl"
                     multiple="multiple"
                     alt=""/>
-                    </div>
+                    </div> */}
                   {/* <textarea className="createsou-second" onChange={this.getContent} >内容：</textarea> */}
-                  <h1 style={{margin:"5% 0 0  9%"}}>设置提醒</h1>
+                  {/* <h1 style={{margin:"5% 0 0  9%"}}>设置提醒</h1> */}
                   <WingBlank>
                <button className="createsou-foot" onClick={this.upSouver}>保存</button>
                </WingBlank>
