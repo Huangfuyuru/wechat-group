@@ -27,7 +27,7 @@ router.post('/',async function(req,res,next){
 router.use('/lpictures',lovePictures);
 router.use('/lsound',loveSound);
 router.use('/ldairy',loveDinary);
-router.use('/loveList',loveList);
+router.use('/loverlist',loveList);
 router.use('/lsouvenir',loveSouvenir);
 router.use('/changebackground',loveChangBack);
 
