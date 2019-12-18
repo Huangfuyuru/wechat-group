@@ -52,8 +52,8 @@ export default class lover_home extends Component {
     }
     
     componentDidUpdate(prevProps,prevState){
-        console.log('更新')
-        if(prevState.cindex_src != this.state.cindex_src){
+        
+        if(prevState.cindex_src != ""){
             var url = 'http://localhost:3001/lover/changebackground';
             fetch(url,{
                 method:'POST',

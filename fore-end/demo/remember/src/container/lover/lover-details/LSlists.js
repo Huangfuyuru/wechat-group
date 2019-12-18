@@ -56,31 +56,48 @@ export default class LSlists extends Component {
                 {
                     
                     this.state.systemArr.map((item)=>{
-                        this.state.listArr.map((index)=>{
-                            if(item.id!==index.id){
-                                return(
-                                    <div className="limages">
-                                    <Link to="/lover/lclist"><div  style={{background:`url(${require('../../../image/tu1.jpg')})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
-                                        <p style={{color:"#888888",textAlign:"center",lineHeight:"200px",margin:"0"}}>{item.name}</p>
-                                    </div>
-                                    </Link>
-                                    </div>
-                            )
-                            }
-                            else{
-                                return(
-                                    <div className="limages">
-                                    <Link to="/lover/lclist"><div  style={{background:`url(${index.imgurl})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
-                                        <p style={{color:"#888888",textAlign:"center",lineHeight:"200px",margin:"0"}}>{index.name}</p>
-                                    </div>
-                                    </Link>
-                                    </div>
-                            )
-
-                            }
-                        })
-                        
-               
+                        var arr=this.state.listArr;
+                        var a="";
+                        (function(item){
+                            arr.map((index)=>{
+                            if(item.id!==index.listid){
+                               a=
+                                <div className="limages">
+                               <Link to={{
+                                   pathname:"/lover/lclist",
+                                   state:{
+                                    listid:item.id,
+                                    name:item.name
+                                }
+                               }}>
+                                   <div  style={{background:`url(${require('../../../image/tu1.jpg')})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
+                                   <p style={{color:"#888888",textAlign:"center",lineHeight:"200px",margin:"0"}}>{item.name}</p>
+                               </div>
+                               </Link>
+                               </div>
+                                
+                           }
+                           else{
+                              
+                                   a=
+                               <div className="limages">
+                                       <Link to=
+                                       {{
+                                        pathname:"/lover/list",
+                                        state:{
+                                            arr:arr
+                                     }
+                                    }}
+                                       ><div  style={{background:`url(${index.imgurl})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
+                                           <p style={{color:"white",textAlign:"center",lineHeight:"200px",margin:"0"}}>{index.name}</p>
+                                       </div>
+                                       </Link>
+                               </div>;
+                           } 
+                           return a;
+                        })  
+                        }(item))  
+                        return a;
                     })
                 }
                 </div>

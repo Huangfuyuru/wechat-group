@@ -6,12 +6,12 @@ export default class Lcreate_list extends Component {
     constructor(props){
         super(props);
         this.state={
-            name:"",
+            name:this.props.location.state.name,
             content:"",
             imgurl:"",
             local:"",
             setdate:"",
-            listid:"",
+            listid:this.props.location.state.listid,
             lid:JSON.parse(localStorage.getItem('lid'))
         }
     }
@@ -50,13 +50,14 @@ export default class Lcreate_list extends Component {
         })
     }
     upList=()=>{
+        console.log("增加")
         fetch(`http://localhost:3001/lover/loverlist/addloverlist`,{
             method:'POST',
             mode:'cors',
             headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`name=${this.state.name}&=content${this.state.content}&imgurl=${this.state.imgurl}&local=${this.state.local}&listid=${this.state.listid}&lid=${this.state.lid}`
+            body:`name=${this.state.name}&content=${this.state.content}&imgurl=${this.state.imgurl}&local=${this.state.local}&listid=${this.state.listid}&lid=${this.state.lid}&setdate=${this.state.setdate}`
         })
         .then(res=>res.json())
         .then(json=>{ 
@@ -112,17 +113,17 @@ export default class Lcreate_list extends Component {
             <img id="listPhoto" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3560880680,1309107465&fm=26&gp=0.jpg" alt="图片预览" />
             </div>
             <p style={{fontSize:"5vw",float:"left",margin:"5% 5%"}}> 用一句话记录</p>
-            <input type="text" className="createlist-second" placeholder="单行输入" onClick={this.getContent}></input>
+            <input type="text" className="createlist-second" placeholder="单行输入" onChange={this.getContent}></input>
             <div className="createlist-three">
                   <p >时间:</p>
-                  <input  type="text" placeholder="例:1999-11-28" onClick={this.getDate}/>
+                  <input  type="text" placeholder="例:1999-11-28" onChange={this.getDate}/>
                   </div>
                   <div className="createlist-three">
                   <p >地址:</p>
-                  <input  type="text" placeholder="石家庄" onClick={this.getLocal}/>
+                  <input  type="text" placeholder="石家庄" onChange={this.getLocal}/>
                   </div>
                   <WingBlank>
-               <button className="createlist-foot">保存</button>
+               <button className="createlist-foot" onClick={this.upList}>保存</button>
                </WingBlank>
             </div>
             </div>

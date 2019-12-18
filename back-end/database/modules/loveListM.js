@@ -8,7 +8,7 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addloveList(text){
-    let sql = 'insert into loveList(name,content,imgurl,local,listid,lid,setdate) values ($1,$2,$3,$4,$5,$6.$7)';
+    let sql = 'insert into loveList(name,content,imgurl,local,listid,lid,setdate) values ($1,$2,$3,$4,$5,$6,$7)';
     let ret = await pgdb.query(sql,[text.name,text.content,text.imgurl,text.local,text.listid,text.lid,text.setdate]);
     if(ret.rowCount<=0){
         return 1

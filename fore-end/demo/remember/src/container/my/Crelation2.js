@@ -80,15 +80,19 @@ export default class Crelation2 extends Component {
             <div style={{width:"100%",height:"10vh"}}></div>
             <h3>亲子关系</h3>
             <form action=''>
+<<<<<<< HEAD
                 <div className="create_Relation" style={{marginTop:"10%"}}>
+=======
+                <div className="create_Relation2" style={{marginTop:"15%"}}>
+>>>>>>> 08d5bf4b5ecbab504a35ee3fd9bf2e718577ba73
                     对方昵称：&nbsp;
                     <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="单行输入"></input>
                 </div>
-                <div className="create_Relation">
+                <div className="create_Relation2">
                     对方生日：&nbsp;
                     <input onChange={(e)=>this.inputChange2(e)} className="one" type="text" placeholder="xxxx-xx-xx"></input>
                 </div>
-                <div className="create_Relation">
+                <div className="create_Relation2">
                     对方性别：&nbsp;
                     <input onChange={(e)=>this.inputChange3(e)} className="one" type="text" placeholder="男/女"></input>
                 </div>

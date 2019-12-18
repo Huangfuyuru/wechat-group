@@ -8,12 +8,10 @@ export default class My extends Component {
     constructor(){
         super();
         var uid = JSON.parse(localStorage.getItem('uid'));
-        var umsg = JSON.parse(localStorage.getItem('umsg'));
         this.state={
             uimg:'',
             name:'',
             gender:'',
-            umsg:umsg,
             uid:uid,
             src:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg',
         }
@@ -35,8 +33,12 @@ export default class My extends Component {
                 gender:json.gender,
                 uimg:json.imgurl,
             });
+<<<<<<< HEAD
             console.log( 'name',typeof(json.name));
             console.log('gender',json.gender);
+=======
+            // console.log(this.state.name);
+>>>>>>> 08d5bf4b5ecbab504a35ee3fd9bf2e718577ba73
         })
         if(this.state.uimg==''){
             this.state.uimg=this.state.umsg.imgurl;
@@ -69,7 +71,48 @@ export default class My extends Component {
                 localStorage.setItem('cbackground',JSON.stringify(this.state.src))
             })
         ))
-        console.log(img)
+        // console.log(img)
+    }
+    componentDidUpdate(){
+        fetch(`http://localhost:3001/my/`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`&uid=${this.state.uid}`
+        }).then(res=>res.json())
+        .then(json=>{
+            // console.log(json)
+            this.setState({
+                name:json.name,
+                gender:json.gender,
+                uimg:json.imgurl,
+            });
+            // console.log(this.state.name);
+        })
+      }
+      upfile=()=>{
+        var file=document.getElementById('img').files[0];
+        var url = 'http://localhost:3001/img';
+        var form = new FormData();
+        var img='';
+        form.append("file",file);
+        fetch(url,{
+            method:'POST',
+            body:form
+        })
+        .then(res=>res.json())
+        .then(res=>(
+            console.log(res.path),
+            img=res.path,
+            this.setState({
+               src:res.path
+            },()=>{
+                localStorage.setItem('cbackground',JSON.stringify(this.state.src))
+            })
+        ))
+        // console.log(img)
     }
     render() {
         return (
@@ -104,12 +147,21 @@ export default class My extends Component {
                     </div>
                     <div className="two">
                         <p style={{fontSize:"2.5vh"}}>
+<<<<<<< HEAD
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>用户名:</span>&nbsp;&nbsp;&nbsp;
                             {this.state.name}
                         </p>
                         <p style={{fontSize:"2.5vh"}}>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>性别:</span>&nbsp;&nbsp;&nbsp;
                             {this.state.gender}
+=======
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名:&nbsp;&nbsp;&nbsp;
+                            <span>{this.state.name}</span>
+                        </p>
+                        <p style={{fontSize:"2.5vh"}}>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别:&nbsp;&nbsp;&nbsp;
+                            <span>{this.state.gender}</span>
+>>>>>>> 08d5bf4b5ecbab504a35ee3fd9bf2e718577ba73
                         </p>
                     </div>
                 </div>
@@ -161,6 +213,11 @@ export default class My extends Component {
                                 ()=>{
                                     localStorage.setItem('uid',JSON.stringify('over'));
                                     localStorage.setItem('umsg',JSON.stringify('null'));
+                                    localStorage.setItem('cid',JSON.stringify(''));
+                                    localStorage.setItem('lid',JSON.stringify(''));
+                                    localStorage.setItem('lbackground',JSON.stringify(''));
+                                    localStorage.setItem('cbackground',JSON.stringify(''));
+                                    localStorage.setItem('cpicture',JSON.stringify(''));
                                 }
                             }
                              to='/menus'>
