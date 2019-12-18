@@ -87,7 +87,7 @@ export default class Delrelation2 extends Component {
             >删除关系</span>
         </NavBar>
         <div style={{width:"100%",height:"5px",marginTop:"15%"}}></div>
-      <h4>爱人记录</h4>
+      <h3>爱人记录</h3>
       <div>
         {
           this.state.list.map((ele,index)=>{
@@ -137,7 +137,7 @@ export default class Delrelation2 extends Component {
         </div>
         {/* 为空时 */}
         <div id='lwarn2' style={{display:'none',marginTop:"10%"}}>
-            <h3>当前暂无创建的爱人关系</h3>
+            [<p>当前暂无创建的亲子关系</p>
             <Link to="/my/crelation">
               <button className="relation_button">创建关系</button>
             </Link>
