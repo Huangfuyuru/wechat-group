@@ -84,7 +84,7 @@ export default class LSlists extends Component {
                             else{
                                 a=  <div className="limages" style={{background:`url(${item.imgurl}) `,backgroundSize:"100% 100%"}}>
                                 <Link to={{
-                                    pathname:"/lover/list",
+                                    pathname:"/lover/list1",
                                     state:{
                                      arr:item
                                  }
