@@ -69,7 +69,7 @@ export default class Llists extends Component {
                    </div>
                    </Link>
                <div className="loverlist-first">
-                 <p style={{color:"black",textAlign:"center",fontSize:"6vw"}}>{item.name}</p>
+                 <p style={{color:"black",textAlign:"center",fontSize:"6vw",lineHeight:"12vh",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.name}</p>
             </div>  
                 </div>
                 ))

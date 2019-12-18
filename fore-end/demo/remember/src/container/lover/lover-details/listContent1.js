@@ -23,7 +23,7 @@ export default class listContent extends Component {
                     }}
                     mode="light"
                     icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/lover/llists')}
+                    onLeftClick={() => this.props.history.push('/lover/lslists')}
                  ><span style={{
                      fontSize:'6vw',
                      textIndent:'3vw',
