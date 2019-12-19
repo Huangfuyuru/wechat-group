@@ -12,7 +12,7 @@ router.get('/',async function(req,res,next){
     var lid = req.query.loverid;
     var data = await lover.loveListM.findByLid(lid);
     if(data === 1){
-        info={code:0,msg:null};
+        info={code:0,msg:{id:'',name:'',content:'快来创建吧',imgurl:'#',local:'',setdate:'',listid:'',lid:lid}};
     }else{
         info={code:0,msg:data};
     }
