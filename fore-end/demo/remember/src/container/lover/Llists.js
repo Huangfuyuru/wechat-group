@@ -16,7 +16,7 @@ export default class Llists extends Component {
         .then((res)=>res.json())
         .then((json)=>{
             this.setState({
-               tabs:json
+               tabs:json.msg
             },()=>{
                 console.log(json)
             });
@@ -45,18 +45,18 @@ export default class Llists extends Component {
                      color:'black',
                      letterSpacing:'3vw'}}>恋爱清单</span>
                 </NavBar>
-                <Tabs tabs={this.state.tabs}
+                 <Tabs tabs={this.state.tabs}
             initialPage={0}
             tabBarUnderlineStyle={{border:"1px solid #3fcccb"}}
             tabBarActiveTextColor="#3fcccb"
             tabBarPosition="bottom"
             renderTabBar={props => <Tabs.DefaultTabBar {...props} page={2} />}
-            // onChange={(tab, index) => { console.log('onChange', index, tab); }}
-            // onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+            onChange={(tab, index) => { console.log('onChange', index, tab); }}
+            onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
           >
               {
-                  this.state.tabs&&this.state.tabs.map((item)=>(
-                <div className="loverlist-header">
+                  this.state.tabs&&this.state.tabs.map((item,idx)=>(
+                <div className="loverlist-header"  key={idx}>
                     <Link to={{
                         pathname:'/lover/list',
                         state:{
@@ -75,7 +75,7 @@ export default class Llists extends Component {
                 ))
 
               }
-        </Tabs>
+        </Tabs> 
                 <div className='allpage_share'>
                   <p style={{fontSize:"5.5vw",color:"white",margin:"4% 0 0 0"}}>分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;享</p>
               </div>

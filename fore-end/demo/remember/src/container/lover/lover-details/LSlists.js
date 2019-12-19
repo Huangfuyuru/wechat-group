@@ -61,12 +61,12 @@ export default class LSlists extends Component {
     <div style={{width:"100%",backgroundColor:"#FFEBEE",float:"left"}}>
                 {
                     
-                     this.state.listArr.map((item)=>{
+                     this.state.listArr.map((item,idx)=>{
                          var a;
                          if(item.imgurl===undefined)
                          {
                          
-                             a=  <div className="limages">
+                             a=  <div className="limages" key={idx}>  
                                <Link to={{
                                    pathname:"/lover/lclist",
                                    state:{
@@ -82,7 +82,7 @@ export default class LSlists extends Component {
                          
                             }
                             else{
-                                a=  <div className="limages" style={{background:`url(${item.imgurl}) `,backgroundSize:"cover",backgroundRepeat:"no-repeat"}}>
+                                a=  <div className="limages" style={{background:`url(${item.imgurl}) `,backgroundSize:"cover",backgroundRepeat:"no-repeat"}} key={idx}>
                                 <Link to={{
                                     pathname:"/lover/list1",
                                     state:{
