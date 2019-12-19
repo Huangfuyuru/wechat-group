@@ -71,8 +71,9 @@ export default class Lsouvenir extends Component {
               {/* <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1996765656,1986455071&fm=26&gp=0.jpg" alt="" style={{height:"40%",width:"92%",margin:"4% 0 0 4%"}}></img> */}
                {
                    this.state.arr&&this.state.arr.map((item)=>(
-                    <div className="loversou-first"  value={item.id}>
-                    <img  src={item.imgurl} alt=""  style={{float:"left",height:"100%",width:"50%"}}></img>
+                    <div  className="loversou-first"  value={item.id}>
+                    <div style={{height:"100%",width:"100%",float:"left"}}>
+                    <div  style={{float:"left",height:"100%",width:"50%",background:`url(${item.imgurl})`,backgroundSize:"100% 100%"}}><span className=" iconfont icon-jinianri" ></span></div>
                     <h2 style={{marginTop:"8%",textAlign:"center"}}>{item.name}</h2>
                     <p style={{fontSize:"5vw" ,margin:"0 0 0 10%",float:"left"}}>{item.date.split("T")[0]}</p>
                      {/* <textarea style={{fontSize:"5vw",float:"right",width:"53%",height:"80%",border:"0.5px solid #888888"}} readonly="readonly">{item.content}</textarea> */}
@@ -86,6 +87,7 @@ export default class Lsouvenir extends Component {
                     dellsound.style.display='block';
                     }} 
                    />
+                   </div>
                     </div>
                    ))
                }
