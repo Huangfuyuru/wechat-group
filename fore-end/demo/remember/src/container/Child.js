@@ -13,8 +13,8 @@ export default class Child extends Component {
             child_id:'',
             cindex_src:'',
             cnews:[{
-                ctime:'引导',
-                cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
+                ctime:'以下内容仅自己可见',
+                cpic_src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577321644&di=8fc9ce735a95caff1722dd9101f2c7ab&imgtype=jpg&er=1&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3Daaf70247dff9d72a17311819e11a0402%2F728da9773912b31b00eaab518018367adbb4e1c0.jpg',
                 ccontent:'在这里展示您最近三篇日记大致内容'
             }]
         }
@@ -192,10 +192,10 @@ export default class Child extends Component {
                         <Flex.Item>
                             <Link 
                             to={{
-                                pathname:'/child/cevents',
+                                pathname:'/child/cdairy',
                                 state:this.state.child_id
                             }}
-                            >大事记</Link>
+                            >亲子日记</Link>
                         </Flex.Item>
                     </Flex>
                     <Flex>
@@ -208,20 +208,20 @@ export default class Child extends Component {
                             >成长记录</Link>
                         </Flex.Item>
                         <Flex.Item>
+                            <Link 
+                            to={{
+                                pathname:'/child/cevents',
+                                state:this.state.child_id
+                            }}
+                            >大事记</Link>
+                        </Flex.Item>
+                        <Flex.Item>
                             <Link
                             to={{
                                 pathname:'/child/cstudy',
                                 state:this.state.child_id
                             }} 
                             >学业记录</Link>
-                        </Flex.Item>
-                        <Flex.Item>
-                            <Link 
-                            to={{
-                                pathname:'/child/cdairy',
-                                state:this.state.child_id
-                            }}
-                            >日记</Link>
                         </Flex.Item>
                     </Flex>
                 </div>
