@@ -9,15 +9,14 @@ export default class My extends Component {
         super();
         var uid = JSON.parse(localStorage.getItem('uid'));
         this.state={
-            uimg:'',
             name:'',
             gender:'',
             uid:uid,
             src:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg',
+            uimg:''
         }
     }
     componentDidMount(){
-        console.log('umsg',this.state.umsg);
         fetch(`http://localhost:3001/my/`,{
             method:'POST',
             mode:'cors',
@@ -27,29 +26,14 @@ export default class My extends Component {
             body:`&uid=${this.state.uid}`
         }).then(res=>res.json())
         .then(json=>{
-            // console.log(json)
+            console.log(json)
             this.setState({
                 name:json.name,
                 gender:json.gender,
                 uimg:json.imgurl,
             });
-<<<<<<< HEAD
-            console.log( 'name',typeof(json.name));
-            console.log('gender',json.gender);
-=======
             // console.log(this.state.name);
->>>>>>> 08d5bf4b5ecbab504a35ee3fd9bf2e718577ba73
         })
-        if(this.state.uimg==''){
-            this.state.uimg=this.state.umsg.imgurl;
-            console.log(this.state.uimg);
-        }else if(this.state.name==''){
-            this.state.name=this.state.umsg.name;
-            console.log(this.state.name);
-        }else if(this.state.gender==''){
-            this.state.gender=this.state.umsg.gender;
-            console.log(this.state.gender);
-        }
       }
       upfile=()=>{
         var file=document.getElementById('img').files[0];
@@ -147,21 +131,12 @@ export default class My extends Component {
                     </div>
                     <div className="two">
                         <p style={{fontSize:"2.5vh"}}>
-<<<<<<< HEAD
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>用户名:</span>&nbsp;&nbsp;&nbsp;
-                            {this.state.name}
-                        </p>
-                        <p style={{fontSize:"2.5vh"}}>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>性别:</span>&nbsp;&nbsp;&nbsp;
-                            {this.state.gender}
-=======
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名:&nbsp;&nbsp;&nbsp;
                             <span>{this.state.name}</span>
                         </p>
                         <p style={{fontSize:"2.5vh"}}>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别:&nbsp;&nbsp;&nbsp;
                             <span>{this.state.gender}</span>
->>>>>>> 08d5bf4b5ecbab504a35ee3fd9bf2e718577ba73
                         </p>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 import { NavBar, Icon } from 'antd-mobile';
 import {Link} from 'react-router-dom';
 
@@ -122,18 +122,6 @@ export default class Use extends Component {
                     </div>
                 </p>
                 <form action=''>
-<<<<<<< HEAD
-                    <div className="create_Relation3">
-                        昵称：&nbsp;
-                        <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="单行输入"></input>
-                    </div>
-                    <div className="create_Relation3">
-                        性别：&nbsp;
-                        <input onChange={(e)=>this.inputChange2(e)} className="one" type="text" placeholder="男/女"></input>
-                    </div>
-                    <div className="create_Relation3">
-                        新密码：&nbsp;
-=======
                     <div className="create_Relation">
                         设置昵称：&nbsp;
                         <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="单行输入"></input>
@@ -144,7 +132,6 @@ export default class Use extends Component {
                     </div>
                     <div className="create_Relation">
                         设置新密码：&nbsp;
->>>>>>> 08d5bf4b5ecbab504a35ee3fd9bf2e718577ba73
                         <input onChange={(e)=>this.inputChange3(e)} className="one" type="text" placeholder="单行输入"></input>
                     </div>
                     <Link to="/index/my">
