@@ -75,7 +75,7 @@ export default class LSlists extends Component {
                                 }
                                }}>
                                    <div  style={{background:`url(${require('../../../image/tu1.jpg')})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
-                                   <p style={{color:"#888888",textAlign:"center",lineHeight:"32vh",margin:"0",overflow: "hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>{item.name}</p>
+                                   <p style={{color:"#888888",textAlign:"center",paddingTop: "14vh",margin:"0",overflow: "hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>{item.name}</p>
                                </div>
                                </Link>
                                </div>
