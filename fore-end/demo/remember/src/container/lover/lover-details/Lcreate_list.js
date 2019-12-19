@@ -12,7 +12,8 @@ export default class Lcreate_list extends Component {
             local:"",
             setdate:"",
             listid:this.props.location.state.listid,
-            lid:JSON.parse(localStorage.getItem('lid'))
+            lid:JSON.parse(localStorage.getItem('lid')),
+            code:""
         }
     }
     upFile=()=>{
@@ -62,12 +63,14 @@ export default class Lcreate_list extends Component {
         .then(res=>res.json())
         .then(json=>{ 
             console.log(json)
-            //  if(json.code===0){
-            //      this.setState({
-            //          code:"上传成功"
-            //      })
-            //  }
+             if(json.code===0){
+                 this.setState({
+                     code:"增加成功"
+                 })
+             }
         })
+        var uplists=document.getElementById('uplists');
+        uplists.style.display='block';
     }
     render() {
         return (
@@ -126,6 +129,27 @@ export default class Lcreate_list extends Component {
                <button className="createlist-foot" onClick={this.upList}>保存</button>
                </WingBlank>
             </div>
+
+             <form id='uplists'>
+                    <div>{this.state.code}</div>
+                    <button 
+                    onClick={()=>{
+                        var uplists=document.getElementById('uplists');
+                        uplists.style.display='none';
+                        this.props.history.push('/lover/lslists');
+                    }}
+                    style={{
+                        width:'35%',
+                        height:'15%',
+                        color:'black',
+                        border:'none',
+                        marginTop:'2vh',
+                        background:'#fff',
+                        borderRadius:'5px',
+                        fontSize:'6vw',
+                        marginRight:'2vw'
+                    }}>返回列表</button>
+                </form> 
             </div>
 
         )

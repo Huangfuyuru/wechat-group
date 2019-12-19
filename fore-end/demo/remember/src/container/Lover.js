@@ -39,20 +39,20 @@ export default class lover_home extends Component {
         })
         .then(res=>res.json())
         .then(json=>{ 
+            console.log(json)
             this.setState({
                 lover_id:JSON.parse(localStorage.getItem('lid'))||json[0].id,
                 lover_name:json[0].name,
                 cindex_src:JSON.parse(localStorage.getItem('lbackground'))||json[0].background
             },()=>{
                 localStorage.setItem('lid',JSON.stringify(this.state.lover_id))
-                localStorage.setItem('lbackground',JSON.stringify(this.state.cindex_src))
+                // localStorage.setItem('lbackground',JSON.stringify(this.state.cindex_src))
             }
             );
         })
     }
     
     componentDidUpdate(prevProps,prevState){
-        
         if(prevState.cindex_src != ""){
             var url = 'http://localhost:3001/lover/changebackground';
             fetch(url,{
@@ -80,7 +80,7 @@ export default class lover_home extends Component {
         }).then(res=>res.json())
         .then(res=>(this.setState({
             cindex_src:res.path},()=>{
-                localStorage.setItem('lbackground',JSON.stringify(this.state.cindex_src))
+                // localStorage.setItem('lbackground',JSON.stringify(this.state.cindex_src))
             })))
     }
     render() {

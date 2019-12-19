@@ -23,6 +23,7 @@ import LCsouvenir from "./container/lover/lover-details/Lcreate_souver"
 import LSlists from "./container/lover/lover-details/LSlists"
 import LSpictures from "./container/lover/lover-details/LSpictures"
 import Llist from "./container/lover/lover-details/listContent"
+import Llist1 from "./container/lover/lover-details/listContent1"
 import LCsound from "./container/lover/lover-details/Lcreate_sound"
 import Lover from "./container/Lover"
 import Child from "./container/Child"
@@ -99,6 +100,7 @@ function App() {
       <Route path='/lover/lclist' component={LClists}/>
       <Route path='/lover/lslists' component={LSlists}/>
       <Route path='/lover/list' component={Llist}/>
+      <Route path='/lover/list1' component={Llist1}/>
 
       <Route path='/lover/lsouvenir' component={Lsouvenir}/>
       <Route path='/lover/lcsouvenir' component={LCsouvenir}/>

@@ -8,14 +8,17 @@ export default class Use extends Component {
         var uid = JSON.parse(localStorage.getItem('uid'));
         var umsg = JSON.parse(localStorage.getItem('umsg'));
         this.state={
-            uimage:'',
-            uname:'',
-            pass:'',
-            uid:uid,
             umsg:umsg,
-            gender:'',
+            name:umsg.name,
+            pass:umsg.pass,
+            uid:uid,
+            gender:umsg.gender,
+            imgurl:umsg.imgurl,
+            // uimage:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574914271954&di=5ce6c90533745142d11594040dd0b2b1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F19%2F20150619202710_4vZ8s.thumb.224_0.jpeg',
+            a1:'',
+            a2:'',
+            a3:'',
             code:0,
-            src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574914271954&di=5ce6c90533745142d11594040dd0b2b1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F19%2F20150619202710_4vZ8s.thumb.224_0.jpeg'
         }
     }
     upfile=()=>{
@@ -28,45 +31,41 @@ export default class Use extends Component {
             body:form
         }).then(res=>res.json())
         .then(res=>{
-            this.setState({src:res.path})
+            this.setState({
+                src:res.path,
+                imgurl:res.path
+            })
         })
     }
     inputChange1=(e)=>{
-        var a=e.target.value;
-        if(a==''){
-            a=this.state.umsg.name
-        }
         this.setState({
-            uname:a
+            name:e.target.value
         })
     }
     inputChange2=(e)=>{
-        var a=e.target.value;
-        if(a==''){
-            a=this.state.umsg.gender
-        }
         this.setState({
-            gender:a
+            gender:e.target.value
         })
     }
     inputChange3=(e)=>{
-        var a=e.target.value;
-        if(a==''){
-            a=this.state.umsg.pass
-        }
         this.setState({
-            pass:a
+            pass:e.target.value
         })
     }
     Finally=()=>{
-        console.log(this.state.src,this.state.uname,this.state.gender,this.state.pass)
+        var umsg = JSON.parse(localStorage.getItem('umsg'));
+        umsg.name=this.state.name;
+        umsg.imgurl=this.state.imgurl;
+        umsg.pass=this.state.pass;
+        umsg.gender=this.state.gender;
+        localStorage.setItem('umsg',JSON.stringify(umsg))
         fetch(`http://localhost:3001/my/information`,{
             method:'POST',
             mode:'cors',
             headers:{
                 'Content-Type':"application/x-www-form-urlencoded"
             },
-            body:`&uimage=${this.state.src}&uname=${this.state.uname}&gender=${this.state.gender}&pass=${this.state.pass}&uid=${this.state.uid}`
+            body:`&uimage=${this.state.imgurl}&uname=${this.state.name}&gender=${this.state.gender}&pass=${this.state.pass}&uid=${this.state.uid}`
         }).then(res=>res.json())
         .then(json=>{
             this.setState({
@@ -116,7 +115,7 @@ export default class Use extends Component {
                         height:'10vh',
                         display:'inline-block',
                         marginLeft:'6vw'}}>
-                            <img src={this.state.src} 
+                            <img src={this.state.imgurl} 
                             alt='默认头像'
                             width='100%'/>              
                     </div>
@@ -124,7 +123,7 @@ export default class Use extends Component {
                 <form action=''>
                     <div className="create_Relation">
                         设置昵称：&nbsp;
-                        <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="单行输入"></input>
+                        <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="昵称不超过6个字"></input>
                     </div>
                     <div className="create_Relation">
                         设置性别：&nbsp;

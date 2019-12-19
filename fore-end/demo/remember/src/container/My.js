@@ -7,96 +7,23 @@ import '../css/child.css'
 export default class My extends Component {
     constructor(){
         super();
-        var uid = JSON.parse(localStorage.getItem('uid'));
-        this.state={
-            name:'',
-            gender:'',
-            uid:uid,
-            src:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg',
-            uimg:''
+        var umsg = JSON.parse(localStorage.getItem('umsg')); 
+        if(umsg.name==''){
+            umsg.name='未设置'
         }
-    }
-    componentDidMount(){
-        fetch(`http://localhost:3001/my/`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`&uid=${this.state.uid}`
-        }).then(res=>res.json())
-        .then(json=>{
-            console.log(json)
-            this.setState({
-                name:json.name,
-                gender:json.gender,
-                uimg:json.imgurl,
-            });
-            // console.log(this.state.name);
-        })
-      }
-      upfile=()=>{
-        var file=document.getElementById('img').files[0];
-        var url = 'http://localhost:3001/img';
-        var form = new FormData();
-        var img='';
-        form.append("file",file);
-        fetch(url,{
-            method:'POST',
-            body:form
-        })
-        .then(res=>res.json())
-        .then(res=>(
-            console.log(res.path),
-            img=res.path,
-            this.setState({
-               src:res.path
-            },()=>{
-                localStorage.setItem('cbackground',JSON.stringify(this.state.src))
-            })
-        ))
-        // console.log(img)
-    }
-    componentDidUpdate(){
-        fetch(`http://localhost:3001/my/`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`&uid=${this.state.uid}`
-        }).then(res=>res.json())
-        .then(json=>{
-            // console.log(json)
-            this.setState({
-                name:json.name,
-                gender:json.gender,
-                uimg:json.imgurl,
-            });
-            // console.log(this.state.name);
-        })
-      }
-      upfile=()=>{
-        var file=document.getElementById('img').files[0];
-        var url = 'http://localhost:3001/img';
-        var form = new FormData();
-        var img='';
-        form.append("file",file);
-        fetch(url,{
-            method:'POST',
-            body:form
-        })
-        .then(res=>res.json())
-        .then(res=>(
-            console.log(res.path),
-            img=res.path,
-            this.setState({
-               src:res.path
-            },()=>{
-                localStorage.setItem('cbackground',JSON.stringify(this.state.src))
-            })
-        ))
-        // console.log(img)
+        if(umsg.gender==''){
+            umsg.gender='未设置'
+        }
+        if(umsg.imgurl==''){
+            umsg.imgurl='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574914271954&di=5ce6c90533745142d11594040dd0b2b1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F19%2F20150619202710_4vZ8s.thumb.224_0.jpeg'
+        }
+        this.state={
+            name:umsg.name,
+            gender:umsg.gender,
+            uid:umsg.id,
+            src:'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3356599773,2636457530&fm=15&gp=0.jpg',
+            uimg:umsg.imgurl
+        }
     }
     render() {
         return (
@@ -124,10 +51,11 @@ export default class My extends Component {
                 </NavBar>
                 {/* 个人信息 */}
                 <div className="My_message">
-                    <div className="one">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <img src={this.state.uimg}/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div 
+                    style={{
+                        background:`url(${this.state.uimg}) center center/cover no-repeat`,
+                    }}
+                    className="one">
                     </div>
                     <div className="two">
                         <p style={{fontSize:"2.5vh"}}>
@@ -192,7 +120,6 @@ export default class My extends Component {
                                     localStorage.setItem('lid',JSON.stringify(''));
                                     localStorage.setItem('lbackground',JSON.stringify(''));
                                     localStorage.setItem('cbackground',JSON.stringify(''));
-                                    localStorage.setItem('cpicture',JSON.stringify(''));
                                 }
                             }
                              to='/menus'>
@@ -203,29 +130,8 @@ export default class My extends Component {
                 </div>
                 {/* 图片 */}
                 <div className='my_first'>                   
-                    <span style={{
-                        zIndex:'10',
-                        display:'inline-block',
-                        width:'100%',
-                        fontSize:'5vw',
-                        top:'8vh',
-                        position:'relative',
-                        color:'#000',
-                        background:'rgb(255,191,45,0.3)'
-                    }}>轻触上传背景图<input 
-                    id='img'
-                    onChange={this.upfile}                           
-                    type='file'  
-                    accept="image/*" 
-                    capture="camera" 
-                    name='uimage' 
-                    /></span>
-                    <div style={{
-                        marginTop:'8.8vh'
-                    }}>
-                        <img style={{overflow:"hidden"}}
-                        src={this.state.src} alt='我的背景'/>
-                    </div>    
+                    <img style={{overflow:"hidden"}}
+                    src={this.state.src} alt='我的背景'/>  
                 </div>
             </div>
         )
