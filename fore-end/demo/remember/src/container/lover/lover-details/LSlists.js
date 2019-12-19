@@ -55,7 +55,7 @@ export default class LSlists extends Component {
                      }
                      )
                 }
-   <div style={{width:"100%",height:"6vh",backgroundColor:"rgb(255, 235, 238)"}}><p style={{height:"5vh",width:"80%",backgroundColor:"#FF1744",fontSize:"5vw",margin:" 2% 0 0 10%",color:"white",borderRadius:"5vw",textAlign:"center",float:"left",lineHeight:"2"}}>已完成{num}/{this.state.listArr.length}</p></div> 
+   <div style={{width:"100%",height:"6vh",backgroundColor:"rgb(255, 235, 238)"}}><p style={{height:"5vh",width:"80%",backgroundColor:"#FF1744",fontSize:"5vw",margin:" 2% 0 0 10%",color:"white",borderRadius:"5vw",textAlign:"center",float:"left",lineHeight:"2"}}>已完成&nbsp;{num}/{this.state.listArr.length}</p></div> 
     <div style={{width:"100%",backgroundColor:"#FFEBEE",float:"left"}}>
                 {
                     
