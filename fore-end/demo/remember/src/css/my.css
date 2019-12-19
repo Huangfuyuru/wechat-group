@@ -13,7 +13,7 @@
     display:flex;
 }
 .My_message .one{
-    margin-left: 15vw;
+    margin-left: 10vw;
     width:30vw;
     height: 30vw;
     margin-top: 0;
@@ -22,11 +22,14 @@
 
 .My_message .two{
     margin-top: 2vh;
-    width:40vw;
     text-align:left;
+    width: 60vw;
+
 }
 .My_message .two p{
     font-size:4vw;
+    height: 3vh;
+    overflow: hidden;
 }
 .My_message .two span{
     font-size:5vw;

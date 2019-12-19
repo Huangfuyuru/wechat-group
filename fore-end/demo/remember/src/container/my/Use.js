@@ -123,7 +123,7 @@ export default class Use extends Component {
                 <form action=''>
                     <div className="create_Relation">
                         设置昵称：&nbsp;
-                        <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="单行输入"></input>
+                        <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="昵称不超过6个字"></input>
                     </div>
                     <div className="create_Relation">
                         设置性别：&nbsp;
