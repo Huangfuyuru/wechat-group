@@ -16,7 +16,7 @@ router.get('/',async function(req,res,next){
     }else{
         info={code:0,msg:data};
     }
-    res.json(data);
+    res.json(info);
 
 })
 
@@ -63,14 +63,30 @@ router.post('/addloverlist',async function(req,res,next){
         listid:listid,
         lid:lid
     }
-    var addlL = await lover.loveListM.addloveList(text);
-    // var data = await lover.loveListM.findByLid(lid);
-    if(addlL=== 0 ){
-        info={code:0,msg:'增加成功'};
-    }else{
-        info={code:1,msg:'增加失败'};
+    var data = await lover.loveListM.findByLid(lid);
+    for(var i = 0;i<data.length;i++){
+        if(listid == data[i].listid){
+            info={code:1,msg:'增加失败'};
+        }else{
+            var addlL = await lover.loveListM.addloveList(text);
+            if(addlL=== 0 ){
+                info={code:0,msg:'增加成功'};
+            }else{
+                info={code:1,msg:'增加失败'};
+            }
+        }
+        res.json(info);
+
     }
-    res.json(info);
+
+    // var addlL = await lover.loveListM.addloveList(text);
+    // // var data = await lover.loveListM.findByLid(lid);
+    // if(addlL=== 0 ){
+    //     info={code:0,msg:'增加成功'};
+    // }else{
+    //     info={code:1,msg:'增加失败'};
+    // }
+    // res.json(info);
 })
 
 router.get('/listdetail',async function(req,res,next){
