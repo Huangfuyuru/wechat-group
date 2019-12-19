@@ -16,8 +16,6 @@ export default class LSlists extends Component {
         .then((json)=>{
             this.setState({
                 listArr:json
-            },()=>{
-                console.log(json)
             })
             
         })
