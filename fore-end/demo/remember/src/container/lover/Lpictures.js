@@ -81,7 +81,7 @@ delPhoto=()=>{
                               width:'95%',
                               height:'75%',
                               margin:'1.5vh auto',
-                              background:`url(${item.imgurl}) center center/cover no-repeat`,
+                              background:`url(${item.background}) center center/cover no-repeat`,
                           }}>
                           </div>
                           <p style={{

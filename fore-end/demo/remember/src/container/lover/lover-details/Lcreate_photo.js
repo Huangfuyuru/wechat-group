@@ -42,9 +42,28 @@ export default class Lcreate_photo extends Component{
             })
         
     }
-    upBack=()=>{
+    ccpicturePost=()=>{
+        var ccpicturewarn=document.getElementById('ccpicturewarn');
+        ccpicturewarn.style.display='block';
+        console.log(this.state.lid)
+        fetch(`http://localhost:3001/lover/lpictures/lcpictures`,{
+            method:'POST',
+            mode:'cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`loverid=${this.state.lover_id}&name=${this.state.name}&background=${this.state.backgroundurl}`
+        }).then(res=>res.json())
+        .then(json=>{
+            this.setState({
+                code:json.msg
+            })
+            console.log(json)
+        })
 
-        var file=document.getElementById('back').files[0];
+    }
+    upBack=()=>{
+        var file=document.getElementById('img').files[0];
         var url = 'http://localhost:3001/img';
         var form = new FormData();
         form.append("file",file);
@@ -57,8 +76,8 @@ export default class Lcreate_photo extends Component{
             this.setState({
                 background:json.path
             },()=>{
-                var img=document.getElementById("background");
-                img.setAttribute("src",this.state.background);
+                // var img=document.getElementById("background");
+                // img.setAttribute("src",this.state.background);
             })
         ))
     }
@@ -126,12 +145,12 @@ export default class Lcreate_photo extends Component{
                             height:'15vh',
                             width:'45vw',
                             margin:'0',
-                            background:`url(${this.state.backgroundurl}) center center/cover no-repeat`
+                            background:`url(${this.state.background}) center center/cover no-repeat`
                         }}>
                         </span>
                     </div>
                     {/* 点击创建 */}
-                    <button onClick={this.ccpicturePost} className='alladd_button'>创建相册</button>
+                    <button onClick={this.upPhoto} className='alladd_button'>创建相册</button>
             </div>
                
                <form id='upsoundwarn'>
