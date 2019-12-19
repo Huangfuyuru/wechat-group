@@ -57,7 +57,7 @@ export default class LSlists extends Component {
                      }
                      )
                 }
-    <button style={{height:"5vh",width:"100%",backgroundColor:"white",fontSize:"5vw",marginTop:"2%"}}>已完成{num}/{this.state.listArr.length}</button>
+    <p style={{height:"5vh",width:"80%",backgroundColor:"#FF1744",fontSize:"5vw",margin:" 2% 0 0 10%",color:"white",borderRadius:"5vw",textAlign:"center",paddingTop:"2%"}}>已完成{num}/{this.state.listArr.length}</p>
     <div style={{width:"100%",backgroundColor:"#FFEBEE",float:"left"}}>
                 {
                     
