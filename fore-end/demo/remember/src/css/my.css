@@ -103,50 +103,25 @@
     float:right;
     width:40vw;
     height:4vh;
+    border:solid lightgray;
 }
 .create_Relation2{
     width:80%;
     height:10vh;
-    margin-left:10%;
-    text-align: left;
-    font-size:2.8vh;
-    border-style:none;
-    text-align: left;
-}
-.create_Relation2 input{
-    float:right;
-    width:40vw;
-    height:4vh;
-}
-.create_Relation3{
-    width:66%;
-    height:9vh;
-    margin-left:17%;
-    text-align: left;
-    font-size:2.8vh;
-    border-style:none;
-    padding-top:1vh;
-}
-.create_Relation3 input{
-    float:right;
-    width:40vw;
-    height:4vh;
-    float: right;
-}
-.create_Relation2{
-    width:80%;
     margin-left:12%;
-    height:8vh;
+    text-align: left;
     font-size:2.8vh;
     border-style:none;
     text-align: left;
     line-height: 5vh;
 }
 .create_Relation2 input{
+    float:right;
     width:40vw;
     height:4vh;
-    float: right;
+    border:solid lightgray;
 }
+/*  */
 .relation_button{
     width:200px;
     height:45px;
@@ -234,3 +209,20 @@ body{
     width:30px;
     height:30px;
 }
+/* 宫格 */
+* { 
+    touch-action: pan-y; 
+}
+.am-carousel-wrap {
+    width:100%;
+    /* height:30vh; */
+} 
+.sub-title {
+    color: #888;
+    font-size: 14px;
+    padding: 15px 0 9px 15px;
+  }
+  .not-square-grid .am-grid-icon {
+    width: 40px;
+    height: 60px;
+  }

@@ -15,9 +15,6 @@ export default class Use extends Component {
             gender:umsg.gender,
             imgurl:umsg.imgurl,
             // uimage:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574914271954&di=5ce6c90533745142d11594040dd0b2b1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F19%2F20150619202710_4vZ8s.thumb.224_0.jpeg',
-            a1:'',
-            a2:'',
-            a3:'',
             code:0,
         }
     }
@@ -120,7 +117,7 @@ export default class Use extends Component {
                             width='100%'/>              
                     </div>
                 </p>
-                <form action=''>
+                <form action='' style={{marginTop:"10%"}}>
                     <div className="create_Relation">
                         设置昵称：&nbsp;
                         <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="昵称不超过6个字"></input>
