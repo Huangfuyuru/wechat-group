@@ -103,9 +103,12 @@ export default class Lcreate_souver extends Component {
                   </div>
                   <div className="createsou-first">
                   <p >日期:</p>
-                  <input  type="text" placeholder="例:1999-11-28" onChange={this.getDate}/>
+                  <input  type="text" placeholder="例:xxxx-xx-xx" onChange={this.getDate}/>
                   </div>
-                  
+                  <div className="createsou-first">
+                  <p  style={{padding:" 0 15% 0 9%"}}>设置提醒:</p>
+                  <input  type="text" placeholder="提醒日期" />
+                  </div>
                   <div style={{marginTop:"5vh"}}>
                     <div style={{height:"6vh",width:"40%",backgroundColor:"rgb(255, 191, 45,0.5)",margin:"auto"}} >
                     <span style={{position:"relative",top:"30%",left:"15%"}}>轻触上传封面</span>
