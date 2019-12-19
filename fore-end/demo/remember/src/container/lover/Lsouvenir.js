@@ -72,9 +72,10 @@ export default class Lsouvenir extends Component {
                {
                    this.state.arr&&this.state.arr.map((item)=>(
                     <div  className="loversou-first"  value={item.id}>
-                    <div style={{height:"100%",width:"100%",float:"left"}}>
-                    <div  style={{float:"left",height:"100%",width:"50%",background:`url(${item.imgurl})`,backgroundSize:"100% 100%"}}><span className=" iconfont icon-jinianri" ></span></div>
-                    <h2 style={{marginTop:"8%",textAlign:"center"}}>{item.name}</h2>
+                    <div style={{height:"100%",width:"100%",float:"left"}} value={item.id}>
+                    <div  style={{float:"left",height:"100%",width:"50%",background:`url(${item.imgurl})`,backgroundSize:"100% 100%"}}></div>
+                    <span className=" iconfont icon-jinianriyingxiao" ></span>
+                    <h2 style={{marginTop:"0",textAlign:"center",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.name}</h2>
                     <p style={{fontSize:"5vw" ,margin:"0 0 0 10%",float:"left"}}>{item.date.split("T")[0]}</p>
                      {/* <textarea style={{fontSize:"5vw",float:"right",width:"53%",height:"80%",border:"0.5px solid #888888"}} readonly="readonly">{item.content}</textarea> */}
                    <img alt="" src={require("../../image/la.jpg")} style={{float:"right"}} 
