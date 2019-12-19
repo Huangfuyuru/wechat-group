@@ -114,6 +114,7 @@ async function changeById(id,text){
  * @returns
  */
 async function changeBackGroundById(text){
+    console.log('数据库',text)
     let sql = 'update lovers set background=$1 where id = $2'
     let ret = await pgdb.query(sql,[text.background,text.id]);
     if(ret.rowCount<=0){
