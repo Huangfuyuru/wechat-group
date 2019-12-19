@@ -16,8 +16,6 @@ export default class LSlists extends Component {
         .then((json)=>{
             this.setState({
                 listArr:json
-            },()=>{
-                console.log(json)
             })
             
         })
@@ -57,16 +55,16 @@ export default class LSlists extends Component {
                      }
                      )
                 }
-    <p style={{height:"5vh",width:"80%",backgroundColor:"#FF1744",fontSize:"5vw",margin:" 2% 0 0 10%",color:"white",borderRadius:"5vw",textAlign:"center",paddingTop:"2%"}}>已完成{num}/{this.state.listArr.length}</p>
+   <div style={{width:"100%",height:"6vh",backgroundColor:"rgb(255, 235, 238)"}}><p style={{height:"5vh",width:"80%",backgroundColor:"#FF1744",fontSize:"5vw",margin:" 2% 0 0 10%",color:"white",borderRadius:"5vw",textAlign:"center",float:"left",lineHeight:"2"}}>已完成&nbsp;{num}/{this.state.listArr.length}</p></div> 
     <div style={{width:"100%",backgroundColor:"#FFEBEE",float:"left"}}>
                 {
                     
-                     this.state.listArr.map((item)=>{
+                     this.state.listArr.map((item,idx)=>{
                          var a;
                          if(item.imgurl===undefined)
                          {
                          
-                             a=  <div className="limages">
+                             a=  <div className="limages" key={idx}>  
                                <Link to={{
                                    pathname:"/lover/lclist",
                                    state:{
@@ -75,14 +73,14 @@ export default class LSlists extends Component {
                                 }
                                }}>
                                    <div  style={{background:`url(${require('../../../image/tu1.jpg')})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
-                                   <p style={{color:"#888888",textAlign:"center",lineHeight:"32vh",margin:"0",overflow: "hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>{item.name}</p>
+                                   <p style={{color:"#888888",textAlign:"center",paddingTop: "14vh",margin:"0",overflow: "hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>{item.name}</p>
                                </div>
                                </Link>
                                </div>
                          
                             }
                             else{
-                                a=  <div className="limages" style={{background:`url(${item.imgurl}) `,backgroundSize:"cover",backgroundRepeat:"no-repeat"}}>
+                                a=  <div className="limages" style={{background:`url(${item.imgurl}) `,backgroundSize:"cover",backgroundRepeat:"no-repeat"}} key={idx}>
                                 <Link to={{
                                     pathname:"/lover/list1",
                                     state:{

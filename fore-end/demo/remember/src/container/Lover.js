@@ -11,19 +11,9 @@ export default class lover_home extends Component {
             lover_id:'',
             cindex_src:"",
             cnews:[{
-                ctime:'现 在',
-                cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
-                ccontent:'你的脖子真可爱，顶着一个猪脑袋'
-            },
-            {
-                ctime:'昨 天',
-                cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
-                ccontent:'你的脖子真可爱，顶着一个猪脑袋'
-            },
-            {
-                ctime:'前 天',
-                cpic_src:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1310375106,1926353045&fm=26&gp=0.jpg',
-                ccontent:'你的脖子真可爱，顶着一个猪脑袋'
+                ctime:'以下内容仅自己可见',
+                cpic_src:'http://hbimg.b0.upaiyun.com/5e684526ee92464a8ece366b7d065488c24b8b3f4397-wktEBb_fw658',
+                ccontent:'在这里展示您最近三篇日记大致内容'
             }
         ]
         }
@@ -125,24 +115,49 @@ export default class lover_home extends Component {
                         src={this.state.cindex_src} alt='自定义照片墙'/>
                     </div>  
             </div> 
-                 {/* <img src={this.state.cindex_src} alt=""  style={{height:"28%",width:"94%",paddingTop:"5%",marginLeft:"3%"}} ></img>   */}
-                 <WingBlank>
-                <div className="lover-home-first">
-                 <Link to ="/lover/lpictures"><button className="lover-button">云相册</button></Link>
-                 <Link to= "/lover/lsound"><button className="lover-button">语音记事</button></Link>
-                 <Link to ={{pathname:"/lover/ldairy"}}> <button className="lover-button">日记</button> </Link>
-                 <p style={{float:"left",color:"white"}}>hhhhhh</p>
-                 <Link to ="/lover/llists"><button className="lover-button">恋爱清单</button></Link> 
-                 <Link to =
-                  {{
-                     pathname:"/lover/lsouvenir",
-                     state:{
-                         lover_id:this.state.lover_id
-                     }
-                 }}
-                 ><button className="lover-button">纪念日</button></Link>    
+            <div className='child_second'>
+                    <Flex>
+                        <Flex.Item>
+                            <Link 
+                            to={{
+                                pathname:'/lover/lpictures',
+                            }}
+                            >云相册</Link>
+                        </Flex.Item>
+                        <Flex.Item>
+                            <Link 
+                            to={{
+                                pathname:'/lover/lsound',
+                            }}
+                            >语音记事</Link>
+                        </Flex.Item>
+                        <Flex.Item>
+                            <Link 
+                            to={{
+                                pathname:'/lover/ldairy',
+                            }}
+                            >恋爱日记</Link>
+                        </Flex.Item>
+                    </Flex>
+                    <Flex>
+                        <Flex.Item>
+                            <Link 
+                            to={{
+                                pathname:'/lover/llists',
+                            }}
+                            >恋爱清单</Link>
+                        </Flex.Item>
+                        <Flex.Item>
+                            <Link
+                            to={{
+                                pathname:'/lover/lsouvenir',
+                                lover_id:this.state.lover_id
+                            }} 
+                            >纪念日</Link>
+                        </Flex.Item>
+                    </Flex>
                 </div>
-                </WingBlank>
+                 {/* <img src={this.state.cindex_src} alt=""  style={{height:"28%",width:"94%",paddingTop:"5%",marginLeft:"3%"}} ></img>   */}                
                 <div style={{paddingBottom:'9vh'}}>
                     {
                         this.state.cnews.map((cnews,idx)=>(

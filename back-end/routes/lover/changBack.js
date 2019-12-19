@@ -10,15 +10,14 @@ router.use(bodyParser.json());
 // 更换背景照片
 
 router.post('/',async function(req,res,next){
-    // console.log('更换背景',req.body);
-    var lid = req.body.lover_id,
+    var lid = Number(req.body.lover_id),
         background=req.body.background;
     var text = {
         id:lid,
         background:background
     }
     var data = await lover.loverM.changeBackGroundById(text);
-    // console.log(data);
+    console.log(data);
     if(data === 0 ){
         info={
             code:0,
