@@ -79,89 +79,93 @@ export default class My extends Component {
                     }}
                     >我的</span>
                 </NavBar>
-                {/* 个人信息 */}
-                <div className="My_message">
-                    <div 
-                    style={{
-                        background:`url(${this.state.uimg}) center center/cover no-repeat`,
-                    }}
-                    className="one">
-                    </div>
-                    <div className="two">
-                        <p style={{fontSize:"2.5vh"}}>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名:&nbsp;&nbsp;&nbsp;
-                            <span>{this.state.name}</span>
-                        </p>
-                        <p style={{fontSize:"2.5vh"}}>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别:&nbsp;&nbsp;&nbsp;
-                            <span>{this.state.gender}</span>
-                        </p>
-                    </div>
-                </div>
-                {/* <GridExample /> */}
-                <div className="My_body">
-                    <div className="one">
-                        <div className="line" style={{marginTop:"15%"}}>
-                            <img style={{width:"7.5vw",height:"5vh"}} src={require("../image/a-love.png")}/>
-                            <Link to='/my/crelation'>
-                                <div className="add">&nbsp;增加爱人&nbsp;</div>
-                            </Link>
+                <div className='my_inner'>
+
+                    {/* 个人信息 */}
+                    <div className="My_message">
+                        <div 
+                        style={{
+                            background:`url(${this.state.uimg}) center center/cover no-repeat`,
+                        }}
+                        className="one">
                         </div>
-                        <div className="line">
-                            <img style={{width:"8vw",height:"5vh"}} src={require("../image/a-child.png")}/>
-                            <Link to='/my/crelation2'>
-                                <div className="add">&nbsp;增加亲子&nbsp;</div>
-                            </Link>                        
-                        </div>
-                        <div className="line">
-                            <img src={require("../image/a-message.png")}/>
-                            <Link to='/my/message'>
-                               <div style={{marginLeft:"8%"}} className="add">&nbsp;消息反馈&nbsp;</div>
-                            </Link>                        
-                        </div>
-                        <div className="line">
-                            <img src={require("../image/a-use.png")}/>
-                            <Link to='/my/use'>
-                                <div style={{marginLeft:"8%"}} className="add">&nbsp;设&nbsp;置&nbsp;</div>
-                            </Link>
+                        <div className="two">
+                            <p style={{fontSize:"2.5vh"}}>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户名:&nbsp;&nbsp;&nbsp;
+                                <span>{this.state.name}</span>
+                            </p>
+                            <p style={{fontSize:"2.5vh"}}>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别:&nbsp;&nbsp;&nbsp;
+                                <span>{this.state.gender}</span>
+                            </p>
                         </div>
                     </div>
-                    <div className="two" >
-                        <div className="line" style={{marginTop:"15%"}}>
-                            <img src={require("../image/del.png")}/>
-                            <Link to='/my/delrelation'>
-                                <div className="add">删除爱人</div>
-                            </Link>
+                    {/* <GridExample /> */}
+                    <div className="My_body">
+                        <div className="one">
+                            <div className="line" style={{marginTop:"15%"}}>
+                                <img style={{width:"7.5vw",height:"5vh"}} src={require("../image/a-love.png")}/>
+                                <Link to='/my/crelation'>
+                                    <div className="add">&nbsp;增加爱人&nbsp;</div>
+                                </Link>
+                            </div>
+                            <div className="line">
+                                <img style={{width:"8vw",height:"5vh"}} src={require("../image/a-child.png")}/>
+                                <Link to='/my/crelation2'>
+                                    <div className="add">&nbsp;增加亲子&nbsp;</div>
+                                </Link>                        
+                            </div>
+                            <div className="line">
+                                <img src={require("../image/a-message.png")}/>
+                                <Link to='/my/message'>
+                                <div style={{marginLeft:"8%"}} className="add">&nbsp;消息反馈&nbsp;</div>
+                                </Link>                        
+                            </div>
+                            <div className="line">
+                                <img src={require("../image/a-use.png")}/>
+                                <Link to='/my/use'>
+                                    <div style={{marginLeft:"8%"}} className="add">&nbsp;设&nbsp;置&nbsp;</div>
+                                </Link>
+                            </div>
                         </div>
-                        <div className="line">
-                            <img src={require("../image/del3.png")}/>
-                            <Link to='/my/delrelation2'>
-                                <div className="add">删除亲子</div>
-                            </Link>
-                        </div>
-                        <div className="line">
-                            <img src={require("../image/out.png")}/>
-                            <Link
-                            onClick={
-                                ()=>{
-                                    localStorage.setItem('uid',JSON.stringify('over'));
-                                    localStorage.setItem('umsg',JSON.stringify('null'));
-                                    localStorage.setItem('cid',JSON.stringify(''));
-                                    localStorage.setItem('lid',JSON.stringify(''));
-                                    localStorage.setItem('lbackground',JSON.stringify(''));
-                                    localStorage.setItem('cbackground',JSON.stringify(''));
+                        <div className="two" >
+                            <div className="line" style={{marginTop:"15%"}}>
+                                <img src={require("../image/del.png")}/>
+                                <Link to='/my/delrelation'>
+                                    <div className="add">删除爱人</div>
+                                </Link>
+                            </div>
+                            <div className="line">
+                                <img src={require("../image/del3.png")}/>
+                                <Link to='/my/delrelation2'>
+                                    <div className="add">删除亲子</div>
+                                </Link>
+                            </div>
+                            <div className="line">
+                                <img src={require("../image/out.png")}/>
+                                <Link
+                                onClick={
+                                    ()=>{
+                                        localStorage.setItem('uid',JSON.stringify('over'));
+                                        localStorage.setItem('umsg',JSON.stringify('null'));
+                                        localStorage.setItem('cid',JSON.stringify(''));
+                                        localStorage.setItem('lid',JSON.stringify(''));
+                                        localStorage.setItem('lbackground',JSON.stringify(''));
+                                        localStorage.setItem('cbackground',JSON.stringify(''));
+                                    }
                                 }
-                            }
-                             to='/menus'>
-                                <div className="add">退出登录</div>
-                            </Link>
+                                to='/menus'>
+                                    <div className="add">退出登录</div>
+                                </Link>
+                            </div>
                         </div>
                     </div>
-                </div>
-                {/* 图片 */}
-                <div className='my_first'>                   
-                    <img style={{overflow:"hidden"}}
-                    src={this.state.src} alt='我的背景'/>  
+                    {/* 图片 */}
+                    <div className='my_first'>                   
+                        <p>
+                            关于你的一切，我都会记得~
+                        </p>                 
+                    </div>
                 </div>
             </div>
         )
