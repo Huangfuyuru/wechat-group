@@ -70,15 +70,15 @@ export default class Lsouvenir extends Component {
                 <h2></h2>
               {/* <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1996765656,1986455071&fm=26&gp=0.jpg" alt="" style={{height:"40%",width:"92%",margin:"4% 0 0 4%"}}></img> */}
                {
-                   this.state.arr&&this.state.arr.map((item)=>(
-                    <div  className="loversou-first"  value={item.id}>
+                   this.state.arr&&this.state.arr.map((item,idx)=>(
+                    <div  className="loversou-first"  value={item.id} key={idx}>
                     <div style={{height:"100%",width:"100%",float:"left"}} value={item.id}>
                     <div  style={{float:"left",height:"100%",width:"50%",background:`url(${item.imgurl})`,backgroundSize:"100% 100%"}}></div>
                     <span className=" iconfont icon-jinianriyingxiao" ></span>
                     <h2 style={{marginTop:"0",textAlign:"center",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{item.name}</h2>
                     <p style={{fontSize:"5vw" ,margin:"0 0 0 10%",float:"left"}}>{item.date.split("T")[0]}</p>
                      {/* <textarea style={{fontSize:"5vw",float:"right",width:"53%",height:"80%",border:"0.5px solid #888888"}} readonly="readonly">{item.content}</textarea> */}
-                   <img alt="" src={require("../../image/la.jpg")} style={{float:"right"}} 
+                   <img alt="" src={require("../../image/la.jpg")} style={{float:"right",height: "24%",position: "relative",top: "12%"}} 
                    onClick={(e)=>{
                     var itemid = e.target.parentNode.getAttribute('value');
                     this.setState({
