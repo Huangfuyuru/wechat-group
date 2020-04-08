@@ -8,15 +8,13 @@ const express = require('express'),
       imgs = require('./routes/imgs'),    //多张图片
       voice = require('./routes/voice'),  //语音
       my = require('./routes/my');
+    
       
-
-
-//解决跨域
 app.all('*', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.header('Access-Control-Allow-Methods', '*');
-    res.header('Content-Type', 'application/json;charset=utf-8');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');  
+    res.header('Access-Control-Allow-Methods', '*');  
+    res.header('Content-Type', 'application/json;charset=utf-8');   
     next();
 });
 
