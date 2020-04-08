@@ -1,0 +1,399 @@
+/* body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+} */
+
+/* My.js */
+.All{
+  width:100%;
+  height: 100%;
+  margin:0 auto;
+  background-color: #fff;
+  text-align: center;
+}
+/* 每一个小页面的头部都引用了.My_head的样式 */
+.My_head{
+  width:100%;
+  height:45px;
+  background-color:#FFBF2D;
+  color:white;
+  font-size:6vw;
+  font-weight:bold;
+  text-align: center;
+  padding-top:15px;
+  display: flex;
+}
+.My_head a{
+  float:left;
+  margin-left:5px;
+  text-decoration: none;
+  color:white;
+}
+.My_picture .one{
+  width:100%;
+  text-align: center;
+}
+.My_picture .two{
+  width:100%;
+  text-align: center;
+}
+.My_body{
+  width:100%;
+  height:45px;
+  font-size:18px;
+  font-weight:bold;
+  text-align: center;
+  padding-top:15px;
+  display: flex;
+  border-bottom:solid Lightgray;
+}
+.Img{
+  width:30px;
+  height:30px;
+  float: right;
+}
+.My_write{
+  width: 100%;
+  height:35px;
+  font-size:22px;
+  font-weight: bold;
+  padding-top:25px;
+  text-align: center;
+}
+.My_count{
+  width:100%;
+  height:30px;
+  font-size:18px;
+  font-weight:bold;
+  text-align: center;
+  margin-top:15px;
+  padding-top:8px;
+  display: flex;
+  border: solid lightgray;
+  background-color: lightgray;
+  border-radius: 25px;
+}
+.My_count a{
+  text-decoration: none;
+  width:100%;
+  text-align: center;
+  color:black;
+}
+
+/* 亲子页面 */
+/* 创建相册 */
+.Create_{
+  width:100%;
+  height:50px;
+  text-align: center;
+  margin-top:40px;
+}
+.Create_ .one{
+  width:180px;
+  height:30px;
+  margin-left:40px;
+}
+.Create_picture{
+  display: flex;
+  width:100%;
+  height:65px;
+  background-color: #fff;
+}
+.Create_a{
+  text-decoration: none;
+  color:#FFBF2D;
+  font-weight: bold;
+  font-size: 18px;
+  display: block;
+  width:280px;
+  height:35px;
+  border:solid lightgray;
+  margin-top: 20px;
+  text-align: center;
+  padding-top:5px;
+}
+/* 相册页面 */
+.Pages_picture{
+  margin-top:20px;
+  display: flex;
+  width:100%;
+  height:100px;
+}
+.Pages_picture img{
+  width:100%;
+  height:100px;
+  background-size:contain/cover;
+}
+/* 云相册*/
+.Cloud_{
+  width:100%;
+  height:250px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  margin-top: 20px;
+  border: solid lightgray;
+}
+.Cloud_ img{
+  width:340px;
+  height:210px;
+}
+.Cloud_ .one{
+  width:100%;
+  height:210px;
+  margin-top: 10px;
+  text-align: center;
+}
+.Cloud_ .two{
+  width:100%;
+  height:40px;
+  margin-left: 10px;
+  text-align: left;
+  font-size: 5vw;
+  font-weight: bold;
+  color:#FFBF2D;
+}
+.Cloud_add {
+  width:100%;
+  height:50px;
+  margin-top:60px;
+}
+.Cloud_add div{
+  width:100%;
+  line-height: 50px;
+}
+.Cloud_add a{
+  text-decoration: none;
+}
+.Cloud_add img{
+  width:50px;
+  height:50px;
+  position: relative;
+  top:-50px;
+}
+/* 成长记录 */
+.Write_{
+  width:100%;
+  height:120px;
+  margin-top: 20px;
+  border: solid orange;
+  border-radius: 25px;
+}
+.Write_ p{
+  width:100%;
+  height:35px;
+  text-align: center;
+  font-size: 6vw;
+}
+.Write_ span{
+  color:orange;
+  font-size:5vw;
+  font-weight: bold;
+}
+.Write_ .one{
+  width:100%;
+  font-size:4vw;
+  text-align: right;
+  padding-right: 50px;
+}
+.Write_two{
+  width:100%;
+  height:230px;
+  text-align: center;
+}
+.Write_two img{
+  width:250px;
+  height:230px;
+  background-size:contain/cover;
+}
+/* 添加记录成长 */
+.Add_date{
+  width:100%;
+  display: flex;
+}
+.Add_date div{
+  width:100%;
+  text-align: left;
+  margin-top: 20px;
+  padding-right: 20px;
+}
+/* 添加学业记录 */
+.Create_study{
+  width:100%;
+  height:50px;
+  text-align: center;
+  font-weight: bold;
+}
+.Create_study1{
+  margin-top: 20px;
+  width:100%;
+  height:50px;
+  padding-left:0px;
+  font-weight: bold;
+  font-size: 5vw;
+}
+.Create_study1 select{
+  font-weight: bold;
+  font-size: 14px;
+  color:gray;
+}
+.Create_study2{
+  margin-top: 20px;
+  width:100%;
+  height:40px;
+  padding-left:0px;
+  font-weight: bold;
+  text-align: center;
+}
+.hr1{
+  color:lightgray;
+  width:330px;
+  text-align: center;
+}
+.Create_bottom{
+  width:100%;
+  height:35px;
+  border: solid Lightgray;
+  text-align: center;
+  padding-top: 15px;
+  margin-top: 30px;
+  font-size: 5vw;
+  font-weight: bold;
+  color:orange;
+}
+/* 大事记 */
+.Write_body{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction: column;
+}
+.Write_body .one{
+  width: 350px;
+  height:300px;
+  margin-left: 20px;
+  margin-top:40px;
+  border-left: solid lightgray;
+  border-bottom: solid lightgray;
+  height:260px;
+  text-align: center;
+}
+.Write_body .one p{
+  width:280px;
+  margin-left:35px;
+  margin-top: 0px;
+  font-size: 6vw;
+  font-weight: bold;
+  color:#FFBF2D;
+  text-align: left;
+}
+.Write_body .one img{
+  width:280px;
+  height:200px;
+}
+/* 添加大事记 */
+.Add_body_one{
+  width:350px;
+  margin-left:50px;
+  font-size: 7vw;
+  text-align: left;
+}
+.Add_body_two{
+  width:350px;
+  height:30px;
+  margin-left:50px;
+  text-align: left;
+  font-size: 5vw;
+}
+.input1{
+  width:300px;
+  height:40px;
+  margin-left:50px;
+}
+.input2{
+  width:300px;
+  height:100px;
+  margin-left:50px;
+}
+.input3{
+  width:250px;
+  height:35px;
+}
+.Add_body_date{
+  width:100%;
+  display: flex;
+}
+.Add_body_date .one{
+  text-align: right;
+  padding-top: 10px;
+  margin-left: 50px;
+  margin-right: 20px;
+  font-size:5vw;
+}
+.Add_body_save{
+  width:100%;
+  height:32px;
+  text-align: center;
+  font-size: 5vw;
+  font-weight: bold;
+  color:#FFBF2D;
+  border: solid lightgray;
+  border-radius: 20px;
+  margin-top: 30px;
+  padding-top: 8px;
+}
+/* 写日记 */
+.Write_body{
+  width:100%;
+  height:100%;
+  text-align: center;
+  display:flex;
+  flex-direction: column;
+}
+.Write_body_one{
+  width:330px;
+  height:300px;
+  margin-left:20px;
+}
+.Write_body_one .one{
+  width:100%;
+  height:30px;
+  text-align: left;
+  border: none;
+  font-size: 16px;
+}
+.Write_body_one .one img{
+  width:30px;
+  height:30px;
+}
+.Write_body_one .two{
+  width:250px;
+  height:80px;
+  line-height: 30px;
+  font-size: 16px;
+  text-align: left;
+  margin-top:10px;
+  margin-left:17%;
+}
+.Write_body_one .three{
+  width:300px;
+  height:120px;
+  padding-left: 16%;
+  text-align: left;
+}
+.Write_body_one .three img{
+  width:120px;
+  height:100px;
+  margin-right:10px;
+  border:solid lightgray;
+}

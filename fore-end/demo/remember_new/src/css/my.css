@@ -1,0 +1,227 @@
+.All{
+    width:100%;
+    height: 100%;
+    margin:0 auto;
+    background-color: #fff;
+    text-align: center;
+}
+.my_inner{
+    position: fixed;
+}
+.My_message{
+    width:100%;
+    height:15vh;
+    margin-top:10vh;
+    margin-bottom: 5vh;
+    display:flex;
+}
+.My_message .one{
+    margin-left: 10vw;
+    width:30vw;
+    height: 30vw;
+    margin-top: 0;
+    border-radius: 60px;
+}
+
+.My_message .two{
+    margin-top: 2vh;
+    text-align:left;
+    width: 60vw;
+}
+.My_message .two p{
+    font-size: 3vw;
+    height: 3.5vh;
+    overflow: hidden;
+}
+.My_message .two span{
+    font-size:5vw;
+    font-weight: bold;
+}
+.My_body{
+    width:90%;
+    height:40vh;
+    margin-left:5%;
+    border:solid lightgray;
+    border-radius: 10px;
+    display: flex;
+}
+.My_body .one{
+    width:50%;
+    height:40vh;
+}
+.line{
+    width:90%;
+    height:6vh;
+    margin-top: 10%;
+    margin-left: 10%;
+}
+.My_body img{
+    width:7vw;
+    height:4.2vh;
+    float: left;
+}
+.add{
+    background-color: #FFBF2D;
+    color:white;
+    width:65%;
+    height:6vh;
+    margin-left:6%;
+    border:none;
+    border-radius:10px;
+    float: left;
+    font-size:4.5vw;
+    line-height: 5vh;
+}
+.My_body .two{
+    width:50%;
+    height:40vh;
+}
+.my_first{
+    width: 80vw;
+    margin-top: 2vh;
+    margin-left: 5vw;
+    border-radius: 10px;
+    background-color:rgba(255, 191, 45, 0.1);
+    padding: 2vh 5vw;
+    text-align:center;
+    height: 13vh;
+    font-size: 6vw;
+}
+/* 增加爱人 */
+.create_Relation{
+    width:75%;
+    height:10vh;
+    margin-left: 12%;
+    text-align: left;
+    font-size:2.8vh;
+    border-style:none;
+    line-height: 5vh;
+}
+.create_Relation input{
+    margin-top:-1vh;
+    float:right;
+    width:40vw;
+    height:4vh;
+    border:solid lightgray;
+}
+.create_Relation2{
+    width:80%;
+    height:10vh;
+    margin-left:12%;
+    text-align: left;
+    font-size:2.8vh;
+    border-style:none;
+    text-align: left;
+    line-height: 5vh;
+}
+.create_Relation2 input{
+    float:right;
+    width:40vw;
+    height:4vh;
+    border:solid lightgray;
+}
+/*  */
+.relation_button{
+    width:200px;
+    height:45px;
+    margin-top:10%;
+    color:white;
+    font-weight: bold;
+    font-size:3vh;
+    text-align:center;
+    background-color: #fff;
+    margin-top: 20px;
+    border:none;
+    background-color:#FFBF2D;
+    border-radius: 10px;
+}
+/* 设置 */
+.img-up{
+    width:60%;
+    height:30px;
+    margin-top:5%;
+    margin-left:20%;
+    text-align:left;
+}
+.img-up .one{
+    z-index:10;
+    display:inline-block;
+    width:100%;
+    font-size:5vw;
+    position:relative;
+    color:#000;
+    background:rgb(255,191,45,0.3);
+}
+
+
+/* 删除 */
+body{
+    font-size:4.5vw;
+}
+#new{
+    font-size:4.5vw;
+    line-height: 6.5vh;
+    width:60%;
+    height:40px;
+    margin-left:20%;
+    margin-top:10px;
+    border-bottom:solid lightgray;
+    border-radius: 5px;
+    display: block;
+    text-align: center;
+}
+#new button{
+    float:right;
+    margin-top:3%;
+    margin-right:5%;
+    background-color:#FFBF2D;
+    border-radius: 5px;
+}
+#lwarn{
+    margin-left:3vh;
+}
+/* 消息反馈 */
+.msg1{
+    width:80%;
+    height:50px;
+    margin-left: 10%;
+    border:solid lightgray;
+    text-align: left;
+    font-size: 5vw;
+    line-height: 8vh;
+}
+.msg1 img{
+    width:30px;
+    height:30px;
+}
+.msg2{
+    width:80%;
+    height:50px;
+    margin-left: 10%;
+    border:solid lightgray;
+    border-width:0.5px;
+    text-align: right;
+    font-size: 5vw;
+    line-height: 8vh;
+}
+.msg2 img{
+    width:30px;
+    height:30px;
+}
+/* 宫格 */
+* { 
+    touch-action: pan-y; 
+}
+.am-carousel-wrap {
+    width:100%;
+    /* height:30vh; */
+} 
+.sub-title {
+    color: #888;
+    font-size: 14px;
+    padding: 15px 0 9px 15px;
+  }
+  .not-square-grid .am-grid-icon {
+    width: 40px;
+    height: 60px;
+  }
