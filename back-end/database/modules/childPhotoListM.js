@@ -8,9 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addChildPhotoList(text){
-    console.log(text)
-    let sql = 'insert into childPhotoList(name,cid,background) values ($1,$2,$3)';
-    let ret = await pgdb.query(sql,[text.name,text.cid,text.background]);
+    let sql = 'insert into childPhotoList(name,cid,background,setdate) values ($1,$2,$3,$4)';
+    let ret = await pgdb.query(sql,[text.name,text.cid,text.background,text.setdate]);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -57,7 +56,7 @@ async function delChildPhotoList(id){
  * @returns 所有日记的内容
  */
 async function findByCid(cid){
-    let sql = 'select * from childPhotoList where cid = $1';
+    let sql = 'select * from childPhotoList where cid = $1 order by setdate desc';
     let ret = await pgdb.query(sql,[cid]);
     if(ret.rowCount<=0){
         return 1
@@ -73,7 +72,7 @@ async function findByCid(cid){
  * @returns 语音具体信息
  */
 async function findById(id){
-    let sql = 'select * from childPhotoList where id = $1';
+    let sql = 'select * from childPhotoList where id = $1 order by setdate desc';
     let ret = await pgdb.query(sql,[id]);
     if(ret.rowCount<=0){
         return 1

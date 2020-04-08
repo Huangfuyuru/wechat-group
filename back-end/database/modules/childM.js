@@ -9,8 +9,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addChild(person){
-    let sql = 'insert into childs(name,birthday,gender,uid) values ($1,$2,$3,$4)';
-    let ret = await pgdb.query(sql,[person.name,person.birthday,person.gender,person.uid])
+    let sql = 'insert into childs(name,birthday,gender,background,uid) values ($1,$2,$3,$4,$5)';
+    let ret = await pgdb.query(sql,[person.name,person.birthday,person.gender,person.background,person.uid])
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -92,8 +92,8 @@ async function findAll(){
  * @returns
  */
 async function changeById(id,text){
-    let sql = 'update childs set name = $1,birthday=$2,gender=$3 where id = $4'
-    let ret = await pgdb.query(sql,[text.name,text.birthday,text.gender,id]);
+    let sql = 'update childs set name = $1,birthday=$2,gender=$3,background=$4 where id = $5'
+    let ret = await pgdb.query(sql,[text.name,text.birthday,text.gender,text.background,id]);
     if(ret.rowCount<=0){
         return 1
     }else{

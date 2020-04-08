@@ -56,7 +56,7 @@ async function delLoverPhoto(id){
  * @returns 所有爱人照片的内容
  */
 async function findByPid(pid){
-    let sql = 'select * from loverPhoto where pid = $1';
+    let sql = 'select * from loverPhoto where pid = $1 order by setdate desc';
     let ret = await pgdb.query(sql,[pid]);
     if(ret.rowCount<=0){
         return 1
@@ -72,7 +72,7 @@ async function findByPid(pid){
  * @returns 相片具体信息
  */
 async function findById(id){
-    let sql = 'select * from loverPhoto where id = $1';
+    let sql = 'select * from loverPhoto where id = $1 order by setdate desc';
     let ret = await pgdb.query(sql,[id]);
     if(ret.rowCount<=0){
         return 1

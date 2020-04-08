@@ -8,8 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addLoverPhotoList(text){
-    let sql = 'insert into loverPhotoList(name,lid,background) values ($1,$2,$3)';
-    let ret = await pgdb.query(sql,[text.name,text.lid,text.background]);
+    let sql = 'insert into loverPhotoList(name,lid,background,setdate) values ($1,$2,$3,$4)';
+    let ret = await pgdb.query(sql,[text.name,text.lid,text.background,text.setdate]);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -56,7 +56,7 @@ async function delLoverPhotoList(id){
  * @returns 所有爱人日记的内容
  */
 async function findByLid(lid){
-    let sql = 'select * from loverPhotoList where lid = $1';
+    let sql = 'select * from loverPhotoList where lid = $1 order by setdate desc';
     let ret = await pgdb.query(sql,[lid]);
     if(ret.rowCount<=0){
         return 1
@@ -88,7 +88,7 @@ async function findById(id){
  * @returns 返回id
  */
 async function findIdByLid(lid){
-    let sql = 'select id from loverPhotoList where lid = $1';
+    let sql = 'select id from loverPhotoList where lid = $1 order by setdate desc';
     let ret = await pgdb.query(sql,[lid]);
     if(ret.rowCount<=0){
         return 1

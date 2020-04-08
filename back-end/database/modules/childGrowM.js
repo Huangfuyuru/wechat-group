@@ -8,8 +8,8 @@ const pgdb = require('./connect');
  * @returns
  */
 async function addChildGrow(text){
-    let sql = 'insert into childGrow(weight,length,age,cid) values ($1,$2,$3,$4)';
-    let ret = await pgdb.query(sql,[text.weight,text.length,text.age,text.cid]);
+    let sql = 'insert into childGrow(weight,length,age,setdate,cid) values ($1,$2,$3,$4,$5)';
+    let ret = await pgdb.query(sql,[text.weight,text.length,text.age,text.setdate,text.cid]);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -56,7 +56,7 @@ async function delChildGrow(id){
  * @returns 所有成长的内容
  */
 async function findByCid(cid){
-    let sql = 'select * from childGrow where cid = $1';
+    let sql = 'select * from childGrow where cid = $1 order by setdate desc';
     let ret = await pgdb.query(sql,[cid]);
     if(ret.rowCount<=0){
         return 1

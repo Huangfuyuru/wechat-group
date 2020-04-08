@@ -2,16 +2,16 @@ const pgdb = require('./connect');
 
  // 成功返回0或数据  失败返回1
 /**
- * 传入手机号、密码，验证用户是否存在
+ * 传入邮箱、密码，验证用户是否存在
  * 不存在返回null,存在返回用户数据
- * @param {string} tel 
+ * @param {string} email 
  * @param {string} pass
  * @return {Object} 是一个对象，具体参数参照数据表  
  */
 
-async function login(tel,pass){
-    let sql = 'select * from users where tel = $1 and pass = $2';
-    let ret = await pgdb.query(sql,[tel,pass]);
+async function login(email,pass){
+    let sql = 'select * from users where email = $1 and pass = $2';
+    let ret = await pgdb.query(sql,[email,pass]);
     if(ret.rowCount<=0){
         return 1;
     }else{
@@ -22,11 +22,11 @@ async function login(tel,pass){
 /**
  * 验证是否已经注册
  * 传入电话，如何电话号存在，返回0，不存在返回1
- * @param {String} tel 
+ * @param {String} email 
  */
-async function findTel(tel){
-    let sql = 'select * from users where tel = $1';
-    let ret = await pgdb.query(sql,[tel]);
+async function findemail(email){
+    let sql = 'select * from users where email = $1';
+    let ret = await pgdb.query(sql,[email]);
     if(ret.rowCount<=0){
         return 0
     }else{
@@ -41,8 +41,8 @@ async function findTel(tel){
  * @param {Object} person 
  */
 async function addUser(person){
-    let sql = 'insert into users(pass,tel) values($1,$2)';
-    let ret = await pgdb.query(sql,[person.pass,person.tel]);
+    let sql = 'insert into users(pass,email) values($1,$2)';
+    let ret = await pgdb.query(sql,[person.pass,person.email]);
     if(ret.rowCount<=0){
         return 1;
     }else{
@@ -52,13 +52,13 @@ async function addUser(person){
 
 /**
  *
- * 根据tel 删除用户
- * @param {String} tel
+ * 根据email 删除用户
+ * @param {String} email
  * @returns
  */
-async function delUser(tel){
-    let sql = 'delete from users where tel = $1';
-    let ret = await pgdb.query(sql,[tel]);
+async function delUser(email){
+    let sql = 'delete from users where email = $1';
+    let ret = await pgdb.query(sql,[email]);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -67,14 +67,14 @@ async function delUser(tel){
 }
 
 /**
- *根据tel查找用户id
+ *根据email查找用户id
  *
- * @param {String} tel
+ * @param {String} email
  * @returns
  */
-async function findIdByTel(tel){ 
-    let sql = 'select uid from users where tel = $1';
-    let ret = await pgdb.query(sql,[tel]);
+async function findIdByemail(email){ 
+    let sql = 'select uid from users where email = $1';
+    let ret = await pgdb.query(sql,[email]);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -88,8 +88,8 @@ async function findIdByTel(tel){
  * @param {String} id
  * @returns
  */
-async function findTelById(id){
-    let sql = 'select tel from users where id = $1';
+async function findemailById(id){
+    let sql = 'select email from users where id = $1';
     let ret = await pgdb.query(sql,[id]);
     if(ret.rowCount<=0){
         return 1
@@ -144,6 +144,6 @@ async function findById(id){
     }
 }
 var userM = {
-    login,findTel,addUser,delUser,findIdByTel,findTelById,findAll,changeById,findById
+    login,findemail,addUser,delUser,findIdByemail,findemailById,findAll,changeById,findById
 }
 module.exports = userM;

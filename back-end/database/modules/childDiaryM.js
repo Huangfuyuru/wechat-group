@@ -10,8 +10,8 @@ const pgdb = require('./connect');
 async function addChildDiary(text){
     console.log(text)
     // var img = text.imgurl.split(',');
-    let sql = 'insert into childDiary(backcolor,content,imgurl,cid) values ($1,$2,$3,$4)';
-    let ret = await pgdb.query(sql,[text.backcolor,text.content,text.imgurl,text.cid]);
+    let sql = 'insert into childDiary(backcolor,content,imgurl,setdate,cid) values ($1,$2,$3,$4)';
+    let ret = await pgdb.query(sql,[text.backcolor,text.content,text.imgurl,text.setdate,text.cid]);
     if(ret.rowCount<=0){
         return 1
     }else{
@@ -58,7 +58,7 @@ async function delChildDiary(id){
  * @returns 所有日记的内容
  */
 async function findByCid(cid){
-    let sql = 'select * from childDiary where cid = $1';
+    let sql = 'select * from childDiary where cid = $1 order by setdate desc';
     let ret = await pgdb.query(sql,[cid]);
     if(ret.rowCount<=0){
         return 1
@@ -95,8 +95,8 @@ async function findById(id){
  * @returns
  */
 async function changeById(id,text){
-    let sql = 'update childDiary set backcolor=$1,content=$2,imgurl=$3 where id = $4'
-    let ret = await pgdb.query(sql,[text.backcolor,text.content,text.imgurl,id]);
+    let sql = 'update childDiary set backcolor=$1,content=$2,imgurl=$3,setdate=$4 where id = $4'
+    let ret = await pgdb.query(sql,[text.backcolor,text.content,text.imgurl,text.setdate,id]);
     if(ret.rowCount<=0){
         return 1
     }else{
