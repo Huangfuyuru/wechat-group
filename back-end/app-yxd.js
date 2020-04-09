@@ -31,8 +31,8 @@ app.get('/resign/confirm',function(req,res,next){
     res.end(html);
 });
 */
-app.get('/resign/message',function(req,res,next){
-    var html=fs.readFileSync('./testing-yxd/message.html').toString('utf8');
+app.get('/resign',function(req,res,next){
+    var html=fs.readFileSync('./testing-yxd/test.html').toString('utf8');
     res.writeHead(200,{
         'Content-Type':'text/html;charset=UTF8',
         'Content-Length':'Buffer.byteLength(html)'
