@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 
-export default class Menus extends Component {
+export default class Community extends Component {
     render() {
         return (
             <View>
-                <Text> textInComponent </Text>
+                <Text> 社区 </Text>
             </View>
         )
     }
