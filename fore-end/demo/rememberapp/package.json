@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/icons-react-native": "^2.0.0",
     "@ant-design/react-native": "^3.3.0",
+    "moment": "^2.24.0",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-button": "^3.0.1",
