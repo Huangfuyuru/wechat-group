@@ -115,7 +115,7 @@ export default class Lover extends Component {
                     /> */}
                         </TouchableOpacity>
                         <Image style={{ height: "100%", width: "100%" }}
-                            source={require("../assets/images/2.jpg")}
+                            source={require("../images/2.png")}
                             alt='自定义照片墙' />
                     </View>
 
@@ -153,7 +153,7 @@ export default class Lover extends Component {
                                 <Flex style={{ marginTop: 20 }}>
                                     <Flex.Item >
                                         {/* <Image source={{uri:cnews.cpic_src}} />  */}
-                                        <Image source={require("../assets/images/3.jpg")} />
+                                        <Image source={require("../images/3.png")} />
                                     </Flex.Item>
                                     <Flex.Item >
                                         <Text>{cnews.ccontent}</Text>
