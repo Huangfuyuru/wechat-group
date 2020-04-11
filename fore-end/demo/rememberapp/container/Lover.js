@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, Dimensions, View, Image, TouchableOpacity, AsyncStorage } from 'react-native'
 import { Flex, WingBlank } from '@ant-design/react-native'
+import {Actions} from 'react-native-router-flux';
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 411;
 const h = height / 1012;
+
 export default class Lover extends Component {
     constructor(props) {
         super(props);
@@ -61,6 +63,7 @@ export default class Lover extends Component {
     //             console.log('json',json)
     //         })
     //     }
+
     // }
     upfile = () => {
         var file = document.getElementById('img').files[0];
@@ -115,32 +118,31 @@ export default class Lover extends Component {
                     /> */}
                         </TouchableOpacity>
                         <Image style={{ height: "100%", width: "100%" }}
-                            source={require("../images/2.png")}
+                            source={require("../images/2.jpg")}
                             alt='自定义照片墙' />
                     </View>
-
                     <View style={styles.lover_second}>
                         <Flex justify="center">
-                            <TouchableOpacity style={styles.btn}>
-                                <Text style={{ textAlign: "center", fontSize: 15, lineHeight: 30, color: "#fff" }}
+                            <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.lpictures()}>
+                                <Text style={{ textAlign: "center",lineHeight:40,fontSize: 15, color: "#fff" }}
                                 >云相册</Text >
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.btn}>
-                                <Text style={{ textAlign: "center", fontSize: 15, lineHeight: 30, color: "#fff" }}
+                            <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.lsound()}>
+                                <Text style={{ textAlign: "center", fontSize: 15, lineHeight: 40, color: "#fff" }}
                                 >语音记事</Text >
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.btn}>
-                                <Text style={{ textAlign: "center", fontSize: 15, lineHeight: 30, color: "#fff" }}
+                            <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.ldairy()}>
+                                <Text style={{ textAlign: "center", fontSize: 15, lineHeight: 40, color: "#fff" }}
                                 >恋爱日记</Text >
                             </TouchableOpacity>
                         </Flex>
                         <Flex justify="center">
-                            <TouchableOpacity style={styles.btn}>
-                                <Text style={{ textAlign: "center", fontSize: 15, lineHeight: 30, color: "#fff" }}
+                            <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.llists()}>
+                                <Text style={{ textAlign: "center", fontSize: 15, lineHeight: 40, color: "#fff" }}
                                 >恋爱清单</Text >
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.btn}>
-                                <Text style={{ textAlign: "center", fontSize: 15, lineHeight: 30, color: "#fff" }}
+                            <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.lsouvenir()}>
+                                <Text style={{ textAlign: "center", fontSize: 15, lineHeight: 40, color: "#fff" }}
                                 >纪念日</Text >
                             </TouchableOpacity>
                         </Flex>
@@ -153,7 +155,7 @@ export default class Lover extends Component {
                                 <Flex style={{ marginTop: 20 }}>
                                     <Flex.Item >
                                         {/* <Image source={{uri:cnews.cpic_src}} />  */}
-                                        <Image source={require("../images/3.png")} />
+                                        <Image source={require("../images/3.jpg")} />
                                     </Flex.Item>
                                     <Flex.Item >
                                         <Text>{cnews.ccontent}</Text>
@@ -169,7 +171,6 @@ export default class Lover extends Component {
 }
 const styles = StyleSheet.create({
     lover_first: {
-        marginTop: "4%",
         textAlign: "center",
         height: "28%",
         width: "100%",
@@ -183,9 +184,8 @@ const styles = StyleSheet.create({
     },
     btn: {
         paddingBottom: 10,
-        // width: 99*s,
-        // height: 48*h,
-        width: "25%",
+        width: 99*s,
+        height: 48*h,
         marginLeft: 10,
         marginRight: 10,
         marginTop: 20,
