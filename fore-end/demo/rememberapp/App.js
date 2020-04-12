@@ -31,14 +31,24 @@ import Login from './src/common/Login';
 import SwiperPage from './src/common/SwiperPage';
 import Register from './src/common/Register';
 import Child from './container/Child';
+import Cpictures from './container/child/Cpicture'
+import Csound from './container/child/Csound'
+import Cevents from './container/child/Cevent'
+import Cgrowup from './container/child/Cgrowup'
+import Cstudy from './container/child/Cstudy'
+import Cdairy from './container/child/Cdairy'
+
 import Lover from './container/Lover';
-import Community from './container/Community';
-import My from './container/My';
 import Lpictures from "./container/lover/Lpictures"
 import Ldairy from "./container/lover/Ldairy"
 import Llists from "./container/lover/Llists"
 import Lsound from "./container/lover/Lsound"
 import Lsouvenir from "./container/lover/Lsouvenir"
+import Community from './container/Community';
+import My from './container/My';
+
+
+
 import T from './components/Tlists'
 const {width,scale} = Dimensions.get('window');
 const s = width / 640;
@@ -117,7 +127,7 @@ const App = () => {
 									<Scene key='chi' hideNavBar={true} component={Child} />
 									<Scene key='cpictures' component={Cpictures}/>
 									<Scene key='csound' component={Csound}/>
-									<Scene key='csound' component={Csound}/>
+									<Scene key='cevents' component={Cevents}/>
 									<Scene key='cgrowup' component={Cgrowup}/>
 									<Scene key='cstudy' component={Cstudy}/>
 									<Scene key='cdairy' component={Cdairy}/>
