@@ -89,6 +89,15 @@ export default class Test extends Component {
                     </TouchableOpacity>
                 </View>
                 <FlatList 
+                    // ListHeaderComponent={<Button 
+                    //     style={styles.btn}
+                    //     onpress={()=>{
+                    //         MessageBarManger.showAlert({
+                                
+                    //         })
+                    //     }}
+                    // >头部按钮</Button>} 
+                    ListFooterComponent={<Text>尾部</Text>}
                     style={{
                         backgroundColor: '#F4F4F4',
                     }}

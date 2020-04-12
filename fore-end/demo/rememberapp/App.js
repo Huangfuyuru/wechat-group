@@ -34,6 +34,12 @@ import Child from './container/Child';
 import Lover from './container/Lover';
 import Community from './container/Community';
 import My from './container/My';
+import Lpictures from "./container/lover/Lpictures"
+import Ldairy from "./container/lover/Ldairy"
+import Llists from "./container/lover/Llists"
+import Lsound from "./container/lover/Lsound"
+import Lsouvenir from "./container/lover/Lsouvenir"
+import T from './components/Tlists'
 const {width,scale} = Dimensions.get('window');
 const s = width / 640;
 console.disableYellowBox=true;
@@ -74,13 +80,13 @@ const App = () => {
 	return (
 		<Router
 			backAndroidHandler={()=>{
-        if(new Date().getTime()-now<2000){
-          BackHandler.exitApp();
-        }else{
-          ToastAndroid.show('确定要退出吗',100);
-          now = new Date().getTime();
-          return true;
-        }
+				if(new Date().getTime()-now<2000){
+					BackHandler.exitApp();
+				}else{
+					ToastAndroid.show('确定要退出吗',100);
+					now = new Date().getTime();
+					return true;
+				}
 			}}
 		>
 			<Overlay>
@@ -123,7 +129,12 @@ const App = () => {
 								}
 								
 							>
-								<Scene key="love" hideNavBar={true} component={Lover}/>
+								<Scene key="love" hideNavBar={true} component={Lover} />
+								<Scene key="lpictures" hideNavBar={true} component={Lpictures} />
+								<Scene key='lsound' hideNavBar={true} component={Lsound} />
+								<Scene key='llists' hideNavBar={true} component={Llists} />
+								<Scene key='lsouvenir' hideNavBar={true} component={Lsouvenir} />
+								<Scene key='ldairy' hideNavBar={true} component={Ldairy} />
 							</Scene>
 							{/* 社区 */}
 							<Scene key='community'
