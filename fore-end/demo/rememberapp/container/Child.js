@@ -125,7 +125,11 @@ export default class Lover extends Component {
     render() {
         const news = this.state.cnews;
         return (
-            <View style={{ width: width, height: height, backgroundColor: "#fff" }}>
+            <View style={{ 
+                width: width, 
+                height: height, 
+                backgroundColor: "#fff",
+            }}>
                 <StatusBar 
                     backgroundColor='#FFBF2D'
                 />
@@ -146,22 +150,20 @@ export default class Lover extends Component {
                 >亲子</Text></View>
                 <View style={styles.lover_first}>
                     <ImageBackground
-                    resizeMode="cover"
-                    style={{ 
-                        height: "100%", 
-                        width: "100%",
-                        transform: [{scale:1}]
-                    }}
+                        resizeMode="cover"
+                        style={{ 
+                            height: "100%", 
+                            width: "100%",
+                            transform: [{scale:1}]
+                        }}
                         source={require("../images/3.png")}
                         alt='自定义照片墙'>
                     
                                 <TouchableOpacity style={{
-                                    zIndex: 10,
-                                    top: 140,
-                                    left: 200,
-                                    position: 'relative',
                                     color: '#000',
-                                    backgroundColor: 'rgb(255,191,45,0.3)'
+                                    width:'80%',
+                                    // textAlign:'center',
+                                    backgroundColor: 'rgba(255,191,45,0.3)'
                                 }}><Text>轻触上传精选照片</Text>
                                     {/* <input 
                             id='img'
@@ -174,7 +176,7 @@ export default class Lover extends Component {
                                 </TouchableOpacity>
                     </ImageBackground>
                 </View>
-                <WingBlank>
+                <WingBlank style={{flex:1}}>
                     <View style={styles.lover_second}>
                         <Flex justify="center">
                             <TouchableOpacity style={styles.btn}>
@@ -221,24 +223,65 @@ export default class Lover extends Component {
                     </View>
                     <FlatList 
                         showsVerticalScrollIndicator={false}
-                        ListFooterComponent={<Text>到底了</Text>}
+                        ListFooterComponent={
+                            <View style={{
+                                width:'100%',
+                                marginTop:10
+                            }}>
+                                <Text style={{
+                                    width:'104%',
+                                    marginLeft:'-2%',
+                                    backgroundColor: '#ccc',
+                                    height: 0.3,
+                                }}></Text>
+                                <Text style={{
+                                    marginTop:-10,
+                                    width:140*s,
+                                    height:50,
+                                    textAlign:'center',
+                                    marginLeft:'auto',
+                                    marginRight:'auto',
+                                    backgroundColor:'#fff',
+                                    fontSize:15,
+                                    color:'#bdbbb8'
+                                }}>底儿都被你看完了</Text>
+                            </View>
+                        }
                         style={styles.scrollView}
                         data={news}
                         numColumns={1}
                         renderItem={({item})=>(
                             <View style={styles.child_third}>
-                                    <Image
-                                    style={{
-                                        width:200
-                                    }}
-                                    resizeMode="contain"
-                                    source={require("../images/3.png")} />
-                                        <Text>{item.ccontent}</Text>
-                                    {/* <View style={{
-                                        width:200,
-                                        // height:200
+                                <View>
+                                    <Text>今天</Text>
+                                </View>
+                                <View style={styles.line}>
+                                    <View
+                                        style={{
+                                            width:180*s,
+                                            height:180*s,
+                                            // backgroundColor:'#000',
+                                            justifyContent:'center',
+                                            alignItems:'center'
+                                        }}
+                                    >
+                                        <ImageBackground
+                                            style={{ 
+                                                height: "100%", 
+                                                width: "100%",
+                                                transform: [{scale:0.9}]
+                                            }}
+                                            resizeMode="cover"
+                                            source={require("../images/3.png")}
+                                        />
+                                    </View>
+                                    <View style={{
+                                        width:180*s,
+                                        height:180*s,
                                     }}>
-                                    </View> */}
+                                        <Text>{item.ccontent}</Text>
+                                    </View>
+                                </View>
                             </View>
                         )}
                     />
@@ -250,27 +293,21 @@ export default class Lover extends Component {
 }
 const styles = StyleSheet.create({
     lover_first: {
-        // marginTop: "4%",
         textAlign: "center",
         height: "30%",
         width: "100%",
-        // backgroundColor: "#000",
         justifyContent: "center",
     },
     lover_second: {
-        marginTop:5,
-        marginBottom:15,
+        marginBottom:10,
         width:'100%',
-        height: "15%",
+        height: 150*h,
         flexDirection: "column",
         justifyContent: "center",
-        // backgroundColor: "#000",
         marginLeft:'auto',
         marginRight:'auto'
     },
     btn: {
-        // paddingBottom: 10,
-        // width: 99*s,
         padding:0,
         height: 55*h,
         width: "31%",
@@ -289,24 +326,17 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         backgroundColor: '#fff',
-        // backgroundColor: '#000',
         paddingLeft:10,
         paddingTop:5,
         paddingRight:10,
-        // height:'100%'
-        // marginBottom:100,
+        marginBottom:60,
     },
     child_third: {
-        // flex:1,
+        marginTop:15*h
+    },
+    line:{
         flexDirection: 'row',
         justifyContent:'space-between',
         backgroundColor: "#fff",
-        width:'100%',
-        // height:150,
-        // backgroundColor:'#000',
-        // justifyContent:'center',
-        // alignContent:'center',
-        marginTop:5
-
-    },
+    }
 })

@@ -115,6 +115,12 @@ const App = () => {
 									}
 								>
 									<Scene key='chi' hideNavBar={true} component={Child} />
+									<Scene key='cpictures' component={Cpictures}/>
+									<Scene key='csound' component={Csound}/>
+									<Scene key='csound' component={Csound}/>
+									<Scene key='cgrowup' component={Cgrowup}/>
+									<Scene key='cstudy' component={Cstudy}/>
+									<Scene key='cdairy' component={Cdairy}/>
 								</Scene>
 
 								{/* 爱人 */}
@@ -178,11 +184,7 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-	title: {
-		width: '100%',
-		height: 300,
-		backgroundColor: 'red'
-	}
+	
 })
 
 export default App;
