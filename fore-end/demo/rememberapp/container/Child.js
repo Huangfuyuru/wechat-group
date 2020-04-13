@@ -12,10 +12,14 @@ import {
     FlatList,
     ImageBackground,
 } from 'react-native'
+import {
+    Actions
+} from 'react-native-router-flux'
 import { Flex, WingBlank } from '@ant-design/react-native'
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 411;
+const s1 = width / 640;
 const h = height / 1012;
 export default class Lover extends Component {
     constructor(props){
@@ -133,21 +137,17 @@ export default class Lover extends Component {
                 <StatusBar 
                     backgroundColor='#FFBF2D'
                 />
-                <View style={{
-                    width: '100%',
-                    backgroundColor: '#FFBF2D',
-                    height: "5%",
-                    justifyContent: "center",
-                    flexDirection: 'row'
-                }}><Text style={{
-                    fontWeight: 'bold',
-                    fontSize: 20,
-                    textIndent: 3,
-                    letterSpacing: 3,
-                    color: "#ffff",
-                    lineHeight: 40
-                }}
-                >亲子</Text></View>
+                <View style={styles.navbar}>
+                    <Text style={{
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                        textIndent: 3,
+                        letterSpacing: 3,
+                        color: "#ffff",
+                        lineHeight: 40
+                    }}
+                    >亲子</Text>
+                </View>
                 <View style={styles.lover_first}>
                     <ImageBackground
                         resizeMode="cover"
@@ -179,24 +179,36 @@ export default class Lover extends Component {
                 <WingBlank style={{flex:1}}>
                     <View style={styles.lover_second}>
                         <Flex justify="center">
-                            <TouchableOpacity style={styles.btn}>
+                            <TouchableOpacity 
+                                onPress={()=>Actions.cpictures()}
+                                style={styles.btn}>
                                 <Text style={styles.blockbtn}>云相册</Text >
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.btn}>
+                            <TouchableOpacity
+                                onPress={()=>Actions.csound()} 
+                                style={styles.btn}>
                                 <Text style={styles.blockbtn}>语音记事</Text >
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.btn}>
+                            <TouchableOpacity 
+                                onPress={()=>Actions.cdairy()}
+                                style={styles.btn}>
                                 <Text style={styles.blockbtn}>亲子日记</Text >
                             </TouchableOpacity>
                         </Flex>
                         <Flex justify="center">
-                            <TouchableOpacity style={styles.btn}>
+                            <TouchableOpacity 
+                                onPress={()=>Actions.cgrowup()}
+                                style={styles.btn}>
                                 <Text style={styles.blockbtn}>成长记录</Text >
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.btn}>
+                            <TouchableOpacity 
+                                onPress={()=>Actions.cevents()}
+                                style={styles.btn}>
                                 <Text style={styles.blockbtn}>大事记</Text >
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.btn}>
+                            <TouchableOpacity 
+                                onPress={()=>Actions.cstudy()}
+                                style={styles.btn}>
                                 <Text style={styles.blockbtn}>学业记录</Text >
                             </TouchableOpacity>
                         </Flex>
@@ -207,7 +219,7 @@ export default class Lover extends Component {
                     }}>
                         <Text style={{
                             width:'104%',
-                            marginLeft:'-2%',
+                            marginLeft: '-2%',
                             backgroundColor: '#bdbbb8',
                             height: 0.8,
                         }}></Text>
@@ -230,9 +242,9 @@ export default class Lover extends Component {
                             }}>
                                 <Text style={{
                                     width:'104%',
-                                    marginLeft:'-2%',
+                                    marginLeft: '-2%',
                                     backgroundColor: '#ccc',
-                                    height: 0.3,
+                                    height: 0.5,
                                 }}></Text>
                                 <Text style={{
                                     marginTop:-10,
@@ -292,10 +304,20 @@ export default class Lover extends Component {
     }
 }
 const styles = StyleSheet.create({
+    navbar:{
+        width:width,
+        height:65*s1,
+        backgroundColor:'#FFBF2D',
+        flexDirection: 'row',
+        paddingLeft:0.03*width,
+        paddingTop:'1%',
+        paddingRight:0.05*width,
+        justifyContent:"center"
+    },
     lover_first: {
         textAlign: "center",
-        height: "30%",
-        width: "100%",
+        height: 0.3*height,
+        width: width,
         justifyContent: "center",
     },
     lover_second: {

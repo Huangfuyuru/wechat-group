@@ -30,13 +30,25 @@ import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Login from './src/common/Login';
 import SwiperPage from './src/common/SwiperPage';
 import Register from './src/common/Register';
+
 import Child from './container/Child';
 import Cpictures from './container/child/Cpicture'
+import Ccpictures from './container/child/child_details/Ccpicture'
+import Cspictures from './container/child/child_details/Showpicture'
+import Capictures from './container/child/child_details/Addpictures'
 import Csound from './container/child/Csound'
-import Cevents from './container/child/Cevent'
-import Cgrowup from './container/child/Cgrowup'
-import Cstudy from './container/child/Cstudy'
+import Ccsound from './container/child/child_details/Ccsound'
 import Cdairy from './container/child/Cdairy'
+import Ccdairy from './container/child/child_details/Ccdairy'
+import Csdairy from './container/child/child_details/Showdairy';
+import Cgrowup from './container/child/Cgrowup'
+import Ccgrowup from './container/child/child_details/Ccgrow'
+import Cevents from './container/child/Cevent'
+import Ccevents from './container/child/child_details/Ccevent'
+import Csevents from './container/child/child_details/Showevent'
+import Cstudy from './container/child/Cstudy'
+import Ccstudy from './container/child/child_details/Ccstudy'
+
 
 import Lover from './container/Lover';
 import Lpictures from "./container/lover/Lpictures"
@@ -90,12 +102,20 @@ const App = () => {
 	return (
 		<Router
 			backAndroidHandler={()=>{
-				if(new Date().getTime()-now<2000){
-					BackHandler.exitApp();
-				}else{
-					ToastAndroid.show('确定要退出吗',100);
-					now = new Date().getTime();
+				if(Actions.currentScene != 'child' 
+					&& Actions.currentScene != 'lover'
+					&& Actions.currentScene != 'community'
+					&& Actions.currentScene != 'mine'){
+					Actions.pop();
 					return true;
+				}else{
+					if(new Date().getTime()-now<2000){
+						BackHandler.exitApp();
+					}else{
+						ToastAndroid.show('确定要退出吗',100);
+						now = new Date().getTime();
+						return true;
+					}
 				}
 			}}
 		>
@@ -124,13 +144,88 @@ const App = () => {
 										/>
 									}
 								>
-									<Scene key='chi' hideNavBar={true} component={Child} />
-									<Scene key='cpictures' component={Cpictures}/>
-									<Scene key='csound' component={Csound}/>
-									<Scene key='cevents' component={Cevents}/>
-									<Scene key='cgrowup' component={Cgrowup}/>
-									<Scene key='cstudy' component={Cstudy}/>
-									<Scene key='cdairy' component={Cdairy}/>
+									<Scene key='child' hideNavBar={true} component={Child} />
+									<Scene
+										key='cpictures' 
+										hideTabBar
+										hideNavBar={true}
+										component={Cpictures}/>
+									<Scene
+										key='ccpictures' 
+										hideTabBar
+										hideNavBar={true}
+										component={Ccpictures}/>
+									<Scene
+										key='cspictures' 
+										hideTabBar
+										hideNavBar={true}
+										component={Cspictures}/>
+									<Scene
+										key='capictures' 
+										hideTabBar
+										hideNavBar={true}
+										component={Capictures}/>
+									<Scene 
+										key='csound'
+										hideTabBar
+										hideNavBar={true} 
+										component={Csound}/>
+									<Scene 
+										key='ccsound'
+										hideTabBar
+										hideNavBar={true} 
+										component={Ccsound}/>
+									<Scene 
+										key='cdairy' 
+										hideTabBar
+										hideNavBar={true}
+										component={Cdairy}/>
+									<Scene 
+										key='ccdairy' 
+										hideTabBar
+										hideNavBar={true}
+										component={Ccdairy}/>
+									<Scene 
+										key='csdairy' 
+										hideTabBar
+										hideNavBar={true}
+										component={Csdairy}/>
+									<Scene 
+										key='cgrowup' 
+										hideTabBar
+										hideNavBar={true}
+										component={Cgrowup}/>
+									<Scene 
+										key='ccgrowup' 
+										hideTabBar
+										hideNavBar={true}
+										component={Ccgrowup}/>
+									<Scene 
+										key='cevents'
+										hideTabBar
+										hideNavBar={true} 
+										component={Cevents}/>
+									<Scene 
+										key='ccevents'
+										hideTabBar
+										hideNavBar={true} 
+										component={Ccevents}/>
+									<Scene 
+										key='csevents'
+										hideTabBar
+										hideNavBar={true} 
+										component={Csevents}/>
+									<Scene 
+										key='cstudy' 
+										hideTabBar
+										hideNavBar={true}
+										component={Cstudy}/>
+									<Scene 
+										key='ccstudy' 
+										hideTabBar
+										hideNavBar={true}
+										component={Ccstudy}/>
+									
 								</Scene>
 
 								{/* 爱人 */}
@@ -145,7 +240,7 @@ const App = () => {
 									}
 
 								>
-									<Scene key="love" hideNavBar={true} component={Lover} />
+									<Scene key="lover" hideNavBar={true} component={Lover} />
 									<Scene key="lpictures" hideNavBar={true} component={Lpictures} />
 									<Scene key='lsound' hideNavBar={true} component={Lsound} />
 									<Scene key='llists' hideNavBar={true} component={Llists} />
@@ -164,7 +259,7 @@ const App = () => {
 									}
 
 								>
-									<Scene key="com" hideNavBar={true} component={Community} />
+									<Scene key="community" hideNavBar={true} component={Community} />
 								</Scene>
 
 								{/* 我的 */}
@@ -179,7 +274,7 @@ const App = () => {
 									}
 
 								>
-									<Scene key="my" hideNavBar={true} component={My} />
+									<Scene key="mine" hideNavBar={true} component={My} />
 
 								</Scene>
 							</Tabs>

@@ -1,232 +1,53 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-import { NavBar, Icon } from 'antd-mobile';
-import '../../../css/child.css'
-export default class Showpicture extends Component {
-    constructor(props){
-        super(props);
-        var cpicture = JSON.parse(localStorage.getItem('cpicture'));
-        this.state={
-            count:0,
-            pname:cpicture.pname,
-            pid:cpicture.pid,
-            dellist:[],
-            lists:[]
-        }
-    }
-    componentDidMount(){
-        fetch(`http://localhost:3001/child/cpictures/show?childPhotoListid=${this.state.pid}`)
-        .then((res)=>res.json())
-        .then(json=>{
-            this.setState({
-                lists:json
-            })
-            console.log(json)
-        })
-    }
-    // componentDidMount(){
-    //     fetch(`http://localhost:3001/child/cpictures/show?childPhotoListid=${this.state.pid}`)
-    //     .then((res)=>res.json())
-    //     .then(json=>{
-    //         this.setState({
-    //             lists:json
-    //         })
-    //         console.log(json)
-    //     })
-    // }
-    delboxAppear=()=>{
-        var delbox = document.getElementsByTagName('input');
-        var delpictureswarn = document.getElementById('delpictureswarn');
-        if(this.state.count%2==0){
-            for(var i=0;i<delbox.length;i++){
-                delbox[i].style.display='block';
-                delbox[i].checked=false;
-            }
-        }else{
-            for(var i=0;i<delbox.length;i++){
-                delbox[i].style.display='none';
-                delpictureswarn.style.display='none';
-            }
-        }
-        this.setState({
-            count:this.state.count+1
-        })
-    }
-    check=()=>{
-        var delpictureswarn = document.getElementById('delpictureswarn');
-        var delbox = document.getElementsByTagName('input');
-        for(var i=0;i<delbox.length;i++){
-            if(delbox[i].checked){
-                delpictureswarn.style.display = 'block'
-            }
-        }
-    }
-    delPictures=()=>{
-        console.log(this.state.dellist)
-        var dellist = JSON.stringify(this.state.dellist)
-        fetch(`http://localhost:3001/child/cpictures/cdelpictures`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`pid=${this.state.pid}&childPhotoid=${dellist}`
-        }).then(res=>res.json())
-        .then(json=>{
-           this.setState({
-               lists:json.data,
-               code:json.msg
-           })
-        })
-        var delpicsconfirm=document.getElementById('delpicsconfirm');
-        delpicsconfirm.style.display='none'
-    }
+import React, { Component } from 'react'
+import { 
+    Text, 
+    View,
+    StyleSheet,
+    Dimensions,
+} from 'react-native'
+import Icon1 from 'react-native-vector-icons/Feather'
+import { Actions } from 'react-native-router-flux';
+const {width,scale} = Dimensions.get('window');
+const s = width / 640;
+export default class Cdairy extends Component {
     render() {
         return (
-            // 相册页面
-            <div className="scpicture">
-                <NavBar
-                    style={{
-                    top:0,
-                    width:'100%',
-                    zIndex:'11',
-                    position:'fixed',
-                    height:'8vh',
-                    background:'#FFBF2D',
-                    color:'#fff',
-                    fontWeight:'bolder',
-                    }}
-                    mode="light"
-                    icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/child/cpictures')}
-                    rightContent={[
-                        <span
-                        className='iconfont icon-bianji'
+            <View>
+                <View style={styles.navbar}>
+                    <Icon1 
+                        style={styles.icon}
+                        name='chevron-left'
+                        onPress={()=>Actions.pop()}
+                    />
+                    <Text 
                         style={{
-                            marginRight:'2vw',
-                            fontSize:'5vw',
-                            fontWeight:'lighter',
-                            letterSpacing:'1vw'
+                            width:0.6*width,
+                            marginLeft:'auto',
+                            marginRight:"auto",
+                            textAlign:'center',
+                            fontSize:20,
+                            color:'#fff'
                         }}
-                        onClick={this.delboxAppear} 
-                        >编辑</span>,
-                        ]}
-                    ><span style={{
-                        fontWeight:'bold',
-                        fontSize:'6vw',
-                        textIndent:'3vw',
-                        letterSpacing:'3vw',
-                        color:"white"
-                    }}
-                    >{this.state.pname}</span>
-                </NavBar>
-                <div className='scpicture_inner'>
-                    {
-                        this.state.lists&&this.state.lists.map((item,idx)=>(
-                            <div className="scpicture_block"
-                            key={item.id}
-                            value={item.id}
-                            style={{
-                                background:`url(${item.imgurl}) center center/cover no-repeat`,
-                            }}>
-                                <input
-                                onClick={this.check}
-                                name="pictures" 
-                                type="checkbox" 
-                                value={item.id} 
-                                />
-                            </div>
-                        ))
-                    }
-                </div>
-
-                <div id='delpictureswarn'>
-                    <button
-                    onClick={(e)=>{
-                        e.target.parentNode.style.display='none'
-                        var delbox = document.getElementsByTagName('input');
-                        for(var i=0;i<delbox.length;i++){
-                            delbox[i].style.display='none';
-                            delbox[i].checked=false;
-                        }
-                        // console.log(e.target.parentNode.id)
-                    }}>返回</button>
-                    <button
-                    onClick={()=>{
-                        var delpicsconfirm = document.getElementById('delpicsconfirm')
-                        delpicsconfirm.style.display='block';
-                        var delbox = document.getElementsByTagName('input');
-                        var dels=[]
-                        for(var i=0;i<delbox.length;i++){
-                            if(delbox[i].checked){
-                                dels.push(delbox[i].parentNode.getAttribute('value'))
-                                // console.log(delbox[i].parentNode.getAttribute('value'))
-                            }
-                        }
-                        this.setState({
-                            dellist:dels
-                        })
-                    }}
-                    >删除</button>
-                </div>
-
-                <div className='allpage_add'>
-                    <p></p>
-                    <Link
-                    to={{
-                    pathname:'/child/cpictures/addpictures'
-                    }}
-                    ><i className='iconfont icon-jia'></i></Link>
-                </div>
-                <div id='delpicsconfirm'>
-                    <div>确定删除？</div>
-                    <button 
-                    onClick={(e)=>{
-                        e.target.parentNode.style.display='none';
-                    }}
-                    style={{
-                        width:'25%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw',
-                        marginRight:'10vw'
-                    }}>返回</button>
-                    <button 
-                    onClick={this.delPictures}
-                    style={{
-                        width:'25%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw'
-                    }}>确定</button>
-                </div>
-                <div id='picsconfirmagain'>
-                <div>{this.state.code}</div>
-                    <button 
-                    onClick={()=>{
-                        var picsconfirmagain=document.getElementById('picsconfirmagain');
-                        picsconfirmagain.style.display='none';
-                    }}
-                    style={{
-                        width:'25%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw'
-                    }}>确定</button>
-                </div>
-            </div>
+                    >亲子日记</Text>
+                </View>
+            </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    navbar:{
+        width:width,
+        height:65*s,
+        backgroundColor:'#FFBF2D',
+        flexDirection: 'row',
+        paddingLeft:0.03*width,
+        paddingTop:'1%',
+        paddingRight:0.05*width,
+        justifyContent:"center"
+    },
+    icon:{
+        color:'#fff',
+        fontSize:30
+    },
+})
