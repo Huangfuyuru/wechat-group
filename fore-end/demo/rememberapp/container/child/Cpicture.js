@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import { WingBlank } from '@ant-design/react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
+import Icon2 from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux';
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
@@ -19,6 +20,16 @@ export default class Cdairy extends Component {
             childPhotoListid:'',
             // cid:cid,
             lists:[
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
                 {
                     name:'我的相册',
                     pid:1,
@@ -95,24 +106,24 @@ export default class Cdairy extends Component {
                         }}
                     >云相册</Text>
                 </View>
-                <WingBlank style={{flex:1}}>
+                <WingBlank>
                     <FlatList 
                         showsVerticalScrollIndicator={false}
                         ListFooterComponent={
                             <View style={{
                                 width:'100%',
-                                marginTop:10
+                                marginTop:20
                             }}>
                                 <Text style={{
                                     width:'104%',
                                     marginLeft: '-2%',
                                     backgroundColor: '#ccc',
-                                    height: 0.5,
+                                    height: 0.8,
                                 }}></Text>
                                 <Text style={{
                                     marginTop:-10,
-                                    width:140*s,
-                                    height:50,
+                                    width:200*s,
+                                    height:55,
                                     textAlign:'center',
                                     marginLeft:'auto',
                                     marginRight:'auto',
@@ -129,28 +140,51 @@ export default class Cdairy extends Component {
                             <View style={styles.cpicture_block}>
                                     <View
                                         style={{
-                                            width:180*s,
-                                            height:180*s,
+                                            // width:'95%',
+                                            height:330*s,
                                             // backgroundColor:'#000',
+                                            // paddingTop:5*s,
                                             justifyContent:'center',
                                             alignItems:'center'
                                         }}
                                     >
                                         <ImageBackground
                                             style={{ 
-                                                height: 200, 
-                                                width: 200,
+                                                height: 330*s, 
+                                                width: '100%',
                                                 transform: [{scale:0.9}]
                                             }}
-                                            resizeMode="cover"
+                                            resizeMode="contain"
+                                            // source={require("../../images/8.png")}
                                             source={{uri:`${item.background}`}}
                                         />
                                     </View>
                                     <View style={{
-                                        width:180*s,
-                                        height:180*s,
+                                        width:'100%',
+                                        height:70*s,
+                                        paddingLeft:20*s,
+                                        paddingRight:20*s,
+                                        borderColor:'#bdbbb8',
+                                        borderStyle:'solid',
+                                        borderTopWidth:0.5,
+                                        margin:0,
+                                        // flexDirection: 'row',
+                                        justifyContent:'center',
+                                        // backgroundColor:'#000',
                                     }}>
-                                        <Text>{item.name}</Text>
+                                        <Text
+                                            style={{
+                                                fontSize:25*s,
+                                                color:'#333'
+                                                // width:550*s,
+                                                // height:50*s,
+
+                                            }}
+                                        >{item.name}</Text>
+                                        <Icon2
+                                            name='md-trash'
+                                            size={25}
+                                        />
                                     </View>
                             </View>
                         )}
@@ -178,14 +212,22 @@ const styles = StyleSheet.create({
         fontSize:30
     },
     scrollView: {
+        marginTop:20*s,
+        // backgroundColor: '#000',
         backgroundColor: '#fff',
         paddingLeft:10,
         paddingTop:5,
         paddingRight:10,
-        marginBottom:60,
+        marginBottom:80,
     },
     cpicture_block:{
-        width:200,
-        height:200
+        marginTop:20*s,
+        // backgroundColor:'#000'
+        height:400*s,
+        borderRadius:5,
+        borderStyle:'solid',
+        borderWidth:1.5,
+        borderColor:'#ccc',
+        // borderColor:'#bdbbb8',
     }
 })
