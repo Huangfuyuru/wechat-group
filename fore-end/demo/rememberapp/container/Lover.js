@@ -117,7 +117,7 @@ export default class Lover extends Component {
                             width: "100%",
                             transform: [{ scale: 1 }]
                         }}
-                        source={require("../assets/images/2.jpg")}
+                        source={require("../images/3.png")}
                         alt='自定义照片墙'>
 
                         <TouchableOpacity style={{
@@ -234,7 +234,7 @@ export default class Lover extends Component {
                                                 transform: [{ scale: 0.9 }]
                                             }}
                                             resizeMode="cover"
-                                            source={require("../assets/images/3.jpg")}
+                                            source={require("../images/4.png")}
                                         />
                                     </View>
                                     <View style={{
