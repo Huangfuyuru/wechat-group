@@ -8,7 +8,8 @@ import {
     Alert,
     ToastAndroid,
     Image,
-    ImageBackground
+    ImageBackground,
+    TouchableOpacity
 } from 'react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/FontAwesome'
@@ -23,10 +24,65 @@ export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
-            background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+            background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg',
+            lists:[
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+            ],
         }
     }
+    setbackground = ()=>{
+
+    }
+    choosepictures = ()=>{
+
+    }
+    takephoto = ()=>{
+
+    }
+    additem = ()=>{
+        ToastAndroid.show("创建成功!", ToastAndroid.SHORT);
+    }
     render() {
+        const lists = this.state.lists
         return (
             <View>
                 <View style={styles.navbar}>
@@ -42,64 +98,77 @@ export default class Cdairy extends Component {
                 }}>
                     <View style={styles.msg}>
                         <Text style={styles.text}>相册名称：</Text>
-                        <TextInput 
+                        <TextInput
                             maxLength={10}
                             onFocus={()=>{
                                 ToastAndroid.showWithGravityAndOffset(
-                                    '相册名称10字以内',
-                                ToastAndroid.LONG,
+                                    '请保证相册名称不多于10个字！',
+                                ToastAndroid.SHORT,
                                 ToastAndroid.TOP,
                                 25,100)
                             }}
                             placeholder='请输入相册名称'
                             style={styles.input}/>
                     </View>
-                    <View 
+                    <TouchableOpacity
+                        onPress={this.setbackground}
                         style={styles.coverbox}>
                         <Text
-                        onPress={()=>{
-                            console.log('111')
-                        }}
                         style={styles.textbtn}>轻触设置封面</Text>
-                        <ImageBackground
+                        <Image
                             style={styles.cover}
                             resizeMode="contain"
                             source={{uri:`${this.state.background}`}}
-                        >
-                            <Button
-                                onPress={()=>Actions.cspictures()}
-                                style={{
-                                    width:0.5*width,
-                                    height:180*s,
-                                    borderColor:'#ccc',
-                                    borderStyle:'solid',
-                                    backgroundColor:'#fff',
-                                    textAlignVertical:'center',
-                                    color:'#fff',
-                                    fontSize:0,
-                                    opacity:0
-                                }}
-                            >
-                                轻触设置封面
-                            </Button>
-                        </ImageBackground>
-                    </View>
+                        />
+                    </TouchableOpacity>
                     <View style={styles.choose}>
                         <View style={{
+                            width:0.85*width,
+                            height:50*s,
                             flexDirection: 'row',
+                            justifyContent:'space-between',
+                            textAlignVertical:'center',
+                            marginBottom:0.01*width
                         }}>
-                            <Text style={styles.textbtn}>添加照片</Text>
-                            <Icon3 
-                                style={styles.btn} 
-                                name='photograph'/>
-                            <Icon1 
-                                style={styles.btn} 
-                                name='camera'/>
+                            <Text
+                            style={styles.textbtn}>添加图片</Text>
+                            <View style={{
+                                flexDirection: 'row',
+                                textAlignVertical:'center',
+                            }}>
+                                <Icon3
+                                    onPress={this.choosepictures} 
+                                    style={styles.btn} 
+                                    name='photograph'/>
+                                <Icon1 
+                                    onPress={this.takephoto}
+                                    style={styles.btn} 
+                                    name='camera'/>
+                            </View>
                         </View>
-                        <TextInput style={styles.pics}/>
+                        <FlatList 
+                        style={styles.picbox}
+                        data={lists}
+                        numColumns={3}
+                        ListFooterComponent={
+                            <View style={{
+                                height:0.03*width
+                            }}>
+                            </View>
+                        }
+                        renderItem={({item})=>(
+                            <Image
+                                style={styles.pics}
+                                resizeMode="cover"
+                                source={{uri:`${item.background}`}}
+                            />
+                        )}
+                        />  
                     </View>
                 </WingBlank>
-                <Button style={styles.addbtn}>创建相册</Button>
+                <Button
+                onPress={this.additem} 
+                style={styles.addbtn}>创建相册</Button>
             </View>
         )
     }
@@ -159,15 +228,18 @@ const styles = StyleSheet.create({
     },
     textbtn:{
         textAlign:'center',
+        textAlignVertical:'center',
         width:0.25*width,
+        height:45*s,
         fontSize:26*s,
         color:'#333',
         textAlignVertical:'center',
     },
     coverbox:{
-        width:0.6*width,
-        height:220*s,
         // backgroundColor:'#000',
+        width:0.6*width,
+        height:230*s,
+        alignContent:'center',
         marginLeft:'auto',
         marginRight:'auto',
         marginTop:20*s,
@@ -180,34 +252,42 @@ const styles = StyleSheet.create({
         borderColor:'#ccc',
         borderStyle:'solid',
         borderWidth:2,
-        backgroundColor:'#fff'
+        backgroundColor:'rgba(255,191,45,0.1)',
     },
     choose:{
         width:0.85*width,
-        height:470*s,
-        // backgroundColor:'#000',
+        height:480*s,
         marginLeft:'auto',
         marginRight:'auto',
-        marginTop:20*s,
+        marginTop:30*s,
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        // backgroundColor:'#000',
+        marginBottom:50*s
+
     },
     btn:{
         textAlign:'center',
-        width:0.25*width,
-        fontSize:35*s,
+        width:0.15*width,
+        fontSize:40*s,
         color:'#FFBF2D',
         textAlignVertical:'center',
     },
-    pics:{
+    picbox:{
+        padding:0.01*width,
         width:0.8*width,
-        height:400*s,
-        borderColor:'#ccc',
+        borderColor:'rgba(204,204,204,0.3)',
         borderStyle:'solid',
-        borderWidth:1,
+        borderWidth:2,
+        backgroundColor:'rgba(255,191,45,0.1)'
+    },
+    pics:{
+        width:0.237*width,
+        height:180*s,
+        margin:0.01*width,
+        transform: [{scale:0.95}]
     },
     addbtn:{
-        marginTop:50*s,
         width:0.8*width,
         height:80*s,
         marginLeft:'auto',

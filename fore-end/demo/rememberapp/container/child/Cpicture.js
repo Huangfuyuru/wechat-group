@@ -7,6 +7,8 @@ import {
     FlatList,
     ImageBackground,
     Image,
+    Alert,
+    ToastAndroid
 } from 'react-native'
 import Button from 'react-native-button'
 import { WingBlank } from '@ant-design/react-native'
@@ -75,18 +77,31 @@ export default class Cdairy extends Component {
         // })
     }
     rmCpicture=(e)=>{
-        e.target.parentNode.style.display = 'none';
-        var  cpictureagain = document.getElementById('cpictureagain');
-        cpictureagain.style.display = 'block';
-        fetch(`http://localhost:3001/child/cpictures/crpictures?childsid=${this.state.cid}&childPhotoListid=${this.state.childPhotoListid}`)
-        .then((res)=>res.json())
-        .then((res)=>{
-            console.log(res)
-            this.setState({
-                lists:res.data,
-                code:res.msg
-            }); 
-        })
+        Alert.alert('提示', '确定要删除吗？',
+            [
+                { text: "确定", onPress: ()=>{
+                    ToastAndroid.showWithGravityAndOffset(
+                        '删除成功！',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER,
+                    25,-100)
+                } },
+                { text: "返回", onPress: this.opntion2Selected },
+            ]
+        )
+        // console.log(e.target)
+        // e.target.parentNode.style.display = 'none';
+        // var  cpictureagain = document.getElementById('cpictureagain');
+        // cpictureagain.style.display = 'block';
+        // fetch(`http://localhost:3001/child/cpictures/crpictures?childsid=${this.state.cid}&childPhotoListid=${this.state.childPhotoListid}`)
+        // .then((res)=>res.json())
+        // .then((res)=>{
+        //     console.log(res)
+        //     this.setState({
+        //         lists:res.data,
+        //         code:res.msg
+        //     }); 
+        // })
     }
     render() {
         const lists = this.state.lists;
@@ -188,8 +203,9 @@ export default class Cdairy extends Component {
                                             }}
                                         >{item.name}</Text>
                                         <Icon2
+                                            onPress={this.rmCpicture}
                                             name='ios-trash'
-                                            size={28}
+                                            size={30}
                                             color='#333'
                                             style={{
                                                 textAlignVertical:'center'
