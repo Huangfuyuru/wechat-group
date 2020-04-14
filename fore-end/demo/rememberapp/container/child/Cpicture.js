@@ -6,11 +6,14 @@ import {
     Dimensions,
     FlatList,
     ImageBackground,
+    Image,
 } from 'react-native'
+import Button from 'react-native-button'
 import { WingBlank } from '@ant-design/react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux';
+import { TouchableOpacity } from 'react-native-gesture-handler'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 export default class Cdairy extends Component {
@@ -95,35 +98,27 @@ export default class Cdairy extends Component {
                         name='chevron-left'
                         onPress={()=>Actions.pop()}
                     />
-                    <Text 
-                        style={{
-                            width:0.6*width,
-                            marginLeft:'auto',
-                            marginRight:"auto",
-                            textAlign:'center',
-                            fontSize:20,
-                            color:'#fff'
-                        }}
-                    >云相册</Text>
+                    <Text style={styles.title}>云相册</Text>
                 </View>
-                <WingBlank>
+                <WingBlank style={{
+                    marginBottom:10
+                }}>
                     <FlatList 
                         showsVerticalScrollIndicator={false}
                         ListFooterComponent={
                             <View style={{
                                 width:'100%',
-                                marginTop:20
+                                marginTop:30
                             }}>
                                 <Text style={{
                                     width:'104%',
                                     marginLeft: '-2%',
-                                    backgroundColor: '#ccc',
+                                    backgroundColor: '#000',
                                     height: 0.8,
                                 }}></Text>
                                 <Text style={{
                                     marginTop:-10,
                                     width:200*s,
-                                    height:55,
                                     textAlign:'center',
                                     marginLeft:'auto',
                                     marginRight:'auto',
@@ -140,10 +135,7 @@ export default class Cdairy extends Component {
                             <View style={styles.cpicture_block}>
                                     <View
                                         style={{
-                                            // width:'95%',
                                             height:330*s,
-                                            // backgroundColor:'#000',
-                                            // paddingTop:5*s,
                                             justifyContent:'center',
                                             alignItems:'center'
                                         }}
@@ -157,7 +149,21 @@ export default class Cdairy extends Component {
                                             resizeMode="contain"
                                             // source={require("../../images/8.png")}
                                             source={{uri:`${item.background}`}}
-                                        />
+                                        >
+                                            <Button
+                                                onPress={()=>Actions.cspictures()}
+                                                style={{
+                                                    height: 330*s, 
+                                                    width: '100%',
+                                                    textAlignVertical:'center',
+                                                    color:'#fff',
+                                                    fontSize:0,
+                                                    opacity:0
+                                                }}
+                                            >
+                                                轻触查看相册
+                                            </Button>
+                                        </ImageBackground>
                                     </View>
                                     <View style={{
                                         width:'100%',
@@ -168,29 +174,64 @@ export default class Cdairy extends Component {
                                         borderStyle:'solid',
                                         borderTopWidth:0.5,
                                         margin:0,
-                                        // flexDirection: 'row',
+                                        flexDirection: 'row',
                                         justifyContent:'center',
-                                        // backgroundColor:'#000',
+
                                     }}>
                                         <Text
                                             style={{
                                                 fontSize:25*s,
-                                                color:'#333'
-                                                // width:550*s,
-                                                // height:50*s,
+                                                color:'#333',
+                                                width:480*s,
+                                                textAlignVertical:'center'
 
                                             }}
                                         >{item.name}</Text>
                                         <Icon2
-                                            name='md-trash'
-                                            size={25}
+                                            name='ios-trash'
+                                            size={28}
+                                            color='#333'
+                                            style={{
+                                                textAlignVertical:'center'
+                                            }}
                                         />
                                     </View>
                             </View>
                         )}
-                    />
-                    
+                        />  
                 </WingBlank>
+                <View
+                    style={{
+                        width:'100%',
+                        height:50,
+                        justifyContent:'center',
+                        // backgroundColor:'#000',
+                        paddingTop:20
+                    }}
+                >
+                    <Text style={{
+                        width:0.95*width,
+                        marginLeft:'auto',
+                        marginRight:'auto',
+                        backgroundColor: '#FFBF2D',
+                        // backgroundColor: '#bdbbb8',
+                        height: 2*s,
+                    }}></Text>
+                    <Icon2
+                        onPress={()=>{Actions.ccpictures()}} 
+                        style={{
+                            marginTop:-23,
+                            width:80*s,
+                            textAlign:'center',
+                            marginLeft:'auto',
+                            marginRight:'auto',
+                            backgroundColor:'#fff',
+                            color:'#FFBF2D'
+                        }}
+                        size={45}
+                        name='md-add-circle-outline'
+                    />
+                </View>
             </View>
         )
     }
@@ -202,23 +243,31 @@ const styles = StyleSheet.create({
         height:65*s,
         backgroundColor:'#FFBF2D',
         flexDirection: 'row',
-        paddingLeft:0.03*width,
+        paddingLeft:0.02*width,
         paddingTop:'1%',
-        paddingRight:0.05*width,
+        paddingRight:0.1*width,
         justifyContent:"center"
     },
     icon:{
+        width:0.08*width,
         color:'#fff',
-        fontSize:30
+        fontSize:30,
+    },
+    title:{
+        marginLeft:'auto',
+        marginRight:"auto",
+        textAlign:'center',
+        fontSize:20,
+        color:'#fff',
+        letterSpacing:3
     },
     scrollView: {
-        marginTop:20*s,
+        marginTop:50*s,
         // backgroundColor: '#000',
         backgroundColor: '#fff',
         paddingLeft:10,
-        paddingTop:5,
         paddingRight:10,
-        marginBottom:80,
+        height:900*s
     },
     cpicture_block:{
         marginTop:20*s,

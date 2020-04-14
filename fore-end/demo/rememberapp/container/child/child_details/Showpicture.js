@@ -19,17 +19,13 @@ export default class Cdairy extends Component {
                         name='chevron-left'
                         onPress={()=>Actions.pop()}
                     />
-                    <Text 
-                        style={{
-                            width:0.6*width,
-                            marginLeft:'auto',
-                            marginRight:"auto",
-                            textAlign:'center',
-                            fontSize:20,
-                            color:'#fff'
-                        }}
-                    >亲子日记</Text>
+                    <Text style={styles.title}>我的相册</Text>
+                    <Icon1
+                        style={styles.icon}
+                        name='more-horizontal'
+                    />
                 </View>
+                
             </View>
         )
     }
@@ -43,11 +39,20 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingLeft:0.03*width,
         paddingTop:'1%',
-        paddingRight:0.05*width,
+        paddingRight:0.03*width,
         justifyContent:"center"
     },
     icon:{
+        width:0.08*width,
         color:'#fff',
-        fontSize:30
+        fontSize:30,
     },
+    title:{
+        marginLeft:'auto',
+        marginRight:"auto",
+        textAlign:'center',
+        fontSize:20,
+        color:'#fff',
+        letterSpacing:3
+    }
 })

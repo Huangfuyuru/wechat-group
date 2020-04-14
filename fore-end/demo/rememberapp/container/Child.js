@@ -309,9 +309,7 @@ const styles = StyleSheet.create({
         height:65*s1,
         backgroundColor:'#FFBF2D',
         flexDirection: 'row',
-        paddingLeft:0.03*width,
         paddingTop:'1%',
-        paddingRight:0.05*width,
         justifyContent:"center"
     },
     lover_first: {
