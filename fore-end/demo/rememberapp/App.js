@@ -24,7 +24,9 @@ import {
   Actions,
 } from 'react-native-router-flux';
 import SplashScreen from 'react-native-splash-screen'
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon1 from 'react-native-vector-icons/FontAwesome';
+import Icon2 from 'react-native-vector-icons/Fontisto';
+import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Login from './src/common/Login';
 import SwiperPage from './src/common/SwiperPage';
 import Register from './src/common/Register';
@@ -89,19 +91,19 @@ const App = () => {
 							key='tabbar'
 							hideNavBar
 							activeTintColor="#FFBF2D"
-							inactiveTintColor="#949494"
+              inactiveTintColor="#949494"
 							tabBarStyle={{
 								backgroundColor:'#fff',
-								height:76*s
+                height:76*s,
 							}}
 						>
 							{/* 亲子 */}
-							<Scene key='child'
+              <Scene key='child'
 								title='亲子'
 								icon={
-									({focused})=><Icon
+									({focused})=><Icon3
 										color={focused?'#FFBF2D':'#949494'} 
-										name="home"
+										name="face-recognition"
 										size={25}
 									/>
 								}
@@ -113,10 +115,10 @@ const App = () => {
 							<Scene key='lover'
 								title='爱人'
 								icon={
-									({focused})=><Icon
+									({focused})=><Icon3
 										color={focused?'#FFBF2D':'#949494'} 
-										name="appstore-o"
-										size={25}
+										name="heart-pulse"
+										size={30}
 									/>
 								}
 								
@@ -127,9 +129,9 @@ const App = () => {
 							<Scene key='community'
 								title='社区'
 								icon={
-									({focused})=><Icon
+									({focused})=><Icon3
 										color={focused?'#FFBF2D':'#949494'} 
-										name="appstore-o"
+										name="camera-iris"
 										size={25}
 									/>
 								}
@@ -142,10 +144,10 @@ const App = () => {
 							<Scene key='mine'
 								title='个人中心'
 								icon={
-									({focused})=><Icon
+									({focused})=><Icon3
 										color={focused?'#FFBF2D':'#949494'} 
-										name="user"
-										size={25}
+										name="home-circle"
+										size={28}
 									/>
 								}
 								
