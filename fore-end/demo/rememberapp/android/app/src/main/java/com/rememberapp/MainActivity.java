@@ -1,5 +1,5 @@
 package com.rememberapp;
-import android.os.Bundle;
+import android.os.Bundle; // here 
 import org.devio.rn.splashscreen.SplashScreen;
 import com.facebook.react.ReactActivity;
 import com.imagepicker.permissions.OnImagePickerPermissionsCallback; // <- add this import

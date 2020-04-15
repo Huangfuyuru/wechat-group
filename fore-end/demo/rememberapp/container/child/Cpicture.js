@@ -1,30 +1,69 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-import { NavBar, Icon } from 'antd-mobile';
-import moment from 'moment'
-
-export default class Cloud extends Component {
+import React, { Component } from 'react'
+import { 
+    Text, 
+    View,
+    StyleSheet,
+    Dimensions,
+    FlatList,
+    ImageBackground,
+    Image,
+    Alert,
+    ToastAndroid
+} from 'react-native'
+import Button from 'react-native-button'
+import { WingBlank } from '@ant-design/react-native'
+import Icon1 from 'react-native-vector-icons/Feather'
+import Icon2 from 'react-native-vector-icons/Ionicons'
+import { Actions } from 'react-native-router-flux';
+import { TouchableOpacity } from 'react-native-gesture-handler'
+const {width,scale,height} = Dimensions.get('window');
+const s = width / 640;
+export default class Cdairy extends Component {
     constructor(){
         super();
-        var cid = JSON.parse(localStorage.getItem('cid'));
         this.state={
             childPhotoListid:'',
-            cid:cid,
-            lists:[],
+            // cid:cid,
+            lists:[
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+            ],
             code:""
         }
     }
-      // 加载外部数据用componentDidMount
     componentDidMount(){
-        fetch(`http://localhost:3001/child/cpictures?childsid=${this.state.cid}`)
-        .then((res)=>res.json())
-        .then((res)=>{
-            console.log('点击云相册',res)
-            this.setState({
-                lists:res
-            });
+        // fetch(`http://localhost:3001/child/cpictures?childsid=${this.state.cid}`)
+        // .then((res)=>res.json())
+        // .then((res)=>{
+        //     console.log('点击云相册',res)
+        //     this.setState({
+        //         lists:res
+        //     });
             
-        })
+        // })
     }
     componentDidUpdate(){
         // fetch(`http://localhost:3001/child/cpictures?childsid=${this.state.cid}`)
@@ -38,161 +77,222 @@ export default class Cloud extends Component {
         // })
     }
     rmCpicture=(e)=>{
-        e.target.parentNode.style.display = 'none';
-        var  cpictureagain = document.getElementById('cpictureagain');
-        cpictureagain.style.display = 'block';
-        fetch(`http://localhost:3001/child/cpictures/crpictures?childsid=${this.state.cid}&childPhotoListid=${this.state.childPhotoListid}`)
-        .then((res)=>res.json())
-        .then((res)=>{
-            console.log(res)
-            this.setState({
-                lists:res.data,
-                code:res.msg
-            }); 
-        })
+        Alert.alert('提示', '确定要删除吗？',
+            [
+                { text: "确定", onPress: ()=>{
+                    ToastAndroid.showWithGravityAndOffset(
+                        '删除成功！',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER,
+                    25,-100)
+                } },
+                { text: "返回", onPress: this.opntion2Selected },
+            ]
+        )
+        // console.log(e.target)
+        // e.target.parentNode.style.display = 'none';
+        // var  cpictureagain = document.getElementById('cpictureagain');
+        // cpictureagain.style.display = 'block';
+        // fetch(`http://localhost:3001/child/cpictures/crpictures?childsid=${this.state.cid}&childPhotoListid=${this.state.childPhotoListid}`)
+        // .then((res)=>res.json())
+        // .then((res)=>{
+        //     console.log(res)
+        //     this.setState({
+        //         lists:res.data,
+        //         code:res.msg
+        //     }); 
+        // })
     }
     render() {
+        const lists = this.state.lists;
         return (
-            // 云相册
-            <div className="cpicture">
-                <NavBar
-                    style={{
-                    top:0,
-                    width:'100%',
-                    zIndex:'11',
-                    position:'fixed',
-                    height:'8vh',
-                    background:'#FFBF2D',
-                    color:'#fff',
-                    fontWeight:'bolder',
-                    }}
-                    mode="light"
-                    icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/index/child')}
-                    ><span style={{
-                        fontWeight:'bold',
-                        fontSize:'6vw',
-                        textIndent:'3vw',
-                        letterSpacing:'3vw',
-                        color:"white"
-                    }}
-                    >云相册</span>
-                </NavBar>
-                <div className='cpicture_inner'>
-                    {
-                        this.state.lists&&this.state.lists.map((item,idx)=>(
-                            <div className='cpicture_block'>
-                                <div 
-                                onClick={()=>{
-                                    var cpicture={
-                                        pname:item.name,
-                                        pid:item.id
-                                    }
-                                    localStorage.setItem('cpicture',JSON.stringify(cpicture));
-                                    this.props.history.push('/child/cpictures/show')
-                                    
-                                }}
-                                style={{
-                                    width:'95%',
-                                    height:'75%',
-                                    margin:'1.5vh auto',
-                                    background:`url(${item.background}) center center/cover no-repeat`,
-                                }}>
-                                </div>
-                                <p style={{
-                                    borderTop:'1px solid #ccc',
-                                    margin:'0',
-                                    lineHeight:'7vh',
-                                    textAlign:'left',
-                                    paddingLeft:'5vw',
-                                    color:'#FFBF2D',
-                                    fontSize:'6vw'
-                                }}>
-                                    
-                                    {item.name}
-                                    <span
-                                    onClick={()=>{
-                                        var delcpicture = document.getElementById('delcpicture');
-                                        delcpicture.style.display='block';
-                                        this.setState({
-                                            childPhotoListid:item.id
-                                        })
-                                    }}
-                                    style={{
-                                        color:'#bdbbb8',
-                                        lineHeight:'6.5vh',
-                                        float:'right',
-                                        marginRight:'4vw'
-                                    }}
+            <View>
+                <View style={styles.navbar}>
+                    <Icon1 
+                        style={styles.icon}
+                        name='chevron-left'
+                        onPress={()=>Actions.pop()}
+                    />
+                    <Text style={styles.title}>云相册</Text>
+                </View>
+                <WingBlank style={{
+                    marginBottom:10
+                }}>
+                    <FlatList 
+                        showsVerticalScrollIndicator={false}
+                        ListFooterComponent={
+                            <View style={{
+                                width:'100%',
+                                marginTop:30
+                            }}>
+                                <Text style={{
+                                    width:'104%',
+                                    marginLeft: '-2%',
+                                    backgroundColor: '#000',
+                                    height: 0.8,
+                                }}></Text>
+                                <Text style={{
+                                    marginTop:-10,
+                                    width:200*s,
+                                    textAlign:'center',
+                                    marginLeft:'auto',
+                                    marginRight:'auto',
+                                    backgroundColor:'#fff',
+                                    fontSize:15,
+                                    color:'#bdbbb8'
+                                }}>底儿都被你看完了</Text>
+                            </View>
+                        }
+                        style={styles.scrollView}
+                        data={lists}
+                        numColumns={1}
+                        renderItem={({item})=>(
+                            <View style={styles.cpicture_block}>
+                                    <View
+                                        style={{
+                                            height:330*s,
+                                            justifyContent:'center',
+                                            alignItems:'center'
+                                        }}
                                     >
-                                        <i className='iconfont icon-shanchu1'/>
-                                    </span>
-                                </p>
-                            </div>
-                        ))
-                    }
-                </div>
+                                        <ImageBackground
+                                            style={{ 
+                                                height: 330*s, 
+                                                width: '100%',
+                                                transform: [{scale:0.9}]
+                                            }}
+                                            resizeMode="contain"
+                                            // source={require("../../images/8.png")}
+                                            source={{uri:`${item.background}`}}
+                                        >
+                                            <Button
+                                                onPress={()=>Actions.cspictures()}
+                                                style={{
+                                                    height: 330*s, 
+                                                    width: '100%',
+                                                    textAlignVertical:'center',
+                                                    color:'#fff',
+                                                    fontSize:0,
+                                                    opacity:0
+                                                }}
+                                            >
+                                                轻触查看相册
+                                            </Button>
+                                        </ImageBackground>
+                                    </View>
+                                    <View style={{
+                                        width:'100%',
+                                        height:70*s,
+                                        paddingLeft:20*s,
+                                        paddingRight:20*s,
+                                        borderColor:'#bdbbb8',
+                                        borderStyle:'solid',
+                                        borderTopWidth:0.5,
+                                        margin:0,
+                                        flexDirection: 'row',
+                                        justifyContent:'center',
 
-                <div className='allpage_add'>
-                    <p></p>
-                    <Link
-                    to={{
-                    pathname:'/child/cpictures/ccpicture',
-                    state:{
-                        cid:this.state.cid
-                    }
-                    }}
-                    ><i className='iconfont icon-jia'></i></Link>
-              </div>
+                                    }}>
+                                        <Text
+                                            style={{
+                                                fontSize:25*s,
+                                                color:'#333',
+                                                width:480*s,
+                                                textAlignVertical:'center'
 
-              <div id='delcpicture'>
-                    <div>删除相册及相册中所有照片？</div>
-                    <button 
-                    onClick={(e)=>{
-                        e.target.parentNode.style.display='none'
+                                            }}
+                                        >{item.name}</Text>
+                                        <Icon2
+                                            onPress={this.rmCpicture}
+                                            name='ios-trash'
+                                            size={30}
+                                            color='#333'
+                                            style={{
+                                                textAlignVertical:'center'
+                                            }}
+                                        />
+                                    </View>
+                            </View>
+                        )}
+                        />  
+                </WingBlank>
+                <View
+                    style={{
+                        width:'100%',
+                        height:50,
+                        justifyContent:'center',
+                        // backgroundColor:'#000',
+                        paddingTop:20
                     }}
-                    style={{
-                        width:'25%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw',
-                        marginRight:'10vw'
-                    }}>返回</button>
-                    <button 
-                    onClick={this.rmCpicture}
-                    style={{
-                        width:'25%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw'
-                    }}>确定</button>
-                </div>
-                <div id='cpictureagain'>
-                    <div>{this.state.code}</div>
-                    <button 
-                    onClick={(e)=>{
-                        e.target.parentNode.style.display='none'; 
-                    }}
-                    style={{
-                        width:'25%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw'
-                    }}>确定</button>
-                </div>
-            </div>
+                >
+                    <Text style={{
+                        width:0.95*width,
+                        marginLeft:'auto',
+                        marginRight:'auto',
+                        backgroundColor: '#FFBF2D',
+                        // backgroundColor: '#bdbbb8',
+                        height: 2*s,
+                    }}></Text>
+                    <Icon2
+                        onPress={()=>{Actions.ccpictures()}} 
+                        style={{
+                            marginTop:-23,
+                            width:80*s,
+                            textAlign:'center',
+                            marginLeft:'auto',
+                            marginRight:'auto',
+                            backgroundColor:'#fff',
+                            color:'#FFBF2D'
+                        }}
+                        size={45}
+                        name='md-add-circle-outline'
+                    />
+                </View>
+            </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    navbar:{
+        width:width,
+        height:65*s,
+        backgroundColor:'#FFBF2D',
+        flexDirection: 'row',
+        paddingLeft:0.02*width,
+        paddingTop:'1%',
+        paddingRight:0.1*width,
+        justifyContent:"center"
+    },
+    icon:{
+        width:0.08*width,
+        color:'#fff',
+        fontSize:30,
+    },
+    title:{
+        marginLeft:'auto',
+        marginRight:"auto",
+        textAlign:'center',
+        fontSize:20,
+        color:'#fff',
+        letterSpacing:3
+    },
+    scrollView: {
+        marginTop:50*s,
+        // backgroundColor: '#000',
+        backgroundColor: '#fff',
+        paddingLeft:10,
+        paddingRight:10,
+        height:900*s
+    },
+    cpicture_block:{
+        marginTop:20*s,
+        // backgroundColor:'#000'
+        height:400*s,
+        borderRadius:5,
+        borderStyle:'solid',
+        borderWidth:1.5,
+        borderColor:'#ccc',
+        // borderColor:'#bdbbb8',
+    }
+})

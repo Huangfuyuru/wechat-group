@@ -1,232 +1,333 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-import { NavBar, Icon } from 'antd-mobile';
-import '../../../css/child.css'
-export default class Showpicture extends Component {
-    constructor(props){
-        super(props);
-        var cpicture = JSON.parse(localStorage.getItem('cpicture'));
+import React, { Component } from 'react'
+import { 
+    Text, 
+    View,
+    StyleSheet,
+    Dimensions,
+    FlatList,
+    Image,
+    TouchableOpacity,
+    Alert,
+    ImageBackground,
+    Modal,
+    TouchableWithoutFeedback,
+    CameraRoll,
+    ToastAndroid
+} from 'react-native'
+import Icon1 from 'react-native-vector-icons/Feather'
+// import Icon1 from 'react-native-vector-icons/Feather'
+import { Actions } from 'react-native-router-flux';
+import { WingBlank} from '@ant-design/react-native';
+import Button from 'react-native-button'
+const {width,scale,height} = Dimensions.get('window');
+const s = width / 640;
+export default class Cdairy extends Component {
+    constructor(){
+        super();
         this.state={
-            count:0,
-            pname:cpicture.pname,
-            pid:cpicture.pid,
-            dellist:[],
-            lists:[]
+            visible:false,
+            currentpicture:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg',
+            lists:[
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                },
+            ],
         }
     }
-    componentDidMount(){
-        fetch(`http://localhost:3001/child/cpictures/show?childPhotoListid=${this.state.pid}`)
-        .then((res)=>res.json())
-        .then(json=>{
-            this.setState({
-                lists:json
-            })
-            console.log(json)
-        })
-    }
-    // componentDidMount(){
-    //     fetch(`http://localhost:3001/child/cpictures/show?childPhotoListid=${this.state.pid}`)
-    //     .then((res)=>res.json())
-    //     .then(json=>{
-    //         this.setState({
-    //             lists:json
-    //         })
-    //         console.log(json)
-    //     })
-    // }
-    delboxAppear=()=>{
-        var delbox = document.getElementsByTagName('input');
-        var delpictureswarn = document.getElementById('delpictureswarn');
-        if(this.state.count%2==0){
-            for(var i=0;i<delbox.length;i++){
-                delbox[i].style.display='block';
-                delbox[i].checked=false;
-            }
-        }else{
-            for(var i=0;i<delbox.length;i++){
-                delbox[i].style.display='none';
-                delpictureswarn.style.display='none';
-            }
-        }
+
+    enlarge=()=>{
         this.setState({
-            count:this.state.count+1
+            visible:true
         })
     }
-    check=()=>{
-        var delpictureswarn = document.getElementById('delpictureswarn');
-        var delbox = document.getElementsByTagName('input');
-        for(var i=0;i<delbox.length;i++){
-            if(delbox[i].checked){
-                delpictureswarn.style.display = 'block'
-            }
-        }
-    }
-    delPictures=()=>{
-        console.log(this.state.dellist)
-        var dellist = JSON.stringify(this.state.dellist)
-        fetch(`http://localhost:3001/child/cpictures/cdelpictures`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`pid=${this.state.pid}&childPhotoid=${dellist}`
-        }).then(res=>res.json())
-        .then(json=>{
-           this.setState({
-               lists:json.data,
-               code:json.msg
-           })
-        })
-        var delpicsconfirm=document.getElementById('delpicsconfirm');
-        delpicsconfirm.style.display='none'
+    savePictures=()=>{
+        Alert.alert('提示', '',
+            [
+                { text: "返回", onPress: this.opntion2Selected },
+                { text: "删除", onPress: ()=>{
+                    Alert.alert('提示', '确定要删除吗？',
+                        [
+                            { text: "确定", onPress: ()=>{
+                                this.setState({
+                                    visible:false
+                                })
+                                ToastAndroid.showWithGravityAndOffset(
+                                    '已删除！',
+                                ToastAndroid.SHORT,
+                                ToastAndroid.CENTER,
+                                25,0)
+                            } },
+                            { text: "返回", onPress: this.opntion2Selected },
+                        ]
+                    )
+                } },
+                { text: "保存", onPress: ()=>{
+                    Alert.alert('提示', '确定要保存到本地？',
+                        [
+                            { text: "确定", onPress: ()=>{
+                                ToastAndroid.showWithGravityAndOffset(
+                                    '已保存！',
+                                ToastAndroid.SHORT,
+                                ToastAndroid.CENTER,
+                                25,0)
+                            } },
+                            { text: "返回", onPress: this.opntion2Selected },
+                        ]
+                    )
+                } },
+                
+                
+            ]
+        )
+        // const storeLocation = `${RNFS.ExternalDirectoryPath}`;
+        // let pathName = new Date().getTime() + "联系我们.png"
+        // let downloadDest = `${storeLocation}/${pathName}`;
+        // const ret = RNFS.downloadFile({fromUrl:this.state.pic,toFile:downloadDest});
+        // ret.promise.then(res => {
+        //     if(res && res.statusCode === 200){
+        //         var promise = CameraRoll.saveToCameraRoll("file://" + downloadDest);
+        //         promise.then(function(result) {
+        //             Alert.alert("图片已保存至相册")
+        //         }).catch(function(error) {
+        //             Alert.alert("保存失败")
+        //         })
+        //     }
+        // })
     }
     render() {
+        const lists = this.state.lists;
         return (
-            // 相册页面
-            <div className="scpicture">
-                <NavBar
-                    style={{
-                    top:0,
-                    width:'100%',
-                    zIndex:'11',
-                    position:'fixed',
-                    height:'8vh',
-                    background:'#FFBF2D',
-                    color:'#fff',
-                    fontWeight:'bolder',
-                    }}
-                    mode="light"
-                    icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/child/cpictures')}
-                    rightContent={[
-                        <span
-                        className='iconfont icon-bianji'
-                        style={{
-                            marginRight:'2vw',
-                            fontSize:'5vw',
-                            fontWeight:'lighter',
-                            letterSpacing:'1vw'
-                        }}
-                        onClick={this.delboxAppear} 
-                        >编辑</span>,
-                        ]}
-                    ><span style={{
-                        fontWeight:'bold',
-                        fontSize:'6vw',
-                        textIndent:'3vw',
-                        letterSpacing:'3vw',
-                        color:"white"
-                    }}
-                    >{this.state.pname}</span>
-                </NavBar>
-                <div className='scpicture_inner'>
-                    {
-                        this.state.lists&&this.state.lists.map((item,idx)=>(
-                            <div className="scpicture_block"
-                            key={item.id}
-                            value={item.id}
-                            style={{
-                                background:`url(${item.imgurl}) center center/cover no-repeat`,
+            <View>
+                <View style={styles.navbar}>
+                    <Icon1 
+                        style={styles.icon}
+                        name='chevron-left'
+                        onPress={()=>Actions.pop()}
+                    />
+                    <Text style={styles.title}>我的相册</Text>
+                    <Icon1
+                        style={styles.icon}
+                        name='more-horizontal'
+                    />
+                </View>
+                <WingBlank>
+                    <FlatList 
+                        style={styles.picbox}
+                        data={lists}
+                        numColumns={4}
+                        ListFooterComponent={
+                            <View style={{
+                                height:0.03*width
                             }}>
-                                <input
-                                onClick={this.check}
-                                name="pictures" 
-                                type="checkbox" 
-                                value={item.id} 
+                            </View>
+                        }
+                        renderItem={({item})=>(
+                            <TouchableOpacity
+                                onPress={this.enlarge}
+                                style={styles.pics}>
+                                <ImageBackground
+                                    // onPress={this.enlarge}
+                                    style={styles.pics}
+                                    resizeMode="cover"
+                                    source={{uri:`${item.background}`}}
+                                >
+                                    <Icon1/>
+                                </ImageBackground>
+                            </TouchableOpacity>
+                        )}
+                    />  
+                </WingBlank>
+                <Modal
+                    transparent
+                    visible={this.state.visible}
+                >
+                    <View style={styles.navbar}>
+                        <Icon1 
+                            style={styles.icon}
+                            name='chevron-left'
+                            onPress={()=>{this.setState({visible:false})}}
+                        />
+                        <Text style={styles.title}>我的相册</Text>
+                        <Icon1 style={styles.icon}/>
+                    </View>
+                    <View style={{
+                        backgroundColor:'#fff',
+                        height:height
+                    }}>
+                        <WingBlank style={{
+                            height:900*s,
+                            marginTop:30*s,
+                            borderColor:'rgba(204,204,204,0.3)',
+                            borderStyle:'solid',
+                            borderWidth:1,
+                            // backgroundColor:'rgba(255,255,255,0.1)',
+                        }}>
+                            <TouchableWithoutFeedback
+                                onLongPress={this.savePictures}
+                            >
+                                <Image
+                                    style={{
+                                        width:0.9*width,
+                                        height:900*s,
+                                        marginLeft:'auto',
+                                        marginRight:'auto',
+                                    }}
+                                    resizeMode="contain"
+                                    source={{uri:`${this.state.currentpicture}`}}
                                 />
-                            </div>
-                        ))
-                    }
-                </div>
-
-                <div id='delpictureswarn'>
-                    <button
-                    onClick={(e)=>{
-                        e.target.parentNode.style.display='none'
-                        var delbox = document.getElementsByTagName('input');
-                        for(var i=0;i<delbox.length;i++){
-                            delbox[i].style.display='none';
-                            delbox[i].checked=false;
-                        }
-                        // console.log(e.target.parentNode.id)
-                    }}>返回</button>
-                    <button
-                    onClick={()=>{
-                        var delpicsconfirm = document.getElementById('delpicsconfirm')
-                        delpicsconfirm.style.display='block';
-                        var delbox = document.getElementsByTagName('input');
-                        var dels=[]
-                        for(var i=0;i<delbox.length;i++){
-                            if(delbox[i].checked){
-                                dels.push(delbox[i].parentNode.getAttribute('value'))
-                                // console.log(delbox[i].parentNode.getAttribute('value'))
-                            }
-                        }
-                        this.setState({
-                            dellist:dels
-                        })
-                    }}
-                    >删除</button>
-                </div>
-
-                <div className='allpage_add'>
-                    <p></p>
-                    <Link
-                    to={{
-                    pathname:'/child/cpictures/addpictures'
-                    }}
-                    ><i className='iconfont icon-jia'></i></Link>
-                </div>
-                <div id='delpicsconfirm'>
-                    <div>确定删除？</div>
-                    <button 
-                    onClick={(e)=>{
-                        e.target.parentNode.style.display='none';
-                    }}
-                    style={{
-                        width:'25%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw',
-                        marginRight:'10vw'
-                    }}>返回</button>
-                    <button 
-                    onClick={this.delPictures}
-                    style={{
-                        width:'25%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw'
-                    }}>确定</button>
-                </div>
-                <div id='picsconfirmagain'>
-                <div>{this.state.code}</div>
-                    <button 
-                    onClick={()=>{
-                        var picsconfirmagain=document.getElementById('picsconfirmagain');
-                        picsconfirmagain.style.display='none';
-                    }}
-                    style={{
-                        width:'25%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw'
-                    }}>确定</button>
-                </div>
-            </div>
+                            </TouchableWithoutFeedback>
+                        </WingBlank>
+                    </View>
+                </Modal>
+            </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    navbar:{
+        width:width,
+        height:65*s,
+        backgroundColor:'#FFBF2D',
+        flexDirection: 'row',
+        paddingLeft:0.03*width,
+        paddingTop:'1%',
+        paddingRight:0.03*width,
+        justifyContent:"center"
+    },
+    icon:{
+        width:0.08*width,
+        color:'#fff',
+        fontSize:30,
+    },
+    title:{
+        marginLeft:'auto',
+        marginRight:"auto",
+        textAlign:'center',
+        fontSize:20,
+        color:'#fff',
+        letterSpacing:3
+    },
+    picbox:{
+        marginTop:50*s,
+        height:930*s,
+        padding:0.01*width,
+        borderColor:'rgba(204,204,204,0.3)',
+        borderStyle:'solid',
+        borderWidth:2,
+        // backgroundColor:'rgba(255,191,45,0.1)'
+    },
+    pics:{
+        width:0.212*width,
+        height:180*s,
+        margin:0.005*width,
+        transform: [{scale:0.95}]
+    },
+})
