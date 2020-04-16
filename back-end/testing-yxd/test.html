@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <button id="btn">点击</button>
+</body>
+ <script>
+    var btn = document.getElementById('btn');
+    console.log('fldaj')
+    btn.onclick=function(){
+        var url = 'http://148.70.223.218:3001/child/';
+        fetch(url,{
+            method:'POST',
+            mode:'no-cors',
+            headers:{
+                'Content-Type':"application/x-www-form-urlencoded"
+            },
+            body:`uid=100001`
+        }).then(res=>res.json)
+         .then(res=>{
+             console.log(res)
+         })
+        
+    }
+</script>
+</html>
