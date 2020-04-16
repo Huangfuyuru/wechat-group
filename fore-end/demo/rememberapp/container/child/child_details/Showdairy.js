@@ -230,7 +230,6 @@ const styles = StyleSheet.create({
         textAlignVertical:'center',
         textAlign:'right',
         fontSize:40*s,
-
     },
     textbox:{
         height:0.2*height,

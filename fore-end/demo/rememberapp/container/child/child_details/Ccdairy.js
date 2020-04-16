@@ -9,14 +9,15 @@ import {
     FlatList,
     Image,
     ImageBackground,
-    ToastAndroid
+    ToastAndroid,
+    ScrollView
 } from 'react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/MaterialIcons'
 import Icon4 from 'react-native-vector-icons/Entypo'
 import Icon5 from 'react-native-vector-icons/Foundation'
-import Icon6 from 'react-native-vector-icons/Octicons'
+import Icon6 from 'react-native-vector-icons/Fontisto'
 import { Actions } from 'react-native-router-flux';
 import { WingBlank } from '@ant-design/react-native';
 const {width,scale,height} = Dimensions.get('window');
@@ -25,12 +26,19 @@ export default class Cdairy extends Component {
     constructor(props){
         super(props);
         this.state={
-            bgcolor:'#ddccff',
+            // refresh:true,
+            chooselist:'',
+            listicon:'',
+            bgcolor:'#ffffaa',
+            weather:'',
             bgimg:'',
             // bgimg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg',
             lists:['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'],
             code:''
         }
+    }
+    choosebgimg = ()=>{
+
     }
     savedairy = ()=>{
         ToastAndroid.showWithGravityAndOffset(
@@ -43,11 +51,55 @@ export default class Cdairy extends Component {
         }, 3000);
     }
     render() {
-        const darkcolor = ['red','orange','yellow','green','cyan','blue','purple','#000000','#bbb']
-
+        const darkbg= [
+            {color:'red',name:'rectangle'},
+            {color:'orange',name:'rectangle'},
+            {color:'yellow',name:'rectangle'},
+            {color:'green',name:'rectangle'},
+            {color:'cyan',name:'rectangle'},
+            {color:'blue',name:'rectangle'},
+            {color:'purple',name:'rectangle'},
+            {color:'#000000',name:'rectangle'},
+            {color:'#bbbbbb',name:'rectangle'}
+        ]
+        const lightbg = [
+            {color:'#ffccee',name:'rectangle'},
+            {color:'#ffddaa',name:'rectangle'},
+            {color:'#ffffaa',name:'rectangle'},
+            {color:'#bbffbb',name:'rectangle'},
+            {color:'#bbffee',name:'rectangle'},
+            {color:'#aabbff',name:'rectangle'},
+            {color:'#ddccff',name:'rectangle'},
+            {color:'#ffffff',name:'rectangle'},
+            {color:'#dddddd',name:'rectangle'}
+        ]
+        const weather = [
+            {color:'#fff',name:'day-sunny'},
+            {color:'#fff',name:'night-clear'},
+            {color:'#fff',name:'day-cloudy'},
+            {color:'#fff',name:'night-alt-cloudy'},
+            {color:'#fff',name:'day-lightning'},
+            {color:'#fff',name:'night-alt-lightning'},
+            {color:'#fff',name:'night-alt-rain'},
+            {color:'#fff',name:'day-snow'},
+            {color:'#fff',name:'night-alt-snow'},
+            {color:'#fff',name:'day-haze'},
+            {color:'#fff',name:'rain'},
+            {color:'#fff',name:'snow'},
+            {color:'#fff',name:'wind'},
+            {color:'#fff',name:'cloudy'},
+            {color:'#fff',name:'cloudy-gusts'},
+            {color:'#fff',name:'rains'},
+            {color:'#fff',name:'snows'},
+            {color:'#fff',name:'lightnings'},
+        ]
         var textcolor = '#000000'
+        var weathercolor = '#ffffff'
         if(this.state.bgcolor == '#000000'){
             textcolor = '#ffffff'
+        }
+        if(this.state.bgcolor == '#ffffff' || this.state.bgcolor == '#ffffaa'){
+            weathercolor = '#000000'
         }
         return (
             <View>
@@ -63,27 +115,75 @@ export default class Cdairy extends Component {
                     </TouchableOpacity>
                 </View>
                 <WingBlank style={styles.wingblank}>
-                    <View style={styles.bgchoose}>
-                        <TouchableOpacity style={styles.titlebtn}>
-                            <Icon2 style={styles.iconbtn} name='palette'/>
-                            <Text style={styles.btntext}>深色背景</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.titlebtn}>
-                            <Icon2 style={styles.iconbtn} name='palette-outline'/>
-                            <Text style={styles.btntext}>浅色背景</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.titlebtn}>
-                            <Icon3 style={styles.iconbtn} name='wallpaper'/>
-                            <Text style={styles.btntext}>背景图片</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.titlebtn}>
-                            <Icon4 style={styles.iconbtn} name='light-up'/>
-                            <Text style={styles.btntext}>天气</Text>
-                        </TouchableOpacity>
+                    <View style={styles.bgchoosebox}>
+                        <View style={styles.bgchoose}>
+                            <TouchableOpacity onPress={()=>this.setState({chooselist:darkbg})} style={styles.titlebtn}>
+                                <Icon2 style={styles.iconbtn} name='palette'/>
+                                <Text style={styles.btntext}>深色背景</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={()=>this.setState({chooselist:lightbg})} style={styles.titlebtn}>
+                                <Icon2 style={styles.iconbtn} name='palette-outline'/>
+                                <Text style={styles.btntext}>浅色背景</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={this.choosebgimg} style={styles.titlebtn}>
+                                <Icon3 style={styles.iconbtn} name='wallpaper'/>
+                                <Text style={styles.btntext}>背景图片</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={()=>this.setState({chooselist:weather})} style={styles.titlebtn}>
+                                <Icon4 style={styles.iconbtn} name='light-up'/>
+                                <Text style={styles.btntext}>天气</Text>
+                            </TouchableOpacity>
+                        </View>
+                            {/* <Text>{this.state.chooselist.toString()}</Text> */}
+                        <FlatList
+                            style={{
+                                borderColor:'rgba(204,204,204,0.2)',
+                                borderWidth:2,
+                                width:0.9*width,
+                                marginLeft:'auto',
+                                marginRight:'auto',
+                            }}
+                            extraData={this.state}
+                            data={this.state.chooselist}
+                            horizontal = {true}
+                            renderItem={({item})=>(
+                                <TouchableOpacity 
+                                    onPress={()=>{
+                                        if(item.name == 'rectangle'){
+                                            this.setState({
+                                                bgcolor:item.color
+                                            })
+                                        }
+                                        if(item.color == '#fff'){
+                                            this.setState({
+                                                weather:item.name
+                                            })
+                                        }
+                                    }}
+                                >
+                                    <Text
+                                        style={{
+                                            width:0.08*width,
+                                            height:0.045*height,
+                                            marginRight:0.01*width,
+                                            marginLeft:0.01*width,
+                                            textAlignVertical:'center',
+                                            textAlign:'center',
+                                            backgroundColor:'#000'
+                                        }}
+                                    >
+                                        <Icon6
+                                            name={item.name} 
+                                            color={item.color} 
+                                        size={25}/>
+                                    </Text>
+                                </TouchableOpacity>
+                            )}
+                        /> 
                     </View>
                     <View style={{
                         width:0.9*width,
-                        height:0.75*height,
+                        height:0.7*height,
                         backgroundColor:'#ccc',
                         marginTop:0,
                         marginLeft:'auto',
@@ -99,13 +199,13 @@ export default class Cdairy extends Component {
                             resizeMode="cover"
                             source={{uri:`${this.state.bgimg}`}}
                         >
+                            <Icon6 color={weathercolor} style={styles.lineweather} name={this.state.weather}/>
                             <TextInput
                                 style={{
-                                    marginTop:0.015*width,
                                     backgroundColor:'rgba(255,255,255,0.3)',
                                     borderColor:'rgba(204,204,204,0.3)',
                                     borderWidth:1,
-                                    height:0.3*height,
+                                    height:0.25*height,
                                     fontSize:23*s,
                                     textAlignVertical: 'top',
                                     transform: [{scale:0.95}],
@@ -182,10 +282,30 @@ const styles = StyleSheet.create({
         borderWidth:1,
         alignContent:'center'
     },
+    bgchoosebox:{
+        marginBottom:0.02*width,
+        height:0.14*height,
+        borderRadius:10,
+        // backgroundColor:'#000',
+        // transform: [{scale:0.95}]
+        // paddingLeft:''
+    },
+    lineweather:{
+        paddingRight:0.02*width,
+        marginLeft:'auto',
+        marginRight:'auto',
+        width:0.85*width,
+        height:0.04*height,
+        textAlignVertical:'center',
+        textAlign:'right',
+        fontSize:40*s,
+        // backgroundColor:'#000'
+
+    },
     bgchoose:{
         margin:0.02*width,
-        height:0.08*height,
-        paddingTop:0.01*height,
+        height:0.07*height,
+        paddingTop:0.008*height,
         paddingBottom:0.01*height,
         borderRadius:10,
         backgroundColor:'rgba(204,204,204,0.1)',
@@ -201,7 +321,7 @@ const styles = StyleSheet.create({
     },
     iconbtn:{
         textAlign:'center',
-        height:0.04*height,
+        height:0.038*height,
         textAlignVertical:'center',
         // backgroundColor:'#ccddff',
         fontSize:40*s,
@@ -209,7 +329,7 @@ const styles = StyleSheet.create({
     },
     btntext:{
         textAlign:'center',
-        height:0.02*height,
+        height:0.018*height,
         fontSize:15*s,
         color:'#bdbbb8'
     },
