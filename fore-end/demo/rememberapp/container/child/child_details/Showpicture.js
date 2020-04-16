@@ -12,12 +12,16 @@ import {
     Modal,
     TouchableWithoutFeedback,
     CameraRoll,
-    ToastAndroid
+    ToastAndroid,
+    ScrollView
 } from 'react-native'
+import { 
+    WingBlank,
+    List,
+} from '@ant-design/react-native';
+import { Actions } from 'react-native-router-flux';
 import Icon1 from 'react-native-vector-icons/Feather'
 // import Icon1 from 'react-native-vector-icons/Feather'
-import { Actions } from 'react-native-router-flux';
-import { WingBlank} from '@ant-design/react-native';
 import Button from 'react-native-button'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
@@ -139,7 +143,13 @@ export default class Cdairy extends Component {
                     background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
                 },
             ],
-        }
+            activeSections: [2, 0],
+            childs:[1,2,3,4]
+
+        };
+        this.onChange = activeSections => {
+            this.setState({ activeSections });
+        };
     }
 
     enlarge=()=>{
@@ -203,6 +213,7 @@ export default class Cdairy extends Component {
     }
     render() {
         const lists = this.state.lists;
+        
         return (
             <View>
                 <View style={styles.navbar}>
@@ -213,18 +224,23 @@ export default class Cdairy extends Component {
                     />
                     <Text style={styles.title}>我的相册</Text>
                     <Icon1
+                        onPress={()=>{
+                            
+                        }}
+                        
                         style={styles.icon}
                         name='more-horizontal'
                     />
+                    
                 </View>
                 <WingBlank>
-                    <FlatList 
+                    <FlatList  
                         style={styles.picbox}
                         data={lists}
                         numColumns={4}
                         ListFooterComponent={
                             <View style={{
-                                height:0.03*width
+                                height:0.04*width
                             }}>
                             </View>
                         }
@@ -278,6 +294,8 @@ export default class Cdairy extends Component {
                                         height:900*s,
                                         marginLeft:'auto',
                                         marginRight:'auto',
+                                        zIndex:1,
+
                                     }}
                                     resizeMode="contain"
                                     source={{uri:`${this.state.currentpicture}`}}
