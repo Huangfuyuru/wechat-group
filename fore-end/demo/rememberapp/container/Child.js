@@ -31,6 +31,7 @@ export default class Lover extends Component {
             change_id:[],
             child_id:'',
             cindex_src:'',
+            background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg',
             cnews:[
                 {
                     ctime:'以下内容仅自己可见',
@@ -156,7 +157,7 @@ export default class Lover extends Component {
                             width: "100%",
                             transform: [{scale:1}]
                         }}
-                        source={require("../images/3.png")}
+                        source={{uri:`${this.state.background}`}}
                         alt='自定义照片墙'>
                     
                                 <TouchableOpacity style={{
@@ -284,7 +285,7 @@ export default class Lover extends Component {
                                                 transform: [{scale:0.9}]
                                             }}
                                             resizeMode="cover"
-                                            source={require("../images/3.png")}
+                                            source={{uri:`${this.state.background}`}}
                                         />
                                     </View>
                                     <View style={{
@@ -314,14 +315,14 @@ const styles = StyleSheet.create({
     },
     lover_first: {
         textAlign: "center",
-        height: 0.3*height,
+        height: 0.33*height,
         width: width,
         justifyContent: "center",
     },
     lover_second: {
-        marginBottom:10,
+        marginBottom:15,
         width:'100%',
-        height: 150*h,
+        height: 140*h,
         flexDirection: "column",
         justifyContent: "center",
         marginLeft:'auto',

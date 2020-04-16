@@ -10,6 +10,12 @@ import { Actions } from 'react-native-router-flux';
 const {width,scale} = Dimensions.get('window');
 const s = width / 640;
 export default class Cdairy extends Component {
+    constructor(){
+        super();
+        this.state={
+            inner:''
+        }
+    }
     render() {
         return (
             <View>
@@ -19,7 +25,10 @@ export default class Cdairy extends Component {
                         name='chevron-left'
                         onPress={()=>Actions.pop()}
                     />
-                    <Text style={styles.title}>亲子日记</Text>
+                    <Text style={styles.title}>我的日记</Text>
+                </View>
+                <View>
+                    {/* <Text>{data}</Text> */}
                 </View>
             </View>
         )
