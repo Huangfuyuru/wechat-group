@@ -130,7 +130,9 @@ const App = () => {
 								inactiveTintColor="#949494"
 								tabBarStyle={{
 									backgroundColor: '#fff',
-									height: 76 * s,
+									borderTopColor:'rgba(204,204,204,0.1)',
+									borderTopWidth:3,
+									height: 70 * s,
 								}}
 							>
 								{/* 亲子 */}
