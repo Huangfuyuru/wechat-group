@@ -36,17 +36,17 @@ export default class Lover extends Component {
                 {
                     ctime:'以下内容仅自己可见',
                     cpic_src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577321644&di=8fc9ce735a95caff1722dd9101f2c7ab&imgtype=jpg&er=1&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3Daaf70247dff9d72a17311819e11a0402%2F728da9773912b31b00eaab518018367adbb4e1c0.jpg',
-                    ccontent:'在这里展示您最近三篇日记大致内容'
+                    ccontent:'在这里展示您未公开的发布'
                 },
                 {
                     ctime:'以下内容仅自己可见',
                     cpic_src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577321644&di=8fc9ce735a95caff1722dd9101f2c7ab&imgtype=jpg&er=1&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3Daaf70247dff9d72a17311819e11a0402%2F728da9773912b31b00eaab518018367adbb4e1c0.jpg',
-                    ccontent:'在这里展示您最近三篇日记大致内容'
+                    ccontent:'在这里展示您未公开的发布'
                 },
                 {
                     ctime:'以下内容仅自己可见',
                     cpic_src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577321644&di=8fc9ce735a95caff1722dd9101f2c7ab&imgtype=jpg&er=1&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3Daaf70247dff9d72a17311819e11a0402%2F728da9773912b31b00eaab518018367adbb4e1c0.jpg',
-                    ccontent:'在这里展示您最近三篇日记大致内容'
+                    ccontent:'在这里展示您未公开的发布'
                 },
             ]
         }
@@ -145,7 +145,7 @@ export default class Lover extends Component {
                         textIndent: 3,
                         letterSpacing: 3,
                         color: "#ffff",
-                        lineHeight: 40
+                        // textAlignVertical:'center'
                     }}
                     >亲子</Text>
                 </View>

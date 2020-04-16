@@ -4,13 +4,51 @@ import {
     View,
     StyleSheet,
     Dimensions,
+    TextInput,
+    TouchableOpacity,
+    FlatList,
+    Image,
+    ImageBackground,
+    ToastAndroid
 } from 'react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon3 from 'react-native-vector-icons/MaterialIcons'
+import Icon4 from 'react-native-vector-icons/Entypo'
+import Icon5 from 'react-native-vector-icons/Foundation'
+import Icon6 from 'react-native-vector-icons/Octicons'
 import { Actions } from 'react-native-router-flux';
-const {width,scale} = Dimensions.get('window');
+import { WingBlank } from '@ant-design/react-native';
+const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 export default class Cdairy extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            bgcolor:'#ddccff',
+            bgimg:'',
+            // bgimg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg',
+            lists:['https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg','https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'],
+            code:''
+        }
+    }
+    savedairy = ()=>{
+        ToastAndroid.showWithGravityAndOffset(
+            '保存成功！',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+        25,-200)
+        setTimeout(() => {
+            Actions.pop() 
+        }, 3000);
+    }
     render() {
+        const darkcolor = ['red','orange','yellow','green','cyan','blue','purple','#000000','#bbb']
+
+        var textcolor = '#000000'
+        if(this.state.bgcolor == '#000000'){
+            textcolor = '#ffffff'
+        }
         return (
             <View>
                 <View style={styles.navbar}>
@@ -19,8 +57,94 @@ export default class Cdairy extends Component {
                         name='chevron-left'
                         onPress={()=>Actions.pop()}
                     />
-                    <Text style={styles.title}>亲子日记</Text>
+                    <Text style={styles.title}>写日记</Text>
+                    <TouchableOpacity onPress={this.savedairy}>
+                        <Icon2 style={styles.icon}  name='playlist-check'/>
+                    </TouchableOpacity>
                 </View>
+                <WingBlank style={styles.wingblank}>
+                    <View style={styles.bgchoose}>
+                        <TouchableOpacity style={styles.titlebtn}>
+                            <Icon2 style={styles.iconbtn} name='palette'/>
+                            <Text style={styles.btntext}>深色背景</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.titlebtn}>
+                            <Icon2 style={styles.iconbtn} name='palette-outline'/>
+                            <Text style={styles.btntext}>浅色背景</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.titlebtn}>
+                            <Icon3 style={styles.iconbtn} name='wallpaper'/>
+                            <Text style={styles.btntext}>背景图片</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.titlebtn}>
+                            <Icon4 style={styles.iconbtn} name='light-up'/>
+                            <Text style={styles.btntext}>天气</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{
+                        width:0.9*width,
+                        height:0.75*height,
+                        backgroundColor:'#ccc',
+                        marginTop:0,
+                        marginLeft:'auto',
+                        marginRight:'auto',
+                        backgroundColor:`${this.state.bgcolor}`
+                    }}>
+                        <ImageBackground
+                            style={{
+                                width:'100%',
+                                height:'100%',
+                                transform: [{scale:0.98}]
+                            }}
+                            resizeMode="cover"
+                            source={{uri:`${this.state.bgimg}`}}
+                        >
+                            <TextInput
+                                style={{
+                                    marginTop:0.015*width,
+                                    backgroundColor:'rgba(255,255,255,0.3)',
+                                    borderColor:'rgba(204,204,204,0.3)',
+                                    borderWidth:1,
+                                    height:0.3*height,
+                                    fontSize:23*s,
+                                    textAlignVertical: 'top',
+                                    transform: [{scale:0.95}],
+                                    padding:0.03*width,
+                                    color:`${textcolor}`
+                                }}
+                                placeholder="日记内容"
+                                multiline={true}
+                            />
+                            <View style={styles.picchoose}>
+                                <Text style={styles.pictext}>添加图片</Text>
+                                <TouchableOpacity style={styles.picbtn}>
+                                    <Icon2 size={45*s} style={styles.iconpic} name='image-plus'/>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.picbtn}>
+                                    <Icon4 size={40*s} style={styles.iconpic} name='camera'/>
+                                </TouchableOpacity>
+                            </View>
+                            <FlatList 
+                                style={styles.picbox}
+                                data={this.state.lists}
+                                numColumns={3}
+                                ListFooterComponent={
+                                    <View style={{
+                                        height:0.03*width
+                                    }}>
+                                    </View>
+                                }
+                                renderItem={({item})=>(
+                                    <Image
+                                        style={styles.pics}
+                                        resizeMode="cover"
+                                        source={{uri:`${item}`}}
+                                    />
+                                )}
+                                />  
+                        </ImageBackground>
+                    </View>
+                </WingBlank>
             </View>
         )
     }
@@ -32,9 +156,9 @@ const styles = StyleSheet.create({
         height:65*s,
         backgroundColor:'#FFBF2D',
         flexDirection: 'row',
-        paddingLeft:0.02*width,
+        paddingLeft:0.03*width,
         paddingTop:'1%',
-        paddingRight:0.1*width,
+        paddingRight:0.03*width,
         justifyContent:"center"
     },
     icon:{
@@ -49,5 +173,87 @@ const styles = StyleSheet.create({
         fontSize:20,
         color:'#fff',
         letterSpacing:3
-    }
+    },
+    wingblank:{
+        height:0.87*height,
+        marginTop:0.015*height,
+        borderColor:'rgba(204,204,204,0.3)',
+        borderStyle:'solid',
+        borderWidth:1,
+        alignContent:'center'
+    },
+    bgchoose:{
+        margin:0.02*width,
+        height:0.08*height,
+        paddingTop:0.01*height,
+        paddingBottom:0.01*height,
+        borderRadius:10,
+        backgroundColor:'rgba(204,204,204,0.1)',
+        flexDirection:'row',
+        // transform: [{scale:0.95}]
+        // paddingLeft:''
+    },
+    titlebtn:{
+        width:0.195*width,
+        // backgroundColor:'#ffddee',
+        marginLeft:0.015*width,
+        marginRight:0.01*width,
+    },
+    iconbtn:{
+        textAlign:'center',
+        height:0.04*height,
+        textAlignVertical:'center',
+        // backgroundColor:'#ccddff',
+        fontSize:40*s,
+        color:'#FFBF2D'
+    },
+    btntext:{
+        textAlign:'center',
+        height:0.02*height,
+        fontSize:15*s,
+        color:'#bdbbb8'
+    },
+    picchoose:{
+        // margin:0.02*width,
+        height:0.05*height,
+        paddingTop:0.01*height,
+        paddingBottom:0.01*height,
+        borderRadius:10,
+        backgroundColor:'rgba(204,204,204,0.1)',
+        flexDirection:'row',
+        // backgroundColor:'#ccc'
+    },
+    pictext:{
+        width:0.3*width,
+        height:0.04*height,
+        // backgroundColor:'#ddd',
+        marginRight:0.25*width,
+        color:'#555',
+        fontSize:25*s,  
+        textAlign:'center' ,
+        textAlignVertical:'center', 
+    },
+    iconpic:{
+        width:0.15*width,
+        textAlign:'center',
+        height:0.04*height,
+        textAlignVertical:'center',
+        // backgroundColor:'#ccddff',
+        color:'#888'
+    },
+    picbox:{
+        height:0.6*height,
+        backgroundColor:'rgba(255,255,255,0.4)',
+        padding:0.01*width,
+        width:0.89*width,
+        transform: [{scale:0.98}],
+        marginRight:'auto',
+        marginLeft:'auto',
+    },
+    pics:{
+        width:0.275*width,
+        height:0.18*height,
+        margin:0.007*width,
+        transform: [{scale:0.95}],
+    },
 })

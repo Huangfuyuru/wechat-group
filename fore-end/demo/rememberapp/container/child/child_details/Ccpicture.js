@@ -136,14 +136,12 @@ export default class Cdairy extends Component {
                                 flexDirection: 'row',
                                 textAlignVertical:'center',
                             }}>
-                                <Icon3
-                                    onPress={this.choosepictures} 
-                                    style={styles.btn} 
-                                    name='photograph'/>
-                                <Icon1 
-                                    onPress={this.takephoto}
-                                    style={styles.btn} 
-                                    name='camera'/>
+                                <TouchableOpacity onPress={this.choosepictures} >
+                                    <Icon3 style={styles.btnicon} name='photograph'/>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={this.takephoto}>
+                                    <Icon1 style={styles.btnicon}  name='camera'/>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <FlatList 
@@ -266,9 +264,10 @@ const styles = StyleSheet.create({
         marginBottom:50*s
 
     },
-    btn:{
-        textAlign:'center',
+    btnicon:{
         width:0.15*width,
+        height: 50*s,
+        textAlign:'center',
         fontSize:40*s,
         color:'#FFBF2D',
         textAlignVertical:'center',
