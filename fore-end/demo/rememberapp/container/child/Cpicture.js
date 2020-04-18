@@ -8,14 +8,14 @@ import {
     ImageBackground,
     Image,
     Alert,
-    ToastAndroid
+    ToastAndroid,
+    TouchableOpacity
 } from 'react-native'
 import Button from 'react-native-button'
 import { WingBlank } from '@ant-design/react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux';
-import { TouchableOpacity } from 'react-native-gesture-handler'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 export default class Cdairy extends Component {
@@ -202,15 +202,19 @@ export default class Cdairy extends Component {
 
                                             }}
                                         >{item.name}</Text>
-                                        <Icon2
-                                            onPress={this.rmCpicture}
-                                            name='ios-trash'
-                                            size={30}
-                                            color='#333'
-                                            style={{
-                                                textAlignVertical:'center'
-                                            }}
-                                        />
+                                        <TouchableOpacity onPress={this.rmCpicture}>
+                                            <Icon2
+                                                style={{
+                                                    width:0.05*width,
+                                                    height:70*s,
+                                                    textAlign:'center',
+                                                    textAlignVertical:'center'
+                                                }}
+                                                name='ios-trash'
+                                                size={30}
+                                                color='#333'
+                                            />
+                                        </TouchableOpacity>
                                     </View>
                             </View>
                         )}
