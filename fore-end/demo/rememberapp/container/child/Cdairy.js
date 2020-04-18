@@ -7,6 +7,7 @@ import {
     FlatList,
     Image,
     ImageBackground,
+    TouchableOpacity
 } from 'react-native'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux';
@@ -145,11 +146,9 @@ export default class Cdairy extends Component {
                         onPress={()=>Actions.pop()}
                     />
                     <Text style={styles.title}>亲子日记</Text>
-                    <Icon3 
-                        style={styles.icon}
-                        name='md-add'
-                        onPress={()=>Actions.ccdairy()}
-                    />
+                    <TouchableOpacity onPress={()=>Actions.ccdairy()}>
+                        <Icon3 style={styles.icon}  name='md-add'/>
+                    </TouchableOpacity>
                 </View>
                 <WingBlank style={styles.wingblank}>
                     <FlatList

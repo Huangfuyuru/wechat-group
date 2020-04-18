@@ -19,7 +19,7 @@ export default class Cdairy extends Component {
                         name='chevron-left'
                         onPress={()=>Actions.pop()}
                     />
-                    <Text style={styles.title}>亲子日记</Text>
+                    <Text style={styles.title}>新增记录</Text>
                 </View>
             </View>
         )

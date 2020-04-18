@@ -12,10 +12,12 @@
   "dependencies": {
     "@ant-design/icons-react-native": "^2.0.0",
     "@ant-design/react-native": "^3.3.0",
+    "@react-native-community/viewpager": "^3.3.0",
     "moment": "^2.24.0",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-button": "^3.0.1",
+    "react-native-checkbox": "^2.0.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-image-crop-picker": "^0.28.0",
     "react-native-image-picker": "^2.3.1",
