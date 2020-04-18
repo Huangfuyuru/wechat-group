@@ -87,6 +87,10 @@ target 'rememberapp' do
 
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
   target 'rememberappTests' do
     inherit! :complete
     # Pods for testing
