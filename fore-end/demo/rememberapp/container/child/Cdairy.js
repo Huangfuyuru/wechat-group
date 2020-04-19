@@ -208,7 +208,7 @@ export default class Cdairy extends Component {
                                     backgroundColor:`${item.bgcolor}`,
                                     width:0.87*width,
                                     height:0.36*height,
-                                    marginTop:20*s,
+                                    marginTop:0.015*height,
                                     borderWidth:5,
                                     borderColor:'rgba(204,204,204,0.1)'
                                     
@@ -322,11 +322,10 @@ const styles = StyleSheet.create({
         letterSpacing:3
     },
     scrollView: {
-        backgroundColor: '#fff',
         paddingLeft:0.03*width,
         paddingRight:0.03*width,
-        paddingTop:5,
-        // marginBottom:60,
+        // backgroundColor:'#ccc',
+
     },
     titleline:{
         // backgroundColor:'#ccc',
@@ -349,5 +348,7 @@ const styles = StyleSheet.create({
         borderColor:'rgba(204,204,204,0.3)',
         borderStyle:'solid',
         borderWidth:1,
+        paddingTop:0.02*height,
+        paddingBottom:0.02*height,
     }
 })

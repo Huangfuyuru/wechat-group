@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     },
     listblock:{
         // backgroundColor:'rgba(255,191,45,0.1)',
-        backgroundColor:'rgba(238,255,221,0.5)',
+        backgroundColor:'rgba(255,255,204,0.3)',
         borderRadius:5,
         height:0.26*height,
         transform:[{scale:0.95}],
