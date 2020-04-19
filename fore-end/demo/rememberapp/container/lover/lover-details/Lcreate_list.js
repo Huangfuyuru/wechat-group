@@ -1,157 +1,229 @@
 import React, { Component } from 'react'
-import { NavBar,WingBlank} from 'antd-mobile';
-import {Link} from "react-router-dom"
-import "../../../css/lover.css"
+import {
+    View,
+    Text,
+    Dimensions,
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    Image,
+    Alert,
+    ToastAndroid
+} from "react-native"
+import Icon1 from 'react-native-vector-icons/Feather'
+import Icon2 from "react-native-vector-icons/Octicons"
+import { Actions } from "react-native-router-flux"
+import { WingBlank } from "@ant-design/react-native"
+import { ScrollView } from 'react-native-gesture-handler'
+const { width, scale, height } = Dimensions.get('window');
+const s = width / 640;
 export default class Lcreate_list extends Component {
-    constructor(props){
-        super(props);
+    constructor(){
+        super()
         this.state={
-            name:this.props.location.state.name,
-            content:"",
-            imgurl:"",
-            local:"",
-            setdate:"",
-            listid:this.props.location.state.listid,
-            lid:JSON.parse(localStorage.getItem('lid')),
-            code:""
+            img:'https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1354279089,2926899578&fm=26&gp=0.jpg',
         }
     }
-    upFile=()=>{
-        var file=document.getElementById('list').files[0];
-        var url = 'http://localhost:3001/img';
-        var form = new FormData();
-        form.append("file",file);
-        fetch(url,{
-            method:'POST',
-            enctype:'multipart/form-data',
-            body:form
-        }).then(res=>res.json())
-        .then(json=>( 
-            this.setState({
-                imgurl:json.path
-            },()=>{
-                var img=document.getElementById("listPhoto");
-                img.setAttribute("src",this.state.imgurl);
-            })
-        ))
-    }
-    getContent=(e)=>{
-        this.setState({
-            content:e.target.value
-        })
-    }
-    getDate=(e)=>{
-        this.setState({
-            setdate:e.target.value
-        })
-    }
-    getLocal=(e)=>{
-        this.setState({
-            local:e.target.value
-        })
-    }
-    upList=()=>{
-        console.log("增加")
-        fetch(`http://localhost:3001/lover/loverlist/addloverlist`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`name=${this.state.name}&content=${this.state.content}&imgurl=${this.state.imgurl}&local=${this.state.local}&listid=${this.state.listid}&lid=${this.state.lid}&setdate=${this.state.setdate}`
-        })
-        .then(res=>res.json())
-        .then(json=>{ 
-            console.log(json)
-             if(json.code===0){
-                 this.setState({
-                     code:"增加成功"
-                 })
-             }
-        })
-        var uplists=document.getElementById('uplists');
-        uplists.style.display='block';
+    alertMsg=()=>{
+        Alert.alert(
+            '提示',
+            '确认提交？',
+            [
+                {text: '确定', onPress: () =>{ 
+                    Actions.pop()
+                    ToastAndroid.show('提交成功！', ToastAndroid.SHORT)
+                }},
+                {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            ],
+        );
     }
     render() {
         return (
-            <div style={{width:"100%",backgroundColor:"white"}}>
-            <NavBar
+            <View>
+                <View style={styles.navbar}>
+                    <Icon1
+                        style={styles.icon}
+                        name='chevron-left'
+                        onPress={() => Actions.pop()}
+                    />
+                    <Text style={styles.title}>填写清单</Text>
+                </View>
+                <View style={{
+                    height:800*s,
+                    borderWidth:0.5,
+                    borderColor:"black",
+                    marginRight:"auto",
+                    marginLeft:"auto",
+                    borderRadius:15,
+                    width:0.9*width,
+                    marginTop:50*s
+                }}>
+                <View style={styles.msg}>
+                <Icon1 
                     style={{
-                        height:'8vh',
-                        color:'black',
-                        zIndex:'11',
-                     position:'fixed',
-                     width:'100%',
-                     left:0,
-                     top:0
+                        position:"absolute",
+                        top:15*s,
+                        left:15*s,
+                        fontSize:20,
+                        color:"#FF1744"
                     }}
-                    mode="light"
-                    icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/lover/lslists')}
-                    ><span style={{
-                        // fontWeight:'bold',
-                        fontSize:'6vw',
-                        textIndent:'3vw',
-                        letterSpacing:'3vw',
-                        color:"black"
-                    }}
-                    >新建清单</span>
-                </NavBar>
-                <div style={{marginTop:"10vh"}}>
-            <p style={{fontSize:"5vw",float:"left",margin:"5% 5%"}}> 用一张图记录</p>
-            <div style={{height:"6vh",width:"40%",backgroundColor:"pink",float:"left",marginTop:"1vh"}} >
-                    <span style={{position:"relative",top:"30%",left:"15%"}}>轻触上传封面</span>
-                    <input  
-                        style={{height:"100%",width:"100%",opacity:"0"}}
-                        id="list"  
-                        onChange={this.upFile}
-                        type='file'  
-                        accept="image/*" 
-                        capture="camera" 
-                        name="imgurl"
-                        multiple="multiple"
-                        alt=""/>
-            </div>
-            <div className="createlist-first">
-            <img id="listPhoto" src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3560880680,1309107465&fm=26&gp=0.jpg" alt="图片预览" />
-            </div>
-            <p style={{fontSize:"5vw",float:"left",margin:"5% 5%"}}> 用一句话记录</p>
-            <input type="text" className="createlist-second" placeholder="单行输入" onChange={this.getContent}></input>
-            <div className="createlist-three">
-                  <p >时间:</p>
-                  <input  type="text" placeholder="例:1999-11-28" onChange={this.getDate}/>
-                  </div>
-                  <div className="createlist-three">
-                  <p >地址:</p>
-                  <input  type="text" placeholder="石家庄" onChange={this.getLocal}/>
-                  </div>
-                  <WingBlank>
-               <button className="createlist-foot" onClick={this.upList}>保存</button>
-               </WingBlank>
-            </div>
+                    name="calendar"/>
+                    <Text style={styles.text}>
+                        打卡时间：</Text>
+                    <TextInput
+                        maxLength={10}
+                        placeholder='例2020-02-16'
+                        style={styles.input} />
+                </View>
+                <View style={styles.msg}>
+                    <Icon2
+                    style={{
+                        position:"absolute",
+                        top:15*s,
+                        left:15*s,
+                        fontSize:20,
+                        color:"#FF1744"
 
-             <form id='uplists'>
-                    <div>{this.state.code}</div>
-                    <button 
-                    onClick={()=>{
-                        var uplists=document.getElementById('uplists');
-                        uplists.style.display='none';
-                        this.props.history.push('/lover/lslists');
                     }}
-                    style={{
-                        width:'35%',
-                        height:'15%',
-                        color:'black',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw',
-                        marginRight:'2vw'
-                    }}>返回列表</button>
-                </form> 
-            </div>
+                     name="location"/>
+
+                    <Text style={styles.text}>
+                        打卡地点：</Text>
+                    <TextInput
+                        maxLength={10}
+                        placeholder='例北京'
+                        style={styles.input} />
+                </View>
+                <TouchableOpacity
+                        style={styles.coverbox}>
+                        <Text
+                        style={styles.textbtn}>轻触设置封面</Text>
+                        <Image
+                            style={styles.cover}
+                            resizeMode="contain"
+                            source={{ uri: this.state.img }}
+                        ></Image>
+                </TouchableOpacity>
+                    <TextInput style={{
+                         width:0.8*width,
+                         height:170*s,
+                         alignContent:'center',
+                         marginLeft:'auto',
+                         marginRight:'auto',
+                         marginTop:30*s,
+                         backgroundColor:"pink",
+                         textDecorationLine:"line-through",
+                         textAlignVertical: 'top',
+                         borderRadius:15
+                    }}
+                    placeholder="用一段话记录"
+                    multiline={true}
+                    >
+                    </TextInput>
+                    <TouchableOpacity style={{
+                        width:0.4*width,
+                        height:60*s,
+                        borderColor:"#000",
+                        borderWidth:1,
+                        borderRadius:10,
+                        marginLeft:"auto",
+                        marginRight:"auto",
+                        marginTop:90*s
+                    }}
+                    onPress={this.alertMsg}
+                    >
+                        <Text
+                        style={{
+                            textAlign:"center",
+                            textAlignVertical:"center",
+                            lineHeight:48*s,
+                            fontSize:28*s
+                        }}
+                        >提交</Text>
+                    </TouchableOpacity>
+                    </View>
+                    
+            </View>
 
         )
     }
 }
+const styles = StyleSheet.create({
+    navbar: {
+        width: width,
+        height: 65 * s,
+        backgroundColor: 'white',
+        flexDirection: 'row',
+        paddingLeft: 0.03 * width,
+        paddingTop: '1%',
+        paddingRight: 0.03 * width,
+        justifyContent: "center",
+    },
+    icon: {
+        width: 0.08 * width,
+        color: 'black',
+        fontSize: 28,
+    },
+    title: {
+        marginLeft: 'auto',
+        marginRight: "auto",
+        textAlign: 'center',
+        fontSize: 20,
+        color: 'black',
+        letterSpacing: 3
+    },
+    msg: {
+        width: 0.8 * width,
+        height: 60 * s,
+        marginTop: 10 * s,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginLeft:"auto",
+        marginRight:"auto",
+    },
+    text: {
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        width: 0.3 * width,
+        fontSize: 26 * s,
+        color: '#333',
+    },
+    input: {
+        width: 0.4 * width,
+        borderColor: '#bdbbb8',
+        borderStyle: 'solid',
+        borderBottomWidth: 1,
+        fontSize: 26 * s,
+        textAlign: 'center',
+        color: '#333',
+    },
+    textbtn:{
+        textAlign:'center',
+        textAlignVertical:'center',
+        width:0.25*width,
+        height:45*s,
+        fontSize:26*s,
+        color:'#333',
+        textAlignVertical:'center',
+    },
+    coverbox:{
+        // backgroundColor:'#000',
+        width:0.6*width,
+        height:230*s,
+        alignContent:'center',
+        marginLeft:'auto',
+        marginRight:'auto',
+        marginTop:20*s,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    cover:{
+        width:0.5*width,
+        height:180*s,
+        borderColor:'#ccc',
+        borderStyle:'solid',
+        borderWidth:2,
+        backgroundColor:'rgba(255,191,45,0.1)',
+        
+    },
+})
