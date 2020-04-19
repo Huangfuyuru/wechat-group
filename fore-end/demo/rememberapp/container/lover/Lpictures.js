@@ -28,30 +28,30 @@ export default class Lpictures extends Component {
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4102090592,2810254858&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4102090592,2810254858&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
 
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4102090592,2810254858&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
 
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4102090592,2810254858&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
 
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4102090592,2810254858&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
             ],
             code:""

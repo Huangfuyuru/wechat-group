@@ -25,30 +25,30 @@ export default class Lsouvenir extends Component {
                     src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
                     date: "2020-02-16",
                     txt: "第一次一起去旅行",
-                    heart:"ღღღღღ"
+                    heart:"ღ ღ ღ ღ ღ"
                 },
                 {
                     src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
                     date: "2020-02-16",
                     txt: "第一次接吻",
-                    heart:"ღღღ"
+                    heart:"ღ ღ ღ"
                 },
                 {
                     src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
                     date: "2020-02-16",
                     txt: "第一次接吻",
-                    heart:"ღღღ"
+                    heart:"ღ ღ ღ"
                 },
                 {
                     src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
                     date: "2020-02-16",
                     txt: "第一次接吻",
-                    heart:"ღღღღღ"
+                    heart:"ღ ღ ღ ღ ღ"
                 }, {
                     src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
                     date: "2020-02-16",
                     txt: "第一次接吻",
-                    heart:"ღღღღღ"
+                    heart:"ღ ღ ღ ღ ღ"
                 },
             ]
         }
