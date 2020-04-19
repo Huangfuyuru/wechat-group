@@ -232,9 +232,10 @@ const styles = StyleSheet.create({
         transform:[{scale:0.98}]
     },
     listblock:{
+        // backgroundColor:'rgba(255,191,45,0.1)',
         backgroundColor:'rgba(238,255,221,0.5)',
         borderRadius:5,
-        height:0.25*height,
+        height:0.26*height,
         transform:[{scale:0.95}],
         justifyContent:'center',
     },
@@ -247,7 +248,7 @@ const styles = StyleSheet.create({
     listline:{
         width:0.7*width,
         height:0.06*height,
-        backgroundColor:'rgba(204,204,204,0.3)',
+        backgroundColor:'rgba(204,204,204,0.2)',
         marginTop:0.01*height,
         marginLeft:'auto',
         marginRight:'auto',
