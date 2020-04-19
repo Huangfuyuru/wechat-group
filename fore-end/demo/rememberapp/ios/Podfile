@@ -91,6 +91,8 @@ target 'rememberapp' do
 
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
 
+  pod 'react-native-video', :path => '../node_modules/react-native-video'
+
   target 'rememberappTests' do
     inherit! :complete
     # Pods for testing
