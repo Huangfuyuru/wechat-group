@@ -59,6 +59,12 @@ import Lsouvenir from "./container/lover/Lsouvenir"
 import Community from './container/Community';
 import My from './container/My';
 
+import Crelation from './container/my/Crelation'
+import Crelation2 from './container/my/Crelation2'
+import Delrelation from './container/my/Delrelation'
+import Delrelation2 from './container/my/Delrelation2'
+import Message from './container/my/Message'
+import Use from './container/my/Use'
 
 
 import T from './components/Tlists'
@@ -277,6 +283,12 @@ const App = () => {
 
 								>
 									<Scene key="mine" hideNavBar={true} component={My} />
+									<Scene key="Crelation" hideNavBar={true} component={Crelation} />
+									<Scene key="Crelation2" hideNavBar={true} component={Crelation2} />
+									<Scene key='Delrelation' hideNavBar={true} component={Delrelation} />
+									<Scene key='Delrelation' hideNavBar={true} component={Delrelation2} />
+									<Scene key='Message' hideNavBar={true} component={Message} />
+									<Scene key='Use' hideNavBar={true} component={Use} />
 
 								</Scene>
 							</Tabs>
