@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     Image,
     Alert,
-    ToastAndroid
+    ToastAndroid,
+    ImageBackground
 } from "react-native"
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from "react-native-vector-icons/SimpleLineIcons"
@@ -113,6 +114,46 @@ export default class Lcreate_souver extends Component {
                         placeholder='输入3代表 ღ ღ ღ'
                         style={styles.input} />
                 </View>
+                <View style={styles.msg}>
+                    <Icon1
+                    style={{
+                        position:"absolute",
+                        top:15*s,
+                        left:15*s,
+                        fontSize:20,
+                        color:"#FF1744"
+                    }}
+                     name="music"/>
+
+                    <Text style={styles.text}>
+                        设置铃声：</Text>
+                    <ImageBackground 
+                     style={{
+                        width: 0.4 * width,
+                        textAlign: 'center',
+                    }} 
+                    source={{uri:"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3677406540,3284316335&fm=26&gp=0.jpg"}}>
+                    <TouchableOpacity
+                        maxLength={10}
+                        placeholder='输入3代表 ღ ღ ღ'
+                        style={{
+                            width: 0.4 * width,
+                            borderColor: '#bdbbb8',
+                            textAlign: 'center',
+                            color: '#333',
+                            backgroundColor:"#336666",
+                            opacity:0.5,
+                            height:60*s,
+                        }} >
+                            <Text style={{
+                                textAlign:"center",
+                                color:"#fff",
+                                marginTop:"auto",
+                                marginBottom:"auto"
+                                }}>点击上传</Text>
+                        </TouchableOpacity>
+                        </ImageBackground>
+                </View>
               
                 <TouchableOpacity style={styles.coverbox}>
                         <Text
@@ -162,7 +203,8 @@ const styles = StyleSheet.create({
     navbar: {
         width: width,
         height: 65 * s,
-        backgroundColor: 'white',
+        backgroundColor: '#FFBF2D',
+        // backgroundColor: 'white',
         flexDirection: 'row',
         paddingLeft: 0.03 * width,
         paddingTop: '1%',
@@ -171,7 +213,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         width: 0.08 * width,
-        color: 'black',
+        color: '#fff',
         fontSize: 28,
     },
     title: {
@@ -179,7 +221,7 @@ const styles = StyleSheet.create({
         marginRight: "auto",
         textAlign: 'center',
         fontSize: 20,
-        color: 'black',
+        color: '#fff',
         letterSpacing: 3
     },
     msg: {

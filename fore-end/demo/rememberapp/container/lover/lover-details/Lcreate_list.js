@@ -152,7 +152,8 @@ const styles = StyleSheet.create({
     navbar: {
         width: width,
         height: 65 * s,
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
+        backgroundColor: '#FFBF2D',
         flexDirection: 'row',
         paddingLeft: 0.03 * width,
         paddingTop: '1%',
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         width: 0.08 * width,
-        color: 'black',
+        color: '#fff',
         fontSize: 28,
     },
     title: {
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
         marginRight: "auto",
         textAlign: 'center',
         fontSize: 20,
-        color: 'black',
+        color: '#fff',
         letterSpacing: 3
     },
     msg: {
