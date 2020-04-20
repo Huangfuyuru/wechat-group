@@ -11,7 +11,6 @@ import {
     Modal,
     Image,
     TouchableWithoutFeedback,
-
 } from 'react-native'
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment'
@@ -40,6 +39,9 @@ export default class Cdairy extends Component {
         this.setState({
             visible:true
         })
+    }
+    savePictures = ()=>{
+
     }
     render() {
         const item = this.state.data

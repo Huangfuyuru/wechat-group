@@ -221,6 +221,7 @@ export default class Cdairy extends Component {
                                         height:'100%',
                                         transform: [{scale:0.98}]
                                     }}
+                                    imageStyle={{opacity:0.8}}
                                     resizeMode="cover"
                                     source={{uri:`${item.bgimg}`}}
                                 >

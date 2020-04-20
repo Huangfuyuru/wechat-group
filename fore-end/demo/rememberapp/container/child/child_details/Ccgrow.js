@@ -37,18 +37,6 @@ export default class Cdairy extends Component {
         }, 3000);
     }
     render() {
-        const ageunit =  [
-            [
-              {
-                label: '2013',
-                value: '2013',
-              },
-              {
-                label: '2014',
-                value: '2014',
-              },
-            ],
-          ];
         return (
             <View>
                 <View style={styles.navbar}>

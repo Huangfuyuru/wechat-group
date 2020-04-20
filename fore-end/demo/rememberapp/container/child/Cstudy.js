@@ -18,7 +18,6 @@ import moment from 'moment'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Ionicons'
-import Icon4 from 'react-native-vector-icons/Ionicons'
 
 import { Actions } from 'react-native-router-flux';
 const {width,scale,height} = Dimensions.get('window');
@@ -333,7 +332,7 @@ export default class Cdairy extends Component {
                             
                         </View>
                         <View style={styles.tabbox}>
-                            <Text>Content of Second Tab</Text>
+                            <Text>学业曲线</Text>
                         </View>
                     </Tabs>
                 </WingBlank>
