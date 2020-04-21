@@ -3,7 +3,7 @@ import {
     Text, 
     View,
 } from 'react-native'
-export default class Delrelation2 extends Component {
+export default class Myfriend extends Component {
     render() {
         return (
             <View>

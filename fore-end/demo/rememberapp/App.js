@@ -76,15 +76,16 @@ import LCsouvenir from "./container/lover/lover-details/Lcreate_souver"
 import Community from './container/Community';
 import My from './container/My';
 
-import Crelation from './container/my/Crelation'
-import Crelation2 from './container/my/Crelation2'
+import Mychilds from './container/my/Mychilds'
+import Mylover from './container/my/Mylover'
 import Delrelation from './container/my/Delrelation'
-import Delrelation2 from './container/my/Delrelation2'
+import Myfriend from './container/my/Myfriend'
 import Message from './container/my/Message'
 import Use from './container/my/Use'
 
 
 import T from './components/Tlists'
+import Mychild from './container/my/Mychilds';
 const { width, scale } = Dimensions.get('window');
 const s = width / 640;
 console.disableYellowBox = true;
@@ -317,10 +318,10 @@ const App = () => {
 
 								>
 									<Scene key="mine" hideNavBar={true} component={My} />
-									<Scene key="Crelation" hideNavBar={true} component={Crelation} />
-									<Scene key="Crelation2" hideNavBar={true} component={Crelation2} />
+									<Scene key="Mychilds" hideNavBar={true} component={Mychilds} />
+									<Scene key="Mylover" hideNavBar={true} component={Mylover} />
 									<Scene key='Delrelation' hideNavBar={true} component={Delrelation} />
-									<Scene key='Delrelation' hideNavBar={true} component={Delrelation2} />
+									<Scene key='Myfriend' hideNavBar={true} component={Myfriend} />
 									<Scene key='Message' hideNavBar={true} component={Message} />
 									<Scene key='Use' hideNavBar={true} component={Use} />
 
