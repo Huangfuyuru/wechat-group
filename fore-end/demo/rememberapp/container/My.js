@@ -65,7 +65,7 @@ export default class My extends Component {
                         </View>
                     </View>
                     <View style={{width:'40%',height:240*h,alignItems:'center'}}>
-                        <TouchableOpacity onPress={()=>Actions.Mychild()} 
+                        <TouchableOpacity onPress={()=>Actions.Mychilds()} 
                             style={styles.btn}>
                             <Text style={styles.blockbtn}>亲子</Text >
                         </TouchableOpacity>
@@ -73,7 +73,7 @@ export default class My extends Component {
                             style={styles.btn}>
                             <Text style={styles.blockbtn}>爱人</Text >
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>Actions.Delrelation()} 
+                        <TouchableOpacity onPress={()=>Actions.Myfriend()} 
                             style={styles.btn}>
                             <Text style={styles.blockbtn}>好友</Text >
                         </TouchableOpacity>
