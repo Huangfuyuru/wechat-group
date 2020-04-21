@@ -78,7 +78,8 @@ import My from './container/My';
 
 import Mychilds from './container/my/Mychilds'
 import Mylover from './container/my/Mylover'
-import Delrelation from './container/my/Delrelation'
+import Mmchilds from './container/my/Mmchilds'
+import Mmlover from './container/my/Mmlover'
 import Myfriend from './container/my/Myfriend'
 import Message from './container/my/Message'
 import Use from './container/my/Use'
@@ -321,7 +322,8 @@ const App = () => {
 									<Scene key="mine" hideNavBar={true} component={My} />
 									<Scene key="Mychilds" hideNavBar={true} component={Mychilds} />
 									<Scene key="Mylover" hideNavBar={true} component={Mylover} />
-									<Scene key='Delrelation' hideNavBar={true} component={Delrelation} />
+									<Scene key='Mmchilds' hideNavBar={true} component={Mmchilds} />
+									<Scene key='Mmlover' hideNavBar={true} component={Mmlover} />
 									<Scene key='Myfriend' hideNavBar={true} component={Myfriend} />
 									<Scene key='Message' hideNavBar={true} component={Message} />
 									<Scene key='Use' hideNavBar={true} component={Use} />

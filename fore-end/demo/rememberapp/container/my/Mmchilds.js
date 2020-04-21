@@ -6,26 +6,28 @@ import {
     Dimensions, 
     View, 
     Image, 
+    FlatList,
     TouchableOpacity, 
     AsyncStorage,
     ToastAndroid,
     StatusBar,
-    ScrollView,
     Picker,
+    Alert,
 } from 'react-native'
 import {
     Actions
 } from 'react-native-router-flux'
 import { Flex, WingBlank } from '@ant-design/react-native'
 import Button from 'react-native-button';
-
-import Icon2 from 'react-native-vector-icons/FontAwesome5'
+import Icon1 from 'react-native-vector-icons/SimpleLineIcons'
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Feather'
 import Icon4 from 'react-native-vector-icons/FontAwesome'
 const { width, scale, height } = Dimensions.get('window');
 const s1 = width / 640;
+const s = width / 640;
 const h = height / 1012;
-export default class Use extends Component {
+export default class Mmchilds extends Component {
     constructor(){
         super();
         this.state={
@@ -34,7 +36,7 @@ export default class Use extends Component {
     }
     additem=()=>{
         ToastAndroid.showWithGravityAndOffset(
-            '修改成功！',
+            '创建成功！',
         ToastAndroid.SHORT,
         ToastAndroid.CENTER,
         25,-200)
@@ -42,17 +44,7 @@ export default class Use extends Component {
             Actions.pop() 
         }, 3000);
     }
-    leave=()=>{
-        ToastAndroid.showWithGravityAndOffset(
-            '已退出登录！',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,-200)
-        setTimeout(() => {
-            Actions.pop() 
-        }, 3000);
-    }
-        inputChange1=(e)=>{
+    inputChange1=(e)=>{
         var a=e.target.value;
         this.setState({
             name:a
@@ -89,14 +81,15 @@ export default class Use extends Component {
                         color: "#ffff",
                         lineHeight: 40
                     }}
-                    >设置</Text>
+                    >编辑亲子</Text>
                 </View>
                 <WingBlank style={styles.wingblank}>
                     {/*创建爱人 */}
+                    <View style={styles.create}><Text style={{fontSize:26*s1,color:'#FFBF2D'}}>创建</Text></View>
                     <View style={styles.msgbox}>
                         <View style={styles.msg}>
                             <Text style={styles.text}>
-                                <Icon3 style={styles.listlineicon} name='users'/>选择性别</Text>
+                                <Icon3 style={styles.listlineicon} name='users'/> 性别</Text>
                             <Text style={styles.input}>
                                 <Picker
                                     selectedValue={this.state.ageunit}
@@ -112,7 +105,7 @@ export default class Use extends Component {
                         </View>
                         <View style={styles.msg}>
                             <Text style={styles.text}>
-                                <Icon4 style={styles.listlineicon} name='heart'/>更换昵称</Text>
+                                <Icon4 style={styles.listlineicon} name='heart'/> 昵称</Text>
                             <TextInput
                                 maxLength={3}
                                 onFocus={()=>{
@@ -126,8 +119,8 @@ export default class Use extends Component {
                         </View>
                         <View style={styles.msg}>
                             <Text style={styles.text}>
-                                <Icon2 style={styles.listlineicon} name='eye'/>
-                                 更换密码</Text>
+                                <Icon2 style={styles.listlineicon} name='cake-variant'/>
+                                生日</Text>
                             <TextInput
                                 maxLength={15}
                                 style={styles.input}/>
@@ -135,17 +128,13 @@ export default class Use extends Component {
                     </View>
                     <Button
                         onPress={this.additem} 
-                        style={styles.addbtn}>保存设置</Button>
-                    <Button
-                        onPress={this.leave} 
-                        style={styles.leave}>退出登录</Button>
-                </WingBlank>
+                        style={styles.addbtn}>创建亲子关系</Button>
+                    </WingBlank>
             </View>
         )
     }
 }
-
-const styles = StyleSheet.create({
+const styles=StyleSheet.create({
     navbar:{
         width:width,
         height:65*s1,
@@ -192,7 +181,7 @@ const styles = StyleSheet.create({
     text:{
         textAlign:'center',
         textAlignVertical:'center',
-        width:0.3*width,
+        width:0.15*width,
         fontSize:23*s1,
         color:'#555',
     },
@@ -229,16 +218,4 @@ const styles = StyleSheet.create({
         fontSize:17,
         textAlignVertical:'center'
     },
-    leave:{
-        width:0.6*width,
-        height:60*s1,
-        marginTop:10*s1,
-        marginLeft:'auto',
-        marginRight:'auto',
-        backgroundColor:'#FFBF2D',
-        borderRadius:25,
-        color:'white',
-        fontSize:17,
-        textAlignVertical:'center'
-    }
 })

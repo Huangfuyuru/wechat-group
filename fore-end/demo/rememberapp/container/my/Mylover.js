@@ -6,59 +6,78 @@ import {
     Dimensions, 
     View, 
     Image, 
+    FlatList,
     TouchableOpacity, 
     AsyncStorage,
     ToastAndroid,
     StatusBar,
-    ScrollView,
     Picker,
+    Alert,
 } from 'react-native'
 import {
     Actions
 } from 'react-native-router-flux'
 import { Flex, WingBlank } from '@ant-design/react-native'
-import Icon2 from 'react-native-vector-icons/Feather'
-import Icon4 from 'react-native-vector-icons/FontAwesome'
 import Button from 'react-native-button';
+import Icon1 from 'react-native-vector-icons/AntDesign'
+import Icon2 from "react-native-vector-icons/Ionicons"
+import Icon3 from 'react-native-vector-icons/Feather'
+import Icon4 from 'react-native-vector-icons/FontAwesome'
 const { width, scale, height } = Dimensions.get('window');
 const s1 = width / 640;
+const s = width / 640;
 const h = height / 1012;
-export default class Mylover extends Component {
+export default class Mychilds extends Component {
     constructor(){
         super();
         this.state={
-            sex:'女',
+            arr: [
+                {
+                    name: "小浣熊",
+                    sex: "女",
+                    date:"2020年1月31日"
+                },
+                {
+                    name: "旺旺",
+                    sex: "男",
+                    date:"2008年5月4日"
+                },
+                {
+                    name: "皮卡丘",
+                    sex: "男",
+                    date:"1996年7月1日"
+                },
+                {
+                    name: "喵喵",
+                    sex: "女",
+                    date:"2002年1月1日"
+                },
+                {
+                    name: "皮卡丘",
+                    sex: "男",
+                    date:"1996年7月1日"
+                },
+            ]
         }
     }
-    additem=()=>{
-        ToastAndroid.showWithGravityAndOffset(
-            '创建成功！',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,-200)
-        setTimeout(() => {
-            Actions.pop() 
-        }, 3000);
+    
+    alertMsg = () => {
+        Alert.alert(
+            '提示',
+            '确认删除？',
+            [
+                {
+                    text: '确定', onPress: () => {
+                        ToastAndroid.show('删除成功！', ToastAndroid.SHORT)
+                    }
+                },
+                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            ],
+        );
     }
-        inputChange1=(e)=>{
-        var a=e.target.value;
-        this.setState({
-            name:a
-        })
-    }
-    inputChange2=(e)=>{
-        var a=e.target.value;
-        this.setState({
-            birthday:a
-        })
-    }
-    inputChange3=(e)=>{
-        var a=e.target.value;
-        this.setState({
-            gender:a
-        })
-    }
+    
     render() {
+        const list = this.state.arr
         return (
             <View style={{ 
                 width: width, 
@@ -78,58 +97,110 @@ export default class Mylover extends Component {
                         lineHeight: 40
                     }}
                     >编辑爱人</Text>
+                    <Icon2
+                    style={styles.Icon}
+                    onPress={()=>Actions.Mmlover()} 
+                        name='md-add'/>
                 </View>
                 <WingBlank style={styles.wingblank}>
-                    {/*创建爱人 */}
-                    <View style={styles.create}><Text style={{fontSize:26*s1,color:'#FFBF2D'}}>创建</Text></View>
-                    <View style={styles.msgbox}>
-                        <View style={styles.msg}>
-                            <Text style={styles.text}>
-                                <Icon2 style={styles.listlineicon} name='users'/> 性别</Text>
-                            <Text style={styles.input}>
-                                <Picker
-                                    selectedValue={this.state.ageunit}
-                                    mode='dropdown'
-                                    style={{width:0.11*width}}
-                                    onValueChange={(itemValue, itemIndex) =>
-                                        this.setState({ageunit: itemValue})
-                                    }>
-                                    <Picker.Item label="男" value="男" />
-                                    <Picker.Item label="女" value="女" />
-                                </Picker>
-                            </Text>
+                    <FlatList
+                    showsVerticalScrollIndicator={false}
+                    ListFooterComponent={
+                        <View style={{
+                            width: '100%',
+                            marginTop: 30
+                        }}>
+                            <Text style={{
+                                width: '104%',
+                                marginLeft: '-2%',
+                                backgroundColor: '#000',
+                                height: 0.8,
+                            }}></Text>
+                            <Text style={{
+                                marginTop: -10,
+                                width: 200 * s,
+                                textAlign: 'center',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                backgroundColor: '#fff',
+                                fontSize: 15,
+                                color: '#bdbbb8'
+                            }}>底儿都被你看完了</Text>
                         </View>
-                        <View style={styles.msg}>
-                            <Text style={styles.text}>
-                                <Icon4 style={styles.listlineicon} name='heart'/> 昵称</Text>
-                            <TextInput
-                                maxLength={3}
-                                onFocus={()=>{
-                                    ToastAndroid.showWithGravityAndOffset(
-                                        '请保证昵称不多于10个字！',
-                                    ToastAndroid.SHORT,
-                                    ToastAndroid.TOP,
-                                    25,100)
+                    }
+                    style={styles.scrollView}
+                    data={list}
+                    numColumns={1}
+                    renderItem={({ item }) => (
+                        <View style={{
+                            height: 200 * s,
+                            width: 0.75 * width,
+                            borderWidth: 0.3,
+                            borderColor: "#000",
+                            marginTop: 10 * s,
+                            marginLeft: 'auto',
+                            marginRight: "auto",
+                            borderRadius: 15,
+                            flexDirection: "row",
+                            flexWrap: "wrap",
+                        }}>
+                            <Icon1
+                            style={{
+                                fontSize:30*s,
+                                color:'#FFBF2D',
+                                flexDirection:'row',
+                                justifyContent:'flex-start'
+                            }}
+                            onPress={this.alertMsg}
+                                name="delete"></Icon1>
+                            <View style={{alignItems:'center', width:'100%',flexDirection:'row',height:40*s,justifyContent:'center'}}>
+                                <Text
+                                style={{
+                                    
+                                    fontSize:25*s,
+                                    textAlign:"center",
+                                    width:"50%",
                                 }}
-                                style={styles.input}/>
+                                ><Icon4 style={styles.listlineicon} name='heart'/>&nbsp;昵称:</Text>
+                                <Text style={{
+                                    fontSize:25*s,
+                                    textAlign:"center",
+                                    width:"50%",
+                                }}>{item.name}</Text>
+                            </View>
+                            <View style={{alignItems:'center',marginTop:5*s, width:'100%',flexDirection:'row',height:40*s,justifyContent:'center'}}>
+                                <Text
+                                style={{
+                                    fontSize:25*s,
+                                    textAlign:"center",
+                                    width:"50%",
+                                }}
+                                ><Icon3 style={styles.listlineicon} name='users'/>&nbsp;性别:</Text>
+                                <Text style={{
+                                    fontSize:25*s,
+                                    textAlign:"center",
+                                    width:"50%",
+                                }}>{item.sex}</Text>
+                            </View>
+                            <View style={{alignItems:'center', marginTop:5*s,width:'100%',flexDirection:'row',height:40*s,justifyContent:'center'}}>
+                                <Text
+                                style={{
+                                    fontSize:25*s,
+                                    textAlign:"center",
+                                    width:"50%",
+                                }}
+                                ><Icon4 style={styles.listlineicon} name='calendar'/>&nbsp;日期:</Text>
+                                <Text style={{
+                                    fontSize:25*s,
+                                    textAlign:"center",
+                                    width:"50%",
+                                }}>{item. date}</Text>
+                            </View>
                         </View>
-                        <View style={styles.msg}>
-                            <Text style={styles.text}>
-                                <Icon4 style={styles.listlineicon} name='calendar'/>日期</Text>
-                            <TextInput
-                                placeholder='关系确认日期'
-                                maxLength={15}
-                                style={styles.input}/>
-                        </View>
-                    </View>
-                    <Button
-                        onPress={this.additem} 
-                        style={styles.addbtn}>创建爱人关系</Button>
+                   
+                    )}
+                />
                 </WingBlank>
-                <View style={styles.create}><Text style={{fontSize:26*s1,color:'#FFBF2D'}}>删除</Text></View>
-                <View>
-
-                </View>
             </View>
         )
     }
@@ -144,79 +215,35 @@ const styles = StyleSheet.create({
         paddingTop:'1%',
         justifyContent:"center"
     },
-    create:{
-        width:0.8*width,
-        height:0.07*height,
-        marginLeft:'auto',
-        marginRight:'auto',
-        justifyContent:'space-around',
-        alignItems:'center'
-    },
-    wingblank:{
-        height:0.85*height,
-    },
-    msgbox:{
-        backgroundColor:'rgba(204,204,204,0.2)',
-        width:0.8*width,
-        height:0.35*height,
-        paddingBottom:0.025*height,
-        paddingTop:0.025*height,
-        marginLeft:'auto',
-        marginRight:'auto',
-        justifyContent:'space-around',
-        alignItems:'center'
-    },
-    msg:{
-        backgroundColor:'rgba(255,255,255,1)',
-        width:0.7*width,
-        height:0.06*height,
-        marginLeft:'auto',
-        marginRight:'auto',
-        flexDirection: 'row',
-        justifyContent:'center',
-    },
     listlineicon:{
         fontSize:32*s1,
         color:'#FFBF2D',
     },
-    text:{
-        textAlign:'center',
-        textAlignVertical:'center',
-        width:0.15*width,
-        fontSize:23*s1,
-        color:'#555',
+    Icon:{
+        position:'absolute',
+        top:10*s1,
+        right:20*s1,
+        fontSize:40*s1,
+        color:'#fff',
     },
-    text2:{
-        textAlign:'left',
-        textAlignVertical:'center',
-        width:0.07*width,
-        fontSize:23*s1,
-        color:'#555',
+    title: {
+        marginLeft: 'auto',
+        marginRight: "auto",
+        textAlign: 'center',
+        fontSize: 20,
+        color: '#fff',
+        letterSpacing: 3
     },
-    input:{
-        width:0.25*width,
-        marginLeft:0.025*width,
-        marginRight:0.025*width,
-        borderColor:'#bdbbb8',
-        borderStyle:'solid',
-        borderBottomWidth:1,
-        fontSize:22*s1,
-        textAlign:'center',
-        color:'#333'
+    scrollView: {
+        marginTop: 18 * s,
+        backgroundColor: '#fff',
+        paddingLeft: 10,
+        paddingRight: 10,
+        height: 950 * s,
+        borderRadius: 5,
+        borderWidth: 0.5,
+        borderColor: "#C0C0C0"
+        // "
     },
-    addbtn:{
-        width:0.6*width,
-        height:60*s1,
-        marginTop:10*s1,
-        marginLeft:'auto',
-        marginRight:'auto',
-        backgroundColor:'rgba(255,255,255,0.1)',
-        borderWidth:1,
-        borderStyle:'solid',
-        borderColor:'#FFBF2D',
-        borderRadius:5,
-        color:'#FFBF2D',
-        fontSize:17,
-        textAlignVertical:'center'
-    }
 })
+
