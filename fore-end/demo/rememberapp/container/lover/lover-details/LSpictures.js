@@ -13,7 +13,8 @@ import {
     TouchableWithoutFeedback,
     CameraRoll,
     ToastAndroid,
-    ScrollView
+    ScrollView,
+    // CheckBox,
 } from 'react-native'
 import { 
     WingBlank,
@@ -21,126 +22,136 @@ import {
 } from '@ant-design/react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon1 from 'react-native-vector-icons/Feather'
+import Icon2 from 'react-native-vector-icons/MaterialIcons'
+import Icon3 from 'react-native-vector-icons/Entypo'
+import Icon4 from 'react-native-vector-icons/EvilIcons'
+import Icon5 from 'react-native-vector-icons/MaterialCommunityIcons'
 // import Icon1 from 'react-native-vector-icons/Feather'
 import Button from 'react-native-button'
+import CheckBox from 'react-native-checkbox'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
-export default class LSpictures extends Component {
+export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
+            times:0,
+            checkboxtimes:0,
+            checkboxdisabled:'none',
             visible:false,
-            currentpicture:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg',
+            boxopacity:0,
+            chooseopacity:0,
+            currentpicture:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
             lists:[
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1965785648,597280275&fm=26&gp=0.jpg'
+                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
                 },
             ],
             activeSections: [2, 0],
@@ -151,11 +162,43 @@ export default class LSpictures extends Component {
             this.setState({ activeSections });
         };
     }
-
+    compile = ()=>{
+        this.setState({
+            times:this.state.times+1
+        },()=>{
+            if(this.state.times % 2 == 0){
+                this.setState({
+                    boxopacity:0
+                })
+            }else{
+                this.setState({
+                    boxopacity:1
+                }) 
+            }
+        })
+    }
+    delpictures = ()=>{
+        this.setState({
+            checkboxtimes:this.state.checkboxtimes+1
+        },()=>{
+            if(this.state.checkboxtimes % 2 == 0){
+                this.setState({
+                    checkboxdisabled:'none',
+                })
+            }else{
+                this.setState({
+                    checkboxdisabled:'flex'
+                }) 
+            }
+        })
+    }
     enlarge=()=>{
         this.setState({
             visible:true
         })
+    }
+    delete=()=>{
+        
     }
     savePictures=()=>{
         Alert.alert('提示', '',
@@ -213,7 +256,7 @@ export default class LSpictures extends Component {
     }
     render() {
         const lists = this.state.lists;
-        
+        const compile = [{icon:''}]
         return (
             <View>
                 <View style={styles.navbar}>
@@ -223,17 +266,31 @@ export default class LSpictures extends Component {
                         onPress={()=>Actions.pop()}
                     />
                     <Text style={styles.title}>我的相册</Text>
-                    <Icon1
-                        onPress={()=>{
-                            
-                        }}
-                        
-                        style={styles.icon}
-                        name='more-horizontal'
-                    />
+                    <TouchableOpacity onPress={this.compile}>
+                        <Icon1 style={styles.icon} name='more-horizontal'/>
+                    </TouchableOpacity>
                     
                 </View>
-                <WingBlank>
+                <View style={{
+                    width:0.3*width,
+                    marginLeft:0.7*width,
+                    opacity:this.state.boxopacity,
+                    height:0.055*height,
+                    paddingTop:0.008*height,
+                    paddingBottom:0.01*height,
+                    flexDirection:'row',
+                }}
+                >
+                    <TouchableOpacity onPress={this.delpictures} style={styles.btn}>
+                        <Icon1 style={styles.btnicon} name='trash-2'/>
+                        <Text  style={styles.btntext}>删除</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>Actions.addpictures()} style={styles.btn}>
+                        <Icon5 style={styles.btnicon} name='image-plus'/>
+                        <Text style={styles.btntext}>添加</Text>
+                    </TouchableOpacity>
+                </View>
+                <WingBlank style={styles.wingblank}>
                     <FlatList  
                         style={styles.picbox}
                         data={lists}
@@ -249,12 +306,20 @@ export default class LSpictures extends Component {
                                 onPress={this.enlarge}
                                 style={styles.pics}>
                                 <ImageBackground
-                                    // onPress={this.enlarge}
                                     style={styles.pics}
                                     resizeMode="cover"
                                     source={{uri:`${item.background}`}}
                                 >
-                                    <Icon1/>
+                                    <CheckBox
+                                        checkboxStyle={{
+                                            backgroundColor:'rgba(255,255,255,0.5)',
+                                            display:`${this.state.checkboxdisabled}`,
+                                            marginLeft:0.16*width,
+                                        }}
+                                        label=''
+                                        onChange={(checked) => console.log('I am checked', checked)}
+                                    />
+                                    
                                 </ImageBackground>
                             </TouchableOpacity>
                         )}
@@ -278,11 +343,12 @@ export default class LSpictures extends Component {
                         height:height
                     }}>
                         <WingBlank style={{
-                            height:900*s,
-                            marginTop:30*s,
+                            height:0.8*height,
+                            marginTop:0.05*height,
                             borderColor:'rgba(204,204,204,0.3)',
                             borderStyle:'solid',
                             borderWidth:1,
+                            justifyContent:'center'
                             // backgroundColor:'rgba(255,255,255,0.1)',
                         }}>
                             <TouchableWithoutFeedback
@@ -291,10 +357,11 @@ export default class LSpictures extends Component {
                                 <Image
                                     style={{
                                         width:0.9*width,
-                                        height:900*s,
+                                        height:0.78*height,
                                         marginLeft:'auto',
                                         marginRight:'auto',
                                         zIndex:1,
+                                        // backgroundColor:'#000'
 
                                     }}
                                     resizeMode="contain"
@@ -333,9 +400,32 @@ const styles = StyleSheet.create({
         color:'#fff',
         letterSpacing:3
     },
+    btn:{
+        width:0.1*width,
+        // backgroundColor:'#ffddee',
+        marginLeft:0.025*width,
+        marginRight:0.025*width,
+    },
+    btnicon:{
+        textAlign:'center',
+        height:0.035*height,
+        textAlignVertical:'center',
+        // backgroundColor:'#ccddff',
+        fontSize:35*s,
+        color:'#FFBF2D'
+    },
+    btntext:{
+        textAlign:'center',
+        fontSize:15*s,
+        color:'#bdbbb8'
+    },
+    wingblank:{
+        marginTop:0.01*height,
+        height:0.79*height,
+        // backgroundColor:'#000'
+    },
     picbox:{
-        marginTop:50*s,
-        height:930*s,
+        // height:930*s,
         padding:0.01*width,
         borderColor:'rgba(204,204,204,0.3)',
         borderStyle:'solid',

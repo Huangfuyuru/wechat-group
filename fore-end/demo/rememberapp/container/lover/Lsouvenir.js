@@ -25,30 +25,30 @@ export default class Lsouvenir extends Component {
                     src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
                     date: "2020-02-16",
                     txt: "第一次一起去旅行",
-                    heart:"ღღღღღ"
+                    heart:"ღ ღ ღ ღ ღ"
                 },
                 {
                     src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
                     date: "2020-02-16",
                     txt: "第一次接吻",
-                    heart:"ღღღ"
+                    heart:"ღ ღ ღ"
                 },
                 {
                     src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
                     date: "2020-02-16",
                     txt: "第一次接吻",
-                    heart:"ღღღ"
+                    heart:"ღ ღ ღ"
                 },
                 {
                     src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
                     date: "2020-02-16",
                     txt: "第一次接吻",
-                    heart:"ღღღღღ"
+                    heart:"ღ ღ ღ ღ ღ"
                 }, {
                     src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
                     date: "2020-02-16",
                     txt: "第一次接吻",
-                    heart:"ღღღღღ"
+                    heart:"ღ ღ ღ ღ ღ"
                 },
             ]
         }
@@ -189,8 +189,8 @@ const styles = StyleSheet.create({
     navbar: {
         width: width,
         height: 65 * s,
-        // backgroundColor: '#FFBF2D',
-        backgroundColor: '#fff',
+        backgroundColor: '#FFBF2D',
+        // backgroundColor: '#fff',
         flexDirection: 'row',
         paddingLeft: 0.03 * width,
         paddingTop: '1%',
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         width: 0.08 * width,
-        color: 'black',
+        color: '#fff',
         fontSize: 28,
     },
     title: {
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
         marginRight: "auto",
         textAlign: 'center',
         fontSize: 20,
-        color: 'black',
+        color: '#fff',
         letterSpacing: 3
     },
     scrollView: {

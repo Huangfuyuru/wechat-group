@@ -13,6 +13,7 @@ import { WingBlank } from '@ant-design/react-native'
 import Video from 'react-native-video'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/Ionicons'
+import Icon3 from "react-native-vector-icons/FontAwesome"
 import { Actions } from 'react-native-router-flux';
 import { spring } from 'react-native-reanimated'
 const { width, scale, height } = Dimensions.get('window');
@@ -31,23 +32,27 @@ export default class Lsound extends Component {
                     setdate: "2020-04-13",
                 },
                 {
+                    name: "面具",
+                    setdate: "2020-04-13",
+                },
+                {
                     name: "稻花香",
+                    setdate: "2020-04-13",
+                },  {
+                    name: "面具",
                     setdate: "2020-04-13",
                 },
                 {
                     name: "稻花香",
                     setdate: "2020-04-13",
                 },
-                {
-                    name: "稻花香",
-                    setdate: "2020-04-13",
-                },
-            ],
+            ], 
+            length:   2          ,                     //数组长度
             currentTime: 0.0,					//当前播放的时间
-            paused: false,						//播放
+            paused: [],						//播放
             sliderValue: 0,					//进度条的进度
             duration: 0.0	,					//总时长
-            playIcon:""                          //播放暂停图标
+            playIcon:[]                          //播放暂停图标
         }
     }
     showAlert = () => {
@@ -78,23 +83,22 @@ export default class Lsound extends Component {
     setDuration(duration) {
         this.setState({ duration: duration.duration });
     }
-    // spin=()=>{
-    //     play()
+    // play=(idx)=> {
+    //     const paused0=[...this.state.paused];
+    //     paused0[idx] =!paused0[idx];
+    //     const playIcon0=[...this.state.playIcon];
+    //     playIcon0[idx]=paused0[idx] ? 'pause-circle-o' : 'play-circle-o'
     //     this.setState({
-    //       paused: !this.state.paused,
-    //     //   playIcon: this.state.paused ? 'music_paused_o' : 'music_playing_s'
+    //         paused: paused0,
+    //         playIcon:playIcon0
     //     })
+    //     console.log(this.state.paused)
+    //   }
+
+    
+    // componentDidMount() {
+    //     console.log(this.state.paused)   
     // }
-    play=()=> {
-        // spin()
-        this.setState({
-          paused: true,
-        //   playIcon: this.state.paused ? 'music_paused_o' : 'music_playing_s'
-        })
-      }
-    componentDidMount() {
-        console.log(this.state.duration)
-    }
     render() {
         return (
             <View>
@@ -122,6 +126,7 @@ export default class Lsound extends Component {
                 <WingBlank>
                     <FlatList
                         showsVerticalScrollIndicator={false}
+                        keyExtractor={this._keykeyExtractor}
                         ListFooterComponent={
                             <View style={{
                                 width: '100%',
@@ -150,10 +155,12 @@ export default class Lsound extends Component {
                         style={styles.scrollView}
                         data={this.state.arr}
                         numColumns={1}
-                        renderItem={({ item }) => {
+                        renderItem={({item,idx}) => {
+                            this.state.paused[idx]=false;
+                            this.state.playIcon[idx]="play-circle-o";
+                            // console.log(this.state.paused) 
                             return <View style={styles.box}>
                                 <View style={{
-                                    // backgroundColor:"red",
                                     flexDirection: "row",
                                     justifyContent: "space-between"
                                 }}>
@@ -175,21 +182,53 @@ export default class Lsound extends Component {
                                         }}
                                     />
                                 </View>
+                                <View style={{
+                                    flexDirection:"row",
+                                    height:70*s,
+                                    width:0.8*width,
+                                    backgroundColor:"#E8E8E8",
+                                    marginLeft: 'auto',
+                                    marginRight: "auto",
+                                    borderRadius:30,
+                                    justifyContent:"space-evenly"
+                                }}>
+                                <TouchableOpacity style={{
+                                    height:50*s,
+                                    width:50*s,
+                                    backgroundColor:"#E8E8E8",
+                                    borderRadius:50,
+                                    marginTop:10*s,
+                                    
+                                }} 
+                                // onPress={this.play(idx)}
+                                >
+                                   <Icon3
+                                   style={{
+                                       textAlign:"center",
+                                       textAlignVertical:"center",
+                                       fontSize:50*s,
+                                       color:"#989898"
+                                   }}
+                                    name={this.state.playIcon[idx]}/>
+                                </TouchableOpacity>
                                 <Slider
                                     value={this.state.slideValue}
                                     maximumValue={this.state.duration}
                                     step={1}
                                     onValueChange={value => this.setState({ currentTime: value })}
+                                    style={{
+                                        width:0.55*width,
+                                        marginTop:10*s,
+                                        marginBottom:10*s,
+                                    }}
                                 />
-                                {/* <TouchableOpacity style={{
-                                    height:20,
-                                    width:40,
-                                    backgroundColor:"pink"
-
-                                }} onPress={this.play}>
-                                    <Text>播放</Text>
-                                </TouchableOpacity>
-                                <Video
+                                <Icon1 style={{
+                                    marginTop:12*s,
+                                    fontSize:40*s,
+                                    color:"#989898"
+                                }} name="volume-2" />
+                                </View>
+                                {/* <Video
                                     source={{uri:"https://webfs.yun.kugou.com/202004182032/f96761db7b9ff61cb31009719ad02120/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"}}
                                     ref='player'
                                     paused={this.state.paused}
@@ -200,8 +239,6 @@ export default class Lsound extends Component {
                                     playWhenInactive={true}
                                     style={styles.audio}
                                 /> */}
-
-
                                 <Text style={{
                                     marginLeft: "auto",
                                     marginRight: 20 * s

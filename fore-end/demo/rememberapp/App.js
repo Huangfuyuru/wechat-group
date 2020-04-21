@@ -59,11 +59,11 @@ import Laddpictures from "./container/lover/lover-details/Laddpictures"
 // 
 import Ldairy from "./container/lover/Ldairy"
 import LCdairy from "./container/lover/lover-details/Lcreate_note"
+import LSdairy from  "./container/lover/lover-details/darContent"
 // 
 import Llists from "./container/lover/Llists"
 import LSlists from "./container/lover/lover-details/LSlists"
 import Llist from "./container/lover/lover-details/listContent"
-import Llist1 from "./container/lover/lover-details/listContent1"
 import LClists from "./container/lover/lover-details/Lcreate_list"
 
 // 
@@ -281,7 +281,6 @@ const App = () => {
 									<Scene key='lclist' hideTabBar hideNavBar={true} component={LClists} />
 									<Scene key='lslists' hideTabBar hideNavBar={true} component={LSlists} />
 									<Scene key='list' hideTabBar hideNavBar={true} component={Llist} />
-									<Scene key='list1' hideTabBar hideNavBar={true} component={Llist1} />
 
 									<Scene key='lsouvenir' hideTabBar hideNavBar={true} component={Lsouvenir} />
 									<Scene key='lcsouvenir' hideTabBar hideNavBar={true} component={LCsouvenir} />
@@ -289,6 +288,8 @@ const App = () => {
 
 									<Scene key='ldairy' hideTabBar hideNavBar={true} component={Ldairy} />
 									<Scene key='lcdairy' hideTabBar hideNavBar={true} component={LCdairy} />
+									<Scene key='lsdairy' hideTabBar hideNavBar={true} component={LSdairy} />
+
 								</Scene>
 								{/* 社区 */}
 								<Scene key='community'

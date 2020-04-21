@@ -37,18 +37,6 @@ export default class Cdairy extends Component {
         }, 3000);
     }
     render() {
-        const ageunit =  [
-            [
-              {
-                label: '2013',
-                value: '2013',
-              },
-              {
-                label: '2014',
-                value: '2014',
-              },
-            ],
-          ];
         return (
             <View>
                 <View style={styles.navbar}>
@@ -61,7 +49,6 @@ export default class Cdairy extends Component {
                 </View>
                 <WingBlank style={styles.wingblank}>
                     <View style={styles.msgbox}>
-
                         <View style={styles.msg}>
                             <Text style={styles.text}>
                                 <Icon2 style={styles.listlineicon} name='cake-variant'/>  年龄</Text>
@@ -69,17 +56,19 @@ export default class Cdairy extends Component {
                                 keyboardType='numeric'
                                 maxLength={3}
                                 style={styles.input}/>
-                            <Picker
-                                selectedValue={this.state.ageunit}
-                                mode='dropdown'
-                                style={styles.text}
-                                onValueChange={(itemValue, itemIndex) =>
-                                    this.setState({ageunit: itemValue})
-                                }>
-                                <Picker.Item label="天" value="天" />
-                                <Picker.Item label="月" value="月" />
-                                <Picker.Item label="岁" value="岁" />
-                            </Picker>
+                            <Text style={styles.text}>
+                                <Picker
+                                    selectedValue={this.state.ageunit}
+                                    mode='dropdown'
+                                    style={{width:0.11*width}}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        this.setState({ageunit: itemValue})
+                                    }>
+                                    <Picker.Item label="天" value="天" />
+                                    <Picker.Item label="月" value="月" />
+                                    <Picker.Item label="岁" value="岁" />
+                                </Picker>
+                            </Text>
                         </View>
                         <View style={styles.msg}>
                             <Text style={styles.text}>
@@ -167,7 +156,7 @@ const styles = StyleSheet.create({
     },
     listlineicon:{
         fontSize:32*s,
-        color:'#555',
+        color:'#FFBF2D',
         // backgroundColor:'#ccc'
     },
     text:{
@@ -175,7 +164,7 @@ const styles = StyleSheet.create({
         textAlignVertical:'center',
         width:0.15*width,
         fontSize:23*s,
-        color:'#333',
+        color:'#555',
         // backgroundColor:'#000'
     },
     input:{

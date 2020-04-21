@@ -258,7 +258,8 @@ const styles = StyleSheet.create({
     navbar: {
         width: width,
         height: 65 * s,
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
+        backgroundColor: '#FFBF2D',
         flexDirection: 'row',
         paddingLeft: 0.03 * width,
         paddingTop: '1%',
@@ -267,7 +268,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         width: 0.08 * width,
-        color: 'black',
+        color: '#fff',
         fontSize: 28,
     },
     title: {
@@ -275,7 +276,7 @@ const styles = StyleSheet.create({
         marginRight: "auto",
         textAlign: 'center',
         fontSize: 20,
-        color: 'black',
+        color: '#fff',
         letterSpacing: 3
     },
     scrollView: {
@@ -294,8 +295,11 @@ const styles = StyleSheet.create({
         height: 50 * s,
         width: 0.8 * width,
         backgroundColor: "#FF1744",
+        // backgroundColor: '#FFF',
         borderRadius: 20,
-        marginLeft: 0.1 * width
+        // borderWidth:1,
+        marginLeft: 0.1 * width,
+        marginTop:20*s
     },
 
 })

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Tabs,Icon} from '@ant-design/react-native';
 import Icon1 from 'react-native-vector-icons/Feather'
-import Icon2 from 'react-native-vector-icons/Feather'
+import Icon2 from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux';
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
@@ -64,7 +64,7 @@ export default class Llists extends React.Component {
                     <Text style={styles.title}>恋爱清单</Text>
                     <Icon2 
                         style={styles.icon}
-                        name="wind"
+                        name="md-add"
                         onPress={()=>Actions.lslists()}
                     />
                 </View>
@@ -136,7 +136,8 @@ const styles = StyleSheet.create({
     navbar:{
         width:width,
         height:65*s,
-        backgroundColor:'white',
+        backgroundColor: '#FFBF2D',
+        // backgroundColor:'white',
         flexDirection: 'row',
         paddingLeft:0.03*width,
         paddingTop:'1%',
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     },
     icon:{
         width:0.08*width,
-        color:'black',
+        color:'#fff',
         fontSize:28,
     },
     title: {
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
         marginRight: "auto",
         textAlign: 'center',
         fontSize: 20,
-        color: 'black',
+        color: '#fff',
         letterSpacing: 3
     },
 })

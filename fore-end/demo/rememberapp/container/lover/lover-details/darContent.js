@@ -11,6 +11,7 @@ import {
     Modal,
     Image,
     TouchableWithoutFeedback,
+
 } from 'react-native'
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment'
@@ -19,7 +20,7 @@ import Icon2 from 'react-native-vector-icons/Fontisto'
 import { WingBlank } from '@ant-design/react-native';
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
-export default class Cdairy extends Component {
+export default class Csdairy extends Component {
     constructor(){
         super();
         this.state={
@@ -39,9 +40,6 @@ export default class Cdairy extends Component {
         this.setState({
             visible:true
         })
-    }
-    savePictures = ()=>{
-
     }
     render() {
         const item = this.state.data
