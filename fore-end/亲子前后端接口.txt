@@ -1,0 +1,35 @@
+﻿    写文章模块：
+        接口地址：http://148.70.223.218:3001/child/article?uid=
+        请求数据：用户uid
+        返回数据：该用户创建所有亲子文章内容 id,name,imgurl,content,setdate,tag,num,style,uid
+        点击具体文章：点击具体文章就不发请求，就像cnodejs那种直接拿数据就行了
+        增加文章：
+            接口地址：http://148.70.223.218:3001/child/article/carticle
+            method:post           
+            提交数据：name(文章名称)，imgurl(照片，是个数组),content(文章内容),
+	             setdate(创建时间),tag(布尔类型，true表示可以公开，true表示不能公开)，num(初次应该是0,点赞数)
+	             style(布尔类型，true表示亲子类型的文章，false表示爱人类型的文章) uid(用户id)
+            返回数据：message = {msg:'添加失败',code:1}  message={msg:'添加成功',code:0}
+        删除文章：
+            接口地址：http://148.70.223.218:3001/child/article/delarticle?id=
+            请求数据：文章id
+            返回数据：该用户创建所有亲子文章内容 id,name,imgurl,content,setdate,tag,num,style,uid
+
+     亲子成绩模块:
+        接口地址：http://148.70.223.218:3001/child/cstudy?cid=
+        请求数据：亲子cid
+        返回数据：该亲子创建的所有成绩内容 id,cot{stage,subject},score,setdate,cid
+        增加成绩记录：
+            接口地址：http://148.70.223.218:3001/child/cstudy/cchildScore
+            method:post           
+            提交数据：stage(学生阶段)，subject(所有学科，是个数组),score(学科对应的成绩，是个浮点数数组),
+	             setdate(创建时间)，cid(亲子id)
+            返回数据：message = {msg:'添加失败',code:1}  message={msg:'添加成功',code:0}
+        删除成绩记录：
+            接口地址：http://148.70.223.218:3001/child/cstudy/dchildScore?id=&cid=
+            请求数据：文章id 亲子cid
+            返回数据：该亲子创建的所有成绩内容 id,cot{stage,subject},score,setdate,cid "
+	
+      
+
+   
