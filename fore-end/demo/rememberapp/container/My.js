@@ -8,6 +8,7 @@ import {
     TouchableOpacity, 
     AsyncStorage,
     StatusBar,
+    Animated,
     ScrollView,
     FlatList,
     ImageBackground,
@@ -15,21 +16,51 @@ import {
 import {
     Actions
 } from 'react-native-router-flux'
+import Icon1 from 'react-native-vector-icons/Feather'
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Flex, WingBlank } from '@ant-design/react-native'
+import ImagePicker from 'react-native-image-picker';
+import ImageCropPicker from 'react-native-image-crop-picker';
+
 const { width, scale, height } = Dimensions.get('window');
 const s1 = width / 640;
 const h = height / 1012;
 
+const options = {
+    title: 'Select Avatar',
+    customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+    },
+};
 export default class My extends Component {
     constructor(){
         super();
+        let data = [];
+        for(var i=0; i<10; i++){
+            data.push({tit:i,key:i});
+        }
         this.state = {
+            data,
+            width: new Animated.Value(20),
             //头像地址
             imageUrl:require('..//images/head.png'),
-            //设置图标
-            imageset:require('..//images/set2.png')
+            //关注人数
+            num1:1,
+            //粉丝人数
+            num2:5
         }
     }
+    takephoto = ()=>{
+        ImageCropPicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true,
+          }).then(image => {
+            this.setState({imageUrl:{uri:image.path}})
+          });
+	}
     render() {
         return (
             <View style={{ 
@@ -50,18 +81,22 @@ export default class My extends Component {
                         lineHeight: 40
                     }}
                     >我的</Text>
-                    <TouchableOpacity style={{position:"absolute",right:20*h,top:10*h}} onPress={()=>Actions.Use()} >
-                        <Image style={{width:45*h,height:45*h,borderRadius:60,borderColor:'#FFBF2D',borderWidth:2}} source={this.state.imageset} />
-                    </TouchableOpacity>
+                    <Icon1 
+                        style={styles.Icon}
+                        name='settings'
+                        onPress={()=>Actions.Use()} 
+                    />
                 </View>
                 {/* 头像 */}
                 <View style={{width:'100%',height:240*h,flexDirection:'row'}}>
                     <View style={{width:'50%',height:200*h,alignItems:'center',marginTop:20*h}}>
-                        <Image style={{width:100*h,height:100*h,borderRadius:60,borderColor:'#FFBF2D',borderWidth:2}} source={this.state.imageUrl} />
-                        <Text style={{fontWeight:'bold',fontSize:17,marginTop:10*h}}>小浣熊</Text>
+                        <TouchableOpacity onPress={()=>{this.takephoto()}}>
+                            <Image style={{width:100*h,height:100*h,borderRadius:60,borderColor:'#FFBF2D',borderWidth:2}} source={this.state.imageUrl} />
+                        </TouchableOpacity>
+                        <Text style={{color:'#FFBF2D', fontWeight:'bold',fontSize:17,marginTop:10*h}}>小浣熊</Text>
                         <View style={{fontWeight:'bold',fontSize:17,width:'100%',justifyContent:'center',flexDirection:'row'}}>
-                            <Text>关注:1&nbsp;&nbsp;</Text>
-                            <Text>喜欢:5</Text>
+                            <Text style={{color:'#FFBF2D'}}>关注:{this.state.num1}&nbsp;&nbsp;</Text>
+                            <Text style={{color:'#FFBF2D'}}>粉丝:{this.state.num2}</Text>
                         </View>
                     </View>
                     <View style={{width:'40%',height:240*h,alignItems:'center'}}>
@@ -92,6 +127,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingTop:'1%',
         justifyContent:"center"
+    },
+    Icon:{
+        position:'absolute',
+        top:10*s1,
+        right:20*s1,
+        fontSize:32*s1,
+        color:'#fff',
     },
     btn: {
         padding:0,

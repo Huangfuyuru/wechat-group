@@ -1,18 +1,77 @@
 import React, { Component } from 'react'
 import { 
     Text, 
-    View,
+    TextInput,
+    StyleSheet, 
+    Dimensions, 
+    View, 
+    Image, 
+    TouchableOpacity, 
+    AsyncStorage,
+    ToastAndroid,
+    StatusBar,
+    ScrollView,
+    Picker,
 } from 'react-native'
+import {
+    Actions
+} from 'react-native-router-flux'
+import { Flex, WingBlank } from '@ant-design/react-native'
+import Button from 'react-native-button';
+const { width, scale, height } = Dimensions.get('window');
+const s1 = width / 640;
+const h = height / 1012;
 export default class Use extends Component {
+    inputChange1=(e)=>{
+        this.setState({
+            name:e.target.value
+        })
+    }
+    inputChange2=(e)=>{
+        this.setState({
+            gender:e.target.value
+        })
+    }
+    inputChange3=(e)=>{
+        this.setState({
+            pass:e.target.value
+        })
+    }
     render() {
         return (
-            <View>
-               <Text>设置</Text>
+            <View style={{ 
+                width: width, 
+                height: height, 
+                backgroundColor: "#fff",
+            }}>
+                <StatusBar 
+                    backgroundColor='#FFBF2D'
+                />
+                <View style={styles.navbar}>
+                    <Text style={{
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                        textIndent: 3,
+                        letterSpacing: 3,
+                        color: "#ffff",
+                        lineHeight: 40
+                    }}
+                    >设置</Text>
+                </View>
             </View>
         )
     }
 }
-
+const styles = StyleSheet.create({
+    navbar:{
+        width:width,
+        height:65*s1,
+        backgroundColor:'#FFBF2D',
+        flexDirection: 'row',
+        paddingTop:'1%',
+        justifyContent:"center"
+    },
+})
 //  import React, { Component } from 'react';
 // import { NavBar, Icon } from 'antd-mobile';
 // import {Link} from 'react-router-dom';
