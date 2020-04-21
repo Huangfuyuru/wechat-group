@@ -35,8 +35,15 @@ export default class Cdairy extends Component {
             lists:[imgurl,imgurl,imgurl,imgurl,imgurl,imgurl,imgurl,]
         }
     }
-    timenotice = ()=>{
-       console.log(this.state.year)
+    saveevent = ()=>{
+        ToastAndroid.showWithGravityAndOffset(
+            '添加成功！',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+        25,-200)
+        setTimeout(() => {
+            Actions.pop() 
+        }, 3000);
     }
     render() {
         return (
@@ -48,6 +55,9 @@ export default class Cdairy extends Component {
                         onPress={()=>Actions.pop()}
                     />
                     <Text style={styles.title}>新增大事记</Text>
+                    <TouchableOpacity onPress={this.saveevent}>
+                        <Icon2 style={styles.icon}  name='playlist-check'/>
+                    </TouchableOpacity>
                 </View>
                 <WingBlank>
                     <View style={styles.msgbox}>
@@ -55,7 +65,6 @@ export default class Cdairy extends Component {
                             <Text style={styles.text}>
                                 <Icon4 style={styles.listlineicon} name='calendar-check-o'/>  日期：</Text>
                             <TextInput
-                                onFocus={this.timenotice}
                                 keyboardType='numeric'
                                 maxLength={4}
                                 defaultValue={this.state.year}
@@ -64,7 +73,6 @@ export default class Cdairy extends Component {
                                 年
                             </Text>
                             <TextInput
-                                onFocus={this.timenotice}
                                 keyboardType='numeric'
                                 maxLength={2}
                                 defaultValue={this.state.month}
@@ -73,7 +81,6 @@ export default class Cdairy extends Component {
                                 月
                             </Text>
                             <TextInput
-                                onFocus={this.timenotice}
                                 keyboardType='numeric'
                                 maxLength={2}
                                 defaultValue={this.state.day}
@@ -157,9 +164,9 @@ const styles = StyleSheet.create({
         height:65*s,
         backgroundColor:'#FFBF2D',
         flexDirection: 'row',
-        paddingLeft:0.02*width,
+        paddingLeft:0.03*width,
         paddingTop:'1%',
-        paddingRight:0.1*width,
+        paddingRight:0.03*width,
         justifyContent:"center"
     },
     icon:{
@@ -198,8 +205,8 @@ const styles = StyleSheet.create({
         justifyContent:'center',
     },
     tag:{
-        width:0.38*width,
-        marginRight:0.06*width,
+        width:0.44*width,
+        // marginRight:0.06*width,
         textAlign:'center',
         textAlignVertical:'center',
         borderColor:'#bdbbb8',

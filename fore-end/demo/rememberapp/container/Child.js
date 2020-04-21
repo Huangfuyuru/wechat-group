@@ -160,20 +160,8 @@ export default class Lover extends Component {
                         source={{uri:`${this.state.background}`}}
                         alt='自定义照片墙'>
                     
-                                <TouchableOpacity style={{
-                                    color: '#000',
-                                    width:'80%',
-                                    // textAlign:'center',
-                                    backgroundColor: 'rgba(255,191,45,0.3)'
-                                }}><Text>轻触上传精选照片</Text>
-                                    {/* <input 
-                            id='img'
-                            onChange={this.upfile}                           
-                            type='file'  
-                            accept="image/*" 
-                            capture="camera" 
-                            name='uimage' 
-                            /> */}
+                                <TouchableOpacity>
+                                    <Text style={styles.bgbtn}>轻触上传精选照片</Text>
                                 </TouchableOpacity>
                     </ImageBackground>
                 </View>
@@ -317,7 +305,23 @@ const styles = StyleSheet.create({
         textAlign: "center",
         height: 0.33*height,
         width: width,
-        justifyContent: "center",
+        alignItems:'center'
+    },
+    bgbtn:{
+        color: '#000',
+        width:0.8*width,
+        height:0.05*height,
+        backgroundColor: 'rgba(255,191,45,0.2)',
+        textAlignVertical:'center',
+        marginTop:0.01*height,
+        color:'#fff',
+        fontSize:22*s1,
+        marginLeft:'auto',
+        marginRight:'auto',
+        textAlign:'center',
+        borderRadius:5
+        // backgroundColor: 'rgba(255,255,255,0.3)',
+
     },
     lover_second: {
         marginBottom:15,
