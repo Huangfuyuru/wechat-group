@@ -22,10 +22,10 @@ export default class LSlists extends Component {
         this.state = {
             arr: [
                 {
-                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
+                    background: "https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1354279089,2926899578&fm=26&gp=0.jpg",
                     title: "一起去看电影"
                 }, {
-                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
+                    background: "https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1354279089,2926899578&fm=26&gp=0.jpg",
                     title: "一起去看电影"
                 }, {
                     background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
@@ -135,11 +135,19 @@ export default class LSlists extends Component {
                 <View style={styles.btn}>
                     <Text style={{
                         color: "#fff",
-                        fontSize: 15,
+                        fontSize:30*s,
                         textAlign: "center",
                         textAlignVertical: "center",
-                        lineHeight: 35
-                    }}>已完成 10/30</Text>
+                        lineHeight: 42,
+                        color:"pink"
+                    }}>已完成 10/</Text>
+                    <Text style={{
+                          color: "#000",
+                          fontSize:20*s,
+                          textAlign: "center",
+                          textAlignVertical: "center",
+                          lineHeight: 42,
+                    }}>30</Text>
                 </View>
                 <WingBlank>
                     <FlatList
@@ -230,18 +238,30 @@ export default class LSlists extends Component {
                                             style={{
                                                 height: 130 * s,
                                                 width: 0.43 * width,
-                                                backgroundColor: 'rgba(0,0,0,.6)',
+                                                backgroundColor: 'rgba(221, 204,255,.3)',
                                                 flexDirection: "column",
                                                 alignContent: "center",
                                                 justifyContent: "center",
                                                 textAlign: "center"
                                             }}
                                         >
-                                            <Text style={{
+                                            <View style={{
+                                                width:0.3*width,
+                                                // backgroundColor: 'rgba(255,255,255,.4)',
+                                                backgroundColor:"rgba(255,255,255,0.7)",
+                                                marginLeft:"auto",
+                                                marginRight:"auto",
+                                                borderRadius:10
+                                            }}><Text
+                                            style={{
                                                 fontSize: 15,
-                                                color: "#fff",
-                                                textAlign: "center"
-                                            }}>{item.title}</Text>
+                                                color: "#888",
+                                                textAlign: "center",
+                                                textAlignVertical:"center",
+                                                height:50*s
+                                            }}
+                                            >{item.title}</Text>
+                                            </View>
                                         </View>
                                         </TouchableOpacity>
                                     </ImageBackground>
@@ -292,14 +312,10 @@ const styles = StyleSheet.create({
         // borderColor: "#C0C0C0",
     },
     btn: {
-        height: 50 * s,
-        width: 0.8 * width,
-        backgroundColor: "#FF1744",
-        // backgroundColor: '#FFF',
-        borderRadius: 20,
-        // borderWidth:1,
-        marginLeft: 0.1 * width,
-        marginTop:20*s
+        width: 0.25 * width,
+        flexDirection:"row",
+        marginLeft:"auto",
+        marginRight:38*s
     },
 
 })

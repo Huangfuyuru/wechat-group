@@ -11,7 +11,7 @@ import Icon1 from 'react-native-vector-icons/Feather'
 import { Actions } from 'react-native-router-flux';
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
-export default class listContent extends Component {
+export default class SouConent extends Component {
     constructor(){
         super()
         this.state = {
@@ -35,52 +35,64 @@ export default class listContent extends Component {
                     onPress={() => Actions.pop()}
                 />
                 <Text style={styles.title}>
-                    {item.txt}
+                    详 情
                 </Text>
             </View>
                 <View style={{
-                      width:width,
+                      width:0.95*width,
                       height:0.8*height,
-                      backgroundColor:"#fff",
-
-                     
-                }}> 
-                <Image
-                style={{
-                    height:0.5*height,
-                    width:width,
-                     marginRight:"auto",
-                    marginLeft:"auto",
+                    //   backgroundColor:'rgba(221,204,255,.3)',  
+                      backgroundColor:"rgba(255,192,203,.2)",                      
+                      borderRadius:10,
+                      borderColor:"#888",
+                      borderWidth:0.5,
+                      marginRight:"auto",
+                      marginLeft:"auto",
+                      marginTop:15*s
+                }}>
+                    <View style={{flexDirection:"row"}}>
+                    <Text style={{
+                        fontSize:25*s,
+                        marginTop:30*s,
+                        marginLeft:35*s,
+                        marginRight:35*s
                 }}
-                 source={{uri:item.src}}></Image>
+            >{item.date} 09:16</Text> 
+             <Text style={{
+                    fontSize:35*s,
+                    textAlign:"center",
+                    color:"#FF1744",
+                    marginTop:10*s,
+                }}
+            >{item.heart}</Text> 
+            </View>
                 <TextInput 
                 multiline={true}
                 editable={false}
                 style={{
                     marginRight:"auto",
                     marginLeft:"auto",
-                    marginTop:10,
                     fontSize:25*s,
-                    width:0.96*width,
-                    // backgroundColor:"pink",
-                    height:200*s,
+                    width:0.9*width,
+                    backgroundColor:"#fff",                      
+                    borderRadius:10,
+                    marginBottom:30*s,
+                    marginTop:35*s
+,                   height:80*s,
                     color:"#000",
                     textAlignVertical: 'top',
-                }}>今天打卡了砰然心动，青梅竹马，简直不要不要的！
-                简直不要不要的！今天打卡了砰然心动，青梅竹马，简直不要不要的！
+                }}>{item.txt}
                 </TextInput>
-                <Text style={{
-                     marginLeft:"auto",
-                     marginRight:30*s,
-                    
+                  <Image
+                style={{
+                    height:0.5*height,
+                    width:0.9*width,
+                    marginRight:"auto",
+                    marginLeft:"auto",
+                    borderRadius:10,
+                    marginTop:20*s
                 }}
-                >2020-03-16</Text>
-                <Text style={{
-                     marginLeft:"auto",
-                     marginTop:10*s,
-                     marginRight:30*s,
-                }}
-                >北京</Text>
+                 source={{uri:item.src}}></Image>
                 </View>
            </View>
         )
@@ -96,7 +108,7 @@ const styles = StyleSheet.create({
         paddingLeft:0.03*width,
         paddingTop:'1%',
         paddingRight:0.03*width,
-        justifyContent:"center",
+        // justifyContent:"center",
        
     },
     icon:{

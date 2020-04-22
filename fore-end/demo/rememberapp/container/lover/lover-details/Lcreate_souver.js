@@ -57,7 +57,9 @@ export default class Lcreate_souver extends Component {
                     marginLeft:"auto",
                     borderRadius:15,
                     width:0.9*width,
-                    marginTop:50*s
+                    marginTop:50*s,
+                    backgroundColor:"rgba(255,192,203,.2)"
+
                 }}>
                 <View style={styles.msg}>
                 <Icon1 
@@ -91,7 +93,7 @@ export default class Lcreate_souver extends Component {
                     <Text style={styles.text}>
                         纪念日：</Text>
                     <TextInput
-                        maxLength={10}
+                        maxLength={18}
                         placeholder='第一次去旅行'
                         style={styles.input} />
                 </View>
@@ -232,6 +234,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginLeft:"auto",
         marginRight:"auto",
+        // backgroundColor:"#fff",
+        // borderRadius:10
     },
     text: {
         textAlign: 'center',
@@ -239,6 +243,7 @@ const styles = StyleSheet.create({
         width: 0.3 * width,
         fontSize: 26 * s,
         color: '#333',
+        
     },
     input: {
         width: 0.4 * width,
@@ -248,6 +253,8 @@ const styles = StyleSheet.create({
         fontSize: 24 * s,
         textAlign: 'center',
         color: '#333',
+        backgroundColor:"#fff",
+        borderRadius:10
     },
     textbtn:{
         textAlign:'center',

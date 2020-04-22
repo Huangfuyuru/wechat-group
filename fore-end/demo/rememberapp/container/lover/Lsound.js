@@ -15,7 +15,6 @@ import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import Icon3 from "react-native-vector-icons/FontAwesome"
 import { Actions } from 'react-native-router-flux';
-import { spring } from 'react-native-reanimated'
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
 export default class Lsound extends Component {
@@ -24,36 +23,47 @@ export default class Lsound extends Component {
         this.state = {
             arr: [
                 {
+                    id:"3",
                     name: "面具",
                     setdate: "2020-04-13",
+                    pasued:true,
+                    uri:"https://webfs.yun.kugou.com/202004220946/8b16e3ae702900799dce0419a62e2e9c/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"
                 },
                 {
-                    name: "稻花香",
+                    id:"1",
+                    name: "Fire",
                     setdate: "2020-04-13",
+                    pasued:true,
+                    uri:"https://webfs.yun.kugou.com/202004221818/ad7d470118501ce4e74ed0dc306cb31b/G101/M04/1A/09/RZQEAFu3_MiAcRSqADM-ivg677o868.mp3"
                 },
                 {
+                    id:"9",
                     name: "面具",
                     setdate: "2020-04-13",
+                    pasued:true,
+                    uri:"https://webfs.yun.kugou.com/202004220929/6aae5dda554a5366d38b9bad5c4904d7/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"
                 },
                 {
-                    name: "稻花香",
-                    setdate: "2020-04-13",
-                },  {
+                    id:"4",
                     name: "面具",
                     setdate: "2020-04-13",
-                },
-                {
-                    name: "稻花香",
-                    setdate: "2020-04-13",
-                },
+                    pasued:true,
+                    uri:"https://webfs.yun.kugou.com/202004220929/6aae5dda554a5366d38b9bad5c4904d7/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"
+                },  
             ], 
-            length:   2          ,                     //数组长度
-            currentTime: 0.0,					//当前播放的时间
-            paused: [],						//播放
-            sliderValue: 0,					//进度条的进度
-            duration: 0.0	,					//总时长
-            playIcon:[]                          //播放暂停图标
         }
+    }
+    componentDidMount(){
+        const arr0=[...this.state.arr]
+        arr0.map((item)=>{
+           item.currentTime=0.0;
+           item.slideValue=0.0,
+           item.duration=0.0,
+           item.muted=false
+        })
+        this.setState({
+            arr:arr0
+        })
     }
     showAlert = () => {
         Alert.alert('', '确定要删除吗？',
@@ -72,33 +82,65 @@ export default class Lsound extends Component {
         return min + ":" + second;
     }
     //设置进度条和播放时间的变化
-    setTime(data) {
-        let sliderValue = parseInt(this.state.currentTime);
+    setTime(data,id) {
+        const arr0=[...this.state.arr]
+        arr0.map((item)=>{
+            if(item.id==id){
+               item.slideValue=parseInt(item.currentTime)
+               item.currentTime=data.currentTime;
+            }
+        })
         this.setState({
-            sliderValue: sliderValue,
-            currentTime: data.currentTime
-        });
+            arr:arr0
+        })
     }
-    //设置总时长
-    setDuration(duration) {
-        this.setState({ duration: duration.duration });
+    // 设置总时长
+    setDuration(data,id) {
+        const arr0=[...this.state.arr]
+        arr0.map((item)=>{
+            if(item.id==id){
+               item.duration=data.duration
+            }
+        })
+        this.setState({
+            arr:arr0
+        })
     }
-    // play=(idx)=> {
-    //     const paused0=[...this.state.paused];
-    //     paused0[idx] =!paused0[idx];
-    //     const playIcon0=[...this.state.playIcon];
-    //     playIcon0[idx]=paused0[idx] ? 'pause-circle-o' : 'play-circle-o'
-    //     this.setState({
-    //         paused: paused0,
-    //         playIcon:playIcon0
-    //     })
-    //     console.log(this.state.paused)
-    //   }
-
+    onValue=(value,id)=>{
+        const arr0=[...this.state.arr]
+        arr0.map((item)=>{
+            if(item.id==id){
+               item.currentTime=value
+            }
+        })
+        this.setState({
+            arr:arr0
+        })
+    }
     
-    // componentDidMount() {
-    //     console.log(this.state.paused)   
-    // }
+    play=(id)=> {
+      const arr0=[...this.state.arr]
+      arr0.map((item)=>{
+          if(item.id==id){
+              item.pasued=!item.pasued
+          }
+      })
+      this.setState({
+          arr:arr0
+      })
+      }
+      spin=(id)=>{
+        const arr0=[...this.state.arr]
+        arr0.map((item)=>{
+            if(item.id==id){
+                item.muted=!item.muted
+            }
+        })
+        this.setState({
+            arr:arr0
+        })
+        }
+    
     render() {
         return (
             <View>
@@ -155,10 +197,7 @@ export default class Lsound extends Component {
                         style={styles.scrollView}
                         data={this.state.arr}
                         numColumns={1}
-                        renderItem={({item,idx}) => {
-                            this.state.paused[idx]=false;
-                            this.state.playIcon[idx]="play-circle-o";
-                            // console.log(this.state.paused) 
+                        renderItem={({item}) => {
                             return <View style={styles.box}>
                                 <View style={{
                                     flexDirection: "row",
@@ -181,11 +220,12 @@ export default class Lsound extends Component {
                                             marginBottom: 15 * s
                                         }}
                                     />
+                                    
                                 </View>
                                 <View style={{
                                     flexDirection:"row",
-                                    height:70*s,
-                                    width:0.8*width,
+                                    height:75*s,
+                                    width:0.85*width,
                                     backgroundColor:"#E8E8E8",
                                     marginLeft: 'auto',
                                     marginRight: "auto",
@@ -197,10 +237,11 @@ export default class Lsound extends Component {
                                     width:50*s,
                                     backgroundColor:"#E8E8E8",
                                     borderRadius:50,
-                                    marginTop:10*s,
-                                    
+                                    marginTop:12*s,
+                                    marginLeft:20*s,
+                                    marginRight:5*s
                                 }} 
-                                // onPress={this.play(idx)}
+                                onPress={this.play.bind(this, item.id)}
                                 >
                                    <Icon3
                                    style={{
@@ -209,36 +250,45 @@ export default class Lsound extends Component {
                                        fontSize:50*s,
                                        color:"#989898"
                                    }}
-                                    name={this.state.playIcon[idx]}/>
+                                    name={item.pasued ? 'play-circle-o' : 'pause-circle-o'}/>
                                 </TouchableOpacity>
+                                <Text style={{
+                                    textAlignVertical:"center"
+                                }}>{this.formatMediaTime(item.currentTime).split('.')[0]}/{this.formatMediaTime(item.duration).split('.')[0]}</Text>
                                 <Slider
-                                    value={this.state.slideValue}
-                                    maximumValue={this.state.duration}
+                                    value={item.slideValue}
+                                    maximumValue={item.duration}
                                     step={1}
-                                    onValueChange={value => this.setState({ currentTime: value })}
+                                    onValueChange={this.onValue.bind(this,item.id)}
+                                    minimumTrackTintColor="pink"
+                                    maximumTrackTintColor="#fff"
+                                    thumbTintColor="#fff"
                                     style={{
-                                        width:0.55*width,
-                                        marginTop:10*s,
-                                        marginBottom:10*s,
+                                        width:0.46*width,
+                                        marginTop:"auto",
+                                        marginBottom:"auto",
                                     }}
                                 />
+                                <TouchableOpacity activeOpacity={0.8} onPress={this.spin.bind(this,item.id)}>
                                 <Icon1 style={{
-                                    marginTop:12*s,
+                                    marginTop:"auto",
+                                    marginBottom:"auto",
+                                    marginRight:10*s,
                                     fontSize:40*s,
                                     color:"#989898"
-                                }} name="volume-2" />
+                                }} name={item.muted?"volume-x":"volume-2"} />
+                                </TouchableOpacity>
                                 </View>
-                                {/* <Video
-                                    source={{uri:"https://webfs.yun.kugou.com/202004182032/f96761db7b9ff61cb31009719ad02120/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"}}
+                                <Video
+                                    source={{uri:item.uri}}
                                     ref='player'
-                                    paused={this.state.paused}
-                                    onLoad={data => this.setDuration(data)}
+                                    paused={item.pasued}
+                                    onLoad={data => this.setDuration(data,item.id)}
                                     volume={1.0}
+                                    muted={item.muted}
                                     playInBackground={true}
-                                    onProgress={e => this.setTime(e)}
-                                    playWhenInactive={true}
-                                    style={styles.audio}
-                                /> */}
+                                    onProgress={data => this.setTime(data,item.id)}
+                                />
                                 <Text style={{
                                     marginLeft: "auto",
                                     marginRight: 20 * s
@@ -297,14 +347,5 @@ const styles = StyleSheet.create({
         marginLeft: 'auto',
         marginRight: "auto",
 
-    },
-    audio: {
-        backgroundColor: "pink",
-        // height: 25 * s,
-        borderRadius: 20,
-        // width: 0.8 * width,
-        marginLeft: 'auto',
-        marginRight: "auto",
-        marginBottom: 15 * s
     }
 })

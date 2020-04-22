@@ -56,7 +56,7 @@ export default class Lcreate_list extends Component {
                     marginLeft:"auto",
                     borderRadius:15,
                     width:0.9*width,
-                    marginTop:50*s
+                    marginTop:50*s,
                 }}>
                 <View style={styles.msg}>
                 <Icon1 

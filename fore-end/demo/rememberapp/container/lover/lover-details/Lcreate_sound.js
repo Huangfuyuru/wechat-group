@@ -58,7 +58,8 @@ export default class Lcreate_sound extends Component {
                     marginLeft: "auto",
                     borderRadius: 15,
                     width: 0.9 * width,
-                    marginTop: 50 * s
+                    marginTop: 50 * s,
+                    
                 }}>
                     <View style={styles.msg}>
                         <Icon1
@@ -93,7 +94,7 @@ export default class Lcreate_sound extends Component {
                             语音名称：</Text>
                         <TextInput
                             maxLength={10}
-                            placeholder='第一次去旅行'
+                            placeholder='我们的歌'
                             style={styles.input} />
                     </View>
                     <View style={styles.choose}>
