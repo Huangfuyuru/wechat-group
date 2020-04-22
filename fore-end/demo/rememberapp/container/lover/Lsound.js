@@ -239,7 +239,7 @@ export default class Lsound extends Component {
                                     borderRadius:50,
                                     marginTop:12*s,
                                     marginLeft:20*s,
-                                    marginRight:5*s
+                                    marginRight:20*s
                                 }} 
                                 onPress={this.play.bind(this, item.id)}
                                 >
@@ -260,7 +260,7 @@ export default class Lsound extends Component {
                                     maximumValue={item.duration}
                                     step={1}
                                     onValueChange={this.onValue.bind(this,item.id)}
-                                    minimumTrackTintColor="pink"
+                                    minimumTrackTintColor="#FFBF2D"
                                     maximumTrackTintColor="#fff"
                                     thumbTintColor="#fff"
                                     style={{
@@ -273,7 +273,7 @@ export default class Lsound extends Component {
                                 <Icon1 style={{
                                     marginTop:"auto",
                                     marginBottom:"auto",
-                                    marginRight:10*s,
+                                    marginRight:25*s,
                                     fontSize:40*s,
                                     color:"#989898"
                                 }} name={item.muted?"volume-x":"volume-2"} />
