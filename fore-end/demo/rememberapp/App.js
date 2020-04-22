@@ -72,6 +72,7 @@ import LCsound from "./container/lover/lover-details/Lcreate_sound"
 // 
 import Lsouvenir from "./container/lover/Lsouvenir"
 import LCsouvenir from "./container/lover/lover-details/Lcreate_souver"
+import souconent from "./container/lover/lover-details/SouConent"
 // 
 import Community from './container/Community';
 import My from './container/My';
@@ -285,6 +286,8 @@ const App = () => {
 
 									<Scene key='lsouvenir' hideTabBar hideNavBar={true} component={Lsouvenir} />
 									<Scene key='lcsouvenir' hideTabBar hideNavBar={true} component={LCsouvenir} />
+									<Scene key='souvenir' hideTabBar hideNavBar={true} component={souconent} />
+
 
 
 									<Scene key='ldairy' hideTabBar hideNavBar={true} component={Ldairy} />
