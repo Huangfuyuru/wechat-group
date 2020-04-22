@@ -5,7 +5,6 @@ import {
     StyleSheet,
     Dimensions,
     FlatList,
-    Image,
     Alert,
     ToastAndroid,
     TouchableOpacity,
@@ -91,11 +90,11 @@ export default class Lsouvenir extends Component {
             //调用start启动动画,start可以回调一个函数,从而实现动画循环
         ]).start(() => this.startAnimation());
     }
-    playMusic=(idx)=>{
+    playMusic=(id)=>{
     const arr0=[...this.state.arr]
       arr0.map((item)=>{
-          if(item.id==idx){
-              item.pasued=!item.pasued
+          if(item.id==id){
+              item.paused=!item.paused
           }
       })
       this.setState({
@@ -165,6 +164,7 @@ export default class Lsouvenir extends Component {
                         data={list}
                         numColumns={1}
                         renderItem={({ item }) => {
+                            const a=item.paused ? "360deg":"0deg"
                             return(
                             <TouchableWithoutFeedback  onLongPress={this.alertMsg} >
                                 <View style={{
@@ -197,7 +197,7 @@ export default class Lsouvenir extends Component {
                                                 {
                                                     rotateZ: this.state.rotateValue.interpolate({
                                                         inputRange: [0,  1],
-                                                        outputRange: ['0deg', '360deg' ],
+                                                        outputRange: ['0deg', a ],
                                                     })
                                                 },
                                             ]
