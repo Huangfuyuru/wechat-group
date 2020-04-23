@@ -1,187 +1,280 @@
 import React, { Component } from 'react'
-import { NavBar,WingBlank} from 'antd-mobile';
-import "../../../css/lover.css"
-import {Link} from "react-router-dom"
+import {
+    View,
+    Text,
+    Dimensions,
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    Image,
+    Alert,
+    ToastAndroid,
+    ImageBackground
+} from "react-native"
+import Icon1 from 'react-native-vector-icons/Feather'
+import Icon2 from "react-native-vector-icons/SimpleLineIcons"
+import { Actions } from "react-native-router-flux"
+import { ScrollView } from 'react-native-gesture-handler'
+const { width, scale, height } = Dimensions.get('window');
+const s = width / 640;
 export default class Lcreate_souver extends Component {
-    constructor(props){
-        super(props)
-        var lid = JSON.parse(localStorage.getItem('lid'));
+    constructor(){
+        super()
         this.state={
-            lover_id:lid,
-            item:"纪念日",
-            name:"",
-            imgurl:"",
-            content:"",
-            code:"",
-            date:""
+            img:'https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1354279089,2926899578&fm=26&gp=0.jpg',
         }
     }
-    getTitle=(e)=>{
-        this.setState({
-                name:e.target.value
-            
-        })
-    }
-    getDate=(e)=>{
-        this.setState({
-            date:e.target.value
-    })
-    }
-    getContent=(e)=>{
-        this.setState({
-            content:e.target.value
-    })
-    }
-    upfile=()=>{
-        var file=document.getElementById('img1').files[0];
-        var url = 'http://localhost:3001/img';
-        var form = new FormData();
-        form.append("file",file);
-        fetch(url,{
-            method:'POST',
-            enctype:'multipart/form-data',
-            body:form
-        }).then(res=>res.json())
-        .then(json=>(
-            this.setState((state)=>{
-                state.imgurl=json.path
-        },()=>{
-            var img=document.getElementById("souBack");
-            img.setAttribute("src",this.state.imgurl);
-        })
-        )
-    )}
-    upSouver=()=>{
-        var updairywarn=document.getElementById('updairywarn');
-        updairywarn.style.display='block';
-        fetch(`http://localhost:3001/lover/lsouvenir/lcsouvenir`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`item=${this.state.item}&name=${this.state.name}&imgurl=${this.state.imgurl}&loverid=${this.state.lover_id}&date=${this.state.date}`
-        })
-        .then(res=>res.json())
-        .then(json=>{ 
-            
-                this.setState({
-                    code:"上传成功"
-                })
-            
-            console.log(json)
-        })
+    alertMsg=()=>{
+        Alert.alert(
+            '提示',
+            '确认提交？',
+            [
+                {text: '确定', onPress: () =>{ 
+                    Actions.pop()
+                    ToastAndroid.show('提交成功！', ToastAndroid.SHORT)
+                }},
+                {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            ],
+        );
     }
     render() {
+        const src=this.state.img
         return (
-            <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
-            <NavBar 
-                 style={{
-                    background:'#FFBF2D',
-                    height:'8vh',
-                    color:'#fff',
-                    fontWeight:'bolder',
-                    zIndex:'11',
-                    position:'fixed',
-                    width:'100%',
-                    left:0,
-                    top:0
+            <View>
+                <View style={styles.navbar}>
+                    <Icon1
+                        style={styles.icon}
+                        name='chevron-left'
+                        onPress={() => Actions.pop()}
+                    />
+                    <Text style={styles.title}>新建纪念日</Text>
+                </View>
+                <View style={{
+                    height:800*s,
+                    borderWidth:0.5,
+                    borderColor:"black",
+                    marginRight:"auto",
+                    marginLeft:"auto",
+                    borderRadius:15,
+                    width:0.9*width,
+                    marginTop:50*s,
+                    backgroundColor:"rgba(255,192,203,.2)"
+
+                }}>
+                <View style={styles.msg}>
+                <Icon1 
+                    style={{
+                        position:"absolute",
+                        top:15*s,
+                        left:15*s,
+                        fontSize:20,
+                        color:"#FF1744"
                     }}
-                    mode="light"
-                    icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/lover/lsouvenir')}
-                 ><span style={{
-                     color:'#fff',
-                     fontWeight:'bold',
-                     fontSize:'6vw',
-                     textIndent:'3vw',
-                     letterSpacing:'3vw'}}>新建纪念日</span>
-                </NavBar>
-                  <div className="createsou-first">
-                  <p >纪念日:</p>
-                  <input  type="text" placeholder="please input" onChange={this.getTitle}/>
-                  </div>
-                  <div className="createsou-first">
-                  <p >日期:</p>
-                  <input  type="text" placeholder="例:xxxx-xx-xx" onChange={this.getDate}/>
-                  </div>
-                  <div className="createsou-first">
-                  <p  style={{padding:" 0 15% 0 9%"}}>设置提醒:</p>
-                  <input  type="text" placeholder="提醒日期" />
-                  </div>
-                  <div style={{marginTop:"5vh"}}>
-                    <div style={{height:"6vh",width:"40%",backgroundColor:"rgb(255, 191, 45,0.5)",margin:"auto"}} >
-                    <span style={{position:"relative",top:"30%",left:"15%"}}>轻触上传封面</span>
+                    name="calendar"/>
+                    <Text style={styles.text}>
+                        时间：</Text>
+                    <TextInput
+                        maxLength={10}
+                        placeholder='例2020-02-16'
+                        style={styles.input} />
+                </View>
+                <View style={styles.msg}>
+                    <Icon1
+                    style={{
+                        position:"absolute",
+                        top:15*s,
+                        left:15*s,
+                        fontSize:20,
+                        color:"#FF1744"
+
+                    }}
+                     name="award"/>
+
+                    <Text style={styles.text}>
+                        纪念日：</Text>
+                    <TextInput
+                        maxLength={18}
+                        placeholder='第一次去旅行'
+                        style={styles.input} />
+                </View>
+                <View style={styles.msg}>
+                    <Icon2
+                    style={{
+                        position:"absolute",
+                        top:15*s,
+                        left:15*s,
+                        fontSize:20,
+                        color:"#FF1744"
+
+                    }}
+                     name="heart"/>
+
+                    <Text style={styles.text}>
+                        纪念心情：</Text>
+                    <TextInput
+                        maxLength={10}
+                        placeholder='输入3代表 ღ ღ ღ'
+                        style={styles.input} />
+                </View>
+                <View style={styles.msg}>
+                    <Icon1
+                    style={{
+                        position:"absolute",
+                        top:15*s,
+                        left:15*s,
+                        fontSize:20,
+                        color:"#FF1744"
+                    }}
+                     name="music"/>
+
+                    <Text style={styles.text}>
+                        设置铃声：</Text>
+                    <ImageBackground 
+                     style={{
+                        width: 0.4 * width,
+                        textAlign: 'center',
+                    }} 
+                    source={{uri:"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3677406540,3284316335&fm=26&gp=0.jpg"}}>
+                    <TouchableOpacity
+                        maxLength={10}
+                        placeholder='输入3代表 ღ ღ ღ'
+                        style={{
+                            width: 0.4 * width,
+                            borderColor: '#bdbbb8',
+                            textAlign: 'center',
+                            color: '#333',
+                            backgroundColor:"#336666",
+                            opacity:0.5,
+                            height:60*s,
+                        }} >
+                            <Text style={{
+                                textAlign:"center",
+                                color:"#fff",
+                                marginTop:"auto",
+                                marginBottom:"auto"
+                                }}>点击上传</Text>
+                        </TouchableOpacity>
+                        </ImageBackground>
+                </View>
+              
+                <TouchableOpacity style={styles.coverbox}>
+                        <Text
+                        style={styles.textbtn}>轻触设置图片</Text>
+                        <Image
+                            style={{
+                                width:0.5*width,
+                                height:180*s,
+                                borderColor:'#ccc',
+                                borderStyle:'solid',
+                                borderWidth:2,
+                                backgroundColor:'rgba(255,191,45,0.1)',
+                            }}
+                            resizeMode="contain"
+                            source={{uri:this.state.img}}
+                        ></Image>
+                </TouchableOpacity>
+                    <TouchableOpacity style={{
+                        width:0.4*width,
+                        height:60*s,
+                        borderColor:"#000",
+                        borderWidth:1,
+                        borderRadius:10,
+                        marginLeft:"auto",
+                        marginRight:"auto",
+                        marginTop:100*s
+                    }}
+                    onPress={this.alertMsg}
+                    >
+                        <Text
+                        style={{
+                            textAlign:"center",
+                            textAlignVertical:"center",
+                            lineHeight:48*s,
+                            fontSize:28*s
+                        }}
+                        >创建</Text>
+                    </TouchableOpacity>
+                    </View>
                     
-                    <input  
-                        style={{height:"100%",width:"100%",opacity:"0"}}
-                        id="img1"  
-                        onChange={this.upfile}
-                        type='file'  
-                        accept="image/*" 
-                        capture="camera" 
-                        name="imgurl"
-                        multiple="multiple"
-                        alt=""/>
-                     </div>
-                 </div>
-                 <div style={{width:"60%",height:"20vh",float:"left",margin:"5vh 0 0 20%"}}>
-                     <img  id="souBack" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2591606286,529221099&fm=15&gp=0.jpg" style={{height:"100%",width:"100%",float:"left"}}/>
-                 </div>
-                  {/* <div style={{float:"left",margin:"8%"}} >
-                  <input  
-                    style={{width:"90%",height:"100%"}}
-                    id="img1"   
-                    onChange={this.upfile}
-                    type='file'  
-                    accept="image/*" 
-                    capture="camera" 
-                    name="imgurl"
-                    multiple="multiple"
-                    alt=""/>
-                    </div> */}
-                  {/* <textarea className="createsou-second" onChange={this.getContent} >内容：</textarea> */}
-                 
-                  <WingBlank>
-               <button className="createsou-foot" onClick={this.upSouver}>保存</button>
-               </WingBlank>
-               <form id='updairywarn'>
-                    <div>{this.state.code}</div>
-                    <button 
-                    onClick={()=>{
-                        var updairywarn=document.getElementById('updairywarn');
-                        updairywarn.style.display='none';
-                        this.props.history.push('/lover/lsouvenir');
-                    }}
-                    style={{
-                        width:'35%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw',
-                        marginRight:'2vw'
-                    }}>返回列表</button>
-                    <button 
-                    onClick={()=>{
-                        var updairywarn=document.getElementById('updairywarn');
-                        updairywarn.style.display='none';
-                        this.props.form.resetFields();
-                    }}
-                    style={{
-                        width:'35%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw'
-                    }}>继续上传</button>
-                </form>
-            </div>
+            </View>
+
         )
     }
 }
+const styles = StyleSheet.create({
+    navbar: {
+        width: width,
+        height: 65 * s,
+        backgroundColor: '#FFBF2D',
+        // backgroundColor: 'white',
+        flexDirection: 'row',
+        paddingLeft: 0.03 * width,
+        paddingTop: '1%',
+        paddingRight: 0.03 * width,
+        justifyContent: "center",
+    },
+    icon: {
+        width: 0.08 * width,
+        color: '#fff',
+        fontSize: 28,
+    },
+    title: {
+        marginLeft: 'auto',
+        marginRight: "auto",
+        textAlign: 'center',
+        fontSize: 20,
+        color: '#fff',
+        letterSpacing: 3
+    },
+    msg: {
+        width: 0.8 * width,
+        height: 60 * s,
+        marginTop: 10 * s,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginLeft:"auto",
+        marginRight:"auto",
+        // backgroundColor:"#fff",
+        // borderRadius:10
+    },
+    text: {
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        width: 0.3 * width,
+        fontSize: 26 * s,
+        color: '#333',
+        
+    },
+    input: {
+        width: 0.4 * width,
+        borderColor: '#bdbbb8',
+        borderStyle: 'solid',
+        borderBottomWidth: 1,
+        fontSize: 24 * s,
+        textAlign: 'center',
+        color: '#333',
+        backgroundColor:"#fff",
+        borderRadius:10
+    },
+    textbtn:{
+        textAlign:'center',
+        textAlignVertical:'center',
+        width:0.25*width,
+        height:45*s,
+        fontSize:26*s,
+        color:'#333',
+        textAlignVertical:'center',
+    },
+    coverbox:{
+        // backgroundColor:'#000',
+        width:0.6*width,
+        height:230*s,
+        alignContent:'center',
+        marginLeft:'auto',
+        marginRight:'auto',
+        marginTop:40*s,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    
+})

@@ -1,105 +1,321 @@
 import React, { Component } from 'react'
-import {NavBar,WingBlank} from "antd-mobile"
-import {Link} from "react-router-dom"
-import "../../../css/lover.css"
+import {
+    View,
+    Text,
+    StyleSheet,
+    Dimensions,
+    Image,
+    TouchableOpacity,
+    FlatList,
+    ImageBackground,
+    ToastAndroid
+
+} from "react-native"
+import Icon1 from 'react-native-vector-icons/Feather'
+import { Actions } from "react-native-router-flux"
+import { WingBlank } from "@ant-design/react-native"
+const { width, scale, height } = Dimensions.get('window');
+const s = width / 640;
 export default class LSlists extends Component {
-    constructor(){
-        super();
-        this.state={
-            lid:JSON.parse(localStorage.getItem('lid')),
-            listArr:[]
+    constructor() {
+        super()
+        this.state = {
+            arr: [
+                {
+                    background: "https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1354279089,2926899578&fm=26&gp=0.jpg",
+                    title: "一起去看电影"
+                }, {
+                    background: "https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1354279089,2926899578&fm=26&gp=0.jpg",
+                    title: "一起去看电影"
+                }, {
+                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
+                    title: "一起去看电影"
+                }, {
+                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
+                    title: "一起去看电影"
+                }, {
+                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
+                    title: "一起去看电影"
+                }, {
+                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
+                    title: "一起去看电影"
+                }, {
+                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
+                    title: "一起去看电影"
+                }, {
+                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
+                    title: "一起去看电影"
+                }, {
+                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
+                    title: "一起去看电影"
+                }, {
+                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                },
+                {
+                    background:'',
+                    title: "一起去看电影"
+                }, {
+                    background:'',
+                    title: "一起去看电影"
+                },
+
+            ]
         }
     }
-    componentDidMount(){
-        fetch(`http://localhost:3001/lover/loverlist/list?loverid=${this.state.lid}`)
-        .then((res)=>res.json())
-        .then((json)=>{
-            this.setState({
-                listArr:json
-            })
-            
-        })
+    alertMsg=()=>{
+        ToastAndroid.show('已经完成啦！！!(*^__^*)', ToastAndroid.SHORT)
     }
     render() {
-        let num=0;
+        const list = this.state.arr
         return (
-            <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
-              <NavBar
-                    style={{
-                        backgroundColor:"white",
-                        height:'8vh',
-                        color:'black',
-                        zIndex:'11',
-                        position:'fixed',
-                        width:'100%',
-                        left:0,
-                        top:0
-                    }}
-                    mode="light"
-                    icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/lover/llists')}
-                    ><span style={{
-                    
-                        fontSize:'6vw',
-                        textIndent:'3vw',
-                        letterSpacing:'3vw',
-                        color:"black"
-                    }}
-                    >清单列表</span>
-                </NavBar>
-                { 
-                     this.state.listArr.map((item)=>{
-                        if(item.imgurl!==undefined){
-                            num+=1
+            <View >
+                <View style={styles.navbar}>
+                    <Icon1
+                        style={styles.icon}
+                        name='chevron-left'
+                        onPress={() => Actions.pop()}
+                    />
+                    <Text style={styles.title}>清单列表</Text>
+                </View>
+                <View style={styles.btn}>
+                    <Text style={{
+                        color: "#fff",
+                        fontSize:30*s,
+                        textAlign: "center",
+                        textAlignVertical: "center",
+                        lineHeight: 42,
+                        color:"pink"
+                    }}>已完成 10/</Text>
+                    <Text style={{
+                          color: "#000",
+                          fontSize:20*s,
+                          textAlign: "center",
+                          textAlignVertical: "center",
+                          lineHeight: 42,
+                    }}>30</Text>
+                </View>
+                <WingBlank>
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        ListFooterComponent={
+                            <View style={{
+                                width: '100%',
+                                marginTop: 30
+                            }}>
+                                <Text style={{
+                                    width: '104%',
+                                    marginLeft: '-2%',
+                                    backgroundColor: '#000',
+                                    height: 0.8,
+                                }}></Text>
+                                <Text style={{
+                                    marginTop: -10,
+                                    width: 200 * s,
+                                    textAlign: 'center',
+                                    marginLeft: 'auto',
+                                    marginRight: 'auto',
+                                    backgroundColor: '#fff',
+                                    fontSize: 15,
+                                    color: '#bdbbb8'
+                                }}>底儿都被你看完了</Text>
+                            </View>
                         }
-                     }
-                     )
-                }
-   <div style={{width:"100%",height:"6vh",backgroundColor:"rgb(255, 235, 238)"}}><p style={{height:"5vh",width:"80%",backgroundColor:"#FF1744",fontSize:"5vw",margin:" 2% 0 0 10%",color:"white",borderRadius:"5vw",textAlign:"center",float:"left",lineHeight:"2"}}>已完成&nbsp;{num}/{this.state.listArr.length}</p></div> 
-    <div style={{width:"100%",backgroundColor:"#FFEBEE",float:"left"}}>
-                {
-                    
-                     this.state.listArr.map((item,idx)=>{
-                         var a;
-                         if(item.imgurl===undefined)
-                         {
-                         
-                             a=  <div className="limages" key={idx}>  
-                               <Link to={{
-                                   pathname:"/lover/lclist",
-                                   state:{
-                                    listid:item.id,
-                                    name:item.name
-                                }
-                               }}>
-                                   <div  style={{background:`url(${require('../../../image/tu1.jpg')})`,backgroundSize:"100% 100%",height:"100%",width:"100%"}} >
-                                   <p style={{color:"#888888",textAlign:"center",paddingTop: "14vh",margin:"0",overflow: "hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>{item.name}</p>
-                               </div>
-                               </Link>
-                               </div>
-                         
+                        style={styles.scrollView}
+                        data={list}
+                        numColumns={2}
+                        renderItem={({ item }) => {
+                            if (item.background == '') {
+                                return (
+                                    <TouchableOpacity  
+                                    activeOpacity={0.8}
+                                    style={{
+                                        height: 130 * s,
+                                        width: 0.43 * width,
+                                        marginLeft: "auto",
+                                        marginRight: "auto",
+                                        marginTop:5
+                                    }} 
+                                    onPress={()=>Actions.lclist()}>
+                                    <View
+                                        style={{
+                                            height: 130 * s,
+                                            width: 0.43 * width,
+                                            backgroundColor: 'rgba(50,50,50,.6)',
+                                            flexDirection: "column",
+                                            alignContent: "center",
+                                            justifyContent: "center",
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                        <Icon1
+                                            name="image"
+                                            style={{
+                                                color: "#fff",
+                                                fontSize:60,
+                                                textAlign: "center",
+                                            }}
+                                        onPress={()=>Actions.lclist()}
+                                        />
+                                        <Text style={{
+                                            fontSize: 15,
+                                            textAlign: "center",
+                                            color:"#fff"
+                                        }}>{item.title}</Text>
+                                    </View>
+                                    </TouchableOpacity>
+                                )
                             }
-                            else{
-                                a=  <div className="limages" style={{background:`url(${item.imgurl}) `,backgroundSize:"cover",backgroundRepeat:"no-repeat"}} key={idx}>
-                                <Link to={{
-                                    pathname:"/lover/list1",
-                                    state:{
-                                     arr:item
-                                 }
-                                }}>
-                                    <div  style={{height:"100%",width:"100%",backgroundColor:"rgb(0,0,0,0.5)",zIndex:"10",float:"left"}} >
-                                    <p style={{color:"white",textAlign:"center",lineHeight:"20vh",margin:"0",overflow: "hidden",whiteSpace:"nowrap",textOverflow:"ellipsis"}}>{item.name}</p>
-                                   </div>
-                                </Link>
-                                </div>
-
+                            else {
+                                return (
+                                    <ImageBackground
+                                        resizeMode="cover"
+                                        style={{
+                                            height: 130 * s,
+                                            width: 0.43 * width,
+                                            marginLeft: "auto",
+                                            marginRight: "auto",
+                                            marginTop: 5,
+                                        }}
+                                        source={{ uri: item.background }}
+                                    >
+                                       <TouchableOpacity  activeOpacity={0.8} onPress={this.alertMsg}>
+                                        <View
+                                            style={{
+                                                height: 130 * s,
+                                                width: 0.43 * width,
+                                                backgroundColor: 'rgba(221, 204,255,.3)',
+                                                flexDirection: "column",
+                                                alignContent: "center",
+                                                justifyContent: "center",
+                                                textAlign: "center"
+                                            }}
+                                        >
+                                            <View style={{
+                                                width:0.3*width,
+                                                // backgroundColor: 'rgba(255,255,255,.4)',
+                                                backgroundColor:"rgba(255,255,255,0.7)",
+                                                marginLeft:"auto",
+                                                marginRight:"auto",
+                                                borderRadius:10
+                                            }}><Text
+                                            style={{
+                                                fontSize: 15,
+                                                color: "#888",
+                                                textAlign: "center",
+                                                textAlignVertical:"center",
+                                                height:50*s
+                                            }}
+                                            >{item.title}</Text>
+                                            </View>
+                                        </View>
+                                        </TouchableOpacity>
+                                    </ImageBackground>
+                                )
                             }
-                            return a;
-                })      
-                }
-                </div>
-   
-            </div>
+                        }}
+                    />
+                </WingBlank>
+            </View>
         )
     }
 }
+const styles = StyleSheet.create({
+    navbar: {
+        width: width,
+        height: 65 * s,
+        // backgroundColor: 'white',
+        backgroundColor: '#FFBF2D',
+        flexDirection: 'row',
+        paddingLeft: 0.03 * width,
+        paddingTop: '1%',
+        paddingRight: 0.03 * width,
+        justifyContent: "center",
+    },
+    icon: {
+        width: 0.08 * width,
+        color: '#fff',
+        fontSize: 28,
+    },
+    title: {
+        marginLeft: 'auto',
+        marginRight: "auto",
+        textAlign: 'center',
+        fontSize: 20,
+        color: '#fff',
+        letterSpacing: 3
+    },
+    scrollView: {
+        marginTop: 10 * s,
+        backgroundColor: '#fff',
+        paddingLeft: 10,
+        paddingRight: 10,
+        height: 950 * s,
+        borderRadius: 5,
+        borderWidth: 0.3,
+        borderColor: "#000"
+        // borderWidth: 0.5,
+        // borderColor: "#C0C0C0",
+    },
+    btn: {
+        width: 0.25 * width,
+        flexDirection:"row",
+        marginLeft:"auto",
+        marginRight:38*s
+    },
+
+})

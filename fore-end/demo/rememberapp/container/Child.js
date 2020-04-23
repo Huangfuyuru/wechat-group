@@ -36,17 +36,17 @@ export default class Lover extends Component {
                 {
                     ctime:'以下内容仅自己可见',
                     cpic_src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577321644&di=8fc9ce735a95caff1722dd9101f2c7ab&imgtype=jpg&er=1&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3Daaf70247dff9d72a17311819e11a0402%2F728da9773912b31b00eaab518018367adbb4e1c0.jpg',
-                    ccontent:'在这里展示您最近三篇日记大致内容'
+                    ccontent:'在这里展示您未公开的发布'
                 },
                 {
                     ctime:'以下内容仅自己可见',
                     cpic_src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577321644&di=8fc9ce735a95caff1722dd9101f2c7ab&imgtype=jpg&er=1&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3Daaf70247dff9d72a17311819e11a0402%2F728da9773912b31b00eaab518018367adbb4e1c0.jpg',
-                    ccontent:'在这里展示您最近三篇日记大致内容'
+                    ccontent:'在这里展示您未公开的发布'
                 },
                 {
                     ctime:'以下内容仅自己可见',
                     cpic_src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577321644&di=8fc9ce735a95caff1722dd9101f2c7ab&imgtype=jpg&er=1&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3Daaf70247dff9d72a17311819e11a0402%2F728da9773912b31b00eaab518018367adbb4e1c0.jpg',
-                    ccontent:'在这里展示您最近三篇日记大致内容'
+                    ccontent:'在这里展示您未公开的发布'
                 },
             ]
         }
@@ -145,7 +145,7 @@ export default class Lover extends Component {
                         textIndent: 3,
                         letterSpacing: 3,
                         color: "#ffff",
-                        lineHeight: 40
+                        // textAlignVertical:'center'
                     }}
                     >亲子</Text>
                 </View>
@@ -160,20 +160,8 @@ export default class Lover extends Component {
                         source={{uri:`${this.state.background}`}}
                         alt='自定义照片墙'>
                     
-                                <TouchableOpacity style={{
-                                    color: '#000',
-                                    width:'80%',
-                                    // textAlign:'center',
-                                    backgroundColor: 'rgba(255,191,45,0.3)'
-                                }}><Text>轻触上传精选照片</Text>
-                                    {/* <input 
-                            id='img'
-                            onChange={this.upfile}                           
-                            type='file'  
-                            accept="image/*" 
-                            capture="camera" 
-                            name='uimage' 
-                            /> */}
+                                <TouchableOpacity>
+                                    <Text style={styles.bgbtn}>轻触上传精选照片</Text>
                                 </TouchableOpacity>
                     </ImageBackground>
                 </View>
@@ -317,7 +305,23 @@ const styles = StyleSheet.create({
         textAlign: "center",
         height: 0.33*height,
         width: width,
-        justifyContent: "center",
+        alignItems:'center'
+    },
+    bgbtn:{
+        color: '#000',
+        width:0.8*width,
+        height:0.05*height,
+        backgroundColor: 'rgba(255,191,45,0.2)',
+        textAlignVertical:'center',
+        marginTop:0.01*height,
+        color:'#fff',
+        fontSize:22*s1,
+        marginLeft:'auto',
+        marginRight:'auto',
+        textAlign:'center',
+        borderRadius:5
+        // backgroundColor: 'rgba(255,255,255,0.3)',
+
     },
     lover_second: {
         marginBottom:15,

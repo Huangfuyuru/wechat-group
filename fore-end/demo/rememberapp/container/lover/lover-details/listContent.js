@@ -1,56 +1,115 @@
 import React, { Component } from 'react'
-import { NavBar,WingBlank} from 'antd-mobile';
-import "../../../css/lover.css"
-import {Link} from "react-router-dom"
+import {
+    View,
+    Text,
+    StyleSheet,
+    Dimensions,
+    Image,
+    TextInput
+} from "react-native"
+import Icon1 from 'react-native-vector-icons/Feather'
+import { Actions } from 'react-native-router-flux';
+const { width, scale, height } = Dimensions.get('window');
+const s = width / 640;
 export default class listContent extends Component {
-    constructor(props){
-        super(props)
-        this.state={
-            item:this.props.location.state.arr
+    constructor(){
+        super()
+        this.state = {
+            arr:''
         }
     }
+    componentDidMount(){
+        this.setState({
+            arr:this.props.data
+        })
+    }
     render() {
+        const item=this.state.arr
+        console.log(this.state.arr);
         return (
-            <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh",overflow:"hidden",height:"100%"}}>
-                 <NavBar style={{
-                     height:'8vh',
-                     color:'black',
-                     zIndex:'11',
-                     position:'fixed',
-                     width:'100%',
-                     left:0,
-                     top:0
-                    }}
-                    mode="light"
-                    icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/lover/llists')}
-                 ><span style={{
-                     fontSize:'6vw',
-                     textIndent:'3vw',
-                     color:'black',
-                     overflowX:"hidden",
-                     textOverflow:"ellipsis",
-                     whiteSpace:"nowrap",
-                 letterSpacing:'1vw'}}>{this.state.item.name}</span>
-                </NavBar>
-                <WingBlank>
-                <div style={{height:"55vh",width:"100%"}}>
-                <img src={this.state.item.imgurl} alt="" style={{height:"100%",width:"100%",float:"left"}}/>
-                </div>
-                </WingBlank>
-                <WingBlank><p>{this.state.item.content}</p></WingBlank>
+            <View>
+            <View style={styles.navbar}>
+                <Icon1
+                    style={styles.icon}
+                    name='chevron-left'
+                    onPress={() => Actions.pop()}
+                />
+                <Text style={styles.title}>
+                    {item.txt}
+                </Text>
+            </View>
+                <View style={{
+                      width:width,
+                      height:0.8*height,
+                      backgroundColor:"#fff",
 
-                <WingBlank>
-                <div style={{height:"5vh",width:"100%"}}>
-                <p style={{float:"right",margin:"0"}}>时间：{this.state.item.setdate.split("T")[0]}</p>
-                </div>
-                </WingBlank>
-                <WingBlank>
-                <div style={{height:"5vh",width:"100%"}}>
-                <p style={{float:"right",margin:"0"}}> 地点：{this.state.item.local}</p>
-                </div>
-                </WingBlank>
-            </div>
+                     
+                }}> 
+                <Image
+                style={{
+                    height:0.5*height,
+                    width:width,
+                     marginRight:"auto",
+                    marginLeft:"auto",
+                }}
+                 source={{uri:item.src}}></Image>
+                <TextInput 
+                multiline={true}
+                editable={false}
+                style={{
+                    marginRight:"auto",
+                    marginLeft:"auto",
+                    marginTop:10,
+                    fontSize:25*s,
+                    width:0.96*width,
+                    // backgroundColor:"pink",
+                    height:200*s,
+                    color:"#000",
+                    textAlignVertical: 'top',
+                }}>今天打卡了砰然心动，青梅竹马，简直不要不要的！
+                简直不要不要的！今天打卡了砰然心动，青梅竹马，简直不要不要的！
+                </TextInput>
+                <Text style={{
+                     marginLeft:"auto",
+                     marginRight:30*s,
+                    
+                }}
+                >2020-03-16</Text>
+                <Text style={{
+                     marginLeft:"auto",
+                     marginTop:10*s,
+                     marginRight:30*s,
+                }}
+                >北京</Text>
+                </View>
+           </View>
         )
     }
 }
+const styles = StyleSheet.create({
+    navbar:{
+        width:width,
+        height:65*s,
+        // backgroundColor:'white',
+        backgroundColor: '#FFBF2D',
+        flexDirection: 'row',
+        paddingLeft:0.03*width,
+        paddingTop:'1%',
+        paddingRight:0.03*width,
+        justifyContent:"center",
+       
+    },
+    icon:{
+        width:0.08*width,
+        color:'#fff',
+        fontSize:28,
+    },
+    title: {
+        marginLeft: 'auto',
+        marginRight: "auto",
+        textAlign: 'center',
+        fontSize: 20,
+        color: '#fff',
+        letterSpacing: 3
+    },
+})

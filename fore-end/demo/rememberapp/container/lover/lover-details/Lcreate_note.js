@@ -1,174 +1,389 @@
 import React, { Component } from 'react'
-import { NavBar,WingBlank} from 'antd-mobile';
-import "../../../css/lover.css"
-import {Link} from "react-router-dom"
-import imgsrc from "../../../image/tu.jpg"
-
-export default class Lcreate_note extends Component {
+import { 
+    Text, 
+    View,
+    StyleSheet,
+    Dimensions,
+    TextInput,
+    TouchableOpacity,
+    FlatList,
+    Image,
+    ImageBackground,
+    ToastAndroid,
+    ScrollView
+} from 'react-native'
+import Icon1 from 'react-native-vector-icons/Feather'
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon3 from 'react-native-vector-icons/MaterialIcons'
+import Icon4 from 'react-native-vector-icons/Entypo'
+import Icon5 from 'react-native-vector-icons/Foundation'
+import Icon6 from 'react-native-vector-icons/Fontisto'
+import { Actions } from 'react-native-router-flux';
+import { WingBlank } from '@ant-design/react-native';
+const {width,scale,height} = Dimensions.get('window');
+const s = width / 640;
+export default class Cdairy extends Component {
     constructor(props){
         super(props);
-        var lid = JSON.parse(localStorage.getItem('lid'));
         this.state={
-            lover_id:lid,
-            name:"",
-            content:"",
-            code:"",
-            imgurl:[]
+            // refresh:true,
+            chooselist:'',
+            listicon:'',
+            bgcolor:'#ffffaa',
+            weather:'',
+            bgimg:'',
+            // bgimg:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
+            lists:[
+                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
+                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
+                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
+                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
+                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
+                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
+                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
+                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
+                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
+                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'],
+            code:''
         }
     }
-    changeTitle=(e)=>{
-        this.setState({
-            name:e.target.value
-        })
-    }
-    changeContent=(e)=>{
-        this.setState({
-            content:e.target.value
-        })
-    }
-    upfile=()=>{
-        var file=document.getElementById('img1').files;
-        var url = 'http://localhost:3001/imgs';
-        var form = new FormData();
-        for(var i=0;i<file.length;i++){
-            form.append("file",file[i]);
-        };
-        fetch(url,{
-            method:'POST',
-            enctype:'multipart/form-data',
-            body:form
-        }).then(res=>res.json())
-        .then(json=>(
-            
-            this.setState((state)=>{
+    choosebgimg = ()=>{
 
-                for(var i=0;i<json.length;i++){
-                    state.imgurl[i]=json[i].path
-                }
-        },()=>{
-            var yu =document.getElementById("yulan");
-            for (var i = 0; i <this.state.imgurl.length; i++) {
-                var img = document.createElement("img");
-                img.setAttribute("src",this.state.imgurl[i]);
-                img.setAttribute("id","lan");
-                img.setAttribute("alt","图片预览");
-                yu.appendChild(img)
-            }
-        })
-        )
-    )}
-    upDairy=()=>{
-        var updairywarn=document.getElementById('updairywarn');
-        updairywarn.style.display='block';
-        fetch(`http://localhost:3001/lover/ldairy/addDairy`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`loverid=${this.state.lover_id}&name=${this.state.name}&content=${this.state.content}&imgurl=${this.state.imgurl}`
-        })
-        .then(res=>res.json())
-        .then(json=>{ 
-             if(json.code===0){
-                 this.setState({
-                     code:"上传成功"
-                 })
-             }
-        })
+    }
+    savedairy = ()=>{
+        ToastAndroid.showWithGravityAndOffset(
+            '保存成功！',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+        25,-200)
+        setTimeout(() => {
+            Actions.pop() 
+        }, 3000);
     }
     render() {
+        const darkbg= [
+            {color:'red',name:'rectangle'},
+            {color:'orange',name:'rectangle'},
+            {color:'yellow',name:'rectangle'},
+            {color:'green',name:'rectangle'},
+            {color:'cyan',name:'rectangle'},
+            {color:'blue',name:'rectangle'},
+            {color:'purple',name:'rectangle'},
+            {color:'#000000',name:'rectangle'},
+            {color:'#bbbbbb',name:'rectangle'}
+        ]
+        const lightbg = [
+            {color:'#ffccee',name:'rectangle'},
+            {color:'#ffddaa',name:'rectangle'},
+            {color:'#ffffaa',name:'rectangle'},
+            {color:'#bbffbb',name:'rectangle'},
+            {color:'#bbffee',name:'rectangle'},
+            {color:'#aabbff',name:'rectangle'},
+            {color:'#ddccff',name:'rectangle'},
+            {color:'#ffffff',name:'rectangle'},
+            {color:'#dddddd',name:'rectangle'}
+        ]
+        const weather = [
+            {color:'#fff',name:'day-sunny'},
+            {color:'#fff',name:'night-clear'},
+            {color:'#fff',name:'day-cloudy'},
+            {color:'#fff',name:'night-alt-cloudy'},
+            {color:'#fff',name:'day-lightning'},
+            {color:'#fff',name:'night-alt-lightning'},
+            {color:'#fff',name:'night-alt-rain'},
+            {color:'#fff',name:'day-snow'},
+            {color:'#fff',name:'night-alt-snow'},
+            {color:'#fff',name:'day-haze'},
+            {color:'#fff',name:'rain'},
+            {color:'#fff',name:'snow'},
+            {color:'#fff',name:'wind'},
+            {color:'#fff',name:'cloudy'},
+            {color:'#fff',name:'cloudy-gusts'},
+            {color:'#fff',name:'rains'},
+            {color:'#fff',name:'snows'},
+            {color:'#fff',name:'lightnings'},
+        ]
+        var textcolor = '#000000'
+        var weathercolor = '#ffffff'
+        if(this.state.bgcolor == '#000000'){
+            textcolor = '#ffffff'
+        }
+        if(this.state.bgcolor == '#ffffff' || this.state.bgcolor == '#ffffaa'){
+            weathercolor = '#000000'
+        }
         return (
-            <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh"}}>
-           <NavBar 
-                 style={{
-                     background:'#FFBF2D',
-                     height:'8vh',
-                     color:'#fff',
-                     fontWeight:'bolder',
-                     zIndex:'11',
-                     position:'fixed',
-                     width:'100%',
-                     left:0,
-                     top:0
-                    }}
-                    mode="light"
-                    icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/lover/ldairy')}
-                 ><span style={{
-                     color:'#fff',
-                     fontWeight:'bold',
-                     fontSize:'6vw',
-                     textIndent:'3vw',
-                     letterSpacing:'3vw'}}>创建日记</span>
-                </NavBar>
-                <div className="note-title">
-                  <p >标题:</p>
-                  <input  type="text" placeholder="请输入"  onChange={this.changeTitle}/>
-                  </div>
-                <textarea onChange={this.changeContent} className="createnote-first">
-                </textarea>
-                图片预览：
-                <div style={{height:"24vh",width:"92%",overflowY:"scroll",border:"solid 1px #888888",margin:"2vh"}} id="yulan">
-                 </div>
-                <div className="createnote-second">
-                    <div  style={{height:"76%",width:"22%" ,float:"left",marginLeft:"3%",backgroundImage:`url(${imgsrc})`,backgroundSize:"100% 100%"}} >
-                    <input  
-                    style={{width:"100%",height:"100%",opacity:"0"}}
-                    id="img1"   
-                    onChange={this.upfile}
-                    type='file'  
-                    accept="image/*" 
-                    capture="camera" 
-                    name="imgurl"
-                    multiple="multiple"
-                    alt=""/>
-                    </div>
-                    <img src={require("../../../image/biao.jpg")}  style={{height:"76%",width:"22%" ,float:"left",marginLeft:"3%"}} alt=""></img>
-                    <img src={require("../../../image/ri.jpg")}  style={{height:"76%",width:"22%" ,float:"left",marginLeft:"3%"}} alt=""></img>
-                    <img src={require("../../../image/wei.jpg")}  style={{height:"76%",width:"22%" ,float:"left",marginLeft:"3%"}} alt=""></img>
-                </div>
-                <WingBlank>
-               <button className="createnote-foot" onClick={this.upDairy}>保存</button>
-               </WingBlank>
-               <form id='updairywarn'>
-                    <div>{this.state.code}</div>
-                    <button 
-                    onClick={()=>{
-                        var updairywarn=document.getElementById('updairywarn');
-                        updairywarn.style.display='none';
-                        this.props.history.push('/lover/ldairy');
-                    }}
-                    style={{
-                        width:'35%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw',
-                        marginRight:'2vw'
-                    }}>返回列表</button>
-                    <button 
-                    onClick={()=>{
-                        var updairywarn=document.getElementById('updairywarn');
-                        updairywarn.style.display='none';
-                        this.props.form.resetFields();
-                    }}
-                    style={{
-                        width:'35%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw'
-                    }}>继续上传</button>
-                </form>
-            </div>
-
+            <View>
+                <View style={styles.navbar}>
+                    <Icon1 
+                        style={styles.icon}
+                        name='chevron-left'
+                        onPress={()=>Actions.pop()}
+                    />
+                    <Text style={styles.title}>写日记</Text>
+                    <TouchableOpacity onPress={this.savedairy}>
+                        <Icon2 style={styles.icon}  name='playlist-check'/>
+                    </TouchableOpacity>
+                </View>
+                <WingBlank style={styles.wingblank}>
+                    <View style={styles.bgchoosebox}>
+                        <View style={styles.bgchoose}>
+                            <TouchableOpacity onPress={()=>this.setState({chooselist:darkbg})} style={styles.titlebtn}>
+                                <Icon2 style={styles.iconbtn} name='palette'/>
+                                <Text style={styles.btntext}>深色背景</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={()=>this.setState({chooselist:lightbg})} style={styles.titlebtn}>
+                                <Icon2 style={styles.iconbtn} name='palette-outline'/>
+                                <Text style={styles.btntext}>浅色背景</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={this.choosebgimg} style={styles.titlebtn}>
+                                <Icon3 style={styles.iconbtn} name='wallpaper'/>
+                                <Text style={styles.btntext}>背景图片</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={()=>this.setState({chooselist:weather})} style={styles.titlebtn}>
+                                <Icon4 style={styles.iconbtn} name='light-up'/>
+                                <Text style={styles.btntext}>天气</Text>
+                            </TouchableOpacity>
+                        </View>
+                            {/* <Text>{this.state.chooselist.toString()}</Text> */}
+                        <FlatList
+                            style={{
+                                borderColor:'rgba(204,204,204,0.2)',
+                                borderWidth:2,
+                                width:0.9*width,
+                                marginLeft:'auto',
+                                marginRight:'auto',
+                            }}
+                            extraData={this.state}
+                            data={this.state.chooselist}
+                            horizontal = {true}
+                            renderItem={({item})=>(
+                                <TouchableOpacity 
+                                    onPress={()=>{
+                                        if(item.name == 'rectangle'){
+                                            this.setState({
+                                                bgcolor:item.color
+                                            })
+                                        }
+                                        if(item.color == '#fff'){
+                                            this.setState({
+                                                weather:item.name
+                                            })
+                                        }
+                                    }}
+                                >
+                                    <Text
+                                        style={{
+                                            width:0.08*width,
+                                            height:0.045*height,
+                                            marginRight:0.01*width,
+                                            marginLeft:0.01*width,
+                                            textAlignVertical:'center',
+                                            textAlign:'center',
+                                            backgroundColor:'#000'
+                                        }}
+                                    >
+                                        <Icon6
+                                            name={item.name} 
+                                            color={item.color} 
+                                        size={25}/>
+                                    </Text>
+                                </TouchableOpacity>
+                            )}
+                        /> 
+                    </View>
+                    <View style={{
+                        width:0.9*width,
+                        height:0.7*height,
+                        backgroundColor:'#ccc',
+                        marginTop:0,
+                        marginLeft:'auto',
+                        marginRight:'auto',
+                        backgroundColor:`${this.state.bgcolor}`
+                    }}>
+                        <ImageBackground
+                            style={{
+                                width:'100%',
+                                height:'100%',
+                                transform: [{scale:0.98}]
+                            }}
+                            resizeMode="cover"
+                            source={{uri:`${this.state.bgimg}`}}
+                        >
+                            <Icon6 color={weathercolor} style={styles.lineweather} name={this.state.weather}/>
+                            <TextInput
+                                style={{
+                                    backgroundColor:'rgba(255,255,255,0.3)',
+                                    borderColor:'rgba(204,204,204,0.3)',
+                                    borderWidth:1,
+                                    height:0.25*height,
+                                    fontSize:23*s,
+                                    textAlignVertical: 'top',
+                                    transform: [{scale:0.95}],
+                                    padding:0.03*width,
+                                    color:`${textcolor}`
+                                }}
+                                placeholder="日记内容"
+                                multiline={true}
+                            />
+                            <View style={styles.picchoose}>
+                                <Text style={styles.pictext}>添加图片</Text>
+                                <TouchableOpacity style={styles.picbtn}>
+                                    <Icon2 size={45*s} style={styles.iconpic} name='image-plus'/>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.picbtn}>
+                                    <Icon4 size={40*s} style={styles.iconpic} name='camera'/>
+                                </TouchableOpacity>
+                            </View>
+                            <FlatList 
+                                style={styles.picbox}
+                                data={this.state.lists}
+                                numColumns={3}
+                                ListFooterComponent={
+                                    <View style={{
+                                        height:0.03*width
+                                    }}>
+                                    </View>
+                                }
+                                renderItem={({item})=>(
+                                    <Image
+                                        style={styles.pics}
+                                        resizeMode="cover"
+                                        source={{uri:`${item}`}}
+                                    />
+                                )}
+                                />  
+                        </ImageBackground>
+                    </View>
+                </WingBlank>
+            </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    navbar:{
+        width:width,
+        height:65*s,
+        backgroundColor:'#FFBF2D',
+        flexDirection: 'row',
+        paddingLeft:0.03*width,
+        paddingTop:'1%',
+        paddingRight:0.03*width,
+        justifyContent:"center"
+    },
+    icon:{
+        width:0.08*width,
+        color:'#fff',
+        fontSize:30,
+    },
+    title:{
+        marginLeft:'auto',
+        marginRight:"auto",
+        textAlign:'center',
+        fontSize:20,
+        color:'#fff',
+        letterSpacing:3
+    },
+    wingblank:{
+        height:0.87*height,
+        marginTop:0.015*height,
+        borderColor:'rgba(204,204,204,0.3)',
+        borderStyle:'solid',
+        borderWidth:1,
+        alignContent:'center'
+    },
+    bgchoosebox:{
+        marginBottom:0.02*width,
+        height:0.14*height,
+        borderRadius:10,
+        // backgroundColor:'#000',
+        // transform: [{scale:0.95}]
+        // paddingLeft:''
+    },
+    lineweather:{
+        paddingRight:0.02*width,
+        marginLeft:'auto',
+        marginRight:'auto',
+        width:0.85*width,
+        height:0.04*height,
+        textAlignVertical:'center',
+        textAlign:'right',
+        fontSize:40*s,
+        // backgroundColor:'#000'
+
+    },
+    bgchoose:{
+        margin:0.02*width,
+        height:0.07*height,
+        paddingTop:0.008*height,
+        paddingBottom:0.01*height,
+        borderRadius:10,
+        backgroundColor:'rgba(204,204,204,0.1)',
+        flexDirection:'row',
+        // transform: [{scale:0.95}]
+        // paddingLeft:''
+    },
+    titlebtn:{
+        width:0.195*width,
+        // backgroundColor:'#ffddee',
+        marginLeft:0.015*width,
+        marginRight:0.01*width,
+    },
+    iconbtn:{
+        textAlign:'center',
+        height:0.038*height,
+        textAlignVertical:'center',
+        // backgroundColor:'#ccddff',
+        fontSize:40*s,
+        color:'#FFBF2D'
+    },
+    btntext:{
+        textAlign:'center',
+        height:0.018*height,
+        fontSize:15*s,
+        color:'#bdbbb8'
+    },
+    picchoose:{
+        // margin:0.02*width,
+        height:0.05*height,
+        paddingTop:0.01*height,
+        paddingBottom:0.01*height,
+        borderRadius:10,
+        backgroundColor:'rgba(204,204,204,0.1)',
+        flexDirection:'row',
+        // backgroundColor:'#ccc'
+    },
+    pictext:{
+        width:0.3*width,
+        height:0.04*height,
+        // backgroundColor:'#ddd',
+        marginRight:0.25*width,
+        color:'#555',
+        fontSize:25*s,  
+        textAlign:'center' ,
+        textAlignVertical:'center', 
+    },
+    iconpic:{
+        width:0.15*width,
+        textAlign:'center',
+        height:0.04*height,
+        textAlignVertical:'center',
+        // backgroundColor:'#ccddff',
+        color:'#888'
+    },
+    picbox:{
+        height:0.6*height,
+        backgroundColor:'rgba(255,255,255,0.4)',
+        padding:0.01*width,
+        width:0.89*width,
+        transform: [{scale:0.98}],
+        marginRight:'auto',
+        marginLeft:'auto',
+    },
+    pics:{
+        width:0.275*width,
+        height:0.18*height,
+        margin:0.007*width,
+        transform: [{scale:0.95}],
+    },
+})

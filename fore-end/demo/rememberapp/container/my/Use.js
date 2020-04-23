@@ -1,140 +1,244 @@
- import React, { Component } from 'react';
-import { NavBar, Icon } from 'antd-mobile';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react'
+import { 
+    Text, 
+    TextInput,
+    StyleSheet, 
+    Dimensions, 
+    View, 
+    Image, 
+    TouchableOpacity, 
+    AsyncStorage,
+    ToastAndroid,
+    StatusBar,
+    ScrollView,
+    Picker,
+} from 'react-native'
+import {
+    Actions
+} from 'react-native-router-flux'
+import { Flex, WingBlank } from '@ant-design/react-native'
+import Button from 'react-native-button';
 
+import Icon2 from 'react-native-vector-icons/FontAwesome5'
+import Icon3 from 'react-native-vector-icons/Feather'
+import Icon4 from 'react-native-vector-icons/FontAwesome'
+const { width, scale, height } = Dimensions.get('window');
+const s1 = width / 640;
+const h = height / 1012;
 export default class Use extends Component {
-    constructor(props){
-        super(props);
-        var uid = JSON.parse(localStorage.getItem('uid'));
-        var umsg = JSON.parse(localStorage.getItem('umsg'));
+    constructor(){
+        super();
         this.state={
-            umsg:umsg,
-            name:umsg.name,
-            pass:umsg.pass,
-            uid:uid,
-            gender:umsg.gender,
-            imgurl:umsg.imgurl,
-            // uimage:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574914271954&di=5ce6c90533745142d11594040dd0b2b1&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201506%2F19%2F20150619202710_4vZ8s.thumb.224_0.jpeg',
-            code:0,
+            sex:'女',
         }
     }
-    upfile=()=>{
-        var file=document.getElementById('img').files[0];
-        var url = 'http://localhost:3001/img';
-        var form = new FormData();
-        form.append("file",file);
-        fetch(url,{
-            method:'POST',
-            body:form
-        }).then(res=>res.json())
-        .then(res=>{
-            this.setState({
-                src:res.path,
-                imgurl:res.path
-            })
-        })
+    additem=()=>{
+        ToastAndroid.showWithGravityAndOffset(
+            '修改成功！',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+        25,-200)
+        setTimeout(() => {
+            Actions.pop() 
+        }, 3000);
     }
-    inputChange1=(e)=>{
+    leave=()=>{
+        ToastAndroid.showWithGravityAndOffset(
+            '已退出登录！',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+        25,-200)
+        setTimeout(() => {
+            Actions.pop() 
+        }, 3000);
+    }
+        inputChange1=(e)=>{
+        var a=e.target.value;
         this.setState({
-            name:e.target.value
+            name:a
         })
     }
     inputChange2=(e)=>{
+        var a=e.target.value;
         this.setState({
-            gender:e.target.value
+            birthday:a
         })
     }
     inputChange3=(e)=>{
+        var a=e.target.value;
         this.setState({
-            pass:e.target.value
+            gender:a
         })
     }
-    Finally=()=>{
-        var umsg = JSON.parse(localStorage.getItem('umsg'));
-        umsg.name=this.state.name;
-        umsg.imgurl=this.state.imgurl;
-        umsg.pass=this.state.pass;
-        umsg.gender=this.state.gender;
-        localStorage.setItem('umsg',JSON.stringify(umsg))
-        fetch(`http://localhost:3001/my/information`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`&uimage=${this.state.imgurl}&uname=${this.state.name}&gender=${this.state.gender}&pass=${this.state.pass}&uid=${this.state.uid}`
-        }).then(res=>res.json())
-        .then(json=>{
-            this.setState({
-                code:json.code
-            });
-        })
-    }
-    render(){
-        return(
-            <div className="All">
-                <NavBar
-                    style={{
-                    top:0,
-                    width:'100%',
-                    zIndex:'11',
-                    position:'fixed',
-                    height:'8vh',
-                    background:'#FFBF2D',
-                    color:'#fff',
-                    fontWeight:'bolder',
+    render() {
+        return (
+            <View style={{ 
+                width: width, 
+                height: height, 
+                backgroundColor: "#fff",
+            }}>
+                <StatusBar 
+                    backgroundColor='#FFBF2D'
+                />
+                <View style={styles.navbar}>
+                    <Text style={{
+                        fontWeight: 'bold',
+                        fontSize: 20,
+                        textIndent: 3,
+                        letterSpacing: 3,
+                        color: "#ffff",
+                        lineHeight: 40
                     }}
-                    mode="light"
-                    icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/index/my')}
-                    ><span style={{
-                        fontWeight:'bold',
-                        fontSize:'6vw',
-                        textIndent:'3vw',
-                        letterSpacing:'3vw',
-                        color:"white"
-                    }}
-                    >设置</span>
-                </NavBar>
-                <div style={{width:"100%",height:"10px",marginTop:"15%"}}></div>
-                <p className="img">
-                    <i className='iconfont icon-touxiangshangchuan'></i>  
-                    <span>轻触上传头像<input 
-                    id='img'
-                    onChange={this.upfile}                         
-                    type='file'  
-                    accept="image/*" 
-                    capture="camera" 
-                    name='uimage' 
-                    placeholder='轻触上传头像'/></span>                          
-                    <div style={{
-                        width:'20vw',
-                        height:'10vh',
-                        display:'inline-block',
-                        marginLeft:'6vw'}}>
-                            <img src={this.state.imgurl} 
-                            alt='默认头像'
-                            width='100%'/>              
-                    </div>
-                </p>
-                <form action='' style={{marginTop:"10%"}}>
-                    <div className="create_Relation">
-                        设置昵称：&nbsp;
-                        <input onChange={(e)=>this.inputChange1(e)} className="one" type="text" placeholder="昵称不超过6个字"></input>
-                    </div>
-                    <div className="create_Relation">
-                        设置性别：&nbsp;
-                        <input onChange={(e)=>this.inputChange2(e)} className="one" type="text" placeholder="男/女"></input>
-                    </div>
-                    <div className="create_Relation">
-                        设置新密码：&nbsp;
-                        <input onChange={(e)=>this.inputChange3(e)} className="one" type="text" placeholder="单行输入"></input>
-                    </div>
-                    <Link to="/index/my">
-                        <button onClick={this.Finally} className="relation_button">确认修改</button>
-                    </Link>
-                </form>
-            </div>
+                    >设置</Text>
+                </View>
+                <WingBlank style={styles.wingblank}>
+                    {/*创建爱人 */}
+                    <View style={styles.msgbox}>
+                        <View style={styles.msg}>
+                            <Text style={styles.text}>
+                                <Icon3 style={styles.listlineicon} name='users'/>选择性别</Text>
+                            <Text style={styles.input}>
+                                <Picker
+                                    selectedValue={this.state.ageunit}
+                                    mode='dropdown'
+                                    style={{width:0.11*width}}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        this.setState({ageunit: itemValue})
+                                    }>
+                                    <Picker.Item label="男" value="男" />
+                                    <Picker.Item label="女" value="女" />
+                                </Picker>
+                            </Text>
+                        </View>
+                        <View style={styles.msg}>
+                            <Text style={styles.text}>
+                                <Icon4 style={styles.listlineicon} name='heart'/>更换昵称</Text>
+                            <TextInput
+                                maxLength={3}
+                                onFocus={()=>{
+                                    ToastAndroid.showWithGravityAndOffset(
+                                        '请保证昵称不多于10个字！',
+                                    ToastAndroid.SHORT,
+                                    ToastAndroid.TOP,
+                                    25,100)
+                                }}
+                                style={styles.input}/>
+                        </View>
+                        <View style={styles.msg}>
+                            <Text style={styles.text}>
+                                <Icon2 style={styles.listlineicon} name='eye'/>
+                                 更换密码</Text>
+                            <TextInput
+                                maxLength={15}
+                                style={styles.input}/>
+                        </View>
+                    </View>
+                    <Button
+                        onPress={this.additem} 
+                        style={styles.addbtn}>保存设置</Button>
+                    <Button
+                        onPress={this.leave} 
+                        style={styles.leave}>退出登录</Button>
+                </WingBlank>
+            </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    navbar:{
+        width:width,
+        height:65*s1,
+        backgroundColor:'#FFBF2D',
+        flexDirection: 'row',
+        paddingTop:'1%',
+        justifyContent:"center"
+    },
+    create:{
+        width:0.8*width,
+        height:0.07*height,
+        marginLeft:'auto',
+        marginRight:'auto',
+        justifyContent:'space-around',
+        alignItems:'center'
+    },
+    wingblank:{
+        height:0.85*height,
+    },
+    msgbox:{
+        backgroundColor:'rgba(204,204,204,0.2)',
+        width:0.8*width,
+        height:0.35*height,
+        paddingBottom:0.025*height,
+        paddingTop:0.025*height,
+        marginLeft:'auto',
+        marginRight:'auto',
+        justifyContent:'space-around',
+        alignItems:'center'
+    },
+    msg:{
+        backgroundColor:'rgba(255,255,255,1)',
+        width:0.7*width,
+        height:0.06*height,
+        marginLeft:'auto',
+        marginRight:'auto',
+        flexDirection: 'row',
+        justifyContent:'center',
+    },
+    listlineicon:{
+        fontSize:32*s1,
+        color:'#FFBF2D',
+    },
+    text:{
+        textAlign:'center',
+        textAlignVertical:'center',
+        width:0.3*width,
+        fontSize:23*s1,
+        color:'#555',
+    },
+    text2:{
+        textAlign:'left',
+        textAlignVertical:'center',
+        width:0.07*width,
+        fontSize:23*s1,
+        color:'#555',
+    },
+    input:{
+        width:0.25*width,
+        marginLeft:0.025*width,
+        marginRight:0.025*width,
+        borderColor:'#bdbbb8',
+        borderStyle:'solid',
+        borderBottomWidth:1,
+        fontSize:23*s1,
+        textAlign:'center',
+        color:'#333'
+    },
+    addbtn:{
+        width:0.6*width,
+        height:60*s1,
+        marginTop:10*s1,
+        marginLeft:'auto',
+        marginRight:'auto',
+        backgroundColor:'rgba(255,255,255,0.1)',
+        borderWidth:1,
+        borderStyle:'solid',
+        borderColor:'#FFBF2D',
+        borderRadius:5,
+        color:'#FFBF2D',
+        fontSize:17,
+        textAlignVertical:'center'
+    },
+    leave:{
+        width:0.6*width,
+        height:60*s1,
+        marginTop:10*s1,
+        marginLeft:'auto',
+        marginRight:'auto',
+        backgroundColor:'#FFBF2D',
+        borderRadius:25,
+        color:'white',
+        fontSize:17,
+        textAlignVertical:'center'
+    }
+})

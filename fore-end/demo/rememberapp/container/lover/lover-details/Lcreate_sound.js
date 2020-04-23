@@ -1,151 +1,238 @@
 import React, { Component } from 'react'
-import { NavBar, Icon } from 'antd-mobile';
-import {Link} from  "react-router-dom"
+import {
+    View,
+    Text,
+    Dimensions,
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    ImageBackground,
+    Alert,
+    ToastAndroid
+} from "react-native"
+import Icon1 from 'react-native-vector-icons/Feather'
+import Icon2 from "react-native-vector-icons/SimpleLineIcons"
+import { Actions } from "react-native-router-flux"
+import { ScrollView } from 'react-native-gesture-handler'
+const { width, scale, height } = Dimensions.get('window');
+const s = width / 640;
 export default class Lcreate_sound extends Component {
-    constructor(props){
-        super(props);
-        var lid = localStorage.getItem('lid');
-        console.log(lid)
-        this.state={
-            voiceid:'',
-            name:'',
-            voiceurl:'',
-            date:'',
-            code:"",
-            lover_id:lid
+    constructor() {
+        super()
+        this.state = {
+            img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1097372906,871370388&fm=26&gp=0.jpg',
         }
-        
     }
-    getName=(e)=>{
-        this.setState({
-            name:e.target.value
-        })
+    alertMsg = () => {
+        Alert.alert(
+            '提示',
+            '确认创建？',
+            [
+                {
+                    text: '确定', onPress: () => {
+                        Actions.pop()
+                        ToastAndroid.show('创建成功！', ToastAndroid.SHORT)
+                    }
+                },
+                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            ],
+        );
     }
-    upfile=()=>{
-        var file=document.getElementById('voice').files[0];
-        var url = 'http://localhost:3001/voice';
-        var form = new FormData();
-        form.append("file",file);
-        fetch(url,{
-            method:'POST',
-            enctype:'multipart/form-data',
-            body:form
-        }).then(res=>res.json())
-        .then(res=>(
-            console.log(res),
-            this.setState({
-                voiceurl:res.path
-            },()=>{
-                if(res.err==0){
-                    this.setState({
-                        code:'上传成功！'
-                    })
-                }else{
-                    this.setState({
-                        code:'上传失败，请重新上传！'
-                    })
-                }
-            })
-        )
-    )};
-    //增加语音
-    upSound=()=>{
-        console.log('增加语音')
-        var upsoundwarn=document.getElementById('upsoundwarn');
-        upsoundwarn.style.display='block';
-        fetch(`http://localhost:3001/lover/lsound/lcsound`,{
-            method:'POST',
-            mode:'cors',
-            headers:{
-                'Content-Type':"application/x-www-form-urlencoded"
-            },
-            body:`voiceurl=${this.state.voiceurl}&name=${this.state.name}&loverid=${this.state.lover_id}`
-        })
-        .then(res=>res.json())
-        .then(json=>{
-            console.log(json)
-        })
-    }
-    
-
     render() {
+        const src = this.state.img
         return (
-            <div style={{width:"100%",backgroundColor:"white",marginTop:"10vh",paddingBottom:"10vh"}}>
-                 <NavBar 
-                 style={{
-                     background:'#FFBF2D',
-                     height:'8vh',
-                     color:'#fff',
-                     fontWeight:'bolder',
-                     zIndex:'11',
-                     position:'fixed',
-                     width:'100%',
-                     left:0,
-                     top:0
-                    }}
-                    mode="light"
-                    icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/lover/lsound')}
-                 ><span style={{
-                     color:'#fff',
-                     fontWeight:'bold',
-                     fontSize:'6vw',
-                     textIndent:'3vw',
-                     letterSpacing:'3vw'}}>添加语音</span>
-                </NavBar>
-                <div style={{width: "90vw",fontSize: "6vw",position: "fixed",color :"rgb(0, 0, 0)",padding:"5vh 5vw",textAlign:"center"}}>
-                <span style={{display: "inline-block",margin: "3vh 5vw"}}>添加录音文件</span>
-                <div style={{textAlign:"center",padding:"5vh 5vw"}}>
-                    <input 
-                    id ='voice'
-                    onChange={this.upfile}
-                    type='file'
-                    accept="audio/*"
-                    capture="microphone"
-                    name='voiveurl'
+            <View>
+                <View style={styles.navbar}>
+                    <Icon1
+                        style={styles.icon}
+                        name='chevron-left'
+                        onPress={() => Actions.pop()}
                     />
-                </div>
-                <span>语音名称:</span>
-                <input type='text' name='name' onChange={this.getName} style={{border:" 1px solid #bdbbb8",width: "35vw",height: "5vh"}}/>
-                </div>
-                <button onClick={this.upSound}  className="addButton">提交</button>
-                <form id='upsoundwarn'>
-                    <div>{this.state.code}</div>
-                    <button 
-                    onClick={()=>{
-                        var upsoundwarn=document.getElementById('upsoundwarn');
-                        upsoundwarn.style.display='none';
-                        this.props.history.push('/lover/lsound');
+                    <Text style={styles.title}>新建语音</Text>
+                </View>
+                <View style={{
+                    height: 800 * s,
+                    // borderWidth:0.5,
+                    // borderColor:"#FFBF2D",
+                    marginRight: "auto",
+                    marginLeft: "auto",
+                    borderRadius: 15,
+                    width: 0.9 * width,
+                    marginTop: 50 * s,
+                    
+                }}>
+                    <View style={styles.msg}>
+                        <Icon1
+                            style={{
+                                position: "absolute",
+                                top: 10*s,
+                                left: 15 * s,
+                                fontSize: 40*s,
+                                color: "#FFBF2D"
+                            }}
+                            name="calendar" />
+                        <Text style={styles.text}>
+                            时间：</Text>
+                        <TextInput
+                            maxLength={10}
+                            placeholder='例2020-02-16'
+                            style={styles.input} />
+                    </View>
+                    <View style={styles.msg}>
+                        <Icon2
+                            style={{
+                                position: "absolute",
+                                top: 10 * s,
+                                left: 15 * s,
+                                fontSize: 40*s,
+                                color: "#FFBF2D"
+
+                            }}
+                            name="badge" />
+
+                        <Text style={styles.text}>
+                            语音名称：</Text>
+                        <TextInput
+                            maxLength={10}
+                            placeholder='我们的歌'
+                            style={styles.input} />
+                    </View>
+                    <View style={styles.choose}>
+                        <View style={{
+                            width: 0.85 * width,
+                            height: 50 * s,
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            textAlignVertical: 'center',
+                            
+                        }}>
+                            <View style={{
+                                flexDirection: 'row',
+                                textAlignVertical: 'center',
+                                marginLeft:10
+                            }}>
+                                <Icon2 style={styles.btnicon} name='folder'  />
+                                <Icon1 style={styles.btnicon} name='mic' />
+                                <Text style={{lineHeight:50*s}}>(添加文件)</Text>
+                            </View>
+                        </View>
+                        <ImageBackground
+                        style={{
+                            width: 0.75 * width,
+                            height: 230 * s,
+                            borderColor: '#ccc',
+                            borderStyle: 'solid',
+                            borderWidth: 2,
+                            marginLeft:"auto",
+                            marginRight:"auto",
+                            marginTop:20*s,
+                            backgroundColor: 'rgba(255,191,45,0.1)',
+                        }}
+                        source={{ uri: this.state.img }}
+                    ></ImageBackground>
+                    </View>
+                   
+                    <TouchableOpacity style={{
+                        width: 0.85 * width,
+                        height: 60 * s,
+                        borderColor: "#FFBF2D",
+                        borderWidth: 1,
+                        borderRadius: 10,
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        marginTop: 200 * s
                     }}
-                    style={{
-                        width:'35%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw',
-                        marginRight:'2vw'
-                    }}>返回列表</button>
-                    <button 
-                    onClick={()=>{
-                        var upsoundwarn=document.getElementById('upsoundwarn');
-                        upsoundwarn.style.display='none';
-                        this.props.form.resetFields();
-                    }}
-                    style={{
-                        width:'35%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw'
-                    }}>继续上传</button>
-                </form>
-            </div>
+                        onPress={this.alertMsg}
+                    >
+                        <Text
+                            style={{
+                                textAlign: "center",
+                                textAlignVertical: "center",
+                                lineHeight: 48 * s,
+                                fontSize: 28 * s,
+                                color: "#FFBF2D"
+                            }}
+                        >创建</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </View>
+
         )
     }
 }
+const styles = StyleSheet.create({
+    navbar: {
+        width: width,
+        height: 65 * s,
+        backgroundColor: '#FFBF2D',
+        flexDirection: 'row',
+        paddingLeft: 0.03 * width,
+        paddingTop: '1%',
+        paddingRight: 0.03 * width,
+        justifyContent: "center",
+    },
+    icon: {
+        width: 0.08 * width,
+        color: '#fff',
+        fontSize: 28,
+    },
+    title: {
+        marginLeft: 'auto',
+        marginRight: "auto",
+        textAlign: 'center',
+        fontSize: 20,
+        color: '#fff',
+        letterSpacing: 3
+    },
+    msg: {
+        width: 0.8 * width,
+        height: 60 * s,
+        marginTop: 10 * s,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginLeft: "auto",
+        marginRight: "auto",
+    },
+    text: {
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        width: 0.3 * width,
+        fontSize: 26 * s,
+        color: '#333',
+    },
+    input: {
+        width: 0.4 * width,
+        borderColor: '#bdbbb8',
+        borderStyle: 'solid',
+        borderBottomWidth: 1,
+        fontSize: 24 * s,
+        textAlign: 'center',
+        color: '#333',
+    },
+    textbtn: {
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        width: 0.25 * width,
+        height: 45 * s,
+        fontSize: 26 * s,
+        color: '#333',
+        textAlignVertical: 'center',
+    },
+    choose: {
+        width: 0.85 * width,
+        height: 280 * s,
+        marginTop: 30 * s,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
+    btnicon: {
+        width: 0.10 * width,
+        height: 50 * s,
+        textAlign: 'center',
+        fontSize: 35 * s,
+        color: '#FFBF2D',
+
+        textAlignVertical: 'center',
+    },
+})

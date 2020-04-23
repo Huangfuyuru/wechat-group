@@ -9,22 +9,23 @@ export default class Lover extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            back:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3773663025,3915037731&fm=26&gp=0.jpg',
             // uid: uid,
             // lover_id: '',
             // cindex_src: "",
             cnews: [{
                 ctime: '以下内容仅自己可见',
-                cpic_src: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1584343715,918149739&fm=26&gp=0.jpg',
+                cpic_src: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1017719116,1470433776&fm=26&gp=0.jpg',
                 ccontent: '在这里展示您最近三篇日记大致内容'
             },
             {
                 ctime: '以下内容仅自己可见',
-                cpic_src: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1584343715,918149739&fm=26&gp=0.jpg',
+                cpic_src: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1017719116,1470433776&fm=26&gp=0.jpg',
                 ccontent: '在这里展示您最近三篇日记大致内容'
             },
             {
                 ctime: '以下内容仅自己可见',
-                cpic_src: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1584343715,918149739&fm=26&gp=0.jpg',
+                cpic_src: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1017719116,1470433776&fm=26&gp=0.jpg',
                 ccontent: '在这里展示您最近三篇日记大致内容'
             }
             ]
@@ -117,7 +118,7 @@ export default class Lover extends Component {
                             width: "100%",
                             transform: [{ scale: 1 }]
                         }}
-                        source={require("../images/3.png")}
+                        source={{uri:this.state.back}}
                         alt='自定义照片墙'>
 
                         <TouchableOpacity style={{
@@ -140,25 +141,45 @@ export default class Lover extends Component {
                     <View style={styles.lover_second}>
                         <Flex justify="center">
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.lpictures()}>
-                                <Text style={{ textAlign: "center", lineHeight: 40, fontSize: 15, color: "#fff" }}
+                                <Text style={{ 
+                                    textAlign: "center", 
+                                    lineHeight: 40, 
+                                    fontSize: 20, 
+                                    color: "#fff" }}
                                 >云相册</Text >
                             </TouchableOpacity>
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.lsound()}>
-                                <Text style={{ textAlign: "center", fontSize: 15, lineHeight: 40, color: "#fff" }}
+                                <Text style={{ 
+                                    textAlign: "center", 
+                                    fontSize: 20, 
+                                    lineHeight: 40, 
+                                    color: "#fff" }}
                                 >语音记事</Text >
                             </TouchableOpacity>
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.ldairy()}>
-                                <Text style={{ textAlign: "center", fontSize: 15, lineHeight: 40, color: "#fff" }}
+                                <Text style={{ 
+                                    textAlign: "center", 
+                                    fontSize: 20, 
+                                    lineHeight: 40, 
+                                    color: "#fff" }}
                                 >恋爱日记</Text >
                             </TouchableOpacity>
                         </Flex>
                         <Flex justify="center">
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.llists()}>
-                                <Text style={{ textAlign: "center", fontSize: 15, lineHeight: 40, color: "#fff" }}
+                                <Text style={{ 
+                                    textAlign: "center", 
+                                    fontSize: 20, 
+                                    lineHeight: 40, 
+                                    color: "#fff" }}
                                 >恋爱清单</Text >
                             </TouchableOpacity>
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.lsouvenir()}>
-                                <Text style={{ textAlign: "center", fontSize: 15, lineHeight: 40, color: "#fff" }}
+                                <Text style={{ 
+                                    textAlign: "center", 
+                                    fontSize: 20, 
+                                    lineHeight: 40, 
+                                    color: "#fff" }}
                                 >纪念日</Text >
                             </TouchableOpacity>
                         </Flex>
@@ -234,7 +255,7 @@ export default class Lover extends Component {
                                                 transform: [{ scale: 0.9 }]
                                             }}
                                             resizeMode="cover"
-                                            source={require("../images/4.png")}
+                                            source={{uri:item.cpic_src}}
                                         />
                                     </View>
                                     <View style={{
@@ -255,25 +276,28 @@ export default class Lover extends Component {
 const styles = StyleSheet.create({
     lover_first: {
         textAlign: "center",
-        height: "28%",
-        width: "100%",
+        height: 0.33*height ,
+        width:width,
         backgroundColor: "#fff"
     },
     lover_second: {
-        height: "20%",
+        marginBottom:15,
+        width:'100%',
+        height: 140*h,
         flexDirection: "column",
         justifyContent: "center",
-        backgroundColor: "#fff",
+        marginLeft:'auto',
+        marginRight:'auto'
     },
     btn: {
-        paddingBottom: 10,
-        width: 99 * s,
-        height: 48 * h,
-        marginLeft: 10,
-        marginRight: 10,
-        marginTop: 20,
+        padding:0,
+        height: 55*h,
+        width: "31%",
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 10,
         backgroundColor: '#FFBF2D',
-        borderRadius: 10,
+        borderRadius: 5,
     },
     child_third: {
         backgroundColor: "#fff",

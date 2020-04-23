@@ -1,185 +1,290 @@
 import React, { Component } from 'react'
-import { NavBar, Icon } from 'antd-mobile';
-
+import { 
+    Text, 
+    View,
+    StyleSheet,
+    Dimensions,
+    TouchableOpacity,
+    FlatList,
+    ImageBackground,
+    Image
+} from 'react-native'
+import Icon1 from 'react-native-vector-icons/Feather'
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon3 from 'react-native-vector-icons/Entypo'
+import Icon4 from 'react-native-vector-icons/FontAwesome'
+import { Actions } from 'react-native-router-flux';
+import { WingBlank } from '@ant-design/react-native'
+const {width,scale,height} = Dimensions.get('window');
+const s = width / 640;
 export default class Laddpictures extends Component {
     constructor(){
         super();
-        var lpicture = JSON.parse(localStorage.getItem('lpicture'));
         this.state={
-            pid:lpicture.pid,
-            lists:[],
-            code:''
-        }
-    }
-    upfiles=()=>{
-        var fileObj = document.getElementById('img').files;
-        var url = 'http://localhost:3001/imgs/';
-        var form = new FormData();
-        for(var i = 0;i<fileObj.length;i++){
-            form.append("file",fileObj[i]);
-        }
-        fetch(url,{
-            method:'POST',
-            body:form,
-        }).then(res=>res.json())
-        .then(res=>{
-            this.setState({
-                lists:res
-            })
-        })
-    }
-    addPictures=()=>{
-        console.log(this.state.lists,this.state.pid)
-        var lists=JSON.stringify(this.state.lists)
-        var addcpictureswarn = document.getElementById('addcpictureswarn');
-        addcpictureswarn.style.display='block';
-        if(this.state.lists.length==0){
-            this.setState({
-                code:'请上传照片'
-            })
-        }else{
-            fetch(`http://localhost:3001/lover/lpictures/laddpictures`,{
-                method:'POST',
-                mode:'cors',
-                headers:{
-                    'Content-Type':"application/x-www-form-urlencoded"
+            lists:[
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
                 },
-                body:`loverPhotoListid=${this.state.pid}&imgurl=${lists} `
-            }).then(res=>res.json())
-            .then(json=>{
-                console.log('json',json)
-                this.setState({
-                    code:json.msg
-                })
-            })
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+                {
+                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
+                    id:1
+                },
+               
+            ]
         }
     }
     render() {
         return (
-            <div className='addpictures'>
-                <NavBar
-                    style={{
-                    top:0,
-                    width:'100%',
-                    zIndex:'11',
-                    position:'fixed',
-                    height:'8vh',
-                    background:'#FFBF2D',
-                    color:'#fff',
-                    fontWeight:'bolder',
-                    }}
-                    mode="light"
-                    icon={'𡿨'}
-                    onLeftClick={() => this.props.history.push('/lover/lspictures')}
-                    ><span style={{
-                        fontWeight:'bold',
-                        fontSize:'6vw',
-                        textIndent:'3vw',
-                        letterSpacing:'3vw',
-                        color:"white"
-                    }}
-                    >添加照片</span>
-                </NavBar>
-                <div className='addpictures_inner'>
-                    <div style={{
-                        position:'fixed',
-                        background:'#fff',
-                        zIndex:'100',
-                        width:'100%',
-                        height:'18vh',
-                        top:'8vh',
-                        left:'0',
-                    }}>
-                        <span 
-                        style={{
-                            zIndex:'10',
-                            display:'inline-block',
-                            width:'45vw',
-                            lineHeight:'6vh',
-                            height:'6vh',
-                            fontSize:'6.5vw',
-                            textAlign:'center',
-                            top:'15vh',
-                            left:'28vw',
-                            position:'fixed',
-                            color:'#000',
-                            background:'rgb(255,191,45,0.2)'
-                        }}>轻触上传照片<input 
-                        id='img'
-                        onChange={this.upfiles}                           
-                        type='file'  
-                        accept="image/*" 
-                        capture="camera" 
-                        name='uimage'
-                        multiple 
-                        /></span>
-                    </div>
-                    <div className='addpictures_block'>
-                        {
-                            this.state.lists&&this.state.lists.map((item,idx)=>(
-                                <div className="scpicture_block"
-                                style={{
-                                    background:`url(${item.path}) center center/cover no-repeat`
-                                }}>
-                                </div>
-                            ))
+            <View>
+                <View style={styles.navbar}>
+                    <Icon1 
+                        style={styles.icon}
+                        name='chevron-left'
+                        onPress={()=>Actions.pop()}
+                    />
+                    <Text style={styles.title}>增加照片</Text>
+                </View>
+                <View style={styles.btnbox}>
+                    <TouchableOpacity onPress={this.delpictures} style={styles.btn}>
+                        <Icon3 style={styles.btnicon} name='images'/>
+                        <Text style={styles.btntext}>图库选择</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.btn}>
+                        <Icon3 style={styles.btnicon} name='camera'/>
+                        <Text style={styles.btntext}>立即拍照</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.btn}>
+                        <Icon2 style={styles.btnicon} name='checkbox-multiple-marked-circle'/>
+                        <Text style={styles.btntext}>确认上传</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.btn}>
+                        <Icon3 style={styles.btnicon} name='cycle'/>
+                        <Text style={styles.btntext}>重新选择</Text>
+                    </TouchableOpacity>
+                </View>
+                <WingBlank style={styles.wingblank}>
+                    <FlatList  
+                        style={styles.picbox}
+                        data={this.state.lists}
+                        numColumns={4}
+                        ListFooterComponent={
+                            <View style={{
+                                height:0.03*width
+                            }}>
+                            </View>
                         }
-                    </div>
-
-                </div>
-                <div style={{
-                    position:'fixed',
-                    bottom:'0vh',
-                    marginLeft:'0',
-                    width:'100%',
-                    height:'18vh',
-                    background:'#fff',
-                    zIndex:'100'
-                }}>
-                    <button className='alladd_button'
-                    onClick={this.addPictures}
-                    style={{
-                        bottom:'5vh',
-                    }}>
-                        点击添加
-                    </button>
-                </div>
-                <form id='addcpictureswarn'>
-                    <div>{this.state.code}</div>
-                    <button 
-                    onClick={(e)=>{
-                        e.target.parentNode.style.display='none'
-                        this.props.history.push('/lover/lspictures');
-                    }}
-                    style={{
-                        width:'35%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw',
-                        marginRight:'2vw'
-                    }}>返回相册</button>
-                    <button 
-                    onClick={(e)=>{
-                        e.target.parentNode.style.display='none'
-                        this.props.form.resetFields(); 
-                    }}
-                    style={{
-                        width:'35%',
-                        height:'15%',
-                        color:'#FFBF2D',
-                        border:'none',
-                        marginTop:'2vh',
-                        background:'#fff',
-                        borderRadius:'5px',
-                        fontSize:'6vw'
-                    }}>继续添加</button>
-                </form>
-            </div>
+                        renderItem={({item})=>(
+                            <View style={styles.pics}>
+                                <Image
+                                    style={styles.pics}
+                                    resizeMode="cover"
+                                    source={{uri:`${item.path}`}}
+                                />
+                            </View>
+                        )}
+                    />  
+                </WingBlank>
+            </View>
         )
     }
 }
 
+const styles = StyleSheet.create({
+    navbar:{
+        width:width,
+        height:65*s,
+        backgroundColor:'#FFBF2D',
+        flexDirection: 'row',
+        paddingLeft:0.02*width,
+        paddingTop:'1%',
+        paddingRight:0.1*width,
+        justifyContent:"center"
+    },
+    icon:{
+        width:0.08*width,
+        color:'#fff',
+        fontSize:30,
+    },
+    title:{
+        marginLeft:'auto',
+        marginRight:"auto",
+        textAlign:'center',
+        fontSize:20,
+        color:'#fff',
+        letterSpacing:3
+    },
+    btnbox:{
+        width:0.7*width,
+        marginLeft:'auto',
+        marginRight:'auto',
+        // backgroundColor:'#000',
+        height:0.06*height,
+        paddingTop:0.01*height,
+        paddingBottom:0.01*height,
+        flexDirection:'row',
+    },
+    btn:{
+        width:0.125*width,
+        // backgroundColor:'#ffddee',
+        marginLeft:0.025*width,
+        marginRight:0.025*width,
+    },
+    btnicon:{
+        textAlign:'center',
+        height:0.035*height,
+        textAlignVertical:'center',
+        // backgroundColor:'#ccddff',
+        fontSize:35*s,
+        color:'#FFBF2D'
+    },
+    btntext:{
+        textAlign:'center',
+        fontSize:15*s,
+        color:'#bdbbb8'
+    },
+    wingblank:{
+        marginTop:0.01*height,
+        height:0.79*height,
+        // backgroundColor:'#000'
+    },
+    picbox:{
+        // height:930*s,
+        padding:0.01*width,
+        borderColor:'rgba(204,204,204,0.3)',
+        borderStyle:'solid',
+        borderWidth:2,
+    },
+    pics:{
+        width:0.212*width,
+        height:0.165*height,
+        margin:0.005*width,
+        transform: [{scale:0.95}],
+        justifyContent:'center',
+        alignContent:'center',
+    },
+})

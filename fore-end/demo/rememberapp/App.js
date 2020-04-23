@@ -51,18 +51,44 @@ import Ccstudy from './container/child/child_details/Ccstudy'
 
 
 import Lover from './container/Lover';
+// 
 import Lpictures from "./container/lover/Lpictures"
+import LCpictures from "./container/lover/lover-details/Lcreate_photo"
+import LSpictures from "./container/lover/lover-details/LSpictures"
+import Laddpictures from "./container/lover/lover-details/Laddpictures"
+// 
 import Ldairy from "./container/lover/Ldairy"
+import LCdairy from "./container/lover/lover-details/Lcreate_note"
+import LSdairy from  "./container/lover/lover-details/darContent"
+// 
 import Llists from "./container/lover/Llists"
+import LSlists from "./container/lover/lover-details/LSlists"
+import Llist from "./container/lover/lover-details/listContent"
+import LClists from "./container/lover/lover-details/Lcreate_list"
+
+// 
 import Lsound from "./container/lover/Lsound"
+import LCsound from "./container/lover/lover-details/Lcreate_sound"
+// 
 import Lsouvenir from "./container/lover/Lsouvenir"
+import LCsouvenir from "./container/lover/lover-details/Lcreate_souver"
+import souconent from "./container/lover/lover-details/SouConent"
+// 
 import Community from './container/Community';
 import My from './container/My';
 
+import Mychilds from './container/my/Mychilds'
+import Mylover from './container/my/Mylover'
+import Mmchilds from './container/my/Mmchilds'
+import Mmlover from './container/my/Mmlover'
+import Myfriend from './container/my/Myfriend'
+import Message from './container/my/Message'
+import Use from './container/my/Use'
 
 
 import T from './components/Tlists'
-const {width,scale} = Dimensions.get('window');
+import Mychild from './container/my/Mychilds';
+const { width, scale } = Dimensions.get('window');
 const s = width / 640;
 console.disableYellowBox = true;
 const App = () => {
@@ -101,18 +127,18 @@ const App = () => {
 	}
 	return (
 		<Router
-			backAndroidHandler={()=>{
-				if(Actions.currentScene != 'child' 
+			backAndroidHandler={() => {
+				if (Actions.currentScene != 'child'
 					&& Actions.currentScene != 'lover'
 					&& Actions.currentScene != 'community'
-					&& Actions.currentScene != 'mine'){
+					&& Actions.currentScene != 'mine') {
 					Actions.pop();
 					return true;
-				}else{
-					if(new Date().getTime()-now<2000){
+				} else {
+					if (new Date().getTime() - now < 2000) {
 						BackHandler.exitApp();
-					}else{
-						ToastAndroid.show('确定要退出吗',100);
+					} else {
+						ToastAndroid.show('确定要退出吗', 100);
 						now = new Date().getTime();
 						return true;
 					}
@@ -130,7 +156,9 @@ const App = () => {
 								inactiveTintColor="#949494"
 								tabBarStyle={{
 									backgroundColor: '#fff',
-									height: 76 * s,
+									borderTopColor: 'rgba(204,204,204,0.1)',
+									borderTopWidth: 3,
+									height: 70 * s,
 								}}
 							>
 								{/* 亲子 */}
@@ -146,86 +174,86 @@ const App = () => {
 								>
 									<Scene key='child' hideNavBar={true} component={Child} />
 									<Scene
-										key='cpictures' 
+										key='cpictures'
 										hideTabBar
 										hideNavBar={true}
-										component={Cpictures}/>
+										component={Cpictures} />
 									<Scene
-										key='ccpictures' 
+										key='ccpictures'
 										hideTabBar
 										hideNavBar={true}
-										component={Ccpictures}/>
+										component={Ccpictures} />
 									<Scene
-										key='cspictures' 
+										key='cspictures'
 										hideTabBar
 										hideNavBar={true}
-										component={Cspictures}/>
+										component={Cspictures} />
 									<Scene
-										key='capictures' 
+										key='capictures'
 										hideTabBar
 										hideNavBar={true}
-										component={Capictures}/>
-									<Scene 
+										component={Capictures} />
+									<Scene
 										key='csound'
 										hideTabBar
-										hideNavBar={true} 
-										component={Csound}/>
-									<Scene 
+										hideNavBar={true}
+										component={Csound} />
+									<Scene
 										key='ccsound'
 										hideTabBar
-										hideNavBar={true} 
-										component={Ccsound}/>
-									<Scene 
-										key='cdairy' 
+										hideNavBar={true}
+										component={Ccsound} />
+									<Scene
+										key='cdairy'
 										hideTabBar
 										hideNavBar={true}
-										component={Cdairy}/>
-									<Scene 
-										key='ccdairy' 
+										component={Cdairy} />
+									<Scene
+										key='ccdairy'
 										hideTabBar
 										hideNavBar={true}
-										component={Ccdairy}/>
-									<Scene 
-										key='csdairy' 
+										component={Ccdairy} />
+									<Scene
+										key='csdairy'
 										hideTabBar
 										hideNavBar={true}
-										component={Csdairy}/>
-									<Scene 
-										key='cgrowup' 
+										component={Csdairy} />
+									<Scene
+										key='cgrowup'
 										hideTabBar
 										hideNavBar={true}
-										component={Cgrowup}/>
-									<Scene 
-										key='ccgrowup' 
+										component={Cgrowup} />
+									<Scene
+										key='ccgrowup'
 										hideTabBar
 										hideNavBar={true}
-										component={Ccgrowup}/>
-									<Scene 
+										component={Ccgrowup} />
+									<Scene
 										key='cevents'
 										hideTabBar
-										hideNavBar={true} 
-										component={Cevents}/>
-									<Scene 
+										hideNavBar={true}
+										component={Cevents} />
+									<Scene
 										key='ccevents'
 										hideTabBar
-										hideNavBar={true} 
-										component={Ccevents}/>
-									<Scene 
+										hideNavBar={true}
+										component={Ccevents} />
+									<Scene
 										key='csevents'
 										hideTabBar
-										hideNavBar={true} 
-										component={Csevents}/>
-									<Scene 
-										key='cstudy' 
+										hideNavBar={true}
+										component={Csevents} />
+									<Scene
+										key='cstudy'
 										hideTabBar
 										hideNavBar={true}
-										component={Cstudy}/>
-									<Scene 
-										key='ccstudy' 
+										component={Cstudy} />
+									<Scene
+										key='ccstudy'
 										hideTabBar
 										hideNavBar={true}
-										component={Ccstudy}/>
-									
+										component={Ccstudy} />
+
 								</Scene>
 
 								{/* 爱人 */}
@@ -241,11 +269,31 @@ const App = () => {
 
 								>
 									<Scene key="lover" hideNavBar={true} component={Lover} />
-									<Scene key="lpictures" hideNavBar={true} component={Lpictures} />
-									<Scene key='lsound' hideNavBar={true} component={Lsound} />
-									<Scene key='llists' hideNavBar={true} component={Llists} />
-									<Scene key='lsouvenir' hideNavBar={true} component={Lsouvenir} />
-									<Scene key='ldairy' hideNavBar={true} component={Ldairy} />
+
+									<Scene key="lpictures" hideTabBar hideNavBar={true} component={Lpictures} />
+									<Scene key='lspictures' hideTabBar hideNavBar={true} component={LSpictures} />
+									<Scene key='lcpictures' hideTabBar hideNavBar={true} component={LCpictures} />
+									<Scene key='addpictures' hideTabBar hideNavBar={true} component={Laddpictures} />
+
+									<Scene key='lsound' hideTabBar hideNavBar={true} component={Lsound} />
+									<Scene key='lcsound' hideTabBar hideNavBar={true} component={LCsound} />
+
+
+									<Scene key='llists' hideTabBar hideNavBar={true} component={Llists} />
+									<Scene key='lclist' hideTabBar hideNavBar={true} component={LClists} />
+									<Scene key='lslists' hideTabBar hideNavBar={true} component={LSlists} />
+									<Scene key='list' hideTabBar hideNavBar={true} component={Llist} />
+
+									<Scene key='lsouvenir' hideTabBar hideNavBar={true} component={Lsouvenir} />
+									<Scene key='lcsouvenir' hideTabBar hideNavBar={true} component={LCsouvenir} />
+									<Scene key='souvenir' hideTabBar hideNavBar={true} component={souconent} />
+
+
+
+									<Scene key='ldairy' hideTabBar hideNavBar={true} component={Ldairy} />
+									<Scene key='lcdairy' hideTabBar hideNavBar={true} component={LCdairy} />
+									<Scene key='lsdairy' hideTabBar hideNavBar={true} component={LSdairy} />
+
 								</Scene>
 								{/* 社区 */}
 								<Scene key='community'
@@ -275,6 +323,13 @@ const App = () => {
 
 								>
 									<Scene key="mine" hideNavBar={true} component={My} />
+									<Scene key="Mychilds" hideNavBar={true} component={Mychilds} />
+									<Scene key="Mylover" hideNavBar={true} component={Mylover} />
+									<Scene key='Mmchilds' hideNavBar={true} component={Mmchilds} />
+									<Scene key='Mmlover' hideNavBar={true} component={Mmlover} />
+									<Scene key='Myfriend' hideNavBar={true} component={Myfriend} />
+									<Scene key='Message' hideNavBar={true} component={Message} />
+									<Scene key='Use' hideNavBar={true} component={Use} />
 
 								</Scene>
 							</Tabs>
@@ -289,7 +344,7 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-	
+
 })
 
 export default App;
