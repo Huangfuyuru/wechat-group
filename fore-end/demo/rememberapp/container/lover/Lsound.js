@@ -27,28 +27,30 @@ export default class Lsound extends Component {
                     name: "面具",
                     setdate: "2020-04-13",
                     pasued:true,
-                    uri:"https://webfs.yun.kugou.com/202004220946/8b16e3ae702900799dce0419a62e2e9c/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"
+                    uri:"https://webfs.yun.kugou.com/202004231036/b03aa691c217251174cb19f384cbbc24/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"
                 },
                 {
                     id:"1",
                     name: "Fire",
                     setdate: "2020-04-13",
                     pasued:true,
-                    uri:"https://webfs.yun.kugou.com/202004221818/ad7d470118501ce4e74ed0dc306cb31b/G101/M04/1A/09/RZQEAFu3_MiAcRSqADM-ivg677o868.mp3"
+                    uri:"https://webfs.yun.kugou.com/202004231938/7b748b8783242af42b1f2b7194372184/G101/M04/1A/09/RZQEAFu3_MiAcRSqADM-ivg677o868.mp3"
                 },
                 {
                     id:"9",
-                    name: "面具",
+                    name: "ko ko pop",
                     setdate: "2020-04-13",
                     pasued:true,
-                    uri:"https://webfs.yun.kugou.com/202004220929/6aae5dda554a5366d38b9bad5c4904d7/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"
+                    uri:"https://webfs.yun.kugou.com/202004231946/1f6906e31d6643aedc6d71a2cca79048/G197/M01/0B/07/ZYcBAF5KEuKIXbmWAAUALL9sVWUAAATngDPkVsABQBE326.mp3"
+
                 },
                 {
                     id:"4",
                     name: "面具",
                     setdate: "2020-04-13",
                     pasued:true,
-                    uri:"https://webfs.yun.kugou.com/202004220929/6aae5dda554a5366d38b9bad5c4904d7/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"
+                    uri:"https://webfs.yun.kugou.com/202004231036/b03aa691c217251174cb19f384cbbc24/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"
+
                 },  
             ], 
         }
@@ -83,17 +85,27 @@ export default class Lsound extends Component {
     }
     //设置进度条和播放时间的变化
     setTime(data,id) {
+        console.log("播放")
         const arr0=[...this.state.arr]
         arr0.map((item)=>{
             if(item.id==id){
-               item.slideValue=parseInt(item.currentTime)
-               item.currentTime=data.currentTime;
+                console.log(item.currentTime)
+                if(this.formatMediaTime(item.currentTime).split(".")[0]==this.formatMediaTime(item.duration).split(".")[0]){
+                    item.pasued=true
+                    // item.slideValue=0.0
+                    // item.currentTime=0.0
+                }
+                else{
+                item.slideValue=parseInt(item.currentTime)
+                item.currentTime=data.currentTime;
+                }
             }
         })
         this.setState({
             arr:arr0
         })
     }
+    
     // 设置总时长
     setDuration(data,id) {
         const arr0=[...this.state.arr]
@@ -111,22 +123,39 @@ export default class Lsound extends Component {
         arr0.map((item)=>{
             if(item.id==id){
                item.currentTime=value
+            //    this.player.seek(value)
             }
         })
         this.setState({
             arr:arr0
         })
     }
-    
-    play=(id)=> {
+    // player=(value,id)=>{
+    //     const arr0=[...this.state.arr]
+    //     arr0.map((item)=>{
+    //       if(item.id==id){
+    //             item.pasued=true
+    //         }
+    //     })
+    //     this.setState({
+    //         arr:arr0
+    //     })
+    // }
+    play=(id,pa)=> {
       const arr0=[...this.state.arr]
       arr0.map((item)=>{
-          if(item.id==id){
+        if(item.id==id){
               item.pasued=!item.pasued
           }
       })
+      const arr1=arr0
+      arr1.map((item)=>{
+        if(item.id!=id&&pa){
+              item.pasued=pa
+          }
+      })
       this.setState({
-          arr:arr0
+          arr:arr1
       })
       }
       spin=(id)=>{
@@ -135,12 +164,12 @@ export default class Lsound extends Component {
             if(item.id==id){
                 item.muted=!item.muted
             }
+           
         })
         this.setState({
             arr:arr0
         })
         }
-    
     render() {
         return (
             <View>
@@ -160,7 +189,7 @@ export default class Lsound extends Component {
                 <View>
                     <Text style={{
                         fontWeight: "bold",
-                        fontSize: 40 * s,
+                        fontSize: 20,
                         paddingTop: 20 * s,
                         paddingLeft: 25 * s,
                     }}>记录声音 记录你</Text>
@@ -226,7 +255,7 @@ export default class Lsound extends Component {
                                     flexDirection:"row",
                                     height:75*s,
                                     width:0.85*width,
-                                    backgroundColor:"#E8E8E8",
+                                    backgroundColor:'rgba(204,204,204,0.2)',
                                     marginLeft: 'auto',
                                     marginRight: "auto",
                                     borderRadius:30,
@@ -241,7 +270,7 @@ export default class Lsound extends Component {
                                     marginLeft:20*s,
                                     marginRight:20*s
                                 }} 
-                                onPress={this.play.bind(this, item.id)}
+                                onPress={this.play.bind(this, item.id,item.pasued)}
                                 >
                                    <Icon3
                                    style={{
@@ -259,9 +288,10 @@ export default class Lsound extends Component {
                                     value={item.slideValue}
                                     maximumValue={item.duration}
                                     step={1}
-                                    onValueChange={this.onValue.bind(this,item.id)}
+                                    onValueChange={value=>this.onValue(value,item.id)}
+                                    // onSlidingComplete={value => this.player(value)}
                                     minimumTrackTintColor="#FFBF2D"
-                                    maximumTrackTintColor="#fff"
+                                    maximumTrackTintColor="#989898"
                                     thumbTintColor="#fff"
                                     style={{
                                         width:0.46*width,
@@ -281,13 +311,19 @@ export default class Lsound extends Component {
                                 </View>
                                 <Video
                                     source={{uri:item.uri}}
-                                    ref='player'
+                                    ref={(ref) => {
+                                        this.player = ref
+                                      }}    
                                     paused={item.pasued}
                                     onLoad={data => this.setDuration(data,item.id)}
-                                    volume={1.0}
-                                    muted={item.muted}
-                                    playInBackground={true}
                                     onProgress={data => this.setTime(data,item.id)}
+                                    volume={1.0}
+                                    // seek={this.player(item.id)}
+                                    // repeat={true}
+                                    muted={item.muted}
+                                    // onEnd={this.onEnd} 
+                                    playInBackground={true}
+                                    onTimedMetadata={this.onTimedMetadata}
                                 />
                                 <Text style={{
                                     marginLeft: "auto",
