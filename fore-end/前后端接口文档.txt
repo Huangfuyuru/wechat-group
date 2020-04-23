@@ -350,27 +350,7 @@ method：get
 	返回数据：
 	 [{"id":"2400003","name":"接吻","content":"今天我们接吻了","imgurl":"#","local":"石家庄""setdate":"2019-11-26T16:00:00.000Z","listid":"2500003","lid":200001}]	
  	
-     写文章模块：
 
-        接口地址：http://148.70.223.218:3001/lover/article?uid=
-        请求数据：用户uid
-        返回数据：该用户创建所有爱人文章内容 id,name,imgurl,content,setdate,tag,num,style,uid
-        点击具体文章：点击具体文章就不发请求，就像cnodejs那种直接拿数据就行了
-        
-        增加文章：
-            接口地址：http://148.70.223.218:3001/lover/article/carticle
-            method:post           
-            提交数据：name(文章名称)，imgurl(照片，是个数组),content(文章内容),
-               setdate(创建时间),tag(布尔类型，true表示可以公开，true表示不能公开)，num(初次应该是0,点赞数)
-               style(布尔类型，true表示亲子类型的文章，false表示爱人类型的文章) uid(用户id)
-            返回数据：该用户创建所有爱人文章内容 id,name,imgurl,content,setdate,tag,num,style,uid
-        
-       删除文章：
-            接口地址：http://148.70.223.218:3001/lover/article/delarticle?uid=&id=
-            请求数据：文章id
-            返回数据：该用户创建所有爱人文章内容 id,name,imgurl,content,setdate,tag,num,style,uid
-
-       文章点赞：
 //------修改为邮箱后------------------------------------	
 3. 用户登录
 method（http请求方式）：post
@@ -410,25 +390,84 @@ post的数据：email=&confirm=&passwd=&pass=
 ③{code:2,msg:"验证码已失效"}
 ④{code:3,msg:"两次密码不一致"}
 //-------------------------------------------------
-11.上传图片文件：
+
+11.社区模块
+     点击写文章模块
+     接口地址：http://148.70.223.218:3001/share
+     返回数据：所有用户的文章
+	{"code":0,"msg":[{"id":"4200001","name":"育儿经","imgurl":"{#1,#2,#3}","content":"学会和孩子沟通","setdate":"200-04-09","tag":"true","style":"true","uid":"100001",
+                                    "zannum":0,"num":0},
+		   {"id":"4200001","name":"育儿经","imgurl":"{#1,#2,#3}","content":"学会和孩子沟通","setdate":"200-04-09","tag":"true","style":"true","uid":"100001",
+                                    "zannum":0,"num":0}.....]}
+	{"code":1,"msg":null}
+
+     写文章模块：（发表自己的文章，类似说说）
+
+        接口地址：http://148.70.223.218:3001/lover/article?uid=
+        请求数据：用户uid
+        返回数据：该用户创建所有爱人文章内容 id,name,imgurl,content,setdate,tag,num,style,uid
+        点击具体文章：点击具体文章就不发请求，就像cnodejs那种直接拿数据就行了
+        
+     增加文章：
+            接口地址：http://148.70.223.218:3001/lover/article/carticle
+            method:post           
+            提交数据：name(文章名称)，imgurl(照片，是个数组),content(文章内容),
+               setdate(创建时间),tag(布尔类型，true表示可以公开，true表示不能公开)，num(初次应该是0,点赞数)
+               style(布尔类型，true表示亲子类型的文章，false表示爱人类型的文章) uid(用户id)
+            返回数据：该用户创建所有爱人文章内容 id,name,imgurl,content,setdate,tag,num,style,uid
+        
+     删除文章：
+            接口地址：http://148.70.223.218:3001/lover/article/delarticle?uid=&id=
+            请求数据：文章id
+            返回数据：该用户创建所有爱人文章内容 id,name,imgurl,content,setdate,tag,num,style,uid
+
+     送小花：
+           接口地址：http://148.70.223.218:3001/share/num/addnum?uid=&auid=&id= 
+           请求数据：该用户的uid 、写这篇文章的用户的uid 、文章的id
+           返回数据：{"code":0,"msg":[ { id: 4200002,name: '育儿经',imgurl: [ '#1', '#2', '#3' ],content: '学会和孩子沟通',setdate: 2020-04-15T16:00:00.000Z,tag: true, 
+                          style: false,uid: 100001,zannum: 0,num: 21 },{ id: 100001,name: null,pass: '123',setdate: 2020-04-07T16:00:00.000Z, gender: null,email: '864134710@qq.com', 
+                          imgurl: null,num: 34 },{ id: 100001,name: null,pass: '123',setdate: 2020-04-07T16:00:00.000Z,gender: null, email: '864134710@qq.com',imgurl: null,num: 34 } ]}           
+	          //数组第一项为该文章的具体内容，第二项文章所有者的信息，第三项送花者的信息
+                          {"code":1,"msg":null}
+      取消小花：
+	
+           
+     点赞
+          接口地址：http://148.70.223.218:3001/share/praise/addpraise?id=
+          请求数据：文章的id 
+          返回数据：{"code"：0，msg:[{zannum:3}]}
+	          {"code":1,msg:null}
+     取消点赞
+          接口地址：http://148.70.223.218:3001/share/praise/reducepraise?id=
+          请求数据：文章的id 
+          返回数据：{"code"：0，msg:[{zannum:3}]}
+	          {"code":1,msg:null}
+
+点赞需要知道别人的文章的id，点击社区模块，应该返回所有的文章信息（findAll）
+送出的小花可以收回吗？点赞误点了那样的
+点击关注：需要罗列出关注人的所有文章（需要传关注的人的UID）
+                这个在哪里关注他，让前端获取呢
+私密和公开
+
+12.上传图片文件：
     method（http请求方式）：post
     接口地址：http://localhost:3001/img
     提交数据：图片文件
     返回数据：图片在服务器的url
 
-12.上传多图文件：
+13.上传多图文件：
     method（http请求方式）：post
     接口地址：http://localhost:3001/imgs
     提交数据：图片文件
     返回数据：图片在服务器的url,数组
 
-13.上传语音文件：
+14.上传语音文件：
     method（http请求方式）：post
     接口地址：http://localhost:3001/voice
     提交数据：语音文件
     返回数据：语音文件在服务器的url
 
-14.我的 
+15.我的 
     头像：
     昵称：
     性别:
