@@ -47,7 +47,7 @@ export default class My extends Component {
             //头像地址
             imageUrl:require('..//images/head.png'),
             //关注人数
-            num1:1,
+            num1:6,
             //粉丝人数
             num2:5
         }
@@ -72,20 +72,11 @@ export default class My extends Component {
                     backgroundColor='#FFBF2D'
                 />
                 <View style={styles.navbar}>
-                    <Text style={{
-                        fontWeight: 'bold',
-                        fontSize: 20,
-                        textIndent: 3,
-                        letterSpacing: 3,
-                        color: "#ffff",
-                        lineHeight: 40
-                    }}
-                    >我的</Text>
-                    <Icon1 
-                        style={styles.Icon}
-                        name='settings'
-                        onPress={()=>Actions.Use()} 
-                    />
+                    <View style={styles.icon}></View>
+                    <Text style={styles.title}>我的</Text>
+                    <TouchableOpacity onPress={()=>Actions.Use()}>
+                        <Icon1 style={styles.icon}  name='settings'/>
+                    </TouchableOpacity>
                 </View>
                 {/* 头像 */}
                 <View style={{width:'100%',height:240*h,flexDirection:'row'}}>
@@ -95,8 +86,12 @@ export default class My extends Component {
                         </TouchableOpacity>
                         <Text style={{color:'#FFBF2D', fontWeight:'bold',fontSize:17,marginTop:10*h}}>小浣熊</Text>
                         <View style={{fontWeight:'bold',fontSize:17,width:'100%',justifyContent:'center',flexDirection:'row'}}>
-                            <Text style={{color:'#FFBF2D'}}>关注:{this.state.num1}&nbsp;&nbsp;</Text>
-                            <Text style={{color:'#FFBF2D'}}>粉丝:{this.state.num2}</Text>
+                            <TouchableOpacity onPress={()=>{Actions.Mattention()}}>
+                                <Text style={{color:'#FFBF2D'}}>关注:{this.state.num1}&nbsp;&nbsp;</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={()=>{Actions.Mfollowers()}}>
+                                <Text style={{color:'#FFBF2D'}}>粉丝:{this.state.num2}</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={{width:'40%',height:240*h,alignItems:'center'}}>
@@ -125,15 +120,24 @@ const styles = StyleSheet.create({
         height:65*s1,
         backgroundColor:'#FFBF2D',
         flexDirection: 'row',
+        paddingLeft:0.02*width,
         paddingTop:'1%',
+        paddingRight:0.1*width,
         justifyContent:"center"
     },
-    Icon:{
-        position:'absolute',
-        top:10*s1,
-        right:20*s1,
-        fontSize:32*s1,
+    icon:{
+        width:0.08*width,
         color:'#fff',
+        fontSize:30,
+    },
+    title:{
+        marginLeft:'auto',
+        marginRight:"auto",
+        textAlign:'center',
+        fontSize:20,
+        color:'#fff',
+        letterSpacing:3,
+        fontWeight:'bold'
     },
     btn: {
         padding:0,
