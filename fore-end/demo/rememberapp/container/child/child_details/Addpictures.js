@@ -7,8 +7,9 @@ import {
     TouchableOpacity,
     FlatList,
     ImageBackground,
-    Image
+    Image,
 } from 'react-native'
+import ImageCropPicker from 'react-native-image-crop-picker'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Entypo'
@@ -17,146 +18,122 @@ import { Actions } from 'react-native-router-flux';
 import { WingBlank } from '@ant-design/react-native'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
+const image = 'http://img.taopic.com/uploads/allimg/111130/500-111130135A160.jpg'
 export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
             lists:[
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                 {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3754156404,1749528164&fm=26&gp=0.jpg',
+                    path:image,
                     id:1
                 },
                
             ]
         }
+    }
+    choocepictures = ()=>{
+        ImagePicker.openPicker({
+            width: 300, 
+            height: 400, 
+            cropping: true
+        }).then(image => { 
+        // this.setState({
+        //     background:image.path
+        // })
+        });
+    }
+    takephoto = ()=>{
+        ImageCropPicker.openCamera({
+            width:300,
+            height:400,
+            cropping:true,
+        }).then(image=>{
+            AsyncStorage.setItem('imageUrl',image.path)
+            this.setState({
+                imageUrl:{uri:image.path}
+            })
+        });
     }
     render() {
         return (
@@ -170,11 +147,11 @@ export default class Cdairy extends Component {
                     <Text style={styles.title}>增加照片</Text>
                 </View>
                 <View style={styles.btnbox}>
-                    <TouchableOpacity onPress={this.delpictures} style={styles.btn}>
+                    <TouchableOpacity onPress={this.choocepictures} style={styles.btn}>
                         <Icon3 style={styles.btnicon} name='images'/>
                         <Text style={styles.btntext}>图库选择</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity onPress={this.takephoto} style={styles.btn}>
                         <Icon3 style={styles.btnicon} name='camera'/>
                         <Text style={styles.btntext}>立即拍照</Text>
                     </TouchableOpacity>

@@ -20,52 +20,67 @@ import { WingBlank, ImagePicker } from '@ant-design/react-native';
 import Button from 'react-native-button';
 const {width,scale} = Dimensions.get('window');
 const s = width / 640;
+const image = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587642270470&di=340901c2a4ea9035e4a8bc535faec69c&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180227%2Fc7cb7d6daa734441910f3995e321da6c.png'
 export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
-            background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg',
+            code:'',
+            cid:'',
+            name:'',
+            background:image,
             lists:[
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:image
+                },
+                {
+                    name:'我的相册',
+                    pid:1,
+                    background:image
+                },
+                
             ],
         }
     }
@@ -99,6 +114,7 @@ export default class Cdairy extends Component {
                     <View style={styles.msg}>
                         <Text style={styles.text}>相册名称：</Text>
                         <TextInput
+                            onChangeText={text=>{this.setState({name:text})}}
                             maxLength={10}
                             onFocus={()=>{
                                 ToastAndroid.showWithGravityAndOffset(
@@ -117,7 +133,7 @@ export default class Cdairy extends Component {
                         style={styles.textbtn}>轻触设置封面</Text>
                         <Image
                             style={styles.cover}
-                            resizeMode="contain"
+                            resizeMode="cover"
                             source={{uri:`${this.state.background}`}}
                         />
                     </TouchableOpacity>

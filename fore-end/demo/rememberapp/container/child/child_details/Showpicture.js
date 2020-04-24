@@ -31,6 +31,7 @@ import Button from 'react-native-button'
 import CheckBox from 'react-native-checkbox'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
+const image = 'http://img.taopic.com/uploads/allimg/111130/500-111130135A160.jpg'
 export default class Cdairy extends Component {
     constructor(){
         super();
@@ -39,120 +40,121 @@ export default class Cdairy extends Component {
             checkboxtimes:0,
             checkboxdisabled:'none',
             visible:false,
-            boxopacity:0,
+            boxopacity:'none',
             chooseopacity:0,
-            currentpicture:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg',
+            currentpicture:image,
             lists:[
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image
                 },
+                
             ],
             activeSections: [2, 0],
             childs:[1,2,3,4]
@@ -168,11 +170,11 @@ export default class Cdairy extends Component {
         },()=>{
             if(this.state.times % 2 == 0){
                 this.setState({
-                    boxopacity:0
+                    boxopacity:'none'
                 })
             }else{
                 this.setState({
-                    boxopacity:1
+                    boxopacity:'flex'
                 }) 
             }
         })
@@ -269,26 +271,29 @@ export default class Cdairy extends Component {
                     <TouchableOpacity onPress={this.compile}>
                         <Icon1 style={styles.icon} name='more-horizontal'/>
                     </TouchableOpacity>
-                    
                 </View>
-                <View style={{
-                    width:0.3*width,
-                    marginLeft:0.7*width,
-                    opacity:this.state.boxopacity,
-                    height:0.055*height,
-                    paddingTop:0.008*height,
-                    paddingBottom:0.01*height,
-                    flexDirection:'row',
-                }}
-                >
-                    <TouchableOpacity onPress={this.delpictures} style={styles.btn}>
-                        <Icon1 style={styles.btnicon} name='trash-2'/>
-                        <Text  style={styles.btntext}>删除</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>Actions.capictures()} style={styles.btn}>
-                        <Icon5 style={styles.btnicon} name='image-plus'/>
-                        <Text style={styles.btntext}>添加</Text>
-                    </TouchableOpacity>
+                <View 
+                    style={{
+                        width:0.3*width,
+                        marginLeft:0.7*width,
+                        height:0.055*height,
+                        paddingTop:0.008*height,
+                        paddingBottom:0.01*height,
+                    }}>
+                    <View style={{
+                        display:this.state.boxopacity,
+                        flexDirection:'row',
+                    }}
+                    >
+                        <TouchableOpacity onPress={this.delpictures} style={styles.btn}>
+                            <Icon1 style={styles.btnicon} name='trash-2'/>
+                            <Text  style={styles.btntext}>删除</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>Actions.capictures()} style={styles.btn}>
+                            <Icon5 style={styles.btnicon} name='image-plus'/>
+                            <Text style={styles.btntext}>添加</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <WingBlank style={styles.wingblank}>
                     <FlatList  

@@ -18,6 +18,9 @@ import Icon2 from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux';
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
+const image1 = 'http://img.pconline.com.cn/images/upload/upc/tx/photoblog/1607/21/c3/24460421_1469066584849_mthumb.jpg';
+const image2 = 'http://img.pconline.com.cn/images/upload/upc/tx/photoblog/1607/21/c4/24460471_1469066604292_mthumb.jpg';
+const image3 = 'http://tc.sinaimg.cn/maxwidth.2048/tc.service.weibo.com/p/image_96weixin_com/9a6afdf6ff7c953f04675270477405b0.jpg'
 export default class Cdairy extends Component {
     constructor(){
         super();
@@ -28,27 +31,27 @@ export default class Cdairy extends Component {
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image1
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image2
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image3
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image2
                 },
                 {
                     name:'我的相册',
                     pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
+                    background:image1
                 },
             ],
             code:""
@@ -161,7 +164,7 @@ export default class Cdairy extends Component {
                                                 width: '100%',
                                                 transform: [{scale:0.9}]
                                             }}
-                                            resizeMode="contain"
+                                            resizeMode="cover"
                                             // source={require("../../images/8.png")}
                                             source={{uri:`${item.background}`}}
                                         >
