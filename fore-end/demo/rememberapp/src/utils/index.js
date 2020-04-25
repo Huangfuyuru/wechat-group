@@ -1,5 +1,5 @@
 import queryString from 'query-string'
-let rootUrl = 'https://www.fastmock.site/mock/c7eb066fb1ff5e6f9cce7f8f6489b17a/api'
+let rootUrl = 'http://148.70.223.218:3001'
 
 let myFetch = {
     get(url,queryParams){
