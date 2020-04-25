@@ -271,7 +271,7 @@ export default class Lover extends Component {
         0,-250)
     }
     render() {
-        if(!this.state.cid){
+        if(this.state.cid){
             return (
                 <View style={{ 
                     width: width, 
@@ -583,7 +583,7 @@ export default class Lover extends Component {
                                     <View>
                                         <Text>{item.ctime}</Text>
                                     </View>
-                                    <View style={styles.line}>
+                                    <View style={styles.newsline}>
                                         <View style={styles.newspicbox}>
                                             <ImageBackground
                                                 style={styles.newspic}
