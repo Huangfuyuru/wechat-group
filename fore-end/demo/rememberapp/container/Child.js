@@ -10,6 +10,7 @@ import {
     StatusBar,
     ScrollView,
     FlatList,
+    ToastAndroid,
     ImageBackground,
     DrawerLayoutAndroid
 } from 'react-native'
@@ -19,6 +20,8 @@ import {
 import { Flex, WingBlank } from '@ant-design/react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
 import ImagePicker from 'react-native-image-picker'
+import moment from 'moment'
+import {myFetch} from '../src/utils'
 // import ImagePicker from 'react-native-image-crop-picker'
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 411;
@@ -28,9 +31,8 @@ const image = 'http://img.zcool.cn/community/019de45c32c171a80121df90bbe9ca.jpg@
 export default class Lover extends Component {
     constructor(props){
         super(props);
-        // var uid = JSON.parse(localStorage.getItem('uid'));
         this.state={
-            // uid:uid,
+            uid:'',
             times:0,
             form:'',
             cid:'',
@@ -40,22 +42,34 @@ export default class Lover extends Component {
             child_id:'',
             cindex_src:'',
             background:image,
+            news:[
+                {
+                    ctime:'今天',
+                    cpic:image,
+                    ccontent:'请先到个人中心添加宝贝，然后这里将展示您在社区私密的亲子发布'
+                },
+            ],
             cnews:[
                 {
-                    ctime:'以下内容仅自己可见',
-                    cpic_src:image,
-                    ccontent:'在这里展示您未公开的发布'
-                },
+                    setdate:'Sat Apr 25 2020 22:54:00 GMT+0800',
+                    imageurl:[image,image],
+                    content:'在这里展示您未公开的发布'
+                },    
                 {
-                    ctime:'以下内容仅自己可见',
-                    cpic_src:image,
-                    ccontent:'在这里展示您未公开的发布'
-                },
+                    setdate:'Sat Apr 25 2020 22:54:00 GMT+0800',
+                    imageurl:[image,image],
+                    content:'在这里展示您未公开的发布'
+                },    
                 {
-                    ctime:'以下内容仅自己可见',
-                    cpic_src:image,
-                    ccontent:'在这里展示您未公开的发布'
-                },
+                    setdate:'Sat Apr 25 2020 22:54:00 GMT+0800',
+                    imageurl:[image,image],
+                    content:'在这里展示您未公开的发布'
+                },    
+                {
+                    setdate:'Sat Apr 25 2020 22:54:00 GMT+0800',
+                    imageurl:[image,image],
+                    content:'在这里展示您未公开的发布'
+                },    
             ],
             children:[
                 {name:'暖心的大宝',id:1},
@@ -67,26 +81,26 @@ export default class Lover extends Component {
         }
     }
     componentDidMount(){
-        console.log('state'+this.state.times+'第一次加载');
-        // fetch(`http://localhost:3001/child`,{
-        //     method:'POST',
-        //     mode:'cors',
-        //     headers:{
-        //         'Content-Type':"application/x-www-form-urlencoded"
-        //     },
-        //     body:`uid=${this.state.uid}`
-        // }).then(res=>res.json())
-        // .then(json=>{
-        //     console.log('json',json)
-        //     this.setState({
-        //         child_id:JSON.parse(localStorage.getItem('cid'))||json[0].id,
-        //         cindex_src:JSON.parse(localStorage.getItem('cbackground'))||json[0].background,
-        //         change_id:json
-        //     },()=>{
-        //         localStorage.setItem('cid',JSON.stringify(this.state.child_id));
-        //         localStorage.setItem('cbackground',JSON.stringify(this.state.cindex_src))
-        //     });
-        // })
+        console.log('第一次加载');
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            console.log(typeof(user.id))
+            this.setState({
+                uid:user.id
+            })
+            myFetch.post('/child',{
+                uid:user.id
+            }).then(
+                res=>{
+                    if(res){
+                        console.log(res)
+                    }else{
+                        console.log('222')
+                    }
+                }
+            )
+        })
     }
     componentDidUpdate(prevProps,prevState){
         console.log('更新')
@@ -249,212 +263,346 @@ export default class Lover extends Component {
             }
         })
     }
+    addchildwarn = ()=>{
+        ToastAndroid.showWithGravityAndOffset(
+            '请先到个人中心添加宝贝，才能使用更多功能',
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER,
+        0,-250)
+    }
     render() {
-        const news = this.state.cnews;
-        const navigationView = (
-            <View style={{flex: 1, backgroundColor: '#fff'}}>
-              <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
-            </View>
-          );
-        return (
-            <View style={{ 
-                width: width, 
-                height: height, 
-                backgroundColor: "#fff",
-            }}>
-                <StatusBar 
-                    backgroundColor='#FFBF2D'
-                />
-                <View style={{
-                    width:0.25*width,
-                    height:0.15*height,
-                    position:'absolute',
-                    top:0.06*height,
-                    right:0,
-                    zIndex:100,
-                    alignItems:'center',
+        if(!this.state.cid){
+            return (
+                <View style={{ 
+                    width: width, 
+                    height: height, 
+                    backgroundColor: "#fff",
                 }}>
+                    <StatusBar 
+                        backgroundColor='#FFBF2D'
+                    />
                     <View style={{
-                        width:0.23*width,
-                        display:this.state.menudisplay,
+                        width:0.25*width,
+                        height:0.15*height,
+                        position:'absolute',
+                        top:0.06*height,
+                        right:0,
+                        zIndex:100,
                         alignItems:'center',
-                        paddingTop:0.005*height,
-                        paddingBottom:0.005*height,
-                        backgroundColor:'rgba(204,204,204,0.8)',
+                    }}>
+                        <View style={{
+                            width:0.23*width,
+                            display:this.state.menudisplay,
+                            alignItems:'center',
+                            paddingTop:0.005*height,
+                            paddingBottom:0.005*height,
+                            backgroundColor:'rgba(204,204,204,0.8)',
+                            }}>
+                            <FlatList 
+                                showsVerticalScrollIndicator={false}
+                                data={this.state.children}
+                                numColumns={1}
+                                renderItem={({item})=>(
+                                        <View>
+                                            <TouchableOpacity>
+                                                <Text style={{
+                                                    borderRadius:5,
+                                                    width:0.2*width,
+                                                    color:'#333',
+                                                    fontSize:20*s1,
+                                                    height:0.04*height,
+                                                    backgroundColor:'rgba(255,255,255,0.5)',
+                                                    margin:0.005*width,
+                                                    textAlignVertical:'center',
+                                                    textAlign:'center'
+                                                }}>{item.name}</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                )}
+                            />
+                        </View>
+                    </View>
+                    <View style={styles.navbar}>
+                        <Icon1 style={styles.icon}/>
+                        <Text style={styles.title}
+                        >亲子</Text>
+                        <TouchableOpacity onPress={this.compile}>
+                            <Icon1 style={styles.icon} name='more-horizontal'/>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.lover_first}>
+                        <ImageBackground
+                            resizeMode="cover"
+                            style={{ 
+                                height: "100%", 
+                                width: "100%",
+                                transform: [{scale:1}]
+                            }}
+                            source={{uri:`${this.state.background}`}}
+                            alt='自定义照片墙'>
+                        
+                                    <TouchableOpacity onPress={this.choosebgpic}>
+                                        <Text style={styles.bgbtn}>轻触上传精选照片</Text>
+                                    </TouchableOpacity>
+                        </ImageBackground>
+                    </View>
+                    <WingBlank style={{flex:1}}>
+                        <View style={styles.lover_second}>
+                            <Flex justify="center">
+                                <TouchableOpacity 
+                                    onPress={()=>Actions.cpictures()}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>云相册</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={()=>Actions.csound()} 
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>语音记事</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={()=>Actions.cdairy()}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>亲子日记</Text >
+                                </TouchableOpacity>
+                            </Flex>
+                            <Flex justify="center">
+                                <TouchableOpacity 
+                                    onPress={()=>Actions.cgrowup()}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>成长记录</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={()=>Actions.cevents()}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>大事记</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={()=>Actions.cstudy()}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>学业记录</Text >
+                                </TouchableOpacity>
+                            </Flex>
+                        </View>
+                        <View style={{
+                            width:'100%',
+                            marginTop:10
                         }}>
+                            <Text style={{
+                                width:'104%',
+                                marginLeft: '-2%',
+                                backgroundColor: '#bdbbb8',
+                                height: 0.8,
+                            }}></Text>
+                            <Text style={{
+                                marginTop:-10,
+                                width:140*s,
+                                textAlign:'center',
+                                marginLeft:5,
+                                backgroundColor:'#fff',
+                                fontSize:15,
+                                color:'#555'
+                            }}>以下内容仅自己可见</Text>
+                        </View>
                         <FlatList 
                             showsVerticalScrollIndicator={false}
-                            data={this.state.children}
+                            ListFooterComponent={
+                                <View style={{
+                                    width:'100%',
+                                    marginTop:10
+                                }}>
+                                    <Text style={{
+                                        width:'104%',
+                                        marginLeft: '-2%',
+                                        backgroundColor: '#ccc',
+                                        height: 0.5,
+                                    }}></Text>
+                                    <Text style={{
+                                        marginTop:-10,
+                                        width:140*s,
+                                        height:50,
+                                        textAlign:'center',
+                                        marginLeft:'auto',
+                                        marginRight:'auto',
+                                        backgroundColor:'#fff',
+                                        fontSize:15,
+                                        color:'#bdbbb8'
+                                    }}>底儿都被你看完了</Text>
+                                </View>
+                            }
+                            style={styles.scrollView}
+                            data={this.state.cnews}
                             numColumns={1}
                             renderItem={({item})=>(
-                                    <View>
-                                        <TouchableOpacity>
-                                            <Text style={{
-                                                borderRadius:5,
-                                                width:0.2*width,
-                                                color:'#333',
-                                                fontSize:20*s1,
-                                                height:0.04*height,
-                                                backgroundColor:'rgba(255,255,255,0.5)',
-                                                margin:0.005*width,
-                                                textAlignVertical:'center',
-                                                textAlign:'center'
-                                            }}>{item.name}</Text>
-                                        </TouchableOpacity>
-                                    </View>
+                                <TouchableOpacity style={styles.child_third}>
+                                        <Text style={styles.newstime}>{ moment(item.setdate).format(" YYYY年MM月DD日  HH:mm:ss")}</Text>
+                                        <View style={styles.newsline}>
+                                            <View style={styles.newspicbox}>
+                                                <ImageBackground
+                                                    style={styles.newspic}
+                                                    resizeMode="cover"
+                                                    source={{uri:`${this.state.background}`}}
+                                                />
+                                            </View>
+                                            <View style={styles.newscontentbox}>
+                                                <Text style={styles.newscontent}>{item.content}</Text>
+                                            </View>
+                                        </View>
+                                </TouchableOpacity>
                             )}
                         />
-                    </View>
+                        
+                    </WingBlank>
                 </View>
-                <View style={styles.navbar}>
-                    <Icon1 style={styles.icon}/>
-                    <Text style={styles.title}
-                    >亲子</Text>
-                    <TouchableOpacity onPress={this.compile}>
-                        <Icon1 style={styles.icon} name='more-horizontal'/>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.lover_first}>
-                    <ImageBackground
-                        resizeMode="cover"
-                        style={{ 
-                            height: "100%", 
-                            width: "100%",
-                            transform: [{scale:1}]
-                        }}
-                        source={{uri:`${this.state.background}`}}
-                        alt='自定义照片墙'>
-                    
-                                <TouchableOpacity onPress={this.choosebgpic}>
-                                    <Text style={styles.bgbtn}>轻触上传精选照片</Text>
-                                </TouchableOpacity>
-                    </ImageBackground>
-                </View>
-                <WingBlank style={{flex:1}}>
-                    <View style={styles.lover_second}>
-                        <Flex justify="center">
-                            <TouchableOpacity 
-                                onPress={()=>Actions.cpictures()}
-                                style={styles.btn}>
-                                <Text style={styles.blockbtn}>云相册</Text >
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={()=>Actions.csound()} 
-                                style={styles.btn}>
-                                <Text style={styles.blockbtn}>语音记事</Text >
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={()=>Actions.cdairy()}
-                                style={styles.btn}>
-                                <Text style={styles.blockbtn}>亲子日记</Text >
-                            </TouchableOpacity>
-                        </Flex>
-                        <Flex justify="center">
-                            <TouchableOpacity 
-                                onPress={()=>Actions.cgrowup()}
-                                style={styles.btn}>
-                                <Text style={styles.blockbtn}>成长记录</Text >
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={()=>Actions.cevents()}
-                                style={styles.btn}>
-                                <Text style={styles.blockbtn}>大事记</Text >
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={()=>Actions.cstudy()}
-                                style={styles.btn}>
-                                <Text style={styles.blockbtn}>学业记录</Text >
-                            </TouchableOpacity>
-                        </Flex>
-                    </View>
-                    <View style={{
-                        width:'100%',
-                        marginTop:10
-                    }}>
-                        <Text style={{
-                            width:'104%',
-                            marginLeft: '-2%',
-                            backgroundColor: '#bdbbb8',
-                            height: 0.8,
-                        }}></Text>
-                        <Text style={{
-                            marginTop:-10,
-                            width:140*s,
-                            textAlign:'center',
-                            marginLeft:5,
-                            backgroundColor:'#fff',
-                            fontSize:15,
-                            color:'#555'
-                        }}>以下内容仅自己可见</Text>
-                    </View>
-                    <FlatList 
-                        showsVerticalScrollIndicator={false}
-                        ListFooterComponent={
-                            <View style={{
-                                width:'100%',
-                                marginTop:10
-                            }}>
-                                <Text style={{
-                                    width:'104%',
-                                    marginLeft: '-2%',
-                                    backgroundColor: '#ccc',
-                                    height: 0.5,
-                                }}></Text>
-                                <Text style={{
-                                    marginTop:-10,
-                                    width:140*s,
-                                    height:50,
-                                    textAlign:'center',
-                                    marginLeft:'auto',
-                                    marginRight:'auto',
-                                    backgroundColor:'#fff',
-                                    fontSize:15,
-                                    color:'#bdbbb8'
-                                }}>底儿都被你看完了</Text>
-                            </View>
-                        }
-                        style={styles.scrollView}
-                        data={news}
-                        numColumns={1}
-                        renderItem={({item})=>(
-                            <View style={styles.child_third}>
-                                <View>
-                                    <Text>今天</Text>
-                                </View>
-                                <View style={styles.line}>
-                                    <View
-                                        style={{
-                                            width:180*s,
-                                            height:180*s,
-                                            // backgroundColor:'#000',
-                                            justifyContent:'center',
-                                            alignItems:'center'
-                                        }}
-                                    >
-                                        <ImageBackground
-                                            style={{ 
-                                                height: "100%", 
-                                                width: "100%",
-                                                transform: [{scale:0.9}]
-                                            }}
-                                            resizeMode="cover"
-                                            source={{uri:`${this.state.background}`}}
-                                        />
-                                    </View>
-                                    <View style={{
-                                        width:180*s,
-                                        height:180*s,
-                                    }}>
-                                        <Text>{item.ccontent}</Text>
-                                    </View>
-                                </View>
-                            </View>
-                        )}
+            )
+        }else{
+            return (
+                <View style={{ 
+                    width: width, 
+                    height: height, 
+                    backgroundColor: "#fff",
+                }}>
+                    <StatusBar 
+                        backgroundColor='#FFBF2D'
                     />
-                    
-                </WingBlank>
-            </View>
-        )
+                    <View style={{
+                        width:0.25*width,
+                        height:0.15*height,
+                        position:'absolute',
+                        top:0.06*height,
+                        right:0,
+                        zIndex:100,
+                        alignItems:'center',
+                    }}>
+                        <View style={{
+                            width:0.23*width,
+                            display:this.state.menudisplay,
+                            alignItems:'center',
+                            paddingTop:0.005*height,
+                            paddingBottom:0.005*height,
+                            backgroundColor:'rgba(204,204,204,0.8)',
+                            }}>
+                            <Text style={{
+                                borderRadius:5,
+                                width:0.2*width,
+                                color:'#333',
+                                fontSize:20*s1,
+                                height:0.04*height,
+                                backgroundColor:'rgba(255,255,255,0.5)',
+                                margin:0.005*width,
+                                textAlignVertical:'center',
+                                textAlign:'center'
+                            }}>请先添加宝贝</Text>
+                        </View>
+                    </View>
+                    <View style={styles.navbar}>
+                        <Icon1 style={styles.icon}/>
+                        <Text style={styles.title}
+                        >亲子</Text>
+                        <TouchableOpacity onPress={this.compile}>
+                            <Icon1 style={styles.icon} name='more-horizontal'/>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.lover_first}>
+                        <ImageBackground
+                            resizeMode="cover"
+                            style={{ 
+                                height: "100%", 
+                                width: "100%",
+                                transform: [{scale:1}]
+                            }}
+                            source={{uri:`${this.state.background}`}}
+                            alt='自定义照片墙'>
+                                <Text style={styles.bgbtn}>到个人中心添加宝贝后可更换背景墙哦</Text>
+                        </ImageBackground>
+                    </View>
+                    <WingBlank style={{flex:1}}>
+                        <View style={styles.lover_second}>
+                            <Flex justify="center">
+                                <TouchableOpacity 
+                                    onPress={this.addchildwarn}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>云相册</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={this.addchildwarn} 
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>语音记事</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={this.addchildwarn}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>亲子日记</Text >
+                                </TouchableOpacity>
+                            </Flex>
+                            <Flex justify="center">
+                                <TouchableOpacity 
+                                    onPress={this.addchildwarn}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>成长记录</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={this.addchildwarn}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>大事记</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={this.addchildwarn}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>学业记录</Text >
+                                </TouchableOpacity>
+                            </Flex>
+                        </View>
+                        <View style={{
+                            width:'100%',
+                            marginTop:10,
+                            // backgroundColor:'#ccc'
+                        }}>
+                            <Text style={{
+                                width:'104%',
+                                marginLeft: '-2%',
+                                backgroundColor: '#bdbbb8',
+                                height: 0.8,
+                            }}></Text>
+                            <Text style={{
+                                marginTop:-10,
+                                width:140*s,
+                                textAlign:'center',
+                                marginLeft:5,
+                                backgroundColor:'#fff',
+                                fontSize:15,
+                                color:'#555'
+                            }}>以下内容仅自己可见</Text>
+                        </View>
+                        <FlatList 
+                            showsVerticalScrollIndicator={false}
+                            style={styles.scrollView}
+                            data={this.state.news}
+                            numColumns={1}
+                            renderItem={({item})=>(
+                                <View style={styles.child_third}>
+                                    <View>
+                                        <Text>{item.ctime}</Text>
+                                    </View>
+                                    <View style={styles.line}>
+                                        <View style={styles.newspicbox}>
+                                            <ImageBackground
+                                                style={styles.newspic}
+                                                resizeMode="cover"
+                                                source={{uri:`${item.cpic}`}}
+                                            />
+                                        </View>
+                                        <View style={styles.newscontentbox}>
+                                            <Text style={styles.newscontent}>{item.ccontent}</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            )}
+                        />
+                        
+                    </WingBlank>
+                </View>
+            )
+        }
     }
 }
 const styles = StyleSheet.create({
@@ -545,11 +693,44 @@ const styles = StyleSheet.create({
         marginBottom:60,
     },
     child_third: {
-        marginTop:15*h
+        marginTop:0.015*height,
+        // backgroundColor:'#ccc'
     },
-    line:{
+    newstime:{
+        width:0.45*width,
+        // backgroundColor:'#ccc',
+        height:0.03*height,
+        textAlignVertical:'top',
+        fontSize:20*s1,
+        color:'#888'
+    },
+    newsline:{
         flexDirection: 'row',
         justifyContent:'space-between',
-        backgroundColor: "#fff",
-    }
+        backgroundColor: "rgba(221, 221, 221,0.2)",
+    },
+    newspicbox:{
+        width:0.55*width,
+        height:0.3*height,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    newspic:{ 
+        width:0.55*width,
+        height:0.3*height,
+        transform: [{scale:0.9}]
+    },
+    newscontentbox:{
+        width:0.35*width,
+        height:0.3*height,
+        backgroundColor: "rgba(221, 221, 221,0.3)",
+    },
+    newscontent:{
+        // backgroundColor:'#ccc',
+        width:0.34*width,
+        height:0.3*height,
+        fontSize:23*s1,
+        textAlignVertical:'center',
+        transform: [{scale:0.85}],
+    },
 })
