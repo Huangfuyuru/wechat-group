@@ -98,7 +98,7 @@ const App = () => {
 	let now = 0;
 	let [isInstall, setInstall] = useState(true);
 	let init = () => {
-		AsyncStorage.clear();
+		// AsyncStorage.clear();
 		AsyncStorage.getItem('isInstall')
 			.then(res => {
 				if (!res) {
