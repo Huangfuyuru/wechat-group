@@ -18,9 +18,9 @@ import { Actions } from 'react-native-router-flux';
 import { WingBlank } from '@ant-design/react-native'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
+const imgurl = 'http://hbimg.b0.upaiyun.com/3503b3b19c1bc0928766b62de18a5433dad71cf911089-tluSYK_fw658'
 export default class Cdairy extends Component {
     constructor(){
-        const imgurl = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
         super();
         this.state={
             lists:[

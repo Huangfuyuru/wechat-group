@@ -14,21 +14,29 @@ import { Actions } from 'react-native-router-flux';
 import Icon1 from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import {myFetch} from '../utils'
-const {width,scale} = Dimensions.get('window');
+const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 export default class Login extends Component {
     constructor(){
         super();
         this.state = {
             username:'',
+            email:'',
             pwd:'',
             isloading:false,
         }
     }
     userhandle =(text)=>{
         this.setState({
-            username:text
+           email:text
         })
+    }
+    userfocus=()=>{
+        ToastAndroid.showWithGravityAndOffset(
+            '请输入您已注册的邮箱账号',
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER,
+        0,-250)
     }
     pwdhandle =(text)=>{
         this.setState({
@@ -36,37 +44,50 @@ export default class Login extends Component {
         })
     }
     login =()=>{
-        this.setState({
-            isloading:true
-        })
-        myFetch.get('/one')
-        myFetch.post('/login',{
-            username:this.state.username,
-            pwd:this.state.pwd}
-        ).then(
-            res=>{
-                if(this.state.username&&this.state.pwd){
-                    AsyncStorage.setItem('isLogin','true')
-                    AsyncStorage.setItem('user',JSON.stringify(res.data))
-                    .then(()=>{
-                        ToastAndroid.show(res.data.msg,ToastAndroid.SHORT)
-                        Actions.lightbox()
-                    })
-                }else{
-                    this.setState({
-                        isloading:false
-                    })
-                    ToastAndroid.show('账号或密码不正确！',ToastAndroid.SHORT)
-                }
+        if(!(/[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com,cn,net]{1,3}/.test(this.state.email))){
+            ToastAndroid.show('请输入正确的邮箱账号！',ToastAndroid.SHORT)
+            return false;
+        }else{
+            if(this.state.email&&this.state.pwd){
+                myFetch.post('/login',{
+                    email:this.state.email,
+                    upass:this.state.pwd
+                }).then(
+                    res=>{
+                        if(res.code == 0){
+                            this.setState({
+                                isloading:true
+                            })
+                            console.log(res)
+                            AsyncStorage.setItem('isLogin','true')
+                            AsyncStorage.setItem('user',JSON.stringify(res.data))
+                            .then(()=>{
+                                ToastAndroid.show(res.msg,ToastAndroid.SHORT)
+                                Actions.lightbox()
+                            })
+                        }else{
+                            this.setState({
+                                isloading:false
+                            })
+                            ToastAndroid.show(res.msg,ToastAndroid.SHORT)
+                        }
+                    }
+                )
+            }else{
+                ToastAndroid.showWithGravityAndOffset(
+                    '账号不能为空',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+                0,-250)
             }
-        )
+        }
     }
   render() {
     return (
     <View>
         <View style={{
             height:260*s,
-            backgroundColor:'#f23030',
+            backgroundColor:'#FFBF2D',
             marginBottom:120*s,
         }}>
             <Image 
@@ -82,6 +103,7 @@ export default class Login extends Component {
         <View 
             style={{
                 justifyContent: 'center',
+                alignItems: 'center',
             }}
         >
             <View
@@ -89,28 +111,32 @@ export default class Login extends Component {
                     alignItems: 'center',
                 }}
             >
-                <View style={styles.line}>
-                    <Icon1 name="verified-user" style={styles.icon}/>
-                    <TextInput
-                        style={{fontSize:16}} 
-                        placeholder="账号" 
-                        onChangeText={this.userhandle}
-                    />
-                </View>
-                <View style={styles.line}>
-                    <Icon2 name="shield-key" style={styles.icon}/>
-                    <TextInput 
-                        style={{fontSize:16}} 
-                        placeholder="密码" 
-                        onChangeText={this.pwdhandle}
-                        secureTextEntry={true} 
-                    />
+                <View style={styles.msg}>
+                    <View style={styles.line}>
+                        <Icon1 name="verified-user" style={styles.icon}/>
+                        <TextInput
+                            style={styles.input} 
+                            onFocus={this.userfocus}
+                            onChangeText={this.userhandle}
+                            placeholder="邮箱" 
+                        />
+                    </View>
+                    <View style={styles.line}>
+                        <Icon2 name="shield-key" style={styles.icon}/>
+                        <TextInput 
+                            style={styles.input}
+                            maxLength={14}
+                            placeholder="密码" 
+                            onChangeText={this.pwdhandle}
+                            secureTextEntry={true} 
+                        />
+                    </View>
                 </View>
                 <TouchableOpacity 
                     style={{
-                        width: '80%',
-                        height: 45,
-                        backgroundColor: '#f23030',
+                        width: 0.8*width,
+                        height: 0.065*height,
+                        backgroundColor: '#FFBF2D',
                         marginTop: 35,
                         alignItems: 'center',
                         justifyContent: 'center'
@@ -120,9 +146,9 @@ export default class Login extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity 
                     style={{
-                        width: '80%',
-                        height: 45,
-                        backgroundColor: '#ccc',
+                        width: 0.8*width,
+                        height: 0.065*height,
+                        backgroundColor: '#ddd',
                         marginTop: 8,
                         alignItems: 'center',
                         justifyContent: 'center'
@@ -162,10 +188,16 @@ export default class Login extends Component {
 }
 
 const styles = StyleSheet.create({
+    msg:{
+        width:0.8*width,
+        height:0.2*height,
+        justifyContent:'center',
+        // backgroundColor:"#ccc"
+    },
     line:{
-        width: '80%',
+        width: 0.8*width,
         marginRight: 10,
-        height:60,
+        height:0.08*height,
         borderBottomColor: '#ccc',
         borderBottomWidth: 1,
         flexDirection: 'row',
@@ -173,12 +205,21 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
     },
     icon:{
-        color:'#f23030',
-        fontSize:25,
-        marginRight:15
+        // backgroundColor:'#ccc',
+        color:'#FFBF2D',
+        fontSize:28,
+        width:0.1*width,
+        textAlign:'left'
     },
     font:{
         color:'#fff',
-        fontSize:18
-    }
+        fontSize:27*s,
+        letterSpacing:5,
+        fontWeight:'bold'
+    },
+    input:{
+        // backgroundColor:'#ccc',
+        width:0.42*width,
+        fontSize:23*s,
+    },
 });

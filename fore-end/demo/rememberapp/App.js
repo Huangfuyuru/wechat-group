@@ -98,6 +98,7 @@ const App = () => {
 	let now = 0;
 	let [isInstall, setInstall] = useState(true);
 	let init = () => {
+		// AsyncStorage.clear();
 		AsyncStorage.getItem('isInstall')
 			.then(res => {
 				if (!res) {
@@ -134,7 +135,8 @@ const App = () => {
 				if (Actions.currentScene != 'child'
 					&& Actions.currentScene != 'lover'
 					&& Actions.currentScene != 'community'
-					&& Actions.currentScene != 'mine') {
+					&& Actions.currentScene != 'mine'
+					&& Actions.currentScene != 'login') {
 					Actions.pop();
 					return true;
 				} else {
