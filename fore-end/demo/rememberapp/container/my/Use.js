@@ -111,10 +111,10 @@ export default class Use extends Component {
                             <Text style={styles.text}>
                                 <Icon4 style={styles.listlineicon} name='heart'/>更换昵称</Text>
                             <TextInput
-                                maxLength={3}
+                                maxLength={6}
                                 onFocus={()=>{
                                     ToastAndroid.showWithGravityAndOffset(
-                                        '请保证昵称不多于10个字！',
+                                        '请保证昵称不多于6个字！',
                                     ToastAndroid.SHORT,
                                     ToastAndroid.TOP,
                                     25,100)

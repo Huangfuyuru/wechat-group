@@ -11,6 +11,8 @@ import {
     Animated,
     ScrollView,
     FlatList,
+    Alert,
+    ToastAndroid,
     ImageBackground,
 } from 'react-native'
 import {
@@ -18,6 +20,7 @@ import {
 } from 'react-native-router-flux'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon4 from 'react-native-vector-icons/FontAwesome'
 import { Flex, WingBlank } from '@ant-design/react-native'
 import ImagePicker from 'react-native-image-picker';
 import ImageCropPicker from 'react-native-image-crop-picker';
@@ -42,6 +45,7 @@ export default class My extends Component {
             data.push({tit:i,key:i});
         }
         this.state = {
+            flag:false,
             data,
             width: new Animated.Value(20),
             //头像地址
@@ -60,7 +64,29 @@ export default class My extends Component {
           }).then(image => {
             this.setState({imageUrl:{uri:image.path}})
           });
-	}
+    }
+    alertMsg = () => {
+        if(this.state.flag==false){
+            Alert.alert(
+                '提示',
+                '确认签到？',
+                [
+                    {
+                        text: '确定', onPress: () => {
+                            ToastAndroid.show('签到成功！', ToastAndroid.SHORT)
+                        }
+                    },
+                    { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                ],
+            );
+            this.setState({
+                flag:true
+            })
+        }
+        else{
+            ToastAndroid.show('今天已经签到过啦！', ToastAndroid.SHORT)
+        }
+    }
     render() {
         return (
             <View style={{ 
@@ -72,7 +98,9 @@ export default class My extends Component {
                     backgroundColor='#FFBF2D'
                 />
                 <View style={styles.navbar}>
-                    <View style={styles.icon}></View>
+                    <TouchableOpacity onPress={this.alertMsg} >
+                        <Icon4 style={styles.icon} name='calendar'/>
+                    </TouchableOpacity>
                     <Text style={styles.title}>我的</Text>
                     <TouchableOpacity onPress={()=>Actions.Use()}>
                         <Icon1 style={styles.icon}  name='settings'/>
@@ -120,15 +148,15 @@ const styles = StyleSheet.create({
         height:65*s1,
         backgroundColor:'#FFBF2D',
         flexDirection: 'row',
-        paddingLeft:0.02*width,
+        paddingLeft:0.03*width,
         paddingTop:'1%',
-        paddingRight:0.1*width,
+        paddingRight:0.03*width,
         justifyContent:"center"
     },
     icon:{
         width:0.08*width,
         color:'#fff',
-        fontSize:30,
+        fontSize:25,
     },
     title:{
         marginLeft:'auto',

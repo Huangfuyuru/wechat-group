@@ -95,9 +95,6 @@ export default class Message extends Component {
                         onPress={()=>Actions.pop()}
                     />
                     <Text style={styles.title}>亲子详情</Text>
-                    {/* <TouchableOpacity onPress={()=>Actions.Mmchilds()}>
-                        <Icon2 style={styles.icon}  name='md-add'/>
-                    </TouchableOpacity> */}
                 </View>
                 <WingBlank style={styles.wingblank}>
                     <FlatList
