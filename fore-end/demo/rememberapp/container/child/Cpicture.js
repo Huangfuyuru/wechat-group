@@ -31,7 +31,6 @@ export default class Cdairy extends Component {
         this.state={
             cid:'',
             childPhotoListid:'',
-            // cid:cid,
             lists:[],
             code:""
         }
@@ -62,17 +61,31 @@ export default class Cdairy extends Component {
         })
     }
     componentDidUpdate(){
-        console.log('刷新')
-        // fetch(`http://localhost:3001/child/cpictures?childsid=${this.state.cid}`)
-        // .then((res)=>res.json())
-        // .then((res)=>{
-        //     console.log('点击云相册',res)
-        //     this.setState({
-        //         lists:res
-        //     });
-            
-        // })
+        myFetch.get('/child/cpictures',{
+            childsid:this.state.cid
+        }).then(res=>{
+            if(res){
+                for(var i in res){
+                    if(res[i].background ==='#'){
+                        res[i].background = image3
+                    }
+                    this.setState({
+                        lists:res
+                    })
+                }
+            }else{
+                this.setState({
+                    lists:res
+                })
+            }
+        })
     }
+    // componentWillReceiveProps(nextProps){
+    //     console.log(nextProps.code)
+    //     this.setState({
+    //         code:nextProps.code
+    //     })
+    // }
     rmCpicture=(e)=>{
         Alert.alert('提示', '确定要删除吗？',
             [
