@@ -31,59 +31,7 @@ export default class Cdairy extends Component {
             cid:'',
             name:'',
             background:image,
-            lists:[
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                
-            ],
+            lists:[],
         }
     }
     setbackground = ()=>{
@@ -112,12 +60,9 @@ export default class Cdairy extends Component {
             setdate:time
         }).then(res=>{
             console.log(res)
-            this.setState({
-                code:res.code
-            })
             ToastAndroid.show(res.msg, ToastAndroid.SHORT);
             setTimeout(()=>{
-                Actions.pop()
+                Actions.pop() 
             },1000)
         })
     }
@@ -197,9 +142,10 @@ export default class Cdairy extends Component {
                         }
                         renderItem={({item})=>(
                             <Image
+                                key={item.id}
                                 style={styles.pics}
                                 resizeMode="cover"
-                                source={{uri:`${item.background}`}}
+                                source={{uri:`${item.path}`}}
                             />
                         )}
                         />  

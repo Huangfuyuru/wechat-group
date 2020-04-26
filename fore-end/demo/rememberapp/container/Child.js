@@ -54,11 +54,10 @@ export default class Lover extends Component {
         }
     }
     componentDidMount(){
-        console.log('第一次加载');
+        console.log('Child第一次加载');
         AsyncStorage.getItem('user').
         then((res)=>{
             var user = JSON.parse(res)
-            console.log(typeof(user.id))
             this.setState({
                 uid:user.id
             })
@@ -83,21 +82,8 @@ export default class Lover extends Component {
             )
         })
     }
-    componentDidUpdate(prevProps,prevState){
-        console.log('更新')
-        // if(prevState.cindex_src != this.state.cindex_src){
-        //     var url = 'http://148.70.223.218:3001/child/changebackground';
-        //     fetch(url,{
-        //         method:'POST',
-        //         headers:{
-        //             'Content-Type':"application/x-www-form-urlencoded"
-        //         },
-        //         body:`childsid=${Number(this.state.cid)}&background=${this.state.cindex_src}`
-        //     }).then(res=>res.json())
-        //     .then(json=>{
-        //         console.log('json',json)
-        //     })
-        // }
+    componentDidUpdate(){
+        console.log('Child更新')
         
     }
     uploadImage =(params)=> {
@@ -305,7 +291,7 @@ export default class Lover extends Component {
                                 data={this.state.children}
                                 numColumns={1}
                                 renderItem={({item})=>(
-                                        <View>
+                                        <View key={item.id}>
                                             <TouchableOpacity onPress={()=>this.changechild(item)}>
                                                 <Text style={{
                                                     borderRadius:5,
