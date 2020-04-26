@@ -7,7 +7,7 @@ let myFetch = {
         if(queryParams){
             url += '?'+queryString.stringify(queryParams)
         }
-        console.log(url)
+        // console.log(url)
         return fetch(url)
                 .then(res=>res.json())
             // res.json() 如果没加{} 就代表了返回，加了就得写return

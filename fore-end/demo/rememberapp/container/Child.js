@@ -32,15 +32,10 @@ export default class Lover extends Component {
     constructor(props){
         super(props);
         this.state={
-            uid:'',
             times:0,
-            form:'',
-            cid:'',
-            currentcid:'',
             menudisplay:'none',
-            change_id:[],
-            child_id:'',
-            cindex_src:'',
+            currentchild:'',
+            uid:'',
             background:image,
             news:[
                 {
@@ -49,35 +44,13 @@ export default class Lover extends Component {
                     ccontent:'请先到个人中心添加宝贝，然后这里将展示您在社区私密的亲子发布'
                 },
             ],
-            cnews:[
-                {
-                    setdate:'Sat Apr 25 2020 22:54:00 GMT+0800',
-                    imageurl:[image,image],
-                    content:'在这里展示您未公开的发布'
-                },    
-                {
-                    setdate:'Sat Apr 25 2020 22:54:00 GMT+0800',
-                    imageurl:[image,image],
-                    content:'在这里展示您未公开的发布'
-                },    
-                {
-                    setdate:'Sat Apr 25 2020 22:54:00 GMT+0800',
-                    imageurl:[image,image],
-                    content:'在这里展示您未公开的发布'
-                },    
-                {
-                    setdate:'Sat Apr 25 2020 22:54:00 GMT+0800',
-                    imageurl:[image,image],
-                    content:'在这里展示您未公开的发布'
-                },    
-            ],
-            children:[
-                {name:'暖心的大宝',id:1},
-                {name:'可爱二宝',id:1},
-                {name:'调皮刘星',id:1},
-                {name:'乖巧小雪',id:1},
-                {name:'星儿',id:1},
-            ]
+            form:'',
+            cid:'',
+            change_id:[],
+            child_id:'',
+            cindex_src:'',
+            cnews:[],
+            children:[]
         }
     }
     componentDidMount(){
@@ -93,10 +66,18 @@ export default class Lover extends Component {
                 uid:user.id
             }).then(
                 res=>{
-                    if(res){
-                        console.log(res)
-                    }else{
-                        console.log('222')
+                    if(res.code == 1){
+                        // console.log(res.msg)
+                        // console.log(res.msg[0].background)
+                        for(var i in res.msg){
+                            if(res.msg[i].background='#'){
+                                res.msg[i].background = this.state.background
+                            }
+                        }
+                        this.setState({
+                            currentchild:res.msg[0],
+                            children:res.msg
+                        })
                     }
                 }
             )
@@ -263,15 +244,35 @@ export default class Lover extends Component {
             }
         })
     }
+    changechild = (item)=>{
+        console.log(item);
+        this.setState({
+            times:this.state.times+1,
+            currentchild:item
+        },()=>{
+            if(this.state.times % 2 == 0){
+                this.setState({
+                    menudisplay:'none'
+                })
+            }else{
+                this.setState({
+                    menudisplay:'flex'
+                }) 
+            }
+        })
+        // this.setState({
+        //     currentchild:item
+        // })
+    }
     addchildwarn = ()=>{
         ToastAndroid.showWithGravityAndOffset(
             '请先到个人中心添加宝贝，才能使用更多功能',
-        ToastAndroid.LONG,
+        ToastAndroid.SHORT,
         ToastAndroid.CENTER,
         0,-250)
     }
     render() {
-        if(this.state.cid){
+        if(this.state.currentchild){
             return (
                 <View style={{ 
                     width: width, 
@@ -282,7 +283,8 @@ export default class Lover extends Component {
                         backgroundColor='#FFBF2D'
                     />
                     <View style={{
-                        width:0.25*width,
+                        width:0.3*width,
+                        // backgroundColor:'#333',
                         height:0.15*height,
                         position:'absolute',
                         top:0.06*height,
@@ -291,12 +293,12 @@ export default class Lover extends Component {
                         alignItems:'center',
                     }}>
                         <View style={{
-                            width:0.23*width,
+                            width:0.26*width,
                             display:this.state.menudisplay,
                             alignItems:'center',
                             paddingTop:0.005*height,
                             paddingBottom:0.005*height,
-                            backgroundColor:'rgba(204,204,204,0.8)',
+                            backgroundColor:'rgba(221, 221, 221,1)',
                             }}>
                             <FlatList 
                                 showsVerticalScrollIndicator={false}
@@ -304,14 +306,14 @@ export default class Lover extends Component {
                                 numColumns={1}
                                 renderItem={({item})=>(
                                         <View>
-                                            <TouchableOpacity>
+                                            <TouchableOpacity onPress={()=>this.changechild(item)}>
                                                 <Text style={{
                                                     borderRadius:5,
-                                                    width:0.2*width,
+                                                    width:0.23*width,
                                                     color:'#333',
                                                     fontSize:20*s1,
                                                     height:0.04*height,
-                                                    backgroundColor:'rgba(255,255,255,0.5)',
+                                                    backgroundColor:'rgba(255,255,255,0.8)',
                                                     margin:0.005*width,
                                                     textAlignVertical:'center',
                                                     textAlign:'center'
@@ -325,7 +327,7 @@ export default class Lover extends Component {
                     <View style={styles.navbar}>
                         <Icon1 style={styles.icon}/>
                         <Text style={styles.title}
-                        >亲子</Text>
+                        >{this.state.currentchild.name}</Text>
                         <TouchableOpacity onPress={this.compile}>
                             <Icon1 style={styles.icon} name='more-horizontal'/>
                         </TouchableOpacity>
@@ -338,7 +340,7 @@ export default class Lover extends Component {
                                 width: "100%",
                                 transform: [{scale:1}]
                             }}
-                            source={{uri:`${this.state.background}`}}
+                            source={{uri:`${this.state.currentchild.background}`}}
                             alt='自定义照片墙'>
                         
                                     <TouchableOpacity onPress={this.choosebgpic}>
@@ -350,34 +352,34 @@ export default class Lover extends Component {
                         <View style={styles.lover_second}>
                             <Flex justify="center">
                                 <TouchableOpacity 
-                                    onPress={()=>Actions.cpictures()}
+                                    onPress={()=>Actions.cpictures({cid:this.state.currentchild.id})}
                                     style={styles.btn}>
                                     <Text style={styles.blockbtn}>云相册</Text >
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    onPress={()=>Actions.csound()} 
+                                    onPress={()=>Actions.csound({cid:this.state.currentchild.id})} 
                                     style={styles.btn}>
                                     <Text style={styles.blockbtn}>语音记事</Text >
                                 </TouchableOpacity>
                                 <TouchableOpacity 
-                                    onPress={()=>Actions.cdairy()}
+                                    onPress={()=>Actions.cdairy({cid:this.state.currentchild.id})}
                                     style={styles.btn}>
                                     <Text style={styles.blockbtn}>亲子日记</Text >
                                 </TouchableOpacity>
                             </Flex>
                             <Flex justify="center">
                                 <TouchableOpacity 
-                                    onPress={()=>Actions.cgrowup()}
+                                    onPress={()=>Actions.cgrowup({cid:this.state.currentchild.id})}
                                     style={styles.btn}>
                                     <Text style={styles.blockbtn}>成长记录</Text >
                                 </TouchableOpacity>
                                 <TouchableOpacity 
-                                    onPress={()=>Actions.cevents()}
+                                    onPress={()=>Actions.cevents({cid:this.state.currentchild.id})}
                                     style={styles.btn}>
                                     <Text style={styles.blockbtn}>大事记</Text >
                                 </TouchableOpacity>
                                 <TouchableOpacity 
-                                    onPress={()=>Actions.cstudy()}
+                                    onPress={()=>Actions.cstudy({cid:this.state.currentchild.id})}
                                     style={styles.btn}>
                                     <Text style={styles.blockbtn}>学业记录</Text >
                                 </TouchableOpacity>
@@ -433,20 +435,20 @@ export default class Lover extends Component {
                             data={this.state.cnews}
                             numColumns={1}
                             renderItem={({item})=>(
-                                <TouchableOpacity style={styles.child_third}>
-                                        <Text style={styles.newstime}>{ moment(item.setdate).format(" YYYY年MM月DD日  HH:mm:ss")}</Text>
-                                        <View style={styles.newsline}>
-                                            <View style={styles.newspicbox}>
-                                                <ImageBackground
-                                                    style={styles.newspic}
-                                                    resizeMode="cover"
-                                                    source={{uri:`${this.state.background}`}}
-                                                />
-                                            </View>
-                                            <View style={styles.newscontentbox}>
-                                                <Text style={styles.newscontent}>{item.content}</Text>
-                                            </View>
+                                <TouchableOpacity key={item.id} style={styles.child_third}>
+                                    <Text style={styles.newstime}>{ moment(item.setdate).format(" YYYY年MM月DD日  HH:mm:ss")}</Text>
+                                    <View style={styles.newsline}>
+                                        <View style={styles.newspicbox}>
+                                            <ImageBackground
+                                                style={styles.newspic}
+                                                resizeMode="cover"
+                                                source={{uri:`${this.state.background}`}}
+                                            />
                                         </View>
+                                        <View style={styles.newscontentbox}>
+                                            <Text style={styles.newscontent}>{item.content}</Text>
+                                        </View>
+                                    </View>
                                 </TouchableOpacity>
                             )}
                         />

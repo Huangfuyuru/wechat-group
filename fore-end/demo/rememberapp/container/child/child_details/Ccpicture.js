@@ -12,15 +12,17 @@ import {
     TouchableOpacity
 } from 'react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
+import moment from 'moment'
 import Icon2 from 'react-native-vector-icons/FontAwesome'
 import Icon3 from 'react-native-vector-icons/Fontisto'
 import { Actions } from 'react-native-router-flux';
+import {myFetch} from '../../../src/utils'
 import { TextInput } from 'react-native-gesture-handler';
 import { WingBlank, ImagePicker } from '@ant-design/react-native';
 import Button from 'react-native-button';
 const {width,scale} = Dimensions.get('window');
 const s = width / 640;
-const image = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587642270470&di=340901c2a4ea9035e4a8bc535faec69c&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180227%2Fc7cb7d6daa734441910f3995e321da6c.png'
+const image = 'http://tc.sinaimg.cn/maxwidth.2048/tc.service.weibo.com/p/image_96weixin_com/9a6afdf6ff7c953f04675270477405b0.jpg'
 export default class Cdairy extends Component {
     constructor(){
         super();
@@ -94,7 +96,30 @@ export default class Cdairy extends Component {
 
     }
     additem = ()=>{
-        ToastAndroid.show("创建成功!", ToastAndroid.SHORT);
+        console.log(this.props.cid)
+        var name = this.state.name;
+        var time = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+        var timename = moment(new Date()).format("HH:mm:ss")
+        // console.log(timename)
+        var date = timename.split(':')
+        if(!name){
+            name = '没有名字的相册'+date[0]+date[1]+date[2]
+        }
+        myFetch.get('/child/cpictures/ccpictures',{
+            childsid:this.props.cid,
+            name:name,
+            background:this.state.background,
+            setdate:time
+        }).then(res=>{
+            console.log(res)
+            this.setState({
+                code:res.code
+            })
+            ToastAndroid.show(res.msg, ToastAndroid.SHORT);
+            setTimeout(()=>{
+                Actions.pop()
+            },1000)
+        })
     }
     render() {
         const lists = this.state.lists
@@ -233,6 +258,8 @@ const styles = StyleSheet.create({
     },
     input:{
         width:0.5*width,
+        textAlign:'center',
+        // backgroundColor:'#ccc',
         borderColor:'#bdbbb8',
         borderStyle:'solid',
         borderBottomWidth:1,
