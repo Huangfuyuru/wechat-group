@@ -341,9 +341,9 @@ method：get
 	增加该爱人的清单，不是系统清单
 	接口地址：http://148.70.223.218:3001/lover/loverlist/addloverlist
 	方法：POST
-	提交数据：名称name,内容content,图片地址imgurl,地点local,创建日期setdate,系统清单listid,爱人lid
+	提交数据：名称name,内容content,图片地址imgurl,地点local,日期date,提醒（创建）日期setdate,系统清单listid,爱人lid
 	返回的数据：
-	 [{"id":"2400003","name":"接吻","content":"今天我们接吻了","imgurl":"#","local":"石家庄""setdate":"2019-11-26T16:00:00.000Z","listid":"2500003","lid":200001}]	
+	 [{"id":"2400003","name":"接吻","content":"今天我们接吻了","imgurl":"#","local":"石家庄","date":"2019-11-26T16:00:00.000Z","setdate":"2019-11-26T16:00:00.000Z","listid":"2500003","lid":200001}]	
 
 	详情页
 	接口地址：http://148.70.223.218:3001/lover/loverlist/listdetail?id="" (id为爱人列表的)
@@ -358,10 +358,11 @@ post的数据：用户邮箱；用户密码
             email;upass
 接口地址：http://148.70.223.218:3001/login
 
-登录成功返回的json数据：
-    {code:0,id:..}
+    登录成功返回的json数据：
+    {code:0,id:..,msg:"email登录成功"}
     登录失败返回json数据：
-    {code:1,id:null}
+    {code:1,id:null,msg:"邮箱或密码有误"}
+    {code:1,id:null,msg:"该邮箱未注册，请先注册"}
 
 登录成功以后接口地址：http://148.70.223.218:3001/child
 
@@ -369,7 +370,6 @@ post的数据：用户邮箱；用户密码
 
 4.用户注册（点击注册按钮切换页面）
 接口地址：http://148.70.223.218:3001/resign
-这个路由下前端不需要向服务器请求任何资源或提交数据
 
 5.获取验证码
 method：post
@@ -388,7 +388,7 @@ post的数据：email=&confirm=&passwd=&pass=
 ①{code:0,msg:"注册成功" }    
 ②{code:1,msg:"验证码错误" }
 ③{code:2,msg:"验证码已失效"}
-④{code:3,msg:"两次密码不一致"}
+④{code:3,msg:"该邮箱未注册"}
 //-------------------------------------------------
 
 11.社区模块
@@ -429,9 +429,7 @@ post的数据：email=&confirm=&passwd=&pass=
                           imgurl: null,num: 34 },{ id: 100001,name: null,pass: '123',setdate: 2020-04-07T16:00:00.000Z,gender: null, email: '864134710@qq.com',imgurl: null,num: 34 } ]}           
 	          //数组第一项为该文章的具体内容，第二项文章所有者的信息，第三项送花者的信息
                           {"code":1,"msg":null}
-      取消小花：
 	
-           
      点赞
           接口地址：http://148.70.223.218:3001/share/praise/addpraise?id=
           请求数据：文章的id 
@@ -444,7 +442,6 @@ post的数据：email=&confirm=&passwd=&pass=
 	          {"code":1,msg:null}
 
 点赞需要知道别人的文章的id，点击社区模块，应该返回所有的文章信息（findAll）
-送出的小花可以收回吗？点赞误点了那样的
 点击关注：需要罗列出关注人的所有文章（需要传关注的人的UID）
                 这个在哪里关注他，让前端获取呢
 私密和公开
