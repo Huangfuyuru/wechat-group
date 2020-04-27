@@ -20,48 +20,45 @@ export default class Llists extends React.Component {
         super(props);
         this.state = {
             loverId: "",
+            arr:[],
             tabs: [
                 {
-                    src: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3028025991,1307034645&fm=26&gp=0.jpg",
-                    txt: "一起去对方的高中、大学",
-                    tit: '★★★★★'
-                },
-                {
-                    src: "https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1354279089,2926899578&fm=26&gp=0.jpg",
-                    txt: "一起做手工艺品",
-                    tit: '★★★'
-                },
-                {
-                    src:"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1351639397,1746387236&fm=26&gp=0.jpg",
-                    txt: "一起去旅行",
-                    tit: '★★'
-                },
-                {
-                    src: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=326370248,1769001733&fm=26&gp=0.jpg",
-                    txt: "一起去看电影",
-                    tit: '★★★★'
-                },
-                
-
-            ],
+                    imgurl: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3028025991,1307034645&fm=26&gp=0.jpg",
+                    name: "快来做任务吧！",
+                    tit: '★★★★★',
+                    content:"跟你最爱的人一起，经历最美好的事情！",
+                    setdate:"2020-04-27",
+                    local:"乐园"
+                }
+            ]
         }
     }
-    
     componentDidMount(){
         this.setState({
             loverId:this.props.loverId
         },()=>{
-            console.log("爱人ID",this.state.loverId)
             myFetch.get('/lover/loverlist',{
                 loverid:this.state.loverId
             }).then(res=>{
-                console.log('清单数据',res)
+                this.setState({  
+                    arr:res.msg
+                })
             })
         })
-       
+    }
+    componentDidUpdate(){
+            myFetch.get('/lover/loverlist',{
+                loverid:this.props.loverId
+            }).then(res=>{
+                this.setState({  
+                    arr:res.msg
+                })
+            })
     }
     render() {
-        return (
+        console.log(this.state.arr)
+        if(this.state.arr==null||this.state.arr==[]){
+            return(
             <View style={{ flex: 1}}>
                 <View style={styles.navbar}>
                     <Icon1
@@ -83,18 +80,8 @@ export default class Llists extends React.Component {
                     renderTabBar={props => <Tabs.DefaultTabBar {...props} page={1} />}
                     style={{
                         marginTop:40*s,
-                        // marginBottom:60*s,
+                        
                     }}
-                    // tabBarBackgroundColor="#fff"
-                    // tabBarActiveTextColor="#FF1744"
-                    // tabBarInactiveTextColor="#FF1744"
-                    // tabBarTextStyle={{
-                    //     fontSize:20
-                    // }}
-                    // tabBarUnderlineStyle={{
-                    //     borderColor:"#fff",
-                    //     borderWidth:1
-                    // }}
                 >
                     {
                         this.state.tabs.map((item,idx) => (
@@ -119,11 +106,11 @@ export default class Llists extends React.Component {
                                     borderRadius:15,
                                     marginTop:"3%"
                                 }}
-                                 source={{ uri: item.src }}></Image>
+                                 source={{ uri: item.imgurl }}></Image>
                                 <Text style={{
                                      marginTop:"8%",
                                      fontSize:20,
-                                }}>{item.txt ? (item.txt.length >= 12 ? item.txt.substr(0, 12) + "..." : item.txt) : ""}</Text>
+                                }}>{item.name ? (item.name.length >= 12 ? item.name.substr(0, 12) + "..." : item.name) : ""}</Text>
                                  <Text style={{
                                      marginTop:"8%",
                                      fontSize:20,
@@ -132,13 +119,78 @@ export default class Llists extends React.Component {
                             </View>
                             </TouchableOpacity>
                         ))
-
+                    }
+                </Tabs>
+            </View>)
+    }
+    else{
+        return(
+            <View style={{ flex: 1}}>
+                 <View style={styles.navbar}>
+                    <Icon1
+                        style={styles.icon}
+                        name='chevron-left'
+                        onPress={() => Actions.pop()}
+                    />
+                    <Text style={styles.title}>恋爱清单</Text>
+                    <Icon2 
+                        style={styles.icon}
+                        name="md-add"
+                        onPress={()=>Actions.lslists({loverId:this.state.loverId})}
+                    />
+                </View>
+                <Tabs
+                    tabs={this.state.arr}
+                    initialPage={0}
+                    tabBarPosition="bottom"
+                    renderTabBar={props => <Tabs.DefaultTabBar {...props} page={1} />}
+                    style={{
+                        marginTop:40*s,
+                        
+                    }}
+                >
+                    {
+                        this.state.arr.map((item,idx) => (
+                            <TouchableOpacity activeOpacity={0.9} onPress={()=>Actions.list({data:this.state.arr[idx]})}>
+                            <View style={{ 
+                                height: 850 * s,
+                                width:width*0.90,
+                                borderColor:"#C7C7CC",
+                                borderWidth:1,
+                                borderRadius:15,
+                                flexDirection:"column",
+                                alignItems:"center",
+                                marginLeft:"auto",
+                                marginRight:"auto",
+                                 }}>
+                                <Image
+                                style={{
+                                    height: 650 * s,
+                                    width:width*0.85,
+                                    borderColor:"#C7C7CC",
+                                    borderWidth:1,
+                                    borderRadius:15,
+                                    marginTop:"3%"
+                                }}
+                                 source={{ uri: item.imgurl }}></Image>
+                                <Text style={{
+                                     marginTop:"8%",
+                                     fontSize:20,
+                                }}>{item.name ? (item.name.length >= 12 ? item.name.substr(0, 12) + "..." : item.name) : ""}</Text>
+                                 <Text style={{
+                                     marginTop:"8%",
+                                     fontSize:20,
+                                     color:"#FF1744",
+                                }}>{item.tit}</Text>
+                            </View>
+                            </TouchableOpacity>
+                        ))
                     }
                 </Tabs>
             </View>
-
-        );
+        )
     }
+}
 }
 const styles = StyleSheet.create({
     navbar:{

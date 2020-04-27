@@ -85,9 +85,8 @@ export default class Lcreate_list extends Component {
             listid:this.state.item.id,
             lid:this.state.loverId
         })
-        .then(res=>res.json())
-        .then(json=>{
-            console.log("json",json)
+        .then(res=>{
+            console.log("json",res)
             })
     }
     alertMsg = () => {

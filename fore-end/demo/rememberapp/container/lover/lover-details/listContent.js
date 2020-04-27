@@ -25,7 +25,6 @@ export default class listContent extends Component {
     }
     render() {
         const item=this.state.arr
-        console.log(this.state.arr);
         return (
             <View>
             <View style={styles.navbar}>
@@ -37,7 +36,7 @@ export default class listContent extends Component {
                 <Text 
                 style={styles.title}
                 >
-                    {item.txt}
+                    {item.name? (item.name.length >= 10 ? item.name.substr(0, 10) + "..." : item.name) : ""}
                 </Text>
             </View>
                 <View style={{
@@ -54,7 +53,7 @@ export default class listContent extends Component {
                      marginRight:"auto",
                     marginLeft:"auto",
                 }}
-                 source={{uri:item.src}}></Image>
+                 source={{uri:item.imgurl}}></Image>
                 <TextInput 
                 multiline={true}
                 editable={false}
@@ -68,21 +67,20 @@ export default class listContent extends Component {
                     height:200*s,
                     color:"#000",
                     textAlignVertical: 'top',
-                }}>今天打卡了砰然心动，青梅竹马，简直不要不要的！
-                简直不要不要的！今天打卡了砰然心动，青梅竹马，简直不要不要的！
+                }}>{item.content}
                 </TextInput>
                 <Text style={{
                      marginLeft:"auto",
                      marginRight:30*s,
                     
                 }}
-                >2020-03-16</Text>
+            >{item.setdate? (item.setdate.length >= 10 ? item.setdate.substr(0, 10) : item.setdate) : ""}</Text>
                 <Text style={{
                      marginLeft:"auto",
                      marginTop:10*s,
                      marginRight:30*s,
                 }}
-                >北京</Text>
+            >{item.local}</Text>
                 </View>
            </View>
         )

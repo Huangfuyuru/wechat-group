@@ -11,6 +11,7 @@ import {
     ToastAndroid
 } from "react-native"
 import moment from 'moment'
+import {myFetch} from '../../../src/utils'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from "react-native-vector-icons/Entypo"
 import Icon3 from "react-native-vector-icons/FontAwesome5"
@@ -31,6 +32,11 @@ export default class Lcreate_sound extends Component {
             year:date[0],
             month:date[1],
             day:date[2],
+            year0: "",
+            month0:"",
+            day0: "",
+            name:"",
+            vouri:"",
             img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1097372906,871370388&fm=26&gp=0.jpg',
         }
     }
@@ -48,6 +54,22 @@ export default class Lcreate_sound extends Component {
                 { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
             ],
         );
+    }
+    additem=()=>{
+          // console.log("增加",this.state.year0+"-"+this.state.month0+"-"+this.state.day0)
+          myFetch.post(`/lover/lsound/lcsound`,{
+            // name:this.state.item.name,
+            // content:this.state.content,
+            // imgurl:this.state.img,
+            // local:this.state.site,
+            // setdate:this.state.year0+"-"+this.state.month0+"-"+this.state.day0,
+            // listid:this.state.item.id,
+            // lid:this.state.loverId
+        })
+        .then(res=>res.json())
+        .then(json=>{
+            console.log("json",json)
+            })
     }
     render() {
         const src = this.state.img
@@ -67,11 +89,14 @@ export default class Lcreate_sound extends Component {
                             <Text style={styles.text}>
                                 <Icon5 style={styles.listlineicon} name='calendar-check-o'/>  日期：</Text>
                             <TextInput
-                                onFocus={this.timenotice}
                                 keyboardType='numeric'
                                 maxLength={4}
                                 defaultValue={this.state.year}
-                                style={styles.input}/>
+                                style={styles.input}
+                                onChangeText = {(text)=>{
+                                    this.setState({year0:text});
+                                  }} 
+                                />
                             <Text style={styles.unit}>
                                 年
                             </Text>
@@ -80,7 +105,11 @@ export default class Lcreate_sound extends Component {
                                 keyboardType='numeric'
                                 maxLength={2}
                                 defaultValue={this.state.month}
-                                style={styles.input}/>
+                                style={styles.input}
+                                onChangeText = {(text)=>{
+                                    this.setState({month0:text});
+                                  }}
+                                />
                             <Text style={styles.unit}>
                                 月
                             </Text>
@@ -89,7 +118,11 @@ export default class Lcreate_sound extends Component {
                                 keyboardType='numeric'
                                 maxLength={2}
                                 defaultValue={this.state.day}
-                                style={styles.input}/>
+                                style={styles.input}
+                                onChangeText = {(text)=>{
+                                    this.setState({day0:text});
+                                  }} 
+                                />
                             <Text style={styles.unit}>
                                 日
                             </Text>
@@ -100,7 +133,11 @@ export default class Lcreate_sound extends Component {
                             <TextInput
                                 maxLength={10}
                                 placeholder='第一次去旅行'
-                                style={styles.tag}/>
+                                style={styles.tag}
+                                onChangeText = {(text)=>{
+                                    this.setState({name:text});
+                                  }} 
+                                />
                         </View>
                     </View>
                     <View style={styles.viocechoose}>

@@ -41,7 +41,16 @@ export default class LSlists extends Component {
                 })
             })
         })
-       
+    }
+    componentDidUpdate(){
+        myFetch.get('/lover/loverlist/list',{
+            loverid:this.state.loverId
+        }).then(res=>{
+            // console.log('所有清单数据',res)
+            this.setState({
+                arr:res
+            })
+        })
     }
     render() {
         const list = this.state.arr
@@ -192,7 +201,7 @@ export default class LSlists extends Component {
                                                 textAlignVertical:"center",
                                                 height:50*s
                                             }}
-                                            >{item.content}</Text>
+                                            >{item.name}</Text>
                                             </View>
                                         </View>
                                         </TouchableOpacity>
