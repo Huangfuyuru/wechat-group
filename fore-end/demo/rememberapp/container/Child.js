@@ -10,110 +10,128 @@ import {
     StatusBar,
     ScrollView,
     FlatList,
+    ToastAndroid,
     ImageBackground,
+    DrawerLayoutAndroid
 } from 'react-native'
 import {
     Actions
 } from 'react-native-router-flux'
 import { Flex, WingBlank } from '@ant-design/react-native'
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Icon1 from 'react-native-vector-icons/Feather'
+import ImagePicker from 'react-native-image-picker'
+import moment from 'moment'
+import {myFetch} from '../src/utils'
+// import ImagePicker from 'react-native-image-crop-picker'
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 411;
 const s1 = width / 640;
 const h = height / 1012;
+const image = 'http://img.zcool.cn/community/019de45c32c171a80121df90bbe9ca.jpg@1280w_1l_2o_100sh.jpg'
 export default class Lover extends Component {
     constructor(props){
         super(props);
-        // var uid = JSON.parse(localStorage.getItem('uid'));
         this.state={
-            menu_count:0,
-            // uid:uid,
+            times:0,
+            menudisplay:'none',
+            currentchild:'',
+            uid:'',
+            background:image,
+            news:[
+                {
+                    ctime:'今天',
+                    cpic:image,
+                    ccontent:'请先到个人中心添加宝贝，然后这里将展示您在社区私密的亲子发布'
+                },
+            ],
+            form:'',
+            cid:'',
             change_id:[],
             child_id:'',
             cindex_src:'',
-            background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg',
-            cnews:[
-                {
-                    ctime:'以下内容仅自己可见',
-                    cpic_src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577321644&di=8fc9ce735a95caff1722dd9101f2c7ab&imgtype=jpg&er=1&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3Daaf70247dff9d72a17311819e11a0402%2F728da9773912b31b00eaab518018367adbb4e1c0.jpg',
-                    ccontent:'在这里展示您未公开的发布'
-                },
-                {
-                    ctime:'以下内容仅自己可见',
-                    cpic_src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577321644&di=8fc9ce735a95caff1722dd9101f2c7ab&imgtype=jpg&er=1&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3Daaf70247dff9d72a17311819e11a0402%2F728da9773912b31b00eaab518018367adbb4e1c0.jpg',
-                    ccontent:'在这里展示您未公开的发布'
-                },
-                {
-                    ctime:'以下内容仅自己可见',
-                    cpic_src:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577321644&di=8fc9ce735a95caff1722dd9101f2c7ab&imgtype=jpg&er=1&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fzhidao%2Fwh%253D450%252C600%2Fsign%3Daaf70247dff9d72a17311819e11a0402%2F728da9773912b31b00eaab518018367adbb4e1c0.jpg',
-                    ccontent:'在这里展示您未公开的发布'
-                },
-            ]
+            cnews:[],
+            children:[]
         }
     }
-    // componentDidMount(){
-    //     console.log('第一次加载');
-    //     fetch(`http://localhost:3001/child`,{
-    //         method:'POST',
-    //         mode:'cors',
-    //         headers:{
-    //             'Content-Type':"application/x-www-form-urlencoded"
-    //         },
-    //         body:`uid=${this.state.uid}`
-    //     }).then(res=>res.json())
-    //     .then(json=>{
-    //         console.log('json',json)
-    //         this.setState({
-    //             child_id:JSON.parse(localStorage.getItem('cid'))||json[0].id,
-    //             cindex_src:JSON.parse(localStorage.getItem('cbackground'))||json[0].background,
-    //             change_id:json
-    //         },()=>{
-    //             localStorage.setItem('cid',JSON.stringify(this.state.child_id));
-    //             localStorage.setItem('cbackground',JSON.stringify(this.state.cindex_src))
-    //         });
-    //     })
-    // }
-    // componentDidUpdate(prevProps,prevState){
-    //     console.log('更新')
-    //     if(prevState.cindex_src != this.state.cindex_src){
-    //         var url = 'http://localhost:3001/child/changebackground';
-    //         fetch(url,{
-    //             method:'POST',
-    //             headers:{
-    //                 'Content-Type':"application/x-www-form-urlencoded"
-    //             },
-    //             body:`childsid=${Number(this.state.child_id)}&background=${this.state.cindex_src}`
-    //         }).then(res=>res.json())
-    //         .then(json=>{
-    //             console.log('json',json)
-    //         })
-    //     }
+    componentDidMount(){
+        console.log('Child第一次加载');
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            this.setState({
+                uid:user.id
+            })
+            myFetch.post('/child',{
+                uid:user.id
+            }).then(
+                res=>{
+                    if(res.code == 1){
+                        // console.log(res.msg)
+                        // console.log(res.msg[0].background)
+                        for(var i in res.msg){
+                            if(res.msg[i].background='#'){
+                                res.msg[i].background = this.state.background
+                            }
+                        }
+                        this.setState({
+                            currentchild:res.msg[0],
+                            children:res.msg
+                        })
+                    }
+                }
+            )
+        })
+    }
+    componentDidUpdate(){
+        console.log('Child更新')
         
-    // }
-    // upfile=()=>{
-    //     var file=document.getElementById('img').files[0];
-    //     var url = 'http://localhost:3001/img';
-    //     var form = new FormData();
-    //     var img='';
-    //     form.append("file",file);
-    //     fetch(url,{
-    //         method:'POST',
-    //         body:form
-    //     })
-    //     .then(res=>res.json())
-    //     .then(res=>(
-    //         console.log(res.path),
-    //         img=res.path,
-    //         this.setState({
-    //             cindex_src:res.path
-    //         },()=>{
-    //             localStorage.setItem('cbackground',JSON.stringify(this.state.cindex_src))
-    //         })
-    //     ))
-
-    //     console.log(img)
+    }
+    uploadImage =(params)=> {
+        return new Promise(function (resolve, reject) {
+            let formData = new FormData();
+            // console.log(params)
+            // for (var key in params){
+            //     console.log(key, params[key]);
+            //     // formData.append(key, params[key]);
+            // }
+            formData.append('params', params);
+            // console.log(formData)
+            var ary = params.path.split('/');
+            // console.log(params)
+            // console.log('2222222' + ary);
+            //设置formData数据
+            // let formData = new FormData();
+            // console.log(params.path)
+            // let file = {uri: params.path, type: 'multipart/form-data', name: ary[ary.length-1]};
+            let file = {uri: params.path, type: 'application/octet-stream', name: ary[ary.length-1]};
+            formData.append("file", file);
+            // console.log('form'+JSON.stringify(formData))
+            // fetch post请求
+            fetch('http://148.70.223.218:3001/img', {
+                method: 'POST',
+                // 设置请求头，请求体为json格式，identity为未压缩
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Content-Encoding': 'identity'
+                },
+                
+                // headers: {
+                //     'Content-Type': 'multipart/form-data;charset=utf-8',
+                //     // "x-access-token": token,
+                // },
+                body:JSON.stringify(formData),
+            }).then((res) => res.json())
+            .then((res)=> {
+                console.log('uploadImage', res);
+                resolve(res);
+            })
+            .catch((err)=> {
+                console.log('err', err);
+                reject(err);
+            });
         
-    // }
+        });
+    };
     // changeChild=(id,background)=>{
     //     console.log(id,background)
     //     this.setState({
@@ -127,169 +145,452 @@ export default class Lover extends Component {
     //     var tag = document.getElementById('tag');
     //     tag.style.display='none';
     // }
+    choosebgpic=()=>{
+        const options = {
+            quality:1.0,
+            maxWidth:300,
+            maxHeight:400,
+            storageOptions:{
+                skipBackup:true
+            }
+        }
+
+        ImagePicker.launchImageLibrary(options,(res)=>{
+            // console.log(res)
+            // console.log(res.uri)
+
+            // for(var key in res){
+            //     console.log(key,res[key])
+            // }
+            this.uploadImage(res)
+            .then( res=>{
+                console.log('success');
+            }).catch( err=>{
+            //请求失败
+            console.log('flied');
+            })
+
+        })
+
+
+        // var form = new FormData();
+        // var url = 'http://148.70.223.218:3001/img';
+        // var img='';
+        // ImagePicker.openPicker({
+        //     width: 300, 
+        //     height: 400, 
+        //     cropping: false
+        //  }).then(image => { 
+        //     // var ary = image.path.split('/');
+        //     // // console.log('2222222' + ary);
+        //     // var file = {uri: image.path, type: 'multipart/form-data', name: ary[ary.length-1]};
+        //     // form.append("file",file)
+        //     // console.log('1'+JSON.stringify(form))
+        //     // console.log(image);
+        //     // console.log(JSON.stringify(form))
+        //     // this.setState({
+        //     //     background:image.path
+        //     // })
+        //     console.log(image)
+        //     // this.uploadImage(image)
+        //     // .then( res=>{
+        //     //     console.log('success');
+        //     // }).catch( err=>{
+        //     // //请求失败
+        //     // console.log('flied');
+        //     // })
+        //  });
+        // // console.log(JSON.stringify(this.state.form))
+        // // fetch(url,{
+        // //     method:'POST',
+        // //     body:JSON.stringify(form)
+        // // })
+        // // .then(res=>res.json())
+        // // .then(res=>(
+        // //     console.log('111'),
+        // //     console.log(res),
+        // //     img=res.path,
+        // //     this.setState({
+        // //         // cindex_src:res.path
+        // //     })
+        // // ))
+    }
+    compile = ()=>{
+        this.setState({
+            times:this.state.times+1
+        },()=>{
+            if(this.state.times % 2 == 0){
+                this.setState({
+                    menudisplay:'none'
+                })
+            }else{
+                this.setState({
+                    menudisplay:'flex'
+                }) 
+            }
+        })
+    }
+    changechild = (item)=>{
+        console.log(item);
+        this.setState({
+            times:this.state.times+1,
+            currentchild:item
+        },()=>{
+            if(this.state.times % 2 == 0){
+                this.setState({
+                    menudisplay:'none'
+                })
+            }else{
+                this.setState({
+                    menudisplay:'flex'
+                }) 
+            }
+        })
+        // this.setState({
+        //     currentchild:item
+        // })
+    }
+    addchildwarn = ()=>{
+        ToastAndroid.showWithGravityAndOffset(
+            '请先到个人中心添加宝贝，才能使用更多功能',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+        0,-250)
+    }
     render() {
-        const news = this.state.cnews;
-        return (
-            <View style={{ 
-                width: width, 
-                height: height, 
-                backgroundColor: "#fff",
-            }}>
-                <StatusBar 
-                    backgroundColor='#FFBF2D'
-                />
-                <View style={styles.navbar}>
-                    <Text style={{
-                        fontWeight: 'bold',
-                        fontSize: 20,
-                        textIndent: 3,
-                        letterSpacing: 3,
-                        color: "#ffff",
-                        // textAlignVertical:'center'
-                    }}
-                    >亲子</Text>
-                </View>
-                <View style={styles.lover_first}>
-                    <ImageBackground
-                        resizeMode="cover"
-                        style={{ 
-                            height: "100%", 
-                            width: "100%",
-                            transform: [{scale:1}]
-                        }}
-                        source={{uri:`${this.state.background}`}}
-                        alt='自定义照片墙'>
-                    
-                                <TouchableOpacity>
-                                    <Text style={styles.bgbtn}>轻触上传精选照片</Text>
-                                </TouchableOpacity>
-                    </ImageBackground>
-                </View>
-                <WingBlank style={{flex:1}}>
-                    <View style={styles.lover_second}>
-                        <Flex justify="center">
-                            <TouchableOpacity 
-                                onPress={()=>Actions.cpictures()}
-                                style={styles.btn}>
-                                <Text style={styles.blockbtn}>云相册</Text >
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={()=>Actions.csound()} 
-                                style={styles.btn}>
-                                <Text style={styles.blockbtn}>语音记事</Text >
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={()=>Actions.cdairy()}
-                                style={styles.btn}>
-                                <Text style={styles.blockbtn}>亲子日记</Text >
-                            </TouchableOpacity>
-                        </Flex>
-                        <Flex justify="center">
-                            <TouchableOpacity 
-                                onPress={()=>Actions.cgrowup()}
-                                style={styles.btn}>
-                                <Text style={styles.blockbtn}>成长记录</Text >
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={()=>Actions.cevents()}
-                                style={styles.btn}>
-                                <Text style={styles.blockbtn}>大事记</Text >
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                                onPress={()=>Actions.cstudy()}
-                                style={styles.btn}>
-                                <Text style={styles.blockbtn}>学业记录</Text >
-                            </TouchableOpacity>
-                        </Flex>
-                    </View>
-                    <View style={{
-                        width:'100%',
-                        marginTop:10
-                    }}>
-                        <Text style={{
-                            width:'104%',
-                            marginLeft: '-2%',
-                            backgroundColor: '#bdbbb8',
-                            height: 0.8,
-                        }}></Text>
-                        <Text style={{
-                            marginTop:-10,
-                            width:140*s,
-                            textAlign:'center',
-                            marginLeft:5,
-                            backgroundColor:'#fff',
-                            fontSize:15,
-                            color:'#555'
-                        }}>以下内容仅自己可见</Text>
-                    </View>
-                    <FlatList 
-                        showsVerticalScrollIndicator={false}
-                        ListFooterComponent={
-                            <View style={{
-                                width:'100%',
-                                marginTop:10
-                            }}>
-                                <Text style={{
-                                    width:'104%',
-                                    marginLeft: '-2%',
-                                    backgroundColor: '#ccc',
-                                    height: 0.5,
-                                }}></Text>
-                                <Text style={{
-                                    marginTop:-10,
-                                    width:140*s,
-                                    height:50,
-                                    textAlign:'center',
-                                    marginLeft:'auto',
-                                    marginRight:'auto',
-                                    backgroundColor:'#fff',
-                                    fontSize:15,
-                                    color:'#bdbbb8'
-                                }}>底儿都被你看完了</Text>
-                            </View>
-                        }
-                        style={styles.scrollView}
-                        data={news}
-                        numColumns={1}
-                        renderItem={({item})=>(
-                            <View style={styles.child_third}>
-                                <View>
-                                    <Text>今天</Text>
-                                </View>
-                                <View style={styles.line}>
-                                    <View
-                                        style={{
-                                            width:180*s,
-                                            height:180*s,
-                                            // backgroundColor:'#000',
-                                            justifyContent:'center',
-                                            alignItems:'center'
-                                        }}
-                                    >
-                                        <ImageBackground
-                                            style={{ 
-                                                height: "100%", 
-                                                width: "100%",
-                                                transform: [{scale:0.9}]
-                                            }}
-                                            resizeMode="cover"
-                                            source={{uri:`${this.state.background}`}}
-                                        />
-                                    </View>
-                                    <View style={{
-                                        width:180*s,
-                                        height:180*s,
-                                    }}>
-                                        <Text>{item.ccontent}</Text>
-                                    </View>
-                                </View>
-                            </View>
-                        )}
+        if(this.state.currentchild){
+            return (
+                <View style={{ 
+                    width: width, 
+                    height: height, 
+                    backgroundColor: "#fff",
+                }}>
+                    <StatusBar 
+                        backgroundColor='#FFBF2D'
                     />
-                    
-                </WingBlank>
-            </View>
-        )
+                    <View style={{
+                        width:0.3*width,
+                        // backgroundColor:'#333',
+                        height:0.15*height,
+                        position:'absolute',
+                        top:0.06*height,
+                        right:0,
+                        zIndex:100,
+                        alignItems:'center',
+                    }}>
+                        <View style={{
+                            width:0.26*width,
+                            display:this.state.menudisplay,
+                            alignItems:'center',
+                            paddingTop:0.005*height,
+                            paddingBottom:0.005*height,
+                            backgroundColor:'rgba(221, 221, 221,1)',
+                            }}>
+                            <FlatList 
+                                showsVerticalScrollIndicator={false}
+                                data={this.state.children}
+                                numColumns={1}
+                                renderItem={({item})=>(
+                                        <View key={item.id}>
+                                            <TouchableOpacity onPress={()=>this.changechild(item)}>
+                                                <Text style={{
+                                                    borderRadius:5,
+                                                    width:0.23*width,
+                                                    color:'#333',
+                                                    fontSize:20*s1,
+                                                    height:0.04*height,
+                                                    backgroundColor:'rgba(255,255,255,0.8)',
+                                                    margin:0.005*width,
+                                                    textAlignVertical:'center',
+                                                    textAlign:'center'
+                                                }}>{item.name}</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                )}
+                            />
+                        </View>
+                    </View>
+                    <View style={styles.navbar}>
+                        <Icon1 style={styles.icon}/>
+                        <Text style={styles.title}
+                        >{this.state.currentchild.name}</Text>
+                        <TouchableOpacity onPress={this.compile}>
+                            <Icon1 style={styles.icon} name='more-horizontal'/>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.lover_first}>
+                        <ImageBackground
+                            resizeMode="cover"
+                            style={{ 
+                                height: "100%", 
+                                width: "100%",
+                                transform: [{scale:1}]
+                            }}
+                            source={{uri:`${this.state.currentchild.background}`}}
+                            alt='自定义照片墙'>
+                        
+                                    <TouchableOpacity onPress={this.choosebgpic}>
+                                        <Text style={styles.bgbtn}>轻触上传精选照片</Text>
+                                    </TouchableOpacity>
+                        </ImageBackground>
+                    </View>
+                    <WingBlank style={{flex:1}}>
+                        <View style={styles.lover_second}>
+                            <Flex justify="center">
+                                <TouchableOpacity 
+                                    onPress={()=>Actions.cpictures({cid:this.state.currentchild.id})}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>云相册</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={()=>Actions.csound({cid:this.state.currentchild.id})} 
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>语音记事</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={()=>Actions.cdairy({cid:this.state.currentchild.id})}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>亲子日记</Text >
+                                </TouchableOpacity>
+                            </Flex>
+                            <Flex justify="center">
+                                <TouchableOpacity 
+                                    onPress={()=>Actions.cgrowup({cid:this.state.currentchild.id})}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>成长记录</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={()=>Actions.cevents({cid:this.state.currentchild.id})}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>大事记</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={()=>Actions.cstudy({cid:this.state.currentchild.id})}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>学业记录</Text >
+                                </TouchableOpacity>
+                            </Flex>
+                        </View>
+                        <View style={{
+                            width:'100%',
+                            marginTop:10
+                        }}>
+                            <Text style={{
+                                width:'104%',
+                                marginLeft: '-2%',
+                                backgroundColor: '#bdbbb8',
+                                height: 0.8,
+                            }}></Text>
+                            <Text style={{
+                                marginTop:-10,
+                                width:140*s,
+                                textAlign:'center',
+                                marginLeft:5,
+                                backgroundColor:'#fff',
+                                fontSize:15,
+                                color:'#555'
+                            }}>以下内容仅自己可见</Text>
+                        </View>
+                        <FlatList 
+                            showsVerticalScrollIndicator={false}
+                            ListFooterComponent={
+                                <View style={{
+                                    width:'100%',
+                                    marginTop:10
+                                }}>
+                                    <Text style={{
+                                        width:'104%',
+                                        marginLeft: '-2%',
+                                        backgroundColor: '#ccc',
+                                        height: 0.5,
+                                    }}></Text>
+                                    <Text style={{
+                                        marginTop:-10,
+                                        width:140*s,
+                                        height:50,
+                                        textAlign:'center',
+                                        marginLeft:'auto',
+                                        marginRight:'auto',
+                                        backgroundColor:'#fff',
+                                        fontSize:15,
+                                        color:'#bdbbb8'
+                                    }}>底儿都被你看完了</Text>
+                                </View>
+                            }
+                            style={styles.scrollView}
+                            data={this.state.cnews}
+                            numColumns={1}
+                            renderItem={({item})=>(
+                                <TouchableOpacity key={item.id} style={styles.child_third}>
+                                    <Text style={styles.newstime}>{ moment(item.setdate).format(" YYYY年MM月DD日  HH:mm:ss")}</Text>
+                                    <View style={styles.newsline}>
+                                        <View style={styles.newspicbox}>
+                                            <ImageBackground
+                                                style={styles.newspic}
+                                                resizeMode="cover"
+                                                source={{uri:`${this.state.background}`}}
+                                            />
+                                        </View>
+                                        <View style={styles.newscontentbox}>
+                                            <Text style={styles.newscontent}>{item.content}</Text>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            )}
+                        />
+                        
+                    </WingBlank>
+                </View>
+            )
+        }else{
+            return (
+                <View style={{ 
+                    width: width, 
+                    height: height, 
+                    backgroundColor: "#fff",
+                }}>
+                    <StatusBar 
+                        backgroundColor='#FFBF2D'
+                    />
+                    <View style={{
+                        width:0.25*width,
+                        height:0.15*height,
+                        position:'absolute',
+                        top:0.06*height,
+                        right:0,
+                        zIndex:100,
+                        alignItems:'center',
+                    }}>
+                        <View style={{
+                            width:0.23*width,
+                            display:this.state.menudisplay,
+                            alignItems:'center',
+                            paddingTop:0.005*height,
+                            paddingBottom:0.005*height,
+                            backgroundColor:'rgba(204,204,204,0.8)',
+                            }}>
+                            <Text style={{
+                                borderRadius:5,
+                                width:0.2*width,
+                                color:'#333',
+                                fontSize:20*s1,
+                                height:0.04*height,
+                                backgroundColor:'rgba(255,255,255,0.5)',
+                                margin:0.005*width,
+                                textAlignVertical:'center',
+                                textAlign:'center'
+                            }}>请先添加宝贝</Text>
+                        </View>
+                    </View>
+                    <View style={styles.navbar}>
+                        <Icon1 style={styles.icon}/>
+                        <Text style={styles.title}
+                        >亲子</Text>
+                        <TouchableOpacity onPress={this.compile}>
+                            <Icon1 style={styles.icon} name='more-horizontal'/>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.lover_first}>
+                        <ImageBackground
+                            resizeMode="cover"
+                            style={{ 
+                                height: "100%", 
+                                width: "100%",
+                                transform: [{scale:1}]
+                            }}
+                            source={{uri:`${this.state.background}`}}
+                            alt='自定义照片墙'>
+                                <Text style={styles.bgbtn}>到个人中心添加宝贝后可更换背景墙哦</Text>
+                        </ImageBackground>
+                    </View>
+                    <WingBlank style={{flex:1}}>
+                        <View style={styles.lover_second}>
+                            <Flex justify="center">
+                                <TouchableOpacity 
+                                    onPress={this.addchildwarn}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>云相册</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={this.addchildwarn} 
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>语音记事</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={this.addchildwarn}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>亲子日记</Text >
+                                </TouchableOpacity>
+                            </Flex>
+                            <Flex justify="center">
+                                <TouchableOpacity 
+                                    onPress={this.addchildwarn}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>成长记录</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={this.addchildwarn}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>大事记</Text >
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                    onPress={this.addchildwarn}
+                                    style={styles.btn}>
+                                    <Text style={styles.blockbtn}>学业记录</Text >
+                                </TouchableOpacity>
+                            </Flex>
+                        </View>
+                        <View style={{
+                            width:'100%',
+                            marginTop:10,
+                            // backgroundColor:'#ccc'
+                        }}>
+                            <Text style={{
+                                width:'104%',
+                                marginLeft: '-2%',
+                                backgroundColor: '#bdbbb8',
+                                height: 0.8,
+                            }}></Text>
+                            <Text style={{
+                                marginTop:-10,
+                                width:140*s,
+                                textAlign:'center',
+                                marginLeft:5,
+                                backgroundColor:'#fff',
+                                fontSize:15,
+                                color:'#555'
+                            }}>以下内容仅自己可见</Text>
+                        </View>
+                        <FlatList 
+                            showsVerticalScrollIndicator={false}
+                            style={styles.scrollView}
+                            data={this.state.news}
+                            numColumns={1}
+                            renderItem={({item})=>(
+                                <View style={styles.child_third}>
+                                    <View>
+                                        <Text>{item.ctime}</Text>
+                                    </View>
+                                    <View style={styles.newsline}>
+                                        <View style={styles.newspicbox}>
+                                            <ImageBackground
+                                                style={styles.newspic}
+                                                resizeMode="cover"
+                                                source={{uri:`${item.cpic}`}}
+                                            />
+                                        </View>
+                                        <View style={styles.newscontentbox}>
+                                            <Text style={styles.newscontent}>{item.ccontent}</Text>
+                                        </View>
+                                    </View>
+                                </View>
+                            )}
+                        />
+                        
+                    </WingBlank>
+                </View>
+            )
+        }
     }
 }
 const styles = StyleSheet.create({
@@ -299,7 +600,29 @@ const styles = StyleSheet.create({
         backgroundColor:'#FFBF2D',
         flexDirection: 'row',
         paddingTop:'1%',
-        justifyContent:"center"
+        justifyContent:"center",
+        paddingRight: 0.03 * width,
+        paddingLeft: 0.03 * width,
+
+    },
+    icon: {
+        width: 0.08 * width,
+        color: '#fff',
+        fontSize: 30,
+    },
+    title: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        letterSpacing: 3,
+        color: "#ffff",
+        marginLeft: 'auto',
+        marginRight: "auto",
+        textAlign: 'center',
+    },
+    icon:{
+        width:0.08*width,
+        color:'#fff',
+        fontSize:30,
     },
     lover_first: {
         textAlign: "center",
@@ -310,12 +633,13 @@ const styles = StyleSheet.create({
     bgbtn:{
         color: '#000',
         width:0.8*width,
+        letterSpacing:3,
         height:0.05*height,
         backgroundColor: 'rgba(255,191,45,0.2)',
         textAlignVertical:'center',
         marginTop:0.01*height,
         color:'#fff',
-        fontSize:22*s1,
+        fontSize:23*s1,
         marginLeft:'auto',
         marginRight:'auto',
         textAlign:'center',
@@ -357,11 +681,44 @@ const styles = StyleSheet.create({
         marginBottom:60,
     },
     child_third: {
-        marginTop:15*h
+        marginTop:0.015*height,
+        // backgroundColor:'#ccc'
     },
-    line:{
+    newstime:{
+        width:0.45*width,
+        // backgroundColor:'#ccc',
+        height:0.03*height,
+        textAlignVertical:'top',
+        fontSize:20*s1,
+        color:'#888'
+    },
+    newsline:{
         flexDirection: 'row',
         justifyContent:'space-between',
-        backgroundColor: "#fff",
-    }
+        backgroundColor: "rgba(221, 221, 221,0.2)",
+    },
+    newspicbox:{
+        width:0.55*width,
+        height:0.3*height,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    newspic:{ 
+        width:0.55*width,
+        height:0.3*height,
+        transform: [{scale:0.9}]
+    },
+    newscontentbox:{
+        width:0.35*width,
+        height:0.3*height,
+        backgroundColor: "rgba(221, 221, 221,0.3)",
+    },
+    newscontent:{
+        // backgroundColor:'#ccc',
+        width:0.34*width,
+        height:0.3*height,
+        fontSize:23*s1,
+        textAlignVertical:'center',
+        transform: [{scale:0.85}],
+    },
 })

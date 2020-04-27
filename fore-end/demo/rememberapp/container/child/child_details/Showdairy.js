@@ -19,12 +19,13 @@ import Icon2 from 'react-native-vector-icons/Fontisto'
 import { WingBlank } from '@ant-design/react-native';
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
+const image = 'http://imgbbs.heiguang.net/forum/201510/15/140529osxneo434voas4o0.jpg'
 export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
             visible:false,
-            currentpicture:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg',
+            currentpicture:image,
             inner:'',
             data:''
         }

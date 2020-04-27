@@ -83,6 +83,9 @@ import Mmchilds from './container/my/Mmchilds'
 import Mmlover from './container/my/Mmlover'
 import Myfriend from './container/my/Myfriend'
 import Message from './container/my/Message'
+import Message2 from './container/my/Message2'
+import Mattention from './container/my/Mattention'
+import Mfollowers from './container/my/Mfollowers'
 import Use from './container/my/Use'
 
 
@@ -95,6 +98,7 @@ const App = () => {
 	let now = 0;
 	let [isInstall, setInstall] = useState(true);
 	let init = () => {
+		// AsyncStorage.clear();
 		AsyncStorage.getItem('isInstall')
 			.then(res => {
 				if (!res) {
@@ -131,7 +135,8 @@ const App = () => {
 				if (Actions.currentScene != 'child'
 					&& Actions.currentScene != 'lover'
 					&& Actions.currentScene != 'community'
-					&& Actions.currentScene != 'mine') {
+					&& Actions.currentScene != 'mine'
+					&& Actions.currentScene != 'login') {
 					Actions.pop();
 					return true;
 				} else {
@@ -329,6 +334,9 @@ const App = () => {
 									<Scene key='Mmlover' hideNavBar={true} component={Mmlover} />
 									<Scene key='Myfriend' hideNavBar={true} component={Myfriend} />
 									<Scene key='Message' hideNavBar={true} component={Message} />
+									<Scene key='Message2' hideNavBar={true} component={Message2} />
+									<Scene key='Mfollowers' hideNavBar={true} component={Mfollowers} />
+									<Scene key='Mattention' hideNavBar={true} component={Mattention} />
 									<Scene key='Use' hideNavBar={true} component={Use} />
 
 								</Scene>

@@ -81,15 +81,12 @@ export default class Use extends Component {
                     backgroundColor='#FFBF2D'
                 />
                 <View style={styles.navbar}>
-                    <Text style={{
-                        fontWeight: 'bold',
-                        fontSize: 20,
-                        textIndent: 3,
-                        letterSpacing: 3,
-                        color: "#ffff",
-                        lineHeight: 40
-                    }}
-                    >设置</Text>
+                    <Icon3 
+                        style={styles.icon}
+                        name='chevron-left'
+                        onPress={()=>Actions.pop()}
+                    />
+                    <Text style={styles.title}>设置</Text>
                 </View>
                 <WingBlank style={styles.wingblank}>
                     {/*创建爱人 */}
@@ -151,8 +148,23 @@ const styles = StyleSheet.create({
         height:65*s1,
         backgroundColor:'#FFBF2D',
         flexDirection: 'row',
+        paddingLeft:0.02*width,
         paddingTop:'1%',
+        paddingRight:0.1*width,
         justifyContent:"center"
+    },
+    icon:{
+        width:0.08*width,
+        color:'#fff',
+        fontSize:30,
+    },
+    title:{
+        marginLeft:'auto',
+        marginRight:"auto",
+        textAlign:'center',
+        fontSize:20,
+        color:'#fff',
+        letterSpacing:3
     },
     create:{
         width:0.8*width,
@@ -164,6 +176,7 @@ const styles = StyleSheet.create({
     },
     wingblank:{
         height:0.85*height,
+        marginTop:0.05*height,
     },
     msgbox:{
         backgroundColor:'rgba(204,204,204,0.2)',
@@ -217,7 +230,7 @@ const styles = StyleSheet.create({
     addbtn:{
         width:0.6*width,
         height:60*s1,
-        marginTop:10*s1,
+        marginTop:30*s1,
         marginLeft:'auto',
         marginRight:'auto',
         backgroundColor:'rgba(255,255,255,0.1)',
@@ -232,7 +245,7 @@ const styles = StyleSheet.create({
     leave:{
         width:0.6*width,
         height:60*s1,
-        marginTop:10*s1,
+        marginTop:30*s1,
         marginLeft:'auto',
         marginRight:'auto',
         backgroundColor:'#FFBF2D',

@@ -7,6 +7,7 @@ import {
     FlatList,
     ImageBackground,
     Image,
+    RefreshControl,
     Alert,
     ToastAndroid,
     TouchableOpacity
@@ -15,67 +16,76 @@ import Button from 'react-native-button'
 import { WingBlank } from '@ant-design/react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/Ionicons'
+import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Actions } from 'react-native-router-flux';
+import {myFetch} from '../../src/utils'
+import moment from 'moment'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
+const image1 = 'http://img.pconline.com.cn/images/upload/upc/tx/photoblog/1607/21/c3/24460421_1469066584849_mthumb.jpg';
+const image2 = 'http://img.pconline.com.cn/images/upload/upc/tx/photoblog/1607/21/c4/24460471_1469066604292_mthumb.jpg';
+const image3 = 'http://tc.sinaimg.cn/maxwidth.2048/tc.service.weibo.com/p/image_96weixin_com/9a6afdf6ff7c953f04675270477405b0.jpg'
 export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
+            cid:'',
             childPhotoListid:'',
-            // cid:cid,
-            lists:[
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg'
-                },
-            ],
+            lists:[],
             code:""
         }
     }
     componentDidMount(){
-        // fetch(`http://localhost:3001/child/cpictures?childsid=${this.state.cid}`)
-        // .then((res)=>res.json())
-        // .then((res)=>{
-        //     console.log('点击云相册',res)
-        //     this.setState({
-        //         lists:res
-        //     });
-            
-        // })
+        this.setState({
+            cid:this.props.cid
+        })
+        myFetch.get('/child/cpictures',{
+            childsid:this.props.cid
+        }).then(res=>{
+            // console.log('pic'+res)
+            if(res){
+                for(var i in res){
+                    // console.log('you')
+                    if(res[i].background ==='#'){
+                        res[i].background = image3
+                    }
+                    this.setState({
+                        lists:res
+                    })
+                }
+            }else{
+                this.setState({
+                    lists:res
+                })
+            }
+        })
     }
     componentDidUpdate(){
-        // fetch(`http://localhost:3001/child/cpictures?childsid=${this.state.cid}`)
-        // .then((res)=>res.json())
-        // .then((res)=>{
-        //     console.log('点击云相册',res)
-        //     this.setState({
-        //         lists:res
-        //     });
-            
-        // })
+        myFetch.get('/child/cpictures',{
+            childsid:this.state.cid
+        }).then(res=>{
+            if(res){
+                for(var i in res){
+                    if(res[i].background ==='#'){
+                        res[i].background = image3
+                    }
+                    this.setState({
+                        lists:res
+                    })
+                }
+            }else{
+                this.setState({
+                    lists:res
+                })
+            }
+        })
     }
+    // componentWillReceiveProps(nextProps){
+    //     console.log(nextProps.code)
+    //     this.setState({
+    //         code:nextProps.code
+    //     })
+    // }
     rmCpicture=(e)=>{
         Alert.alert('提示', '确定要删除吗？',
             [
@@ -118,7 +128,9 @@ export default class Cdairy extends Component {
                 <WingBlank style={{
                     marginBottom:10
                 }}>
-                    <FlatList 
+                    {
+                    this.state.lists
+                    ?<FlatList 
                         showsVerticalScrollIndicator={false}
                         ListFooterComponent={
                             <View style={{
@@ -128,7 +140,7 @@ export default class Cdairy extends Component {
                                 <Text style={{
                                     width:'104%',
                                     marginLeft: '-2%',
-                                    backgroundColor: '#000',
+                                    backgroundColor: '#ccc',
                                     height: 0.8,
                                 }}></Text>
                                 <Text style={{
@@ -147,82 +159,73 @@ export default class Cdairy extends Component {
                         data={lists}
                         numColumns={1}
                         renderItem={({item})=>(
-                            <View style={styles.cpicture_block}>
-                                    <View
-                                        style={{
-                                            height:330*s,
-                                            justifyContent:'center',
-                                            alignItems:'center'
-                                        }}
-                                    >
+                            <View key={item.id} style={styles.cpicture_block}>
+                                <View style={styles.cpicturepicbox}>
+                                    <TouchableOpacity onPress={()=>Actions.cspictures({pid:item.id})}>
                                         <ImageBackground
-                                            style={{ 
-                                                height: 330*s, 
-                                                width: '100%',
-                                                transform: [{scale:0.9}]
-                                            }}
-                                            resizeMode="contain"
-                                            // source={require("../../images/8.png")}
+                                            style={styles.cpicturepic}
+                                            resizeMode="cover"
                                             source={{uri:`${item.background}`}}
                                         >
-                                            <Button
-                                                onPress={()=>Actions.cspictures()}
-                                                style={{
-                                                    height: 330*s, 
-                                                    width: '100%',
-                                                    textAlignVertical:'center',
-                                                    color:'#fff',
-                                                    fontSize:0,
-                                                    opacity:0
-                                                }}
-                                            >
-                                                轻触查看相册
-                                            </Button>
+                                            <Text
+                                                style={styles.cpicturetime}
+                                            >{ moment(item.setdate).format("YYYY年MM月DD日")}</Text>
+                                            
                                         </ImageBackground>
-                                    </View>
-                                    <View style={{
-                                        width:'100%',
-                                        height:70*s,
-                                        paddingLeft:20*s,
-                                        paddingRight:20*s,
-                                        borderColor:'#bdbbb8',
-                                        borderStyle:'solid',
-                                        borderTopWidth:0.5,
-                                        margin:0,
-                                        flexDirection: 'row',
-                                        justifyContent:'center',
-
-                                    }}>
-                                        <Text
-                                            style={{
-                                                fontSize:25*s,
-                                                color:'#333',
-                                                width:480*s,
-                                                textAlignVertical:'center'
-
-                                            }}
-                                        >{item.name}</Text>
-                                        <TouchableOpacity onPress={this.rmCpicture}>
-                                            <Icon2
-                                                style={{
-                                                    width:0.05*width,
-                                                    height:70*s,
-                                                    textAlign:'center',
-                                                    textAlignVertical:'center'
-                                                }}
-                                                name='ios-trash'
-                                                size={30}
-                                                color='#333'
-                                            />
-                                        </TouchableOpacity>
-                                    </View>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.cpictureline}>
+                                    <Text
+                                        style={styles.cpicturename}
+                                    >{item.name}</Text>
+                                    <TouchableOpacity onPress={this.rmCpicture}>
+                                        <Icon2
+                                            style={styles.cpicturedelete}
+                                            name='ios-trash'
+                                            size={30}
+                                            color='#333'
+                                        />
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         )}
-                        />  
+                    />  
+                    :<View style={styles.scrollView}>
+                        <Text style={styles.nulltext}>哎呀~ 你还没有一个相册呢</Text>
+                        <View style={styles.nullpictures}>
+                            <View style={styles.nullpicturepicbox}>
+                                <ImageBackground
+                                    style={styles.nullpicturepic}
+                                    resizeMode="cover"
+                                    source={{uri:`${image3}`}}
+                                >
+                                    <Text
+                                        style={styles.nullpicturetime}
+                                    >点击最下方创建你的相册吧</Text>
+                                    
+                                </ImageBackground>
+                            </View>
+                            <View style={styles.cpictureline}>
+                                <Text
+                                    style={styles.cpicturename}
+                                >这是一本假相册</Text>
+                                <TouchableOpacity>
+                                    <Icon3
+                                        style={styles.cpicturedelete}
+                                        name='arrow-bottom-left'
+                                        size={30}
+                                        color='#333'
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                }
+                    
                 </WingBlank>
                 <View
                     style={{
-                        width:'100%',
+                        width:width,
                         height:50,
                         justifyContent:'center',
                         // backgroundColor:'#000',
@@ -238,7 +241,7 @@ export default class Cdairy extends Component {
                         height: 2*s,
                     }}></Text>
                     <Icon2
-                        onPress={()=>{Actions.ccpictures()}} 
+                        onPress={()=>{Actions.ccpictures({cid:this.state.cid})}} 
                         style={{
                             marginTop:-23,
                             width:80*s,
@@ -282,21 +285,122 @@ const styles = StyleSheet.create({
         letterSpacing:3
     },
     scrollView: {
-        marginTop:50*s,
+        marginTop:0.03*height,
         // backgroundColor: '#000',
         backgroundColor: '#fff',
         paddingLeft:10,
         paddingRight:10,
-        height:900*s
+        height:0.79*height,
+        // height:900*s,
     },
     cpicture_block:{
-        marginTop:20*s,
-        // backgroundColor:'#000'
-        height:400*s,
+        marginTop:0.02*height,
+        alignItems:'center',
+        // backgroundColor:'#000',
+        height:0.365*height,
         borderRadius:5,
         borderStyle:'solid',
         borderWidth:1.5,
-        borderColor:'#ccc',
+        borderColor:'#ddd',
         // borderColor:'#bdbbb8',
-    }
+    },
+    cpicturepicbox:{
+        height: 0.3*height, 
+        width: 0.9*width,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    cpicturepic:{ 
+        height: 0.3*height, 
+        width: 0.9*width,
+        alignItems:'center',
+        justifyContent:'center',
+        transform: [{scale:0.9}]
+    },
+    cpicturetime:{
+        fontSize:30*s,
+        color:'#333',
+        height: 0.05*height, 
+        width: 0.45*width,
+        transform: [{scale:0.9}],
+        textAlign:'center',
+        backgroundColor:'rgba(255,255,255,0.3)',
+        textAlignVertical:'center'
+    },
+    cpictureline:{
+        width:'100%',
+        height:0.065*height,
+        // backgroundColor:'#ccc',
+        paddingLeft:20*s,
+        paddingRight:20*s,
+        borderColor:'#bdbbb8',
+        borderStyle:'solid',
+        borderTopWidth:0.5,
+        margin:0,
+        flexDirection: 'row',
+        justifyContent:'center',
+
+    },
+    cpicturename:{
+        fontSize:25*s,
+        color:'#333',
+        width:0.75*width,
+        textAlign:'left',
+        // backgroundColor:'#000',
+        textAlignVertical:'center'
+    },
+    cpicturedelete:{
+        width:0.05*width,
+        height:70*s,
+        textAlign:'center',
+        textAlignVertical:'center'
+    },
+    nulltext:{
+        width:0.55*width,
+        height:0.05*height,
+        fontSize:23*s,
+        letterSpacing:1,
+        color:'#333',
+        backgroundColor:'rgba(221, 221, 221,0.2)',
+        marginLeft:'auto',
+        marginRight:'auto',
+        textAlign:'center',
+        textAlignVertical:'center',
+    },
+    nullpictures:{
+        marginTop:0.01*height,
+        alignItems:'center',
+        // backgroundColor:'#000',
+        height:0.665*height,
+        borderRadius:5,
+        borderStyle:'solid',
+        borderWidth:1.5,
+        borderColor:'#ddd',
+        // borderColor:'#bdbbb8',
+    },
+    nullpicturepicbox:{
+        // backgroundColor:'#ccc',
+        height: 0.6*height, 
+        width: 0.9*width,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    nullpicturepic:{ 
+        height: 0.6*height, 
+        width: 0.9*width,
+        alignItems:'center',
+        justifyContent:'center',
+        transform: [{scale:0.9}]
+    },
+    nullpicturetime:{
+        fontSize:30*s,
+        color:'#333',
+        height: 0.05*height, 
+        width: 0.6*width,
+        transform: [{scale:0.9}],
+        textAlign:'center',
+        marginBottom:0.15*height,
+        backgroundColor:'rgba(255,255,255,0.3)',
+        textAlignVertical:'center'
+    },
 })
