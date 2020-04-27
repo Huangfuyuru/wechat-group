@@ -82,7 +82,7 @@ export default class Lcreate_list extends Component {
             imgurl:this.state.img,
             local:this.state.site,
             setdate:this.state.year0+"-"+this.state.month0+"-"+this.state.day0,
-            systemid:this.state.item.id,
+            listid:this.state.item.id,
             lid:this.state.loverId
         })
         .then(res=>res.json())

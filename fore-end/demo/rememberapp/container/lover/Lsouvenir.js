@@ -17,6 +17,7 @@ import Icon1 from 'react-native-vector-icons/SimpleLineIcons'
 import Icon3 from "react-native-vector-icons/Ionicons"
 import Video from 'react-native-video'
 import { Actions } from "react-native-router-flux"
+import {myFetch} from '../../src/utils'
 import { WingBlank } from "@ant-design/react-native"
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
@@ -24,6 +25,7 @@ export default class Lsouvenir extends Component {
     constructor() {
         super()
         this.state = {
+            loverId:"",
             arr: [
                 {
                     src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
@@ -62,6 +64,17 @@ export default class Lsouvenir extends Component {
     }
     componentDidMount() {
         this.startAnimation();
+        this.setState({
+            loverId:this.props.loverId
+        },()=>{
+            // console.log("爱人ID",this.state.loverId)
+            myFetch.get('/lover/lsouvenir',{
+                loverid:this.state.loverId
+            }).then(res=>{
+                console.log('纪念日数据',res)
+            })
+        })
+       
     }
     startAnimation() {
         this.state.bounceValue.setValue(1);//和上面初始值一样，所以
