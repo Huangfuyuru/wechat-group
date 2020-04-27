@@ -233,7 +233,7 @@ export default class Ldairy extends Component {
                                         borderBottomWidth:1,
                                         borderBottomColor:'rgba(204,204,204,0.3)'
                                     }}>
-                                        <Icon4 color={iconcolor} style={styles.titleline} name='tag'/>
+                                        <Icon4 color={iconcolor} style={styles.titleline} name='heart'/>
                                         <Text
                                             style={{
                                                 width:0.42*width,

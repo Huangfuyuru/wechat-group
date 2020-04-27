@@ -29,52 +29,32 @@ export default class Lsouvenir extends Component {
                     src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
                     date: "2020-02-16",
                     txt: "第一次一起去旅行",
-                    heart: "ღ ღ ღ ღ ღ",
+                    heart: "❤ ❤ ❤ ❤ ❤",
                     paused: false,
                     id: "1",
-                    uri: "https://webfs.yun.kugou.com/202004231946/1f6906e31d6643aedc6d71a2cca79048/G197/M01/0B/07/ZYcBAF5KEuKIXbmWAAUALL9sVWUAAATngDPkVsABQBE326.mp3"
+                    uri: "https://webfs.yun.kugou.com/202004271951/773b17e86d31404915c2eb22d09fd94d/G101/M04/1A/09/RZQEAFu3_MiAcRSqADM-ivg677o868.mp3"
 
                 },
                 {
                     src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
                     date: "2020-02-16",
                     txt: "第一次接吻",
-                    heart: "ღ ღ ღ",
+                    heart: "❤ ❤ ❤",
                     id: "2",
                     paused: false,
-                    uri: "https://webfs.yun.kugou.com/202004231946/1f6906e31d6643aedc6d71a2cca79048/G197/M01/0B/07/ZYcBAF5KEuKIXbmWAAUALL9sVWUAAATngDPkVsABQBE326.mp3"
-
+                    uri: "https://webfs.yun.kugou.com/202004271951/773b17e86d31404915c2eb22d09fd94d/G101/M04/1A/09/RZQEAFu3_MiAcRSqADM-ivg677o868.mp3"
                 },
                 {
                     src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
                     date: "2020-02-16",
                     txt: "第一次接吻",
-                    heart: "ღ ღ ღ",
+                    heart: "❤ ❤ ❤ ❤",
                     id: "3",
                     paused: false,
-                    uri: "https://webfs.yun.kugou.com/202004231946/1f6906e31d6643aedc6d71a2cca79048/G197/M01/0B/07/ZYcBAF5KEuKIXbmWAAUALL9sVWUAAATngDPkVsABQBE326.mp3"
+                    uri: "https://webfs.yun.kugou.com/202004271951/773b17e86d31404915c2eb22d09fd94d/G101/M04/1A/09/RZQEAFu3_MiAcRSqADM-ivg677o868.mp3"
 
 
-                },
-                {
-                    src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
-                    date: "2020-02-16",
-                    txt: "第一次接吻",
-                    heart: "ღ ღ ღ ღ ღ",
-                    id: "4",
-                    paused: false,
-                    uri: "https://webfs.yun.kugou.com/202004231946/1f6906e31d6643aedc6d71a2cca79048/G197/M01/0B/07/ZYcBAF5KEuKIXbmWAAUALL9sVWUAAATngDPkVsABQBE326.mp3"
-
-                }, {
-                    src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
-                    date: "2020-02-16",
-                    txt: "第一次接吻",
-                    heart: "ღ ღ ღ ღ ღ",
-                    id: "5",
-                    paused: false,
-                    uri: "https://webfs.yun.kugou.com/202004231946/1f6906e31d6643aedc6d71a2cca79048/G197/M01/0B/07/ZYcBAF5KEuKIXbmWAAUALL9sVWUAAATngDPkVsABQBE326.mp3"
-
-                },
+                }
             ],
             rotateValue: new Animated.Value(0),
             bounceValue: new Animated.Value(1),
@@ -178,7 +158,7 @@ export default class Lsouvenir extends Component {
                         renderItem={({ item }) => {
                             const a = item.paused ? "360deg" : "0deg"
                             return (
-                                <TouchableWithoutFeedback onLongPress={this.alertMsg} >
+                                <TouchableWithoutFeedback  >
                                     <View style={{
                                         height: 300 * s,
                                         width: 0.88 * width,
@@ -217,7 +197,7 @@ export default class Lsouvenir extends Component {
                                                
                                             </Animated.Image>
                                         </TouchableOpacity>
-                                        <TouchableOpacity activeOpacity={1} onPress={() => Actions.souvenir({ data: item })}>
+                                        <TouchableOpacity activeOpacity={1} onPress={() => Actions.souvenir({ data: item })} onLongPress={this.alertMsg}>
                                             <View
                                                 style={{
                                                     height: 280 * s,
@@ -265,6 +245,7 @@ export default class Lsouvenir extends Component {
                                                         this.player = ref
                                                     }}
                                                     paused={!item.paused}
+                                                    repeat={true}
                                                     volume={1.0}
                                                     playInBackground={true}
                                                 />

@@ -27,31 +27,15 @@ export default class Lsound extends Component {
                     name: "面具",
                     setdate: "2020-04-13",
                     pasued:true,
-                    uri:"https://webfs.yun.kugou.com/202004231036/b03aa691c217251174cb19f384cbbc24/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"
+                    uri:"https://webfs.yun.kugou.com/202004271950/d34cbf35b777571e227c1cd3296acc26/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"
                 },
                 {
                     id:"1",
                     name: "Fire",
                     setdate: "2020-04-13",
                     pasued:true,
-                    uri:"https://webfs.yun.kugou.com/202004231938/7b748b8783242af42b1f2b7194372184/G101/M04/1A/09/RZQEAFu3_MiAcRSqADM-ivg677o868.mp3"
-                },
-                {
-                    id:"9",
-                    name: "ko ko pop",
-                    setdate: "2020-04-13",
-                    pasued:true,
-                    uri:"https://webfs.yun.kugou.com/202004231946/1f6906e31d6643aedc6d71a2cca79048/G197/M01/0B/07/ZYcBAF5KEuKIXbmWAAUALL9sVWUAAATngDPkVsABQBE326.mp3"
-
-                },
-                {
-                    id:"4",
-                    name: "面具",
-                    setdate: "2020-04-13",
-                    pasued:true,
-                    uri:"https://webfs.yun.kugou.com/202004231036/b03aa691c217251174cb19f384cbbc24/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"
-
-                },  
+                    uri:"https://webfs.yun.kugou.com/202004271951/773b17e86d31404915c2eb22d09fd94d/G101/M04/1A/09/RZQEAFu3_MiAcRSqADM-ivg677o868.mp3"
+                }
             ], 
         }
     }
@@ -376,10 +360,10 @@ const styles = StyleSheet.create({
         borderColor: "#FFBF2D",
         borderWidth: 1,
         borderRadius: 20,
-        marginBottom: 10,
+        // marginBottom: 10,
         height: 200 * s,
         width: 0.88 * width,
-        marginTop: 10 * s,
+        marginTop: 30 * s,
         marginLeft: 'auto',
         marginRight: "auto",
 

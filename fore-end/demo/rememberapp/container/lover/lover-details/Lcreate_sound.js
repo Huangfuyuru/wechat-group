@@ -117,7 +117,7 @@ export default class Lcreate_sound extends Component {
                     </Text>
                     <Button
                     onPress={this.additem} 
-                    style={styles.addbtn}>创建相册</Button>
+                    style={styles.addbtn}>添加语音</Button>
                 </WingBlank>
             </View>
 

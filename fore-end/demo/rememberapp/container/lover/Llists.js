@@ -12,13 +12,14 @@ import { Tabs,Icon} from '@ant-design/react-native';
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import { Actions } from 'react-native-router-flux';
+import {myFetch} from '../../src/utils'
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
 export default class Llists extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // loverid: JSON.parse(localStorage.getItem('lid')),
+            loverId: "",
             tabs: [
                 {
                     src: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3028025991,1307034645&fm=26&gp=0.jpg",
@@ -43,15 +44,22 @@ export default class Llists extends React.Component {
                 
 
             ],
-        //    tit : [
-        //         { title: 'great' },
-        //         { title: '★★★' },
-        //         { title: '★★★★★' },
-        //         { title: '★★★★' },
-        //       ]
         }
     }
-    z
+    
+    componentDidMount(){
+        this.setState({
+            loverId:this.props.loverId
+        },()=>{
+            console.log("爱人ID",this.state.loverId)
+            myFetch.get('/lover/loverlist',{
+                loverid:this.state.loverId
+            }).then(res=>{
+                console.log('清单数据',res)
+            })
+        })
+       
+    }
     render() {
         return (
             <View style={{ flex: 1}}>
@@ -65,7 +73,7 @@ export default class Llists extends React.Component {
                     <Icon2 
                         style={styles.icon}
                         name="md-add"
-                        onPress={()=>Actions.lslists()}
+                        onPress={()=>Actions.lslists({loverId:this.state.loverId})}
                     />
                 </View>
                 <Tabs

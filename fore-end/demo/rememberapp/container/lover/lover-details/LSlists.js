@@ -16,112 +16,36 @@ import { Actions } from "react-native-router-flux"
 import { WingBlank } from "@ant-design/react-native"
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
+import {myFetch} from '../../../src/utils'
 export default class LSlists extends Component {
     constructor() {
         super()
         this.state = {
-            arr: [
-                {
-                    background: "https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1354279089,2926899578&fm=26&gp=0.jpg",
-                    title: "一起去看电影"
-                }, {
-                    background: "https://dss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1354279089,2926899578&fm=26&gp=0.jpg",
-                    title: "一起去看电影"
-                }, {
-                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
-                    title: "一起去看电影"
-                }, {
-                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
-                    title: "一起去看电影"
-                }, {
-                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
-                    title: "一起去看电影"
-                }, {
-                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
-                    title: "一起去看电影"
-                }, {
-                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
-                    title: "一起去看电影"
-                }, {
-                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
-                    title: "一起去看电影"
-                }, {
-                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
-                    title: "一起去看电影"
-                }, {
-                    background: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2144152963,3436732398&fm=26&gp=0.jpg",
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                },
-                {
-                    background:'',
-                    title: "一起去看电影"
-                }, {
-                    background:'',
-                    title: "一起去看电影"
-                },
-
-            ]
+            arr: []
         }
     }
     alertMsg=()=>{
         ToastAndroid.show('已经完成啦！！!(*^__^*)', ToastAndroid.SHORT)
     }
+    componentDidMount(){
+        this.setState({
+            loverId:this.props.loverId
+        },()=>{
+            console.log("爱人ID",this.state.loverId)
+            myFetch.get('/lover/loverlist/list',{
+                loverid:this.state.loverId
+            }).then(res=>{
+                console.log('所有清单数据',res)
+                this.setState({
+                    arr:res
+                })
+            })
+        })
+       
+    }
     render() {
         const list = this.state.arr
+        let num=0;
         return (
             <View >
                 <View style={styles.navbar}>
@@ -132,6 +56,14 @@ export default class LSlists extends Component {
                     />
                     <Text style={styles.title}>清单列表</Text>
                 </View>
+                { 
+                     this.state.arr.map((item)=>{
+                        if(item.imgurl!==undefined){
+                            num+=1
+                        }
+                     }
+                     )
+                }
                 <View style={styles.btn}>
                     <Text style={{
                         color: "#fff",
@@ -140,14 +72,14 @@ export default class LSlists extends Component {
                         textAlignVertical: "center",
                         lineHeight: 42,
                         color:"pink"
-                    }}>已完成 10/</Text>
+                    }}>已完成 {num}/</Text>
                     <Text style={{
                           color: "#000",
                           fontSize:20*s,
                           textAlign: "center",
                           textAlignVertical: "center",
                           lineHeight: 42,
-                    }}>30</Text>
+                    }}>{this.state.arr.length}</Text>
                 </View>
                 <WingBlank>
                     <FlatList
@@ -179,7 +111,7 @@ export default class LSlists extends Component {
                         data={list}
                         numColumns={2}
                         renderItem={({ item }) => {
-                            if (item.background == '') {
+                            if (item.imgurl== undefined) {
                                 return (
                                     <TouchableOpacity  
                                     activeOpacity={0.8}
@@ -190,7 +122,7 @@ export default class LSlists extends Component {
                                         marginRight: "auto",
                                         marginTop:5
                                     }} 
-                                    onPress={()=>Actions.lclist()}>
+                                    onPress={()=>Actions.lclist({item:item,loverId:this.state.loverId})}>
                                     <View
                                         style={{
                                             height: 130 * s,
@@ -209,13 +141,13 @@ export default class LSlists extends Component {
                                                 fontSize:60,
                                                 textAlign: "center",
                                             }}
-                                        onPress={()=>Actions.lclist()}
+                                       
                                         />
                                         <Text style={{
                                             fontSize: 15,
                                             textAlign: "center",
                                             color:"#fff"
-                                        }}>{item.title}</Text>
+                                        }}>{item.name? (item.name.length >= 10 ? item.name.substr(0, 10) + "..." : item.name) : ""}</Text>
                                     </View>
                                     </TouchableOpacity>
                                 )
@@ -231,7 +163,7 @@ export default class LSlists extends Component {
                                             marginRight: "auto",
                                             marginTop: 5,
                                         }}
-                                        source={{ uri: item.background }}
+                                        source={{ uri: item.imgurl }}
                                     >
                                        <TouchableOpacity  activeOpacity={0.8} onPress={this.alertMsg}>
                                         <View
@@ -260,7 +192,7 @@ export default class LSlists extends Component {
                                                 textAlignVertical:"center",
                                                 height:50*s
                                             }}
-                                            >{item.title}</Text>
+                                            >{item.content}</Text>
                                             </View>
                                         </View>
                                         </TouchableOpacity>
@@ -275,21 +207,21 @@ export default class LSlists extends Component {
     }
 }
 const styles = StyleSheet.create({
-    navbar: {
-        width: width,
-        height: 65 * s,
-        // backgroundColor: 'white',
+    navbar:{
+        width:width,
+        height:65*s,
         backgroundColor: '#FFBF2D',
         flexDirection: 'row',
-        paddingLeft: 0.03 * width,
-        paddingTop: '1%',
-        paddingRight: 0.03 * width,
-        justifyContent: "center",
+        paddingLeft:0.02*width,
+        paddingTop:'1%',
+        paddingRight:0.1*width,
+        justifyContent:"center"
+       
     },
     icon: {
         width: 0.08 * width,
         color: '#fff',
-        fontSize: 28,
+        fontSize: 30,
     },
     title: {
         marginLeft: 'auto',

@@ -102,19 +102,18 @@ const styles = StyleSheet.create({
     navbar:{
         width:width,
         height:65*s,
-        // backgroundColor:'white',
         backgroundColor: '#FFBF2D',
         flexDirection: 'row',
-        paddingLeft:0.03*width,
+        paddingLeft:0.02*width,
         paddingTop:'1%',
-        paddingRight:0.03*width,
-        // justifyContent:"center",
+        paddingRight:0.1*width,
+        justifyContent:"center"
        
     },
     icon:{
         width:0.08*width,
         color:'#fff',
-        fontSize:28,
+        fontSize:30,
     },
     title: {
         marginLeft: 'auto',
