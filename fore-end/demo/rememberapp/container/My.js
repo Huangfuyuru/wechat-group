@@ -224,7 +224,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlignVertical:'center', 
         lineHeight: 50*h, 
-        color:'#fff'
+        color:'#fff',
+        fontWeight:'bold'
     },
     icon2:{
         color:'#FFBF2D',

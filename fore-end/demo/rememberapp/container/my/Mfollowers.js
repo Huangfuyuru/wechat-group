@@ -182,7 +182,8 @@ const styles = StyleSheet.create({
         textAlign:'center',
         fontSize:20,
         color:'#fff',
-        letterSpacing:3
+        letterSpacing:3,
+        fontWeight:'bold'
     },
     scrollView: {
         backgroundColor: '#fff',
