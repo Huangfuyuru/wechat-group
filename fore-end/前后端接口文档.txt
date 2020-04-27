@@ -330,25 +330,25 @@ method：get
 	接口地址：http://148.70.223.218:3001/lover/loverlist?loverid=
 	请求数据：爱人loverid
                 返回数据：所有该爱人的创建的恋爱清单，是个数组
-	 [{"id":"2400003","name":"接吻","content":"今天我们接吻了","imgurl":"#","local":"石家庄""setdate":"2019-11-26T16:00:00.000Z","listid":"2500003","lid":200001}]
+	 [{"id":"2400003","name":"接吻","content":"今天我们接吻了","imgurl":"#","local":"石家庄","date":"2019-11-26T16:00:00.000Z","setdate":"2019-11-26T16:00:00.000Z","listid":"2500003","lid":200001}]
            
 	点击所有清单 
 	接口地址:http://148.70.223.218:3001/lover/loverlist/list?loverid=
 	返回数据：爱人列表的内容 和系统清单所有内容（两个数组）
-	 [{"id":"2400003","name":"接吻","content":"今天我们接吻了","imgurl":"#","local":"石家庄""setdate":"2019-11-26T16:00:00.000Z","listid":"2500003","lid":200001}],
- 	 [{ "id":"2500001","name":"一起去教堂"},{...},{ ....}]
+	 [{"id":"2400003","name":"接吻","content":"今天我们接吻了","imgurl":"#","local":"石家庄","date":"2019-11-26T16:00:00.000Z","setdate":"2019-11-26T16:00:00.000Z","listid":"2500003","lid":200001}],
+ 	 [{ "id":"2500001","name":"一起去教堂","difficulty":3},{"id":"2500001","name":"一起去教堂","difficulty":3},{ ....}]
 
 	增加该爱人的清单，不是系统清单
 	接口地址：http://148.70.223.218:3001/lover/loverlist/addloverlist
 	方法：POST
-	提交数据：名称name,内容content,图片地址imgurl,地点local,日期date,提醒（创建）日期setdate,系统清单listid,爱人lid
+	提交数据：名称name,内容content,图片地址imgurl,地点local,日期date,提醒（创建）日期setdate,系统清单systemid,爱人lid
 	返回的数据：
 	 [{"id":"2400003","name":"接吻","content":"今天我们接吻了","imgurl":"#","local":"石家庄","date":"2019-11-26T16:00:00.000Z","setdate":"2019-11-26T16:00:00.000Z","listid":"2500003","lid":200001}]	
 
 	详情页
 	接口地址：http://148.70.223.218:3001/lover/loverlist/listdetail?id="" (id为爱人列表的)
 	返回数据：
-	 [{"id":"2400003","name":"接吻","content":"今天我们接吻了","imgurl":"#","local":"石家庄""setdate":"2019-11-26T16:00:00.000Z","listid":"2500003","lid":200001}]	
+	 [{"id":"2400003","name":"接吻","content":"今天我们接吻了","imgurl":"#","local":"石家庄","date":"2019-11-26T16:00:00.000Z","setdate":"2019-11-26T16:00:00.000Z","listid":"2500003","lid":200001}]	
  	
 
 //------修改为邮箱后------------------------------------	
