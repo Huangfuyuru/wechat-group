@@ -293,7 +293,7 @@ export default class Mylover extends Component {
                                     backgroundColor:'#fff',
                                     fontSize:15,
                                     color:'#bdbbb8'
-                                }}>一生一世一双人</Text>
+                                }}>没了哟</Text>
                             </View>
                         }
                         style={styles.scrollView}
@@ -327,7 +327,7 @@ export default class Mylover extends Component {
                                     height:0.10*height,
                                     marginTop:20*s,
                                     borderWidth:5,
-                                    borderColor:'rgba(204,204,204,0.1)',
+                                    borderColor:'#9999CC',
                                     flexDirection:'row',    
                                     alignItems:'center'
                                 }}
@@ -339,7 +339,7 @@ export default class Mylover extends Component {
                                 <View style={{width:'40%',marginLeft:'5%',height:'100%',flexDirection:'row',alignItems:'center'}}>
                                     <Text style={{fontSize:16}}>{item.name}</Text>
                                 </View>
-                                <TouchableOpacity onPress={Actions.Message2} >
+                                <TouchableOpacity >
                                     <Icon3 style={styles.icon2}  name='rightcircleo'/>
                                 </TouchableOpacity>
                             </View>

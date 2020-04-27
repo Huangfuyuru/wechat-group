@@ -20,6 +20,7 @@ import {
 } from 'react-native-router-flux'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon3 from 'react-native-vector-icons/Entypo'
 import Icon4 from 'react-native-vector-icons/FontAwesome'
 import { Flex, WingBlank } from '@ant-design/react-native'
 import ImagePicker from 'react-native-image-picker';
@@ -44,6 +45,7 @@ export default class My extends Component {
         for(var i=0; i<10; i++){
             data.push({tit:i,key:i});
         }
+        // }
         this.state = {
             flag:false,
             data,
@@ -53,7 +55,9 @@ export default class My extends Component {
             //关注人数
             num1:6,
             //粉丝人数
-            num2:5
+            num2:5,
+            //小花数量
+            num3:55
         }
     }
     takephoto = ()=>{
@@ -81,7 +85,37 @@ export default class My extends Component {
             );
             this.setState({
                 flag:true
-            })
+            });
+            // http://localhost:3001/my/sign
+            // myFetch.get('/child/cpictures/ccpictures',{
+            //     childsid:this.props.cid,
+            //     name:name,
+            //     background:this.state.background,
+            //     setdate:time
+            // }).then(res=>{
+            //     console.log(res)
+            //     this.setState({
+            //         code:res.code
+            //     })
+            //     ToastAndroid.show(res.msg, ToastAndroid.SHORT);
+            //     setTimeout(()=>{
+            //         Actions.pop()
+            //     },1000)
+            // })
+            // myFetch.post(`http://localhost:3001/my/sign`,{
+            //     userId:'',
+            //     headers:{
+            //         'Content-Type':"application/x-www-form-urlencoded"
+            //     },
+            //     body:`name=${this.state.name}&birthday=${this.state.birthday}&gender=${this.state.gender}&uid=${this.state.uid}`
+            // }).then(res=>res.json())
+            // .then(json=>{
+            //     console.log(json)
+            //     this.setState({
+            //         code:json.code
+            //     });
+            // })
+        console.log(this.state.code)
         }
         else{
             ToastAndroid.show('今天已经签到过啦！', ToastAndroid.SHORT)
@@ -121,6 +155,10 @@ export default class My extends Component {
                                 <Text style={{color:'#FFBF2D'}}>粉丝:{this.state.num2}</Text>
                             </TouchableOpacity>
                         </View>
+                        <View style={{fontWeight:'bold',fontSize:17,width:'100%',justifyContent:'center',flexDirection:'row'}}>
+                            <Icon3 style={styles.icon2} name='flower' />
+                            <Text style={{color:'#FFBF2D'}}>&nbsp;:&nbsp;{this.state.num3}</Text>
+                        </View>
                     </View>
                     <View style={{width:'40%',height:240*h,alignItems:'center'}}>
                         <TouchableOpacity onPress={()=>Actions.Mychilds()} 
@@ -137,6 +175,10 @@ export default class My extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={{width:'10%'}}></View>
+                </View>
+                {/* 消息 */}
+                <View style={{width:'80%',height:500*s1,marginLeft:'10%',borderWidth:1,borderStyle:'solid',borderColor:'gray',flexDirection:'row',justifyContent:'center'}}>
+                    <Text style={{fontSize:18,color:'gray'}}>消息</Text>
                 </View>
             </View>
         )
@@ -183,5 +225,9 @@ const styles = StyleSheet.create({
         textAlignVertical:'center', 
         lineHeight: 50*h, 
         color:'#fff'
+    },
+    icon2:{
+        color:'#FFBF2D',
+        fontSize:18,
     },
 })

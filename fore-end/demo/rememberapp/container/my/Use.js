@@ -25,12 +25,26 @@ import Icon4 from 'react-native-vector-icons/FontAwesome'
 const { width, scale, height } = Dimensions.get('window');
 const s1 = width / 640;
 const h = height / 1012;
+var FirstData = [
+    '女',
+    '男',
+]
 export default class Use extends Component {
     constructor(){
         super();
         this.state={
+            firstValue:  FirstData[0],
             sex:'女',
         }
+    }
+    updateFirstValue(language) {
+        this.setState({
+            firstValue: language,
+        });
+        console.log(this.state.firstValue)
+    }
+    renderPicker(key) {
+        return <Picker.Item label={key} value={key} />
     }
     additem=()=>{
         ToastAndroid.showWithGravityAndOffset(
@@ -51,24 +65,9 @@ export default class Use extends Component {
         setTimeout(() => {
             Actions.pop() 
         }, 3000);
-    }
-        inputChange1=(e)=>{
-        var a=e.target.value;
-        this.setState({
-            name:a
-        })
-    }
-    inputChange2=(e)=>{
-        var a=e.target.value;
-        this.setState({
-            birthday:a
-        })
-    }
-    inputChange3=(e)=>{
-        var a=e.target.value;
-        this.setState({
-            gender:a
-        })
+        setTimeout(() => {
+            Actions.Login() 
+        }, 3000);
     }
     render() {
         return (
@@ -95,15 +94,12 @@ export default class Use extends Component {
                             <Text style={styles.text}>
                                 <Icon3 style={styles.listlineicon} name='users'/>选择性别</Text>
                             <Text style={styles.input}>
-                                <Picker
-                                    selectedValue={this.state.ageunit}
-                                    mode='dropdown'
+                                <Picker 
                                     style={{width:0.11*width}}
-                                    onValueChange={(itemValue, itemIndex) =>
-                                        this.setState({ageunit: itemValue})
-                                    }>
-                                    <Picker.Item label="男" value="男" />
-                                    <Picker.Item label="女" value="女" />
+                                    mode='dropdown'
+                                    selectedValue={this.state.firstValue}
+                                    onValueChange={(language) => this.updateFirstValue(language)}>
+                                    {FirstData.map((key) => this.renderPicker(key))}
                                 </Picker>
                             </Text>
                         </View>
