@@ -265,23 +265,41 @@ export default class Cdairy extends Component {
                                     </Text>
                                 </View>
                             )}
-                        />  
-                        <Button onPress={this.choosesubject}>
-                            <Text 
-                                style={{
-                                    width:0.35*width,
-                                    backgroundColor:'rgba(255,191,45,0.1)',
-                                    borderRadius:5,
-                                    height:0.04*height,
-                                    textAlign:'center',
-                                    textAlignVertical:'center',
-                                    color:'#333',
-                                    fontSize:20*s
-                                }}
-                            >
-                                <Icon3 color='#FFBF2D' size={18} name='check-square-o'/>  添加所选科目
-                            </Text>
-                        </Button>
+                        />
+                        <View style={{flexDirection:'row'}}>
+                            <Button onPress={this.choosesubject}>
+                                <Text 
+                                    style={{
+                                        width:0.35*width,
+                                        backgroundColor:'rgba(255,191,45,0.1)',
+                                        borderRadius:5,
+                                        height:0.04*height,
+                                        textAlign:'center',
+                                        textAlignVertical:'center',
+                                        color:'#333',
+                                        fontSize:20*s
+                                    }}
+                                >
+                                    <Icon3 color='#FFBF2D' size={18} name='check-square-o'/>  添加所选科目
+                                </Text>
+                            </Button>
+                            <Button onPress={this.choosesubject}>
+                                <Text 
+                                    style={{
+                                        width:0.35*width,
+                                        backgroundColor:'rgba(255,191,45,0.1)',
+                                        borderRadius:5,
+                                        height:0.04*height,
+                                        textAlign:'center',
+                                        textAlignVertical:'center',
+                                        color:'#333',
+                                        fontSize:20*s
+                                    }}
+                                >
+                                    <Icon3 color='#FFBF2D' size={18} name='check-square-o'/>  添加所选科目
+                                </Text>
+                            </Button>
+                        </View>  
                     </View>
                     <View style={styles.msgbox}>
                         <FlatList

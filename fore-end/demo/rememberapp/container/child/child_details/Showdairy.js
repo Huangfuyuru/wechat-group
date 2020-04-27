@@ -48,19 +48,20 @@ export default class Cdairy extends Component {
         const item = this.state.data
         var iconcolor = '#ffffff';
         var textcolor = '#000000';
-        var weathercolor = '#cccccc';
-        if(item.content == 'undefined'){
-            item.content = '（您没有添加文字内容哦~）';
+        var weathercolor = '#ffffff';
+        // if(item.content == 'undefined'){
+        //     item.content = '（您没有添加文字内容哦~）';
+        // }
+        if(item.backcolor == '#ffffff' || item.backcolor == '#ffffaa'){
+            iconcolor = '#FFBF2D',
+            weathercolor = '#999999'
         }
-        if(item.bgcolor == '#ffffff'){
-            iconcolor = '#FFBF2D'
-        }
-        if(item.bgcolor == '#000000'){
+        if(item.backcolor == '#000000'){
             textcolor = '#ffffff'
         }
         if(item.weather == 'day-sunny' || item.weather == 'night-clear'){
             weathercolor = '#FFBF2D'
-            if(item.bgcolor == 'orange'){
+            if(item.backcolor == 'orange'){
                 weathercolor = '#ffffff'
             }
         }
@@ -81,7 +82,7 @@ export default class Cdairy extends Component {
                         borderRadius:10,
                         marginLeft:'auto',
                         marginRight:'auto',
-                        backgroundColor:`${item.bgcolor}`,
+                        backgroundColor:`${item.backcolor}`,
                         width:0.9*width,
                         height:0.84*height,
                         // marginTop:10*s,

@@ -55,66 +55,80 @@ export default class Cdairy extends Component {
                 }
             }else{
                 this.setState({
-                    lists:res
+                    lists:[]
                 })
             }
+        })
+    }
+    componentWillReceiveProps(nextProps) {
+        // console.log('refresh')
+        // console.log(JSON.stringify(nextProps.data))
+        for(var i in nextProps.data){
+            // console.log('you')
+            if(nextProps.data[i].background ==='#'){
+                nextProps.data[i].background = image3
+            }
+        }
+        this.setState({
+            lists:nextProps.data
         })
     }
     componentDidUpdate(){
-        myFetch.get('/child/cpictures',{
-            childsid:this.state.cid
-        }).then(res=>{
-            if(res){
-                for(var i in res){
-                    if(res[i].background ==='#'){
-                        res[i].background = image3
-                    }
-                    this.setState({
-                        lists:res
-                    })
-                }
-            }else{
-                this.setState({
-                    lists:res
-                })
-            }
-        })
+        // myFetch.get('/child/cpictures',{
+        //     childsid:this.state.cid
+        // }).then(res=>{
+        //     if(res){
+        //         for(var i in res){
+        //             if(res[i].background ==='#'){
+        //                 res[i].background = image3
+        //             }
+        //             this.setState({
+        //                 lists:res
+        //             })
+        //         }
+        //     }else{
+        //         this.setState({
+        //             lists:res
+        //         })
+        //     }
+        // })
     }
-    // componentWillReceiveProps(nextProps){
-    //     console.log(nextProps.code)
-    //     this.setState({
-    //         code:nextProps.code
-    //     })
-    // }
     rmCpicture=(e)=>{
+        var rmname = e.name;
         Alert.alert('提示', '确定要删除吗？',
             [
                 { text: "确定", onPress: ()=>{
-                    ToastAndroid.showWithGravityAndOffset(
-                        '删除成功！',
-                    ToastAndroid.SHORT,
-                    ToastAndroid.CENTER,
-                    25,-100)
+                    myFetch.get('/child/cpictures/crpictures',{
+                        childsid:this.state.cid,
+                        childPhotoListid:e.id,
+                    }).then(res=>{
+                        // console.log('删除')
+                        if(res.data){
+                            for(var i in res.data){
+                                if(res.data[i].background ==='#'){
+                                    res.data[i].background = image3
+                                }
+                            }
+                            this.setState({
+                                lists:res.data
+                            })
+                        }else{
+                            this.setState({
+                                lists:[]
+                            })
+                        }
+                        ToastAndroid.showWithGravityAndOffset(
+                            rmname+'，'+res.msg+'！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-100)
+                    })
                 } },
                 { text: "返回", onPress: this.opntion2Selected },
             ]
         )
-        // console.log(e.target)
-        // e.target.parentNode.style.display = 'none';
-        // var  cpictureagain = document.getElementById('cpictureagain');
-        // cpictureagain.style.display = 'block';
-        // fetch(`http://localhost:3001/child/cpictures/crpictures?childsid=${this.state.cid}&childPhotoListid=${this.state.childPhotoListid}`)
-        // .then((res)=>res.json())
-        // .then((res)=>{
-        //     console.log(res)
-        //     this.setState({
-        //         lists:res.data,
-        //         code:res.msg
-        //     }); 
-        // })
     }
     render() {
-        const lists = this.state.lists;
         return (
             <View>
                 <View style={styles.navbar}>
@@ -129,7 +143,7 @@ export default class Cdairy extends Component {
                     marginBottom:10
                 }}>
                     {
-                    this.state.lists
+                    this.state.lists[0]
                     ?<FlatList 
                         showsVerticalScrollIndicator={false}
                         ListFooterComponent={
@@ -156,7 +170,8 @@ export default class Cdairy extends Component {
                             </View>
                         }
                         style={styles.scrollView}
-                        data={lists}
+                        data={this.state.lists}
+                        extraData={this.state}
                         numColumns={1}
                         renderItem={({item})=>(
                             <View key={item.id} style={styles.cpicture_block}>
@@ -178,7 +193,7 @@ export default class Cdairy extends Component {
                                     <Text
                                         style={styles.cpicturename}
                                     >{item.name}</Text>
-                                    <TouchableOpacity onPress={this.rmCpicture}>
+                                    <TouchableOpacity onPress={()=>this.rmCpicture(item)}>
                                         <Icon2
                                             style={styles.cpicturedelete}
                                             name='ios-trash'
@@ -220,7 +235,7 @@ export default class Cdairy extends Component {
                             </View>
                         </View>
                     </View>
-                }
+                    }
                     
                 </WingBlank>
                 <View

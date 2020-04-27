@@ -17,7 +17,7 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Entypo'
 import Icon4 from 'react-native-vector-icons/FontAwesome'
 import Icon5 from 'react-native-vector-icons/AntDesign'
-
+import {myFetch} from '../../../src/utils'
 import { Actions } from 'react-native-router-flux';
 import { WingBlank } from '@ant-design/react-native';
 const {width,scale,height} = Dimensions.get('window');
@@ -28,22 +28,74 @@ export default class Cdairy extends Component {
         var date = moment( new Date()).format("YYYY-MM-DD").split('-')
         super();
         this.state={
+            cid:'',
             tag:'第一次',
             year:date[0],
             month:date[1],
             day:date[2],
-            lists:[imgurl,imgurl,imgurl,imgurl,imgurl,imgurl,imgurl,]
+            content:'',
+            name:'',
+            lists:[]
         }
     }
-    saveevent = ()=>{
+    componentDidMount(){
+        this.setState({
+            cid:this.props.cid
+        })
+    }
+    namefocus = ()=>{
         ToastAndroid.showWithGravityAndOffset(
-            '添加成功！',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,-200)
-        setTimeout(() => {
-            Actions.pop() 
-        }, 3000);
+            '名称不超过10个字！',
+            ToastAndroid.SHORT,
+            ToastAndroid.TOP,
+            25,250)
+    }
+    saveevent = ()=>{
+        if(!this.state.name){
+            ToastAndroid.showWithGravityAndOffset(
+            '名称不能为空！',
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER,
+            0,-200)
+        }else{
+            var time = this.state.year+'-'+this.state.month+'-'+this.state.day
+            var date = moment(time).format("YYYY-MM-DD")
+            var content = this.state.content;
+            var imgurl = this.state.lists;
+            if(!imgurl[0]){
+                imgurl = ''
+            }
+            if(!content){
+                content = '没有详细描述~'
+            }
+            myFetch.post('/child/cevents/ccevents',{
+                childsid:this.state.cid,
+                item:this.state.tag,
+                name:this.state.name,
+                imgurl:JSON.stringify(imgurl),
+                setdate:date,
+                content:content,
+            }).then(
+                res=>{
+                       if(res.code == 0){
+                           ToastAndroid.show(this.state.name+res.msg+'！', ToastAndroid.SHORT);
+                           setTimeout(()=>{
+                               Actions.pop({refresh:({data:res.data})})
+                           },1000)
+                       }else{
+                           ToastAndroid.show(this.state.name+res.msg+'！', ToastAndroid.SHORT);
+                       }
+                }
+            )
+        }
+        // ToastAndroid.showWithGravityAndOffset(
+        //     '添加成功！',
+        // ToastAndroid.SHORT,
+        // ToastAndroid.CENTER,
+        // 25,-200)
+        // setTimeout(() => {
+        //     Actions.pop() 
+        // }, 3000);
     }
     render() {
         return (
@@ -65,6 +117,7 @@ export default class Cdairy extends Component {
                             <Text style={styles.text}>
                                 <Icon4 style={styles.listlineicon} name='calendar-check-o'/>  日期：</Text>
                             <TextInput
+                                onChangeText={text=>{this.setState({year:text})}}
                                 keyboardType='numeric'
                                 maxLength={4}
                                 defaultValue={this.state.year}
@@ -73,6 +126,7 @@ export default class Cdairy extends Component {
                                 年
                             </Text>
                             <TextInput
+                                onChangeText={text=>{this.setState({month:text})}}
                                 keyboardType='numeric'
                                 maxLength={2}
                                 defaultValue={this.state.month}
@@ -81,6 +135,7 @@ export default class Cdairy extends Component {
                                 月
                             </Text>
                             <TextInput
+                                onChangeText={text=>{this.setState({day:text})}}
                                 keyboardType='numeric'
                                 maxLength={2}
                                 defaultValue={this.state.day}
@@ -116,11 +171,14 @@ export default class Cdairy extends Component {
                             <Text style={styles.text}>
                                 <Icon5 style={styles.listlineicon} name='edit'/>  名称：</Text>
                             <TextInput
+                                onChangeText={text=>{this.setState({name:text})}}
+                                onFocus={this.namefocus}
                                 maxLength={10}
                                 style={styles.tag}/>
                         </View>
                     </View>
                     <TextInput
+                        onChangeText={text=>{this.setState({content:text})}}
                         style={styles.content}
                         placeholder='详细内容'
                         multiline={true}

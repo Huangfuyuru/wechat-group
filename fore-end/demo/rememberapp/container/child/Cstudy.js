@@ -317,82 +317,93 @@ export default class Cdairy extends Component {
                             }
                         }}
                     >
-                        <View
-                            onStartShouldSetResponderCapture={() => {
-                                this.setState({ enableScrollViewScroll: true });
-                            }} 
-                            style={styles.tabbox}>
-                            <ScrollView 
-                                showsVerticalScrollIndicator={false}
-                                scrollEnabled={this.state.enableScrollViewScroll}
-                                ref={myScroll => (this._myScroll = myScroll)}
-                                style={styles.listbox}
-                            >
-                                {
-                                    this.state.lists&&this.state.lists.map((item,idx)=>{
-                                        var iconlists=[];
-                                        if(item.stage == '小学'){
-                                            iconlists = primary;
-                                        }else if(item.stage == '初中'){
-                                            iconlists = junior;
-                                        }else{
-                                            iconlists = senior;
-                                        }
-                                        return <View style={styles.listblock}>
-                                            <Text style={styles.listtime}>{ moment(item.date).format("YYYY年MM月DD日  HH:mm:ss")}</Text>
-                                            <Text style={styles.liststage}>{item.stage}</Text>
-                                            <View 
-                                                style={styles.recordsbox}
-                                                onStartShouldSetResponderCapture={() => {
-                                                    this.setState({ enableScrollViewScroll: false });
-                                                    if (this._myScroll.contentOffset === 0
-                                                        && this.state.enableScrollViewScroll === false) {
-                                                        this.setState({ enableScrollViewScroll: true });
-                                                    }
-                                                }}>
-                                                <TouchableOpacity 
-                                                    onPress={()=>{
-                                                        this.setState({
-                                                            visible:true,
-                                                            currentitem:item
-                                                        })
-                                                    }}
-                                                >
-                                                    <FlatList
-                                                        // style={styles.recordsbox}
-                                                        data={item.records}
-                                                        numColumns={1}
-                                                        ListFooterComponent={
-                                                            <View style={{
-                                                                height:0.01*height
-                                                            }}>
-                                                            </View>
+                        {
+                            this.state.lists
+                            ?<View
+                                onStartShouldSetResponderCapture={() => {
+                                    this.setState({ enableScrollViewScroll: true });
+                                }} 
+                                style={styles.tabbox}>
+                                <ScrollView 
+                                    showsVerticalScrollIndicator={false}
+                                    scrollEnabled={this.state.enableScrollViewScroll}
+                                    ref={myScroll => (this._myScroll = myScroll)}
+                                    style={styles.listbox}
+                                >
+                                    {
+                                        this.state.lists&&this.state.lists.map((item,idx)=>{
+                                            var iconlists=[];
+                                            if(item.stage == '小学'){
+                                                iconlists = primary;
+                                            }else if(item.stage == '初中'){
+                                                iconlists = junior;
+                                            }else{
+                                                iconlists = senior;
+                                            }
+                                            return <View style={styles.listblock}>
+                                                <Text style={styles.listtime}>{ moment(item.date).format("YYYY年MM月DD日  HH:mm:ss")}</Text>
+                                                <Text style={styles.liststage}>{item.stage}</Text>
+                                                <View 
+                                                    style={styles.recordsbox}
+                                                    onStartShouldSetResponderCapture={() => {
+                                                        this.setState({ enableScrollViewScroll: false });
+                                                        if (this._myScroll.contentOffset === 0
+                                                            && this.state.enableScrollViewScroll === false) {
+                                                            this.setState({ enableScrollViewScroll: true });
                                                         }
-                                                        renderItem={({item})=>{
-                                                            var icon='';
-                                                            for(var i in iconlists){
-                                                                if(item.subject == iconlists[i].subject){
-                                                                    icon = iconlists[i].icon
-                                                                }
-                                                            }
-                                                            return <View style={styles.listline}>
-                                                                <Image
-                                                                resizeMode="contain" 
-                                                                style={styles.listlineicon} 
-                                                                source={icon}/>
-                                                                <Text style={styles.listlinetitle}>{item.subject}</Text>
-                                                                <Text style={styles.listlinetext}>{item.score}分</Text>
-                                                            </View>
+                                                    }}>
+                                                    <TouchableOpacity 
+                                                        onPress={()=>{
+                                                            this.setState({
+                                                                visible:true,
+                                                                currentitem:item
+                                                            })
                                                         }}
-                                                    />  
-                                                </TouchableOpacity>
+                                                    >
+                                                        <FlatList
+                                                            // style={styles.recordsbox}
+                                                            data={item.records}
+                                                            numColumns={1}
+                                                            ListFooterComponent={
+                                                                <View style={{
+                                                                    height:0.01*height
+                                                                }}>
+                                                                </View>
+                                                            }
+                                                            renderItem={({item})=>{
+                                                                var icon='';
+                                                                for(var i in iconlists){
+                                                                    if(item.subject == iconlists[i].subject){
+                                                                        icon = iconlists[i].icon
+                                                                    }
+                                                                }
+                                                                return <View style={styles.listline}>
+                                                                    <Image
+                                                                    resizeMode="contain" 
+                                                                    style={styles.listlineicon} 
+                                                                    source={icon}/>
+                                                                    <Text style={styles.listlinetitle}>{item.subject}</Text>
+                                                                    <Text style={styles.listlinetext}>{item.score}分</Text>
+                                                                </View>
+                                                            }}
+                                                        />  
+                                                    </TouchableOpacity>
+                                                </View>
                                             </View>
-                                        </View>
-                                    })
-                                }
-                            </ScrollView>
-                            
-                        </View>
+                                        })
+                                    }
+                                </ScrollView>
+                            </View>
+                            :<View>
+                                <Text style={styles.nulltext}>还没有学业记录哦</Text>
+                                <View style={styles.nullline}>
+                                    <TouchableOpacity>
+                                        <Icon1 size={50} color='#333' style={styles.nullicon} name='corner-right-up'/>
+                                    </TouchableOpacity>
+                                    <Text style={styles.nullcontent}>点击右上角 记录孩子的每一次进步</Text>
+                                </View>
+                            </View>
+                        }
                         <View style={styles.tabbox}>
                             <Text>学业曲线</Text>
                         </View>
@@ -610,6 +621,49 @@ const styles = StyleSheet.create({
         fontSize:30*s,
         borderRadius:10,
         marginBottom:0.03*height
+    },
+    nulltext:{
+        width:0.55*width,
+        height:0.05*height,
+        fontSize:23*s,
+        letterSpacing:1,
+        color:'#333',
+        backgroundColor:'rgba(221, 221, 221,0.2)',
+        marginLeft:'auto',
+        marginRight:'auto',
+        textAlign:'center',
+        textAlignVertical:'center',
+        marginTop:0.03*height
+    },
+    nullline:{
+        width:0.8*width,
+        marginLeft:'auto',
+        marginRight:'auto',
+        height:0.2*height,
+        marginTop:0.03*height,
+        backgroundColor:'rgba(205,205,205,0.2)'
+    },
+    nullicon:{
+        width:0.08*height,
+        height:0.08*height,
+        marginTop:-0.05*height,
+        textAlignVertical:'center',
+        marginLeft:0.7*width,
+        textAlign:'center',
+        backgroundColor:'rgba(255,255,255,0.3)'
+    },
+    nullcontent:{
+        color:'#333',
+        height: 0.08*height, 
+        width: 0.7*width,
+        textAlign:'center',
+        textAlignVertical:'center',
+        marginLeft:'auto',
+        marginRight:'auto',
+        marginTop:0.02*height,
+        // padding:0.01*width,
+        fontSize:25*s,
+        backgroundColor:'rgba(255,255,255,0.3)'
     },
     chartbox:{
         width:0.86*width,

@@ -11,11 +11,13 @@ import {
 import { 
     WingBlank,
 } from '@ant-design/react-native';
+import moment from 'moment'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Ionicons'
 import Icon4 from 'react-native-vector-icons/Entypo'
 import { Actions } from 'react-native-router-flux';
+import {myFetch} from '../../../src/utils'
 import Button from 'react-native-button';
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
@@ -23,18 +25,41 @@ export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
-            ageunit:'岁'
+            cid:'',
+            ageunit:'岁',
+            weight:'',
+            length:'',
+            age:''
+
         }
     }
+    componentDidMount(){
+        this.setState({
+            cid:this.props.cid
+        })
+    }
     additem=()=>{
-        ToastAndroid.showWithGravityAndOffset(
-            '添加成功！',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,-200)
-        setTimeout(() => {
-            Actions.pop() 
-        }, 3000);
+        var time = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+        myFetch.post('/child/cgrowup/ccgrowup',{
+             childsid:this.state.cid,
+             setdate:time,
+             length:this.state.length,
+             weight:this.state.weight,
+             age:this.state.age,
+             unit:this.state.ageunit,
+        }).then(
+            res=>{
+                console.log(res)
+                if(res.code == 0){
+                    ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+                    setTimeout(()=>{
+                        Actions.pop({refresh:({data:res.data})})
+                    },1000)
+                }else{
+                    ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+                }
+            }
+        )
     }
     render() {
         return (
@@ -53,6 +78,7 @@ export default class Cdairy extends Component {
                             <Text style={styles.text}>
                                 <Icon2 style={styles.listlineicon} name='cake-variant'/>  年龄</Text>
                             <TextInput
+                                onChangeText={text=>{this.setState({age:text})}}
                                 keyboardType='numeric'
                                 maxLength={3}
                                 style={styles.input}/>
@@ -74,6 +100,7 @@ export default class Cdairy extends Component {
                             <Text style={styles.text}>
                                 <Icon4 style={styles.listlineicon} name='ruler'/>  身高</Text>
                             <TextInput
+                                onChangeText={text=>{this.setState({length:text})}}
                                 maxLength={3}
                                 style={styles.input}/>
                             <Text style={styles.text}>厘米</Text>
@@ -82,6 +109,7 @@ export default class Cdairy extends Component {
                             <Text style={styles.text}>
                             <Icon2 style={styles.listlineicon} name='scale-bathroom'/>  体重</Text>
                             <TextInput
+                                onChangeText={text=>{this.setState({weight:text})}}
                                 maxLength={3}
                                 autoComplete='cc-number'
                                 style={styles.input}/>

@@ -27,7 +27,11 @@ const { width, scale, height } = Dimensions.get('window');
 const s = width / 411;
 const s1 = width / 640;
 const h = height / 1012;
-const image = 'http://img.zcool.cn/community/019de45c32c171a80121df90bbe9ca.jpg@1280w_1l_2o_100sh.jpg'
+// const image = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587985076160&di=1467a37453c93456224667e31523d26d&imgtype=0&src=http%3A%2F%2Fm.360buyimg.com%2Fn12%2Fg12%2FM00%2F00%2F15%2FrBEQYVGBwcwIAAAAAAIvtrvVbBAAAAIcwOn9y0AAi_O569.jpg%2521q70.jpg'
+// const image = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587985300669&di=0dd8b86dafb708019e01377b9d394503&imgtype=0&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D1229184673%2C3594306478%26fm%3D214%26gp%3D0.jpg'
+// const image = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587985247716&di=a9c0ff8f3513cb191939bd11cd906c02&imgtype=0&src=http%3A%2F%2Fimg30.360buyimg.com%2FpopWaterMark%2Fjfs%2Ft2287%2F103%2F1403211901%2F149967%2F74bbfbef%2F569f4308N0eccc8a4.jpg'
+// const image = 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3230746282,4148313693&fm=15&gp=0.jpg'
+const image = 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1263424256,4283364669&fm=26&gp=0.jpg'
 export default class Lover extends Component {
     constructor(props){
         super(props);

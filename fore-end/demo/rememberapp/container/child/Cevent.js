@@ -7,53 +7,81 @@ import {
     TouchableOpacity,
     FlatList,
     Image,
-    ImageBackground
+    ImageBackground,
+    Alert
 } from 'react-native'
 import moment from 'moment'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Ionicons'
-
+import {myFetch} from '../../src/utils'
 import { Actions } from 'react-native-router-flux';
 import { WingBlank } from '@ant-design/react-native'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
-const imgurl = 'http://hbimg.b0.upaiyun.com/3503b3b19c1bc0928766b62de18a5433dad71cf911089-tluSYK_fw658'
+const image= 'http://hbimg.b0.upaiyun.com/3503b3b19c1bc0928766b62de18a5433dad71cf911089-tluSYK_fw658'
 export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
-            lists:[
-                {
-                    tag:'第一次',
-                    name:'笑',
-                    setdate:'Wed Apr 15 2020 17:19:31 GMT+0800',
-                    content:'今天宝贝自己走的路，超开心！',
-                    imgurl:[imgurl,imgurl,imgurl,imgurl]
-                },
-                {
-                    tag:'第一次',
-                    name:'走路',
-                    setdate:'Wed Apr 15 2020 17:19:31 GMT+0800',
-                    content:'今天宝贝自己走的路，超开心！',
-                    imgurl:[imgurl,imgurl,imgurl,imgurl]
-                },
-                {
-                    tag:'过生日',
-                    name:'1周岁',
-                    setdate:'Wed Apr 15 2020 17:19:31 GMT+0800',
-                    content:'今天宝贝生日，超开心！',
-                    imgurl:[imgurl,imgurl,imgurl,imgurl]
-                },
-                {
-                    tag:'温情时刻',
-                    name:'帮我做了好多好多家务',
-                    setdate:'Wed Apr 15 2020 17:19:31 GMT+0800',
-                    content:'今天宝贝懂事了今天宝贝懂事了今天宝贝懂事了今天宝贝懂事了今天宝贝懂事了！',
-                    imgurl:[]
-                },
-            ]
+            cid:'',
+            lists:[]
         }
+    }
+    componentDidMount(){
+        this.setState({
+            cid:this.props.cid
+        })
+        myFetch.get('/child/cevents',{
+            childsid:this.props.cid,
+        }).then(res=>{
+            console.log(res)
+            if(res){
+                this.setState({
+                    lists:res
+                })
+            }else{
+                this.setState({
+                    lists:[]
+                })
+            }
+        })
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            lists:nextProps.data
+        })
+    }
+    rmCevent = (e)=>{
+        var rmname = e.name;
+        Alert.alert('提示', '确定要删除吗？',
+            [
+                { text: "确定", onPress: ()=>{
+                    myFetch.get('/child/cevents/crevents',{
+                        childsid:this.state.cid,
+                        childAdolesceid:e.id,
+                    }).then(res=>{
+                        // console.log('删除')
+                        // console.log(res.data)
+                        if(res.data){
+                            this.setState({
+                                lists:res.data
+                            })
+                        }else{
+                            this.setState({
+                                lists:[]
+                            })
+                        }
+                        ToastAndroid.showWithGravityAndOffset(
+                            rmname+'，'+res.msg+'！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-100)
+                    })
+                } },
+                { text: "返回", onPress: this.opntion2Selected },
+            ]
+        )
     }
     render() {
         return (
@@ -65,55 +93,89 @@ export default class Cdairy extends Component {
                         onPress={()=>Actions.pop()}
                     />
                     <Text style={styles.title}>大事记</Text>
-                    <TouchableOpacity onPress={()=>Actions.ccevents()}>
+                    <TouchableOpacity onPress={()=>Actions.ccevents({cid:this.state.cid})}>
                         <Icon3 style={styles.icon}  name='md-add'/>
                     </TouchableOpacity>
                 </View>
                 <WingBlank style={styles.wingblank}>
-                    <FlatList 
-                        showsVerticalScrollIndicator={false}
-                        data={this.state.lists}
-                        numColumns={1}
-                        ListFooterComponent={
-                            <View style={{
-                                height:0.03*width
-                            }}>
-                            </View>
-                        }
-                        renderItem={({item})=>{
-                            var bgcolor = '#ddccff'
-                            var image = true;
-                            if(!item.imgurl[0]){
-                                bgcolor = '#eeffee';
-                                image = false;
+                    {
+                        this.state.lists[0]
+                        ?<FlatList 
+                            showsVerticalScrollIndicator={false}
+                            data={this.state.lists}
+                            numColumns={1}
+                            ListFooterComponent={
+                                <View style={{
+                                    height:0.03*width
+                                }}>
+                                </View>
                             }
-                            return<View style={{
-                                width:0.8*width,
-                                height:0.3*height,
-                                backgroundColor:bgcolor,
-                                marginBottom:0.01*height,
-                                alignItems:'center',
-                                alignContent:'center',
-                                borderRadius:5
-                            }}>
-                                <TouchableOpacity onPress={()=>{Actions.csevents({data:item,bg:image})}}>
+                            renderItem={({item})=>{
+                                var bgcolor = '#ddccff'
+                                var image = true;
+                                if(!/(http|https):\/\/([\w.]+\/?)\S*/.test(item.imgurl[0])){
+                                    bgcolor = '#eeffee';
+                                    image = false;
+                                }
+                                return<View key={item.id}
+                                style={{
+                                    width:0.8*width,
+                                    height:0.3*height,
+                                    marginTop:0.02*height,
+                                    backgroundColor:bgcolor,
+                                    marginBottom:0.01*height,
+                                    alignItems:'center',
+                                    alignContent:'center',
+                                    borderRadius:5
+                                }}>
+                                    <TouchableOpacity onPress={()=>{Actions.csevents({data:item,bg:image})}}>
+                                        <ImageBackground
+                                            imageStyle={{opacity:0.7}}
+                                            style={{
+                                                height:'100%',
+                                                height:'100%',
+                                            }}
+                                            resizeMode='cover'
+                                            source={{uri:`${item.imgurl[0]}`}}
+                                        >
+                                            <TouchableOpacity onPress={()=>this.rmCevent(item)}>
+                                                <Icon3 color='#333' style={styles.deleteicon} name='ios-trash'/>
+                                            </TouchableOpacity>
+                                            <Text style={styles.tag}>{item.item}</Text>
+                                            <Text style={styles.setdate}>{moment(item.setdate).format("YYYY年MM月DD日")}</Text>
+                                            <Text style={styles.name}>{item.name}</Text>
+                                        </ImageBackground>
+                                    </TouchableOpacity>
+                                </View>
+                            }}
+                        /> 
+                        :<View>
+                            <Text style={styles.nulltext}>哎呀~ 竟然一件大事都没有</Text>
+                            <View
+                                style={styles.nullbox}>
+                                <View>
                                     <ImageBackground
-                                        imageStyle={{opacity:0.7}}
+                                        imageStyle={{opacity:0.6}}
                                         style={{
                                             height:'100%',
                                             height:'100%',
                                         }}
                                         resizeMode='cover'
-                                        source={{uri:`${item.imgurl[0]}`}}
+                                        source={{uri:image}}
                                     >
-                                        <Text style={styles.tag}>{item.tag}</Text>
-                                        <Text style={styles.setdate}>{moment(item.setdate).format("YYYY年MM月DD日")}</Text>
-                                        <Text style={styles.name}>{item.name}</Text>
+                                        <View style={styles.nullline}>
+                                            <Text style={styles.nulltag}>温馨的每一刻</Text>
+                                            <TouchableOpacity>
+                                                <Icon1 size={50} color='#333' style={styles.nullicon} name='corner-right-up'/>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <Text style={styles.setdate}>{moment(new Date()).format("YYYY年MM月DD日")}</Text>
+                                        <Text style={styles.nullcontent}>点击右上角添加一件值得纪念的事情吧~</Text>
                                     </ImageBackground>
-                                </TouchableOpacity>
+                                </View>
                             </View>
-                        }}
-                    />  
+                        </View>
+                    }
                 </WingBlank>
             </View>
         )
@@ -151,6 +213,19 @@ const styles = StyleSheet.create({
         paddingBottom:0.02*height,
         alignItems:'center'
     },
+    deleteicon:{
+        fontSize:50*s,
+        zIndex:100,
+        marginTop:-0.02*height,
+        width:0.06*height,
+        height:0.06*height,
+        marginLeft:0.7*width,
+        textAlign:'center',
+        textAlignVertical:'center',
+        borderRadius:100,
+        backgroundColor:'rgba(205,205,205,0.5)',
+        marginBottom:-0.01*height
+    },
     tag:{
         width:0.8*width,
         height:0.05*height,
@@ -180,11 +255,67 @@ const styles = StyleSheet.create({
         marginTop:0.03*height,
         marginLeft:'auto',
         marginRight:'auto',
-        fontSize:25*s,
+        fontSize:30*s,
         padding:0.02*width,
         color:'#444',
         textAlignVertical:'center',
         textAlign:'center',
         borderRadius:10
-    }
+    },
+    nulltext:{
+        width:0.55*width,
+        height:0.05*height,
+        fontSize:23*s,
+        letterSpacing:1,
+        color:'#333',
+        backgroundColor:'rgba(221, 221, 221,0.2)',
+        marginLeft:'auto',
+        marginRight:'auto',
+        textAlign:'center',
+        textAlignVertical:'center',
+    },
+    nullbox:{
+        width:0.9*width,
+        height:0.7*height,
+        backgroundColor:'#ddccff',
+        marginTop:0.015*height,
+        alignItems:'center',
+        alignContent:'center',
+        borderRadius:5
+    },
+    nullline:{
+        width:0.9*width,
+        marginLeft:'auto',
+        marginRight:'auto',
+        height:0.08*height,
+        flexDirection:'row',
+    },
+    nulltag:{
+        width:0.75*width,
+        height:0.08*height,
+        textAlignVertical:'center',
+        fontSize:32*s,
+        color:'#ffffff',
+        transform: [{scale:0.95}],
+    },
+    nullicon:{
+        width:0.08*height,
+        height:0.08*height,
+        marginTop:-0.05*height,
+        textAlignVertical:'center',
+        textAlign:'center',
+        backgroundColor:'rgba(255,255,255,0.3)'
+    },
+    nullcontent:{
+        color:'#333',
+        height: 0.08*height, 
+        width: 0.75*width,
+        textAlign:'center',
+        textAlignVertical:'center',
+        marginLeft:'auto',
+        marginRight:'auto',
+        marginTop:0.1*height,
+        fontSize:25*s,
+        backgroundColor:'rgba(255,255,255,0.3)'
+    },
 })
