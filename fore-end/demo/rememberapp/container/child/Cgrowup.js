@@ -65,9 +65,11 @@ export default class Cdairy extends Component {
                         childsid:this.state.cid,
                         childGrowid:e.id
                     }).then(res=>{
+                        console.log('删除记录')
                         console.log(res.data)
+                        console.log(res)
                         this.setState({
-                            lists:res
+                            lists:res.data
                         })
                         // if(res.data){
                         // }else{
