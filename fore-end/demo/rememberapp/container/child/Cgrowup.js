@@ -71,18 +71,6 @@ export default class Cdairy extends Component {
                         this.setState({
                             lists:res.data
                         })
-                        // if(res.data){
-                        // }else{
-                        //     this.setState({
-                        //         lists:[]
-                        //     })
-                        // }
-                        // if(res.data){
-                        // }else{
-                        //     this.setState({
-                        //         lists:[]
-                        //     })
-                        // }
                         ToastAndroid.showWithGravityAndOffset(
                         res.msg,
                         ToastAndroid.SHORT,

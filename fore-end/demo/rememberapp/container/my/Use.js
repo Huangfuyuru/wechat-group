@@ -57,17 +57,18 @@ export default class Use extends Component {
         }, 3000);
     }
     leave=()=>{
-        ToastAndroid.showWithGravityAndOffset(
-            '已退出登录！',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,-200)
-        setTimeout(() => {
-            Actions.pop() 
-        }, 3000);
-        setTimeout(() => {
-            Actions.Login() 
-        }, 3000);
+        AsyncStorage.setItem('isLogin','false');
+        AsyncStorage.removeItem('user',(res)=>{
+            console.log(res)
+            if(!res){
+                ToastAndroid.show('已清除登录信息！', ToastAndroid.SHORT);
+                setTimeout(()=>{
+                    Actions.login()
+                },1000)
+            }else{
+                ToastAndroid.show('退出失败，请重新操作！', ToastAndroid.SHORT);
+            }
+        })
     }
     render() {
         return (

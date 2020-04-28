@@ -60,6 +60,7 @@ export default class Cdairy extends Component {
         }else{
             var time = this.state.year+'-'+this.state.month+'-'+this.state.day
             var date = moment(time).format("YYYY-MM-DD")
+            var now = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
             var content = this.state.content;
             var imgurl = this.state.lists;
             if(!imgurl[0]){
@@ -73,7 +74,8 @@ export default class Cdairy extends Component {
                 item:this.state.tag,
                 name:this.state.name,
                 imgurl:JSON.stringify(imgurl),
-                setdate:date,
+                setdate:now,
+                date:date,
                 content:content,
             }).then(
                 res=>{

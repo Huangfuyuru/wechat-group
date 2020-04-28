@@ -151,7 +151,7 @@ export default class Cdairy extends Component {
                                                 <Icon3 color='#333' style={styles.deleteicon} name='ios-trash'/>
                                             </TouchableOpacity>
                                             <Text style={styles.tag}>{item.item}</Text>
-                                            <Text style={styles.setdate}>{moment(item.setdate).format("YYYY年MM月DD日")}</Text>
+                                            <Text style={styles.setdate}>{moment(item.date).format("YYYY年MM月DD日")}</Text>
                                             <Text style={styles.name}>{item.name}</Text>
                                         </ImageBackground>
                                     </TouchableOpacity>
