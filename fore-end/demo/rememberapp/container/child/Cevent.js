@@ -61,17 +61,26 @@ export default class Cdairy extends Component {
                         childsid:this.state.cid,
                         childAdolesceid:e.id,
                     }).then(res=>{
-                        // console.log('删除')
-                        // console.log(res.data)
-                        if(res.data){
+                        if(res){
                             this.setState({
-                                lists:res.data
+                                lists:res
                             })
                         }else{
                             this.setState({
                                 lists:[]
                             })
                         }
+                        // console.log('删除')
+                        // console.log(res.data)
+                        // if(res.data){
+                        //     this.setState({
+                        //         lists:res.data
+                        //     })
+                        // }else{
+                        //     this.setState({
+                        //         lists:[]
+                        //     })
+                        // }
                         ToastAndroid.showWithGravityAndOffset(
                             rmname+'，'+res.msg+'！',
                         ToastAndroid.SHORT,
