@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Suspense } from 'react'
 import { 
     Text, 
     View,
@@ -7,15 +7,18 @@ import {
     TextInput,
     Picker,
     Image,
-    FlatList
+    FlatList,
+    ToastAndroid
 } from 'react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/FontAwesome'
 import Icon4 from 'react-native-vector-icons/Entypo'
 import { Actions } from 'react-native-router-flux';
+import {myFetch} from '../../../src/utils'
 import { WingBlank } from '@ant-design/react-native';
 import Button from 'react-native-button'
+import moment from 'moment'
 import CheckBox from 'react-native-checkbox'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 const {width,scale,height} = Dimensions.get('window');
@@ -24,16 +27,115 @@ export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
+            cid:'',
+            yw:'',
+            sx:'',
+            yy:'',
+            pd:'',
+            kx:'',
+            wl:'',
+            hx:'',
+            sw:'',
+            ls:'',
+            dl:'',
+            zz:'',
             stage:'小学',
-            subject:[
-            ],
-            choosesubject:[]
+            subject:[],
+            choosesubject:[],
         }
+    }
+    componentDidMount(){
+        this.setState({
+            cid:this.props.cid
+        })
+    }
+    resetsubject = ()=>{
+        this.setState({
+            subject:[]
+        })
     }
     choosesubject = ()=>{
         this.setState({
             subject:this.state.choosesubject
         })
+    }
+    addsubject = ()=>{
+        var time = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+        var record = [];
+        var subject = this.state.subject;
+        console.log(subject)
+        var check = true;
+        for(var i in subject){
+            switch(subject[i].subject){
+                case '语文':
+                    record[i] = parseFloat(this.state.yw);
+                    break;
+                case '数学':
+                    record[i] = parseFloat(this.state.sx);
+                    break;
+                case '英语':
+                    record[i] = parseFloat(this.state.yw);
+                    break;
+                case '物理':
+                    record[i] = parseFloat(this.state.wl);
+                    break;
+                case '化学':
+                    record[i] = parseFloat(this.state.hx);
+                    break;
+                case '生物':
+                    record[i] = parseFloat(this.state.sw);
+                    break;
+                case '历史':
+                    record[i] = parseFloat(this.state.ls);
+                    break;
+                case '地理':
+                    record[i] = parseFloat(this.state.dl);
+                    break;
+                case '政治':
+                    record[i] = parseFloat(this.state.zz);
+                    break;
+                case '品德':
+                    record[i] = parseFloat(this.state.pd);
+                    break;
+                case '科学':
+                    record[i] = parseFloat(this.state.kx);
+                    break;
+            }
+        }
+        // for(var i in record){
+        //     if(isNaN(record[i])){
+        //         check = false;
+        //         ToastAndroid.showWithGravityAndOffset(
+        //         '请将清单中所有成绩填写完整！',
+        //         ToastAndroid.SHORT,
+        //         ToastAndroid.CENTER,
+        //         0,-300);
+        //         break;
+        //     }
+        // }
+        // console.log(record)
+        // console.log(check)
+        if(check){
+            myFetch.post('/child/cstudy/cchildScore',{
+                cid:this.state.cid,
+                stage:this.state.stage,
+                subject:JSON.stringify(this.state.subject),
+                score:JSON.stringify(record),
+                setdate:time,
+            }).then(
+                res=>{
+                    console.log(res)
+                    // if(res.code == 0){
+                    //     ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+                    //     setTimeout(()=>{
+                    //         Actions.pop({refresh:({data:res.data})})
+                    //     },1000)
+                    // }else{
+                    //     ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+                    // }
+                }
+            )
+        }
     }
     render() {
         const primary=[
@@ -266,38 +368,21 @@ export default class Cdairy extends Component {
                                 </View>
                             )}
                         />
-                        <View style={{flexDirection:'row'}}>
-                            <Button onPress={this.choosesubject}>
-                                <Text 
-                                    style={{
-                                        width:0.3*width,
-                                        backgroundColor:'rgba(255,191,45,0.1)',
-                                        borderRadius:5,
-                                        height:0.04*height,
-                                        textAlign:'center',
-                                        textAlignVertical:'center',
-                                        color:'#333',
-                                        fontSize:20*s
-                                    }}
-                                >
-                                    <Icon3 color='#FFBF2D' size={18} name='check-square-o'/>  添加所选科目
+                        <View 
+                            style={{
+                                flexDirection:'row',
+                                width:0.65*width,
+                                // backgroundColor:'#ccc',
+                                justifyContent:'space-between'
+                            }}>
+                            <Button onPress={this.resetsubject}>
+                                <Text style={styles.btncheck}>
+                                    <Icon4 color='#FFBF2D' size={18} name='cycle'/>  重选科目
                                 </Text>
                             </Button>
                             <Button onPress={this.choosesubject}>
-                                <Text 
-                                    style={{
-                                        marginLeft:0.02*width,
-                                        width:0.3*width,
-                                        backgroundColor:'rgba(255,191,45,0.1)',
-                                        borderRadius:5,
-                                        height:0.04*height,
-                                        textAlign:'center',
-                                        textAlignVertical:'center',
-                                        color:'#333',
-                                        fontSize:20*s
-                                    }}
-                                >
-                                    <Icon4 color='#FFBF2D' size={18} name='cycle'/>  重选科目
+                                <Text style={styles.btncheck}>
+                                    <Icon3 color='#FFBF2D' size={18} name='check-square-o'/>  添加所选科目
                                 </Text>
                             </Button>
                         </View>  
@@ -319,7 +404,68 @@ export default class Cdairy extends Component {
                                     source={item.icon}/>
                                     <Text style={styles.text}>{item.subject}</Text>
                                     <TextInput
-                                        maxLength={3}
+                                        onChangeText={text=>{
+                                            switch(item.subject){
+                                                case '语文':
+                                                    this.setState({
+                                                        yw:text
+                                                    })
+                                                    break;
+                                                case '数学':
+                                                    this.setState({
+                                                        sx:text
+                                                    })
+                                                    break;
+                                                case '英语':
+                                                    this.setState({
+                                                        yy:text
+                                                    })
+                                                    break;
+                                                case '物理':
+                                                    this.setState({
+                                                        wl:text
+                                                    })
+                                                    break;
+                                                case '化学':
+                                                    this.setState({
+                                                        hx:text
+                                                    })
+                                                    break;
+                                                case '生物':
+                                                    this.setState({
+                                                        sw:text
+                                                    })
+                                                    break;
+                                                case '地理':
+                                                    this.setState({
+                                                        dl:text
+                                                    })
+                                                    break;
+                                                case '历史':
+                                                    this.setState({
+                                                        ls:text
+                                                    })
+                                                    break;
+                                                case '政治':
+                                                    this.setState({
+                                                        zz:text
+                                                    })
+                                                    break;
+                                                case '品德':
+                                                    this.setState({
+                                                        pd:text
+                                                    })
+                                                    break;
+                                                case '科学':
+                                                    this.setState({
+                                                        kx:text
+                                                    })
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        }}
+                                        maxLength={4}
                                         style={styles.input}/>
                                     <Text style={styles.text}>分</Text>
                                 </View>
@@ -327,7 +473,7 @@ export default class Cdairy extends Component {
                         />
                     </View>
                     <Button
-                        onPress={this.additem} 
+                        onPress={this.addsubject} 
                         style={styles.addbtn}>添加记录</Button>
                 </WingBlank>
             </View>
@@ -393,6 +539,16 @@ const styles = StyleSheet.create({
         marginRight:'auto',
         flexDirection: 'row',
         justifyContent:'center',
+    },
+    btncheck:{
+        width:0.3*width,
+        backgroundColor:'rgba(255,191,45,0.1)',
+        borderRadius:5,
+        height:0.04*height,
+        textAlign:'center',
+        textAlignVertical:'center',
+        color:'#333',
+        fontSize:20*s
     },
     listlineicon:{
         fontSize:32*s,

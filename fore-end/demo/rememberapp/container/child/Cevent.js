@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
         textAlign:'center',
         textAlignVertical:'center',
         borderRadius:100,
-        backgroundColor:'rgba(205,205,205,0.5)',
+        backgroundColor:'rgba(205,205,205,0.1)',
         marginBottom:-0.01*height
     },
     tag:{

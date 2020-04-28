@@ -8,7 +8,8 @@ import {
     FlatList,
     Image,
     ScrollView,
-    Modal
+    Modal,
+    Alert
 } from 'react-native'
 import { 
     WingBlank,
@@ -21,6 +22,7 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Ionicons'
 
 import { Actions } from 'react-native-router-flux';
+import {myFetch} from '../../src/utils'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 
@@ -29,134 +31,65 @@ export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
+            cid:'',
             currentitem:'',
             visible:false,
             enableScrollViewScroll: true,
             listcolor:'#FFBF2D',
             chartcolor:'#bdbbb8',
-            lists:[
-                {
-                    stage:'小学',
-                    date:'Wed Apr 15 2020 17:19:31 GMT+0800',
-                    records:[
-                        {
-                            subject:'语文',
-                            score:100,
-                        },
-                        {
-                            subject:'数学',
-                            score:100,
-                        },
-                        {
-                            subject:'英语',
-                            score:100,
-                        },
-                    ]
-                },
-                {
-                    stage:'初中',
-                    date:'Wed Apr 15 2020 17:19:31 GMT+0800',
-                    records:[
-                        {
-                            subject:'语文',
-                            score:100,
-                        },
-                        {
-                            subject:'数学',
-                            score:100,
-                        },
-                        {
-                            subject:'英语',
-                            score:100,
-                        },
-                        {
-                            subject:'物理',
-                            score:100,
-                        },
-                        {
-                            subject:'化学',
-                            score:100,
-                        },
-                        {
-                            subject:'生物',
-                            score:100,
-                        },
-                        {
-                            subject:'历史',
-                            score:100,
-                        },
-                        {
-                            subject:'地理',
-                            score:100,
-                        },
-                        {
-                            subject:'政治',
-                            score:100,
-                        },
-                    ]
-                },
-                {
-                    stage:'高中',
-                    date:'Wed Apr 15 2020 17:19:31 GMT+0800',
-                    records:[
-                        {
-                            subject:'语文',
-                            score:100,
-                        },
-                        {
-                            subject:'数学',
-                            score:100,
-                        },
-                        {
-                            subject:'英语',
-                            score:100,
-                        },
-                        {
-                            subject:'物理',
-                            score:100,
-                        },
-                        {
-                            subject:'化学',
-                            score:100,
-                        },
-                        {
-                            subject:'生物',
-                            score:100,
-                        },
-                    ]
-                },
-                {
-                    stage:'高中',
-                    date:'Wed Apr 15 2020 17:19:31 GMT+0800',
-                    records:[
-                        {
-                            subject:'语文',
-                            score:100,
-                        },
-                        {
-                            subject:'数学',
-                            score:100,
-                        },
-                        {
-                            subject:'英语',
-                            score:100,
-                        },
-                        {
-                            subject:'物理',
-                            score:100,
-                        },
-                        {
-                            subject:'化学',
-                            score:100,
-                        },
-                        {
-                            subject:'生物',
-                            score:100,
-                        },
-                    ]
-                },
-            ]
+            lists:[]
         }
+    }
+    componentDidMount(){
+        console.log(this.props.cid)
+        this.setState({
+            cid:this.props.cid
+        })
+        myFetch.get('/child/cstudy',{
+            cid:this.props.cid
+        }).then(res=>{
+            console.log('成绩：')
+            console.log(res)
+            var list=[];
+            if(res){
+                this.setState({
+                    lists:res
+                })
+            }else{
+                this.setState({
+                    lists:[]
+                })
+            }
+        })
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            lists:nextProps.data
+        })
+    }
+    rmStudy = (e)=>{
+        Alert.alert('提示', '确定要删除吗？',
+            [
+                { text: "确定", onPress: ()=>{
+                    myFetch.get('/child/cstudy/dchildScore',{
+                        cid:this.state.cid,
+                        id:e.id
+                    }).then(res=>{
+                        console.log('删除记录')
+                        console.log(res.data)
+                        this.setState({
+                            lists:res.data
+                        })
+                        ToastAndroid.showWithGravityAndOffset(
+                        res.msg,
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-100)
+                    })
+                } },
+                { text: "返回", onPress: this.opntion2Selected },
+            ]
+        )
     }
     render() {
         const tabs = [
@@ -290,7 +223,7 @@ export default class Cdairy extends Component {
                         onPress={()=>Actions.pop()}
                     />
                     <Text style={styles.title}>学业记录</Text>
-                    <TouchableOpacity onPress={()=>Actions.ccstudy()}>
+                    <TouchableOpacity onPress={()=>Actions.ccstudy({cid:this.state.cid})}>
                         <Icon3 style={styles.icon}  name='md-add'/>
                     </TouchableOpacity>
                 </View>
@@ -318,7 +251,7 @@ export default class Cdairy extends Component {
                         }}
                     >
                         {
-                            this.state.lists
+                            this.state.lists[0]
                             ?<View
                                 onStartShouldSetResponderCapture={() => {
                                     this.setState({ enableScrollViewScroll: true });
@@ -341,7 +274,12 @@ export default class Cdairy extends Component {
                                                 iconlists = senior;
                                             }
                                             return <View style={styles.listblock}>
-                                                <Text style={styles.listtime}>{ moment(item.date).format("YYYY年MM月DD日  HH:mm:ss")}</Text>
+                                                <View style={styles.listtitle}>
+                                                    <Text style={styles.listtime}>{ moment(item.setdate).format("YYYY年MM月DD日  HH:mm:ss")}</Text>
+                                                    <TouchableOpacity onPress={()=>this.rmStudy(item)}>
+                                                        <Icon3 color='#333' style={styles.listtitleicon} name='ios-trash'/>
+                                                    </TouchableOpacity>
+                                                </View>              
                                                 <Text style={styles.liststage}>{item.stage}</Text>
                                                 <View 
                                                     style={styles.recordsbox}
@@ -362,7 +300,7 @@ export default class Cdairy extends Component {
                                                     >
                                                         <FlatList
                                                             // style={styles.recordsbox}
-                                                            data={item.records}
+                                                            data={item.cont}
                                                             numColumns={1}
                                                             ListFooterComponent={
                                                                 <View style={{
@@ -383,7 +321,7 @@ export default class Cdairy extends Component {
                                                                     style={styles.listlineicon} 
                                                                     source={icon}/>
                                                                     <Text style={styles.listlinetitle}>{item.subject}</Text>
-                                                                    <Text style={styles.listlinetext}>{item.score}分</Text>
+                                                                    <Text style={styles.listlinetext}>{isNaN(item.score)?0:item.score}分</Text>
                                                                 </View>
                                                             }}
                                                         />  
@@ -431,7 +369,7 @@ export default class Cdairy extends Component {
                             <View style={styles.currentitem}>
                                 <Text style={styles.currenttitle}>{currenttitle}</Text>
                                 <FlatList
-                                    data={currentitem.records}
+                                    data={currentitem.cont}
                                     numColumns={1}
                                     ListFooterComponent={
                                         <View style={{
@@ -542,12 +480,22 @@ const styles = StyleSheet.create({
         transform:[{scale:0.95}],
         justifyContent:'center',
     },
-    listtime:{
-        // backgroundColor:'#ccc',
+    listtitle:{
         width:0.8*width,
-        height:0.03*height,
         marginLeft:'auto',
         marginRight:'auto',
+        height:0.03*height,
+        flexDirection:'row'
+    },
+    listtime:{
+        width:0.7*width,
+        height:0.03*height,
+    },
+    listtitleicon:{
+        width:0.1*width,
+        height:0.03*height,
+        fontSize:40*s,
+        textAlign:'right',
     },
     liststage:{
         // backgroundColor:'#ccc',
@@ -596,7 +544,7 @@ const styles = StyleSheet.create({
     listlinetext:{
         textAlign:'center',
         textAlignVertical:'center',
-        width:0.1*width,
+        width:0.2*width,
         // backgroundColor:"#ccc",
         fontSize:23*s,
         color:'#555',
