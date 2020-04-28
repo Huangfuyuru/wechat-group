@@ -149,7 +149,7 @@ export default class Lcreate_list extends Component {
                             // onFocus={this.timenotice}
                             keyboardType='numeric'
                             maxLength={4}
-                            defaultValue={this.state.year}
+                            placeholder={this.state.year}
                             style={[styles.input, { width: 0.13 * width }]}
                             onChangeText = {(text)=>{
                                 this.setState({year0:text});
@@ -162,7 +162,7 @@ export default class Lcreate_list extends Component {
                             // onFocus={this.timenotice}
                             keyboardType='numeric'
                             maxLength={2}
-                            defaultValue={this.state.month}
+                            placeholder={this.state.month}
                             style={[styles.input, { width: 0.13 * width }]} 
                             onChangeText = {(text)=>{
                                 this.setState({month0:text});
@@ -175,7 +175,7 @@ export default class Lcreate_list extends Component {
                             // onFocus={this.timenotice}
                             keyboardType='numeric'
                             maxLength={2}
-                            defaultValue={this.state.day}
+                            placeholder={this.state.day}
                             style={[styles.input, { width: 0.13 * width }]}
                             onChangeText = {(text)=>{
                                 this.setState({day0:text});

@@ -76,7 +76,7 @@ export default class listContent extends Component {
                 }}
             >{item.setdate? (item.setdate.length >= 10 ? item.setdate.substr(0, 10) : item.setdate) : ""}</Text>
                 <Text style={{
-                     marginLeft:"auto",
+                      marginLeft:"auto", 
                      marginTop:10*s,
                      marginRight:30*s,
                 }}
@@ -84,7 +84,7 @@ export default class listContent extends Component {
                 </View>
            </View>
         )
-    }
+    }  
 }
 const styles = StyleSheet.create({
     navbar:{

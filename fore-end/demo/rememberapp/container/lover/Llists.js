@@ -40,11 +40,29 @@ export default class Llists extends React.Component {
             myFetch.get('/lover/loverlist',{
                 loverid:this.state.loverId
             }).then(res=>{
+                // console.log("shuju",res)
                 this.setState({  
                     arr:res.msg
                 })
             })
         })
+    }
+    newStar(star){
+        let ss='';
+        if(star==1){
+            ss = "★";
+        }
+        else if(star==2){
+            ss = "★★";
+        }
+        else if(star==3){
+            ss = "★★★";
+        }else if(star==4){
+            ss = "★★★★";
+        }else if(star==5){
+            ss = "★★★★★";
+        }
+        return ss;
     }
     componentDidUpdate(){
             myFetch.get('/lover/loverlist',{
@@ -56,7 +74,6 @@ export default class Llists extends React.Component {
             })
     }
     render() {
-        console.log(this.state.arr)
         if(this.state.arr==null||this.state.arr==[]){
             return(
             <View style={{ flex: 1}}>
@@ -178,10 +195,10 @@ export default class Llists extends React.Component {
                                      fontSize:20,
                                 }}>{item.name ? (item.name.length >= 12 ? item.name.substr(0, 12) + "..." : item.name) : ""}</Text>
                                  <Text style={{
-                                     marginTop:"8%",
+                                     marginTop:20*s,
                                      fontSize:20,
                                      color:"#FF1744",
-                                }}>{item.tit}</Text>
+                                }}>{this.newStar(item.difficulty)}</Text>
                             </View>
                             </TouchableOpacity>
                         ))
