@@ -236,8 +236,8 @@ method：get
         增加相册：
             method（http请求方式）：post
             接口地址：http://148.70.223.218:3001/lover/lpictures/lcpictures?loverid=&name=&background=
-            请求数据：loverid=&name=&background=
-            返回数据：该爱人的所有云相册loverPhotoListid，name，setdate
+            请求数据：loverid=&name=&background=&setdate=
+            返回数据：该爱人的所有云相册loverPhotoListid，name，setdate，background
                 [{"id":2300002,"name":"一百天","setdate":"2019-11-26T16:00:00.000Z","lid":200001,"background":null}]
         删除相册：
             接口地址：http://148.70.223.218:3001/lover/lpictures/lrpictures?loversid=&loverPhotoListid=
