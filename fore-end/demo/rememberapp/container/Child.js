@@ -613,6 +613,7 @@ const styles = StyleSheet.create({
         width: 0.08 * width,
         color: '#fff',
         fontSize: 30,
+        // backgroundColor:'#ccc'
     },
     title: {
         fontWeight: 'bold',
@@ -622,11 +623,6 @@ const styles = StyleSheet.create({
         marginLeft: 'auto',
         marginRight: "auto",
         textAlign: 'center',
-    },
-    icon:{
-        width:0.08*width,
-        color:'#fff',
-        fontSize:30,
     },
     lover_first: {
         textAlign: "center",

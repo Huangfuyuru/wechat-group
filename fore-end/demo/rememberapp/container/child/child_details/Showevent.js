@@ -57,7 +57,7 @@ export default class Cdairy extends Component {
                         name='chevron-left'
                         onPress={()=>Actions.pop()}
                     />
-                    <Text style={styles.title}>{item.tag} {item.name}</Text>
+                    <Text style={styles.title}>{item.item} {item.name}</Text>
                 </View>
                 <WingBlank style={{
                     height:0.86*height,

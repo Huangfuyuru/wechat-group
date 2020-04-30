@@ -261,6 +261,7 @@ const styles = StyleSheet.create({
         height:0.1*height,
         lineHeight:0.03*height,
         backgroundColor:'rgba(204,204,204,0.3)',
+        // marginBottom:0.02*height,
         marginTop:0.03*height,
         marginLeft:'auto',
         marginRight:'auto',

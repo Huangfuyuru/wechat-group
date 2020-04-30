@@ -57,6 +57,12 @@ export default class Cdairy extends Component {
     choosesubject = ()=>{
         this.setState({
             subject:this.state.choosesubject
+        },()=>{
+            ToastAndroid.showWithGravityAndOffset(
+            '由于当前版本限制，为避免成绩信息存储错误，请您选好科目后一次性填写好成绩信息，修改填写成绩请重选科目。为您带来不便，感谢谅解~',
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+            0,-350)
         })
     }
     addsubject = ()=>{
