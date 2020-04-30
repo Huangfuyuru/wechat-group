@@ -314,18 +314,19 @@ method：get
             method（http请求方式）：post
             接口地址：http://148.70.223.218:3001/lover/ldairy/addDairy
             提交数据: 
-                    loverid=  & content= & imgurl=（imgurl是一个数组）&setdate=&weather=&bgimg = &backcolor = 
+                    loverid=  & content= & imgurl=&setdate=&weather=&bgimg = &backcolor = 
             返回数据：所有日记信息，是个数组
-                [{"id":2100002,"name":"接吻","content":"今天我们接吻了","imgurl":["#1","#2","#3"],"setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
-	
+                [{"id":2100002,"content":"今天我们接吻了","imgurl":{#,#,#},"setdate":"2019-11-26","lid":200001,weather:'',bgimg:'',backcolor:''}]
+	 {code:0,msg:[{ 日记所有内容}] }，
+                {code:1,msg:null,des:'增加日记失败'}
 
         删除日记：
             接口地址：http://148.70.223.218:3001/lover/ldairy/delDairy?loverid=&loverDiaryid=
             提交数据: 爱人 loverid  日记的loverDiaryid
             返回数据：所有日记信息，是个数组
-                {code:0,msg:[{ 日记所有内容}] }，
-                {code:1,msg:null,des:'增加日记失败'}
-
+             {code:0,msg:null,des:'删除成功，用户日记数为0'}
+             {code:0,msg:[{日记所有内容}],des:'删除成功'}
+             {code:1,msg:data,des:'删除失败'}
         恋爱清单:	
 
 	接口地址：http://148.70.223.218:3001/lover/loverlist?loverid=
