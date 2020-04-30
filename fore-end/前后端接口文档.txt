@@ -314,7 +314,7 @@ method：get
             method（http请求方式）：post
             接口地址：http://148.70.223.218:3001/lover/ldairy/addDairy
             提交数据: 
-                    loverid=  & name= & content= & imgurl= （imgurl是一个数组）
+                    loverid=  & content= & imgurl=（imgurl是一个数组）&setdate=&weather=&bgimg = &backcolor = 
             返回数据：所有日记信息，是个数组
                 [{"id":2100002,"name":"接吻","content":"今天我们接吻了","imgurl":["#1","#2","#3"],"setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
 	
@@ -323,7 +323,8 @@ method：get
             接口地址：http://148.70.223.218:3001/lover/ldairy/delDairy?loverid=&loverDiaryid=
             提交数据: 爱人 loverid  日记的loverDiaryid
             返回数据：所有日记信息，是个数组
-                [{"id":2100002,"name":"接吻","content":"今天我们接吻了","imgurl":["#1","#2","#3"],"setdate":"2019-11-26T16:00:00.000Z","lid":200001}]
+                {code:0,msg:[{ 日记所有内容}] }，
+                {code:1,msg:null,des:'增加日记失败'}
 
         恋爱清单:	
 
@@ -341,7 +342,7 @@ method：get
            增加该爱人的清单，不是系统清单
 	接口地址：http://148.70.223.218:3001/lover/loverlist/addloverlist
 	方法：POST
-	提交数据：名称name,内容content,图片地址imgurl,地点local,日期setdate,系统清单systemid,爱人lid
+	提交数据：名称name,内容content,图片地址imgurl,地点local,日期setdate,系统清单listid,爱人lid
 	返回的数据：
 	 [{"id":"2400003","name":"接吻","content":"今天我们接吻了","imgurl":"#","local":"石家庄","setdate":"2019-11-26T16:00:00.000Z","listid":"2500003","lid":200001}]	
     
