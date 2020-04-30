@@ -315,10 +315,17 @@ const App = () => {
 
 								>
 									<Scene key="community" hideNavBar={true} component={Community} />
-									<Scene key="tdiscuss" hideNavBar={true} component={Tdiscuss} />
-									<Scene key="tsearch" hideNavBar={true} component={Tsearch} />
+									<Scene 
+										key='tsearch'
+										hideTabBar
+										hideNavBar
+										component={Tsearch} />
+									<Scene 
+										key='tdiscuss'
+										hideTabBar
+										hideNavBar
+										component={Tdiscuss} />
 								</Scene>
-
 								{/* 我的 */}
 								<Scene key='mine'
 									title='个人中心'

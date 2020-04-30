@@ -32,7 +32,7 @@ const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
 const h = height / 1012;
 const image = 'http://img.zcool.cn/community/019de45c32c171a80121df90bbe9ca.jpg@1280w_1l_2o_100sh.jpg'
-export default class Lover extends Component {
+export default class Community extends Component {
     constructor(props){
         super(props);
         // var uid = JSON.parse(localStorage.getItem('uid'));
@@ -59,7 +59,8 @@ export default class Lover extends Component {
                     backgroundColor='#FFBF2D'
                 />
                 <Tabs
-                renderUnderline={() => null}
+                renderUnderline={() =>null}
+                // tabBarUnderlineStyle={{borderColor:'#000'}}
                 styles={{
                     topTabBarSplitLine: {
                         borderBottomWidth: 0,
@@ -87,14 +88,14 @@ export default class Lover extends Component {
                                         fontSize:tabProps.activeTab === i ? 28*s : 24*s,
                                         // backgroundColor:'#ccc',
                                         fontWeight: tabProps.activeTab === i ? 'bold' : 'normal',
-                                        color: tabProps.activeTab === i ? '#FFBF2D' : '#222',
+                                        color: tabProps.activeTab === i ? '#FFBF2D' : 'rgba(0,0,0,0.6)',
                                     }}
                                 >
                                     {tab.title}
                                 </Text>
                             </TouchableOpacity>
                         ))}
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>Actions.tsearch()}>
                             <Icon2 style={styles.icon} name='ios-search'/>
                         </TouchableOpacity>
                     </View>
@@ -124,11 +125,12 @@ const styles = StyleSheet.create({
         paddingLeft: 0.03 * width,
     },
     icon: {
-        width: 0.32 * width,
-        paddingRight:0.027*width,
+        width: 0.08 * width,
+        marginLeft:0.22*width,
+        marginRight:0.02*width,
         color: '#333',
         fontSize: 30,
-        textAlign:'right',
+        textAlign:'center',
         textAlignVertical:'center',
     },
     title: {
@@ -140,10 +142,10 @@ const styles = StyleSheet.create({
     },
     wingblank:{
         height:0.8*height,
-        marginTop:0.025*height,
+        marginTop:0.01*height,
         justifyContent:'center',
         // backgroundColor:'#FFBF2D',
-        backgroundColor:'#ccc'
+        backgroundColor:'rgba(250,250,250,1)'
     },
     tabbox:{
         // alignItems: 'center',

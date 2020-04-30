@@ -32,7 +32,7 @@ const h = height / 1012;
 // const image = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587985247716&di=a9c0ff8f3513cb191939bd11cd906c02&imgtype=0&src=http%3A%2F%2Fimg30.360buyimg.com%2FpopWaterMark%2Fjfs%2Ft2287%2F103%2F1403211901%2F149967%2F74bbfbef%2F569f4308N0eccc8a4.jpg'
 // const image = 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3230746282,4148313693&fm=15&gp=0.jpg'
 const image = 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1263424256,4283364669&fm=26&gp=0.jpg'
-export default class Lover extends Component {
+export default class Child extends Component {
     constructor(props){
         super(props);
         this.state={
