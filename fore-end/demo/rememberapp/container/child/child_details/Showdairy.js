@@ -34,7 +34,7 @@ export default class Cdairy extends Component {
         console.log(this.props.data);
         this.setState({
             data:this.props.data
-        })
+        },console.log(this.state.data))
     }
     enlarge=()=>{
         this.setState({
@@ -74,7 +74,7 @@ export default class Cdairy extends Component {
                         onPress={()=>Actions.pop()}
                     />
                     <Text style={styles.title}>
-                        { moment(item.setdate).format(" YYYY年MM月DD日  HH:mm")}
+                        { moment(item.setdate).format("YYYY年MM月DD日  HH:mm")}
                     </Text>
                 </View>
                 <WingBlank style={styles.wingblank}>
