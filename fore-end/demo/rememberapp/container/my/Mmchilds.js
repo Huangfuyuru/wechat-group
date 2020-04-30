@@ -44,6 +44,7 @@ export default class Mmchilds extends Component {
             birthday:'',
             lists:[],
             uid:'',
+            code:1
         }
     }
     updateFirstValue(language) {
@@ -51,61 +52,50 @@ export default class Mmchilds extends Component {
             firstValue: language,
             
         })
-        // console.log(this.state.uid);
     }
     renderPicker(key) {
         return <Picker.Item label={key} value={key} />
     }
     additem=()=>{
-    //post
-    //     fetch(`http://localhost:3001/my/addchild`,{
-    //         method:'POST',
-    //         mode:'cors',
-    //         headers:{
-    //             'Content-Type':"application/x-www-form-urlencoded"
-    //         },
-    //         body:`name=${this.state.name}&birthday=${this.state.birthday}&gender=${this.state.gender}&uid=${this.state.uid}`
-    //     }).then(res=>res.json())
-    //     .then(json=>{
-    //         console.log(json)
-    //         this.setState({
-    //             code:json.code
-    //         });
-    //     })
-    //     console.log(this.state.code)
-    // }
-
-    // myFetch.post('/my/addchild',{
-    //     name:this.state.name,
-    //     birthday:this.state.birthday,
-    //     gender:this.state.firstValue,
-    //     uid:this.state.uid
-    // }
-    // ).then(res=>{
-    //     console.log(res)
-    //     if(res){
-    //         console.log('111')
-    //         this.setState({
-    //             lists:res
-    //         })
-    //     }else{
-    //         this.setState({
-    //             lists:res
-    //         })
-    //         if(!this.state.lists){
-    //             console.log('333')
-    //         }
-    //     }
-    // })
-    
-        ToastAndroid.showWithGravityAndOffset(
-            '创建成功！',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,-200)
-        setTimeout(() => {
-            Actions.pop() 
-        }, 3000);
+    console.log('提交亲子');
+    AsyncStorage.getItem('user').
+    then((res)=>{
+        var user = JSON.parse(res)
+        this.setState({
+            uid:user.id,
+        })
+        myFetch.post('/my/addchild',{
+            name:this.state.name,
+            birthday:this.state.birthday,
+            gender:this.state.firstValue,
+            uid:user.id,
+        }).then(
+            res=>{
+                if(res.code == 0){
+                    console.log('这是code'+res.code);
+                    this.setState({
+                        code:res.code
+                    })
+                    ToastAndroid.showWithGravityAndOffset(
+                        '创建成功！',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER,
+                    25,-200)
+                    setTimeout(() => {
+                        Actions.pop() 
+                    }, 3000);
+                }
+                else{
+                    ToastAndroid.showWithGravityAndOffset(
+                        '修改失败！',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER,
+                    25,-200)
+                    console.log('这是code'+res.code);
+                }
+            }   
+            )
+        })
     }
     render() {
         return (

@@ -26,6 +26,8 @@ import { Flex, WingBlank } from '@ant-design/react-native'
 import ImagePicker from 'react-native-image-picker';
 import ImageCropPicker from 'react-native-image-crop-picker';
 
+import {myFetch} from '../src/utils'
+
 const { width, scale, height } = Dimensions.get('window');
 const s1 = width / 640;
 const h = height / 1012;
@@ -47,7 +49,8 @@ export default class My extends Component {
         }
         // }
         this.state = {
-            flag:false,
+            code:1,
+            uid:'',
             data,
             width: new Animated.Value(20),
             //头像地址
@@ -70,56 +73,72 @@ export default class My extends Component {
           });
     }
     alertMsg = () => {
-        if(this.state.flag==false){
-            Alert.alert(
-                '提示',
-                '确认签到？',
-                [
-                    {
-                        text: '确定', onPress: () => {
-                            ToastAndroid.show('签到成功！', ToastAndroid.SHORT)
-                        }
-                    },
-                    { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-                ],
-            );
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
             this.setState({
-                flag:true
-            });
-            // http://localhost:3001/my/sign
-            // myFetch.get('/child/cpictures/ccpictures',{
-            //     childsid:this.props.cid,
-            //     name:name,
-            //     background:this.state.background,
-            //     setdate:time
-            // }).then(res=>{
-            //     console.log(res)
-            //     this.setState({
-            //         code:res.code
-            //     })
-            //     ToastAndroid.show(res.msg, ToastAndroid.SHORT);
-            //     setTimeout(()=>{
-            //         Actions.pop()
-            //     },1000)
-            // })
-            // myFetch.post(`http://localhost:3001/my/sign`,{
-            //     userId:'',
-            //     headers:{
-            //         'Content-Type':"application/x-www-form-urlencoded"
-            //     },
-            //     body:`name=${this.state.name}&birthday=${this.state.birthday}&gender=${this.state.gender}&uid=${this.state.uid}`
-            // }).then(res=>res.json())
-            // .then(json=>{
-            //     console.log(json)
-            //     this.setState({
-            //         code:json.code
-            //     });
-            // })
-        console.log(this.state.code)
-        }
-        else{
-            ToastAndroid.show('今天已经签到过啦！', ToastAndroid.SHORT)
-        }
+                uid:user.id,
+            })
+            myFetch.post('/my/sign',{
+                uid:user.id,
+            }).then(
+                res=>{
+                    if(res.code == 0){
+                        console.log('这是code'+res.code);
+                        this.setState({
+                            code:res.code
+                        })
+                        ToastAndroid.showWithGravityAndOffset(
+                            '签到成功！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-200)
+                    }
+                    else{
+                        ToastAndroid.showWithGravityAndOffset(
+                            '签到失败！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-200)
+                        console.log('这是code'+res.code);
+                    }
+                }   
+            )
+        })
+        // if(this.state.code==1){
+        //     Alert.alert(
+        //     '提示',
+        //     '确认签到？',
+        //     [
+        //         {
+        //             text: '确定', onPress: () => {
+        //                 AsyncStorage.getItem('user').
+        //                 then((res)=>{
+        //                     var user = JSON.parse(res)
+        //                     this.setState({
+        //                         uid:user.id
+        //                     })
+        //                     myFetch.post('/my/sign',{
+        //                         uid:user.id
+        //                     }).then(
+        //                         res=>{
+        //                             this.setState({
+        //                                 code:res.code
+        //                             })
+        //                         }
+        //                     )
+        //                 })
+        //                 ToastAndroid.show('签到成功！', ToastAndroid.SHORT);
+        //                 console.log(this.state.code);
+        //             }
+        //         },
+        //         { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        //     ],
+        // );
+        // }
+        // else{
+        //     ToastAndroid.show('已经签到过啦！', ToastAndroid.SHORT)
+        // }
     }
     render() {
         return (

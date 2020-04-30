@@ -49,56 +49,47 @@ export default class Mmlover extends Component {
         })
     }
     renderPicker(key) {
-        console.log(key)
         return <Picker.Item label={key} value={key} />
     }
     additem=()=>{
-        //post
-        // fetch(`http://localhost:3001/my/addlover`,{
-        //     method:'POST',
-        //     mode:'cors',
-        //     headers:{
-        //         'Content-Type':"application/x-www-form-urlencoded"
-        //     },
-        //     body:`name=${this.state.name}&ldate=${this.state.ldate}&gender=${this.state.gender}&uid=${this.state.uid}`
-        // }).then(res=>res.json())
-        // .then(json=>{
-        //     console.log(json)
-        //     this.setState({
-        //         code:json.code
-        //     });
-        // })
-        // console.log(this.state.code);
-        // AsyncStorage.getItem('user').
-        // then((res)=>{
-        //     var user = JSON.parse(res)
-        //     this.setState({
-        //         uid:user.id
-        //     })
-        //     myFetch.post('/my/addlover',{
-        //         name:this.state.name,
-        //         ldate:this.state.calendar,
-        //         gender:this.state.sex,
-        //         uid:user.id,
-        //     }).then(
-        //         res=>{
-        //             if(res.code == 0){
-        //                console.log(res.code);
-        //                this.setState({
-        //                    code:res.code
-        //                })
-        //             }
-        //         }
-        //     )
-        // })
-        ToastAndroid.showWithGravityAndOffset(
-            '创建成功！',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,-200)
-        setTimeout(() => {
-            Actions.pop() 
-        }, 3000);
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            this.setState({
+                uid:user.id,
+            })
+            myFetch.post('/my/addlover',{
+                name:this.state.name,
+                ldate:this.state.calendar,
+                gender:this.state.firstValue,
+                uid:user.id,
+            }).then(
+                res=>{
+                    if(res.code == 0){
+                        console.log('这是code'+res.code);
+                        this.setState({
+                            code:res.code
+                        })
+                        ToastAndroid.showWithGravityAndOffset(
+                            '创建成功！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-200)
+                        setTimeout(() => {
+                            Actions.pop() 
+                        }, 3000);
+                    }
+                    else{
+                        ToastAndroid.showWithGravityAndOffset(
+                            '修改失败！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-200)
+                        console.log('这是code'+res.code);
+                    }
+                }   
+            )
+        })
     }
     render() {
         return (
@@ -132,17 +123,6 @@ export default class Mmlover extends Component {
                                 onValueChange={(language) => this.updateFirstValue(language)}>
                                 {FirstData.map((key) => this.renderPicker(key))}
                             </Picker>
-                                {/* <Picker
-                                    onValueChange={(language) => this.state.sex=language,console.log(this.state.sex)}
-                                    mode='dropdown'
-                                    style={{width:0.11*width}}
-                                    onValueChange={(itemValue, itemIndex) =>
-                                        this.setState({ageunit: itemValue})
-                                    }>
-                                    <Picker.Item label="男" value="男" />
-                                    <Picker.Item label="女" value="女" />
-                                </Picker> */}
-
                             </Text>
                         </View>
                         <View style={styles.msg}>
@@ -166,7 +146,7 @@ export default class Mmlover extends Component {
                                 <Icon4 style={styles.listlineicon} name='calendar'/>日期</Text>
                             <TextInput
                                 selectTextOnFocus = {true}
-                                onChangeText={(text) => { this.state.calendar = text,console.log(this.state.calendar)}}
+                                onChangeText={(text) => { this.state.calendar = text}}
                                 placeholder='关系确认日期'
                                 maxLength={15}
                                 style={styles.input}/>

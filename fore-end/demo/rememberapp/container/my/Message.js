@@ -38,26 +38,6 @@ export default class Message extends Component {
                     sex: "女",
                     birth:"1999年12月22日"
                 },
-                // {
-                //     name: "旺旺",
-                //     sex: "男",
-                //     birth:"2008年5月4日"
-                // },
-                // {
-                //     name: "皮卡丘",
-                //     sex: "男",
-                //     birth:"1996年7月1日"
-                // },
-                // {
-                //     name: "喵喵",
-                //     sex: "女",
-                //     birth:"2002年1月1日"
-                // },
-                // {
-                //     name: "皮卡丘",
-                //     sex: "男",
-                //     birth:"1996年7月1日"
-                // },
             ]
         }
     }

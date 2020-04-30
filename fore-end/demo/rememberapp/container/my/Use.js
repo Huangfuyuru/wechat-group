@@ -22,6 +22,10 @@ import Button from 'react-native-button';
 import Icon2 from 'react-native-vector-icons/FontAwesome5'
 import Icon3 from 'react-native-vector-icons/Feather'
 import Icon4 from 'react-native-vector-icons/FontAwesome'
+
+//引入组件
+import {myFetch} from '../../src/utils'
+
 const { width, scale, height } = Dimensions.get('window');
 const s1 = width / 640;
 const h = height / 1012;
@@ -33,28 +37,61 @@ export default class Use extends Component {
     constructor(){
         super();
         this.state={
+            name:'',
+            pass:'',
             firstValue:  FirstData[0],
             sex:'女',
+            uid:'',
+            code:1
         }
     }
     updateFirstValue(language) {
         this.setState({
             firstValue: language,
         });
-        console.log(this.state.firstValue)
     }
     renderPicker(key) {
         return <Picker.Item label={key} value={key} />
     }
     additem=()=>{
-        ToastAndroid.showWithGravityAndOffset(
-            '修改成功！',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,-200)
-        setTimeout(() => {
-            Actions.pop() 
-        }, 3000);
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            this.setState({
+                uid:user.id,
+            })
+            myFetch.post('/my/information',{
+                uname:this.state.name,
+                gender:this.state.firstValue,
+                pass:this.state.pass,
+                uid:user.id,
+            }).then(
+                res=>{
+                    if(res.code == 0){
+                        console.log('这是code'+res.code);
+                        this.setState({
+                            code:res.code
+                        })
+                        ToastAndroid.showWithGravityAndOffset(
+                            '修改成功！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-200)
+                        setTimeout(() => {
+                            Actions.pop() 
+                        }, 3000);
+                    }
+                    else{
+                        ToastAndroid.showWithGravityAndOffset(
+                            '修改失败！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-200)
+                        console.log('这是code'+res.code);
+                    }
+                }   
+            )
+        })
     }
     leave=()=>{
         AsyncStorage.setItem('isLogin','false');
@@ -116,6 +153,7 @@ export default class Use extends Component {
                                     ToastAndroid.TOP,
                                     25,100)
                                 }}
+                                onChangeText={(text) => { this.state.name= text }}
                                 style={styles.input}/>
                         </View>
                         <View style={styles.msg}>
@@ -124,6 +162,7 @@ export default class Use extends Component {
                                  更换密码</Text>
                             <TextInput
                                 maxLength={15}
+                                onChangeText={(text) => { this.state. pass= text }}
                                 style={styles.input}/>
                         </View>
                     </View>

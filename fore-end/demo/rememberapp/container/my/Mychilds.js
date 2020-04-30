@@ -19,6 +19,9 @@ import Icon2 from "react-native-vector-icons/Ionicons";
 import Icon3 from 'react-native-vector-icons/AntDesign'
 import Icon4 from 'react-native-vector-icons/FontAwesome'
 import Button from 'react-native-button';
+//引入组件
+import {myFetch} from '../../src/utils'
+
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 const h = height / 1012;
@@ -26,6 +29,9 @@ export default class Mychilds extends Component {
     constructor(){
         super();
         this.state={
+            childid:0,
+            uid:'',
+            code:1, //要获取的状态
             lists:[
                 {
                     name: "小浣熊",
@@ -44,6 +50,33 @@ export default class Mychilds extends Component {
                 },
             ]
         }
+    }
+    alertMsg = () => {
+        Alert.alert(
+            '提示',
+            '确认删除？',
+            [
+                {
+                    text: '确定', onPress: () => {
+                        ToastAndroid.show('删除成功！', ToastAndroid.SHORT);
+                        // AsyncStorage.getItem('user')
+                        // var user = JSON.parse(res)
+                        // this.setState({
+                        //     uid:user.id,
+                        // })
+                        // fetch(`http://localhost:3001/my/delchild/confirm?cid=${this.state.childid}&uid=${this.state.uid}`)
+                        // .then((res)=>res.json())
+                        // .then((res)=>{
+                        //     console.log(res)
+                        //     this.setState({
+                        //         code:res.code
+                        //     }); 
+                        // })
+                    }
+                },
+                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+            ],
+        );
     }
     render() {
         return (
@@ -118,7 +151,7 @@ export default class Mychilds extends Component {
                                     height:0.10*height,
                                     marginTop:20*s,
                                     borderWidth:5,
-                                    borderColor:'#9999CC',
+                                    borderColor:'#CCC',
                                     flexDirection:'row',    
                                     alignItems:'center'
                                 }}
@@ -131,7 +164,7 @@ export default class Mychilds extends Component {
                                     <Text style={{fontSize:16}}>{item.name}</Text>
                                 </View>
                                 <TouchableOpacity >
-                                    <Icon3 style={styles.icon2}  name='rightcircleo'/>
+                                    <Icon3 style={styles.icon2} onPress={this.alertMsg} name='delete'/>
                                 </TouchableOpacity>
                             </View>
                         }}
