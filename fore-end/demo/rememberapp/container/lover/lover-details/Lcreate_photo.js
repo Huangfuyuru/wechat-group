@@ -14,60 +14,30 @@ import {
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/FontAwesome'
 import Icon3 from 'react-native-vector-icons/Fontisto'
+import moment from 'moment'
 import { Actions } from 'react-native-router-flux';
+import {myFetch} from '../../../src/utils'
 import { TextInput } from 'react-native-gesture-handler';
 import { WingBlank, ImagePicker } from '@ant-design/react-native';
 import Button from 'react-native-button';
 const {width,scale} = Dimensions.get('window');
 const s = width / 640;
-export default class Lcreate_photo extends Component {
+const image ="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3773663025,3915037731&fm=26&gp=0.jpg"
+export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
-            background:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3773663025,3915037731&fm=26&gp=0.jpg',
-            lists:[
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3773663025,3915037731&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3773663025,3915037731&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3773663025,3915037731&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3773663025,3915037731&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3773663025,3915037731&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3773663025,3915037731&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3773663025,3915037731&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3773663025,3915037731&fm=26&gp=0.jpg'
-                },
-            ],
+            code:'',
+            loverid:'',
+            name:'',
+            background:image,
+            lists:[],
         }
+    }
+    componentDidMount(){
+        this.setState({
+            loverid:this.props.loverid
+        })
     }
     setbackground = ()=>{
 
@@ -79,7 +49,30 @@ export default class Lcreate_photo extends Component {
 
     }
     additem = ()=>{
-        ToastAndroid.show("创建成功!", ToastAndroid.SHORT);
+        var name = this.state.name;
+        var time = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+        var timename = moment(new Date()).format("HH:mm:ss")
+        // console.log(timename)
+        var date = timename.split(':')
+        if(!name){
+            name = '没有名字的相册'+date[0]+date[1]+date[2]
+        }
+        myFetch.post('/lover/lpictures/lcpictures',{
+            loverid:this.state.loverid,
+            name:name,
+            background:this.state.background,
+            setdate:time
+        }).then(res=>{
+            console.log(res)
+            if(res.code == 0){
+                ToastAndroid.show(name+'，'+'创建成功！', ToastAndroid.SHORT);
+                setTimeout(()=>{
+                    Actions.pop({refresh:({data:res.msg})})
+                },1000)
+            }else{
+                ToastAndroid.show(name+'，'+'创建失败！', ToastAndroid.SHORT);
+            }
+        })
     }
     render() {
         const lists = this.state.lists
@@ -99,6 +92,7 @@ export default class Lcreate_photo extends Component {
                     <View style={styles.msg}>
                         <Text style={styles.text}>相册名称：</Text>
                         <TextInput
+                            onChangeText={text=>{this.setState({name:text})}}
                             maxLength={10}
                             onFocus={()=>{
                                 ToastAndroid.showWithGravityAndOffset(
@@ -117,7 +111,7 @@ export default class Lcreate_photo extends Component {
                         style={styles.textbtn}>轻触设置封面</Text>
                         <Image
                             style={styles.cover}
-                            resizeMode="contain"
+                            resizeMode="cover"
                             source={{uri:`${this.state.background}`}}
                         />
                     </TouchableOpacity>
@@ -156,9 +150,10 @@ export default class Lcreate_photo extends Component {
                         }
                         renderItem={({item})=>(
                             <Image
+                                key={item.id}
                                 style={styles.pics}
                                 resizeMode="cover"
-                                source={{uri:`${item.background}`}}
+                                source={{uri:`${item.path}`}}
                             />
                         )}
                         />  
@@ -217,6 +212,8 @@ const styles = StyleSheet.create({
     },
     input:{
         width:0.5*width,
+        textAlign:'center',
+        // backgroundColor:'#ccc',
         borderColor:'#bdbbb8',
         borderStyle:'solid',
         borderBottomWidth:1,

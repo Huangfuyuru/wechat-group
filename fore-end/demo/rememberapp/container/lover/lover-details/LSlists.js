@@ -21,7 +21,8 @@ export default class LSlists extends Component {
     constructor() {
         super()
         this.state = {
-            arr: []
+            arr: [],
+            data:[]
         }
     }
     alertMsg=()=>{
@@ -31,25 +32,24 @@ export default class LSlists extends Component {
         this.setState({
             loverId:this.props.loverId
         },()=>{
-            console.log("爱人ID",this.state.loverId)
+            // console.log("爱人ID",this.state.loverId)
             myFetch.get('/lover/loverlist/list',{
                 loverid:this.state.loverId
             }).then(res=>{
-                // console.log(res)
+                // console.log("所有清单数据！",res)
                 this.setState({
-                    arr:res
+                    arr:res.msg,
+                    data:res.data
                 })
             })
         })
     }
-    componentDidUpdate(){
-        myFetch.get('/lover/loverlist/list',{
-            loverid:this.state.loverId
-        }).then(res=>{
-            this.setState({
-                arr:res
-            })
+    componentWillReceiveProps(nextProps) {
+        // console.log(nextProps.data)
+         this.setState({
+             arr:nextProps.data
         })
+        
     }
     render() {
         const list = this.state.arr
@@ -60,8 +60,8 @@ export default class LSlists extends Component {
                     <Icon1
                         style={styles.icon}
                         name='chevron-left'
-                        onPress={() => Actions.pop()}
-                    />
+                        onPress={() =>Actions.pop({refresh:({data:this.state.data})})}
+                                              />
                     <Text style={styles.title}>清单列表</Text>
                 </View>
                 { 

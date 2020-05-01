@@ -11,7 +11,6 @@ import {
     Modal,
     Image,
     TouchableWithoutFeedback,
-
 } from 'react-native'
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment'
@@ -20,12 +19,13 @@ import Icon2 from 'react-native-vector-icons/Fontisto'
 import { WingBlank } from '@ant-design/react-native';
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
-export default class Csdairy extends Component {
+const image = 'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
+export default class dairy extends Component {
     constructor(){
         super();
         this.state={
             visible:false,
-            currentpicture:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg',
+            currentpicture:image,
             inner:'',
             data:''
         }
@@ -41,23 +41,27 @@ export default class Csdairy extends Component {
             visible:true
         })
     }
+    savePictures = ()=>{
+
+    }
     render() {
         const item = this.state.data
         var iconcolor = '#ffffff';
         var textcolor = '#000000';
-        var weathercolor = '#cccccc';
-        if(item.content == 'undefined'){
-            item.content = '（您没有添加文字内容哦~）';
+        var weathercolor = '#ffffff';
+        // if(item.content == 'undefined'){
+        //     item.content = '（您没有添加文字内容哦~）';
+        // }
+        if(item.backcolor == '#ffffff' || item.backcolor == '#ffffaa'){
+            iconcolor = '#FFBF2D',
+            weathercolor = '#999999'
         }
-        if(item.bgcolor == '#ffffff'){
-            iconcolor = '#FFBF2D'
-        }
-        if(item.bgcolor == '#000000'){
+        if(item.backcolor == '#000000'){
             textcolor = '#ffffff'
         }
         if(item.weather == 'day-sunny' || item.weather == 'night-clear'){
             weathercolor = '#FFBF2D'
-            if(item.bgcolor == 'orange'){
+            if(item.backcolor == 'orange'){
                 weathercolor = '#ffffff'
             }
         }
@@ -78,7 +82,7 @@ export default class Csdairy extends Component {
                         borderRadius:10,
                         marginLeft:'auto',
                         marginRight:'auto',
-                        backgroundColor:`${item.bgcolor}`,
+                        backgroundColor:`${item.backcolor}`,
                         width:0.9*width,
                         height:0.84*height,
                         // marginTop:10*s,

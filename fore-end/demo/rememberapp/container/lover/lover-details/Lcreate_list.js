@@ -27,9 +27,6 @@ export default class Lcreate_list extends Component {
             year: date[0],
             month: date[1],
             day: date[2],
-            year0: "",
-            month0:"",
-            day0: "",
             loverId:"",
             item:"",
             site:"",
@@ -43,16 +40,6 @@ export default class Lcreate_list extends Component {
             loverId:this.props.loverId,
             item:this.props.item
 
-        },()=>{
-           
-            // myFetch.get('/lover/loverlist/list',{
-            //     loverid:this.state.loverId
-            // }).then(res=>{
-            //     console.log('所有清单数据',res)
-            //     this.setState({
-            //         arr:res
-            //     })
-            // })
         })
        
     }
@@ -74,36 +61,28 @@ export default class Lcreate_list extends Component {
         return ss;
     }
    
-    addList=()=>{
-        // console.log("增加",this.state.year0+"-"+this.state.month0+"-"+this.state.day0)
+    savelist = ()=>{
         myFetch.post(`/lover/loverlist/addloverlist`,{
             name:this.state.item.name,
             content:this.state.content,
             imgurl:this.state.img,
             local:this.state.site,
-            setdate:this.state.year0+"-"+this.state.month0+"-"+this.state.day0,
+            setdate:this.state.year+"-"+this.state.month+"-"+this.state.day,
             listid:this.state.item.id,
             lid:this.state.loverId
         })
         .then(res=>{
-            console.log("json",res)
-            })
-    }
-    alertMsg = () => {
-        Alert.alert(
-            '提示',
-            '确认提交？',
-            [
-                {
-                    text: '确定', onPress: () => {
-                        this.addList()
-                        Actions.pop()
-                        ToastAndroid.show('提交成功！', ToastAndroid.SHORT)
-                    }
-                },
-                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-            ],
-        );
+            // console.log("json",res)
+            if(res.code == 0){
+                setTimeout(()=>{
+                    Actions.pop({refresh:({data:res.msg})})
+                },800)
+                ToastAndroid.show('创建成功！', ToastAndroid.SHORT);
+
+            }else{
+                ToastAndroid.show('创建失败！', ToastAndroid.SHORT);
+            }
+        })
     }
     render() {
         return (
@@ -149,10 +128,10 @@ export default class Lcreate_list extends Component {
                             // onFocus={this.timenotice}
                             keyboardType='numeric'
                             maxLength={4}
-                            placeholder={this.state.year}
+                            defaultValue={this.state.year}
                             style={[styles.input, { width: 0.13 * width }]}
                             onChangeText = {(text)=>{
-                                this.setState({year0:text});
+                                this.setState({year:text});
                               }} 
                             />
                         <Text style={styles.unit}>
@@ -162,10 +141,10 @@ export default class Lcreate_list extends Component {
                             // onFocus={this.timenotice}
                             keyboardType='numeric'
                             maxLength={2}
-                            placeholder={this.state.month}
+                            defaultValue={this.state.month}
                             style={[styles.input, { width: 0.13 * width }]} 
                             onChangeText = {(text)=>{
-                                this.setState({month0:text});
+                                this.setState({month:text});
                               }}
                             />
                         <Text style={styles.unit}>
@@ -175,10 +154,10 @@ export default class Lcreate_list extends Component {
                             // onFocus={this.timenotice}
                             keyboardType='numeric'
                             maxLength={2}
-                            placeholder={this.state.day}
+                            defaultValue={this.state.day}
                             style={[styles.input, { width: 0.13 * width }]}
                             onChangeText = {(text)=>{
-                                this.setState({day0:text});
+                                this.setState({day:text});
                               }} 
                             />
                         <Text style={styles.unit}>
@@ -238,7 +217,7 @@ export default class Lcreate_list extends Component {
                         marginRight: "auto",
                         marginTop: 60 * s
                     }}
-                        onPress={this.alertMsg}
+                        onPress={this.savelist}
                     >
                         <Text
                             style={{

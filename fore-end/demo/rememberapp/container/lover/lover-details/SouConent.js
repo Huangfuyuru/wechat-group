@@ -23,6 +23,23 @@ export default class SouConent extends Component {
             arr:this.props.data
         })
     }
+    newStar(star){
+        let ss='';
+        if(star==1){
+            ss = "❤";
+        }
+        else if(star==2){
+            ss = "❤ ❤";
+        }
+        else if(star==3){
+            ss = "❤ ❤ ❤";
+        }else if(star==4){
+            ss = "❤ ❤ ❤ ❤";
+        }else if(star==5){
+            ss = "❤ ❤ ❤ ❤ ❤";
+        }
+        return ss;
+    }
     render() {
         const item=this.state.arr
         console.log(this.state.arr);
@@ -40,7 +57,7 @@ export default class SouConent extends Component {
             </View>
                 <View style={{
                       width:0.95*width,
-                      height:0.8*height,
+                      height:0.85*height,
                     //   backgroundColor:'rgba(221,204,255,.3)',  
                       backgroundColor:"rgba(255,192,203,.2)",                      
                       borderRadius:10,
@@ -48,8 +65,9 @@ export default class SouConent extends Component {
                       borderWidth:0.5,
                       marginRight:"auto",
                       marginLeft:"auto",
-                      marginTop:15*s
+                      marginTop:25*s
                 }}>
+                    
                     <View style={{flexDirection:"row"}}>
                     <Text style={{
                         fontSize:25*s,
@@ -57,14 +75,14 @@ export default class SouConent extends Component {
                         marginLeft:35*s,
                         marginRight:35*s
                 }}
-            >{item.date} 09:16</Text> 
+            >{item.date ? (item.date.length >= 10 ? item.date.substr(0, 10) : item.date) : ""}</Text> 
              <Text style={{
                     fontSize:35*s,
                     textAlign:"center",
                     color:"#FF1744",
                     marginTop:10*s,
                 }}
-            >{item.heart}</Text> 
+            >{this.newStar(item.mood)}</Text> 
             </View>
                 <TextInput 
                 multiline={true}
@@ -76,23 +94,28 @@ export default class SouConent extends Component {
                     width:0.9*width,
                     backgroundColor:"#fff",                      
                     borderRadius:10,
-                    marginBottom:30*s,
+                    marginBottom:16*s,
                     marginTop:35*s
-,                   height:80*s,
+,                   height:320*s,
                     color:"#000",
                     textAlignVertical: 'top',
-                }}>{item.txt}
+                }}>
+                    <Text style={{
+                        fontSize:25*s,
+                        fontWeight:"bold"
+                    }}>{item.name}:</Text>
+                    {item.content}
                 </TextInput>
                   <Image
                 style={{
-                    height:0.5*height,
+                    height:0.45*height,
                     width:0.9*width,
                     marginRight:"auto",
                     marginLeft:"auto",
                     borderRadius:10,
-                    marginTop:20*s
+                    marginTop:0*s
                 }}
-                 source={{uri:item.src}}></Image>
+                 source={{uri:item.imgurl}}></Image>
                 </View>
            </View>
         )

@@ -64,14 +64,11 @@ export default class Llists extends React.Component {
         }
         return ss;
     }
-    componentDidUpdate(){
-            myFetch.get('/lover/loverlist',{
-                loverid:this.props.loverId
-            }).then(res=>{
-                this.setState({  
-                    arr:res.msg
-                })
-            })
+    componentWillReceiveProps(nextProps) {
+        console.log("next",nextProps.data)
+        this.setState({
+            arr:nextProps.data
+        })
     }
     render() {
         if(this.state.arr==null||this.state.arr==[]){

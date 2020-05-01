@@ -32,44 +32,27 @@ export default class Lcreate_sound extends Component {
             year:date[0],
             month:date[1],
             day:date[2],
-            year0: "",
-            month0:"",
-            day0: "",
             name:"",
             vouri:"",
             img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1097372906,871370388&fm=26&gp=0.jpg',
         }
     }
-    alertMsg = () => {
-        Alert.alert(
-            '提示',
-            '确认创建？',
-            [
-                {
-                    text: '确定', onPress: () => {
-                        Actions.pop()
-                        ToastAndroid.show('创建成功！', ToastAndroid.SHORT)
-                    }
-                },
-                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-            ],
-        );
-    }
-    additem=()=>{
-          // console.log("增加",this.state.year0+"-"+this.state.month0+"-"+this.state.day0)
-          myFetch.post(`/lover/lsound/lcsound`,{
-            // name:this.state.item.name,
-            // content:this.state.content,
-            // imgurl:this.state.img,
-            // local:this.state.site,
-            // setdate:this.state.year0+"-"+this.state.month0+"-"+this.state.day0,
-            // listid:this.state.item.id,
-            // lid:this.state.loverId
+    componentDidMount(){
+        this.setState({
+            loverid:this.props.loverid
         })
-        .then(res=>res.json())
-        .then(json=>{
-            console.log("json",json)
-            })
+    }
+    
+    additem=()=>{
+          myFetch.post(`/lover/lsound/lcsound`,{
+            name:this.state.name,
+            setdate:this.state.year+"-"+this.state.month+"-"+this.state.day,
+            loverid:this.state.loverId,
+            voiceurl:"#"
+        })
+        .then(res=>{
+            console.log("res")
+        })
     }
     render() {
         const src = this.state.img
@@ -94,7 +77,7 @@ export default class Lcreate_sound extends Component {
                                 defaultValue={this.state.year}
                                 style={styles.input}
                                 onChangeText = {(text)=>{
-                                    this.setState({year0:text});
+                                    this.setState({year:text});
                                   }} 
                                 />
                             <Text style={styles.unit}>
@@ -107,7 +90,7 @@ export default class Lcreate_sound extends Component {
                                 defaultValue={this.state.month}
                                 style={styles.input}
                                 onChangeText = {(text)=>{
-                                    this.setState({month0:text});
+                                    this.setState({month:text});
                                   }}
                                 />
                             <Text style={styles.unit}>
@@ -120,7 +103,7 @@ export default class Lcreate_sound extends Component {
                                 defaultValue={this.state.day}
                                 style={styles.input}
                                 onChangeText = {(text)=>{
-                                    this.setState({day0:text});
+                                    this.setState({day:text});
                                   }} 
                                 />
                             <Text style={styles.unit}>
