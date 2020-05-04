@@ -17,6 +17,7 @@ import Icon1 from 'react-native-vector-icons/SimpleLineIcons'
 import Icon3 from "react-native-vector-icons/Ionicons"
 import Video from 'react-native-video'
 import { Actions } from "react-native-router-flux"
+import {myFetch} from '../../src/utils'
 import { WingBlank } from "@ant-design/react-native"
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
@@ -24,64 +25,59 @@ export default class Lsouvenir extends Component {
     constructor() {
         super()
         this.state = {
+            loverId:"",
             arr: [
                 {
-                    src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
-                    date: "2020-02-16",
-                    txt: "第一次一起去旅行",
-                    heart: "ღ ღ ღ ღ ღ",
+                    imgurl: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
+                    date: "xxxx-xx-xx",
+                    name: "纪念从此刻开始",
+                    mood: 5,
                     paused: false,
                     id: "1",
-                    uri: "https://webfs.yun.kugou.com/202004231946/1f6906e31d6643aedc6d71a2cca79048/G197/M01/0B/07/ZYcBAF5KEuKIXbmWAAUALL9sVWUAAATngDPkVsABQBE326.mp3"
-
+                    voiceurl: "https://webfs.yun.kugou.com/202004302044/cb238493021c8bf179d8c1979a32c7ad/G094/M00/1E/18/_oYBAFwFdfeAGeRpADT6n40TcAI992.mp3"
                 },
-                {
-                    src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
-                    date: "2020-02-16",
-                    txt: "第一次接吻",
-                    heart: "ღ ღ ღ",
-                    id: "2",
-                    paused: false,
-                    uri: "https://webfs.yun.kugou.com/202004231946/1f6906e31d6643aedc6d71a2cca79048/G197/M01/0B/07/ZYcBAF5KEuKIXbmWAAUALL9sVWUAAATngDPkVsABQBE326.mp3"
-
-                },
-                {
-                    src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
-                    date: "2020-02-16",
-                    txt: "第一次接吻",
-                    heart: "ღ ღ ღ",
-                    id: "3",
-                    paused: false,
-                    uri: "https://webfs.yun.kugou.com/202004231946/1f6906e31d6643aedc6d71a2cca79048/G197/M01/0B/07/ZYcBAF5KEuKIXbmWAAUALL9sVWUAAATngDPkVsABQBE326.mp3"
-
-
-                },
-                {
-                    src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
-                    date: "2020-02-16",
-                    txt: "第一次接吻",
-                    heart: "ღ ღ ღ ღ ღ",
-                    id: "4",
-                    paused: false,
-                    uri: "https://webfs.yun.kugou.com/202004231946/1f6906e31d6643aedc6d71a2cca79048/G197/M01/0B/07/ZYcBAF5KEuKIXbmWAAUALL9sVWUAAATngDPkVsABQBE326.mp3"
-
-                }, {
-                    src: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1996853672,3140841536&fm=15&gp=0.jpg",
-                    date: "2020-02-16",
-                    txt: "第一次接吻",
-                    heart: "ღ ღ ღ ღ ღ",
-                    id: "5",
-                    paused: false,
-                    uri: "https://webfs.yun.kugou.com/202004231946/1f6906e31d6643aedc6d71a2cca79048/G197/M01/0B/07/ZYcBAF5KEuKIXbmWAAUALL9sVWUAAATngDPkVsABQBE326.mp3"
-
-                },
-            ],
+                
+        ],
+        arr1:[],
             rotateValue: new Animated.Value(0),
             bounceValue: new Animated.Value(1),
         }
     }
     componentDidMount() {
         this.startAnimation();
+        this.setState({
+            loverId:this.props.loverId
+        })
+        myFetch.get('/lover/lsouvenir',{
+            loverid:this.props.loverId
+        }).then(res=>{
+            this.setState({
+                arr1:res.msg
+            })
+            const arr0=[...this.state.arr1]
+            arr0.map((item)=>{
+                item.paused=false
+            })
+            this.setState({
+                arr1:arr0
+            })
+        })
+       
+    }
+    componentWillReceiveProps(nextProps){
+        console.log("hhhh",nextProps.data)
+        this.setState({
+            arr1:nextProps.data
+        },()=>{
+        const arr0=[...this.state.arr1]
+        arr0.map((item)=>{
+            item.paused=false
+        })
+        this.setState({
+            arr1:arr0
+        })
+        })
+        
     }
     startAnimation() {
         this.state.bounceValue.setValue(1);//和上面初始值一样，所以
@@ -103,6 +99,17 @@ export default class Lsouvenir extends Component {
         ]).start(() => this.startAnimation());
     }
     playMusic = (id) => {
+        const arr0 = [...this.state.arr1]
+        arr0.map((item) => {
+            if (item.id == id) {
+                item.paused = !item.paused
+            }
+        })
+        this.setState({
+            arr1: arr0
+        })
+    }
+    playMusic1 = (id) => {
         const arr0 = [...this.state.arr]
         arr0.map((item) => {
             if (item.id == id) {
@@ -112,24 +119,57 @@ export default class Lsouvenir extends Component {
         this.setState({
             arr: arr0
         })
-        console.log(this.state.arr)
     }
-    alertMsg = () => {
-        Alert.alert(
-            '提示',
-            '确认删除？',
+    rmSouvenir=(e)=>{
+        var rmname = e.name;
+        Alert.alert('提示', '确定要删除吗？',
             [
-                {
-                    text: '确定', onPress: () => {
-                        ToastAndroid.show('删除成功！', ToastAndroid.SHORT)
-                    }
-                },
-                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-            ],
-        );
+                { text: "确定", onPress: ()=>{
+                    myFetch.get('/lover/lsouvenir/delSouvenir',{
+                        loverid:e.lid,
+                        loverImpDateid:e.id
+                    }).then(res=>{
+                        if(res.code==0){
+                        this.setState({
+                            arr1:res.msg
+                        })
+                        const arr0=[...this.state.arr1]
+                        arr0.map((item)=>{
+                            item.paused=false
+                        })
+                        this.setState({
+                            arr1:arr0
+                        })
+                        ToastAndroid.show('删除'+e.name+'成功！！', ToastAndroid.SHORT);}
+                        else{
+                        ToastAndroid.show(res.msg, ToastAndroid.SHORT);
+                        }
+                    })
+                } },
+                { text: "返回", onPress: this.opntion2Selected },
+            ]
+        )
     }
+    newStar(star){
+        let ss='';
+        if(star==1){
+            ss = "❤";
+        }
+        else if(star==2){
+            ss = "❤ ❤";
+        }
+        else if(star==3){
+            ss = "❤ ❤ ❤";
+        }else if(star==4){
+            ss = "❤ ❤ ❤ ❤";
+        }else if(star==5){
+            ss = "❤ ❤ ❤ ❤ ❤";
+        }
+        return ss;
+    }
+   
     render() {
-        const list = this.state.arr
+        const list = this.state.arr1
         return (
             <View>
                 <View style={styles.navbar}>
@@ -142,11 +182,11 @@ export default class Lsouvenir extends Component {
                     <Icon3
                         style={styles.icon}
                         name='md-add'
-                        onPress={() => Actions.lcsouvenir()}
+                        onPress={() => Actions.lcsouvenir({loverId:this.state.loverId})}
                     />
                 </View>
                 <WingBlank>
-
+                    {this.state.arr1?
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         ListFooterComponent={
@@ -178,7 +218,7 @@ export default class Lsouvenir extends Component {
                         renderItem={({ item }) => {
                             const a = item.paused ? "360deg" : "0deg"
                             return (
-                                <TouchableWithoutFeedback onLongPress={this.alertMsg} >
+                                <TouchableWithoutFeedback  >
                                     <View style={{
                                         height: 300 * s,
                                         width: 0.88 * width,
@@ -193,7 +233,7 @@ export default class Lsouvenir extends Component {
                                         backgroundColor: "rgba(255,192,203,.2)"
                                     }}>
                                         <TouchableOpacity onPress={this.playMusic.bind(this, item.id)}>
-                                            <Animated.Image source={{ uri: item.src }}
+                                            <Animated.Image source={{ uri: item.imgurl }}
                                                 style={{
                                                     width: 0.40 * width,
                                                     height: 0.40 * width,
@@ -217,7 +257,8 @@ export default class Lsouvenir extends Component {
                                                
                                             </Animated.Image>
                                         </TouchableOpacity>
-                                        <TouchableOpacity activeOpacity={1} onPress={() => Actions.souvenir({ data: item })}>
+                                                   
+                                        <TouchableOpacity activeOpacity={1} onPress={() => Actions.souvenir({ data: item })} onLongPress= {()=>this.rmSouvenir(item)}>
                                             <View
                                                 style={{
                                                     height: 280 * s,
@@ -242,29 +283,30 @@ export default class Lsouvenir extends Component {
                                                         marginBottom: 10 * s
                                                     }}
 
-                                                >{item.txt ? (item.txt.length >= 7 ? item.txt.substr(0, 7) + "..." : item.txt) : ""}</Text>
+                                                >{item.name ? (item.name.length >= 7 ? item.name.substr(0, 7) + "..." : item.name) : ""}</Text>
                                                 <Text
                                                     style={{
                                                         fontSize: 20 * s,
                                                         textAlign: "center",
                                                         marginBottom: 50 * s
                                                     }}
-                                                >{item.date}</Text>
+                                                >{item.date.split("T")[0]}</Text>
                                                 <Text
                                                     style={{
                                                         fontSize: 35 * s,
                                                         textAlign: "center",
                                                         color: "#FF1744"
                                                     }}
-                                                >{item.heart}</Text>
+                                                >{this.newStar(item.mood)}</Text>
                                             </View>
                                         </TouchableOpacity>
                                         <Video
-                                                    source={{ uri: item.uri }}
+                                                    source={{ uri: item.voiceurl }}
                                                     ref={(ref) => {
                                                         this.player = ref
                                                     }}
                                                     paused={!item.paused}
+                                                    repeat={true}
                                                     volume={1.0}
                                                     playInBackground={true}
                                                 />
@@ -273,8 +315,117 @@ export default class Lsouvenir extends Component {
                                 </TouchableWithoutFeedback>
                             )
                         }}
-                    />
+                    />:
+                    <FlatList
+                    showsVerticalScrollIndicator={false}
+                    style={styles.scrollView}
+                    data={this.state.arr}
+                    numColumns={1}
+                    renderItem={({ item }) => {
+                        const a = item.paused ? "360deg" : "0deg"
+                        return (
+                            <TouchableWithoutFeedback  >
+                                
+                                <View style={{
+                                    height: 800 * s,
+                                    width: 0.88 * width,
+                                    borderWidth: 0.3,
+                                    borderColor: "#000",
+                                    marginTop: 60 * s,
+                                    marginLeft: 'auto',
+                                    marginRight: "auto",
+                                    borderRadius: 15,
+                                    flexDirection: "column",
+                                    flexWrap: "wrap",
+                                    backgroundColor: "rgba(255,192,203,.2)"
+                                }}>
+                                   {/* <View style={{
+                                       position:"absolute",
+                                       left:85*s,
+                                       top:160*s,
+                                       zIndex:100
+                                   }}>
+                                        <Text style={styles.nullcontent}>点击右上角来纪念吧~</Text>
+                                    </View> */}
+                                    <TouchableOpacity onPress={this.playMusic1.bind(this, item.id)}>
+                                        <Animated.Image source={{ uri: item.imgurl }}
+                                            style={{
+                                                width: 0.70 * width,
+                                                height: 0.70 * width,
+                                                borderRadius: 200,
+                                                marginTop: 44 * s,
+                                                marginLeft: 55 * s,
+                                                marginRight: 10 * s,
+                                                transform: [
+                                                    //将初始化值绑定到动画目标的style属性上
+                                                    { scale: this.state.bounceValue },
+                                                    //使用interpolate插值函数,实现了从数值单位的映
+                                                    //射转换,上面角度从0到1，这里把它变成0-360的变化
+                                                    {
+                                                        rotateZ: this.state.rotateValue.interpolate({
+                                                            inputRange: [0, 1],
+                                                            outputRange: ['0deg', a],
+                                                        })
+                                                    },
+                                                ]
+                                            }}>
+                                           
+                                        </Animated.Image>
+                                    </TouchableOpacity>
+                                               
+                                    <TouchableOpacity activeOpacity={1} onPress={() => Actions.souvenir({ data: item })}>
+                                        <View
+                                            style={{
+                                                height: 280 * s,
+                                                width: 0.8 * width,
+                                                marginLeft:30*s,
+                                                marginTop:6*s,
+                                                flexDirection: "column",
+                                                // backgroundColor:"red"
+                                            }}
+                                        >
+                                            <Text
+                                                style={{
+                                                    fontSize: 30 * s,
+                                                    textAlign: "center",
+                                                    marginTop: 35 * s,
+                                                    marginBottom: 10 * s
+                                                }}
 
+                                            >{item.name ? (item.name.length >= 7 ? item.name.substr(0, 7) + "..." : item.name) : ""}</Text>
+                                            <Text
+                                                style={{
+                                                    fontSize: 20 * s,
+                                                    textAlign: "center",
+                                                    marginBottom: 50 * s
+                                                }}
+                                            >{item.date.split("T")[0]}</Text>
+                                            <Text
+                                                style={{
+                                                    fontSize: 35 * s,
+                                                    textAlign: "center",
+                                                    color: "#FF1744"
+                                                }}
+                                            >{this.newStar(item.mood)}</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <Video
+                                                source={{ uri: item.voiceurl }}
+                                                ref={(ref) => {
+                                                    this.player = ref
+                                                }}
+                                                paused={!item.paused}
+                                                repeat={true}
+                                                volume={1.0}
+                                                playInBackground={true}
+                                            />
+                                </View>
+                            
+                            </TouchableWithoutFeedback>
+                        )
+                    }}
+                />
+                    }
                 </WingBlank>
             </View>
         )
@@ -316,5 +467,18 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: "#C0C0C0"
         // "
+    },
+    nullcontent:{
+        // color:`${textcolor}`,
+        height: 0.08*height, 
+        width: 0.6*width,
+        textAlign:'center',
+        textAlignVertical:'center',
+        marginLeft:'auto',
+        marginRight:'auto',
+        marginTop:0.05*height,
+        // padding:0.01*width,
+        fontSize:25*s,
+        backgroundColor:'rgba(255,255,255,0.3)'
     },
 })

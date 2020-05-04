@@ -8,7 +8,8 @@ import {
     FlatList,
     Image,
     ScrollView,
-    Modal
+    Modal,
+    Alert
 } from 'react-native'
 import { 
     WingBlank,
@@ -21,6 +22,7 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Ionicons'
 
 import { Actions } from 'react-native-router-flux';
+import {myFetch} from '../../src/utils'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 
@@ -29,134 +31,65 @@ export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
+            cid:'',
             currentitem:'',
             visible:false,
             enableScrollViewScroll: true,
             listcolor:'#FFBF2D',
             chartcolor:'#bdbbb8',
-            lists:[
-                {
-                    stage:'小学',
-                    date:'Wed Apr 15 2020 17:19:31 GMT+0800',
-                    records:[
-                        {
-                            subject:'语文',
-                            score:100,
-                        },
-                        {
-                            subject:'数学',
-                            score:100,
-                        },
-                        {
-                            subject:'英语',
-                            score:100,
-                        },
-                    ]
-                },
-                {
-                    stage:'初中',
-                    date:'Wed Apr 15 2020 17:19:31 GMT+0800',
-                    records:[
-                        {
-                            subject:'语文',
-                            score:100,
-                        },
-                        {
-                            subject:'数学',
-                            score:100,
-                        },
-                        {
-                            subject:'英语',
-                            score:100,
-                        },
-                        {
-                            subject:'物理',
-                            score:100,
-                        },
-                        {
-                            subject:'化学',
-                            score:100,
-                        },
-                        {
-                            subject:'生物',
-                            score:100,
-                        },
-                        {
-                            subject:'历史',
-                            score:100,
-                        },
-                        {
-                            subject:'地理',
-                            score:100,
-                        },
-                        {
-                            subject:'政治',
-                            score:100,
-                        },
-                    ]
-                },
-                {
-                    stage:'高中',
-                    date:'Wed Apr 15 2020 17:19:31 GMT+0800',
-                    records:[
-                        {
-                            subject:'语文',
-                            score:100,
-                        },
-                        {
-                            subject:'数学',
-                            score:100,
-                        },
-                        {
-                            subject:'英语',
-                            score:100,
-                        },
-                        {
-                            subject:'物理',
-                            score:100,
-                        },
-                        {
-                            subject:'化学',
-                            score:100,
-                        },
-                        {
-                            subject:'生物',
-                            score:100,
-                        },
-                    ]
-                },
-                {
-                    stage:'高中',
-                    date:'Wed Apr 15 2020 17:19:31 GMT+0800',
-                    records:[
-                        {
-                            subject:'语文',
-                            score:100,
-                        },
-                        {
-                            subject:'数学',
-                            score:100,
-                        },
-                        {
-                            subject:'英语',
-                            score:100,
-                        },
-                        {
-                            subject:'物理',
-                            score:100,
-                        },
-                        {
-                            subject:'化学',
-                            score:100,
-                        },
-                        {
-                            subject:'生物',
-                            score:100,
-                        },
-                    ]
-                },
-            ]
+            lists:[]
         }
+    }
+    componentDidMount(){
+        console.log(this.props.cid)
+        this.setState({
+            cid:this.props.cid
+        })
+        myFetch.get('/child/cstudy',{
+            cid:this.props.cid
+        }).then(res=>{
+            console.log('成绩：')
+            console.log(res)
+            var list=[];
+            if(res){
+                this.setState({
+                    lists:res
+                })
+            }else{
+                this.setState({
+                    lists:[]
+                })
+            }
+        })
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            lists:nextProps.data
+        })
+    }
+    rmStudy = (e)=>{
+        Alert.alert('提示', '确定要删除吗？',
+            [
+                { text: "确定", onPress: ()=>{
+                    myFetch.get('/child/cstudy/dchildScore',{
+                        cid:this.state.cid,
+                        id:e.id
+                    }).then(res=>{
+                        console.log('删除记录')
+                        console.log(res.data)
+                        this.setState({
+                            lists:res.data
+                        })
+                        ToastAndroid.showWithGravityAndOffset(
+                        res.msg,
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-100)
+                    })
+                } },
+                { text: "返回", onPress: this.opntion2Selected },
+            ]
+        )
     }
     render() {
         const tabs = [
@@ -290,7 +223,7 @@ export default class Cdairy extends Component {
                         onPress={()=>Actions.pop()}
                     />
                     <Text style={styles.title}>学业记录</Text>
-                    <TouchableOpacity onPress={()=>Actions.ccstudy()}>
+                    <TouchableOpacity onPress={()=>Actions.ccstudy({cid:this.state.cid})}>
                         <Icon3 style={styles.icon}  name='md-add'/>
                     </TouchableOpacity>
                 </View>
@@ -317,82 +250,98 @@ export default class Cdairy extends Component {
                             }
                         }}
                     >
-                        <View
-                            onStartShouldSetResponderCapture={() => {
-                                this.setState({ enableScrollViewScroll: true });
-                            }} 
-                            style={styles.tabbox}>
-                            <ScrollView 
-                                showsVerticalScrollIndicator={false}
-                                scrollEnabled={this.state.enableScrollViewScroll}
-                                ref={myScroll => (this._myScroll = myScroll)}
-                                style={styles.listbox}
-                            >
-                                {
-                                    this.state.lists&&this.state.lists.map((item,idx)=>{
-                                        var iconlists=[];
-                                        if(item.stage == '小学'){
-                                            iconlists = primary;
-                                        }else if(item.stage == '初中'){
-                                            iconlists = junior;
-                                        }else{
-                                            iconlists = senior;
-                                        }
-                                        return <View style={styles.listblock}>
-                                            <Text style={styles.listtime}>{ moment(item.date).format("YYYY年MM月DD日  HH:mm:ss")}</Text>
-                                            <Text style={styles.liststage}>{item.stage}</Text>
-                                            <View 
-                                                style={styles.recordsbox}
-                                                onStartShouldSetResponderCapture={() => {
-                                                    this.setState({ enableScrollViewScroll: false });
-                                                    if (this._myScroll.contentOffset === 0
-                                                        && this.state.enableScrollViewScroll === false) {
-                                                        this.setState({ enableScrollViewScroll: true });
-                                                    }
-                                                }}>
-                                                <TouchableOpacity 
-                                                    onPress={()=>{
-                                                        this.setState({
-                                                            visible:true,
-                                                            currentitem:item
-                                                        })
-                                                    }}
-                                                >
-                                                    <FlatList
-                                                        // style={styles.recordsbox}
-                                                        data={item.records}
-                                                        numColumns={1}
-                                                        ListFooterComponent={
-                                                            <View style={{
-                                                                height:0.01*height
-                                                            }}>
-                                                            </View>
+                        {
+                            this.state.lists[0]
+                            ?<View
+                                onStartShouldSetResponderCapture={() => {
+                                    this.setState({ enableScrollViewScroll: true });
+                                }} 
+                                style={styles.tabbox}>
+                                <ScrollView 
+                                    showsVerticalScrollIndicator={false}
+                                    scrollEnabled={this.state.enableScrollViewScroll}
+                                    ref={myScroll => (this._myScroll = myScroll)}
+                                    style={styles.listbox}
+                                >
+                                    {
+                                        this.state.lists&&this.state.lists.map((item,idx)=>{
+                                            var iconlists=[];
+                                            if(item.stage == '小学'){
+                                                iconlists = primary;
+                                            }else if(item.stage == '初中'){
+                                                iconlists = junior;
+                                            }else{
+                                                iconlists = senior;
+                                            }
+                                            return <View style={styles.listblock}>
+                                                <View style={styles.listtitle}>
+                                                    <Text style={styles.listtime}>{ moment(item.setdate).format("YYYY年MM月DD日  HH:mm:ss")}</Text>
+                                                    <TouchableOpacity onPress={()=>this.rmStudy(item)}>
+                                                        <Icon3 color='#333' style={styles.listtitleicon} name='ios-trash'/>
+                                                    </TouchableOpacity>
+                                                </View>              
+                                                <Text style={styles.liststage}>{item.stage}</Text>
+                                                <View 
+                                                    style={styles.recordsbox}
+                                                    onStartShouldSetResponderCapture={() => {
+                                                        this.setState({ enableScrollViewScroll: false });
+                                                        if (this._myScroll.contentOffset === 0
+                                                            && this.state.enableScrollViewScroll === false) {
+                                                            this.setState({ enableScrollViewScroll: true });
                                                         }
-                                                        renderItem={({item})=>{
-                                                            var icon='';
-                                                            for(var i in iconlists){
-                                                                if(item.subject == iconlists[i].subject){
-                                                                    icon = iconlists[i].icon
-                                                                }
-                                                            }
-                                                            return <View style={styles.listline}>
-                                                                <Image
-                                                                resizeMode="contain" 
-                                                                style={styles.listlineicon} 
-                                                                source={icon}/>
-                                                                <Text style={styles.listlinetitle}>{item.subject}</Text>
-                                                                <Text style={styles.listlinetext}>{item.score}分</Text>
-                                                            </View>
+                                                    }}>
+                                                    <TouchableOpacity 
+                                                        onPress={()=>{
+                                                            this.setState({
+                                                                visible:true,
+                                                                currentitem:item
+                                                            })
                                                         }}
-                                                    />  
-                                                </TouchableOpacity>
+                                                    >
+                                                        <FlatList
+                                                            // style={styles.recordsbox}
+                                                            data={item.cont}
+                                                            numColumns={1}
+                                                            ListFooterComponent={
+                                                                <View style={{
+                                                                    height:0.01*height
+                                                                }}>
+                                                                </View>
+                                                            }
+                                                            renderItem={({item})=>{
+                                                                var icon='';
+                                                                for(var i in iconlists){
+                                                                    if(item.subject == iconlists[i].subject){
+                                                                        icon = iconlists[i].icon
+                                                                    }
+                                                                }
+                                                                return <View style={styles.listline}>
+                                                                    <Image
+                                                                    resizeMode="contain" 
+                                                                    style={styles.listlineicon} 
+                                                                    source={icon}/>
+                                                                    <Text style={styles.listlinetitle}>{item.subject}</Text>
+                                                                    <Text style={styles.listlinetext}>{isNaN(item.score)?0:item.score}分</Text>
+                                                                </View>
+                                                            }}
+                                                        />  
+                                                    </TouchableOpacity>
+                                                </View>
                                             </View>
-                                        </View>
-                                    })
-                                }
-                            </ScrollView>
-                            
-                        </View>
+                                        })
+                                    }
+                                </ScrollView>
+                            </View>
+                            :<View>
+                                <Text style={styles.nulltext}>还没有学业记录哦</Text>
+                                <View style={styles.nullline}>
+                                    <TouchableOpacity>
+                                        <Icon1 size={50} color='#333' style={styles.nullicon} name='corner-right-up'/>
+                                    </TouchableOpacity>
+                                    <Text style={styles.nullcontent}>点击右上角 记录孩子的每一次进步</Text>
+                                </View>
+                            </View>
+                        }
                         <View style={styles.tabbox}>
                             <Text>学业曲线</Text>
                         </View>
@@ -420,7 +369,7 @@ export default class Cdairy extends Component {
                             <View style={styles.currentitem}>
                                 <Text style={styles.currenttitle}>{currenttitle}</Text>
                                 <FlatList
-                                    data={currentitem.records}
+                                    data={currentitem.cont}
                                     numColumns={1}
                                     ListFooterComponent={
                                         <View style={{
@@ -531,12 +480,22 @@ const styles = StyleSheet.create({
         transform:[{scale:0.95}],
         justifyContent:'center',
     },
-    listtime:{
-        // backgroundColor:'#ccc',
+    listtitle:{
         width:0.8*width,
-        height:0.03*height,
         marginLeft:'auto',
         marginRight:'auto',
+        height:0.03*height,
+        flexDirection:'row'
+    },
+    listtime:{
+        width:0.7*width,
+        height:0.03*height,
+    },
+    listtitleicon:{
+        width:0.1*width,
+        height:0.03*height,
+        fontSize:40*s,
+        textAlign:'right',
     },
     liststage:{
         // backgroundColor:'#ccc',
@@ -585,7 +544,7 @@ const styles = StyleSheet.create({
     listlinetext:{
         textAlign:'center',
         textAlignVertical:'center',
-        width:0.1*width,
+        width:0.2*width,
         // backgroundColor:"#ccc",
         fontSize:23*s,
         color:'#555',
@@ -610,6 +569,49 @@ const styles = StyleSheet.create({
         fontSize:30*s,
         borderRadius:10,
         marginBottom:0.03*height
+    },
+    nulltext:{
+        width:0.55*width,
+        height:0.05*height,
+        fontSize:23*s,
+        letterSpacing:1,
+        color:'#333',
+        backgroundColor:'rgba(221, 221, 221,0.2)',
+        marginLeft:'auto',
+        marginRight:'auto',
+        textAlign:'center',
+        textAlignVertical:'center',
+        marginTop:0.03*height
+    },
+    nullline:{
+        width:0.8*width,
+        marginLeft:'auto',
+        marginRight:'auto',
+        height:0.2*height,
+        marginTop:0.03*height,
+        backgroundColor:'rgba(205,205,205,0.2)'
+    },
+    nullicon:{
+        width:0.08*height,
+        height:0.08*height,
+        marginTop:-0.05*height,
+        textAlignVertical:'center',
+        marginLeft:0.7*width,
+        textAlign:'center',
+        backgroundColor:'rgba(255,255,255,0.3)'
+    },
+    nullcontent:{
+        color:'#333',
+        height: 0.08*height, 
+        width: 0.7*width,
+        textAlign:'center',
+        textAlignVertical:'center',
+        marginLeft:'auto',
+        marginRight:'auto',
+        marginTop:0.02*height,
+        // padding:0.01*width,
+        fontSize:25*s,
+        backgroundColor:'rgba(255,255,255,0.3)'
     },
     chartbox:{
         width:0.86*width,

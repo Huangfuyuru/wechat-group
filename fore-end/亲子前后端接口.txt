@@ -29,6 +29,31 @@
             接口地址：http://148.70.223.218:3001/child/cstudy/dchildScore?id=&cid=
             请求数据：文章id 亲子cid
             返回数据：该亲子创建的所有成绩内容 id,cot{stage,subject},score,setdate,cid "
+
+   亲子日记修改:
+        接口地址：http://148.70.223.218:3001/child/cdiary/change
+        method:post       
+        提交数据：backcolor,content,imgurl,setdate,bgimg,weather,id,childsid(为了返回所有数据)
+        返回数据：message = {msg:'修改失败',code:1,data:所有该亲子日记的数据}  message={msg:'修改成功',code:0,data:所有该亲子日记的数据}
+
+   亲子大事记修改:
+        接口地址：http://148.70.223.218:3001/child/cevent/change
+        method:post       
+        提交数据：imgurl,item,name,content,setdate,date,id,cid(为了返回所有数据)
+        返回数据：message = {msg:'修改失败',code:1,data:所有该亲子大事的数据}  message={msg:'修改成功',code:0,data:所有该亲子大事的数据}
+
+ 亲子成长记录修改:
+        接口地址：http://148.70.223.218:3001/child/cgrow/change
+        method:post       
+        提交数据：weight,length,age,setdate,unit,id,cid(为了返回所有数据)
+        返回数据：message = {msg:'修改失败',code:1,data:所有该亲子大事的数据}  message={msg:'修改成功',code:0,data:所有该亲子大事的数据}
+
+亲子学业记录修改:
+        接口地址：http://148.70.223.218:3001/child/cstudy/change
+        method:post       
+        提交数据：stage,subject,score,setdate,id,cid(为了返回所有数据)
+        返回数据：message = {msg:'修改失败',code:1,data:所有该亲子大事的数据}  message={msg:'修改成功',code:0,data:所有该亲子大事的数据}
+
 	
       
 

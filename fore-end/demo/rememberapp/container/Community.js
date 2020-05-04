@@ -13,19 +13,26 @@ import {
     ImageBackground,
     DrawerLayoutAndroid
 } from 'react-native'
+import { 
+    Flex, 
+    WingBlank,
+    Icon, 
+    SearchBar, 
+    TabBar,
+    Tabs
+} from '@ant-design/react-native'
 import {
     Actions
 } from 'react-native-router-flux'
-import { Flex, WingBlank } from '@ant-design/react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
+import Icon2 from 'react-native-vector-icons/Ionicons'
 import ImagePicker from 'react-native-image-picker'
 // import ImagePicker from 'react-native-image-crop-picker'
 const { width, scale, height } = Dimensions.get('window');
-const s = width / 411;
-const s1 = width / 640;
+const s = width / 640;
 const h = height / 1012;
 const image = 'http://img.zcool.cn/community/019de45c32c171a80121df90bbe9ca.jpg@1280w_1l_2o_100sh.jpg'
-export default class Lover extends Component {
+export default class Community extends Component {
     constructor(props){
         super(props);
         // var uid = JSON.parse(localStorage.getItem('uid'));
@@ -33,7 +40,7 @@ export default class Lover extends Component {
         }
     }
     componentDidMount(){
-        console.log('state'+this.state.times+'第一次加载');
+        console.log('社区第一次加载');
        
     }
     componentDidUpdate(prevProps,prevState){
@@ -41,6 +48,7 @@ export default class Lover extends Component {
     
     }
     render() {
+        const tabs = [{ title: '关注'},{ title: '推荐'}];
         return (
             <View style={{ 
                 width: width, 
@@ -50,15 +58,56 @@ export default class Lover extends Component {
                 <StatusBar 
                     backgroundColor='#FFBF2D'
                 />
-                <View style={styles.navbar}>
-                    <Icon1 style={styles.icon}/>
-                    <Text style={styles.title}
-                    >社区</Text>
-                    <TouchableOpacity onPress={this.compile}>
-                        <Icon1 style={styles.icon} name='more-horizontal'/>
-                    </TouchableOpacity>
-                </View>
-               
+                <Tabs
+                renderUnderline={() =>null}
+                // tabBarUnderlineStyle={{borderColor:'#000'}}
+                styles={{
+                    topTabBarSplitLine: {
+                        borderBottomWidth: 0,
+                    },
+                }}
+                tabs={tabs}
+                renderTabBar={tabProps => (
+                    <View style={styles.navbar}>
+                        <Text style={styles.title}></Text>
+                        {tabProps.tabs.map((tab, i) => (
+                            <TouchableOpacity
+                            key={tab.key || i}
+                            onPress={() => {
+                                const { goToTab, onTabClick } = tabProps;
+                                onTabClick && onTabClick(tabs[i], i);
+                                goToTab && goToTab(i);
+                            }}
+                            >
+                                <Text
+                                    style={{
+                                        height:0.055*height,
+                                        textAlign:'center',
+                                        textAlignVertical:'center',
+                                        width:0.15*width,
+                                        fontSize:tabProps.activeTab === i ? 28*s : 24*s,
+                                        // backgroundColor:'#ccc',
+                                        fontWeight: tabProps.activeTab === i ? 'bold' : 'normal',
+                                        color: tabProps.activeTab === i ? '#FFBF2D' : 'rgba(0,0,0,0.6)',
+                                    }}
+                                >
+                                    {tab.title}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
+                        <TouchableOpacity onPress={()=>Actions.tsearch()}>
+                            <Icon2 style={styles.icon} name='ios-search'/>
+                        </TouchableOpacity>
+                    </View>
+                )}
+                >
+                    <WingBlank style={styles.wingblank}>
+
+                    </WingBlank>
+                    {/* <View style={styles.tabbox}>
+                        
+                    </View> */}
+                </Tabs>
             </View>
         )
     }
@@ -66,96 +115,43 @@ export default class Lover extends Component {
 const styles = StyleSheet.create({
     navbar:{
         width:width,
-        height:65*s1,
-        backgroundColor:'#FFBF2D',
+        height:0.07*height,
+        // backgroundColor:'#FFBF2D',
+        backgroundColor:'#fff',
         flexDirection: 'row',
-        paddingTop:'1%',
+        paddingTop:0.015*height,
         justifyContent:"center",
         paddingRight: 0.03 * width,
         paddingLeft: 0.03 * width,
-
     },
     icon: {
         width: 0.08 * width,
-        color: '#fff',
+        marginLeft:0.22*width,
+        marginRight:0.02*width,
+        color: '#333',
         fontSize: 30,
+        textAlign:'center',
+        textAlignVertical:'center',
     },
     title: {
+        width: 0.32 * width,
         fontWeight: 'bold',
         fontSize: 20,
         letterSpacing: 3,
         color: "#ffff",
-        marginLeft: 'auto',
-        marginRight: "auto",
-        textAlign: 'center',
     },
-    icon:{
-        width:0.08*width,
-        color:'#fff',
-        fontSize:30,
-    },
-    lover_first: {
-        textAlign: "center",
-        height: 0.33*height,
-        width: width,
-        alignItems:'center'
-    },
-    bgbtn:{
-        color: '#000',
-        width:0.8*width,
-        letterSpacing:3,
-        height:0.05*height,
-        backgroundColor: 'rgba(255,191,45,0.2)',
-        textAlignVertical:'center',
+    wingblank:{
+        height:0.8*height,
         marginTop:0.01*height,
-        color:'#fff',
-        fontSize:23*s1,
-        marginLeft:'auto',
-        marginRight:'auto',
-        textAlign:'center',
-        borderRadius:5
-        // backgroundColor: 'rgba(255,255,255,0.3)',
-
+        justifyContent:'center',
+        // backgroundColor:'#FFBF2D',
+        backgroundColor:'rgba(250,250,250,1)'
     },
-    lover_second: {
-        marginBottom:15,
-        width:'100%',
-        height: 140*h,
-        flexDirection: "column",
-        justifyContent: "center",
-        marginLeft:'auto',
-        marginRight:'auto'
+    tabbox:{
+        // alignItems: 'center',
+        // height: 0.8*height,
+        // backgroundColor:'#ccc',
+        // paddingTop:0.02*height,
+        // paddingBottom:0.03*height,
     },
-    btn: {
-        padding:0,
-        height: 55*h,
-        width: "31%",
-        marginLeft: 5,
-        marginRight: 5,
-        marginTop: 10,
-        backgroundColor: '#FFBF2D',
-        borderRadius: 5,
-    },
-    blockbtn:{ 
-        textAlign: "center", 
-        fontSize: 20,
-        textAlignVertical:'center', 
-        lineHeight: 55*h, 
-        color: "#fff" 
-    },
-    scrollView: {
-        backgroundColor: '#fff',
-        paddingLeft:10,
-        paddingTop:5,
-        paddingRight:10,
-        marginBottom:60,
-    },
-    child_third: {
-        marginTop:15*h
-    },
-    line:{
-        flexDirection: 'row',
-        justifyContent:'space-between',
-        backgroundColor: "#fff",
-    }
 })

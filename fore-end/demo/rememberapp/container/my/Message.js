@@ -38,26 +38,6 @@ export default class Message extends Component {
                     sex: "女",
                     birth:"1999年12月22日"
                 },
-                // {
-                //     name: "旺旺",
-                //     sex: "男",
-                //     birth:"2008年5月4日"
-                // },
-                // {
-                //     name: "皮卡丘",
-                //     sex: "男",
-                //     birth:"1996年7月1日"
-                // },
-                // {
-                //     name: "喵喵",
-                //     sex: "女",
-                //     birth:"2002年1月1日"
-                // },
-                // {
-                //     name: "皮卡丘",
-                //     sex: "男",
-                //     birth:"1996年7月1日"
-                // },
             ]
         }
     }
@@ -95,9 +75,6 @@ export default class Message extends Component {
                         onPress={()=>Actions.pop()}
                     />
                     <Text style={styles.title}>亲子详情</Text>
-                    {/* <TouchableOpacity onPress={()=>Actions.Mmchilds()}>
-                        <Icon2 style={styles.icon}  name='md-add'/>
-                    </TouchableOpacity> */}
                 </View>
                 <WingBlank style={styles.wingblank}>
                     <FlatList

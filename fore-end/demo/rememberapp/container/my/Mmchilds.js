@@ -23,43 +23,78 @@ import Icon1 from 'react-native-vector-icons/SimpleLineIcons'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Feather'
 import Icon4 from 'react-native-vector-icons/FontAwesome'
+//引入组件
+import {myFetch} from '../../src/utils'
 const { width, scale, height } = Dimensions.get('window');
 const s1 = width / 640;
 const s = width / 640;
 const h = height / 1012;
+var FirstData = [
+    '女',
+    '男',
+]
 export default class Mmchilds extends Component {
     constructor(){
         super();
+        // var uid=AsyncStorage.getItem('uid');
         this.state={
-            sex:'女',
+            firstValue:  FirstData[0],
+            // sex:'女',
+            name :'',
+            birthday:'',
+            lists:[],
+            uid:'',
+            code:1
         }
     }
+    updateFirstValue(language) {
+        this.setState({
+            firstValue: language,
+            
+        })
+    }
+    renderPicker(key) {
+        return <Picker.Item label={key} value={key} />
+    }
     additem=()=>{
-        ToastAndroid.showWithGravityAndOffset(
-            '创建成功！',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,-200)
-        setTimeout(() => {
-            Actions.pop() 
-        }, 3000);
-    }
-    inputChange1=(e)=>{
-        var a=e.target.value;
+    console.log('提交亲子');
+    AsyncStorage.getItem('user').
+    then((res)=>{
+        var user = JSON.parse(res)
         this.setState({
-            name:a
+            uid:user.id,
         })
-    }
-    inputChange2=(e)=>{
-        var a=e.target.value;
-        this.setState({
-            birthday:a
-        })
-    }
-    inputChange3=(e)=>{
-        var a=e.target.value;
-        this.setState({
-            gender:a
+        myFetch.post('/my/addchild',{
+            name:this.state.name,
+            birthday:this.state.birthday,
+            gender:this.state.firstValue,
+            uid:user.id,
+        }).then(
+            res=>{
+                if(res.code == 0){
+                    console.log('这是code'+res.code);
+                    this.setState({
+                        code:res.code
+                    })
+                    ToastAndroid.showWithGravityAndOffset(
+                        '创建成功！',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER,
+                    25,-200)
+                    setTimeout(() => {
+                        Actions.pop() 
+                    }, 3000);
+                }
+                else{
+                    ToastAndroid.showWithGravityAndOffset(
+                        '修改失败！',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER,
+                    25,-200)
+                    console.log('这是code'+res.code);
+                }
+            }   
+            )
         })
     }
     render() {
@@ -86,15 +121,12 @@ export default class Mmchilds extends Component {
                             <Text style={styles.text}>
                                 <Icon3 style={styles.listlineicon} name='users'/> 性别</Text>
                             <Text style={styles.input}>
-                                <Picker
-                                    selectedValue={this.state.ageunit}
-                                    mode='dropdown'
+                                <Picker 
                                     style={{width:0.11*width}}
-                                    onValueChange={(itemValue, itemIndex) =>
-                                        this.setState({ageunit: itemValue})
-                                    }>
-                                    <Picker.Item label="男" value="男" />
-                                    <Picker.Item label="女" value="女" />
+                                    mode='dropdown'
+                                    selectedValue={this.state.firstValue}
+                                    onValueChange={(language) => this.updateFirstValue(language)}>
+                                    {FirstData.map((key) => this.renderPicker(key))}
                                 </Picker>
                             </Text>
                         </View>
@@ -102,10 +134,12 @@ export default class Mmchilds extends Component {
                             <Text style={styles.text}>
                                 <Icon4 style={styles.listlineicon} name='heart'/> 昵称</Text>
                             <TextInput
-                                maxLength={3}
+                                maxLength={6}
+                                selectTextOnFocus = {true}
+                                onChangeText={(text) => { this.state.name = text }}
                                 onFocus={()=>{
                                     ToastAndroid.showWithGravityAndOffset(
-                                        '请保证昵称不多于10个字！',
+                                        '请保证昵称不多于6个字！',
                                     ToastAndroid.SHORT,
                                     ToastAndroid.TOP,
                                     25,100)
@@ -118,6 +152,8 @@ export default class Mmchilds extends Component {
                                 生日</Text>
                             <TextInput
                                 maxLength={15}
+                                selectTextOnFocus = {true}
+                                onChangeText={(text) => { this.state.birthday = text }}
                                 style={styles.input}/>
                         </View>
                     </View>

@@ -12,6 +12,7 @@ import {
     ToastAndroid,
     ScrollView
 } from 'react-native'
+import moment from 'moment'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/MaterialIcons'
@@ -19,46 +20,63 @@ import Icon4 from 'react-native-vector-icons/Entypo'
 import Icon5 from 'react-native-vector-icons/Foundation'
 import Icon6 from 'react-native-vector-icons/Fontisto'
 import { Actions } from 'react-native-router-flux';
+import {myFetch} from '../../../src/utils'
 import { WingBlank } from '@ant-design/react-native';
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
-export default class Cdairy extends Component {
+const image = "https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg"
+export default class Lcreate_note extends Component {
     constructor(props){
         super(props);
         this.state={
-            // refresh:true,
-            chooselist:'',
+            loverid:'',
+            chooselist:[],
             listicon:'',
             bgcolor:'#ffffaa',
-            weather:'',
-            bgimg:'',
-            // bgimg:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
-            lists:[
-                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
-                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
-                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
-                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
-                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
-                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
-                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
-                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
-                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
-                'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'],
+            weather:'day-sunny',
+            bgimg:'#',
+            context:'',
+            // bgimg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg',
+            lists:[],
             code:''
         }
     }
-    choosebgimg = ()=>{
-
+    componentDidMount(){
+        this.setState({
+            loverid:this.props.loverid
+        })
     }
     savedairy = ()=>{
-        ToastAndroid.showWithGravityAndOffset(
-            '保存成功！',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,-200)
-        setTimeout(() => {
-            Actions.pop() 
-        }, 3000);
+        var time = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+        var context = this.state.context;
+        var imgurl = this.state.lists;
+        if(!context){
+            context = '（这是一篇没有文字的日记……）';
+        }
+        if(!imgurl[0]){
+            imgurl=['#','#','#']
+        }
+        myFetch.post('/lover/ldairy/addDairy',{
+             loverid:this.state.loverid,
+             backcolor:this.state.bgcolor,
+             content:context,
+             imgurl:JSON.stringify(imgurl),
+             setdate:time,
+             bgimg:this.state.bgimg,
+             weather:this.state.weather
+        }).then(res=>{
+            console.log("增加后日记",res)
+                if(res.code == 0){
+                    setTimeout(()=>{
+                        Actions.pop({refresh:({data:res.msg})})
+                    },800)
+                    ToastAndroid.show('创建成功！', ToastAndroid.SHORT);
+
+                }else{
+                    ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+                }
+            }
+        )
     }
     render() {
         const darkbg= [
@@ -144,7 +162,6 @@ export default class Cdairy extends Component {
                                 <Text style={styles.btntext}>天气</Text>
                             </TouchableOpacity>
                         </View>
-                            {/* <Text>{this.state.chooselist.toString()}</Text> */}
                         <FlatList
                             style={{
                                 borderColor:'rgba(204,204,204,0.2)',
@@ -156,9 +173,11 @@ export default class Cdairy extends Component {
                             extraData={this.state}
                             data={this.state.chooselist}
                             horizontal = {true}
-                            renderItem={({item})=>(
-                                <TouchableOpacity 
+                            renderItem={({item,idx})=>(
+                                <TouchableOpacity
+                                    key={idx}
                                     onPress={()=>{
+                                        console.log(idx)
                                         if(item.name == 'rectangle'){
                                             this.setState({
                                                 bgcolor:item.color
@@ -222,6 +241,7 @@ export default class Cdairy extends Component {
                                     padding:0.03*width,
                                     color:`${textcolor}`
                                 }}
+                                onChangeText={text=>{this.setState({context:text})}}
                                 placeholder="日记内容"
                                 multiline={true}
                             />

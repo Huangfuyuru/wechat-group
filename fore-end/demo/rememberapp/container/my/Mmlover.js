@@ -24,39 +24,71 @@ import Button from 'react-native-button';
 const { width, scale, height } = Dimensions.get('window');
 const s1 = width / 640;
 const h = height / 1012;
+var FirstData = [
+    '女',
+    '男',
+]
+//引入组件
+import {myFetch} from '../../src/utils'
+
 export default class Mmlover extends Component {
     constructor(){
         super();
         this.state={
+            firstValue:  FirstData[0],
             sex:'女',
+            name:'',
+            calendar:'',
+            uid:'',
+            code:1
         }
     }
+    updateFirstValue(language) {
+        this.setState({
+            firstValue: language,
+        })
+    }
+    renderPicker(key) {
+        return <Picker.Item label={key} value={key} />
+    }
     additem=()=>{
-        ToastAndroid.showWithGravityAndOffset(
-            '创建成功！',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,-200)
-        setTimeout(() => {
-            Actions.pop() 
-        }, 3000);
-    }
-        inputChange1=(e)=>{
-        var a=e.target.value;
-        this.setState({
-            name:a
-        })
-    }
-    inputChange2=(e)=>{
-        var a=e.target.value;
-        this.setState({
-            birthday:a
-        })
-    }
-    inputChange3=(e)=>{
-        var a=e.target.value;
-        this.setState({
-            gender:a
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            this.setState({
+                uid:user.id,
+            })
+            myFetch.post('/my/addlover',{
+                name:this.state.name,
+                ldate:this.state.calendar,
+                gender:this.state.firstValue,
+                uid:user.id,
+            }).then(
+                res=>{
+                    if(res.code == 0){
+                        console.log('这是code'+res.code);
+                        this.setState({
+                            code:res.code
+                        })
+                        ToastAndroid.showWithGravityAndOffset(
+                            '创建成功！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-200)
+                        setTimeout(() => {
+                            Actions.pop() 
+                        }, 3000);
+                    }
+                    else{
+                        ToastAndroid.showWithGravityAndOffset(
+                            '修改失败！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-200)
+                        console.log('这是code'+res.code);
+                    }
+                }   
+            )
         })
     }
     render() {
@@ -84,26 +116,25 @@ export default class Mmlover extends Component {
                             <Text style={styles.text}>
                                 <Icon2 style={styles.listlineicon} name='users'/> 性别</Text>
                             <Text style={styles.input}>
-                                <Picker
-                                    selectedValue={this.state.ageunit}
-                                    mode='dropdown'
-                                    style={{width:0.11*width}}
-                                    onValueChange={(itemValue, itemIndex) =>
-                                        this.setState({ageunit: itemValue})
-                                    }>
-                                    <Picker.Item label="男" value="男" />
-                                    <Picker.Item label="女" value="女" />
-                                </Picker>
+                            <Picker 
+                                style={{width:0.11*width}}
+                                mode='dropdown'
+                                selectedValue={this.state.firstValue}
+                                onValueChange={(language) => this.updateFirstValue(language)}>
+                                {FirstData.map((key) => this.renderPicker(key))}
+                            </Picker>
                             </Text>
                         </View>
                         <View style={styles.msg}>
                             <Text style={styles.text}>
                                 <Icon4 style={styles.listlineicon} name='heart'/> 昵称</Text>
                             <TextInput
-                                maxLength={3}
+                                maxLength={6}
+                                selectTextOnFocus = {true}
+                                onChangeText={(text) => { this.state.name = text }}
                                 onFocus={()=>{
                                     ToastAndroid.showWithGravityAndOffset(
-                                        '请保证昵称不多于10个字！',
+                                        '请保证昵称不多于6个字！',
                                     ToastAndroid.SHORT,
                                     ToastAndroid.TOP,
                                     25,100)
@@ -114,6 +145,8 @@ export default class Mmlover extends Component {
                             <Text style={styles.text}>
                                 <Icon4 style={styles.listlineicon} name='calendar'/>日期</Text>
                             <TextInput
+                                selectTextOnFocus = {true}
+                                onChangeText={(text) => { this.state.calendar = text}}
                                 placeholder='关系确认日期'
                                 maxLength={15}
                                 style={styles.input}/>

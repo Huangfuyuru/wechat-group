@@ -32,7 +32,9 @@ import Button from 'react-native-button'
 import CheckBox from 'react-native-checkbox'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
-const image = 'http://img.taopic.com/uploads/allimg/111130/500-111130135A160.jpg'
+const image = 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2342845640,3656514420&fm=26&gp=0.jpg'
+// const image = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587984434404&di=bf40c32f66d4044edf58042a728f0bd1&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F3503b3b19c1bc0928766b62de18a5433dad71cf911089-tluSYK_fw658'
+// const image = 'http://img.taopic.com/uploads/allimg/111130/500-111130135A160.jpg'
 export default class Cdairy extends Component {
     constructor(){
         super();
@@ -63,11 +65,8 @@ export default class Cdairy extends Component {
                 })
             }else{
                 this.setState({
-                    lists:res
+                    lists:[]
                 })
-                if(!this.state.lists){
-                    console.log('333')
-                }
             }
         })
     }
@@ -116,7 +115,7 @@ export default class Cdairy extends Component {
         this.setState({
             visible:true,
             currentpicture:item
-        },console.log(this.state.currentpicture))
+        })
     }
     delete=()=>{
         
@@ -214,7 +213,7 @@ export default class Cdairy extends Component {
                 </View>
                 <WingBlank style={styles.wingblank}>
                 {
-                    this.state.lists
+                    this.state.lists[0]
                     ?<FlatList  
                         style={styles.picbox}
                         data={this.state.lists}
@@ -407,7 +406,7 @@ const styles = StyleSheet.create({
     nullicon:{
         width:0.08*height,
         height:0.08*height,
-        marginTop:-0.03*height,
+        marginTop:-0.04*height,
         marginLeft:0.75*width,
         textAlignVertical:'center',
         textAlign:'center',
@@ -421,7 +420,7 @@ const styles = StyleSheet.create({
         width: 0.65*width,
         transform: [{scale:0.9}],
         textAlign:'center',
-        marginBottom:0.15*height,
+        marginTop:0.1*height,
         backgroundColor:'rgba(255,255,255,0.3)',
         textAlignVertical:'center'
     }

@@ -91,6 +91,8 @@ import Use from './container/my/Use'
 
 import T from './components/Tlists'
 import Mychild from './container/my/Mychilds';
+import Tdiscuss from './container/community/Tdiscuss';
+import Tsearch from './container/community/Tsearch';
 const { width, scale } = Dimensions.get('window');
 const s = width / 640;
 console.disableYellowBox = true;
@@ -98,7 +100,7 @@ const App = () => {
 	let now = 0;
 	let [isInstall, setInstall] = useState(true);
 	let init = () => {
-		// AsyncStorage.clear();
+		//AsyncStorage.clear();
 		AsyncStorage.getItem('isInstall')
 			.then(res => {
 				if (!res) {
@@ -313,8 +315,17 @@ const App = () => {
 
 								>
 									<Scene key="community" hideNavBar={true} component={Community} />
+									<Scene 
+										key='tsearch'
+										hideTabBar
+										hideNavBar
+										component={Tsearch} />
+									<Scene 
+										key='tdiscuss'
+										hideTabBar
+										hideNavBar
+										component={Tdiscuss} />
 								</Scene>
-
 								{/* 我的 */}
 								<Scene key='mine'
 									title='个人中心'

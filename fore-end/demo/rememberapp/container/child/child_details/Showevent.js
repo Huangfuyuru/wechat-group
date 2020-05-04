@@ -24,7 +24,7 @@ export default class Cdairy extends Component {
         super();
         this.state={
             visible:false,
-            currentpicture:imgurl,
+            currentpicture:'',
             inner:'',
             data:'',
             bg:''
@@ -37,9 +37,10 @@ export default class Cdairy extends Component {
             bg:this.props.bg
         })
     }
-    enlarge=()=>{
+    enlarge=(item)=>{
         this.setState({
-            visible:true
+            visible:true,
+            currentpicture:item
         })
     }
     render() {
@@ -56,7 +57,7 @@ export default class Cdairy extends Component {
                         name='chevron-left'
                         onPress={()=>Actions.pop()}
                     />
-                    <Text style={styles.title}>{item.tag} {item.name}</Text>
+                    <Text style={styles.title}>{item.item} {item.name}</Text>
                 </View>
                 <WingBlank style={{
                     height:0.86*height,
@@ -81,7 +82,7 @@ export default class Cdairy extends Component {
                         }
                         renderItem={({item})=>(
                             <TouchableOpacity
-                                onPress={this.enlarge}
+                            onPress={()=>this.enlarge(item)}
                                 style={styles.pics}>
                                 <ImageBackground
                                     style={styles.pics}
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
     },
     text:{
         // backgroundColor:'#ccc'
-        fontSize:21*s,
+        fontSize:24*s,
         color:'#333',
         lineHeight:0.03*height,
         letterSpacing:1

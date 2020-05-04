@@ -12,9 +12,9 @@ import {
     TouchableOpacity
 } from 'react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
-import moment from 'moment'
 import Icon2 from 'react-native-vector-icons/FontAwesome'
 import Icon3 from 'react-native-vector-icons/Fontisto'
+import moment from 'moment'
 import { Actions } from 'react-native-router-flux';
 import {myFetch} from '../../../src/utils'
 import { TextInput } from 'react-native-gesture-handler';
@@ -31,60 +31,13 @@ export default class Cdairy extends Component {
             cid:'',
             name:'',
             background:image,
-            lists:[
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:image
-                },
-                
-            ],
+            lists:[],
         }
+    }
+    componentDidMount(){
+        this.setState({
+            cid:this.props.cid
+        })
     }
     setbackground = ()=>{
 
@@ -96,7 +49,6 @@ export default class Cdairy extends Component {
 
     }
     additem = ()=>{
-        console.log(this.props.cid)
         var name = this.state.name;
         var time = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
         var timename = moment(new Date()).format("HH:mm:ss")
@@ -106,19 +58,20 @@ export default class Cdairy extends Component {
             name = '没有名字的相册'+date[0]+date[1]+date[2]
         }
         myFetch.get('/child/cpictures/ccpictures',{
-            childsid:this.props.cid,
+            childsid:this.state.cid,
             name:name,
             background:this.state.background,
             setdate:time
         }).then(res=>{
             console.log(res)
-            this.setState({
-                code:res.code
-            })
-            ToastAndroid.show(res.msg, ToastAndroid.SHORT);
-            setTimeout(()=>{
-                Actions.pop()
-            },1000)
+            if(res.code == 0){
+                ToastAndroid.show(name+'，'+res.msg+'！', ToastAndroid.SHORT);
+                setTimeout(()=>{
+                    Actions.pop({refresh:({data:res.data})})
+                },1000)
+            }else{
+                ToastAndroid.show(name+'，'+res.msg+'！', ToastAndroid.SHORT);
+            }
         })
     }
     render() {
@@ -197,9 +150,10 @@ export default class Cdairy extends Component {
                         }
                         renderItem={({item})=>(
                             <Image
+                                key={item.id}
                                 style={styles.pics}
                                 resizeMode="cover"
-                                source={{uri:`${item.background}`}}
+                                source={{uri:`${item.path}`}}
                             />
                         )}
                         />  

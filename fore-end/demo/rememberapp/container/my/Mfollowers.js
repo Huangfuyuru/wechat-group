@@ -48,7 +48,8 @@ export default class Mfollowers extends Component {
                     bgimg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587617812978&di=6cb77f5505fdb1394b2fa1ad214bc7e7&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201511%2F21%2F20151121170552_v4CWj.jpeg',
                     name:'我宣你啊！'
                 },
-            ]
+            ],
+            attention:'关注Ta'
         }
     }
     alertMsg = () => {
@@ -149,7 +150,7 @@ export default class Mfollowers extends Component {
                                 <Button
                                     onPress={this.alertMsg} 
                                     style={styles.btn}
-                                    >关注Ta</Button>
+                                    >{this.state.attention}</Button>
                             </View>
                         }}
                     />
@@ -181,7 +182,8 @@ const styles = StyleSheet.create({
         textAlign:'center',
         fontSize:20,
         color:'#fff',
-        letterSpacing:3
+        letterSpacing:3,
+        fontWeight:'bold'
     },
     scrollView: {
         backgroundColor: '#fff',

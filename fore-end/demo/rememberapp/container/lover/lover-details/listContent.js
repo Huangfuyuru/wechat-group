@@ -25,7 +25,6 @@ export default class listContent extends Component {
     }
     render() {
         const item=this.state.arr
-        console.log(this.state.arr);
         return (
             <View>
             <View style={styles.navbar}>
@@ -34,8 +33,10 @@ export default class listContent extends Component {
                     name='chevron-left'
                     onPress={() => Actions.pop()}
                 />
-                <Text style={styles.title}>
-                    {item.txt}
+                <Text 
+                style={styles.title}
+                >
+                    {item.name? (item.name.length >= 10 ? item.name.substr(0, 10) + "..." : item.name) : ""}
                 </Text>
             </View>
                 <View style={{
@@ -52,7 +53,7 @@ export default class listContent extends Component {
                      marginRight:"auto",
                     marginLeft:"auto",
                 }}
-                 source={{uri:item.src}}></Image>
+                 source={{uri:item.imgurl}}></Image>
                 <TextInput 
                 multiline={true}
                 editable={false}
@@ -66,47 +67,45 @@ export default class listContent extends Component {
                     height:200*s,
                     color:"#000",
                     textAlignVertical: 'top',
-                }}>今天打卡了砰然心动，青梅竹马，简直不要不要的！
-                简直不要不要的！今天打卡了砰然心动，青梅竹马，简直不要不要的！
+                }}>{item.content}
                 </TextInput>
                 <Text style={{
                      marginLeft:"auto",
                      marginRight:30*s,
                     
                 }}
-                >2020-03-16</Text>
+            >{item.setdate? (item.setdate.length >= 10 ? item.setdate.substr(0, 10) : item.setdate) : ""}</Text>
                 <Text style={{
-                     marginLeft:"auto",
+                      marginLeft:"auto", 
                      marginTop:10*s,
                      marginRight:30*s,
                 }}
-                >北京</Text>
+            >{item.local}</Text>
                 </View>
            </View>
         )
-    }
+    }  
 }
 const styles = StyleSheet.create({
     navbar:{
         width:width,
         height:65*s,
-        // backgroundColor:'white',
         backgroundColor: '#FFBF2D',
         flexDirection: 'row',
-        paddingLeft:0.03*width,
+        paddingLeft:0.02*width,
         paddingTop:'1%',
-        paddingRight:0.03*width,
-        justifyContent:"center",
+        paddingRight:0.1*width,
+        justifyContent:"center"
        
     },
     icon:{
         width:0.08*width,
         color:'#fff',
-        fontSize:28,
+        fontSize:30,
     },
     title: {
-        marginLeft: 'auto',
-        marginRight: "auto",
+        marginLeft:"auto",
+        marginRight:"auto",
         textAlign: 'center',
         fontSize: 20,
         color: '#fff',

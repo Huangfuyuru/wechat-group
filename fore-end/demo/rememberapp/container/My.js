@@ -11,6 +11,8 @@ import {
     Animated,
     ScrollView,
     FlatList,
+    Alert,
+    ToastAndroid,
     ImageBackground,
 } from 'react-native'
 import {
@@ -18,9 +20,13 @@ import {
 } from 'react-native-router-flux'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon3 from 'react-native-vector-icons/Entypo'
+import Icon4 from 'react-native-vector-icons/FontAwesome'
 import { Flex, WingBlank } from '@ant-design/react-native'
 import ImagePicker from 'react-native-image-picker';
 import ImageCropPicker from 'react-native-image-crop-picker';
+
+import {myFetch} from '../src/utils'
 
 const { width, scale, height } = Dimensions.get('window');
 const s1 = width / 640;
@@ -41,7 +47,10 @@ export default class My extends Component {
         for(var i=0; i<10; i++){
             data.push({tit:i,key:i});
         }
+        // }
         this.state = {
+            code:1,
+            uid:'',
             data,
             width: new Animated.Value(20),
             //头像地址
@@ -49,7 +58,9 @@ export default class My extends Component {
             //关注人数
             num1:6,
             //粉丝人数
-            num2:5
+            num2:5,
+            //小花数量
+            num3:55
         }
     }
     takephoto = ()=>{
@@ -60,7 +71,75 @@ export default class My extends Component {
           }).then(image => {
             this.setState({imageUrl:{uri:image.path}})
           });
-	}
+    }
+    alertMsg = () => {
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            this.setState({
+                uid:user.id,
+            })
+            myFetch.post('/my/sign',{
+                uid:user.id,
+            }).then(
+                res=>{
+                    if(res.code == 0){
+                        console.log('这是code'+res.code);
+                        this.setState({
+                            code:res.code
+                        })
+                        ToastAndroid.showWithGravityAndOffset(
+                            '签到成功！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-200)
+                    }
+                    else{
+                        ToastAndroid.showWithGravityAndOffset(
+                            '签到失败！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-200)
+                        console.log('这是code'+res.code);
+                    }
+                }   
+            )
+        })
+        // if(this.state.code==1){
+        //     Alert.alert(
+        //     '提示',
+        //     '确认签到？',
+        //     [
+        //         {
+        //             text: '确定', onPress: () => {
+        //                 AsyncStorage.getItem('user').
+        //                 then((res)=>{
+        //                     var user = JSON.parse(res)
+        //                     this.setState({
+        //                         uid:user.id
+        //                     })
+        //                     myFetch.post('/my/sign',{
+        //                         uid:user.id
+        //                     }).then(
+        //                         res=>{
+        //                             this.setState({
+        //                                 code:res.code
+        //                             })
+        //                         }
+        //                     )
+        //                 })
+        //                 ToastAndroid.show('签到成功！', ToastAndroid.SHORT);
+        //                 console.log(this.state.code);
+        //             }
+        //         },
+        //         { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        //     ],
+        // );
+        // }
+        // else{
+        //     ToastAndroid.show('已经签到过啦！', ToastAndroid.SHORT)
+        // }
+    }
     render() {
         return (
             <View style={{ 
@@ -72,7 +151,9 @@ export default class My extends Component {
                     backgroundColor='#FFBF2D'
                 />
                 <View style={styles.navbar}>
-                    <View style={styles.icon}></View>
+                    <TouchableOpacity onPress={this.alertMsg} >
+                        <Icon4 style={styles.icon} name='calendar'/>
+                    </TouchableOpacity>
                     <Text style={styles.title}>我的</Text>
                     <TouchableOpacity onPress={()=>Actions.Use()}>
                         <Icon1 style={styles.icon}  name='settings'/>
@@ -93,6 +174,10 @@ export default class My extends Component {
                                 <Text style={{color:'#FFBF2D'}}>粉丝:{this.state.num2}</Text>
                             </TouchableOpacity>
                         </View>
+                        <View style={{fontWeight:'bold',fontSize:17,width:'100%',justifyContent:'center',flexDirection:'row'}}>
+                            <Icon3 style={styles.icon2} name='flower' />
+                            <Text style={{color:'#FFBF2D'}}>&nbsp;:&nbsp;{this.state.num3}</Text>
+                        </View>
                     </View>
                     <View style={{width:'40%',height:240*h,alignItems:'center'}}>
                         <TouchableOpacity onPress={()=>Actions.Mychilds()} 
@@ -110,6 +195,10 @@ export default class My extends Component {
                     </View>
                     <View style={{width:'10%'}}></View>
                 </View>
+                {/* 消息 */}
+                <View style={{width:'80%',height:500*s1,marginLeft:'10%',borderWidth:1,borderStyle:'solid',borderColor:'gray',flexDirection:'row',justifyContent:'center'}}>
+                    <Text style={{fontSize:18,color:'gray'}}>消息</Text>
+                </View>
             </View>
         )
     }
@@ -120,15 +209,15 @@ const styles = StyleSheet.create({
         height:65*s1,
         backgroundColor:'#FFBF2D',
         flexDirection: 'row',
-        paddingLeft:0.02*width,
+        paddingLeft:0.03*width,
         paddingTop:'1%',
-        paddingRight:0.1*width,
+        paddingRight:0.03*width,
         justifyContent:"center"
     },
     icon:{
         width:0.08*width,
         color:'#fff',
-        fontSize:30,
+        fontSize:25,
     },
     title:{
         marginLeft:'auto',
@@ -154,6 +243,11 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlignVertical:'center', 
         lineHeight: 50*h, 
-        color:'#fff'
+        color:'#fff',
+        fontWeight:'bold'
+    },
+    icon2:{
+        color:'#FFBF2D',
+        fontSize:18,
     },
 })

@@ -12,6 +12,7 @@ import {
     ToastAndroid,
     ScrollView
 } from 'react-native'
+import moment from 'moment'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/MaterialIcons'
@@ -19,37 +20,65 @@ import Icon4 from 'react-native-vector-icons/Entypo'
 import Icon5 from 'react-native-vector-icons/Foundation'
 import Icon6 from 'react-native-vector-icons/Fontisto'
 import { Actions } from 'react-native-router-flux';
+import {myFetch} from '../../../src/utils'
 import { WingBlank } from '@ant-design/react-native';
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
-const image = 'http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20180720/e48b41efba3e4b2ab4acb4ecadfd095d.jpeg'
+const image = 'http://tc.sinaimg.cn/maxwidth.2048/tc.service.weibo.com/p/image_96weixin_com/9a6afdf6ff7c953f04675270477405b0.jpg'
 export default class Cdairy extends Component {
     constructor(props){
         super(props);
         this.state={
-            // refresh:true,
-            chooselist:'',
+            cid:'',
+            chooselist:[],
             listicon:'',
             bgcolor:'#ffffaa',
-            weather:'',
-            bgimg:'',
+            weather:'day-sunny',
+            bgimg:'#',
+            context:'',
             // bgimg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg',
-            lists:[image,image,image,image,image,image,],
+            lists:[],
             code:''
         }
+    }
+    componentDidMount(){
+        this.setState({
+            cid:this.props.cid
+        })
     }
     choosebgimg = ()=>{
 
     }
     savedairy = ()=>{
-        ToastAndroid.showWithGravityAndOffset(
-            '保存成功！',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,-200)
-        setTimeout(() => {
-            Actions.pop() 
-        }, 3000);
+        var time = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
+        var context = this.state.context;
+        var imgurl = this.state.lists;
+        if(!context){
+            context = '（这是一篇没有文字的日记……）';
+        }
+        if(!imgurl[0]){
+            imgurl=['#','#','#']
+        }
+        myFetch.post('/child/cdairy/ccdairy',{
+             childsid:this.state.cid,
+             backcolor:this.state.bgcolor,
+             content:context,
+             imgurl:JSON.stringify(imgurl),
+             setdate:time,
+             bgimg:this.state.bgimg,
+             weather:this.state.weather
+        }).then(
+            res=>{
+                if(res.code == 0){
+                    ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+                    setTimeout(()=>{
+                        Actions.pop({refresh:({data:res.data})})
+                    },1000)
+                }else{
+                    ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+                }
+            }
+        )
     }
     render() {
         const darkbg= [
@@ -135,7 +164,6 @@ export default class Cdairy extends Component {
                                 <Text style={styles.btntext}>天气</Text>
                             </TouchableOpacity>
                         </View>
-                            {/* <Text>{this.state.chooselist.toString()}</Text> */}
                         <FlatList
                             style={{
                                 borderColor:'rgba(204,204,204,0.2)',
@@ -147,9 +175,11 @@ export default class Cdairy extends Component {
                             extraData={this.state}
                             data={this.state.chooselist}
                             horizontal = {true}
-                            renderItem={({item})=>(
-                                <TouchableOpacity 
+                            renderItem={({item,idx})=>(
+                                <TouchableOpacity
+                                    key={idx}
                                     onPress={()=>{
+                                        console.log(idx)
                                         if(item.name == 'rectangle'){
                                             this.setState({
                                                 bgcolor:item.color
@@ -213,6 +243,7 @@ export default class Cdairy extends Component {
                                     padding:0.03*width,
                                     color:`${textcolor}`
                                 }}
+                                onChangeText={text=>{this.setState({context:text})}}
                                 placeholder="日记内容"
                                 multiline={true}
                             />

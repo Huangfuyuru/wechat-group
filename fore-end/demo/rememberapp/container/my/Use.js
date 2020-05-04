@@ -22,52 +22,89 @@ import Button from 'react-native-button';
 import Icon2 from 'react-native-vector-icons/FontAwesome5'
 import Icon3 from 'react-native-vector-icons/Feather'
 import Icon4 from 'react-native-vector-icons/FontAwesome'
+
+//引入组件
+import {myFetch} from '../../src/utils'
+
 const { width, scale, height } = Dimensions.get('window');
 const s1 = width / 640;
 const h = height / 1012;
+var FirstData = [
+    '女',
+    '男',
+]
 export default class Use extends Component {
     constructor(){
         super();
         this.state={
+            name:'',
+            pass:'',
+            firstValue:  FirstData[0],
             sex:'女',
+            uid:'',
+            code:1
         }
     }
+    updateFirstValue(language) {
+        this.setState({
+            firstValue: language,
+        });
+    }
+    renderPicker(key) {
+        return <Picker.Item label={key} value={key} />
+    }
     additem=()=>{
-        ToastAndroid.showWithGravityAndOffset(
-            '修改成功！',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,-200)
-        setTimeout(() => {
-            Actions.pop() 
-        }, 3000);
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            this.setState({
+                uid:user.id,
+            })
+            myFetch.post('/my/information',{
+                uname:this.state.name,
+                gender:this.state.firstValue,
+                pass:this.state.pass,
+                uid:user.id,
+            }).then(
+                res=>{
+                    if(res.code == 0){
+                        console.log('这是code'+res.code);
+                        this.setState({
+                            code:res.code
+                        })
+                        ToastAndroid.showWithGravityAndOffset(
+                            '修改成功！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-200)
+                        setTimeout(() => {
+                            Actions.pop() 
+                        }, 3000);
+                    }
+                    else{
+                        ToastAndroid.showWithGravityAndOffset(
+                            '修改失败！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-200)
+                        console.log('这是code'+res.code);
+                    }
+                }   
+            )
+        })
     }
     leave=()=>{
-        ToastAndroid.showWithGravityAndOffset(
-            '已退出登录！',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,-200)
-        setTimeout(() => {
-            Actions.pop() 
-        }, 3000);
-    }
-        inputChange1=(e)=>{
-        var a=e.target.value;
-        this.setState({
-            name:a
-        })
-    }
-    inputChange2=(e)=>{
-        var a=e.target.value;
-        this.setState({
-            birthday:a
-        })
-    }
-    inputChange3=(e)=>{
-        var a=e.target.value;
-        this.setState({
-            gender:a
+        AsyncStorage.setItem('isLogin','false');
+        AsyncStorage.removeItem('user',(res)=>{
+            console.log(res)
+            if(!res){
+                ToastAndroid.show('已清除登录信息！', ToastAndroid.SHORT);
+                setTimeout(()=>{
+                    Actions.login()
+                },1000)
+            }else{
+                ToastAndroid.show('退出失败，请重新操作！', ToastAndroid.SHORT);
+            }
         })
     }
     render() {
@@ -95,15 +132,12 @@ export default class Use extends Component {
                             <Text style={styles.text}>
                                 <Icon3 style={styles.listlineicon} name='users'/>选择性别</Text>
                             <Text style={styles.input}>
-                                <Picker
-                                    selectedValue={this.state.ageunit}
-                                    mode='dropdown'
+                                <Picker 
                                     style={{width:0.11*width}}
-                                    onValueChange={(itemValue, itemIndex) =>
-                                        this.setState({ageunit: itemValue})
-                                    }>
-                                    <Picker.Item label="男" value="男" />
-                                    <Picker.Item label="女" value="女" />
+                                    mode='dropdown'
+                                    selectedValue={this.state.firstValue}
+                                    onValueChange={(language) => this.updateFirstValue(language)}>
+                                    {FirstData.map((key) => this.renderPicker(key))}
                                 </Picker>
                             </Text>
                         </View>
@@ -111,14 +145,15 @@ export default class Use extends Component {
                             <Text style={styles.text}>
                                 <Icon4 style={styles.listlineicon} name='heart'/>更换昵称</Text>
                             <TextInput
-                                maxLength={3}
+                                maxLength={6}
                                 onFocus={()=>{
                                     ToastAndroid.showWithGravityAndOffset(
-                                        '请保证昵称不多于10个字！',
+                                        '请保证昵称不多于6个字！',
                                     ToastAndroid.SHORT,
                                     ToastAndroid.TOP,
                                     25,100)
                                 }}
+                                onChangeText={(text) => { this.state.name= text }}
                                 style={styles.input}/>
                         </View>
                         <View style={styles.msg}>
@@ -127,6 +162,7 @@ export default class Use extends Component {
                                  更换密码</Text>
                             <TextInput
                                 maxLength={15}
+                                onChangeText={(text) => { this.state. pass= text }}
                                 style={styles.input}/>
                         </View>
                     </View>
@@ -164,7 +200,8 @@ const styles = StyleSheet.create({
         textAlign:'center',
         fontSize:20,
         color:'#fff',
-        letterSpacing:3
+        letterSpacing:3,
+        fontWeight:'bold'
     },
     create:{
         width:0.8*width,
