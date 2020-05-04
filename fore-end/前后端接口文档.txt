@@ -172,7 +172,7 @@ method：get
             返回数据：成长记录childGrowid，身高length，体重weight，年龄age，创建日期setdate
                     [{"id":3400002,"weight":"121.1","length":"30","age":3,"setdate":"2019-11-25T16:00:00.000Z","cid":300002}]
         删除成长记录：
-            接口地址：http://localhost:3001/child/cgrowup/crgrowup？childsid = & childGrowid
+            接口地址：http://localhost:3001/child/cgrowup/crgrowup？childsid = & childGrowid =
             提交数据: 亲子childsid   成长记录childGrowid
             返回数据：成长记录childGrowid，身高length，体重weight，年龄age，创建日期setdate
                     [{"id":3400002,"weight":"121.1","length":"30","age":3,"setdate":"2019-11-25T16:00:00.000Z","cid":300002}]
