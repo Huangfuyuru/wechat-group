@@ -43,7 +43,7 @@ export default class Mylover extends Component {
             this.setState({
                 uid:user.id,
             })
-            myFetch.get('/my/child',{
+            myFetch.get('/my/lover',{
                 uid:this.state.uid
             }).then(res=>{
                 console.log(res)
@@ -69,7 +69,7 @@ export default class Mylover extends Component {
         Alert.alert('提示', '确定要删除吗？',
             [
                 { text: "确定", onPress: ()=>{
-                    myFetch.get('/my/child/delchild',{
+                    myFetch.get('/my/lover/addlover',{
                         loverid:e.id,
                     }).then(res=>{
                         if(res){
