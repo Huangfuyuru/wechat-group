@@ -73,62 +73,68 @@ export default class Child extends Component {
                         // console.log(res.msg)
                         // console.log(res.msg[0].background)
                         for(var i in res.msg){
-                            if(res.msg[i].background='#'){
-                                res.msg[i].background = this.state.background
+                            if(res.msg[i].background == '#'){
+                                res.msg[i].background = image
                             }
                         }
                         this.setState({
                             currentchild:res.msg[0],
-                            children:res.msg
+                            children:res.msg,
+                            background:res.msg[0].background
                         })
                     }
                 }
             )
 
-            myFetch.get('/child/article',{
-                uid:user.id,
-            }).then(res=>{
-                console.log(res)
-            })
+            // myFetch.get('/child/article',{
+            //     uid:user.id,
+            // }).then(res=>{
+            //     res=>{
+            //         if(res.code == 1){
+            //             // console.log(res.msg)
+            //             // console.log(res.msg[0].background)
+            //             for(var i in res.msg){
+            //                 if(res.msg[i].background=='#'){
+            //                     res.msg[i].background = image
+            //                 }
+            //             }
+            //             this.setState({
+            //                 currentchild:res.msg[0],
+            //                 children:res.msg
+            //             })
+            //         }
+            //     }
+            // })
         })
     }
-    componentDidUpdate(){
-        console.log('Child更新')
+    componentDidUpdate(prevProps,prevState){
+        console.log('更新')
+        console.log(this.state.background)
+        if(prevState.background != this.state.background){
+            myFetch.post('/child/changebackground',{
+                childsid:this.state.currentchild.id,
+                background:this.state.background
+            }).then(
+                res=>{
+                    
+                    console.log(res)
+                }
+            )
+        }
         
     }
     uploadImage =(params)=> {
         return new Promise(function (resolve, reject) {
+            console.log('xxx')
             let formData = new FormData();
-            // console.log(params)
-            // for (var key in params){
-            //     console.log(key, params[key]);
-            //     // formData.append(key, params[key]);
-            // }
             formData.append('params', params);
-            // console.log(formData)
-            var ary = params.path.split('/');
-            // console.log(params)
-            // console.log('2222222' + ary);
-            //设置formData数据
-            // let formData = new FormData();
-            // console.log(params.path)
-            // let file = {uri: params.path, type: 'multipart/form-data', name: ary[ary.length-1]};
-            let file = {uri: params.path, type: 'application/octet-stream', name: ary[ary.length-1]};
-            formData.append("file", file);
-            // console.log('form'+JSON.stringify(formData))
-            // fetch post请求
             fetch('http://148.70.223.218:3001/img', {
                 method: 'POST',
-                // 设置请求头，请求体为json格式，identity为未压缩
                 headers: {
                     'Content-Type': 'application/json',
                     'Content-Encoding': 'identity'
                 },
                 
-                // headers: {
-                //     'Content-Type': 'multipart/form-data;charset=utf-8',
-                //     // "x-access-token": token,
-                // },
                 body:JSON.stringify(formData),
             }).then((res) => res.json())
             .then((res)=> {
@@ -142,19 +148,6 @@ export default class Child extends Component {
         
         });
     };
-    // changeChild=(id,background)=>{
-    //     console.log(id,background)
-    //     this.setState({
-    //         child_id:id,
-    //         menu_count:this.state.menu_count+1,
-    //         cindex_src:background
-    //     },()=>{
-    //         localStorage.setItem('cid',JSON.stringify(this.state.child_id));
-    //         localStorage.setItem('cbackground',JSON.stringify(this.state.cindex_src))
-    //     })
-    //     var tag = document.getElementById('tag');
-    //     tag.style.display='none';
-    // }
     choosebgpic=()=>{
         const options = {
             quality:1.0,
@@ -164,66 +157,20 @@ export default class Child extends Component {
                 skipBackup:true
             }
         }
-
         ImagePicker.launchImageLibrary(options,(res)=>{
-            // console.log(res)
-            // console.log(res.uri)
 
-            // for(var key in res){
-            //     console.log(key,res[key])
-            // }
-            this.uploadImage(res)
+            this.uploadImage(res.data)
             .then( res=>{
+                console.log(res.url)
+                this.setState({
+                    background:res.url
+                })
                 console.log('success');
             }).catch( err=>{
-            //请求失败
             console.log('flied');
             })
 
         })
-
-
-        // var form = new FormData();
-        // var url = 'http://148.70.223.218:3001/img';
-        // var img='';
-        // ImagePicker.openPicker({
-        //     width: 300, 
-        //     height: 400, 
-        //     cropping: false
-        //  }).then(image => { 
-        //     // var ary = image.path.split('/');
-        //     // // console.log('2222222' + ary);
-        //     // var file = {uri: image.path, type: 'multipart/form-data', name: ary[ary.length-1]};
-        //     // form.append("file",file)
-        //     // console.log('1'+JSON.stringify(form))
-        //     // console.log(image);
-        //     // console.log(JSON.stringify(form))
-        //     // this.setState({
-        //     //     background:image.path
-        //     // })
-        //     console.log(image)
-        //     // this.uploadImage(image)
-        //     // .then( res=>{
-        //     //     console.log('success');
-        //     // }).catch( err=>{
-        //     // //请求失败
-        //     // console.log('flied');
-        //     // })
-        //  });
-        // // console.log(JSON.stringify(this.state.form))
-        // // fetch(url,{
-        // //     method:'POST',
-        // //     body:JSON.stringify(form)
-        // // })
-        // // .then(res=>res.json())
-        // // .then(res=>(
-        // //     console.log('111'),
-        // //     console.log(res),
-        // //     img=res.path,
-        // //     this.setState({
-        // //         // cindex_src:res.path
-        // //     })
-        // // ))
     }
     compile = ()=>{
         this.setState({
@@ -244,7 +191,8 @@ export default class Child extends Component {
         console.log(item);
         this.setState({
             times:this.state.times+1,
-            currentchild:item
+            currentchild:item,
+            background:item.background
         },()=>{
             if(this.state.times % 2 == 0){
                 this.setState({
@@ -256,9 +204,6 @@ export default class Child extends Component {
                 }) 
             }
         })
-        // this.setState({
-        //     currentchild:item
-        // })
     }
     addchildwarn = ()=>{
         ToastAndroid.showWithGravityAndOffset(
@@ -336,12 +281,14 @@ export default class Child extends Component {
                                 width: "100%",
                                 transform: [{scale:1}]
                             }}
-                            source={{uri:`${this.state.currentchild.background}`}}
+                            source={!/(http|https):\/\/([\w.]+\/?)\S*/.test(this.state.currentchild.background)
+                                ?{uri:`${image}`}
+                                :{uri:`${this.state.background}`}}
                             alt='自定义照片墙'>
                         
-                                    <TouchableOpacity onPress={this.choosebgpic}>
-                                        <Text style={styles.bgbtn}>轻触上传精选照片</Text>
-                                    </TouchableOpacity>
+                                <TouchableOpacity onPress={this.choosebgpic}>
+                                    <Text style={styles.bgbtn}>轻触上传精选照片</Text>
+                                </TouchableOpacity>
                         </ImageBackground>
                     </View>
                     <WingBlank style={{flex:1}}>
