@@ -84,6 +84,12 @@ export default class Child extends Component {
                     }
                 }
             )
+
+            myFetch.get('/child/article',{
+                uid:user.id,
+            }).then(res=>{
+                console.log(res)
+            })
         })
     }
     componentDidUpdate(){
@@ -375,7 +381,7 @@ export default class Child extends Component {
                                 </TouchableOpacity>
                             </Flex>
                         </View>
-                        <View style={{
+                        {/* <View style={{
                             width:'100%',
                             marginTop:10
                         }}>
@@ -441,8 +447,7 @@ export default class Child extends Component {
                                     </View>
                                 </TouchableOpacity>
                             )}
-                        />
-                        
+                        />                       */}
                     </WingBlank>
                 </View>
             )
