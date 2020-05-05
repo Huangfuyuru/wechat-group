@@ -8,6 +8,7 @@ import {
     Image,
     ImageBackground,
     TouchableOpacity,
+    AsyncStorage,
     ToastAndroid,
     Alert
 } from 'react-native'
@@ -36,47 +37,76 @@ export default class Mychilds extends Component {
                 {
                     name: "小浣熊",
                 },
-                {
-                    name: "旺旺",
-                },
-                {
-                    name: "皮卡丘",
-                },
-                {
-                    name: "喵喵",
-                },
-                {
-                    name: "皮卡丘",
-                },
+                // {
+                //     name: "旺旺",
+                // },
+                // {
+                //     name: "皮卡丘",
+                // },
+                // {
+                //     name: "喵喵",
+                // },
+                // {
+                //     name: "皮卡丘",
+                // },
             ]
         }
     }
-    alertMsg = () => {
-        Alert.alert(
-            '提示',
-            '确认删除？',
+    componentDidMount(){
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            this.setState({
+                uid:user.id,
+            })
+            myFetch.get('/my/child',{
+                uid:this.state.uid
+            }).then(res=>{
+                console.log(res)
+                if(res){
+                    this.setState({
+                        lists:res
+                    })
+                }else{
+                    this.setState({
+                        lists:[]
+                    })
+                }
+            })
+        })
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            lists:nextProps.data
+        })
+    }
+    rmCevent = (e)=>{
+        var rmname = e.name;
+        Alert.alert('提示', '确定要删除吗？',
             [
-                {
-                    text: '确定', onPress: () => {
-                        ToastAndroid.show('删除成功！', ToastAndroid.SHORT);
-                        // AsyncStorage.getItem('user')
-                        // var user = JSON.parse(res)
-                        // this.setState({
-                        //     uid:user.id,
-                        // })
-                        // fetch(`http://localhost:3001/my/delchild/confirm?cid=${this.state.childid}&uid=${this.state.uid}`)
-                        // .then((res)=>res.json())
-                        // .then((res)=>{
-                        //     console.log(res)
-                        //     this.setState({
-                        //         code:res.code
-                        //     }); 
-                        // })
-                    }
-                },
-                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-            ],
-        );
+                { text: "确定", onPress: ()=>{
+                    myFetch.get('/my/child/delchild',{
+                        childsid:e.id,
+                    }).then(res=>{
+                        if(res){
+                            this.setState({
+                                lists:res
+                            })
+                        }else{
+                            this.setState({
+                                lists:[]
+                            })
+                        }
+                        ToastAndroid.showWithGravityAndOffset(
+                            rmname+'删除成功！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-100)
+                    })
+                } },
+                { text: "取消", onPress: this.opntion2Selected },
+            ]
+        )
     }
     render() {
         return (
@@ -164,7 +194,7 @@ export default class Mychilds extends Component {
                                     <Text style={{fontSize:16}}>{item.name}</Text>
                                 </View>
                                 <TouchableOpacity >
-                                    <Icon3 style={styles.icon2} onPress={this.alertMsg} name='delete'/>
+                                    <Icon3 style={styles.icon2} onPress={()=>this.rmCevent(item)} name='delete'/>
                                 </TouchableOpacity>
                             </View>
                         }}

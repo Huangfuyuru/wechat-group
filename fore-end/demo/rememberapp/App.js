@@ -91,8 +91,8 @@ import Use from './container/my/Use'
 
 import T from './components/Tlists'
 import Mychild from './container/my/Mychilds';
-import Tdiscuss from './container/community/Tdiscuss';
-import Tsearch from './container/community/Tsearch';
+// import Tdiscuss from './container/community/Tdiscuss';
+// import Tsearch from './container/community/Tsearch';
 const { width, scale } = Dimensions.get('window');
 const s = width / 640;
 console.disableYellowBox = true;
@@ -315,7 +315,7 @@ const App = () => {
 
 								>
 									<Scene key="community" hideNavBar={true} component={Community} />
-									<Scene 
+									{/* <Scene 
 										key='tsearch'
 										hideTabBar
 										hideNavBar
@@ -324,7 +324,7 @@ const App = () => {
 										key='tdiscuss'
 										hideTabBar
 										hideNavBar
-										component={Tdiscuss} />
+										component={Tdiscuss} /> */}
 								</Scene>
 								{/* 我的 */}
 								<Scene key='mine'

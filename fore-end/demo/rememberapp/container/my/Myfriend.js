@@ -9,6 +9,7 @@ import {
     ImageBackground,
     TouchableOpacity,
     ToastAndroid,
+    AsyncStorage,
     Alert
 } from 'react-native'
 import moment from 'moment'
@@ -51,19 +52,75 @@ export default class Myfriend extends Component {
             ]
         }
     }
-    alertMsg = () => {
-        Alert.alert(
-            '提示',
-            '确认取消关注？',
+    // alertMsg = () => {
+    //     Alert.alert(
+    //         '提示',
+    //         '确认取消关注？',
+    //         [
+    //             {
+    //                 text: '确定', onPress: () => {
+    //                     ToastAndroid.show('取关成功！', ToastAndroid.SHORT)
+    //                 }
+    //             },
+    //             { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+    //         ],
+    //     );
+    // }
+    componentDidMount(){
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            this.setState({
+                uid:user.id,
+            })
+            myFetch.get('/my/child',{
+                uid:this.state.uid
+            }).then(res=>{
+                console.log(res)
+                if(res){
+                    this.setState({
+                        lists:res
+                    })
+                }else{
+                    this.setState({
+                        lists:[]
+                    })
+                }
+            })
+        })
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            lists:nextProps.data
+        })
+    }
+    rmCevent = (e)=>{
+        var rmname = e.name;
+        Alert.alert('提示', '确定取关吗？',
             [
-                {
-                    text: '确定', onPress: () => {
-                        ToastAndroid.show('取关成功！', ToastAndroid.SHORT)
-                    }
-                },
-                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-            ],
-        );
+                { text: "确定", onPress: ()=>{
+                    myFetch.get('/my/child/delchild',{
+                        loverid:e.id,
+                    }).then(res=>{
+                        if(res){
+                            this.setState({
+                                lists:res
+                            })
+                        }else{
+                            this.setState({
+                                lists:[]
+                            })
+                        }
+                        ToastAndroid.showWithGravityAndOffset(
+                            rmname+'取关成功！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-100)
+                    })
+                } },
+                { text: "取消", onPress: this.opntion2Selected },
+            ]
+        )
     }
     render() {
         return (
@@ -147,7 +204,7 @@ export default class Myfriend extends Component {
                                     <Text style={{fontSize:16}}>{item.name}</Text>
                                 </View>
                                 <Button
-                                    onPress={this.alertMsg} 
+                                    onPress={()=>this.rmCevent(item)}
                                     style={styles.btn}
                                     >已相互关注</Button>
                             </View>

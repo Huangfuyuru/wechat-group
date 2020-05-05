@@ -19,6 +19,7 @@ import {
 } from 'react-native-router-flux'
 import { Flex, WingBlank } from '@ant-design/react-native'
 import Button from 'react-native-button';
+import moment from 'moment';
 import Icon1 from 'react-native-vector-icons/SimpleLineIcons'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Feather'
@@ -29,50 +30,44 @@ const { width, scale, height } = Dimensions.get('window');
 const s1 = width / 640;
 const s = width / 640;
 const h = height / 1012;
-var FirstData = [
-    '女',
-    '男',
-]
+
 export default class Mmchilds extends Component {
     constructor(){
+        var date = moment( new Date()).format("YYYY-MM-DD").split('-')
         super();
-        // var uid=AsyncStorage.getItem('uid');
         this.state={
-            firstValue:  FirstData[0],
-            // sex:'女',
+            year:date[0],
+            month:date[1],
+            day:date[2],
             name :'',
-            birthday:'',
+            // birthday:'',
             lists:[],
             uid:'',
-            code:1
+            code:1,
+            sex:'男'
         }
-    }
-    updateFirstValue(language) {
-        this.setState({
-            firstValue: language,
-            
-        })
-    }
-    renderPicker(key) {
-        return <Picker.Item label={key} value={key} />
     }
     additem=()=>{
     console.log('提交亲子');
+    var time = this.state.year+'-'+this.state.month+'-'+this.state.day
+    var birthday = moment(time).format("YYYY-MM-DD")
     AsyncStorage.getItem('user').
     then((res)=>{
         var user = JSON.parse(res)
         this.setState({
             uid:user.id,
         })
-        myFetch.post('/my/addchild',{
+        myFetch.post('/my/child/addchild',{
             name:this.state.name,
-            birthday:this.state.birthday,
+            birthday:birthday,
             gender:this.state.firstValue,
             uid:user.id,
         }).then(
             res=>{
                 if(res.code == 0){
                     console.log('这是code'+res.code);
+                    console.log(this.state.uid+this.state.name+this.state.sex+birthday);
+                    console.log(res);
                     this.setState({
                         code:res.code
                     })
@@ -113,7 +108,7 @@ export default class Mmchilds extends Component {
                         name='chevron-left'
                         onPress={()=>Actions.pop()}
                     />
-                    <Text style={styles.title}>创建</Text>
+                    <Text style={styles.title}>创建亲子</Text>
                 </View>
                 <WingBlank style={styles.wingblank}>
                     <View style={styles.msgbox}>
@@ -121,12 +116,17 @@ export default class Mmchilds extends Component {
                             <Text style={styles.text}>
                                 <Icon3 style={styles.listlineicon} name='users'/> 性别</Text>
                             <Text style={styles.input}>
-                                <Picker 
-                                    style={{width:0.11*width}}
+                                <Picker
+                                    selectedValue={this.state.sex}
                                     mode='dropdown'
-                                    selectedValue={this.state.firstValue}
-                                    onValueChange={(language) => this.updateFirstValue(language)}>
-                                    {FirstData.map((key) => this.renderPicker(key))}
+                                    style={{width:0.15*width}}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        this.setState({
+                                            sex: itemValue,
+                                        })
+                                    }>
+                                    <Picker.Item label="男" value="男" />
+                                    <Picker.Item label="女" value="女" />
                                 </Picker>
                             </Text>
                         </View>
@@ -148,13 +148,35 @@ export default class Mmchilds extends Component {
                         </View>
                         <View style={styles.msg}>
                             <Text style={styles.text}>
-                                <Icon2 style={styles.listlineicon} name='cake-variant'/>
-                                生日</Text>
+                                <Icon2 style={styles.listlineicon} name='cake-variant'/>生日
+                            </Text>
                             <TextInput
-                                maxLength={15}
-                                selectTextOnFocus = {true}
-                                onChangeText={(text) => { this.state.birthday = text }}
-                                style={styles.input}/>
+                                onChangeText={text=>{this.setState({year:text})}}
+                                keyboardType='numeric'
+                                maxLength={4}
+                                defaultValue={this.state.year}
+                                style={styles.input2}/>
+                            <Text style={styles.unit}>
+                                年
+                            </Text>
+                            <TextInput
+                                onChangeText={text=>{this.setState({month:text})}}
+                                keyboardType='numeric'
+                                maxLength={2}
+                                defaultValue={this.state.month}
+                                style={styles.input2}/>
+                            <Text style={styles.unit}>
+                                月
+                            </Text>
+                            <TextInput
+                                onChangeText={text=>{this.setState({day:text})}}
+                                keyboardType='numeric'
+                                maxLength={2}
+                                defaultValue={this.state.day}
+                                style={styles.input2}/>
+                            <Text style={styles.unit}>
+                                日
+                            </Text>
                         </View>
                     </View>
                     <Button
@@ -206,23 +228,24 @@ const styles=StyleSheet.create({
     },
     msg:{
         backgroundColor:'rgba(255,255,255,1)',
-        width:0.7*width,
+        width:0.75*width,
         height:0.06*height,
         marginLeft:'auto',
         marginRight:'auto',
         flexDirection: 'row',
         justifyContent:'center',
     },
-    listlineicon:{
-        fontSize:32*s1,
-        color:'#FFBF2D',
-    },
     text:{
         textAlign:'center',
+        marginRight:0.02*width,
         textAlignVertical:'center',
-        width:0.15*width,
-        fontSize:23*s1,
+        width:0.19*width,
+        fontSize:23*s,
         color:'#555',
+    },
+    listlineicon:{
+        fontSize:35*s1,
+        color:'#FFBF2D',
     },
     text2:{
         textAlign:'left',
@@ -232,15 +255,32 @@ const styles=StyleSheet.create({
         color:'#555',
     },
     input:{
-        width:0.25*width,
-        marginLeft:0.025*width,
-        marginRight:0.025*width,
+         width:0.44*width,
+        textAlign:'center',
+        textAlignVertical:'center',
         borderColor:'#bdbbb8',
         borderStyle:'solid',
         borderBottomWidth:1,
-        fontSize:23*s1,
+        fontSize:25*s,
+        color:'#333'
+    },
+    input2:{
+        width:0.11*width,
+        borderColor:'#bdbbb8',
+        borderStyle:'solid',
+        borderBottomWidth:1,
+        fontSize:22*s,
         textAlign:'center',
         color:'#333'
+    },
+    unit:{
+        textAlign:'center',
+        marginLeft:0.003*width,
+        marginRight:0.003*width,
+        textAlignVertical:'center',
+        width:0.03*width,
+        fontSize:23*s,
+        color:'#555',
     },
     addbtn:{
         width:0.6*width,
