@@ -26,7 +26,8 @@ export default class SwiperPage extends Component {
         return (
             <Swiper 
                 style={styles.wrapper} 
-                showsButtons={false}>
+                showsButtons={false}
+                loop={false}>
                 <View style={styles.slide}>
                     <Image 
                         style={styles.img}
