@@ -23,104 +23,56 @@ export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
-            lists:[
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-                {
-                    path:image,
-                    id:1
-                },
-               
-            ]
+            lists:[],
+            uplists:[]
         }
     }
+    uploadImage =(params)=> {
+        return new Promise(function (resolve, reject) {
+            let formData = new FormData();
+            formData.append('params', params);
+            fetch('http://148.70.223.218:3001/img', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Content-Encoding': 'identity'
+                },
+                
+                body:JSON.stringify(formData),
+            }).then((res) => res.json())
+            .then((res)=> {
+                console.log('uploadImage', res);
+                resolve(res);
+            })
+            .catch((err)=> {
+                console.log('err', err);
+                reject(err);
+            });
+        
+        });
+    };
     choocepictures = ()=>{
-        ImagePicker.openPicker({
-            width: 300, 
-            height: 400, 
-            cropping: true
-        }).then(image => { 
-        // this.setState({
-        //     background:image.path
-        // })
+        ImageCropPicker.openPicker({
+            multiple: true,
+            includeBase64:true
+        }).then(images => {
+            // image = JSON.parse(image)
+            var lists = this.state.lists;
+            var uplists = this.state.uplists;
+            // console.log(images)
+            for(var i in images){
+                lists.push(images[i].path);
+                uplists.push(images[i].data);
+            }
+            this.setState({
+                lists:lists,
+                uplists:uplists
+            })
+        });
+        ImageCropPicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
         });
     }
     takephoto = ()=>{
@@ -129,11 +81,26 @@ export default class Cdairy extends Component {
             height:400,
             cropping:true,
         }).then(image=>{
-            AsyncStorage.setItem('imageUrl',image.path)
+            var lists = this.state.lists;
+            var uplists = this.state.uplists;
+            lists.push(image.path);
+            uplists.push(image.data);
             this.setState({
-                imageUrl:{uri:image.path}
+                lists:lists,
+                uplists:uplists
             })
         });
+        ImageCropPicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
+        });
+    }
+    rechoose = ()=>{
+        this.setState({
+            lists:[],
+            uplists:[]
+        })
     }
     render() {
         return (
@@ -159,7 +126,7 @@ export default class Cdairy extends Component {
                         <Icon2 style={styles.btnicon} name='checkbox-multiple-marked-circle'/>
                         <Text style={styles.btntext}>确认上传</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity style={styles.btn} onPress={this.rechoose}>
                         <Icon3 style={styles.btnicon} name='cycle'/>
                         <Text style={styles.btntext}>重新选择</Text>
                     </TouchableOpacity>
@@ -180,7 +147,7 @@ export default class Cdairy extends Component {
                                 <Image
                                     style={styles.pics}
                                     resizeMode="cover"
-                                    source={{uri:`${item.path}`}}
+                                    source={{uri:`${item}`}}
                                 />
                             </View>
                         )}

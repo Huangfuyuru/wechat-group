@@ -158,7 +158,7 @@ export default class Child extends Component {
             }
         }
         ImagePicker.launchImageLibrary(options,(res)=>{
-
+            // console.log(res.data)
             this.uploadImage(res.data)
             .then( res=>{
                 console.log(res.url)
@@ -167,7 +167,7 @@ export default class Child extends Component {
                 })
                 console.log('success');
             }).catch( err=>{
-            console.log('flied');
+                console.log('flied');
             })
 
         })
