@@ -40,7 +40,6 @@ export default class Mmchilds extends Component {
             month:date[1],
             day:date[2],
             name :'',
-            // birthday:'',
             lists:[],
             uid:'',
             code:1,

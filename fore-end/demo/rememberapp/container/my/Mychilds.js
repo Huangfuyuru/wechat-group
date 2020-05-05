@@ -34,9 +34,9 @@ export default class Mychilds extends Component {
             uid:'',
             code:1, //要获取的状态
             lists:[
-                {
-                    name: "小浣熊",
-                },
+                // {
+                //     name: "小浣熊",
+                // },
                 // {
                 //     name: "旺旺",
                 // },
@@ -62,7 +62,6 @@ export default class Mychilds extends Component {
             myFetch.get('/my/child',{
                 uid:this.state.uid
             }).then(res=>{
-                console.log(res)
                 if(res){
                     this.setState({
                         lists:res
@@ -74,6 +73,7 @@ export default class Mychilds extends Component {
                 }
             })
         })
+        console.log('list'+this.state.lists);
     }
     componentWillReceiveProps(nextProps) {
         this.setState({

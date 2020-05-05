@@ -20,6 +20,8 @@ import Icon2 from "react-native-vector-icons/Ionicons";
 import Icon3 from 'react-native-vector-icons/AntDesign'
 import Icon4 from 'react-native-vector-icons/FontAwesome'
 import Button from 'react-native-button';
+//引入组件
+import {myFetch} from '../../src/utils'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 const h = height / 1012;
@@ -28,9 +30,9 @@ export default class Mylover extends Component {
         super();
         this.state={
             lists:[
-                {
-                    name: "皮卡丘",
-                },
+                // {
+                //     name: "皮卡丘",
+                // },
             ]
         }
     }
