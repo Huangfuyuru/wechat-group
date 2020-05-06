@@ -76,7 +76,7 @@ export default class Mmchilds extends Component {
                     ToastAndroid.CENTER,
                     25,-200)
                     setTimeout(() => {
-                        Actions.pop() 
+                        Actions.pop({refresh:({data:res.data})}) 
                     }, 3000);
                 }
                 else{
