@@ -82,6 +82,7 @@ export default class Cdairy extends Component {
             width:300,
             height:400,
             cropping:true,
+            includeBase64:true
         }).then(image=>{
             var lists = this.state.lists;
             var uplists = this.state.uplists;
@@ -138,7 +139,7 @@ export default class Cdairy extends Component {
             var content = this.state.content;
             var imgurl = this.state.reslists;
             if(!imgurl[0]){
-                imgurl = ''
+                imgurl=['#','#','#']
             }
             if(!content){
                 content = '没有详细描述~'

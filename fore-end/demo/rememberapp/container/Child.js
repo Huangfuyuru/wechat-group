@@ -116,7 +116,6 @@ export default class Child extends Component {
                 background:this.state.background
             }).then(
                 res=>{
-                    
                     console.log(res)
                 }
             )
