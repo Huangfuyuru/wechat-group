@@ -22,6 +22,52 @@ let myFetch = {
             body:JSON.stringify(body)
         })
             .then(res=>res.json())
+    },
+    uploadImage(params){
+        return new Promise(function (resolve, reject) {
+            let formData = new FormData();
+            formData.append('params', params);
+            fetch('http://148.70.223.218:3001/img', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Content-Encoding': 'identity'
+                },
+                
+                body:JSON.stringify(formData),
+            }).then((res) => res.json())
+            .then((res)=> {
+                resolve(res);
+            })
+            .catch((err)=> {
+                console.log('err', err);
+                reject(err);
+            });
+        
+        });
+    },
+    uploadImages(params){
+        return new Promise(function (resolve, reject) {
+            let formData = new FormData();
+            formData.append('params', params);
+            fetch('http://148.70.223.218:3001/imgs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Content-Encoding': 'identity'
+                },
+                
+                body:JSON.stringify(formData),
+            }).then((res) => res.json())
+            .then((res)=> {
+                resolve(res);
+            })
+            .catch((err)=> {
+                console.log('err', err);
+                reject(err);
+            });
+        
+        })
     }
 }
 

@@ -17,9 +17,10 @@ import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/MaterialIcons'
 import Icon4 from 'react-native-vector-icons/Entypo'
-import Icon5 from 'react-native-vector-icons/Foundation'
+import Icon5 from 'react-native-vector-icons/Ionicons'
 import Icon6 from 'react-native-vector-icons/Fontisto'
 import { Actions } from 'react-native-router-flux';
+import ImagePicker from 'react-native-image-crop-picker'
 import {myFetch} from '../../../src/utils'
 import { WingBlank } from '@ant-design/react-native';
 const {width,scale,height} = Dimensions.get('window');
@@ -35,10 +36,14 @@ export default class Cdairy extends Component {
             bgcolor:'#ffffaa',
             weather:'day-sunny',
             bgimg:'#',
+            upbgimg:'',
             context:'',
             // bgimg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1586712889480&di=9c4a333188094ae5642b0487ec2bd34f&imgtype=0&src=http%3A%2F%2Fwx2.sinaimg.cn%2Flarge%2F007bRu2Ggy1gbtrl6i7ezj30rs0fme2h.jpg',
             lists:[],
-            code:''
+            uplists:[],
+            reslists:[],
+            code:'',
+            btndisplay:'none'
         }
     }
     componentDidMount(){
@@ -46,13 +51,113 @@ export default class Cdairy extends Component {
             cid:this.props.cid
         })
     }
-    choosebgimg = ()=>{
-
+    clearbtn = ()=>{
+        this.setState({
+            bgimg:'',
+            upbgimg:''
+        })
+    }
+    choosebgimg=()=>{
+        ImagePicker.openPicker({
+            width: 300, 
+            height: 400, 
+            cropping: true,
+            includeBase64:true
+        }).then(image => {
+            // this.setState({
+            //     bgimg:image.path,
+            //     upbgimg:image.data
+            // })
+            myFetch.uploadImage(image.data)
+            .then( res=>{
+                this.setState({
+                    bgimg:res.url,
+                    btndisplay:'flex'
+                })
+                console.log('success');
+            }).catch( err=>{
+                console.log('flied');
+            })
+        });
+        ImagePicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
+        });
+    }
+    choosepics = ()=>{
+        ImagePicker.openPicker({
+            multiple: true,
+            includeBase64:true
+        }).then(images => {
+            var lists = this.state.lists;
+            var uplists = this.state.uplists;
+            for(var i in images){
+                lists.push(images[i].path);
+                uplists.push(images[i].data);
+            }
+            this.setState({
+                lists:lists,
+                uplists:uplists
+            })
+        });
+        ImagePicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
+        });
+    }
+    takepic = ()=>{
+        ImagePicker.openCamera({
+            width:300,
+            height:400,
+            cropping:true,
+        }).then(image=>{
+            var lists = this.state.lists;
+            var uplists = this.state.uplists;
+            lists.push(image.path);
+            uplists.push(image.data);
+            this.setState({
+                lists:lists,
+                uplists:uplists
+            })
+        });
+        ImagePicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
+        });
+    }
+    confirmpics = ()=>{
+        if(this.state.uplists[0]){
+            myFetch.uploadImages(this.state.uplists)
+            .then( res=>{
+                // console.log(res)
+                this.setState({
+                    reslists:res
+                })
+                ToastAndroid.show('添加成功！', ToastAndroid.SHORT);
+            }).catch( err=>{
+                console.log('flied');
+            })
+        }else{
+            ToastAndroid.showWithGravityAndOffset(
+            '请选择图片！',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            0,450)
+        }
+    }
+    rechoosepics = ()=>{
+        this.setState({
+            lists:[],
+            uplists:[]
+        })
     }
     savedairy = ()=>{
         var time = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
         var context = this.state.context;
-        var imgurl = this.state.lists;
+        var imgurl = this.state.reslists;
         if(!context){
             context = '（这是一篇没有文字的日记……）';
         }
@@ -230,7 +335,25 @@ export default class Cdairy extends Component {
                             resizeMode="cover"
                             source={{uri:`${this.state.bgimg}`}}
                         >
-                            <Icon6 color={weathercolor} style={styles.lineweather} name={this.state.weather}/>
+                            <View style={styles.linebox}>
+                                <View style={{width:0.25*width,height:0.04*height}}>
+                                    <TouchableOpacity onPress={this.clearbtn}>
+                                        <Text style={{
+                                            width:0.25*width,
+                                            height:0.04*height,
+                                            textAlign:'center',
+                                            display:this.state.btndisplay,
+                                            textAlignVertical:'center',
+                                            fontSize:22*s,
+                                            borderRadius:5,
+                                            color:weathercolor,
+                                            // backgroundColor:'#ccc',
+                                            backgroundColor:`${this.state.bgcolor}`
+                                        }}>清除背景图片</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <Icon6 color={weathercolor} style={styles.lineweather} name={this.state.weather}/>
+                            </View>
                             <TextInput
                                 style={{
                                     backgroundColor:'rgba(255,255,255,0.3)',
@@ -249,10 +372,17 @@ export default class Cdairy extends Component {
                             />
                             <View style={styles.picchoose}>
                                 <Text style={styles.pictext}>添加图片</Text>
-                                <TouchableOpacity style={styles.picbtn}>
+                                <TouchableOpacity onPress={this.confirmpics}>
+                                    <Icon5 size={40*s} style={styles.doiconpic} name='md-checkbox'/>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={this.rechoosepics}>
+                                    <Icon6 size={35*s} style={styles.doiconpic} name='redo'/>
+                                </TouchableOpacity>
+                                <Text style={{width:0.1*width,}}></Text>
+                                <TouchableOpacity style={styles.picbtn} onPress={this.choosepics}>
                                     <Icon2 size={45*s} style={styles.iconpic} name='image-plus'/>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.picbtn}>
+                                <TouchableOpacity style={styles.picbtn} onPress={this.takepic}>
                                     <Icon4 size={40*s} style={styles.iconpic} name='camera'/>
                                 </TouchableOpacity>
                             </View>
@@ -322,11 +452,15 @@ const styles = StyleSheet.create({
         // transform: [{scale:0.95}]
         // paddingLeft:''
     },
+    linebox:{
+        height:0.04*height,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center'
+    },
     lineweather:{
         paddingRight:0.02*width,
-        marginLeft:'auto',
-        marginRight:'auto',
-        width:0.85*width,
+        width:0.6*width,
         height:0.04*height,
         textAlignVertical:'center',
         textAlign:'right',
@@ -379,11 +513,18 @@ const styles = StyleSheet.create({
         width:0.3*width,
         height:0.04*height,
         // backgroundColor:'#ddd',
-        marginRight:0.25*width,
+        // marginRight:0.15*width,
         color:'#555',
         fontSize:25*s,  
         textAlign:'center' ,
         textAlignVertical:'center', 
+    },
+    doiconpic:{
+        width:0.1*width,
+        height:0.04*height,
+        textAlignVertical:'center',
+        textAlign:'center',
+        color:'#555'
     },
     iconpic:{
         width:0.15*width,

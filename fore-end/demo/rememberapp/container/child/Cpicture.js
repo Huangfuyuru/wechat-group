@@ -176,7 +176,7 @@ export default class Cdairy extends Component {
                         renderItem={({item})=>(
                             <View key={item.id} style={styles.cpicture_block}>
                                 <View style={styles.cpicturepicbox}>
-                                    <TouchableOpacity onPress={()=>Actions.cspictures({pid:item.id})}>
+                                    <TouchableOpacity onPress={()=>Actions.cspictures({pid:item.id,pname:item.name})}>
                                         <ImageBackground
                                             style={styles.cpicturepic}
                                             resizeMode="cover"

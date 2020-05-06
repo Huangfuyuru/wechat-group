@@ -8,8 +8,9 @@ import {
     FlatList,
     ImageBackground,
     Image,
+    ToastAndroid
 } from 'react-native'
-import ImageCropPicker from 'react-native-image-crop-picker'
+import ImagePicker from 'react-native-image-crop-picker'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Entypo'
@@ -24,14 +25,14 @@ export default class Cdairy extends Component {
         super();
         this.state={
             lists:[],
-            uplists:[]
+            uplists:[],
         }
     }
     uploadImage =(params)=> {
         return new Promise(function (resolve, reject) {
             let formData = new FormData();
             formData.append('params', params);
-            fetch('http://148.70.223.218:3001/img', {
+            fetch('http://148.70.223.218:3001/imgs', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -52,14 +53,12 @@ export default class Cdairy extends Component {
         });
     };
     choocepictures = ()=>{
-        ImageCropPicker.openPicker({
+        ImagePicker.openPicker({
             multiple: true,
             includeBase64:true
         }).then(images => {
-            // image = JSON.parse(image)
             var lists = this.state.lists;
             var uplists = this.state.uplists;
-            // console.log(images)
             for(var i in images){
                 lists.push(images[i].path);
                 uplists.push(images[i].data);
@@ -69,17 +68,18 @@ export default class Cdairy extends Component {
                 uplists:uplists
             })
         });
-        ImageCropPicker.clean().then(() => { 
+        ImagePicker.clean().then(() => { 
             console.log('removed all tmp images from tmp directory');
         }).catch(e => { 
             console.log(e)
         });
     }
     takephoto = ()=>{
-        ImageCropPicker.openCamera({
+        ImagePicker.openCamera({
             width:300,
             height:400,
             cropping:true,
+            includeBase64:true
         }).then(image=>{
             var lists = this.state.lists;
             var uplists = this.state.uplists;
@@ -90,7 +90,7 @@ export default class Cdairy extends Component {
                 uplists:uplists
             })
         });
-        ImageCropPicker.clean().then(() => { 
+        ImagePicker.clean().then(() => { 
             console.log('removed all tmp images from tmp directory');
         }).catch(e => { 
             console.log(e)
@@ -102,6 +102,25 @@ export default class Cdairy extends Component {
             uplists:[]
         })
     }
+    uploadpics = ()=>{
+        if(this.state.uplists[0]){
+            this.uploadImage(this.state.uplists)
+            .then( res=>{
+                ToastAndroid.show('添加成功！', ToastAndroid.SHORT);
+                setTimeout(()=>{
+                    Actions.pop({refresh:({data:res})})
+                },1000)
+            }).catch( err=>{
+                console.log('flied');
+            })
+        }else{
+            ToastAndroid.showWithGravityAndOffset(
+            '请选择图片！',
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+            0,-350)
+        }
+    }
     render() {
         return (
             <View>
@@ -111,7 +130,7 @@ export default class Cdairy extends Component {
                         name='chevron-left'
                         onPress={()=>Actions.pop()}
                     />
-                    <Text style={styles.title}>增加照片</Text>
+                    <Text style={styles.title}>新增照片</Text>
                 </View>
                 <View style={styles.btnbox}>
                     <TouchableOpacity onPress={this.choocepictures} style={styles.btn}>
@@ -122,7 +141,7 @@ export default class Cdairy extends Component {
                         <Icon3 style={styles.btnicon} name='camera'/>
                         <Text style={styles.btntext}>立即拍照</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity style={styles.btn}  onPress={this.uploadpics}>
                         <Icon2 style={styles.btnicon} name='checkbox-multiple-marked-circle'/>
                         <Text style={styles.btntext}>确认上传</Text>
                     </TouchableOpacity>

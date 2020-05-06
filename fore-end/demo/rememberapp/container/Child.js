@@ -19,10 +19,10 @@ import {
 } from 'react-native-router-flux'
 import { Flex, WingBlank } from '@ant-design/react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
-import ImagePicker from 'react-native-image-picker'
+// import ImagePicker from 'react-native-image-picker'
 import moment from 'moment'
 import {myFetch} from '../src/utils'
-// import ImagePicker from 'react-native-image-crop-picker'
+import ImagePicker from 'react-native-image-crop-picker'
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 411;
 const s1 = width / 640;
@@ -149,19 +149,14 @@ export default class Child extends Component {
         });
     };
     choosebgpic=()=>{
-        const options = {
-            quality:1.0,
-            maxWidth:300,
-            maxHeight:400,
-            storageOptions:{
-                skipBackup:true
-            }
-        }
-        ImagePicker.launchImageLibrary(options,(res)=>{
-            // console.log(res.data)
-            this.uploadImage(res.data)
+        ImagePicker.openPicker({
+            width: 400, 
+            height: 300, 
+            cropping: true,
+            includeBase64:true
+        }).then(image => {
+            this.uploadImage(image.data)
             .then( res=>{
-                console.log(res.url)
                 this.setState({
                     background:res.url
                 })
@@ -169,8 +164,12 @@ export default class Child extends Component {
             }).catch( err=>{
                 console.log('flied');
             })
-
-        })
+        });
+        ImagePicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
+        });
     }
     compile = ()=>{
         this.setState({

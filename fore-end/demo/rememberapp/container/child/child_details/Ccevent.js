@@ -17,6 +17,9 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Entypo'
 import Icon4 from 'react-native-vector-icons/FontAwesome'
 import Icon5 from 'react-native-vector-icons/AntDesign'
+import Icon7 from 'react-native-vector-icons/Ionicons'
+import Icon6 from 'react-native-vector-icons/Fontisto'
+import ImagePicker from 'react-native-image-crop-picker'
 import {myFetch} from '../../../src/utils'
 import { Actions } from 'react-native-router-flux';
 import { WingBlank } from '@ant-design/react-native';
@@ -35,7 +38,9 @@ export default class Cdairy extends Component {
             day:date[2],
             content:'',
             name:'',
-            lists:[]
+            lists:[],
+            uplists:[],
+            reslists:[],
         }
     }
     componentDidMount(){
@@ -50,6 +55,75 @@ export default class Cdairy extends Component {
             ToastAndroid.TOP,
             25,250)
     }
+    choosepics = ()=>{
+        ImagePicker.openPicker({
+            multiple: true,
+            includeBase64:true
+        }).then(images => {
+            var lists = this.state.lists;
+            var uplists = this.state.uplists;
+            for(var i in images){
+                lists.push(images[i].path);
+                uplists.push(images[i].data);
+            }
+            this.setState({
+                lists:lists,
+                uplists:uplists
+            })
+        });
+        ImagePicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
+        });
+    }
+    takepic = ()=>{
+        ImagePicker.openCamera({
+            width:300,
+            height:400,
+            cropping:true,
+        }).then(image=>{
+            var lists = this.state.lists;
+            var uplists = this.state.uplists;
+            lists.push(image.path);
+            uplists.push(image.data);
+            this.setState({
+                lists:lists,
+                uplists:uplists
+            })
+        });
+        ImagePicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
+        });
+    }
+    confirmpics = ()=>{
+        if(this.state.uplists[0]){
+            myFetch.uploadImages(this.state.uplists)
+            .then( res=>{
+                // console.log(res)
+                this.setState({
+                    reslists:res
+                })
+                ToastAndroid.show('添加成功！', ToastAndroid.SHORT);
+            }).catch( err=>{
+                console.log('flied');
+            })
+        }else{
+            ToastAndroid.showWithGravityAndOffset(
+            '请选择图片！',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            0,450)
+        }
+    }
+    rechoosepics = ()=>{
+        this.setState({
+            lists:[],
+            uplists:[]
+        })
+    }
     saveevent = ()=>{
         if(!this.state.name){
             ToastAndroid.showWithGravityAndOffset(
@@ -62,7 +136,7 @@ export default class Cdairy extends Component {
             var date = moment(time).format("YYYY-MM-DD")
             var now = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
             var content = this.state.content;
-            var imgurl = this.state.lists;
+            var imgurl = this.state.reslists;
             if(!imgurl[0]){
                 imgurl = ''
             }
@@ -187,10 +261,17 @@ export default class Cdairy extends Component {
                     />
                     <View style={styles.picchoose}>
                         <Text style={styles.pictext}>添加图片</Text>
-                        <TouchableOpacity style={styles.picbtn}>
+                        <TouchableOpacity onPress={this.confirmpics}>
+                            <Icon7 size={40*s} style={styles.doiconpic} name='md-checkbox'/>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.rechoosepics}>
+                            <Icon6 size={35*s} style={styles.doiconpic} name='redo'/>
+                        </TouchableOpacity>
+                        <Text style={{width:0.1*width,}}></Text>
+                        <TouchableOpacity style={styles.picbtn} onPress={this.choosepics}>
                             <Icon2 size={45*s} style={styles.iconpic} name='image-plus'/>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.picbtn}>
+                        <TouchableOpacity style={styles.picbtn} onPress={this.takepic}>
                             <Icon3 size={40*s} style={styles.iconpic} name='camera'/>
                         </TouchableOpacity>
                     </View>
@@ -332,11 +413,18 @@ const styles = StyleSheet.create({
         width:0.3*width,
         height:0.04*height,
         // backgroundColor:'#ddd',
-        marginRight:0.25*width,
+        // marginRight:0.25*width,
         color:'#555',
         fontSize:25*s,  
         textAlign:'center' ,
         textAlignVertical:'center', 
+    },
+    doiconpic:{
+        width:0.1*width,
+        height:0.04*height,
+        textAlignVertical:'center',
+        textAlign:'center',
+        color:'#FFBF2D'
     },
     iconpic:{
         width:0.15*width,
