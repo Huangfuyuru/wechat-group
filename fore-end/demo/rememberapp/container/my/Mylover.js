@@ -6,6 +6,7 @@ import {
     Dimensions,
     FlatList,
     Image,
+    AsyncStorage,
     ImageBackground,
     TouchableOpacity,
     ToastAndroid,
@@ -19,6 +20,8 @@ import Icon2 from "react-native-vector-icons/Ionicons";
 import Icon3 from 'react-native-vector-icons/AntDesign'
 import Icon4 from 'react-native-vector-icons/FontAwesome'
 import Button from 'react-native-button';
+//引入组件
+import {myFetch} from '../../src/utils'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 const h = height / 1012;
@@ -27,30 +30,72 @@ export default class Mylover extends Component {
         super();
         this.state={
             lists:[
-                {
-                    name: "皮卡丘",
-                },
+                // {
+                //     name: "皮卡丘",
+                // },
             ]
         }
     }
-    alertMsg = () => {
-        Alert.alert(
-            '提示',
-            '确认删除？',
+    componentDidMount(){
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            this.setState({
+                uid:user.id,
+            })
+            myFetch.get('/my/lover',{
+                uid:this.state.uid
+            }).then(res=>{
+                console.log(res)
+                if(res){
+                    this.setState({
+                        lists:res
+                    })
+                }else{
+                    this.setState({
+                        lists:[]
+                    })
+                }
+            })
+        })
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            lists:nextProps.data
+        })
+    }
+    rmCevent = (e)=>{
+        var rmname = e.name;
+        Alert.alert('提示', '确定要删除吗？',
             [
-                {
-                    text: '确定', onPress: () => {
-                        ToastAndroid.show('删除成功！', ToastAndroid.SHORT)
-                    }
-                },
-                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-            ],
-        );
+                { text: "确定", onPress: ()=>{
+                    myFetch.get('/my/lover/addlover',{
+                        loverid:e.id,
+                    }).then(res=>{
+                        if(res){
+                            this.setState({
+                                lists:res
+                            })
+                        }else{
+                            this.setState({
+                                lists:[]
+                            })
+                        }
+                        ToastAndroid.showWithGravityAndOffset(
+                            rmname+'删除成功！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-100)
+                    })
+                } },
+                { text: "取消", onPress: this.opntion2Selected },
+            ]
+        )
     }
     render() {
         return (
             <View>
-                 <View style={styles.navbar}>
+                <View style={styles.navbar}>
                     <Icon1 
                         style={styles.icon}
                         name='chevron-left'
@@ -133,7 +178,7 @@ export default class Mylover extends Component {
                                     <Text style={{fontSize:16}}>{item.name}</Text>
                                 </View>
                                 <TouchableOpacity >
-                                    <Icon3 style={styles.icon2} onPress={this.alertMsg} name='delete'/>
+                                    <Icon3 style={styles.icon2} onPress={()=>this.rmCevent(item)} name='delete'/>
                                 </TouchableOpacity>
                             </View>
                         }}
@@ -200,4 +245,3 @@ const styles = StyleSheet.create({
         textAlignVertical:'center'
     }
 })
-

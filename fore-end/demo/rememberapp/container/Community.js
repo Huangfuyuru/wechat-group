@@ -131,7 +131,7 @@ export default class Community extends Component {
                                     </Text>
                                 </TouchableOpacity>
                             ))}
-                            <TouchableOpacity onPress={()=>Actions.tsearch()}>
+                            <TouchableOpacity onPress={()=>Actions.tdiscuss()}>
                                 <Icon2 style={styles.icon} name='ios-add-circle-outline'/>
                             </TouchableOpacity>
                         </View>

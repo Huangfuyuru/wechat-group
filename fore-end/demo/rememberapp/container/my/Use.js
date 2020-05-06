@@ -63,7 +63,6 @@ export default class Use extends Component {
             myFetch.post('/my/information',{
                 uname:this.state.name,
                 gender:this.state.firstValue,
-                pass:this.state.pass,
                 uid:user.id,
             }).then(
                 res=>{
