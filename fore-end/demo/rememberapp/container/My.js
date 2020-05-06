@@ -63,6 +63,9 @@ export default class My extends Component {
             num3:55
         }
     }
+    componentDidMount(){
+    
+    }
     takephoto = ()=>{
         ImageCropPicker.openCamera({
             width: 300,
@@ -73,72 +76,43 @@ export default class My extends Component {
           });
     }
     alertMsg = () => {
-        AsyncStorage.getItem('user').
-        then((res)=>{
-            var user = JSON.parse(res)
-            this.setState({
-                uid:user.id,
-            })
-            myFetch.post('/my/sign',{
-                uid:user.id,
-            }).then(
-                res=>{
-                    if(res.code == 0){
-                        console.log('这是code'+res.code);
-                        this.setState({
-                            code:res.code
+        Alert.alert('提示', '确定要签到吗？',
+            [
+                { text: "确定", onPress: ()=>{
+                    AsyncStorage.getItem('user').
+                        then((res)=>{
+                            var user = JSON.parse(res)
+                            this.setState({
+                                uid:user.id,
+                            })
+                        console.log(user.id);
+                        myFetch.get('/my/sign',{
+                            uid:user.uid
+                        }).then(res=>{
+                            if(res.code==0){
+                                this.setState({
+                                    code:res.code
+                                })
+                                console.log(this.state.code);
+                                ToastAndroid.showWithGravityAndOffset(
+                                    '签到成功！',
+                                ToastAndroid.SHORT,
+                                ToastAndroid.CENTER,
+                                25,-200)
+                            }else{
+                                ToastAndroid.showWithGravityAndOffset(
+                                    '签到失败！',
+                                ToastAndroid.SHORT,
+                                ToastAndroid.CENTER,
+                                25,-200)
+                                console.log('这是code'+res.code);
+                            }
                         })
-                        ToastAndroid.showWithGravityAndOffset(
-                            '签到成功！',
-                        ToastAndroid.SHORT,
-                        ToastAndroid.CENTER,
-                        25,-200)
-                    }
-                    else{
-                        ToastAndroid.showWithGravityAndOffset(
-                            '签到失败！',
-                        ToastAndroid.SHORT,
-                        ToastAndroid.CENTER,
-                        25,-200)
-                        console.log('这是code'+res.code);
-                    }
-                }   
-            )
-        })
-        // if(this.state.code==1){
-        //     Alert.alert(
-        //     '提示',
-        //     '确认签到？',
-        //     [
-        //         {
-        //             text: '确定', onPress: () => {
-        //                 AsyncStorage.getItem('user').
-        //                 then((res)=>{
-        //                     var user = JSON.parse(res)
-        //                     this.setState({
-        //                         uid:user.id
-        //                     })
-        //                     myFetch.post('/my/sign',{
-        //                         uid:user.id
-        //                     }).then(
-        //                         res=>{
-        //                             this.setState({
-        //                                 code:res.code
-        //                             })
-        //                         }
-        //                     )
-        //                 })
-        //                 ToastAndroid.show('签到成功！', ToastAndroid.SHORT);
-        //                 console.log(this.state.code);
-        //             }
-        //         },
-        //         { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-        //     ],
-        // );
-        // }
-        // else{
-        //     ToastAndroid.show('已经签到过啦！', ToastAndroid.SHORT)
-        // }
+                    })
+                } },
+                { text: "取消", onPress: this.opntion2Selected },
+            ]
+        )
     }
     render() {
         return (
