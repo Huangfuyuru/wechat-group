@@ -76,43 +76,65 @@ export default class My extends Component {
           });
     }
     alertMsg = () => {
-        Alert.alert('提示', '确定要签到吗？',
-            [
-                { text: "确定", onPress: ()=>{
-                    AsyncStorage.getItem('user').
-                        then((res)=>{
-                            var user = JSON.parse(res)
-                            this.setState({
-                                uid:user.id,
-                            })
-                        console.log(user.id);
-                        myFetch.get('/my/sign',{
-                            uid:user.uid
-                        }).then(res=>{
-                            if(res.code==0){
-                                this.setState({
-                                    code:res.code
-                                })
-                                console.log(this.state.code);
-                                ToastAndroid.showWithGravityAndOffset(
-                                    '签到成功！',
-                                ToastAndroid.SHORT,
-                                ToastAndroid.CENTER,
-                                25,-200)
-                            }else{
-                                ToastAndroid.showWithGravityAndOffset(
-                                    '签到失败！',
-                                ToastAndroid.SHORT,
-                                ToastAndroid.CENTER,
-                                25,-200)
-                                console.log('这是code'+res.code);
-                            }
-                        })
+       console.log('---------------');
+        AsyncStorage.getItem('user').
+            then((res)=>{
+                var user = JSON.parse(res)
+                this.setState({
+                    uid:user.id,
+                })
+                console.log(this.state.uid);
+            myFetch.get('/my/sign',{
+                uid:this.state.uid
+            }).then(res=>{
+                if(res){
+                    this.setState({
+                        code:res.code
                     })
-                } },
-                { text: "取消", onPress: this.opntion2Selected },
-            ]
-        )
+                    console.log(this.state.code);
+                }else{
+                    console.log('这是code'+res.code);
+                }
+            })
+        })
+
+        // Alert.alert('提示', '确定要签到吗？',
+        //     [
+        //         { text: "确定", onPress: ()=>{
+        //             AsyncStorage.getItem('user').
+        //                 then((res)=>{
+        //                     var user = JSON.parse(res)
+        //                     this.setState({
+        //                         uid:user.id,
+        //                     })
+        //                 console.log(user.id);
+        //                 myFetch.get('/my/sign',{
+        //                     uid:user.uid
+        //                 }).then(res=>{
+        //                     if(res.code==0){
+        //                         this.setState({
+        //                             code:res.code
+        //                         })
+        //                         console.log(this.state.code);
+        //                         ToastAndroid.showWithGravityAndOffset(
+        //                             '签到成功！',
+        //                         ToastAndroid.SHORT,
+        //                         ToastAndroid.CENTER,
+        //                         25,-200)
+        //                     }else{
+        //                         ToastAndroid.showWithGravityAndOffset(
+        //                             '签到失败！',
+        //                         ToastAndroid.SHORT,
+        //                         ToastAndroid.CENTER,
+        //                         25,-200)
+        //                         console.log('这是code'+res.code);
+        //                     }
+        //                 })
+        //             })
+        //         } },
+        //         { text: "取消", onPress: this.opntion2Selected },
+        //     ]
+        // )
     }
     render() {
         return (

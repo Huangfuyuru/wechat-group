@@ -73,22 +73,26 @@ export default class Mychilds extends Component {
                             this.setState({
                                 lists:res
                             })
+                            ToastAndroid.showWithGravityAndOffset(
+                                '删除成功！',
+                            ToastAndroid.SHORT,
+                            ToastAndroid.CENTER,
+                            25,-100)
                         }else{
                             this.setState({
                                 lists:[]
                             })
+                            ToastAndroid.showWithGravityAndOffset(
+                                '删除失败！',
+                            ToastAndroid.SHORT,
+                            ToastAndroid.CENTER,
+                            25,-100)
                         }
-                        ToastAndroid.showWithGravityAndOffset(
-                            '删除成功！',
-                        ToastAndroid.SHORT,
-                        ToastAndroid.CENTER,
-                        25,-100)
                     })
                 } },
                 { text: "取消", onPress: this.opntion2Selected },
             ]
         )
-        console.log(this.state.lists);
     }
     render() {
         return (
