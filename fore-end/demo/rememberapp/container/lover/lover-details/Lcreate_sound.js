@@ -165,7 +165,7 @@ export default class Lcreate_sound extends Component {
         }
         const formData = new FormData()
         formData.append('file',"file://"+this.state.audioPath);
-        fetch("http://148.70.223.218:3002/sound", {
+        fetch("http://148.70.223.218:3001/sound", {
           method: 'post',
           headers: {
             'Content-Type': 'multipart/form-data'
