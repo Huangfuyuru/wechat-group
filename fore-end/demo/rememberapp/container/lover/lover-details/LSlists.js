@@ -9,7 +9,6 @@ import {
     FlatList,
     ImageBackground,
     ToastAndroid
-
 } from "react-native"
 import Icon1 from 'react-native-vector-icons/Feather'
 import { Actions } from "react-native-router-flux"
@@ -22,6 +21,7 @@ export default class LSlists extends Component {
         super()
         this.state = {
             arr: [],
+            loverId:"",
             data:[]
         }
     }
@@ -53,7 +53,6 @@ export default class LSlists extends Component {
     }
     render() {
         const list = this.state.arr
-        let num=0;
         return (
             <View >
                 <View style={styles.navbar}>
@@ -64,14 +63,6 @@ export default class LSlists extends Component {
                                               />
                     <Text style={styles.title}>清单列表</Text>
                 </View>
-                { 
-                     this.state.arr.map((item)=>{
-                        if(item.imgurl!==undefined){
-                            num+=1
-                        }
-                     }
-                     )
-                }
                 <View style={styles.btn}>
                     <Text style={{
                         color: "#fff",
@@ -80,7 +71,7 @@ export default class LSlists extends Component {
                         textAlignVertical: "center",
                         lineHeight: 42,
                         color:"pink"
-                    }}>已完成 {num}/</Text>
+                    }}>已完成 {this.state.data.length}/</Text>
                     <Text style={{
                           color: "#000",
                           fontSize:20*s,
