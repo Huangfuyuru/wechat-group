@@ -5,6 +5,7 @@ import {
     StyleSheet,
     Dimensions,
     FlatList,
+    AsyncStorage,
     Image,
     ImageBackground,
     TouchableOpacity,
@@ -16,6 +17,7 @@ import { Actions } from 'react-native-router-flux';
 import { WingBlank } from '@ant-design/react-native';
 import Icon1 from 'react-native-vector-icons/Feather'
 import Button from 'react-native-button';
+import {myFetch} from '../../src/utils'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 const h = height / 1012;
@@ -23,6 +25,7 @@ export default class Mfollowers extends Component {
     constructor(){
         super();
         this.state={
+            uid:'',
             lists:[
                 {
                     bgimg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587617812981&di=6b4348589fe3b0e92c60cea8e5ed1f53&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201511%2F21%2F20151121170247_xFGX5.thumb.1000_0.jpeg',
@@ -52,20 +55,75 @@ export default class Mfollowers extends Component {
             attention:'关注Ta'
         }
     }
-    alertMsg = () => {
-        Alert.alert(
-            '提示',
-            '确认关注Ta？',
-            [
-                {
-                    text: '确定', onPress: () => {
-                        ToastAndroid.show('关注成功！', ToastAndroid.SHORT)
-                    }
-                },
-                { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-            ],
-        );
+    componentDidMount(){
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            this.setState({
+                uid:user.id,
+            })
+            myFetch.get('/my/mypage/fans',{
+                uid:this.state.uid
+            }).then(res=>{
+                console.log(res)
+                if(res){
+                    this.setState({
+                        lists:res
+                    })
+                }else{
+                    this.setState({
+                        lists:[]
+                    })
+                }
+            })
+        })
     }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            lists:nextProps.data
+        })
+    }
+    rmCevent = (e)=>{
+        Alert.alert('提示', '确定取关吗？',
+            [
+                { text: "确定", onPress: ()=>{
+                    myFetch.get('/my/friends/delfriend',{
+                        friend_id:e.id,
+                    }).then(res=>{
+                        if(res){
+                            this.setState({
+                                lists:res
+                            })
+                        }else{
+                            this.setState({
+                                lists:[]
+                            })
+                        }
+                        ToastAndroid.showWithGravityAndOffset(
+                           '取关成功！',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.CENTER,
+                        25,-100)
+                    })
+                } },
+                { text: "取消", onPress: this.opntion2Selected },
+            ]
+        )
+    }
+    // alertMsg = () => {
+    //     Alert.alert(
+    //         '提示',
+    //         '确认关注Ta？',
+    //         [
+    //             {
+    //                 text: '确定', onPress: () => {
+    //                     ToastAndroid.show('关注成功！', ToastAndroid.SHORT)
+    //                 }
+    //             },
+    //             { text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+    //         ],
+    //     );
+    // }
     render() {
         return (
             <View>

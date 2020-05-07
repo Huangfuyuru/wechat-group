@@ -16,6 +16,8 @@ import moment from 'moment'
 import { Actions } from 'react-native-router-flux';
 import { WingBlank } from '@ant-design/react-native';
 import Icon1 from 'react-native-vector-icons/Feather'
+//引入组件
+import {myFetch} from '../../src/utils'
 import Button from 'react-native-button';
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
@@ -24,6 +26,7 @@ export default class Myfriend extends Component {
     constructor(){
         super();
         this.state={
+            uid:'',
             lists:[
                 {
                     bgimg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587617812981&di=6b4348589fe3b0e92c60cea8e5ed1f53&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201511%2F21%2F20151121170247_xFGX5.thumb.1000_0.jpeg',
@@ -73,7 +76,8 @@ export default class Myfriend extends Component {
             this.setState({
                 uid:user.id,
             })
-            myFetch.get('/my/child',{
+            console.log(this.state.uid);
+            myFetch.get('/my/friends',{
                 uid:this.state.uid
             }).then(res=>{
                 console.log(res)
@@ -95,12 +99,11 @@ export default class Myfriend extends Component {
         })
     }
     rmCevent = (e)=>{
-        var rmname = e.name;
         Alert.alert('提示', '确定取关吗？',
             [
                 { text: "确定", onPress: ()=>{
-                    myFetch.get('/my/child/delchild',{
-                        loverid:e.id,
+                    myFetch.get('/my/friends/delfriend',{
+                        friend_id:e.id,
                     }).then(res=>{
                         if(res){
                             this.setState({
@@ -112,7 +115,7 @@ export default class Myfriend extends Component {
                             })
                         }
                         ToastAndroid.showWithGravityAndOffset(
-                            rmname+'取关成功！',
+                           '取关成功！',
                         ToastAndroid.SHORT,
                         ToastAndroid.CENTER,
                         25,-100)
