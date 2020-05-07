@@ -70,16 +70,13 @@ export default class Cdairy extends Component {
             }
         })
     }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            lists:nextProps.data
+        })
+    }
     componentDidUpdate(){
-        // fetch(`http://localhost:3001/child/cpictures?childsid=${this.state.cid}`)
-        // .then((res)=>res.json())
-        // .then((res)=>{
-        //     console.log('点击云相册',res)
-        //     this.setState({
-        //         lists:res
-        //     });
-            
-        // })
+      
     }
     compile = ()=>{
         this.setState({
@@ -97,19 +94,27 @@ export default class Cdairy extends Component {
         })
     }
     delpictures = ()=>{
-        this.setState({
-            checkboxtimes:this.state.checkboxtimes+1
-        },()=>{
-            if(this.state.checkboxtimes % 2 == 0){
-                this.setState({
-                    checkboxdisabled:'none',
-                })
-            }else{
-                this.setState({
-                    checkboxdisabled:'flex'
-                }) 
-            }
-        })
+        if(this.state.lists[0]){
+            this.setState({
+                checkboxtimes:this.state.checkboxtimes+1
+            },()=>{
+                if(this.state.checkboxtimes % 2 == 0){
+                    this.setState({
+                        checkboxdisabled:'none',
+                    })
+                }else{
+                    this.setState({
+                        checkboxdisabled:'flex'
+                    }) 
+                }
+            })
+        }else{
+            ToastAndroid.showWithGravityAndOffset(
+            '一张图片都没有！',
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+            0,-350)
+        }
     }
     enlarge=(item)=>{
         this.setState({
@@ -183,7 +188,7 @@ export default class Cdairy extends Component {
                         name='chevron-left'
                         onPress={()=>Actions.pop()}
                     />
-                    <Text style={styles.title}>我的相册</Text>
+                    <Text style={styles.title}>{this.props.pname}</Text>
                     <TouchableOpacity onPress={this.compile}>
                         <Icon1 style={styles.icon} name='more-horizontal'/>
                     </TouchableOpacity>

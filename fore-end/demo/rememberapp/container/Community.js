@@ -41,19 +41,20 @@ export default class Community extends Component {
         // var uid = JSON.parse(localStorage.getItem('uid'));
         this.state={
             onPress:0,
+            showFoot:0,
             refreshing:false,
             lists:[
                 {
-                    title:1
+                    title:image
                 },
                 {
-                    title:2
+                    title:image1
                 },
                 {
-                    title:3
+                    title:image
                 },
                 {
-                    title:4
+                    title:image1
                 },
             ]
         }
@@ -93,7 +94,6 @@ export default class Community extends Component {
                 <Tabs
                 renderUnderline={() =>null}
                 // swipeable={true}
-                // tabBarUnderlineStyle={{borderColor:'#000'}}
                 styles={{
                     topTabBarSplitLine: {
                         borderBottomWidth: 0,
@@ -168,6 +168,7 @@ export default class Community extends Component {
                             extraData={this.state}
                             data={this.state.lists}
                             horizontal={false}
+                            initialNumToRender={1}
                             pagingEnabled={true}
                             viewabilityConfig={VIEWABILITY_CONFIG}
                             showsVerticalScrollIndicator={false}
@@ -178,33 +179,22 @@ export default class Community extends Component {
                                     </View>
                                     <View style={styles.innerpics}>
                                         <Swiper
+                                            ref={(e) => { this.scrollView = e }}
                                             renderPagination = {renderPagination} 
                                             style={styles.wrapper} 
                                             showsButtons={true}
                                             // loop={false}
                                             horizontal={true}
                                             autoplay={true}>
-                                            <View style={{width:'100%',height:'100%'}}>
-                                                {/* <Image
-                                                    // resizeMode="cover" 
-                                                    style={styles.img}
-                                                    source={{uri:image}}/> */}
-                                                <Text>1</Text>
-                                            </View>
-                                            <View style={{width:'100%',height:'100%'}}>
-                                                {/* <Image
-                                                    // resizeMode="cover" 
-                                                    style={styles.img}
-                                                    source={{uri:image1}}/> */}
-                                                <Text>2</Text>
-                                            </View>
-                                            <View style={{width:'100%',height:'100%'}}>
-                                                {/* <Image
-                                                    // resizeMode="cover" 
-                                                    style={styles.img}
-                                                    source={{uri:image1}}/> */}
-                                                <Text>3</Text>                                   
-                                            </View>                                        
+                                            {
+                                                this.state.lists&&this.state.lists.map((item,idx)=>(
+                                                    <Image 
+                                                        style={styles.img}
+                                                        resizeMode="cover"
+                                                        source={{uri:`${item.title}`}}
+                                                    />
+                                                ))
+                                            }                     
                                         </Swiper>
 
                                     </View>
