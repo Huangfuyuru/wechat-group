@@ -16,9 +16,10 @@ import Icon2 from 'react-native-vector-icons/FontAwesome'
 import Icon3 from 'react-native-vector-icons/Fontisto'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux';
+import ImagePicker from 'react-native-image-crop-picker'
 import {myFetch} from '../../../src/utils'
 import { TextInput } from 'react-native-gesture-handler';
-import { WingBlank, ImagePicker } from '@ant-design/react-native';
+import { WingBlank } from '@ant-design/react-native';
 import Button from 'react-native-button';
 const {width,scale} = Dimensions.get('window');
 const s = width / 640;
@@ -40,13 +41,55 @@ export default class Cdairy extends Component {
         })
     }
     setbackground = ()=>{
-
+        ImagePicker.openPicker({
+            width: 400, 
+            height: 300, 
+            cropping: true,
+            includeBase64:true
+        }).then(image => {
+            myFetch.uploadImage(image.data)
+            .then( res=>{
+                this.setState({
+                    background:res.url
+                })
+                console.log('success');
+            }).catch( err=>{
+                console.log('flied');
+            })
+        });
+        ImagePicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
+        });
     }
-    choosepictures = ()=>{
-
+    redopics = ()=>{
+        this.setState({
+            background:image
+        })
     }
     takephoto = ()=>{
-
+        ImagePicker.openCamera({
+            width:400,
+            height:300,
+            cropping:true,
+            includeBase64:true
+        }).then(image=>{
+            myFetch.uploadImage(image.data)
+            .then( res=>{
+                this.setState({
+                    background:res.url
+                })
+                console.log('success');
+            }).catch( err=>{
+                console.log('flied');
+            })
+        });
+        ImagePicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
+        });
     }
     additem = ()=>{
         var name = this.state.name;
@@ -125,20 +168,21 @@ export default class Cdairy extends Component {
                             marginBottom:0.01*width
                         }}>
                             <Text
-                            style={styles.textbtn}>添加图片</Text>
+                            style={styles.textbtn}>重选封面</Text>
                             <View style={{
                                 flexDirection: 'row',
                                 textAlignVertical:'center',
                             }}>
-                                <TouchableOpacity onPress={this.choosepictures} >
-                                    <Icon3 style={styles.btnicon} name='photograph'/>
+                                <TouchableOpacity onPress={this.redopics} >
+                                    {/* <Icon3 style={styles.btnicon} name='photograph'/> */}
+                                    <Icon3 style={styles.btnicon} name='redo'/>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={this.takephoto}>
                                     <Icon1 style={styles.btnicon}  name='camera'/>
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        <FlatList 
+                        {/* <FlatList 
                         style={styles.picbox}
                         data={lists}
                         numColumns={3}
@@ -156,7 +200,7 @@ export default class Cdairy extends Component {
                                 source={{uri:`${item.path}`}}
                             />
                         )}
-                        />  
+                        />   */}
                     </View>
                 </WingBlank>
                 <Button
@@ -251,7 +295,7 @@ const styles = StyleSheet.create({
     },
     choose:{
         width:0.85*width,
-        height:480*s,
+        height:200*s,
         marginLeft:'auto',
         marginRight:'auto',
         marginTop:30*s,

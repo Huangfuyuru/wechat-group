@@ -30,26 +30,9 @@ export default class Mychilds extends Component {
     constructor(){
         super();
         this.state={
-            childid:0,
             uid:'',
             code:1, //要获取的状态
-            lists:[
-                // {
-                //     name: "小浣熊",
-                // },
-                // {
-                //     name: "旺旺",
-                // },
-                // {
-                //     name: "皮卡丘",
-                // },
-                // {
-                //     name: "喵喵",
-                // },
-                // {
-                //     name: "皮卡丘",
-                // },
-            ]
+            lists:[]
         }
     }
     componentDidMount(){
@@ -73,7 +56,6 @@ export default class Mychilds extends Component {
                 }
             })
         })
-        console.log('list'+this.state.lists);
     }
     componentWillReceiveProps(nextProps) {
         this.setState({
@@ -81,14 +63,13 @@ export default class Mychilds extends Component {
         })
     }
     rmCevent = (e)=>{
-        var rmname = e.name;
         Alert.alert('提示', '确定要删除吗？',
             [
                 { text: "确定", onPress: ()=>{
                     myFetch.get('/my/child/delchild',{
                         uid:e.id,
                     }).then(res=>{
-                        if(res){
+                        if(res.code==0){
                             this.setState({
                                 lists:res
                             })
@@ -98,7 +79,7 @@ export default class Mychilds extends Component {
                             })
                         }
                         ToastAndroid.showWithGravityAndOffset(
-                            rmname+'删除成功！',
+                            '删除成功！',
                         ToastAndroid.SHORT,
                         ToastAndroid.CENTER,
                         25,-100)
@@ -107,6 +88,7 @@ export default class Mychilds extends Component {
                 { text: "取消", onPress: this.opntion2Selected },
             ]
         )
+        console.log(this.state.lists);
     }
     render() {
         return (

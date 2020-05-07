@@ -106,7 +106,7 @@ export default class Cdairy extends Component {
                             name='chevron-left'
                             onPress={()=>{this.setState({visible:false})}}
                         />
-                        <Text style={styles.title}>{item.tag} {item.name}</Text>
+                        <Text style={styles.title}>{item.item} {item.name}</Text>
                     </View>
                     <View style={{
                         backgroundColor:'#fff',
