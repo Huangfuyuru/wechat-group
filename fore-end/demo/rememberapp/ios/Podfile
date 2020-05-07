@@ -93,6 +93,10 @@ target 'rememberapp' do
 
   pod 'react-native-video', :path => '../node_modules/react-native-video'
 
+  pod 'RNAudio', :path => '../node_modules/react-native-audio'
+
+  pod 'RNFileSelector', :path => '../node_modules/react-native-file-selector'
+
   target 'rememberappTests' do
     inherit! :complete
     # Pods for testing

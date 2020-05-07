@@ -86,7 +86,7 @@ export default class Mychilds extends Component {
             [
                 { text: "确定", onPress: ()=>{
                     myFetch.get('/my/child/delchild',{
-                        childsid:e.id,
+                        uid:e.id,
                     }).then(res=>{
                         if(res){
                             this.setState({
