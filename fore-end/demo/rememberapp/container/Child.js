@@ -109,14 +109,31 @@ export default class Child extends Component {
     }
     componentDidUpdate(prevProps,prevState){
         console.log('更新')
-        console.log(this.state.background)
         if(prevState.background != this.state.background){
             myFetch.post('/child/changebackground',{
                 childsid:this.state.currentchild.id,
                 background:this.state.background
             }).then(
                 res=>{
+                    console.log('bgimg change')
                     console.log(res)
+                }
+            )
+
+            myFetch.post('/child',{
+                uid:this.state.uid
+            }).then(
+                res=>{
+                    if(res.code == 1){
+                        for(var i in res.msg){
+                            if(res.msg[i].background == '#'){
+                                res.msg[i].background = image
+                            }
+                        }
+                        this.setState({
+                            children:res.msg,
+                        })
+                    }
                 }
             )
         }
@@ -452,7 +469,7 @@ export default class Child extends Component {
                                 width: "100%",
                                 transform: [{scale:1}]
                             }}
-                            source={{uri:`${this.state.background}`}}
+                            source={{uri:`${image}`}}
                             alt='自定义照片墙'>
                                 <Text style={styles.bgbtn}>到个人中心添加宝贝后可更换背景墙哦</Text>
                         </ImageBackground>

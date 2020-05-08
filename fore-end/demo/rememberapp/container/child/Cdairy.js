@@ -88,11 +88,9 @@ export default class Cdairy extends Component {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <Icon1 
-                        style={styles.icon}
-                        name='chevron-left'
-                        onPress={()=>Actions.pop()}
-                    />
+                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                        <Icon1 style={styles.icon} name='chevron-left'/>
+                    </TouchableOpacity>
                     <Text style={styles.title}>亲子日记</Text>
                     <TouchableOpacity onPress={()=>Actions.ccdairy({cid:this.state.cid})}>
                         <Icon3 style={styles.icon}  name='md-add'/>

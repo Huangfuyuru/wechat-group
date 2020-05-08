@@ -68,11 +68,9 @@ export default class Cdairy extends Component {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <Icon1 
-                        style={styles.icon}
-                        name='chevron-left'
-                        onPress={()=>Actions.pop()}
-                    />
+                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                        <Icon1 style={styles.icon} name='chevron-left'/>
+                    </TouchableOpacity>
                     <Text style={styles.title}>
                         { moment(item.setdate).format("YYYY年MM月DD日  HH:mm")}
                     </Text>
@@ -155,11 +153,9 @@ export default class Cdairy extends Component {
                     visible={this.state.visible}
                 >
                     <View style={styles.navbar}>
-                        <Icon1 
-                            style={styles.icon}
-                            name='chevron-left'
-                            onPress={()=>{this.setState({visible:false})}}
-                        />
+                        <TouchableOpacity onPress={()=>{this.setState({visible:false})}}>
+                            <Icon1 style={styles.icon} name='chevron-left'/>
+                        </TouchableOpacity>
                         <Text style={styles.title}>
                             { moment(item.setdate).format(" YYYY年MM月DD日  HH:mm")}
                         </Text>

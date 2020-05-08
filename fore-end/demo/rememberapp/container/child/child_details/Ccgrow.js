@@ -6,7 +6,8 @@ import {
     Dimensions,
     TextInput,
     ToastAndroid,
-    Picker
+    Picker,
+    TouchableOpacity
 } from 'react-native'
 import { 
     WingBlank,
@@ -40,36 +41,42 @@ export default class Cdairy extends Component {
     }
     additem=()=>{
         var time = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
-        myFetch.post('/child/cgrowup/ccgrowup',{
-             childsid:this.state.cid,
-             setdate:time,
-             length:this.state.length,
-             weight:this.state.weight,
-             age:this.state.age,
-             unit:this.state.ageunit,
-        }).then(
-            res=>{
-                console.log(res)
-                if(res.code == 0){
-                    ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
-                    setTimeout(()=>{
-                        Actions.pop({refresh:({data:res.data})})
-                    },1000)
-                }else{
-                    ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+        if(!this.state.weight || !this.state.length ||!this.state.age){
+            ToastAndroid.showWithGravityAndOffset(
+            '请将记录填写完整！',
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER,
+            0,-300);
+        }else{
+            myFetch.post('/child/cgrowup/ccgrowup',{
+                 childsid:this.state.cid,
+                 setdate:time,
+                 length:this.state.length,
+                 weight:this.state.weight,
+                 age:this.state.age,
+                 unit:this.state.ageunit,
+            }).then(
+                res=>{
+                    console.log(res)
+                    if(res.code == 0){
+                        ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+                        setTimeout(()=>{
+                            Actions.pop({refresh:({data:res.data})})
+                        },1000)
+                    }else{
+                        ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+                    }
                 }
-            }
-        )
+            )
+        }
     }
     render() {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <Icon1 
-                        style={styles.icon}
-                        name='chevron-left'
-                        onPress={()=>Actions.pop()}
-                    />
+                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                        <Icon1 style={styles.icon} name='chevron-left'/>
+                    </TouchableOpacity>
                     <Text style={styles.title}>新增记录</Text>
                 </View>
                 <WingBlank style={styles.wingblank}>
