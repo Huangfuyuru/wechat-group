@@ -15,6 +15,7 @@ import moment from 'moment'
 import { Flex, WingBlank } from '@ant-design/react-native'
 import { Actions } from 'react-native-router-flux';
 import { myFetch } from '../src/utils'
+import ImagePicker from 'react-native-image-crop-picker'
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 411;
 const h = height / 1012;
@@ -51,9 +52,10 @@ export default class Lover extends Component {
                 }).then(
                     res => {
                         this.setState({
-                            loverId: res[0].id
+                            loverId: res[0].id,
+                            back:res[0].background
                         })
-                        console.log("爱人id", this.state.loverId)
+                        console.log("res", res)
                     }
                 )
 
@@ -61,24 +63,44 @@ export default class Lover extends Component {
 
 
     }
-
-
-    // }
-    // upfile = () => {
-    //     var file = document.getElementById('img').files[0];
-    //     // var url = 'http://localhost:3001/img';
-    //     var form = new FormData();
-    //     form.append("file", file);
-    //     fetch(url, {
-    //         method: 'POST',
-    //         body: form
-    //     }).then(res => res.json())
-    //         .then(res => (this.setState({
-    //             cindex_src: res.path
-    //         }, () => {
-    //             // localStorage.setItem('lbackground',JSON.stringify(this.state.cindex_src))
-    //         })))
-    // }
+    componentDidUpdate(prevProps,prevState){
+        console.log('更新')
+        console.log(this.state.background)
+        if(prevState.back != this.state.back){
+            myFetch.post('/lover/changebackground',{
+                lover_id:this.state.loverId,
+                background:this.state.back
+            }).then(
+                res=>{
+                    console.log(res)
+                }
+            )
+        }
+        
+    }
+    choosebgpic=()=>{
+        ImagePicker.openPicker({
+            width: 400, 
+            height: 300, 
+            cropping: true,
+            includeBase64:true
+        }).then(image => {
+           myFetch.uploadImage(image.data)
+            .then( res=>{
+                this.setState({
+                    back:res.url
+                })
+                console.log('success');
+            }).catch( err=>{
+                console.log('flied');
+            })
+        });
+        ImagePicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
+        });
+    }
     addchildwarn = () => {
         ToastAndroid.showWithGravityAndOffset(
             '请先到个人中心添加爱人，才能使用更多功能',
