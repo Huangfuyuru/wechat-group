@@ -146,7 +146,7 @@ export default class My extends Component {
                 <StatusBar 
                     backgroundColor='#FFBF2D'
                 />
-                <View style={styles.navbar}>
+                {/* <View style={styles.navbar}>
                     <TouchableOpacity onPress={this.alertMsg} >
                         <Icon4 style={styles.icon} name='calendar'/>
                     </TouchableOpacity>
@@ -154,47 +154,71 @@ export default class My extends Component {
                     <TouchableOpacity onPress={()=>Actions.Use()}>
                         <Icon1 style={styles.icon}  name='settings'/>
                     </TouchableOpacity>
-                </View>
+                </View> */}
+                    <View style={styles.navbar}>
+                        <Icon1 style={styles.icon}/>
+                        <Text style={styles.title}
+                        >我的</Text>
+                        <TouchableOpacity onPress={this.alertMsg} >
+                            <Icon4 style={styles.icon} name='calendar'/>
+                        </TouchableOpacity>
+                    </View>
                 {/* 头像 */}
-                <View style={{width:'100%',height:240*h,flexDirection:'row'}}>
-                    <View style={{width:'50%',height:200*h,alignItems:'center',marginTop:20*h}}>
+                <View style={{width:'100%',height:150*h,flexDirection:'row'}}>
+                    <View style={{width:'45%',flexDirection:'row', alignItems:'center',justifyContent:'center', height:150*h}}>
                         <TouchableOpacity onPress={()=>{this.takephoto()}}>
                             <Image style={{width:100*h,height:100*h,borderRadius:60,borderColor:'#FFBF2D',borderWidth:2}} source={this.state.imageUrl} />
                         </TouchableOpacity>
-                        <Text style={{color:'#FFBF2D', fontWeight:'bold',fontSize:17,marginTop:10*h}}>小浣熊</Text>
-                        <View style={{fontWeight:'bold',fontSize:17,width:'100%',justifyContent:'center',flexDirection:'row'}}>
-                            <TouchableOpacity onPress={()=>{Actions.Mattention()}}>
-                                <Text style={{color:'#FFBF2D'}}>关注:{this.state.num1}&nbsp;&nbsp;</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={()=>{Actions.Mfollowers()}}>
-                                <Text style={{color:'#FFBF2D'}}>粉丝:{this.state.num2}</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{fontWeight:'bold',fontSize:17,width:'100%',justifyContent:'center',flexDirection:'row'}}>
+                        <Text style={{color:'#FFBF2D', fontWeight:'bold',fontSize:17,marginLeft:30*h,marginTop:10*h}}>小浣熊</Text>
+                    </View>
+                    <View style={{width:'40%',height:150*h}}>
+                        <View style={{flexDirection:'row', fontWeight:'bold',marginTop:66*h,marginLeft:0, fontSize:17}}>
                             <Icon3 style={styles.icon2} name='flower' />
-                            <Text style={{color:'#FFBF2D'}}>&nbsp;:&nbsp;{this.state.num3}</Text>
+                            <Text style={{color:'#FFBF2D',fontSize:17}}>获得小花&nbsp;:&nbsp;{this.state.num3}</Text>
                         </View>
                     </View>
-                    <View style={{width:'40%',height:240*h,alignItems:'center'}}>
-                        <TouchableOpacity onPress={()=>Actions.Mychilds()} 
-                            style={styles.btn}>
-                            <Text style={styles.blockbtn}>亲子</Text >
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>Actions.Mylover()} 
-                            style={styles.btn}>
-                            <Text style={styles.blockbtn}>爱人</Text >
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>Actions.Myfriend()} 
-                            style={styles.btn}>
-                            <Text style={styles.blockbtn}>好友</Text >
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{width:'10%'}}></View>
                 </View>
-                {/* 消息 */}
-                <View style={{width:'80%',height:500*s1,marginLeft:'10%',borderWidth:1,borderStyle:'solid',borderColor:'gray',flexDirection:'row',justifyContent:'center'}}>
-                    <Text style={{fontSize:18,color:'gray'}}>消息</Text>
+                <View style={{width:'100%',height:10*h,backgroundColor:'#eee'}}></View>
+                {/* body */}
+                <View style={{width:'100%',height:500*h}}>
+                    {/* <View style={styles.Box}> */}
+                        <TouchableOpacity style={styles.box1} onPress={()=>Actions.Mychilds()}>
+                            <View style={styles.box3}>
+                                <Text style={styles.txt}>亲子名单</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.box1} onPress={()=>Actions.Mylover()} >
+                            <View style={styles.box3}>
+                                <Text style={styles.txt}>爱人名单</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.box1} onPress={()=>{Actions.Mfollowers()}}>
+                            <View style={styles.box3}>
+                                <Text style={styles.txt}>我的粉丝</Text>
+                            </View>
+                        </TouchableOpacity>
+                       
+                    {/* </View> */}
+                    {/* <View style={styles.Box}> */}
+                        <TouchableOpacity style={styles.box1} onPress={()=>Actions.Use()}>
+                            {/* <Icon1 style={styles.icon2}  name='settings'/> */}
+                            <View style={styles.box3}>
+                                <Text style={styles.txt}>设置管理</Text>
+                            </View>
+                        </TouchableOpacity>
+                        
+                        <TouchableOpacity style={styles.box1} onPress={()=>{Actions.Mattention()}}>
+                            <View style={styles.box3}>
+                                <Text style={styles.txt}>我的关注</Text>
+                            </View>
+                        </TouchableOpacity>
+                    {/* </View> */}
                 </View>
+                 {/* <TouchableOpacity style={styles.box1} onPress={()=>Actions.Myfriend()} >
+                            <View style={styles.box3}>
+                                <Text style={styles.txt}>好友名单</Text>
+                            </View>
+                        </TouchableOpacity> */}
             </View>
         )
     }
@@ -205,24 +229,30 @@ const styles = StyleSheet.create({
         height:65*s1,
         backgroundColor:'#FFBF2D',
         flexDirection: 'row',
-        paddingLeft:0.03*width,
         paddingTop:'1%',
-        paddingRight:0.03*width,
-        justifyContent:"center"
+        justifyContent:"center",
+        paddingRight: 0.03 * width,
+        paddingLeft: 0.03 * width,
+
     },
-    icon:{
-        width:0.08*width,
-        color:'#fff',
-        fontSize:25,
+    icon: {
+        width: 0.08 * width,
+        color: '#fff',
+        fontSize: 28,
     },
-    title:{
-        marginLeft:'auto',
-        marginRight:"auto",
-        textAlign:'center',
-        fontSize:20,
-        color:'#fff',
-        letterSpacing:3,
-        fontWeight:'bold'
+    title: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        letterSpacing: 3,
+        color: "#ffff",
+        marginLeft: 'auto',
+        marginRight: "auto",
+        textAlign: 'center',
+    },
+    icon2: {
+        width: 0.1 * width,
+        color: '#FFBF2D',
+        fontSize: 33,
     },
     btn: {
         padding:0,
@@ -246,4 +276,29 @@ const styles = StyleSheet.create({
         color:'#FFBF2D',
         fontSize:18,
     },
+    Box:{
+		width:'100%',
+		height:150*h,
+		flexDirection:'row',
+	},
+	box1:{
+		width:'100%',
+        height:70*h,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        borderWidth:2,
+        borderColor:'#eee',
+	},
+	
+	box3:{
+        width:'80%',
+		flexDirection:'row',
+		justifyContent:'center',
+		alignItems:'center',
+    },
+    txt:{
+        fontSize:17,
+
+    }
 })
