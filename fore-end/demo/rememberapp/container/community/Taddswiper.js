@@ -226,9 +226,9 @@ const styles = StyleSheet.create({
         height:0.8*height,
         marginTop:0.02*height,
         justifyContent:'center',
-        backgroundColor:'#FFBF2D',
+        // backgroundColor:'#FFBF2D',
         alignItems:'center',
-        // backgroundColor:'rgba(250,250,250,1)'
+        backgroundColor:'rgba(250,250,250,1)'
     },
     tips:{
         height:0.06*height,

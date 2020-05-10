@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import ui.fileselector.RNFileSelectorPackage;
 import com.rnim.rn.audio.ReactNativeAudioPackage;
 import com.brentvatne.react.ReactVideoPackage;
