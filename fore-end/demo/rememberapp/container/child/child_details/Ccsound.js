@@ -54,11 +54,9 @@ export default class Lcreate_sound extends Component {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <Icon1
-                        style={styles.icon}
-                        name='chevron-left'
-                        onPress={() => Actions.pop()}
-                    />
+                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                        <Icon1 style={styles.icon} name='chevron-left'/>
+                    </TouchableOpacity>
                     <Text style={styles.title}>新增语音</Text>
                 </View>
                 <WingBlank style={styles.wingblank}>

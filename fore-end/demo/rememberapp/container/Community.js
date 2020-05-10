@@ -47,7 +47,9 @@ export default class Community extends Component {
         super(props);
         // var uid = JSON.parse(localStorage.getItem('uid'));
         this.state={
+            uid:'',
             like:false,
+            sendflower:false,
             visible:false,
             btndisabled:false,
             btn:'关注',
@@ -78,11 +80,24 @@ export default class Community extends Component {
     }
     componentDidMount(){
         console.log('社区第一次加载');
-       
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            this.setState({
+                uid:user.id
+            })       
+        })
     }
     componentDidUpdate(prevProps,prevState){
         console.log('更新')
     
+    }
+    btndisabled = ()=>{
+        if(!this.state.btndisabled){
+            this.setState({btndisabled:true,btn:'取消关注'})
+        }else{
+            this.setState({btndisabled:false,btn:'关注'})
+        }
     }
     like = ()=>{
         if(!this.state.like){
@@ -91,11 +106,9 @@ export default class Community extends Component {
             this.setState({like:false})
         }
     }
-    btndisabled = ()=>{
-        if(!this.state.btndisabled){
-            this.setState({btndisabled:true,btn:'取消关注'})
-        }else{
-            this.setState({btndisabled:false,btn:'关注'})
+    sendflower = ()=>{
+        if(!this.state.sendflower){
+            this.setState({sendflower:true})
         }
     }
     enlarge=(item)=>{
@@ -168,7 +181,7 @@ export default class Community extends Component {
                                         </Text>
                                     </TouchableOpacity>
                                 ))}
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={()=>Actions.taddswiper({uid:this.state.uid})}>
                                     <Icon2 style={styles.icon} name='ios-add-circle-outline'/>
                                 </TouchableOpacity>
                             </View>
@@ -236,7 +249,7 @@ export default class Community extends Component {
                                             
                                             {
                                                 this.state.lists&&this.state.lists.map((item,idx)=>(
-                                                    <TouchableOpacity onPress={()=>this.enlarge(item.title)}>
+                                                    <TouchableOpacity onPress={()=>this.enlarge(this.state.lists)}>
                                                         <Image 
                                                             style={styles.img}
                                                             resizeMode="cover"
@@ -248,11 +261,13 @@ export default class Community extends Component {
                                         </Swiper>
                                     </View>
                                     <View style={styles.innerlast}>
-                                        <TouchableOpacity style={styles.innercontent}>
-                                            <Text selectable = {true} style={styles.content}>
-                                                {this.state.content ? (this.state.content.length > 66 ? this.state.content.substr(0, 66) + " . . . " : this.state.content) : ""}
-                                            </Text>
-                                        </TouchableOpacity>
+                                        <View style={styles.innercontent}>
+                                            <TouchableOpacity onPress={()=>this.enlarge(this.state.content)}>
+                                                <Text selectable = {true} style={styles.content}>
+                                                    {this.state.content ? (this.state.content.length > 66 ? this.state.content.substr(0, 66) + " . . . " : this.state.content) : ""}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        </View>
                                         <View style={styles.innerfooter}>
                                             <TouchableOpacity onPress={this.like}>
                                                 {
@@ -263,6 +278,13 @@ export default class Community extends Component {
                                             </TouchableOpacity>
                                             <TouchableOpacity onPress={()=>Actions.tdiscuss()}>
                                                 <Icon4 style={styles.footericon} color='#666' name='comment-processing-outline'/>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity onPress={this.sendflower}>
+                                                {
+                                                    this.state.sendflower
+                                                    ?<Icon4 style={styles.footericon} color='red' name='flower-tulip'/>
+                                                    :<Icon4 style={styles.footericon} color='#666' name='flower-tulip-outline'/>
+                                                }
                                             </TouchableOpacity>
                                             <TouchableOpacity>
                                                 <Icon4 style={styles.footericon} color='#666' name='share-outline'/>
@@ -292,7 +314,30 @@ export default class Community extends Component {
                     </View>
                     <WingBlank style={styles.modalwingblank}>
                         <View style={styles.modalinner}>
-
+                            {
+                                typeof(this.state.current) === 'string'
+                                ?<View style={styles.contentbox}>
+                                    <Text selectable = {true} style={styles.content}>{this.state.current}</Text>
+                                </View>
+                                :<Swiper
+                                    renderPagination = {renderPagination} 
+                                    loop={false}
+                                >
+                                    
+                                    {
+                                        this.state.lists&&this.state.lists.map((item,idx)=>(
+                                            <View onPress={()=>this.enlarge(this.state.lists)}>
+                                                <Image 
+                                                    style={styles.imgs}
+                                                    resizeMode="contain"
+                                                    source={{uri:`${item.title}`}}
+                                                />
+                                                
+                                            </View>
+                                        ))
+                                    }                     
+                                </Swiper>
+                            }
                         </View>
                         <TouchableOpacity onPress={()=>this.setState({visible:false})}>
                             <Text style={styles.modalbtn}>返回</Text>
@@ -490,10 +535,28 @@ const styles = StyleSheet.create({
     },
     modalwingblank:{
         backgroundColor:'#fff',
+        // backgroundColor:'#ccc',
         height:0.83*height
     },
     modalinner:{
-        height:0.75*height
+        height:0.75*height,
+        justifyContent:'center'
+    },
+    imgs:{
+        width:0.9*width,
+        height:0.7*height,
+        marginLeft:'auto',
+        marginRight:'auto',
+        // backgroundColor:'#ccc'
+    },
+    contentbox:{
+        width:0.8*width,
+        // marginTop:0.05*height,
+        paddingTop:0.02*height,
+        marginLeft:'auto',
+        marginRight:'auto',
+        paddingLeft:0.015*width,
+        // backgroundColor:'#ccc',
     },
     modalbtn:{
         width:0.18*width,

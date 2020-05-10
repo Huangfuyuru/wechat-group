@@ -217,11 +217,9 @@ export default class Cdairy extends Component {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <Icon1 
-                        style={styles.icon}
-                        name='chevron-left'
-                        onPress={()=>Actions.pop()}
-                    />
+                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                        <Icon1 style={styles.icon} name='chevron-left'/>
+                    </TouchableOpacity>
                     <Text style={styles.title}>学业记录</Text>
                     <TouchableOpacity onPress={()=>Actions.ccstudy({cid:this.state.cid})}>
                         <Icon3 style={styles.icon}  name='md-add'/>
@@ -353,11 +351,9 @@ export default class Cdairy extends Component {
                     visible={this.state.visible}
                 >
                     <View style={styles.navbar}>
-                        <Icon1 
-                            style={styles.icon}
-                            name='chevron-left'
-                            onPress={()=>{this.setState({visible:false})}}
-                        />
+                        <TouchableOpacity onPress={()=>{this.setState({visible:false})}}>
+                            <Icon1 style={styles.icon} name='chevron-left'/>
+                        </TouchableOpacity>
                         <Text style={styles.title}>{currentitem.stage} {moment(currentitem.date).format("YYYY年MM月DD日")}</Text>
                         <Icon3 style={styles.icon}/>
                     </View>

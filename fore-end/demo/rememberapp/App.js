@@ -93,6 +93,8 @@ import T from './components/Tlists'
 import Mychild from './container/my/Mychilds';
 import Tdiscuss from './container/community/Tdiscuss';
 import Tsearch from './container/community/Tsearch';
+import Taddswiper from './container/community/Taddswiper';
+import Taddcontent from './container/community/Taddcontent';
 const { width, scale } = Dimensions.get('window');
 const s = width / 640;
 console.disableYellowBox = true;
@@ -325,6 +327,16 @@ const App = () => {
 										hideTabBar
 										hideNavBar
 										component={Tdiscuss} />
+									<Scene 
+										key='taddswiper'
+										hideTabBar
+										hideNavBar
+										component={Taddswiper} />
+									<Scene 
+										key='taddcontent'
+										hideTabBar
+										hideNavBar
+										component={Taddcontent} />
 								</Scene>
 								{/* 我的 */}
 								<Scene key='mine'

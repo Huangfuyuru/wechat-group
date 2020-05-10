@@ -8,7 +8,8 @@ import {
     Image,
     Alert,
     ImageBackground,
-    TouchableOpacity
+    TouchableOpacity,
+    TextInput
 } from 'react-native'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux';
@@ -17,7 +18,7 @@ import {myFetch} from '../../src/utils'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/Entypo'
 import Icon3 from 'react-native-vector-icons/Ionicons'
-import Icon4 from 'react-native-vector-icons/SimpleLineIcons'
+import Icon4 from 'react-native-vector-icons/FontAwesome'
 import Icon5 from 'react-native-vector-icons/Fontisto'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
@@ -26,76 +27,105 @@ export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
-            cid:'',
-            lists:[]
+            lists:[
+                {
+                    id:1,
+                    name:'时樾哥哥',
+                    content:'我有好多评论想评论我有好多评论想评论我有好多评论想评论我有好多评论想评论我有好多评论想评论我有好多评论想评论'
+                },
+                {
+                    id:2,
+                    name:'时樾哥哥',
+                    content:'棒'
+                },
+                {
+                    id:3,
+                    name:'时樾哥哥',
+                    content:'棒'
+                },
+            ],
+            refreshing:false,
         }
     }
     componentDidMount(){
-        this.setState({
-            cid:this.props.cid
-        })
-        myFetch.get('/child/cdairy',{
-            childsid:this.props.cid,
-        }).then(res=>{
-            if(res){
-                this.setState({
-                    lists:res
-                })
-            }else{
-                this.setState({
-                    lists:[]
-                })
-            }
-        })
+        
     }
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            lists:nextProps.data
-        })
+        
     }
-    rmCdiary=(e)=>{
-        var rmname = e.name;
-        Alert.alert('提示', '确定要删除吗？',
-            [
-                { text: "确定", onPress: ()=>{
-                    myFetch.get('/child/cdairy/crdairy',{
-                        childsid:this.state.cid,
-                        childDiaryid:e.id,
-                    }).then(res=>{
-                        // console.log('删除')
-                        console.log(res.data)
-                        if(res.data){
-                            this.setState({
-                                lists:res.data
-                            })
-                        }else{
-                            this.setState({
-                                lists:[]
-                            })
-                        }
-                        ToastAndroid.showWithGravityAndOffset(
-                            rmname+'，'+res.msg+'！',
-                        ToastAndroid.SHORT,
-                        ToastAndroid.CENTER,
-                        25,-100)
-                    })
-                } },
-                { text: "返回", onPress: this.opntion2Selected },
-            ]
-        )
-    }
+    
     render() {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <Icon1 
-                        style={styles.icon}
-                        name='chevron-left'
-                        onPress={()=>Actions.pop()}
-                    />
+                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                        <Icon1 style={styles.icon} name='chevron-left'/>
+                    </TouchableOpacity>
                     <Text style={styles.title}>评论</Text>
                     <Icon3 style={styles.icon}/>
                 </View>
+                <WingBlank style={styles.wingblank}>
+                    <View style={styles.footerline}>
+                        <TextInput
+                            style={styles.textinput}
+                            onChangeText={text=>{this.setState({context:text})}}
+                            placeholder="快来添加一条评论吧"
+                            multiline={true}
+                        />
+                        <TouchableOpacity>
+                            <Icon5 style={styles.iconbtn} name='smiley'/>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Icon4 style={styles.iconbtn} name='send-o'/>
+                        </TouchableOpacity>
+                    </View>
+                    {
+                        this.state.lists[0]
+                        ?<FlatList
+                            style={styles.list}
+                            refreshing = {this.state.refreshing}
+                            onRefresh={()=>{this.setState({refreshing:false})}}
+                            extraData={this.state}
+                            data={this.state.lists}
+                            horizontal={false}
+                            showsVerticalScrollIndicator={true}
+                            // ItemSeparatorComponent={}
+                            renderItem={({item})=>(
+                                <View style={styles.linebox}>
+                                    <View style={styles.linetitle}>
+                                        <TouchableOpacity onPress={()=>{}}>
+                                            <Image 
+                                                style={styles.innertitlepic}
+                                                source={{uri:`${image}`}}
+                                            />
+                                        </TouchableOpacity>
+                                        <Text style={styles.linename}>{item.name}</Text>
+                                        {/* <View style={styles.timebox}>
+                                        </View> */}
+                                        <Text style={styles.linetime}>{moment(new Date()).format('YYYY-MM-DD   HH:mm')}</Text>
+                                    </View>
+                                    <View style={styles.linecontentbox}>
+                                        <Text style={styles.linecontent}>{item.content}</Text>
+                                    </View>
+                                </View>
+                            )}
+                        />
+                        :<View style={styles.list}>
+                            <View style={styles.nullpics}>
+                                <Image 
+                                    style={{
+                                        width:0.3*width,
+                                        height:0.3*width,
+                                        // backgroundColor:'#000'
+                                    }}
+                                    resizeMode="contain"
+                                    source={require('../../assets/shafa.png')}
+                                />                               
+                                <Text style={styles.nulltext}>一条评论都没有呢，快来抢占沙发吧</Text>                          
+                            </View>
+                        </View>
+                    }                  
+                </WingBlank>
             </View>
         )
     }
@@ -116,6 +146,7 @@ const styles = StyleSheet.create({
         width:0.08*width,
         color:'#fff',
         fontSize:30,
+        // backgroundColor:'#ccc'
     },
     title:{
         marginLeft:'auto',
@@ -125,4 +156,105 @@ const styles = StyleSheet.create({
         color:'#fff',
         letterSpacing:3
     },
+    wingblank:{
+        marginTop:0.015*height,
+        height:0.85*height,
+        alignItems:'center',
+        // backgroundColor:'#000'
+    },
+    list:{
+        width:0.93*width,
+        height:0.7*height,
+        marginTop:0.02*height,
+        // backgroundColor:'#ccc'
+    },
+    linebox:{
+        // backgroundColor:'#ccc',
+        marginBottom:0.01*height
+    },
+    linetitle:{
+        // backgroundColor:'#ddd',
+        flexDirection:'row',
+        width:0.8*width
+    },
+    innertitlepic:{
+        width:0.07*height,
+        height:0.07*height,
+        borderRadius:100,
+    },
+    timebox:{
+        justifyContent:'center'
+    },
+    linename:{
+        width:0.5*width,
+        fontSize:23*s,
+        marginLeft:0.02*width,
+        // backgroundColor:"#ccc",
+        textAlignVertical:'center'
+    },
+    linetime:{
+        width:0.25*width,
+        fontSize:18*s,
+        textAlign:'right',
+        marginLeft:0.02*width,
+        color:'#999',
+        // backgroundColor:"#ccc",
+        textAlignVertical:'center'
+    },
+    linecontentbox:{
+        width:0.75*width,
+        // height:0.09*height,
+        // backgroundColor:'#ddd',
+        marginTop:-0.015*height,
+        marginLeft:0.07*height+0.02*width,
+    },
+    linecontent:{
+        lineHeight:0.03*height,
+        fontSize:22*s,
+        color:'#333',
+        // backgroundColor:'#ddd',
+    },
+    nullpics:{
+        width:0.9*width,
+        height:0.5*height,
+        // backgroundColor:'#ccddff',
+        marginTop:0.05*height,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    nulltext:{
+        width:0.8*width,
+        height:0.1*height,
+        textAlign:'center',
+        textAlignVertical:'center',
+        fontSize:23*s,
+        color:'#bdbbb8'
+        // backgroundColor:'#ccc'
+    },
+    footerline:{
+        flexDirection:'row',
+        height:0.05*height,
+        // backgroundColor:'#ccc',
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    textinput:{
+        backgroundColor:'rgba(255,255,255,0.3)',
+        borderColor:'rgba(204,204,204,0.8)',
+        borderWidth:1,
+        width:0.72*width,
+        height:0.05*height,
+        fontSize:23*s,
+        color:'#333',
+        textAlignVertical: 'top',
+        paddingLeft:0.03*width,
+        marginRight:0.02*width
+    },
+    iconbtn:{
+        width:0.06*width,
+        // backgroundColor:'#ddccff',
+        margin:0.015*width,
+        fontSize:35*s,
+        color:'#FFBF2D'
+    }
 })

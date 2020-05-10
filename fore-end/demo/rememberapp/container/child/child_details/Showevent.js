@@ -52,11 +52,9 @@ export default class Cdairy extends Component {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <Icon1 
-                        style={styles.icon}
-                        name='chevron-left'
-                        onPress={()=>Actions.pop()}
-                    />
+                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                        <Icon1 style={styles.icon} name='chevron-left'/>
+                    </TouchableOpacity>
                     <Text style={styles.title}>{item.item} {item.name}</Text>
                 </View>
                 <WingBlank style={{
@@ -101,11 +99,9 @@ export default class Cdairy extends Component {
                     visible={this.state.visible}
                 >
                     <View style={styles.navbar}>
-                        <Icon1 
-                            style={styles.icon}
-                            name='chevron-left'
-                            onPress={()=>{this.setState({visible:false})}}
-                        />
+                        <TouchableOpacity onPress={()=>{this.setState({visible:false})}}>
+                            <Icon1 style={styles.icon} name='chevron-left'/>
+                        </TouchableOpacity>
                         <Text style={styles.title}>{item.item} {item.name}</Text>
                     </View>
                     <View style={{

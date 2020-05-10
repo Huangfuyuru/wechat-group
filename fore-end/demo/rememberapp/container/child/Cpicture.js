@@ -132,11 +132,9 @@ export default class Cdairy extends Component {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <Icon1 
-                        style={styles.icon}
-                        name='chevron-left'
-                        onPress={()=>Actions.pop()}
-                    />
+                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                        <Icon1 style={styles.icon} name='chevron-left'/>
+                    </TouchableOpacity>
                     <Text style={styles.title}>云相册</Text>
                 </View>
                 <WingBlank style={{
@@ -255,6 +253,9 @@ export default class Cdairy extends Component {
                         // backgroundColor: '#bdbbb8',
                         height: 2*s,
                     }}></Text>
+                    <TouchableOpacity>
+                        
+                    </TouchableOpacity>
                     <Icon2
                         onPress={()=>{Actions.ccpictures({cid:this.state.cid})}} 
                         style={{

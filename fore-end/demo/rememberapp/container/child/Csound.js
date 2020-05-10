@@ -151,11 +151,9 @@ export default class Lsound extends Component {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <Icon1
-                        style={styles.icon}
-                        name='chevron-left'
-                        onPress={() => Actions.pop()}
-                    />
+                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                        <Icon1 style={styles.icon} name='chevron-left'/>
+                    </TouchableOpacity>
                     <Text style={styles.title}>语音记事</Text>
                     <Icon2
                         style={styles.icon}

@@ -15,6 +15,7 @@ import {myFetch} from '../../../src/utils'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from "react-native-vector-icons/Octicons"
 import { Actions } from "react-native-router-flux"
+import ImagePicker from 'react-native-image-crop-picker'
 import { WingBlank } from "@ant-design/react-native"
 import { ScrollView } from 'react-native-gesture-handler'
 const { width, scale, height } = Dimensions.get('window');
@@ -60,7 +61,29 @@ export default class Lcreate_list extends Component {
         }
         return ss;
     }
-   
+    choosebgpic=()=>{
+        ImagePicker.openPicker({
+            width: 400, 
+            height: 300, 
+            cropping: true,
+            includeBase64:true
+        }).then(image => {
+            myFetch.uploadImage(image.data)
+            .then( res=>{
+                this.setState({
+                    img:res.url
+                })
+                console.log('success');
+            }).catch( err=>{
+                console.log('flied');
+            })
+        });
+        ImagePicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
+        });
+    }
     savelist = ()=>{
         myFetch.post(`/lover/loverlist/addloverlist`,{
             name:this.state.item.name,
@@ -178,7 +201,9 @@ export default class Lcreate_list extends Component {
                              />
                     </View>
                     <TouchableOpacity
+                    onPress={this.choosebgpic}
                         style={styles.coverbox}>
+
                         <Text
                             style={styles.textbtn}>轻触设置封面</Text>
                         <Image

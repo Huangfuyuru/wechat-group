@@ -8,7 +8,8 @@ import {
     Picker,
     Image,
     FlatList,
-    ToastAndroid
+    ToastAndroid,
+    TouchableOpacity
 } from 'react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -20,7 +21,6 @@ import { WingBlank } from '@ant-design/react-native';
 import Button from 'react-native-button'
 import moment from 'moment'
 import CheckBox from 'react-native-checkbox'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 export default class Cdairy extends Component {
@@ -259,11 +259,9 @@ export default class Cdairy extends Component {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <Icon1 
-                        style={styles.icon}
-                        name='chevron-left'
-                        onPress={()=>Actions.pop()}
-                    />
+                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                        <Icon1 style={styles.icon} name='chevron-left'/>
+                    </TouchableOpacity>
                     <Text style={styles.title}>新增记录</Text>
                 </View>
                 <WingBlank style={styles.wingblank}>
