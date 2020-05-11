@@ -35,6 +35,7 @@ import ImagePicker from 'react-native-image-picker'
 import Swiper from 'react-native-swiper'
 import moment from 'moment'
 import Button from 'react-native-button'
+import {myFetch} from '../src/utils'
 // import ImagePicker from 'react-native-image-crop-picker'
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
@@ -58,24 +59,7 @@ export default class Community extends Component {
             onPress:0,
             showFoot:0,
             refreshing:false,
-            lists:[
-                {
-                    title:image2,
-                    num:1
-                },
-                {
-                    title:image1,
-                    num:2
-                },
-                {
-                    title:image2,
-                    num:3
-                },
-                {
-                    title:image,
-                    num:4
-                },
-            ]
+            lists:[]
         }
     }
     componentDidMount(){
@@ -85,7 +69,30 @@ export default class Community extends Component {
             var user = JSON.parse(res)
             this.setState({
                 uid:user.id
-            })       
+            })
+            myFetch.get('/share',{
+                uid:user.id
+            }).then(res=>{
+                // console.log(res.msg)
+                for(var i in res.data){
+                    if(!res.data[i].pic){
+                        res.data[i].pic=image2
+                    }
+                    if(!res.data[i].imgurl){
+                        res.data[i].imgurl=[image2]
+                    }
+                    console.log(res.data[i].imgurl)
+                }
+                this.setState({
+                    lists:res.data
+                })
+                
+            })
+            // fetch(`http://148.70.223.218:3001/share?uid=${user.id}`)
+            // .then(res=>res.json())
+            // .then(res=>{
+            //     console.log(res)
+            // })
         })
     }
     componentDidUpdate(prevProps,prevState){
@@ -112,6 +119,7 @@ export default class Community extends Component {
         }
     }
     enlarge=(item)=>{
+        // console.log(item.length)
         this.setState({
             visible:true,
             current:item
@@ -222,19 +230,28 @@ export default class Community extends Component {
                             pagingEnabled={true}
                             viewabilityConfig={VIEWABILITY_CONFIG}
                             showsVerticalScrollIndicator={false}
-                            renderItem={({item})=>(
-                                <View style={styles.innerbox}>
+                            renderItem={({item})=>{
+                                var imgurl = item.imgurl;
+                                for(var i in imgurl){
+                                    if(imgurl[i] === '#'){
+                                        imgurl[i] = image2
+                                    }
+                                }
+                                return<View style={styles.innerbox}>
                                     <View style={styles.innertitle}>
                                         <TouchableOpacity>
                                             <Image 
                                                 style={styles.innertitlepic}
-                                                source={{uri:`${item.title}`}}
+                                                source={{uri:`${item.pic}`}}
                                             />
                                         </TouchableOpacity>
-                                        <Text style={styles.innertitletime}>{moment(new Date()).format("YYYY年MM月DD日")}</Text>
+                                        <View>
+                                            <Text style={styles.innertitlename}>{item.uname}</Text>
+                                            <Text style={styles.innertitletime}>{moment(item.setState).format("YYYY年MM月DD日")}</Text>
+                                        </View>
                                         <Text style={styles.innertitletag}>
                                             <Icon3 style={styles.tagicon} name='price-tag'/>
-                                            亲子</Text>
+                                        {item.tag?'亲子':'爱人'}</Text>
                                         <TouchableOpacity onPress={this.btndisabled}>
                                             <Text style={!this.state.btndisabled?styles.innertitlebtn:styles.innerbtndisabled}>
                                                 {this.state.btn}
@@ -248,51 +265,64 @@ export default class Community extends Component {
                                         >
                                             
                                             {
-                                                this.state.lists&&this.state.lists.map((item,idx)=>(
-                                                    <TouchableOpacity onPress={()=>this.enlarge(this.state.lists)}>
+                                                imgurl&&imgurl.map((img,idx)=>(
+                                                    <TouchableOpacity onPress={()=>this.enlarge(imgurl)}>
                                                         <Image 
                                                             style={styles.img}
                                                             resizeMode="cover"
-                                                            source={{uri:`${item.title}`}}
+                                                            source={{uri:`${img}`}}
                                                         />
                                                     </TouchableOpacity>
                                                 ))
+                                                // <Text></Text>
                                             }                     
                                         </Swiper>
                                     </View>
                                     <View style={styles.innerlast}>
                                         <View style={styles.innercontent}>
-                                            <TouchableOpacity onPress={()=>this.enlarge(this.state.content)}>
+                                            <TouchableOpacity onPress={()=>this.enlarge(item.content)}>
                                                 <Text selectable = {true} style={styles.content}>
-                                                    {this.state.content ? (this.state.content.length > 66 ? this.state.content.substr(0, 66) + " . . . " : this.state.content) : ""}
+                                                    {item.content ? (item.content.length > 66 ? item.content.substr(0, 66) + " . . . " : item.content) : ""}
                                                 </Text>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={styles.innerfooter}>
-                                            <TouchableOpacity onPress={this.like}>
-                                                {
-                                                    this.state.like
-                                                    ?<Icon3 style={styles.footericon} color='red' name='heart'/>
-                                                    :<Icon3 style={styles.footericon} color='#666' name='heart-outlined'/>
-                                                }
-                                            </TouchableOpacity>
-                                            <TouchableOpacity onPress={()=>Actions.tdiscuss()}>
-                                                <Icon4 style={styles.footericon} color='#666' name='comment-processing-outline'/>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity onPress={this.sendflower}>
-                                                {
-                                                    this.state.sendflower
-                                                    ?<Icon4 style={styles.footericon} color='red' name='flower-tulip'/>
-                                                    :<Icon4 style={styles.footericon} color='#666' name='flower-tulip-outline'/>
-                                                }
-                                            </TouchableOpacity>
-                                            <TouchableOpacity>
-                                                <Icon4 style={styles.footericon} color='#666' name='share-outline'/>
-                                            </TouchableOpacity>
+                                            <View style={styles.footerbox}>
+                                                <TouchableOpacity onPress={this.like}>
+                                                    {
+                                                        this.state.like
+                                                        ?<Icon3 style={styles.footericon} color='red' name='heart'/>
+                                                        :<Icon3 style={styles.footericon} color='#666' name='heart-outlined'/>
+                                                    }
+                                                </TouchableOpacity>
+                                                <Text style={styles.zannum}>{item.zannum}</Text>
+                                            </View>
+                                            <View style={styles.footerbox}>
+                                                <TouchableOpacity onPress={()=>Actions.tdiscuss()}>
+                                                    <Icon4 style={styles.footericon} color='#666' name='comment-processing-outline'/>
+                                                </TouchableOpacity>
+                                                <Text style={styles.zannum}>{item.zannum}</Text>
+                                            </View>
+                                            <View style={styles.footerbox}>
+                                                <TouchableOpacity onPress={this.sendflower}>
+                                                    {
+                                                        this.state.sendflower
+                                                        ?<Icon4 style={styles.footericon} color='red' name='flower-tulip'/>
+                                                        :<Icon4 style={styles.footericon} color='#666' name='flower-tulip-outline'/>
+                                                    }
+                                                </TouchableOpacity>
+                                                <Text style={styles.zannum}>{item.num}</Text>
+                                            </View>
+                                            <View style={styles.footerbox}>
+                                                <TouchableOpacity>
+                                                    <Icon4 style={styles.footericon} color='#666' name='share-outline'/>
+                                                </TouchableOpacity>
+                                                <Text style={styles.zannum}>分享</Text>
+                                            </View>
                                         </View>
                                     </View>
                                 </View>
-                            )}
+                            }}
                             getItemLayout={(data, index) => {
                                 return {length: height, offset: height * index, index}
                             }}
@@ -325,12 +355,12 @@ export default class Community extends Component {
                                 >
                                     
                                     {
-                                        this.state.lists&&this.state.lists.map((item,idx)=>(
-                                            <View onPress={()=>this.enlarge(this.state.lists)}>
+                                        this.state.current&&this.state.current.map((item,idx)=>(
+                                            <View>
                                                 <Image 
                                                     style={styles.imgs}
                                                     resizeMode="contain"
-                                                    source={{uri:`${item.title}`}}
+                                                    source={{uri:`${item}`}}
                                                 />
                                                 
                                             </View>
@@ -416,10 +446,20 @@ const styles = StyleSheet.create({
         borderColor:'rgba(255,191,45,0.1)',
         borderWidth:3
     },
+    innertitlename:{
+        width:0.25*width,
+        marginLeft:0.03*width,
+        height:0.045*height,
+        color:'#333',
+        fontSize:23*s,
+        // backgroundColor:"#ccc",
+        textAlign:'left',
+        textAlignVertical:'center'
+    },
     innertitletime:{
         width:0.25*width,
         marginLeft:0.03*width,
-        height:0.05*height,
+        height:0.025*height,
         color:'#333',
         // backgroundColor:"#ccc",
         textAlign:'left',
@@ -466,12 +506,12 @@ const styles = StyleSheet.create({
     innerpics:{
         width:0.87*width,
         // backgroundColor:'#ddccff',
-        height:0.45*height,
+        height:0.44*height,
         alignItems:'center'
     },
     img:{
         width:0.87*width,
-        height:0.45*height
+        height:0.44*height
     },
     paginationStyle: {
         position: 'absolute',
@@ -489,29 +529,44 @@ const styles = StyleSheet.create({
         paddingTop:0.015*height,
         paddingLeft:0.01*width,
         justifyContent:'center',
-        // backgroundColor:'#ccc',
+        // backgroundColor:'#ddeeff',
         alignItems:'center'
     },
     content:{
         lineHeight:0.04*height,
-        fontSize:23*s
+        fontSize:23*s,
         // backgroundColor:'#000'
 
     },
     innerfooter:{
         width:0.87*width,
-        height:0.05*height,
+        height:0.06*height,
         // backgroundColor:'#ddd',
         flexDirection:'row',
         justifyContent:'flex-end',
         alignItems:'flex-end'
     },
+    footerbox:{
+        // backgroundColor:'#ccc',
+        width:0.13*width,
+        height:0.06*height,
+        alignItems:'center',
+        justifyContent:'center'
+    },
     footericon:{
         width:0.13*width,
         height:0.04*height,
         // backgroundColor:'#ccc',
+        // textAlignVertical:'bottom',
         textAlign:'center',
         fontSize:45*s,
+    },
+    zannum:{
+        // backgroundColor:'#ccc',
+        height:0.02*height,
+        fontSize:18*s,
+        color:'#333',
+        textAlignVertical:'center'
     },
     modaltitle:{
         flexDirection:'row',
@@ -555,6 +610,7 @@ const styles = StyleSheet.create({
         paddingTop:0.02*height,
         marginLeft:'auto',
         marginRight:'auto',
+        alignItems:'center',
         paddingLeft:0.015*width,
         // backgroundColor:'#ccc',
     },

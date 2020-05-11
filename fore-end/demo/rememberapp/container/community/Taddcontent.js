@@ -4,6 +4,7 @@ import {
     StyleSheet, 
     Dimensions, 
     View, 
+    Picker,
     Image, 
     TouchableOpacity, 
     TouchableHighlight,
@@ -48,6 +49,7 @@ export default class Community extends Component {
         super(props);
         this.state={
             uid:'',
+            tag:'亲子',
             content:'',
             lists:[],
             uplist:[],
@@ -95,6 +97,21 @@ export default class Community extends Component {
                 </View>
                 <WingBlank style={styles.wingblank}>
                     <View style={styles.contentbox}>
+                        <Text style={styles.pickerbox}>
+                            <Icon3 style={styles.tagicon} name='price-tag'/>
+                            <Picker
+                                selectedValue={this.state.tag}
+                                mode='dropdown'
+                                style={styles.picker}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    this.setState({
+                                        tag: itemValue,
+                                    })
+                                }>
+                                <Picker.Item label="亲子" value="亲子" />
+                                <Picker.Item label="爱人" value="爱人" />
+                            </Picker>
+                        </Text>
                         <TextInput
                             style={styles.content}
                             onChangeText={text=>{this.setState({content:text})}}
@@ -104,6 +121,7 @@ export default class Community extends Component {
                         <Text style={styles.tips}>已输入 <Text style={styles.num}>{this.state.content.length}</Text> 个字</Text>
                     </View>
                     <View style={styles.picsbox}>
+                        <Text style={styles.tip}>共 <Text style={styles.num}>{this.state.lists.length}</Text> 张图片</Text>
                         <FlatList
                             extraData={this.state}
                             data={this.state.lists}
@@ -185,30 +203,58 @@ const styles = StyleSheet.create({
     },
     contentbox:{
         width:0.9*width,
-        // backgroundColor:'#ccc',
-        height:0.32*height,
+        backgroundColor:'rgba(250,250,250,1)',
+        borderRadius:10,
+        height:0.325*height,
         marginBottom:0.015*height,
         paddingLeft:0.015*width,
         paddingRight:0.015*width,
     },
+    pickerbox:{
+        textAlign:'right',
+    },
+    tagicon:{
+        fontSize:50*s,
+        marginTop:-0.05*height,
+        color:'#FFBF2D'
+    },
+    picker:{
+        width:0.15*width,
+        height:0.03*height,
+        color:'#333',
+    },
     content:{
-        height:0.3*height,
+        height:0.245*height,
         textAlignVertical:'top',
         lineHeight:0.03*height,
         fontSize:23*s,
+        // backgroundColor:'#ccc',
         color:'#333'
     },
     tips:{
         fontSize:20*s,
         // backgroundColor:'#ccc',
-        textAlign:'right'
+        textAlign:'right',
+        color:'#888'
     },
     num:{
-        fontSize:23*s
+        fontSize:23*s,
+        color:'#000'
     },
     picsbox:{
         height:0.5*height,
         // backgroundColor:'#ccc'
+    },
+    tip:{
+        fontSize:20*s,
+        width:0.85*width,
+        height:0.035*height,
+        textAlignVertical:'center',
+        marginLeft:'auto',
+        marginRight:'auto',
+        // backgroundColor:'#ccc',
+        textAlign:'left',
+        color:'#888'
     },
     pics:{
         width:0.87*width*0.33,
