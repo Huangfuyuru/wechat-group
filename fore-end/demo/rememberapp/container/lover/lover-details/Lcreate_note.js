@@ -163,7 +163,7 @@ export default class Lcreate_note extends Component {
             context = '（这是一篇没有文字的日记……）';
         }
         if(!imgurl[0]){
-            imgurl=['#','#','#']
+            imgurl=[]
         }
         myFetch.post('/lover/ldairy/addDairy',{
              loverid:this.state.loverid,

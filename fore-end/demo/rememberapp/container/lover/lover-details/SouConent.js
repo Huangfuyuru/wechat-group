@@ -7,6 +7,7 @@ import {
     Image,
     TextInput
 } from "react-native"
+import {myFetch} from '../../../src/utils'
 import Icon1 from 'react-native-vector-icons/Feather'
 import { Actions } from 'react-native-router-flux';
 const { width, scale, height } = Dimensions.get('window');
@@ -15,12 +16,35 @@ export default class SouConent extends Component {
     constructor(){
         super()
         this.state = {
-            arr:''
+            arr:'',
+            loverid:"",
+            id:""
         }
     }
     componentDidMount(){
+        console.log(this.props.data)
         this.setState({
-            arr:this.props.data
+            arr:this.props.data,
+            id:this.props.data.id,
+            loverid:this.props.data.lid,
+        })
+    }
+    componentWillReceiveProps(nextProps) {
+        const adata=nextProps.data;
+        adata.map((item)=>{
+            if(item.id==this.state.id){
+                this.setState({
+                    arr:item,
+                    loverid:item.lid
+                })
+            }
+        })    
+    }
+    save=()=>{
+        myFetch.get('/lover/lsouvenir',{
+            loverid:this.state.loverid,
+        }).then(res=>{
+            Actions.pop({refresh:({data:res.msg})})
         })
     }
     newStar(star){
@@ -49,11 +73,16 @@ export default class SouConent extends Component {
                 <Icon1
                     style={styles.icon}
                     name='chevron-left'
-                    onPress={() => Actions.pop()}
+                    onPress={this.save}
                 />
                 <Text style={styles.title}>
                     详 情
                 </Text>
+                <Icon1
+                        style={styles.icon1}
+                        name="edit"
+                        onPress={()=>Actions.lchsou({data:item})}
+                    />
             </View>
                 <View style={{
                       width:0.95*width,
@@ -127,9 +156,9 @@ const styles = StyleSheet.create({
         height:65*s,
         backgroundColor: '#FFBF2D',
         flexDirection: 'row',
-        paddingLeft:0.02*width,
+        paddingLeft:0.03*width,
         paddingTop:'1%',
-        paddingRight:0.1*width,
+        paddingRight:0.03*width,
         justifyContent:"center"
        
     },
@@ -137,6 +166,11 @@ const styles = StyleSheet.create({
         width:0.08*width,
         color:'#fff',
         fontSize:30,
+    },
+    icon1:{
+        width:0.08*width,
+        color:'#fff',
+        fontSize:25,
     },
     title: {
         marginLeft: 'auto',

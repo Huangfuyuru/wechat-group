@@ -356,7 +356,7 @@ export default class Lcreate_note extends Component {
                                             width:0.25*width,
                                             height:0.04*height,
                                             textAlign:'center',
-                                            display:this.state.btndisplay,
+                                            // display:this.state.btndisplay,
                                             textAlignVertical:'center',
                                             fontSize:22*s,
                                             borderRadius:5,
@@ -381,8 +381,8 @@ export default class Lcreate_note extends Component {
                                     color:`${textcolor}`
                                 }}
                                 onChangeText={text=>{this.setState({context:text})}}
-                                placeholder={this.state.content}
-                                placeholderTextColor={textcolor}
+                                defaultValue={this.state.content}
+                                // placeholderTextColor={textcolor}
                                 multiline={true}
                             />
                             <View style={styles.picchoose}>

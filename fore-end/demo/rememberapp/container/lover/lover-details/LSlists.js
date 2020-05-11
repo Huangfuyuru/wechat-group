@@ -48,17 +48,10 @@ export default class LSlists extends Component {
         this.setState({
             loverId:this.props.loverId
         },()=>{
-            myFetch.get('/lover/loverlist/list',{
+            myFetch.get('/lover/loverlist',{
                 loverid:this.state.loverId
             }).then(res=>{
-                // console.log("dddd",res.data)
-                if(res.data==1){
-                Actions.pop({refresh:({data:null})})
-                }
-                else{
-                Actions.pop({refresh:({data:res.data})})
-
-                }
+                Actions.pop({refresh:({data:res.msg})})
             })
         })
     }

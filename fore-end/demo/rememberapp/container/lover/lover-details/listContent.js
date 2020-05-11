@@ -9,35 +9,64 @@ import {
 } from "react-native"
 import Icon1 from 'react-native-vector-icons/Feather'
 import { Actions } from 'react-native-router-flux';
+import {myFetch} from '../../../src/utils'
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
 export default class listContent extends Component {
     constructor(){
         super()
         this.state = {
-            arr:''
+            arr:'',
+            listid:"",
+            loverid:""
         }
     }
     componentDidMount(){
         this.setState({
-            arr:this.props.data
+            arr:this.props.data,
+            listid:this.props.data.listid,
+            loverid:this.props.data.lid,
+        })
+    }
+    componentWillReceiveProps(nextProps) {
+        const adata=nextProps.data;
+        adata.map((item)=>{
+            if(item.listid==this.state.listid){
+                this.setState({
+                    arr:item,
+                    loverId:item.lid
+                })
+            }
+        })
+    }
+    save=()=>{
+        myFetch.get('/lover/loverlist',{
+            loverid:this.state.loverid,
+        }).then(res=>{
+            Actions.pop({refresh:({data:res.msg})})
         })
     }
     render() {
         const item=this.state.arr
+        console.log(item)
         return (
             <View>
             <View style={styles.navbar}>
                 <Icon1
                     style={styles.icon}
                     name='chevron-left'
-                    onPress={() => Actions.pop()}
+                    onPress={this.save}
                 />
                 <Text 
                 style={styles.title}
                 >
                     {item.name? (item.name.length >= 10 ? item.name.substr(0, 10) + "..." : item.name) : ""}
                 </Text>
+                <Icon1
+                        style={styles.icon1}
+                        name="edit"
+                        onPress={()=>Actions.lchlist({data:item})}
+                    />
             </View>
                 <View style={{
                       width:width,
@@ -91,9 +120,9 @@ const styles = StyleSheet.create({
         height:65*s,
         backgroundColor: '#FFBF2D',
         flexDirection: 'row',
-        paddingLeft:0.02*width,
+        paddingLeft:0.03*width,
         paddingTop:'1%',
-        paddingRight:0.1*width,
+        paddingRight:0.03*width,
         justifyContent:"center"
        
     },
@@ -101,6 +130,11 @@ const styles = StyleSheet.create({
         width:0.08*width,
         color:'#fff',
         fontSize:30,
+    },
+    icon1:{
+        width:0.08*width,
+        color:'#fff',
+        fontSize:25,
     },
     title: {
         marginLeft:"auto",

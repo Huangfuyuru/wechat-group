@@ -76,7 +76,7 @@ export default class Lsouvenir extends Component {
 
     }
     componentWillReceiveProps(nextProps) {
-        console.log("hhhh", nextProps.data)
+        // console.log("hhhh", nextProps.data)
         this.setState({
             arr1: nextProps.data
         }, () => {
