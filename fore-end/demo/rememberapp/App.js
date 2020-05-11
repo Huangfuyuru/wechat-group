@@ -60,6 +60,7 @@ import Laddpictures from "./container/lover/lover-details/Laddpictures"
 import Ldairy from "./container/lover/Ldairy"
 import LCdairy from "./container/lover/lover-details/Lcreate_note"
 import LSdairy from  "./container/lover/lover-details/darContent"
+import LChdairy from "./container/lover/change/Chdairy"
 // 
 import Llists from "./container/lover/Llists"
 import LSlists from "./container/lover/lover-details/LSlists"
@@ -303,6 +304,8 @@ const App = () => {
 									<Scene key='ldairy' hideTabBar hideNavBar={true} component={Ldairy} />
 									<Scene key='lcdairy' hideTabBar hideNavBar={true} component={LCdairy} />
 									<Scene key='lsdairy' hideTabBar hideNavBar={true} component={LSdairy} />
+									<Scene key='lchdairy' hideTabBar hideNavBar={true} component={LChdairy} />
+
 
 								</Scene>
 								{/* 社区 */}

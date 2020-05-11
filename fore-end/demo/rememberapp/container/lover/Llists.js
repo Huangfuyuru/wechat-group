@@ -40,7 +40,7 @@ export default class Llists extends React.Component {
             myFetch.get('/lover/loverlist',{
                 loverid:this.state.loverId
             }).then(res=>{
-                // console.log("shuju",res)
+                console.log("shuju",res)
                 this.setState({  
                     arr:res.msg
                 })

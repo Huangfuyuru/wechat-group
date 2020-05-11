@@ -51,7 +51,14 @@ export default class LSlists extends Component {
             myFetch.get('/lover/loverlist/list',{
                 loverid:this.state.loverId
             }).then(res=>{
+                // console.log("dddd",res.data)
+                if(res.data==1){
+                Actions.pop({refresh:({data:null})})
+                }
+                else{
                 Actions.pop({refresh:({data:res.data})})
+
+                }
             })
         })
     }

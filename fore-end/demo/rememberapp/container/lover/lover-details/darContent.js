@@ -17,6 +17,7 @@ import moment from 'moment'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/Fontisto'
 import { WingBlank } from '@ant-design/react-native';
+import {myFetch} from '../../../src/utils'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 const image = 'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
@@ -27,13 +28,16 @@ export default class dairy extends Component {
             visible:false,
             currentpicture:image,
             inner:'',
-            data:''
+            data:'',
+            id:"",
+            loverId:""
         }
     }
     componentDidMount(){
         console.log(this.props.data);
         this.setState({
-            data:this.props.data
+            data:this.props.data,
+            id:this.props.data.id
         })
     }
     enlarge=(image)=>{
@@ -41,6 +45,18 @@ export default class dairy extends Component {
             visible:true,
             currentpicture:image
         })
+    }
+    componentWillReceiveProps(nextProps) {
+        // console.log("",nextProps)
+        const adata=nextProps.data;
+        adata.map((item)=>{
+            if(item.id==this.state.id){
+                this.setState({
+                    data:item
+                })
+            }
+        })
+        
     }
     savePictures = ()=>{
 
@@ -72,12 +88,14 @@ export default class dairy extends Component {
                     <Icon1 
                         style={styles.icon}
                         name='chevron-left'
-                        onPress={()=>Actions.pop()}
+                        onPress={()=>{
+                            Actions.pop()
+                        }}
                     />
                     <Text style={styles.title}>
                         { moment(item.setdate).format(" YYYY年MM月DD日  HH:mm")}
                     </Text>
-                    <TouchableOpacity onPress={()=>Actions.lcdairy({loverid:this.state.loverid})}>
+                    <TouchableOpacity onPress={()=>Actions.lchdairy({data:this.state.data})}>
                         <Icon1 style={styles.icon1}  name='edit'/>
                     </TouchableOpacity>
                 </View>

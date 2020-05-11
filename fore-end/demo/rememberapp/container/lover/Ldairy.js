@@ -44,6 +44,7 @@ export default class Ldairy extends Component {
         })
     }
     componentWillReceiveProps(nextProps) {
+        // console.log("niaho",nextProps)
         this.setState({
             lists:nextProps.data
         })
