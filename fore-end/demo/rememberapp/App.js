@@ -41,6 +41,7 @@ import Ccsound from './container/child/child_details/Ccsound'
 import Cdairy from './container/child/Cdairy'
 import Ccdairy from './container/child/child_details/Ccdairy'
 import Csdairy from './container/child/child_details/Showdairy';
+import Cchdairy from "./container/child/change/CChdairy"
 import Cgrowup from './container/child/Cgrowup'
 import Ccgrowup from './container/child/child_details/Ccgrow'
 import Cevents from './container/child/Cevent'
@@ -231,6 +232,11 @@ const App = () => {
 										hideTabBar
 										hideNavBar={true}
 										component={Csdairy} />
+									<Scene
+										key='cchdairy'
+										hideTabBar
+										hideNavBar={true}
+										component={Cchdairy} />
 									<Scene
 										key='cgrowup'
 										hideTabBar

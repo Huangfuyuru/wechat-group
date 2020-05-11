@@ -34,24 +34,14 @@ export default class Lsound extends Component {
         }
     }
     componentDidMount() {
-        const arr0 = [...this.state.arr]
-        arr0.map((item) => {
-            item.currentTime = 0.0;
-            item.slideValue = 0.0,
-                item.duration = 0.0,
-                item.muted = false
-        })
-        this.setState({
-            arr: arr0
-        })
         this.setState({
             loverId: this.props.loverId
         })
         myFetch.get('/lover/lsound', {
             loverid: this.props.loverId
         }).then(res => {
-            console.log(res)
-            // const arr0=[...this.state.arr]
+            // console.log(res)
+            // const arr0=res.msg;
             // arr0.map((item)=>{
             //    item.currentTime=0.0;
             //    item.slideValue=0.0,
