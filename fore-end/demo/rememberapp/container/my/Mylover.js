@@ -65,7 +65,6 @@ export default class Mylover extends Component {
         })
     }
     rmCevent = (e)=>{
-        var rmname = e.name;
         Alert.alert('提示', '确定要删除吗？',
             [
                 { text: "确定", onPress: ()=>{
@@ -82,7 +81,7 @@ export default class Mylover extends Component {
                             })
                         }
                         ToastAndroid.showWithGravityAndOffset(
-                            rmname+'删除成功！',
+                           '删除成功！',
                         ToastAndroid.SHORT,
                         ToastAndroid.CENTER,
                         25,-100)

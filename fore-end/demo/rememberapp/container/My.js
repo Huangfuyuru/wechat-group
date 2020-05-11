@@ -196,12 +196,11 @@ export default class My extends Component {
                     <Icon6 style={styles.icon3}  name='child'/>
                     <Text style={styles.blockbtn}>&nbsp;&nbsp;亲子列表</Text >
                 </TouchableOpacity>
-                <View style={{width:'100%',height:10*h,backgroundColor:'#eee'}}></View>
+                <View style={{width:'100%',height:2*h,backgroundColor:'#eee'}}></View>
                 <TouchableOpacity onPress={()=>Actions.Mylover()}  style={styles.btn}>
                     <Icon5 style={styles.icon3}  name='account-heart'/>
                     <Text style={styles.blockbtn}>&nbsp;&nbsp;爱人列表</Text >
                 </TouchableOpacity>
-                <View style={{width:'100%',height:10*h,backgroundColor:'#eee'}}></View>
             </View>
         )
     }

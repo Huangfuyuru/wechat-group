@@ -351,16 +351,16 @@ const App = () => {
 
 								>
 									<Scene key="mine" hideNavBar={true} component={My} />
-									<Scene key="Mychilds" hideNavBar={true} component={Mychilds} />
-									<Scene key="Mylover" hideNavBar={true} component={Mylover} />
-									<Scene key='Mmchilds' hideNavBar={true} component={Mmchilds} />
-									<Scene key='Mmlover' hideNavBar={true} component={Mmlover} />
-									<Scene key='Myfriend' hideNavBar={true} component={Myfriend} />
-									<Scene key='Message' hideNavBar={true} component={Message} />
-									<Scene key='Message2' hideNavBar={true} component={Message2} />
-									<Scene key='Mfollowers' hideNavBar={true} component={Mfollowers} />
-									<Scene key='Mattention' hideNavBar={true} component={Mattention} />
-									<Scene key='Use' hideNavBar={true} component={Use} />
+									<Scene key="Mychilds" hideTabBar hideNavBar={true} component={Mychilds} />
+									<Scene key="Mylover" hideTabBar hideNavBar={true} component={Mylover} />
+									<Scene key='Mmchilds' hideTabBar hideNavBar={true} component={Mmchilds} />
+									<Scene key='Mmlover' hideTabBar hideNavBar={true} component={Mmlover} />
+									<Scene key='Myfriend' hideTabBar hideNavBar={true} component={Myfriend} />
+									<Scene key='Message' hideTabBar hideNavBar={true} component={Message} />
+									<Scene key='Message2' hideTabBar hideNavBar={true} component={Message2} />
+									<Scene key='Mfollowers' hideTabBar hideNavBar={true} component={Mfollowers} />
+									<Scene key='Mattention' hideTabBar hideNavBar={true} component={Mattention} />
+									<Scene key='Use' hideTabBar hideNavBar={true} component={Use} />
 
 								</Scene>
 							</Tabs>
