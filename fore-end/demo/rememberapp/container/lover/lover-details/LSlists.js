@@ -36,7 +36,7 @@ export default class LSlists extends Component {
             myFetch.get('/lover/loverlist/list',{
                 loverid:this.state.loverId
             }).then(res=>{
-                // console.log("所有清单数据！",res)
+                console.log("所有清单数据！",res)
                 this.setState({
                     arr:res.msg,
                     data:res.data
@@ -44,22 +44,33 @@ export default class LSlists extends Component {
             })
         })
     }
+    save=()=>{
+        this.setState({
+            loverId:this.props.loverId
+        },()=>{
+            myFetch.get('/lover/loverlist/list',{
+                loverid:this.state.loverId
+            }).then(res=>{
+                Actions.pop({refresh:({data:res.data})})
+            })
+        })
+    }
     componentWillReceiveProps(nextProps) {
-        // console.log(nextProps.data)
          this.setState({
-             arr:nextProps.data
+             arr:nextProps.data,
         })
         
     }
     render() {
         const list = this.state.arr
+        const data=this.state.data
         return (
             <View >
                 <View style={styles.navbar}>
                     <Icon1
                         style={styles.icon}
                         name='chevron-left'
-                        onPress={() =>Actions.pop({refresh:({data:this.state.data})})}
+                        onPress={this.save}
                                               />
                     <Text style={styles.title}>清单列表</Text>
                 </View>
@@ -116,7 +127,7 @@ export default class LSlists extends Component {
                                     activeOpacity={0.8}
                                     style={{
                                         height: 130 * s,
-                                        width: 0.43 * width,
+                                        width: 0.42 * width,
                                         marginLeft: "auto",
                                         marginRight: "auto",
                                         marginTop:5
@@ -125,7 +136,7 @@ export default class LSlists extends Component {
                                     <View
                                         style={{
                                             height: 130 * s,
-                                            width: 0.43 * width,
+                                            width: 0.42 * width,
                                             backgroundColor: 'rgba(50,50,50,.6)',
                                             flexDirection: "column",
                                             alignContent: "center",
@@ -191,7 +202,7 @@ export default class LSlists extends Component {
                                                 textAlignVertical:"center",
                                                 height:50*s
                                             }}
-                                            >{item.name}</Text>
+                                            >{item.name? (item.name.length >= 8 ? item.name.substr(0, 8) + "..." : item.name) : ""}</Text>
                                             </View>
                                         </View>
                                         </TouchableOpacity>

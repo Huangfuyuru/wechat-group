@@ -36,9 +36,10 @@ export default class dairy extends Component {
             data:this.props.data
         })
     }
-    enlarge=()=>{
+    enlarge=(image)=>{
         this.setState({
-            visible:true
+            visible:true,
+            currentpicture:image
         })
     }
     savePictures = ()=>{
@@ -76,6 +77,9 @@ export default class dairy extends Component {
                     <Text style={styles.title}>
                         { moment(item.setdate).format(" YYYY年MM月DD日  HH:mm")}
                     </Text>
+                    <TouchableOpacity onPress={()=>Actions.lcdairy({loverid:this.state.loverid})}>
+                        <Icon1 style={styles.icon1}  name='edit'/>
+                    </TouchableOpacity>
                 </View>
                 <WingBlank style={styles.wingblank}>
                     <View style={{
@@ -134,7 +138,7 @@ export default class dairy extends Component {
                                 }
                                 renderItem={({item})=>(
                                     <TouchableOpacity
-                                        onPress={this.enlarge}
+                                        onPress={this.enlarge.bind(this,item)}
                                         style={styles.pics}>
                                         <ImageBackground
                                             // onPress={this.enlarge}
@@ -199,15 +203,20 @@ const styles = StyleSheet.create({
         height:65*s,
         backgroundColor:'#FFBF2D',
         flexDirection: 'row',
-        paddingLeft:0.02*width,
+        paddingLeft:0.03*width,
         paddingTop:'1%',
-        paddingRight:0.1*width,
+        paddingRight:0.03*width,
         justifyContent:"center"
     },
     icon:{
         width:0.08*width,
         color:'#fff',
         fontSize:30,
+    },
+    icon1:{
+        width:0.08*width,
+        color:'#fff',
+        fontSize:25,
     },
     title:{
         marginLeft:'auto',
@@ -243,6 +252,7 @@ const styles = StyleSheet.create({
         marginTop:0.025*height,
         height:0.6*height,
         padding:0.01*width,
+        // backgroundColor:"red",
         backgroundColor:'rgba(255,255,255,0.4)',
     },
     pics:{

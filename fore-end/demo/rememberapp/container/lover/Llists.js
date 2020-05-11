@@ -47,6 +47,7 @@ export default class Llists extends React.Component {
             })
         })
     }
+    
     newStar(star){
         let ss='';
         if(star==1){
@@ -65,7 +66,7 @@ export default class Llists extends React.Component {
         return ss;
     }
     componentWillReceiveProps(nextProps) {
-        console.log("next",nextProps.data)
+        console.log("nexttttttt",nextProps)
         this.setState({
             arr:nextProps.data
         })

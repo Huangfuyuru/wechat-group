@@ -43,7 +43,6 @@ export default class listContent extends Component {
                       width:width,
                       height:0.8*height,
                       backgroundColor:"#fff",
-
                      
                 }}> 
                 <Image

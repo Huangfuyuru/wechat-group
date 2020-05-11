@@ -178,7 +178,7 @@ export default class Ldairy extends Component {
                                             borderBottomWidth:1,
                                             borderBottomColor:'rgba(204,204,204,0.3)'
                                         }}>
-                                            <Icon4 color={iconcolor} style={styles.titleline} name='direction'/>
+                                            <Icon4 color={iconcolor} style={styles.titleline} name='heart'/>
                                             <Text
                                                 style={{
                                                     width:0.42*width,
@@ -244,6 +244,7 @@ export default class Ldairy extends Component {
                             <Text style={styles.nulltext}>哎呀~ 一篇日记都没有呢</Text>
                             <View style={styles.nullbox}>
                                 <ImageBackground 
+                                    blurRadius={1}
                                     style={{
                                         width:'100%',
                                         height:'100%',
