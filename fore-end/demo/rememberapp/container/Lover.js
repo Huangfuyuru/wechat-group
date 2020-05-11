@@ -46,7 +46,6 @@ export default class Lover extends Component {
                 this.setState({
                     uid: user.id
                 })
-                // console.log("uid", this.state.uid)
                 myFetch.post('/lover', {
                     uid: user.id
                 }).then(
