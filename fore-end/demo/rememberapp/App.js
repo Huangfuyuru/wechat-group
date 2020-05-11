@@ -60,6 +60,7 @@ import Laddpictures from "./container/lover/lover-details/Laddpictures"
 import Ldairy from "./container/lover/Ldairy"
 import LCdairy from "./container/lover/lover-details/Lcreate_note"
 import LSdairy from  "./container/lover/lover-details/darContent"
+import LChdairy from "./container/lover/change/Chdairy"
 // 
 import Llists from "./container/lover/Llists"
 import LSlists from "./container/lover/lover-details/LSlists"
@@ -91,6 +92,7 @@ import Use from './container/my/Use'
 
 import T from './components/Tlists'
 import Mychild from './container/my/Mychilds';
+
 import Tdiscuss from './container/community/Tdiscuss';
 import Tsearch from './container/community/Tsearch';
 import Taddswiper from './container/community/Taddswiper';
@@ -302,6 +304,8 @@ const App = () => {
 									<Scene key='ldairy' hideTabBar hideNavBar={true} component={Ldairy} />
 									<Scene key='lcdairy' hideTabBar hideNavBar={true} component={LCdairy} />
 									<Scene key='lsdairy' hideTabBar hideNavBar={true} component={LSdairy} />
+									<Scene key='lchdairy' hideTabBar hideNavBar={true} component={LChdairy} />
+
 
 								</Scene>
 								{/* 社区 */}
@@ -332,7 +336,7 @@ const App = () => {
 										hideTabBar
 										hideNavBar
 										component={Taddswiper} />
-									<Scene 
+									 <Scene 
 										key='taddcontent'
 										hideTabBar
 										hideNavBar
@@ -351,16 +355,16 @@ const App = () => {
 
 								>
 									<Scene key="mine" hideNavBar={true} component={My} />
-									<Scene key="Mychilds" hideNavBar={true} component={Mychilds} />
-									<Scene key="Mylover" hideNavBar={true} component={Mylover} />
-									<Scene key='Mmchilds' hideNavBar={true} component={Mmchilds} />
-									<Scene key='Mmlover' hideNavBar={true} component={Mmlover} />
-									<Scene key='Myfriend' hideNavBar={true} component={Myfriend} />
-									<Scene key='Message' hideNavBar={true} component={Message} />
-									<Scene key='Message2' hideNavBar={true} component={Message2} />
-									<Scene key='Mfollowers' hideNavBar={true} component={Mfollowers} />
-									<Scene key='Mattention' hideNavBar={true} component={Mattention} />
-									<Scene key='Use' hideNavBar={true} component={Use} />
+									<Scene key="Mychilds" hideTabBar hideNavBar={true} component={Mychilds} />
+									<Scene key="Mylover" hideTabBar hideNavBar={true} component={Mylover} />
+									<Scene key='Mmchilds' hideTabBar hideNavBar={true} component={Mmchilds} />
+									<Scene key='Mmlover' hideTabBar hideNavBar={true} component={Mmlover} />
+									<Scene key='Myfriend' hideTabBar hideNavBar={true} component={Myfriend} />
+									<Scene key='Message' hideTabBar hideNavBar={true} component={Message} />
+									<Scene key='Message2' hideTabBar hideNavBar={true} component={Message2} />
+									<Scene key='Mfollowers' hideTabBar hideNavBar={true} component={Mfollowers} />
+									<Scene key='Mattention' hideTabBar hideNavBar={true} component={Mattention} />
+									<Scene key='Use' hideTabBar hideNavBar={true} component={Use} />
 
 								</Scene>
 							</Tabs>

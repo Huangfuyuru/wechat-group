@@ -29,29 +29,17 @@ import {myFetch} from '../../src/utils'
 const { width, scale, height } = Dimensions.get('window');
 const s1 = width / 640;
 const h = height / 1012;
-var FirstData = [
-    '女',
-    '男',
-]
+
 export default class Use extends Component {
     constructor(){
         super();
         this.state={
             name:'',
             pass:'',
-            firstValue:  FirstData[0],
             sex:'女',
             uid:'',
             code:1
         }
-    }
-    updateFirstValue(language) {
-        this.setState({
-            firstValue: language,
-        });
-    }
-    renderPicker(key) {
-        return <Picker.Item label={key} value={key} />
     }
     additem=()=>{
         AsyncStorage.getItem('user').
@@ -60,9 +48,11 @@ export default class Use extends Component {
             this.setState({
                 uid:user.id,
             })
+            console.log(this.state.name,this.state.sex,this.state.uid,this.state.pass);
             myFetch.post('/my/information',{
                 uname:this.state.name,
-                gender:this.state.firstValue,
+                pass:this.state.pass,
+                gender:this.state.sex,
                 uid:user.id,
             }).then(
                 res=>{
@@ -131,12 +121,17 @@ export default class Use extends Component {
                             <Text style={styles.text}>
                                 <Icon3 style={styles.listlineicon} name='users'/>选择性别</Text>
                             <Text style={styles.input}>
-                                <Picker 
-                                    style={{width:0.11*width}}
+                                <Picker
+                                    selectedValue={this.state.sex}
                                     mode='dropdown'
-                                    selectedValue={this.state.firstValue}
-                                    onValueChange={(language) => this.updateFirstValue(language)}>
-                                    {FirstData.map((key) => this.renderPicker(key))}
+                                    style={{width:0.15*width}}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        this.setState({
+                                            sex: itemValue,
+                                        })
+                                    }>
+                                    <Picker.Item label="男" value="男" />
+                                    <Picker.Item label="女" value="女" />
                                 </Picker>
                             </Text>
                         </View>

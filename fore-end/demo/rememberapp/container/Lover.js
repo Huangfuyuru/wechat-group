@@ -46,7 +46,6 @@ export default class Lover extends Component {
                 this.setState({
                     uid: user.id
                 })
-                // console.log("uid", this.state.uid)
                 myFetch.post('/lover', {
                     uid: user.id
                 }).then(
@@ -65,7 +64,7 @@ export default class Lover extends Component {
     }
     componentDidUpdate(prevProps,prevState){
         console.log('更新')
-        console.log(this.state.background)
+        console.log(this.state.back)
         if(prevState.back != this.state.back){
             myFetch.post('/lover/changebackground',{
                 lover_id:this.state.loverId,
@@ -150,55 +149,30 @@ export default class Lover extends Component {
                     <View style={styles.lover_second}>
                         <Flex justify="center">
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.lpictures({loverId:this.state.loverId})}>
-                                <Text style={{
-                                    textAlign: "center",
-                                    lineHeight: 40,
-                                    fontSize: 20,
-                                    color: "#fff"
-                                }}
+                                <Text  style={styles.blockbtn}
                                 >云相册</Text >
                             </TouchableOpacity>
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.lsound({loverId:this.state.loverId})}>
-                                <Text style={{
-                                    textAlign: "center",
-                                    fontSize: 20,
-                                    lineHeight: 40,
-                                    color: "#fff"
-                                }}
+                                <Text  style={styles.blockbtn}
                                 >语音记事</Text >
                             </TouchableOpacity>
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.ldairy({loverId:this.state.loverId})}>
-                                <Text style={{
-                                    textAlign: "center",
-                                    fontSize: 20,
-                                    lineHeight: 40,
-                                    color: "#fff"
-                                }}
+                                <Text style={styles.blockbtn}
                                 >恋爱日记</Text >
                             </TouchableOpacity>
                         </Flex>
                         <Flex justify="center">
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.llists({loverId:this.state.loverId})}>
-                                <Text style={{
-                                    textAlign: "center",
-                                    fontSize: 20,
-                                    lineHeight: 40,
-                                    color: "#fff"
-                                }}
+                                <Text  style={styles.blockbtn}
                                 >恋爱清单</Text >
                             </TouchableOpacity>
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={() => Actions.lsouvenir({loverId:this.state.loverId})}>
-                                <Text style={{
-                                    textAlign: "center",
-                                    fontSize: 20,
-                                    lineHeight: 40,
-                                    color: "#fff"
-                                }}
+                                <Text  style={styles.blockbtn}
                                 >纪念日</Text >
                             </TouchableOpacity>
                         </Flex>
                     </View>
-                    <View style={{
+                    {/* <View style={{
                         width: '100%',
                         marginTop: 10
                     }}>
@@ -217,8 +191,8 @@ export default class Lover extends Component {
                             fontSize: 15,
                             color: '#555'
                         }}>以下内容仅自己可见</Text>
-                    </View>
-                    <FlatList
+                    </View> */}
+                    {/* <FlatList
                         showsVerticalScrollIndicator={false}
                         ListFooterComponent={
                             <View style={{
@@ -264,7 +238,7 @@ export default class Lover extends Component {
                                     </View>
                                 </TouchableOpacity>
                         )}
-                    />
+                    /> */}
 
                 </View>
             )
@@ -304,38 +278,24 @@ export default class Lover extends Component {
                             <Text style={styles.bgbtn}>到个人中心添加爱人后可更换背景墙哦</Text>
                         </ImageBackground>
                     </View>
+                    <WingBlank style={{flex:1}}>
                     <View style={styles.lover_second}>
                         <Flex justify="center">
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn}
                                 onPress={this.addchildwarn}>
-                                <Text style={{
-                                    textAlign: "center",
-                                    lineHeight: 40,
-                                    fontSize: 20,
-                                    color: "#fff"
-                                }}
+                                <Text  style={styles.blockbtn}
                                 >云相册</Text >
                             </TouchableOpacity>
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn}
                                 onPress={this.addchildwarn}
                             >
-                                <Text style={{
-                                    textAlign: "center",
-                                    fontSize: 20,
-                                    lineHeight: 40,
-                                    color: "#fff"
-                                }}
+                                <Text  style={styles.blockbtn}
                                 >语音记事</Text >
                             </TouchableOpacity>
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn}
                                 onPress={this.addchildwarn}
                             >
-                                <Text style={{
-                                    textAlign: "center",
-                                    fontSize: 20,
-                                    lineHeight: 40,
-                                    color: "#fff"
-                                }}
+                                <Text  style={styles.blockbtn}
                                 >恋爱日记</Text >
                             </TouchableOpacity>
                         </Flex>
@@ -343,30 +303,21 @@ export default class Lover extends Component {
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn}
                                 onPress={this.addchildwarn}
                             >
-                                <Text style={{
-                                    textAlign: "center",
-                                    fontSize: 20,
-                                    lineHeight: 40,
-                                    color: "#fff"
-                                }}
+                                <Text  style={styles.blockbtn}
                                 >恋爱清单</Text >
                             </TouchableOpacity>
                             <TouchableOpacity activeOpacity={0.8} style={styles.btn}
                                 onPress={this.addchildwarn}
                             >
-                                <Text style={{
-                                    textAlign: "center",
-                                    fontSize: 20,
-                                    lineHeight: 40,
-                                    color: "#fff"
-                                }}
+                                <Text  style={styles.blockbtn}
                                 >纪念日</Text >
                             </TouchableOpacity>
                         </Flex>
                     </View>
+                    </WingBlank>
                     <View style={{
                         width: '100%',
-                        marginTop: 10
+                        marginTop: 70
                     }}>
                         <Text style={{
                             width: '104%',
@@ -435,7 +386,8 @@ const styles = StyleSheet.create({
         textAlign: "center",
         height: 0.33 * height,
         width: width,
-        backgroundColor: "#fff"
+        alignItems:'center'
+
     },
     lover_second: {
         marginBottom: 15,
@@ -456,23 +408,31 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFBF2D',
         borderRadius: 5,
     },
+    blockbtn:{ 
+        textAlign: "center", 
+        fontSize: 20,
+        textAlignVertical:'center', 
+        lineHeight: 55*h, 
+        color: "#fff" ,
+       
+    },
     child_third: {
         marginTop:0.015*height,
     },
     bgbtn: {
         color: '#000',
-        width: 0.8 * width,
-        letterSpacing: 3,
-        height: 0.05 * height,
+        width:0.8*width,
+        letterSpacing:3,
+        height:0.05*height,
         backgroundColor: 'rgba(255,191,45,0.2)',
-        textAlignVertical: 'center',
-        marginTop: 0.01 * height,
-        color: '#fff',
-        fontSize: 23 * s1,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        textAlign: 'center',
-        borderRadius: 5
+        textAlignVertical:'center',
+        marginTop:0.01*height,
+        color:'#fff',
+        fontSize:23*s1,
+        marginLeft:'auto',
+        marginRight:'auto',
+        textAlign:'center',
+        borderRadius:5
         // backgroundColor: 'rgba(255,255,255,0.3)',
 
     },

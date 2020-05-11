@@ -40,13 +40,14 @@ export default class Llists extends React.Component {
             myFetch.get('/lover/loverlist',{
                 loverid:this.state.loverId
             }).then(res=>{
-                // console.log("shuju",res)
+                console.log("shuju",res)
                 this.setState({  
                     arr:res.msg
                 })
             })
         })
     }
+    
     newStar(star){
         let ss='';
         if(star==1){
@@ -65,7 +66,7 @@ export default class Llists extends React.Component {
         return ss;
     }
     componentWillReceiveProps(nextProps) {
-        console.log("next",nextProps.data)
+        console.log("nexttttttt",nextProps)
         this.setState({
             arr:nextProps.data
         })

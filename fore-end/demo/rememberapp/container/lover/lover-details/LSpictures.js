@@ -20,6 +20,7 @@ import {
     WingBlank,
     List,
 } from '@ant-design/react-native';
+import {myFetch} from '../../../src/utils'
 import { Actions } from 'react-native-router-flux';
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialIcons'
@@ -31,6 +32,9 @@ import Button from 'react-native-button'
 import CheckBox from 'react-native-checkbox'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
+const image = 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2342845640,3656514420&fm=26&gp=0.jpg'
+// const image = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587984434404&di=bf40c32f66d4044edf58042a728f0bd1&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F3503b3b19c1bc0928766b62de18a5433dad71cf911089-tluSYK_fw658'
+// const image = 'http://img.taopic.com/uploads/allimg/111130/500-111130135A160.jpg'
 export default class Cdairy extends Component {
     constructor(){
         super();
@@ -39,128 +43,40 @@ export default class Cdairy extends Component {
             checkboxtimes:0,
             checkboxdisabled:'none',
             visible:false,
-            boxopacity:0,
+            boxopacity:'none',
             chooseopacity:0,
-            currentpicture:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg',
-            lists:[
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-                {
-                    name:'我的相册',
-                    pid:1,
-                    background:'https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg'
-                },
-            ],
-            activeSections: [2, 0],
-            childs:[1,2,3,4]
-
+            currentpicture:'',
+            lists:[],
         };
         this.onChange = activeSections => {
             this.setState({ activeSections });
         };
+    }
+    componentDidMount(){
+        // console.log(this.props.pid)
+        myFetch.get('/child/cpictures/show',{
+            childPhotoListid:this.props.pid
+        }).then(res=>{
+            console.log(res)
+            if(res){
+                console.log('111')
+                this.setState({
+                    lists:res
+                })
+            }else{
+                this.setState({
+                    lists:[]
+                })
+            }
+        })
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            lists:nextProps.data
+        })
+    }
+    componentDidUpdate(){
+      
     }
     compile = ()=>{
         this.setState({
@@ -168,33 +84,42 @@ export default class Cdairy extends Component {
         },()=>{
             if(this.state.times % 2 == 0){
                 this.setState({
-                    boxopacity:0
+                    boxopacity:'none'
                 })
             }else{
                 this.setState({
-                    boxopacity:1
+                    boxopacity:'flex'
                 }) 
             }
         })
     }
     delpictures = ()=>{
-        this.setState({
-            checkboxtimes:this.state.checkboxtimes+1
-        },()=>{
-            if(this.state.checkboxtimes % 2 == 0){
-                this.setState({
-                    checkboxdisabled:'none',
-                })
-            }else{
-                this.setState({
-                    checkboxdisabled:'flex'
-                }) 
-            }
-        })
+        if(this.state.lists[0]){
+            this.setState({
+                checkboxtimes:this.state.checkboxtimes+1
+            },()=>{
+                if(this.state.checkboxtimes % 2 == 0){
+                    this.setState({
+                        checkboxdisabled:'none',
+                    })
+                }else{
+                    this.setState({
+                        checkboxdisabled:'flex'
+                    }) 
+                }
+            })
+        }else{
+            ToastAndroid.showWithGravityAndOffset(
+            '一张图片都没有！',
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+            0,-350)
+        }
     }
-    enlarge=()=>{
+    enlarge=(item)=>{
         this.setState({
-            visible:true
+            visible:true,
+            currentpicture:item
         })
     }
     delete=()=>{
@@ -255,45 +180,46 @@ export default class Cdairy extends Component {
         // })
     }
     render() {
-        const lists = this.state.lists;
-        const compile = [{icon:''}]
         return (
             <View>
                 <View style={styles.navbar}>
-                    <Icon1 
-                        style={styles.icon}
-                        name='chevron-left'
-                        onPress={()=>Actions.pop()}
-                    />
-                    <Text style={styles.title}>我的相册</Text>
+                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                        <Icon1 style={styles.icon} name='chevron-left'/>
+                    </TouchableOpacity>
+                    <Text style={styles.title}>{this.props.pname}</Text>
                     <TouchableOpacity onPress={this.compile}>
                         <Icon1 style={styles.icon} name='more-horizontal'/>
                     </TouchableOpacity>
-                    
                 </View>
-                <View style={{
-                    width:0.3*width,
-                    marginLeft:0.7*width,
-                    opacity:this.state.boxopacity,
-                    height:0.055*height,
-                    paddingTop:0.008*height,
-                    paddingBottom:0.01*height,
-                    flexDirection:'row',
-                }}
-                >
-                    <TouchableOpacity onPress={this.delpictures} style={styles.btn}>
-                        <Icon1 style={styles.btnicon} name='trash-2'/>
-                        <Text  style={styles.btntext}>删除</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>Actions.addpictures()} style={styles.btn}>
-                        <Icon5 style={styles.btnicon} name='image-plus'/>
-                        <Text style={styles.btntext}>添加</Text>
-                    </TouchableOpacity>
+                <View 
+                    style={{
+                        width:0.3*width,
+                        marginLeft:0.7*width,
+                        height:0.055*height,
+                        paddingTop:0.008*height,
+                        paddingBottom:0.01*height,
+                    }}>
+                    <View style={{
+                        display:this.state.boxopacity,
+                        flexDirection:'row',
+                    }}
+                    >
+                        <TouchableOpacity onPress={this.delpictures} style={styles.btn}>
+                            <Icon1 style={styles.btnicon} name='trash-2'/>
+                            <Text  style={styles.btntext}>删除</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>Actions.addpictures()} style={styles.btn}>
+                            <Icon5 style={styles.btnicon} name='image-plus'/>
+                            <Text style={styles.btntext}>添加</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <WingBlank style={styles.wingblank}>
-                    <FlatList  
+                {
+                    this.state.lists[0]
+                    ?<FlatList  
                         style={styles.picbox}
-                        data={lists}
+                        data={this.state.lists}
                         numColumns={4}
                         ListFooterComponent={
                             <View style={{
@@ -303,12 +229,13 @@ export default class Cdairy extends Component {
                         }
                         renderItem={({item})=>(
                             <TouchableOpacity
-                                onPress={this.enlarge}
+                                key={item.id}
+                                onPress={()=>this.enlarge(item.imgurl)}
                                 style={styles.pics}>
                                 <ImageBackground
                                     style={styles.pics}
                                     resizeMode="cover"
-                                    source={{uri:`${item.background}`}}
+                                    source={{uri:`${item.imgurl}`}}
                                 >
                                     <CheckBox
                                         checkboxStyle={{
@@ -324,17 +251,35 @@ export default class Cdairy extends Component {
                             </TouchableOpacity>
                         )}
                     />  
+                    :<View style={styles.picbox}>
+                        <Text style={styles.nulltext}>哎呀~ 竟然一张照片都没有</Text>
+                        <ImageBackground
+                            style={styles.nullpics}
+                            resizeMode="cover"
+                            source={{uri:`${image}`}}
+                        >
+                            <TouchableOpacity>
+                                <Icon1
+                                    style={styles.nullicon}
+                                    name='corner-right-up'
+                                    size={50}
+                                    color='#333'
+                                />
+                            </TouchableOpacity>
+                            <Text style={styles.nullinnertext}>点击右上角添加一张图片吧</Text>
+                        </ImageBackground>
+                    </View>
+                }
+                    
                 </WingBlank>
                 <Modal
                     transparent
                     visible={this.state.visible}
                 >
                     <View style={styles.navbar}>
-                        <Icon1 
-                            style={styles.icon}
-                            name='chevron-left'
-                            onPress={()=>{this.setState({visible:false})}}
-                        />
+                        <TouchableOpacity onPress={()=>{this.setState({visible:false})}}>
+                            <Icon1 style={styles.icon} name='chevron-left'/>
+                        </TouchableOpacity>
                         <Text style={styles.title}>我的相册</Text>
                         <Icon1 style={styles.icon}/>
                     </View>
@@ -425,11 +370,11 @@ const styles = StyleSheet.create({
         // backgroundColor:'#000'
     },
     picbox:{
-        // height:930*s,
+        height:0.8*height,
         padding:0.01*width,
         borderColor:'rgba(204,204,204,0.3)',
         borderStyle:'solid',
-        borderWidth:2,
+        borderWidth:1,
         // backgroundColor:'rgba(255,191,45,0.1)'
     },
     pics:{
@@ -438,4 +383,46 @@ const styles = StyleSheet.create({
         margin:0.005*width,
         transform: [{scale:0.95}]
     },
+    nulltext:{
+        marginTop:0.01*height,
+        width:0.55*width,
+        height:0.05*height,
+        fontSize:23*s,
+        letterSpacing:1,
+        color:'#333',
+        backgroundColor:'rgba(221, 221, 221,0.2)',
+        marginLeft:'auto',
+        marginRight:'auto',
+        textAlign:'center',
+        textAlignVertical:'center',
+    },
+    nullpics:{
+        width:0.85*width,
+        height:0.7*height,
+        alignItems:'center',
+        marginLeft:'auto',
+        marginRight:'auto',
+        marginTop:0.01*height
+    },
+    nullicon:{
+        width:0.08*height,
+        height:0.08*height,
+        marginTop:-0.04*height,
+        marginLeft:0.75*width,
+        textAlignVertical:'center',
+        textAlign:'center',
+        // backgroundColor:'#ccc'
+        backgroundColor:'rgba(255,255,255,0.3)'
+    },
+    nullinnertext:{
+        fontSize:30*s,
+        color:'#333',
+        height: 0.05*height, 
+        width: 0.65*width,
+        transform: [{scale:0.9}],
+        textAlign:'center',
+        marginTop:0.1*height,
+        backgroundColor:'rgba(255,255,255,0.3)',
+        textAlignVertical:'center'
+    }
 })

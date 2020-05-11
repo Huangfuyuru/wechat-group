@@ -30,6 +30,7 @@ export default class Lcreate_note extends Component {
     constructor(props){
         super(props);
         this.state={
+            id:"",
             loverid:'',
             chooselist:[],
             listicon:'',
@@ -47,8 +48,19 @@ export default class Lcreate_note extends Component {
         }
     }
     componentDidMount(){
+        const item =this.props.data
         this.setState({
-            loverid:this.props.loverid
+            id:item.id,
+            loverid:item.lid,
+            chooselist:[],
+            bgcolor:item.backcolor,
+            weather:item.weather,
+            bgimg:item.bgimg,
+            upbgimg:'',
+            content:item.content,
+            context:item.content,
+            lists:item.imgurl,
+
         })
     }
     clearbtn = ()=>{
@@ -165,21 +177,21 @@ export default class Lcreate_note extends Component {
         if(!imgurl[0]){
             imgurl=['#','#','#']
         }
-        myFetch.post('/lover/ldairy/addDairy',{
+        myFetch.post('/lover/ldairy/moddairy',{
              loverid:this.state.loverid,
              backcolor:this.state.bgcolor,
+             id:this.state.id,
              content:context,
              imgurl:JSON.stringify(imgurl),
              setdate:time,
              bgimg:this.state.bgimg,
              weather:this.state.weather
         }).then(res=>{
-            console.log("增加后日记",res)
                 if(res.code == 0){
                     setTimeout(()=>{
-                        Actions.pop({refresh:({data:res.msg})})
+                        Actions.pop({refresh:({data:res.data})})
                     },800)
-                    ToastAndroid.show('创建成功！', ToastAndroid.SHORT);
+                    ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
 
                 }else{
                     ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
@@ -246,7 +258,7 @@ export default class Lcreate_note extends Component {
                         name='chevron-left'
                         onPress={()=>Actions.pop()}
                     />
-                    <Text style={styles.title}>写日记</Text>
+                    <Text style={styles.title}>编辑日记</Text>
                     <TouchableOpacity onPress={this.savedairy}>
                         <Icon2 style={styles.icon}  name='playlist-check'/>
                     </TouchableOpacity>
@@ -369,7 +381,8 @@ export default class Lcreate_note extends Component {
                                     color:`${textcolor}`
                                 }}
                                 onChangeText={text=>{this.setState({context:text})}}
-                                placeholder="日记内容"
+                                placeholder={this.state.content}
+                                placeholderTextColor={textcolor}
                                 multiline={true}
                             />
                             <View style={styles.picchoose}>

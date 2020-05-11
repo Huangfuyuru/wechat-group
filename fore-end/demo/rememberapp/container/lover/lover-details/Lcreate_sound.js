@@ -48,12 +48,6 @@ export default class Lcreate_sound extends Component {
     }
     this.timer = null
   }
-  // static navigationOptions = ({ navigation, navigationOptions }) => {
-  //   navigationOptions.header = null;
-  //   return {
-  //     ...navigationOptions
-  //   };
-  // }
   componentDidMount() {
     this.setState({
       loverid: this.props.loverid
@@ -164,11 +158,12 @@ export default class Lcreate_sound extends Component {
           this.prepareRecordingPath(this.state.audioPath);
         }
         const formData = new FormData()
-        formData.append('file',"file://"+this.state.audioPath);
+        formData.append('file', "file://" + this.state.audioPath);
         fetch("http://148.70.223.218:3001/sound", {
           method: 'post',
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'Content-Encoding': 'identity'
           },
           body: formData
         }).then(res => {
@@ -193,13 +188,19 @@ export default class Lcreate_sound extends Component {
         console.log("res")
       })
   }
-  upFile=()=> {
+  upFile = () => {
+   let filterFile = ".+(.mp3|.m4a|.aac)$";
     RNFileSelector.Show({
-      title:"选择文件",
-      onDone:function(path){
+      title: "选择文件",
+      closeMenu: true,
+      filter: filterFile,
+      onDone: function (path) {
+        let Path =`file://${path}`;
+        let fileParams = {mime: '', path: Path}
+        let fileArr = path.split('.');
         console.log(path)
       },
-      onCancel:function(){
+      onCancel: function () {
         console.log("取消")
       }
     })
@@ -298,7 +299,11 @@ export default class Lcreate_sound extends Component {
               fontSize: 25,
             }}>00:{this.formatMediaTime(time)}</Text>
           </View>
-
+          {/* <RNFileSelector title={"hhhhh"}  onDone={() => {
+            console.log("file selected: " + path);
+          }} onCancel={() => {
+            console.log("cancelled");
+          }} /> */}
           <Button
             onPress={this.additem}
             style={styles.addbtn}>添加语音</Button>
