@@ -33,6 +33,7 @@ import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon5 from 'react-native-vector-icons/Fontisto'
 import {myFetch} from '../../src/utils'
 import ImagePicker from 'react-native-image-crop-picker'
+import IP from 'react-native-image-picker'
 import Swiper from 'react-native-swiper'
 import moment from 'moment'
 import Button from 'react-native-button'
@@ -48,7 +49,7 @@ export default class Community extends Component {
         // var uid = JSON.parse(localStorage.getItem('uid'));
         this.state={
             uid:'',
-            lists:[image,image1,image2],
+            lists:[],
             uplist:[],
             onPress:0
         }
@@ -62,6 +63,7 @@ export default class Community extends Component {
                 uid:user.id
             })       
         })
+        this.choose()
     }
     componentDidUpdate(prevProps,prevState){
         console.log('更新')
@@ -70,7 +72,7 @@ export default class Community extends Component {
     choose = ()=>{
         ImagePicker.openPicker({
             multiple: true,
-            // includeBase64:true
+            includeBase64:true
         }).then(images => {
             var lists = this.state.lists;
             var uplist = this.state.uplist;
@@ -88,6 +90,32 @@ export default class Community extends Component {
         }).catch(e => { 
             console.log(e)
         });
+    }
+    takepics = ()=>{
+        ImagePicker.openCamera({
+            width: 300, 
+            height: 400, 
+            cropping: true,
+            includeBase64:true
+        }).then(image => { 
+            var lists = this.state.lists;
+            var uplist = this.state.uplist;
+            lists.push(image.path);
+            uplist.push(image.data);
+            this.setState({
+                lists:lists,
+                uplist:uplist
+            })
+        });
+        ImagePicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
+        });
+
+    }
+    video = ()=>{
+
     }
     render() {
         const tabs = [
@@ -130,8 +158,10 @@ export default class Community extends Component {
                                         this.choose();
                                         break;
                                     case 1:
+                                        this.takepics();
                                         break;
                                     case 2:
+                                        this.video();
                                         break;
                                     default:
                                         break;
@@ -158,7 +188,7 @@ export default class Community extends Component {
                     ))}
                     <TouchableOpacity 
                         activeOpacity={this.state.lists[0]?0.2:1}
-                        onPress={this.state.lists[0]?()=>Actions.taddcontent({lists:this.state.lists,uplist:this.state.uplist}):null}>
+                        onPress={this.state.lists[0]?()=>Actions.taddcontent({lists:this.state.lists,uplist:this.state.uplist,uid:this.state.uid}):null}>
                         <Icon2 style={{
                             width: 0.1 * width,
                             height:0.07*height,

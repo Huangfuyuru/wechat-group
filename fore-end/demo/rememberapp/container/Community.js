@@ -13,7 +13,8 @@ import {
     FlatList,
     ImageBackground,
     DrawerLayoutAndroid,
-    Modal
+    Modal,
+    ToastAndroid
 } from 'react-native'
 import { 
     Flex, 
@@ -59,16 +60,21 @@ export default class Community extends Component {
             onPress:0,
             showFoot:0,
             refreshing:false,
-            lists:[]
+            clists:[],
+            rlists:[],
+            page:1,
         }
     }
     componentDidMount(){
-        console.log('社区第一次加载');
+        // console.log('社区第一次加载');
+        this.setState({
+            refreshing:true,
+        })
         AsyncStorage.getItem('user').
         then((res)=>{
             var user = JSON.parse(res)
             this.setState({
-                uid:user.id
+                uid:user.id,
             })
             myFetch.get('/share',{
                 uid:user.id
@@ -81,36 +87,183 @@ export default class Community extends Component {
                     if(!res.data[i].imgurl){
                         res.data[i].imgurl=[image2]
                     }
-                    console.log(res.data[i].imgurl)
+                    // console.log(res.data[i].imgurl)
                 }
                 this.setState({
-                    lists:res.data
+                    rlists:res.data,
+                    refreshing:false
                 })
                 
             })
-            // fetch(`http://148.70.223.218:3001/share?uid=${user.id}`)
-            // .then(res=>res.json())
-            // .then(res=>{
-            //     console.log(res)
-            // })
         })
     }
     componentDidUpdate(prevProps,prevState){
         console.log('更新')
     
     }
-    btndisabled = ()=>{
+    refreshConcern = ()=>{
+        // console.log('关注')
+        this.setState({
+            refreshing:true,
+            onPress:0
+        })
+        myFetch.get('/share/classify/interest',{
+            uid:this.state.uid
+        }).then(res=>{
+            this.setState({
+                refreshing:false
+            })
+            console.log('关注')
+            console.log(res)
+            for(var i in res.data){
+                if(!res.data[i].pic){
+                    res.data[i].pic=image2
+                }
+                if(!res.data[i].imgurl){
+                    res.data[i].imgurl=[image2]
+                }
+                // console.log(res.data[i].imgurl)
+            }
+            this.setState({
+                clists:res.data,
+                refreshing:false,
+            })
+            
+        })
+    }
+    refreshRecommend = ()=>{
+        this.setState({
+            refreshing:true,
+            onPress:0
+        })
+        myFetch.get('/share',{
+            uid:this.state.uid
+        }).then(res=>{
+            console.log(res.data)
+            for(var i in res.data){
+                if(!res.data[i].pic){
+                    res.data[i].pic=image2
+                }
+                if(!res.data[i].imgurl){
+                    res.data[i].imgurl=[image2]
+                }
+                // console.log(res.data[i].imgurl)
+            }
+            this.setState({
+                rlists:res.data,
+                refreshing:false
+            })
+            
+        })
+
+    }
+    choosedetails=(url,style,page)=>{
+        var classifylist = [];
+        this.setState({
+            refreshing:true,
+        })
+        myFetch.get(`${url}`,{
+            uid:this.state.uid
+        }).then(res=>{
+            console.log(res.data)
+            for(var i in res.data){
+                if(!res.data[i].pic){
+                    res.data[i].pic=image2
+                }
+                if(!res.data[i].imgurl){
+                    res.data[i].imgurl=[image2]
+                }
+                console.log(res.data[i].style)
+
+                switch(style){
+                    case 0:
+                        classifylist.push(res.data[i]);
+                        break;
+                    case 1:
+                        if(res.data[i].style){
+                            classifylist.push(res.data[i])
+                        }
+                        break;
+                    case 2:
+                        if(!res.data[i].style){
+                            classifylist.push(res.data[i])
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                if(page===0){
+                    this.setState({
+                        refreshing:false,
+                        clists:classifylist
+                    })
+                }else{
+                    this.setState({
+                        refreshing:false,
+                        rlists:classifylist
+                    })
+                }
+            }
+        })
+    }
+    btnconcern = (fid)=>{
         if(!this.state.btndisabled){
-            this.setState({btndisabled:true,btn:'取消关注'})
+            this.setState({
+                btndisabled:true,
+                btn:'取消关注'
+            },()=>{
+                myFetch.get('/share/article/interest',{
+                    uid:this.state.uid,
+                    fid:fid
+                }).then(res=>{
+                    ToastAndroid.showWithGravityAndOffset(
+                    '关注成功！',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER,
+                    0,-250)
+                })
+            })
         }else{
-            this.setState({btndisabled:false,btn:'关注'})
+            this.setState({
+                btndisabled:false,
+                btn:'关注'
+            },()=>{
+                myFetch.get('/share/article/delinter',{
+                    uid:this.state.uid,
+                    fid:fid
+                }).then(res=>{
+                    ToastAndroid.showWithGravityAndOffset(
+                    '已取消关注！',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER,
+                    0,-250)
+                })
+            })
         }
     }
-    like = ()=>{
+    like = (id)=>{
         if(!this.state.like){
-            this.setState({like:true})
+            this.setState({
+                like:true
+            },()=>{
+                myFetch.get('/share/praise/addpraise?id=',{
+                    uid:this.state.uid,
+                    id:fid
+                }).then(res=>{
+                    console.log(res)
+                })
+            })
         }else{
-            this.setState({like:false})
+            this.setState({
+                like:false
+            },()=>{
+                myFetch.get('/share/praise/addpraise?id=',{
+                    uid:this.state.uid,
+                    id:fid
+                }).then(res=>{
+                    console.log(res)
+                })
+            })
         }
     }
     sendflower = ()=>{
@@ -157,7 +310,11 @@ export default class Community extends Component {
                             borderBottomWidth: 0,
                         },
                     }}
+                    page={this.state.page}
                     tabs={tabs}
+                    // onTabClick(tabs[i], i=>{console.log(i)})
+                    onChange={(tab,index)=>this.setState({page:index})}
+                    // onChange={(index)=>this.setState({page:i})}
                     renderTabBar={tabProps => (
                         <View style={styles.navbar}>
                             <View style={styles.navbartitle}>
@@ -168,9 +325,10 @@ export default class Community extends Component {
                                     <TouchableOpacity
                                     key={tab.key || i}
                                     onPress={() => {
-                                        const { goToTab, onTabClick } = tabProps;
-                                        onTabClick && onTabClick(tabs[i], i);
+                                        const { goToTab, onTabClick} = tabProps;
                                         goToTab && goToTab(i);
+                                        // onTabClick && onTabClick(tabs[i], i=>{console.log(i)});
+                                        i === 0?this.refreshConcern():this.refreshRecommend();
                                     }}
                                     >
                                         <Text
@@ -197,7 +355,15 @@ export default class Community extends Component {
                                 {linetabs.map((item, i) => (
                                     <TouchableOpacity
                                         onPress={()=>{
-                                        this.setState({onPress:i})
+                                        this.setState({onPress:i});
+                                        var url='';
+                                        var page = this.state.page;
+                                        if(page===0){
+                                            url='/share/classify/interest'
+                                        }else{
+                                            url='/share'
+                                        }
+                                        this.choosedetails(url,i,page);
                                     }}
                                     >
                                         <Text
@@ -222,9 +388,9 @@ export default class Community extends Component {
                     <WingBlank style={styles.wingblank}>
                         <FlatList
                             refreshing = {this.state.refreshing}
-                            onRefresh={()=>{this.setState({refreshing:false})}}
+                            onRefresh={this.refreshConcern}
                             extraData={this.state}
-                            data={this.state.lists}
+                            data={this.state.clists}
                             horizontal={false}
                             initialNumToRender={1}
                             pagingEnabled={true}
@@ -251,12 +417,16 @@ export default class Community extends Component {
                                         </View>
                                         <Text style={styles.innertitletag}>
                                             <Icon3 style={styles.tagicon} name='price-tag'/>
-                                        {item.tag?'亲子':'爱人'}</Text>
-                                        <TouchableOpacity onPress={this.btndisabled}>
+                                        {item.style?'亲子':'爱人'}</Text>
+                                        {
+                                            item.uid === this.state.uid
+                                            ?<Text style={{width:0.18*width,height:0.05*height,}}></Text>
+                                            :<TouchableOpacity onPress={()=>this.btnconcern(item.uid)}>
                                             <Text style={!this.state.btndisabled?styles.innertitlebtn:styles.innerbtndisabled}>
                                                 {this.state.btn}
                                             </Text>
                                         </TouchableOpacity>
+                                        }
                                     </View>
                                     <View style={styles.innerpics}>
                                         <Swiper
@@ -330,9 +500,121 @@ export default class Community extends Component {
                             // onViewableItemsChanged={this._onViewableItemsChanged}
                         />
                     </WingBlank>
-                    {/* <View style={styles.tabbox}>
-                        
-                    </View> */}
+                    <WingBlank style={styles.wingblank}>
+                        <FlatList
+                            refreshing = {this.state.refreshing}
+                            onRefresh={this.refreshRecommend}
+                            extraData={this.state}
+                            data={this.state.rlists}
+                            horizontal={false}
+                            initialNumToRender={1}
+                            pagingEnabled={true}
+                            viewabilityConfig={VIEWABILITY_CONFIG}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={({item})=>{
+                                var imgurl = item.imgurl;
+                                for(var i in imgurl){
+                                    if(imgurl[i] === '#'){
+                                        imgurl[i] = image2
+                                    }
+                                }
+                                return<View style={styles.innerbox}>
+                                    <View style={styles.innertitle}>
+                                        <TouchableOpacity>
+                                            <Image 
+                                                style={styles.innertitlepic}
+                                                source={{uri:`${item.pic}`}}
+                                            />
+                                        </TouchableOpacity>
+                                        <View>
+                                            <Text style={styles.innertitlename}>{item.uname}</Text>
+                                            <Text style={styles.innertitletime}>{moment(item.setState).format("YYYY年MM月DD日")}</Text>
+                                        </View>
+                                        <Text style={styles.innertitletag}>
+                                            <Icon3 style={styles.tagicon} name='price-tag'/>
+                                        {item.style?'亲子':'爱人'}</Text>
+                                        {
+                                            item.uid === this.state.uid
+                                            ?<Text style={{width:0.18*width,height:0.05*height,}}></Text>
+                                            :<TouchableOpacity onPress={()=>this.btnconcern(item.uid)}>
+                                            <Text style={!this.state.btndisabled?styles.innertitlebtn:styles.innerbtndisabled}>
+                                                {this.state.btn}
+                                            </Text>
+                                        </TouchableOpacity>
+                                        }
+                                    </View>
+                                    <View style={styles.innerpics}>
+                                        <Swiper
+                                            renderPagination = {renderPagination} 
+                                            loop={false}
+                                        >
+                                            
+                                            {
+                                                imgurl&&imgurl.map((img,idx)=>(
+                                                    <TouchableOpacity onPress={()=>this.enlarge(imgurl)}>
+                                                        <Image 
+                                                            style={styles.img}
+                                                            resizeMode="cover"
+                                                            source={{uri:`${img}`}}
+                                                        />
+                                                    </TouchableOpacity>
+                                                ))
+                                                // <Text></Text>
+                                            }                     
+                                        </Swiper>
+                                    </View>
+                                    <View style={styles.innerlast}>
+                                        <View style={styles.innercontent}>
+                                            <TouchableOpacity onPress={()=>this.enlarge(item.content)}>
+                                                <Text selectable = {true} style={styles.content}>
+                                                    {item.content ? (item.content.length > 66 ? item.content.substr(0, 66) + " . . . " : item.content) : ""}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={styles.innerfooter}>
+                                            <View style={styles.footerbox}>
+                                                <TouchableOpacity onPress={this.like}>
+                                                    {
+                                                        this.state.like
+                                                        ?<Icon3 style={styles.footericon} color='red' name='heart'/>
+                                                        :<Icon3 style={styles.footericon} color='#666' name='heart-outlined'/>
+                                                    }
+                                                </TouchableOpacity>
+                                                <Text style={styles.zannum}>{item.zannum}</Text>
+                                            </View>
+                                            <View style={styles.footerbox}>
+                                                <TouchableOpacity onPress={()=>Actions.tdiscuss()}>
+                                                    <Icon4 style={styles.footericon} color='#666' name='comment-processing-outline'/>
+                                                </TouchableOpacity>
+                                                <Text style={styles.zannum}>{item.zannum}</Text>
+                                            </View>
+                                            <View style={styles.footerbox}>
+                                                <TouchableOpacity onPress={this.sendflower}>
+                                                    {
+                                                        this.state.sendflower
+                                                        ?<Icon4 style={styles.footericon} color='red' name='flower-tulip'/>
+                                                        :<Icon4 style={styles.footericon} color='#666' name='flower-tulip-outline'/>
+                                                    }
+                                                </TouchableOpacity>
+                                                <Text style={styles.zannum}>{item.num}</Text>
+                                            </View>
+                                            <View style={styles.footerbox}>
+                                                <TouchableOpacity>
+                                                    <Icon4 style={styles.footericon} color='#666' name='share-outline'/>
+                                                </TouchableOpacity>
+                                                <Text style={styles.zannum}>分享</Text>
+                                            </View>
+                                        </View>
+                                    </View>
+                                </View>
+                            }}
+                            getItemLayout={(data, index) => {
+                                return {length: height, offset: height * index, index}
+                            }}
+                            // keyExtractor={(item, index) => index.toString()}
+                            // onViewableItemsChanged={this._onViewableItemsChanged}
+                        />
+                    </WingBlank>
                 </Tabs>
                 <Modal
                     transparent
