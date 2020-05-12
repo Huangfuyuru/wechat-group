@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0078)file:///C:/Users/lenovo/AppData/Local/Temp/mume2020412-14360-us742b.qlih8.html -->
+<!-- saved from url=(0078)file:///C:/Users/lenovo/AppData/Local/Temp/mume2020412-14360-qmvs1u.9txsk.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>社区接口文档</title>
       
@@ -403,30 +403,52 @@ tag: true, style: false,uid: 100001,zannum: 0,num: 21 },
 <pre class="language-text">{code:0,msg:"取消点赞成功",data:该文章的信息}
 {code:0,msg:"取消点赞失败",data:null}
 </pre>
+<h3 class="mume-header" id="%E7%94%A8%E6%88%B7%E8%AF%84%E8%AE%BA%E6%96%87%E7%AB%A0%E8%A1%A8-comment">用户评论文章表 comment</h3>
+
+<pre class="language-text">id  该评论的id
+article_id   评论的文章的id
+answer_id 评论的评论的id  如果tag为false，前端传入0
+tag 为true，表示评论的是文章，为false，表示评论的是评论
+host_id 作者的id
+user_id   评论者的id
+content 评论内容
+setdate 评论的时时间  可以不传入，后端会自动生成
+
+添加评论
+1.如果是在本文章下进行评论，tag为true,answer_id为0
+如果是在评论下进行评论，tag为false，article_id 不能为空
+</pre>
 <h3 class="mume-header" id="12%E8%AF%84%E8%AE%BA">12.评论</h3>
 
-<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharecommentcomment">接口地址：<a href="http://148.70.223.218:3001/share/comment/comment">http://148.70.223.218:3001/share/comment/comment</a></h5>
+<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharecommentarticle_id">接口地址：<a href="http://148.70.223.218:3001/share/comment?article_id=">http://148.70.223.218:3001/share/comment?article_id=</a></h5>
 
-<h5 class="mume-header" id="methodpost-1">method：post</h5>
-
-<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E7%9A%84%E6%95%B0%E6%8D%AEuidcontent%E8%AF%84%E8%AE%BA%E7%9A%84%E5%86%85%E5%AE%B9">提交的数据：uid,content(评论的内容)</h5>
+<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E7%9A%84%E6%95%B0%E6%8D%AE%E8%AF%A5%E6%96%87%E7%AB%A0%E7%9A%84id">提交的数据：该文章的id</h5>
 
 <h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-8">返回数据：</h5>
 
-<pre class="language-text">该文章的具体信息
+<pre class="language-text">该文章的所有评论内容
 </pre>
-<h3 class="mume-header" id="13%E4%BA%8C%E7%BA%A7%E8%AF%84%E8%AE%BA">13.二级评论</h3>
+<h3 class="mume-header" id="13%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA">13.添加评论</h3>
 
-<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharecommentdcomment">接口地址：<a href="http://148.70.223.218:3001/share/comment/dcomment">http://148.70.223.218:3001/share/comment/dcomment</a></h5>
+<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharecommentacomment">接口地址：<a href="http://148.70.223.218:3001/share/comment/acomment">http://148.70.223.218:3001/share/comment/acomment</a></h5>
 
-<h5 class="mume-header" id="methodpost-2">method：post</h5>
+<h5 class="mume-header" id="methodpost-1">method：post</h5>
 
-<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E7%9A%84%E6%95%B0%E6%8D%AEuidfuidcontent%E8%AF%84%E8%AE%BA%E7%9A%84%E5%86%85%E5%AE%B9">提交的数据：uid,fuid,content(评论的内容)</h5>
+<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E7%9A%84%E6%95%B0%E6%8D%AEtagarticle_id-answer_idhost_idhost_idcontent">提交的数据：tag,article_id ，answer_id，host_id，host_id，content</h5>
 
 <h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-9">返回数据：</h5>
 
-<pre class="language-text">uid的name，fuid的那么，uid的评论
+<pre class="language-text">message = {msg:'添加失败',data:null} 
+message={msg:'添加成功',data:该文章的所有评论内容}
 </pre>
+<h3 class="mume-header" id="14%E5%88%A0%E9%99%A4%E8%AF%84%E8%AE%BA">14.删除评论</h3>
+
+<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharecommentdcommentid">接口地址：<a href="http://148.70.223.218:3001/share/comment/dcomment?id=">http://148.70.223.218:3001/share/comment/dcomment?id=</a></h5>
+
+<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E7%9A%84%E6%95%B0%E6%8D%AE%E8%AF%84%E8%AE%BAid%E6%96%87%E7%AB%A0article_id">提交的数据：评论id,文章article_id</h5>
+
+<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-%E8%AF%A5%E6%96%87%E7%AB%A0%E7%9A%84%E6%89%80%E6%9C%89%E8%AF%84%E8%AE%BA%E5%86%85%E5%AE%B9">返回数据 ：该文章的所有评论内容</h5>
+
 
       </div>
       
