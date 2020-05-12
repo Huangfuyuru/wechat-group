@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0078)file:///C:/Users/lenovo/AppData/Local/Temp/mume2020412-14360-qmvs1u.9txsk.html -->
+<!-- saved from url=(0078)file:///C:/Users/lenovo/AppData/Local/Temp/mume2020412-12692-re1tm8.4ur89.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>社区接口文档</title>
       
@@ -373,13 +373,10 @@ pre[data-line] .line-highlight[data-end]:after {
 
 <h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-5">返回数据：</h5>
 
-<pre class="language-text">{"code":0,"msg":"小花已送出",
-"data":[{ id: 4200002,imgurl: [ '#1', '#2', '#3' ],content: '学会和孩子沟通',setdate: 2020-04-15T16:00:00.000Z,
-tag: true, style: false,uid: 100001,zannum: 0,num: 21 },
-{ id: 100001,pass: '123',setdate: 2020-04-07T16:00:00.000Z,gender: null,email: '864134710@qq.com', imgurl: null,num: 34 },
-{ id: 100001,pass: '123',setdate: 2020-04-07T16:00:00.000Z,gender: null, email: '864134710@qq.com',imgurl: null,num: 34 } ]}           
-//数组第一项为该文章的具体内容，第二项文章所有者的信息，第三项送花者的信息
-{"code":1,"msg":"送花失败","data"null}
+<pre class="language-text"> art_num:该文章的花数、auser_num：文章作者的花数、user_name:送花者的花数
+{"code":0,"msg":"小花已送出","data":{"art_num":16,"user_num":84,"auser_num":16}}    
+
+{"code":1,"msg":"auser_num为0，不能送花","data":{"art_num":16,"user_num":84,"auser_num":0}}
 </pre>
 <h3 class="mume-header" id="10%E7%82%B9%E8%B5%9E">10.点赞</h3>
 
