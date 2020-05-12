@@ -7,8 +7,10 @@ import {
     TouchableOpacity,
     FlatList,
     ImageBackground,
-    Image
+    Image,
+    ToastAndroid
 } from 'react-native'
+import ImagePicker from 'react-native-image-crop-picker'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Entypo'
@@ -17,172 +19,131 @@ import { Actions } from 'react-native-router-flux';
 import { WingBlank } from '@ant-design/react-native'
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
-export default class Laddpictures extends Component {
+const image = 'http://img.taopic.com/uploads/allimg/111130/500-111130135A160.jpg'
+export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
-            lists:[
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
+            lists:[],
+            uplists:[],
+        }
+    }
+    uploadImage =(params)=> {
+        return new Promise(function (resolve, reject) {
+            let formData = new FormData();
+            formData.append('params', params);
+            fetch('http://148.70.223.218:3001/imgs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Content-Encoding': 'identity'
                 },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-                {
-                    path:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2801067162,1843147165&fm=26&gp=0.jpg',
-                    id:1
-                },
-               
-            ]
+                
+                body:JSON.stringify(formData),
+            }).then((res) => res.json())
+            .then((res)=> {
+                console.log('uploadImage', res);
+                resolve(res);
+            })
+            .catch((err)=> {
+                console.log('err', err);
+                reject(err);
+            });
+        
+        });
+    };
+    choocepictures = ()=>{
+        ImagePicker.openPicker({
+            multiple: true,
+            includeBase64:true
+        }).then(images => {
+            var lists = this.state.lists;
+            var uplists = this.state.uplists;
+            for(var i in images){
+                lists.push(images[i].path);
+                uplists.push(images[i].data);
+            }
+            this.setState({
+                lists:lists,
+                uplists:uplists
+            })
+        });
+        ImagePicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
+        });
+    }
+    takephoto = ()=>{
+        ImagePicker.openCamera({
+            width:300,
+            height:400,
+            cropping:true,
+            includeBase64:true
+        }).then(image=>{
+            var lists = this.state.lists;
+            var uplists = this.state.uplists;
+            lists.push(image.path);
+            uplists.push(image.data);
+            this.setState({
+                lists:lists,
+                uplists:uplists
+            })
+        });
+        ImagePicker.clean().then(() => { 
+            console.log('removed all tmp images from tmp directory');
+        }).catch(e => { 
+            console.log(e)
+        });
+    }
+    rechoose = ()=>{
+        this.setState({
+            lists:[],
+            uplists:[]
+        })
+    }
+    uploadpics = ()=>{
+        if(this.state.uplists[0]){
+            this.uploadImage(this.state.uplists)
+            .then( res=>{
+                ToastAndroid.show('添加成功！', ToastAndroid.SHORT);
+                setTimeout(()=>{
+                    Actions.pop({refresh:({data:res})})
+                },1000)
+            }).catch( err=>{
+                console.log('flied');
+            })
+        }else{
+            ToastAndroid.showWithGravityAndOffset(
+            '请选择图片！',
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+            0,-350)
         }
     }
     render() {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <Icon1 
-                        style={styles.icon}
-                        name='chevron-left'
-                        onPress={()=>Actions.pop()}
-                    />
-                    <Text style={styles.title}>增加照片</Text>
+                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                        <Icon1 style={styles.icon} name='chevron-left'/>
+                    </TouchableOpacity>
+                    <Text style={styles.title}>新增照片</Text>
                 </View>
                 <View style={styles.btnbox}>
-                    <TouchableOpacity onPress={this.delpictures} style={styles.btn}>
+                    <TouchableOpacity onPress={this.choocepictures} style={styles.btn}>
                         <Icon3 style={styles.btnicon} name='images'/>
                         <Text style={styles.btntext}>图库选择</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity onPress={this.takephoto} style={styles.btn}>
                         <Icon3 style={styles.btnicon} name='camera'/>
                         <Text style={styles.btntext}>立即拍照</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity style={styles.btn}  onPress={this.uploadpics}>
                         <Icon2 style={styles.btnicon} name='checkbox-multiple-marked-circle'/>
                         <Text style={styles.btntext}>确认上传</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity style={styles.btn} onPress={this.rechoose}>
                         <Icon3 style={styles.btnicon} name='cycle'/>
                         <Text style={styles.btntext}>重新选择</Text>
                     </TouchableOpacity>
@@ -203,7 +164,7 @@ export default class Laddpictures extends Component {
                                 <Image
                                     style={styles.pics}
                                     resizeMode="cover"
-                                    source={{uri:`${item.path}`}}
+                                    source={{uri:`${item}`}}
                                 />
                             </View>
                         )}

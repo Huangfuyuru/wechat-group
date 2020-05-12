@@ -30,6 +30,7 @@ import Icon5 from 'react-native-vector-icons/MaterialCommunityIcons'
 // import Icon1 from 'react-native-vector-icons/Feather'
 import Button from 'react-native-button'
 import CheckBox from 'react-native-checkbox'
+import Item from '@ant-design/react-native/lib/list/ListItem';
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 const image = 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2342845640,3656514420&fm=26&gp=0.jpg'
@@ -47,21 +48,23 @@ export default class Cdairy extends Component {
             chooseopacity:0,
             currentpicture:'',
             lists:[],
+            pid:"",
         };
         this.onChange = activeSections => {
             this.setState({ activeSections });
         };
     }
     componentDidMount(){
-        // console.log(this.props.pid)
-        myFetch.get('/child/cpictures/show',{
-            childPhotoListid:this.props.pid
+        this.setState({
+            pid:this.props.pid
+        })
+        myFetch.get('/lover/lpictures/show',{
+            loverPhotoListid:this.props.pid
         }).then(res=>{
-            console.log(res)
-            if(res){
-                console.log('111')
+            // console.log("相册详情",res)
+            if(res.code==0){
                 this.setState({
-                    lists:res
+                    lists:res.msg
                 })
             }else{
                 this.setState({
@@ -71,8 +74,19 @@ export default class Cdairy extends Component {
         })
     }
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            lists:nextProps.data
+        myFetch.post('/lover/lpictures/laddpictures',{
+            loverPhotoListid:this.state.pid,
+            imgurl:nextProps.data
+        }).then(res=>{
+            if(res.data){
+                this.setState({
+                    lists:res.data
+                })
+            }else{
+                this.setState({
+                    lists:[]
+                })
+            }
         })
     }
     componentDidUpdate(){
@@ -381,6 +395,7 @@ const styles = StyleSheet.create({
         width:0.212*width,
         height:180*s,
         margin:0.005*width,
+        backgroundColor:"pink",
         transform: [{scale:0.95}]
     },
     nulltext:{

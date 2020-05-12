@@ -46,6 +46,7 @@ export default class Cdairy extends Component {
             boxopacity:'none',
             chooseopacity:0,
             currentpicture:'',
+            pid:"",
             lists:[],
         };
         this.onChange = activeSections => {
@@ -53,6 +54,9 @@ export default class Cdairy extends Component {
         };
     }
     componentDidMount(){
+        this.setState({
+            pid:this.props.pid
+        })
         // console.log(this.props.pid)
         myFetch.get('/child/cpictures/show',{
             childPhotoListid:this.props.pid
@@ -71,8 +75,19 @@ export default class Cdairy extends Component {
         })
     }
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            lists:nextProps.data
+        myFetch.post('/chlid/cpictures/caddpictures',{
+            childPhotoListid:this.state.pid,
+            imgurl:nextProps.data
+        }).then(res=>{
+            if(res.data){
+                this.setState({
+                    lists:res.data
+                })
+            }else{
+                this.setState({
+                    lists:[]
+                })
+            }
         })
     }
     componentDidUpdate(){
