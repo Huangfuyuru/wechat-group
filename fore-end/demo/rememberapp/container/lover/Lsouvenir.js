@@ -315,7 +315,6 @@ export default class Lsouvenir extends Component {
                                                         }}
                                                     >
                                                         {item.date.split("T")[0]}
-                                                       
                                                         </Text>
                                                     <Text
                                                         style={{

@@ -34,6 +34,7 @@ export default class Lcreate_sound extends Component {
     super();
     this.state = {
       opacity: 1,
+      loverid:"",
       year: date[0],
       month: date[1],
       day: date[2],
@@ -181,11 +182,17 @@ export default class Lcreate_sound extends Component {
     myFetch.post(`/lover/lsound/lcsound`, {
       name: this.state.name,
       setdate: this.state.year + "-" + this.state.month + "-" + this.state.day,
-      loverid: this.state.loverId,
-      voiceurl: "#"
-    })
-      .then(res => {
-        console.log("res")
+      loverid: this.state.loverid,
+      voiceurl: "https://webfs.yun.kugou.com/202005121224/a294c0ffcfb16b0320d9d929db13df07/G207/M07/1E/0F/b4cBAF6r6lWAev55ABLPq4wIH38048.mp3"
+    }).then(res => {
+      if(res){
+        setTimeout(()=>{
+            Actions.pop({refresh:({data:res.msg})})
+        },1000)
+        ToastAndroid.show(this.state.name+'，'+'创建成功！', ToastAndroid.SHORT);
+    }else{
+        ToastAndroid.show('创建失败！', ToastAndroid.SHORT);
+    }
       })
   }
   upFile = () => {
