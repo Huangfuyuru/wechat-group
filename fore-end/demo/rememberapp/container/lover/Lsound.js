@@ -55,6 +55,20 @@ export default class Lsound extends Component {
         })
 
     }
+    componentWillReceiveProps(nextProps) {
+       const arr0=nextProps.data;
+    //    console.log("数据",nextProps.data)
+       arr0.map((item)=>{
+        item.currentTime=0.0;
+        item.slideValue=0.0;
+        item.duration=0.0;
+        item.muted=false;
+        item.paused=true;
+     })
+     this.setState({
+         arr: arr0
+     })
+    }
     showAlert = () => {
         Alert.alert('', '确定要删除吗？',
             [
@@ -73,11 +87,10 @@ export default class Lsound extends Component {
     }
     //设置进度条和播放时间的变化
     setTime(data, id) {
-        console.log("播放")
         const arr0 = [...this.state.arr]
         arr0.map((item) => {
             if (item.id == id) {
-                console.log(item.currentTime)
+                // console.log(item.currentTime)
                 if (this.formatMediaTime(item.currentTime).split(".")[0] == this.formatMediaTime(item.duration).split(".")[0]) {
                     item.paused = true
                     // item.slideValue=0.0
@@ -155,6 +168,7 @@ export default class Lsound extends Component {
                         loverVoiceid:e.id,
                     }).then(res=>{
                         if(res.code==0){
+                            if(res.msg){
                             const arr0=res.msg;
                             arr0.map((item)=>{
                                item.currentTime=0.0;
@@ -163,15 +177,20 @@ export default class Lsound extends Component {
                                item.muted=false,
                                item.paused=true
                             })
-                            console.log("删除",arr0)
-                            // this.setState({
-                            //     arr: arr0
-                            // })
+                            this.setState({
+                                arr: arr0
+                            })
                             ToastAndroid.showWithGravityAndOffset(
                                 '删除成功！',
                             ToastAndroid.SHORT,
                             ToastAndroid.BOTTOM,
                             25,-100)
+                            }
+                            else{
+                                this.setState({
+                                    arr: []
+                                })
+                            }
                         }else{
                             ToastAndroid.show("删除失败!", ToastAndroid.SHORT);
                         }
@@ -324,7 +343,7 @@ export default class Lsound extends Component {
                                         </TouchableOpacity>
                                     </View>
                                     <Video
-                                        source={{ uri: item.voiceurl[0] }}
+                                        source={{ uri: item.voiceurl }}
                                         ref={(ref) => {
                                             this.player = ref
                                         }}

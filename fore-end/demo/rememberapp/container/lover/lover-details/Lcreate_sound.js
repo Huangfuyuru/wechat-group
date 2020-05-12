@@ -38,7 +38,7 @@ export default class Lcreate_sound extends Component {
       year: date[0],
       month: date[1],
       day: date[2],
-      name: [],
+      name: "",
       vouri: "",
       img: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1097372906,871370388&fm=26&gp=0.jpg',
       currentTime: 0,//
@@ -179,14 +179,20 @@ export default class Lcreate_sound extends Component {
     }
   }
   additem = () => {
-    console.log("爱人ID",this.state.loverid)
     myFetch.post(`/lover/lsound/lcsound`, {
       name: this.state.name,
       setdate: this.state.year + "-" + this.state.month + "-" + this.state.day,
       loverid: this.state.loverid,
-      voiceurl: ["https://webfs.yun.kugou.com/202005121224/a294c0ffcfb16b0320d9d929db13df07/G207/M07/1E/0F/b4cBAF6r6lWAev55ABLPq4wIH38048.mp3"]
+      voiceurl: "https://webfs.yun.kugou.com/202005121224/a294c0ffcfb16b0320d9d929db13df07/G207/M07/1E/0F/b4cBAF6r6lWAev55ABLPq4wIH38048.mp3"
     }).then(res => {
-        console.log("res",res.msg)
+      if(res){
+        setTimeout(()=>{
+            Actions.pop({refresh:({data:res.msg})})
+        },1000)
+        ToastAndroid.show(this.state.name+'，'+'创建成功！', ToastAndroid.SHORT);
+    }else{
+        ToastAndroid.show('创建失败！', ToastAndroid.SHORT);
+    }
       })
   }
   upFile = () => {

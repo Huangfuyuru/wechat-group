@@ -49,6 +49,7 @@ export default class Cdairy extends Component {
             currentpicture:'',
             lists:[],
             pid:"",
+            currentpictureid:"",
         };
         this.onChange = activeSections => {
             this.setState({ activeSections });
@@ -63,8 +64,12 @@ export default class Cdairy extends Component {
         }).then(res=>{
             // console.log("相册详情",res)
             if(res.code==0){
+                const arr0=res.msg;
+                arr0.map((item)=>{
+                   item.check=false;
+                })
                 this.setState({
-                    lists:res.msg
+                    lists: arr0
                 })
             }else{
                 this.setState({
@@ -79,8 +84,12 @@ export default class Cdairy extends Component {
             imgurl:nextProps.data
         }).then(res=>{
             if(res.data){
+                const arr0=res.data;
+                arr0.map((item)=>{
+                   item.check=false;
+                })
                 this.setState({
-                    lists:res.data
+                    lists: arr0
                 })
             }else{
                 this.setState({
@@ -89,8 +98,31 @@ export default class Cdairy extends Component {
             }
         })
     }
-    componentDidUpdate(){
-      
+    delUplist(uplist){
+        myFetch.post('/lover/lpictures/ldelpictures',{
+            pid:this.state.pid,
+            loverPhotoid:uplist
+        }).then(res=>{
+            if(res.data){
+                const arr0=res.data;
+                arr0.map((item)=>{
+                   item.check=false;
+                })
+                this.setState({
+                    lists: arr0
+                })
+                ToastAndroid.showWithGravityAndOffset(
+                    res.msg,
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+                25,0)
+            }
+            else{
+                this.setState({
+                    lists: []
+                })
+            }
+        })
     }
     compile = ()=>{
         this.setState({
@@ -116,6 +148,14 @@ export default class Cdairy extends Component {
                     this.setState({
                         checkboxdisabled:'none',
                     })
+                    const data=[...this.state.lists];
+                    const uplist=[];
+                    data.map((item) => {
+                        if(item.check){
+                            uplist.push(item.id)
+                        }
+                    })
+                    this.delUplist(uplist)
                 }else{
                     this.setState({
                         checkboxdisabled:'flex'
@@ -133,11 +173,25 @@ export default class Cdairy extends Component {
     enlarge=(item)=>{
         this.setState({
             visible:true,
-            currentpicture:item
+            currentpicture:item.imgurl,
+            currentpictureid:item.id,
         })
     }
-    delete=()=>{
-        
+    delete=(checked,id)=>{
+        const data=[...this.state.lists]
+        data.map((item) => {
+            if (item.id == id) {
+                if(checked){
+                    item.check=true;
+                }
+                else{
+                    item.check=false;
+                }
+            }
+        })
+        this.setState({
+            lists:data
+        })
     }
     savePictures=()=>{
         Alert.alert('提示', '',
@@ -150,11 +204,8 @@ export default class Cdairy extends Component {
                                 this.setState({
                                     visible:false
                                 })
-                                ToastAndroid.showWithGravityAndOffset(
-                                    '已删除！',
-                                ToastAndroid.SHORT,
-                                ToastAndroid.CENTER,
-                                25,0)
+                                const del=[this.state.currentpictureid]
+                                this.delUplist(del)
                             } },
                             { text: "返回", onPress: this.opntion2Selected },
                         ]
@@ -244,7 +295,7 @@ export default class Cdairy extends Component {
                         renderItem={({item})=>(
                             <TouchableOpacity
                                 key={item.id}
-                                onPress={()=>this.enlarge(item.imgurl)}
+                                onPress={()=>this.enlarge(item)}
                                 style={styles.pics}>
                                 <ImageBackground
                                     style={styles.pics}
@@ -258,7 +309,10 @@ export default class Cdairy extends Component {
                                             marginLeft:0.16*width,
                                         }}
                                         label=''
-                                        onChange={(checked) => console.log('I am checked', checked)}
+                                        onChange={
+                                            checked => this.delete(checked, item.id)
+                                            // checked => console.log('I am checked', checked)
+                                        }
                                     />
                                     
                                 </ImageBackground>
@@ -395,7 +449,7 @@ const styles = StyleSheet.create({
         width:0.212*width,
         height:180*s,
         margin:0.005*width,
-        backgroundColor:"pink",
+        // backgroundColor:"pink",
         transform: [{scale:0.95}]
     },
     nulltext:{
