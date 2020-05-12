@@ -20,17 +20,18 @@ import Icon4 from 'react-native-vector-icons/Entypo'
 import Icon5 from 'react-native-vector-icons/Ionicons'
 import Icon6 from 'react-native-vector-icons/Fontisto'
 import { Actions } from 'react-native-router-flux';
-import ImagePicker from 'react-native-image-crop-picker'
 import {myFetch} from '../../../src/utils'
+import ImagePicker from 'react-native-image-crop-picker'
 import { WingBlank } from '@ant-design/react-native';
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
-const image = 'http://tc.sinaimg.cn/maxwidth.2048/tc.service.weibo.com/p/image_96weixin_com/9a6afdf6ff7c953f04675270477405b0.jpg'
-export default class Cdairy extends Component {
+const image = "https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg"
+export default class Lcreate_note extends Component {
     constructor(props){
         super(props);
         this.state={
-            cid:'',
+            id:"",
+            loverid:'',
             chooselist:[],
             listicon:'',
             bgcolor:'#ffffaa',
@@ -47,8 +48,19 @@ export default class Cdairy extends Component {
         }
     }
     componentDidMount(){
+        const item =this.props.data
         this.setState({
-            cid:this.props.cid
+            id:item.id,
+            loverid:item.lid,
+            chooselist:[],
+            bgcolor:item.backcolor,
+            weather:item.weather,
+            bgimg:item.bgimg,
+            upbgimg:'',
+            content:item.content,
+            context:item.content,
+            lists:item.imgurl,
+
         })
     }
     clearbtn = ()=>{
@@ -158,28 +170,29 @@ export default class Cdairy extends Component {
     savedairy = ()=>{
         var time = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
         var context = this.state.context;
-        var imgurl = this.state.reslists;
+        var imgurl = this.state.lists;
         if(!context){
             context = '（这是一篇没有文字的日记……）';
         }
         if(!imgurl[0]){
-            imgurl=[]
+            imgurl=['#','#','#']
         }
-        myFetch.post('/child/cdairy/ccdairy',{
-             childsid:this.state.cid,
+        myFetch.post('/lover/ldairy/moddairy',{
+             loverid:this.state.loverid,
              backcolor:this.state.bgcolor,
+             id:this.state.id,
              content:context,
              imgurl:JSON.stringify(imgurl),
              setdate:time,
              bgimg:this.state.bgimg,
              weather:this.state.weather
-        }).then(
-            res=>{
+        }).then(res=>{
                 if(res.code == 0){
-                    ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
                     setTimeout(()=>{
                         Actions.pop({refresh:({data:res.data})})
-                    },1000)
+                    },800)
+                    ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+
                 }else{
                     ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
                 }
@@ -240,10 +253,12 @@ export default class Cdairy extends Component {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <TouchableOpacity onPress={()=>Actions.pop()}>
-                        <Icon1 style={styles.icon} name='chevron-left'/>
-                    </TouchableOpacity>
-                    <Text style={styles.title}>写日记</Text>
+                    <Icon1 
+                        style={styles.icon}
+                        name='chevron-left'
+                        onPress={()=>Actions.pop()}
+                    />
+                    <Text style={styles.title}>编辑日记</Text>
                     <TouchableOpacity onPress={this.savedairy}>
                         <Icon2 style={styles.icon}  name='playlist-check'/>
                     </TouchableOpacity>
@@ -341,7 +356,7 @@ export default class Cdairy extends Component {
                                             width:0.25*width,
                                             height:0.04*height,
                                             textAlign:'center',
-                                            display:this.state.btndisplay,
+                                            // display:this.state.btndisplay,
                                             textAlignVertical:'center',
                                             fontSize:22*s,
                                             borderRadius:5,
@@ -366,11 +381,12 @@ export default class Cdairy extends Component {
                                     color:`${textcolor}`
                                 }}
                                 onChangeText={text=>{this.setState({context:text})}}
-                                placeholder="日记内容"
+                                defaultValue={this.state.content}
+                                // placeholderTextColor={textcolor}
                                 multiline={true}
                             />
                             <View style={styles.picchoose}>
-                                <Text style={styles.pictext}>添加图片</Text>
+                            <Text style={styles.pictext}>添加图片</Text>
                                 <TouchableOpacity onPress={this.confirmpics}>
                                     <Icon5 size={40*s} style={styles.doiconpic} name='md-checkbox'/>
                                 </TouchableOpacity>

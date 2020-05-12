@@ -8,6 +8,7 @@ import {
     FlatList,
     Slider,
     TouchableOpacity,
+    ToastAndroid,
     ImageBackground,
     Image
 } from "react-native"
@@ -34,35 +35,39 @@ export default class Lsound extends Component {
         }
     }
     componentDidMount() {
-        const arr0 = [...this.state.arr]
-        arr0.map((item) => {
-            item.currentTime = 0.0;
-            item.slideValue = 0.0,
-                item.duration = 0.0,
-                item.muted = false
-        })
         this.setState({
-            arr: arr0
-        })
-        this.setState({
-            loverId: this.props.loverId
+            loverid: this.props.loverId
         })
         myFetch.get('/lover/lsound', {
             loverid: this.props.loverId
         }).then(res => {
-            console.log(res)
-            // const arr0=[...this.state.arr]
-            // arr0.map((item)=>{
-            //    item.currentTime=0.0;
-            //    item.slideValue=0.0,
-            //    item.duration=0.0,
-            //    item.muted=false
-            // })
+            const arr0=res.msg;
+            arr0.map((item)=>{
+               item.currentTime=0.0;
+               item.slideValue=0.0;
+               item.duration=0.0;
+               item.muted=false;
+               item.paused=true;
+            })
             this.setState({
-                arr: res.msg
+                arr: arr0
             })
         })
 
+    }
+    componentWillReceiveProps(nextProps) {
+       const arr0=nextProps.data;
+    //    console.log("数据",nextProps.data)
+       arr0.map((item)=>{
+        item.currentTime=0.0;
+        item.slideValue=0.0;
+        item.duration=0.0;
+        item.muted=false;
+        item.paused=true;
+     })
+     this.setState({
+         arr: arr0
+     })
     }
     showAlert = () => {
         Alert.alert('', '确定要删除吗？',
@@ -82,13 +87,12 @@ export default class Lsound extends Component {
     }
     //设置进度条和播放时间的变化
     setTime(data, id) {
-        console.log("播放")
         const arr0 = [...this.state.arr]
         arr0.map((item) => {
             if (item.id == id) {
-                console.log(item.currentTime)
+                // console.log(item.currentTime)
                 if (this.formatMediaTime(item.currentTime).split(".")[0] == this.formatMediaTime(item.duration).split(".")[0]) {
-                    item.pasued = true
+                    item.paused = true
                     // item.slideValue=0.0
                     // item.currentTime=0.0
                 }
@@ -131,13 +135,13 @@ export default class Lsound extends Component {
         const arr0 = [...this.state.arr]
         arr0.map((item) => {
             if (item.id == id) {
-                item.pasued = !item.pasued
+                item.paused = !item.paused
             }
         })
         const arr1 = arr0
         arr1.map((item) => {
             if (item.id != id && pa) {
-                item.pasued = pa
+                item.paused = pa
             }
         })
         this.setState({
@@ -150,11 +154,52 @@ export default class Lsound extends Component {
             if (item.id == id) {
                 item.muted = !item.muted
             }
-
         })
         this.setState({
             arr: arr0
         })
+    }
+    rmMusic=(e)=>{
+        Alert.alert('提示', '确定要删除吗？',
+            [
+                { text: "确定", onPress: ()=>{
+                    myFetch.get('/lover/lsound/lrsound',{
+                        loverid:this.state.loverid,
+                        loverVoiceid:e.id,
+                    }).then(res=>{
+                        if(res.code==0){
+                            if(res.msg){
+                            const arr0=res.msg;
+                            arr0.map((item)=>{
+                               item.currentTime=0.0;
+                               item.slideValue=0.0,
+                               item.duration=0.0,
+                               item.muted=false,
+                               item.paused=true
+                            })
+                            this.setState({
+                                arr: arr0
+                            })
+                            ToastAndroid.showWithGravityAndOffset(
+                                '删除成功！',
+                            ToastAndroid.SHORT,
+                            ToastAndroid.BOTTOM,
+                            25,-100)
+                            }
+                            else{
+                                this.setState({
+                                    arr: []
+                                })
+                            }
+                        }else{
+                            ToastAndroid.show("删除失败!", ToastAndroid.SHORT);
+                        }
+                        
+                    })
+                } },
+                { text: "返回", onPress: this.opntion2Selected },
+            ]
+        )
     }
     render() {
         return (
@@ -181,7 +226,7 @@ export default class Lsound extends Component {
                     }}>记录声音 记录你</Text>
                 </View> */}
                 <WingBlank>{
-                    this.state.arr ?
+                    this.state.arr[0] ?
                         <FlatList
                             showsVerticalScrollIndicator={false}
                             keyExtractor={this._keykeyExtractor}
@@ -211,7 +256,7 @@ export default class Lsound extends Component {
                                 </View>
                             }
                             style={styles.scrollView}
-                            data={this.state.arr1}
+                            data={this.state.arr}
                             numColumns={1}
                             renderItem={({ item }) => {
                                 return <View style={styles.box}>
@@ -225,6 +270,7 @@ export default class Lsound extends Component {
                                             marginLeft: 30 * s
                                         }}>{item.name}</Text>
                                         <Icon2
+                                            onPress={()=>this.rmMusic(item)}
                                             name='ios-trash'
                                             size={30}
                                             color='#333'
@@ -257,7 +303,7 @@ export default class Lsound extends Component {
                                             marginLeft: 20 * s,
                                             marginRight: 20 * s
                                         }}
-                                            onPress={this.play.bind(this, item.id, item.pasued)}
+                                            onPress={this.play.bind(this, item.id, item.paused)}
                                         >
                                             <Icon3
                                                 style={{
@@ -266,7 +312,7 @@ export default class Lsound extends Component {
                                                     fontSize: 50 * s,
                                                     color: "#989898"
                                                 }}
-                                                name={item.pasued ? 'play-circle-o' : 'pause-circle-o'} />
+                                                name={item.paused ? 'play-circle-o' : 'pause-circle-o'} />
                                         </TouchableOpacity>
                                         <Text style={{
                                             textAlignVertical: "center"
@@ -297,11 +343,11 @@ export default class Lsound extends Component {
                                         </TouchableOpacity>
                                     </View>
                                     <Video
-                                        source={{ uri: item.uri }}
+                                        source={{ uri: item.voiceurl }}
                                         ref={(ref) => {
                                             this.player = ref
                                         }}
-                                        paused={item.pasued}
+                                        paused={item.paused}
                                         onLoad={data => this.setDuration(data, item.id)}
                                         onProgress={data => this.setTime(data, item.id)}
                                         volume={1.0}
@@ -316,12 +362,11 @@ export default class Lsound extends Component {
                                         marginLeft: "auto",
                                         marginRight: 20 * s
                                     }
-                                    }>记录时间：{item.setdate}</Text>
+                                    }>记录时间：{item.setdate.split("T")[0]}</Text>
                                 </View>
                             }}
                         />
                         :
-
                         <View >
                             <Text style={styles.nulltext}>哎呀，一条语音都没有呢</Text>
                             <View style={styles.box1}>

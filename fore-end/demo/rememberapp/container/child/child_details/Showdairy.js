@@ -17,6 +17,7 @@ import moment from 'moment'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/Fontisto'
 import { WingBlank } from '@ant-design/react-native';
+import {myFetch} from "../../../src/utils"
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 const image = 'http://imgbbs.heiguang.net/forum/201510/15/140529osxneo434voas4o0.jpg'
@@ -27,22 +28,47 @@ export default class Cdairy extends Component {
             visible:false,
             currentpicture:image,
             inner:'',
-            data:''
+            data:'',
+            id:"",
+            cid:"",
         }
     }
     componentDidMount(){
         console.log(this.props.data);
         this.setState({
-            data:this.props.data
-        },console.log(this.state.data))
+            data:this.props.data,
+            id:this.props.data.id,
+            cid:this.props.data.cid
+        })
     }
-    enlarge=()=>{
+    enlarge=(image)=>{
         this.setState({
-            visible:true
+            visible:true,
+            currentpicture:image
         })
     }
     savePictures = ()=>{
 
+    }
+    componentWillReceiveProps(nextProps) {
+        const adata=nextProps.data;
+        adata.map((item)=>{
+            if(item.id==this.state.id){
+                this.setState({
+                    data:item,
+                    cid:item.cid
+                })
+            }
+        })
+        
+    }
+    save=()=>{
+        myFetch.get('/child/cdairy',{
+            childsid:this.state.cid,
+        }).then(res=>{
+            // console.log(res)
+            Actions.pop({refresh:({data:res})})
+        })
     }
     render() {
         const item = this.state.data
@@ -68,12 +94,17 @@ export default class Cdairy extends Component {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                    <TouchableOpacity onPress={this.save}>
                         <Icon1 style={styles.icon} name='chevron-left'/>
                     </TouchableOpacity>
                     <Text style={styles.title}>
                         { moment(item.setdate).format("YYYY年MM月DD日  HH:mm")}
                     </Text>
+                    <TouchableOpacity
+                     onPress={()=>Actions.cchdairy({data:this.state.data})}
+                     >
+                        <Icon1 style={styles.icon1}  name='edit'/>
+                    </TouchableOpacity>
                 </View>
                 <WingBlank style={styles.wingblank}>
                     <View style={{
@@ -132,7 +163,7 @@ export default class Cdairy extends Component {
                                 }
                                 renderItem={({item})=>(
                                     <TouchableOpacity
-                                        onPress={this.enlarge}
+                                    onPress={this.enlarge.bind(this,item)}
                                         style={styles.pics}>
                                         <ImageBackground
                                             // onPress={this.enlarge}
@@ -195,15 +226,20 @@ const styles = StyleSheet.create({
         height:65*s,
         backgroundColor:'#FFBF2D',
         flexDirection: 'row',
-        paddingLeft:0.02*width,
+        paddingLeft:0.03*width,
         paddingTop:'1%',
-        paddingRight:0.1*width,
+        paddingRight:0.03*width,
         justifyContent:"center"
     },
     icon:{
         width:0.08*width,
         color:'#fff',
         fontSize:30,
+    },
+    icon1:{
+        width:0.08*width,
+        color:'#fff',
+        fontSize:25,
     },
     title:{
         marginLeft:'auto',

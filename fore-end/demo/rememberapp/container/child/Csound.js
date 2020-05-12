@@ -7,70 +7,55 @@ import {
     Alert,
     FlatList,
     Slider,
-    TouchableOpacity
+    TouchableOpacity,
+    ImageBackground,
+    Image
 } from "react-native"
 import { WingBlank } from '@ant-design/react-native'
 import Video from 'react-native-video'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/Ionicons'
 import Icon3 from "react-native-vector-icons/FontAwesome"
+import Icon4 from 'react-native-vector-icons/SimpleLineIcons'
+import moment from 'moment'
+import Icon5 from 'react-native-vector-icons/Fontisto'
+
 import { Actions } from 'react-native-router-flux';
-import { spring } from 'react-native-reanimated'
+import { myFetch } from '../../src/utils'
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
+const image = "https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1106982671,1158338553&fm=26&gp=0.jpg"
 export default class Lsound extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            lists: [
-                {
-                    id:"3",
-                    name: "面具",
-                    setdate: "2020-04-13",
-                    pasued:true,
-                    uri:"https://webfs.yun.kugou.com/202004220946/8b16e3ae702900799dce0419a62e2e9c/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"
-                },
-                {
-                    id:"1",
-                    name: "Fire",
-                    setdate: "2020-04-13",
-                    pasued:true,
-                    uri:"https://webfs.yun.kugou.com/202004221818/ad7d470118501ce4e74ed0dc306cb31b/G101/M04/1A/09/RZQEAFu3_MiAcRSqADM-ivg677o868.mp3"
-                },
-                {
-                    id:"9",
-                    name: "面具",
-                    setdate: "2020-04-13",
-                    pasued:true,
-                    uri:"https://webfs.yun.kugou.com/202004220929/6aae5dda554a5366d38b9bad5c4904d7/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"
-                },
-                {
-                    id:"4",
-                    name: "面具",
-                    setdate: "2020-04-13",
-                    pasued:true,
-                    uri:"https://webfs.yun.kugou.com/202004220929/6aae5dda554a5366d38b9bad5c4904d7/G193/M0B/1F/11/oZQEAF6TBEOABqcEAEGGA9kKc4o120.mp3"
-                },  
-            ],
-            length:   2          ,                     //数组长度
-            currentTime: 0.0,					//当前播放的时间
-            paused: [],						//播放
-            sliderValue: 0,					//进度条的进度
-            duration: 0.0	,					//总时长
-            playIcon:[]                          //播放暂停图标
+            childsid: "",
+            arr: []
         }
     }
-    componentDidMount(){
-        const arr0=[...this.state.lists]
-        arr0.map((item)=>{
-           item.currentTime=0.0;
-           item.slideValue=0.0,
-           item.duration=0.0,
-           item.muted=false
+    componentDidMount() {
+        this.setState({
+            childsid: this.props.cid
         })
         this.setState({
-            lists:arr0
+                arr: null
         })
+        myFetch.get('/child/csound', {
+            childsid: this.props.cid
+        }).then(res => {
+            console.log(res)
+            // const arr0=res.msg;
+            // arr0.map((item)=>{
+            //    item.currentTime=0.0;
+            //    item.slideValue=0.0,
+            //    item.duration=0.0,
+            //    item.muted=false
+            // })
+            // this.setState({
+            //     arr: res
+            // })
+        })
+
     }
     showAlert = () => {
         Alert.alert('', '确定要删除吗？',
@@ -89,207 +74,327 @@ export default class Lsound extends Component {
         return min + ":" + second;
     }
     //设置进度条和播放时间的变化
-    setTime(data,id) {
-        const arr0=[...this.state.lists]
-        arr0.map((item)=>{
-            if(item.id==id){
-               item.slideValue=parseInt(item.currentTime)
-               item.currentTime=data.currentTime;
+    setTime(data, id) {
+        console.log("播放")
+        const arr0 = [...this.state.arr]
+        arr0.map((item) => {
+            if (item.id == id) {
+                console.log(item.currentTime)
+                if (this.formatMediaTime(item.currentTime).split(".")[0] == this.formatMediaTime(item.duration).split(".")[0]) {
+                    item.pasued = true
+                    // item.slideValue=0.0
+                    // item.currentTime=0.0
+                }
+                else {
+                    item.slideValue = parseInt(item.currentTime)
+                    item.currentTime = data.currentTime;
+                }
             }
         })
         this.setState({
-            lists:arr0
+            arr: arr0
         })
     }
+
     // 设置总时长
-    setDuration(data,id) {
-        const arr0=[...this.state.lists]
-        arr0.map((item)=>{
-            if(item.id==id){
-               item.duration=data.duration
+    setDuration(data, id) {
+        const arr0 = [...this.state.arr]
+        arr0.map((item) => {
+            if (item.id == id) {
+                item.duration = data.duration
             }
         })
         this.setState({
-            lists:arr0
+            arr: arr0
         })
     }
-    onValue=(value,id)=>{
-        const arr0=[...this.state.lists]
-        arr0.map((item)=>{
-            if(item.id==id){
-               item.currentTime=value
+    onValue = (value, id) => {
+        const arr0 = [...this.state.arr]
+        arr0.map((item) => {
+            if (item.id == id) {
+                item.currentTime = value
+                //    this.player.seek(value)
             }
         })
         this.setState({
-            lists:arr0
+            arr: arr0
         })
     }
-    
-    play=(id)=> {
-        const arr0=[...this.state.lists]
-        arr0.map((item)=>{
-            if(item.id==id){
-                item.pasued=!item.pasued
+    play = (id, pa) => {
+        const arr0 = [...this.state.arr]
+        arr0.map((item) => {
+            if (item.id == id) {
+                item.pasued = !item.pasued
+            }
+        })
+        const arr1 = arr0
+        arr1.map((item) => {
+            if (item.id != id && pa) {
+                item.pasued = pa
             }
         })
         this.setState({
-            lists:arr0
+            arr: arr1
         })
     }
-    spin=(id)=>{
-        const arr0=[...this.state.lists]
-        arr0.map((item)=>{
-            if(item.id==id){
-                item.muted=!item.muted
+    spin = (id) => {
+        const arr0 = [...this.state.arr]
+        arr0.map((item) => {
+            if (item.id == id) {
+                item.muted = !item.muted
             }
+
         })
         this.setState({
-            lists:arr0
+            arr: arr0
         })
     }
     render() {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <TouchableOpacity onPress={()=>Actions.pop()}>
-                        <Icon1 style={styles.icon} name='chevron-left'/>
-                    </TouchableOpacity>
+                    <Icon1
+                        style={styles.icon}
+                        name='chevron-left'
+                        onPress={() => Actions.pop()}
+                    />
                     <Text style={styles.title}>语音记事</Text>
                     <Icon2
                         style={styles.icon}
                         name='md-add'
-                        onPress={() => Actions.ccsound()}
+                        onPress={() => Actions.ccsound({childsid:this.state.childsid})}
                     />
                 </View>
-                <View>
+                {/* <View>
                     <Text style={{
-                        width:0.95*width,
-                        height:0.05*height,
-                        textAlignVertical:'bottom',
-                        marginLeft:'auto',
-                        marginRight:'auto',
-                        // backgroundColor:'#ccc',
                         fontWeight: "bold",
-                        fontSize: 26 * s,
+                        fontSize: 20,
+                        paddingTop: 20 * s,
+                        paddingLeft: 25 * s,
                     }}>记录声音 记录你</Text>
-                </View>
-                <WingBlank>
-                    <FlatList
-                        showsVerticalScrollIndicator={false}
-                        keyExtractor={this._keykeyExtractor}
-                        ListFooterComponent={
-                            <View style={{
-                                width: '100%',
-                                marginTop: 20*s,
-                            }}>
-                                <Text 
-                                    style={{
+                </View> */}
+                <WingBlank>{
+                    this.state.arr ?
+                        <FlatList
+                            showsVerticalScrollIndicator={false}
+                            keyExtractor={this._keykeyExtractor}
+                            ListFooterComponent={
+                                <View style={{
+                                    width: '100%',
+                                    marginTop: 20,
+                                }}>
+                                    <Text style={{
                                         width: 0.9 * width,
                                         marginLeft: 'auto',
                                         marginRight: 'auto',
                                         backgroundColor: '#ccc',
                                         height: 0.5,
                                     }}></Text>
-                                <Text style={{
-                                    marginTop: -10,
-                                    width: 100 * s,
-                                    height: 25,
-                                    textAlign: 'center',
-                                    marginLeft: 'auto',
-                                    marginRight: 'auto',
-                                    backgroundColor: '#fff',
-                                    fontSize: 15,
-                                    color: '#bdbbb8'
-                                }}>到底了</Text>
-                            </View>
-                        }
-                        style={styles.scrollView}
-                        data={this.state.lists}
-                        numColumns={1}
-                        renderItem={({item,idx}) => {
-                            this.state.paused[idx]=false;
-                            this.state.playIcon[idx]="play-circle-o";
-                            // console.log(this.state.paused) 
-                            return <View style={styles.box}>
-                                <View style={styles.voicetitle}>
                                     <Text style={{
-                                        fontSize: 23*s,
-                                        width:0.38*width,
-                                        textAlignVertical:'bottom',
-                                        // backgroundColor:'#ccc'
-                                    }}>{item.name}</Text>
-                                    <Icon2
-                                        name='ios-trash'
-                                        size={30}
-                                        color='#333'
-                                        style={{
-                                            textAlignVertical: 'bottom',
-                                            fontSize: 40 * s,
-                                        }}
-                                    />
+                                        marginTop: -10,
+                                        width: 100 * s,
+                                        height: 50,
+                                        textAlign: 'center',
+                                        marginLeft: 'auto',
+                                        marginRight: 'auto',
+                                        backgroundColor: '#fff',
+                                        fontSize: 15,
+                                        color: '#bdbbb8'
+                                    }}>到底了</Text>
                                 </View>
-                                <View style={styles.voiceline}>
-                                    <TouchableOpacity onPress={this.play.bind(this, item.id)}>
-                                    <Icon3
-                                        style={{
-                                            height:0.06*height,
-                                            textAlign:"center",
-                                            textAlignVertical:"center",
-                                            fontSize:50*s,
-                                            // marginRight:0.01*width,
-                                            // backgroundColor:'#ccc',
-                                            color:"#989898",
-                                            // color:"#bbcccc",
+                            }
+                            style={styles.scrollView}
+                            data={this.state.arr1}
+                            numColumns={1}
+                            renderItem={({ item }) => {
+                                return <View style={styles.box}>
+                                    <View style={{
+                                        flexDirection: "row",
+                                        justifyContent: "space-between"
+                                    }}>
+                                        <Text style={{
+                                            fontSize: 30 * s,
+                                            marginTop: 30 * s,
+                                            marginLeft: 30 * s
+                                        }}>{item.name}</Text>
+                                        <Icon2
+                                            name='ios-trash'
+                                            size={30}
+                                            color='#333'
+                                            style={{
+                                                textAlignVertical: 'center',
+                                                fontSize: 40 * s,
+                                                marginTop: 30 * s,
+                                                marginRight: 40 * s,
+                                                marginBottom: 15 * s
+                                            }}
+                                        />
+
+                                    </View>
+                                    <View style={{
+                                        flexDirection: "row",
+                                        height: 75 * s,
+                                        width: 0.85 * width,
+                                        backgroundColor: 'rgba(204,204,204,0.2)',
+                                        marginLeft: 'auto',
+                                        marginRight: "auto",
+                                        borderRadius: 30,
+                                        justifyContent: "space-evenly"
+                                    }}>
+                                        <TouchableOpacity style={{
+                                            height: 50 * s,
+                                            width: 50 * s,
+                                            backgroundColor: "#E8E8E8",
+                                            borderRadius: 50,
+                                            marginTop: 12 * s,
+                                            marginLeft: 20 * s,
+                                            marginRight: 20 * s
                                         }}
-                                        name={item.pasued ? 'play-circle-o' : 'pause-circle-o'}/>
-                                    </TouchableOpacity>
-                                    <Text 
-                                        style={{
-                                            // width:0.25*width,
-                                            marginLeft:0.01*width,
-                                            textAlignVertical:"center"
+                                            onPress={this.play.bind(this, item.id, item.pasued)}
+                                        >
+                                            <Icon3
+                                                style={{
+                                                    textAlign: "center",
+                                                    textAlignVertical: "center",
+                                                    fontSize: 50 * s,
+                                                    color: "#989898"
+                                                }}
+                                                name={item.pasued ? 'play-circle-o' : 'pause-circle-o'} />
+                                        </TouchableOpacity>
+                                        <Text style={{
+                                            textAlignVertical: "center"
                                         }}>{this.formatMediaTime(item.currentTime).split('.')[0]}/{this.formatMediaTime(item.duration).split('.')[0]}</Text>
+                                        <Slider
+                                            value={item.slideValue}
+                                            maximumValue={item.duration}
+                                            step={1}
+                                            onValueChange={value => this.onValue(value, item.id)}
+                                            // onSlidingComplete={value => this.player(value)}
+                                            minimumTrackTintColor="#FFBF2D"
+                                            maximumTrackTintColor="#989898"
+                                            thumbTintColor="#fff"
+                                            style={{
+                                                width: 0.46 * width,
+                                                marginTop: "auto",
+                                                marginBottom: "auto",
+                                            }}
+                                        />
+                                        <TouchableOpacity activeOpacity={0.8} onPress={this.spin.bind(this, item.id)}>
+                                            <Icon1 style={{
+                                                marginTop: "auto",
+                                                marginBottom: "auto",
+                                                marginRight: 25 * s,
+                                                fontSize: 40 * s,
+                                                color: "#989898"
+                                            }} name={item.muted ? "volume-x" : "volume-2"} />
+                                        </TouchableOpacity>
+                                    </View>
+                                    <Video
+                                        source={{ uri: item.uri }}
+                                        ref={(ref) => {
+                                            this.player = ref
+                                        }}
+                                        paused={item.pasued}
+                                        onLoad={data => this.setDuration(data, item.id)}
+                                        onProgress={data => this.setTime(data, item.id)}
+                                        volume={1.0}
+                                        // seek={this.player(item.id)}
+                                        // repeat={true}
+                                        muted={item.muted}
+                                        // onEnd={this.onEnd} 
+                                        playInBackground={true}
+                                        onTimedMetadata={this.onTimedMetadata}
+                                    />
+                                    <Text style={{
+                                        marginLeft: "auto",
+                                        marginRight: 20 * s
+                                    }
+                                    }>记录时间：{item.setdate}</Text>
+                                </View>
+                            }}
+                        />
+                        :
+
+                        <View >
+                            <Text style={styles.nulltext}>哎呀，一条语音都没有呢</Text>
+                            <View style={styles.box1}>
+                                <Icon1 size={50} color='#333' style={styles.nullicon} name='corner-right-up' />
+                                <View style={{
+                                    flexDirection: "row",
+                                    justifyContent: "space-between"
+                                }}>
+                                    <Text style={{
+                                        fontSize: 30 * s,
+                                        marginTop: 30 * s,
+                                        marginLeft: 30 * s
+                                    }}>点击右上角添加</Text>
+                                </View>
+                                <View style={{
+                                    flexDirection: "row",
+                                    height: 75 * s,
+                                    width: 0.85 * width,
+                                    backgroundColor: 'rgba(204,204,204,0.2)',
+                                    marginLeft: 'auto',
+                                    marginRight: "auto",
+                                    borderRadius: 30,
+                                    marginTop: 18 * s,
+                                    justifyContent: "space-evenly"
+                                }}>
+                                    <TouchableOpacity style={{
+                                        height: 50 * s,
+                                        width: 50 * s,
+                                        backgroundColor: "#E8E8E8",
+                                        borderRadius: 50,
+                                        marginTop: 12 * s,
+                                        marginLeft: 20 * s,
+                                        marginRight: 20 * s
+                                    }}
+                                    >
+                                        <Icon3
+                                            style={{
+                                                textAlign: "center",
+                                                textAlignVertical: "center",
+                                                fontSize: 50 * s,
+                                                color: "#989898"
+                                            }}
+                                            name='play-circle-o' />
+                                    </TouchableOpacity>
+                                    <Text style={{
+                                        textAlignVertical: "center"
+                                    }}>00:00/00:00</Text>
                                     <Slider
-                                        value={item.slideValue}
-                                        maximumValue={item.duration}
+                                        value={0}
+                                        maximumValue={10}
                                         step={1}
-                                        onValueChange={this.onValue.bind(this,item.id)}
+                                        // onSlidingComplete={value => this.player(value)}
                                         minimumTrackTintColor="#FFBF2D"
-                                        maximumTrackTintColor="#fff"
+                                        maximumTrackTintColor="#989898"
                                         thumbTintColor="#fff"
                                         style={{
-                                            width:0.46*width,
-                                            marginTop:"auto",
-                                            marginBottom:"auto",
+                                            width: 0.46 * width,
+                                            marginTop: "auto",
+                                            marginBottom: "auto",
                                         }}
                                     />
-                                    <TouchableOpacity activeOpacity={0.8} onPress={this.spin.bind(this,item.id)}>
+                                    <TouchableOpacity activeOpacity={0.8}>
                                         <Icon1 style={{
-                                            marginTop:"auto",
-                                            marginBottom:"auto",
-                                            fontSize:40*s,
-                                            color:"#989898"
-                                        }} name={item.muted?"volume-x":"volume-2"} />
+                                            marginTop: "auto",
+                                            marginBottom: "auto",
+                                            marginRight: 25 * s,
+                                            fontSize: 40 * s,
+                                            color: "#989898"
+                                        }} name="volume-2" />
                                     </TouchableOpacity>
                                 </View>
-                                <Video
-                                    source={{uri:item.uri}}
-                                    ref='player'
-                                    paused={item.pasued}
-                                    onLoad={data => this.setDuration(data,item.id)}
-                                    volume={1.0}
-                                    muted={item.muted}
-                                    playInBackground={true}
-                                    onProgress={data => this.setTime(data,item.id)}
-                                />
                                 <Text style={{
                                     marginLeft: "auto",
                                     marginRight: 20 * s
                                 }
-                                }>记录时间：{item.setdate}</Text>
+                                }>记录时间：{moment(new Date()).format("YYYY-MM-DD")}</Text>
                             </View>
-                        }}
-                    />
+                        </View>
+                }
+
                 </WingBlank>
             </View>
         )
@@ -320,56 +425,60 @@ const styles = StyleSheet.create({
         letterSpacing: 3
     },
     scrollView: {
-        marginTop: 0.01*height,
+        marginTop: 18 * s,
         backgroundColor: '#fff',
-        height: 0.8*height,
-        borderColor: "#C0C0C0",
-        borderColor:'rgba(204,204,204,0.3)',
-        // borderWidth:1,
-        // backgroundColor:'#ccc',
+        paddingLeft: 10,
+        paddingRight: 10,
+        height: 950 * s,
+        borderRadius: 5,
+        borderWidth: 0.5,
+        borderColor: "#C0C0C0"
     },
     box: {
-        borderColor: "rgba(255,191,45,0.2)",
-        // backgroundColor:'rgba(255,191,45,0.2)',
-        borderWidth: 2,
-        borderRadius: 10,
-        marginBottom: 10,
-        height: 0.16*height,
-        width: 0.85 * width,
-        marginTop: 10 * s,
-        marginLeft: 'auto',
-        marginRight: "auto",
-    },
-    voicetitle:{
-        width:0.75*width,
-        marginLeft:'auto',
-        marginRight:'auto',
-        marginBottom:0.008*height,
-        // backgroundColor:'#ccc',
-        height:0.05*height,
-        flexDirection: "row",
-        justifyContent: "space-between"
-    },
-    voiceline:{
-        flexDirection:"row",
-        height:0.06*height,
-        width:0.8*width,
-        backgroundColor:'rgba(204,204,204,0.2)',
-        marginLeft: 'auto',
-        marginRight: "auto",
-        marginBottom:0.005*height,
-        paddingLeft:0.01*width,
-        paddingRight:0.01*width,
-        borderRadius:10,
-        justifyContent:"space-evenly",
-    },
-    audio: {
-        backgroundColor: "pink",
-        // height: 25 * s,
+        borderColor: "#FFBF2D",
+        borderWidth: 1,
         borderRadius: 20,
-        // width: 0.8 * width,
+        // marginBottom: 10,
+        height: 200 * s,
+        width: 0.88 * width,
+        marginTop: 30 * s,
         marginLeft: 'auto',
         marginRight: "auto",
-        marginBottom: 15 * s
-    }
+
+    },
+    box1: {
+        borderColor: "#FFBF2D",
+        borderWidth: 1,
+        borderRadius: 20,
+        // marginBottom: 10,
+        height: 200 * s,
+        width: 0.88 * width,
+        marginTop: 30 * s,
+        marginLeft: 'auto',
+        marginRight: "auto",
+
+    },
+    nulltext: {
+        width: 0.55 * width,
+        height: 0.05 * height,
+        fontSize: 23 * s,
+        letterSpacing: 1,
+        color: '#333',
+        backgroundColor: 'rgba(221, 221, 221,0.2)',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        marginTop: 40 * s
+    },
+    nullicon: {
+        width: 0.08 * height,
+        height: 0.08 * height,
+        position: "absolute",
+        top: -40,
+        left:500*s,
+        textAlignVertical: 'center',
+        textAlign: 'center',
+        backgroundColor: 'rgba(255,255,255,0.3)'
+    },
 })

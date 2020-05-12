@@ -27,6 +27,7 @@ export default class Cdairy extends Component {
     constructor(){
         super();
         this.state={
+            placeholder:'快来添加一条评论吧',
             lists:[
                 {
                     id:1,
@@ -67,10 +68,11 @@ export default class Cdairy extends Component {
                 <WingBlank style={styles.wingblank}>
                     <View style={styles.footerline}>
                         <TextInput
+                            autoFocus
                             style={styles.textinput}
                             onChangeText={text=>{this.setState({context:text})}}
-                            placeholder="快来添加一条评论吧"
-                            multiline={true}
+                            placeholder={this.state.placeholder}
+                            multiline={false}
                         />
                         <TouchableOpacity>
                             <Icon5 style={styles.iconbtn} name='smiley'/>
@@ -104,9 +106,9 @@ export default class Cdairy extends Component {
                                         </View> */}
                                         <Text style={styles.linetime}>{moment(new Date()).format('YYYY-MM-DD   HH:mm')}</Text>
                                     </View>
-                                    <View style={styles.linecontentbox}>
+                                    <TouchableOpacity style={styles.linecontentbox} onPress={()=>this.setState({placeholder:`回复@${item.name}`})}>
                                         <Text style={styles.linecontent}>{item.content}</Text>
-                                    </View>
+                                    </TouchableOpacity>
                                 </View>
                             )}
                         />

@@ -125,7 +125,7 @@ export default class Lpicture extends Component {
                         renderItem={({item})=>(
                             <View key={item.id} style={styles.cpicture_block}>
                                 <View style={styles.cpicturepicbox}>
-                                    <TouchableOpacity onPress={()=>Actions.lspictures({id:item.id})}>
+                                    <TouchableOpacity onPress={()=>Actions.lspictures({pid:item.id,pname:item.name})}>
                                         <ImageBackground
                                             style={styles.cpicturepic}
                                             resizeMode="cover"

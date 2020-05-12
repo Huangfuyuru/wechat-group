@@ -19,6 +19,7 @@ import Icon3 from "react-native-vector-icons/FontAwesome"
 import { Actions } from "react-native-router-flux"
 import ImagePicker from 'react-native-image-crop-picker'
 import { ScrollView } from 'react-native-gesture-handler'
+import Item from '@ant-design/react-native/lib/list/ListItem'
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
 export default class Lcreate_souver extends Component {
@@ -29,6 +30,7 @@ export default class Lcreate_souver extends Component {
         var date2=date[1].split(":")
         this.state={
             loverId:"",
+            id:"",
             year: date1[0],
             month: date1[1],
             day: date1[2],
@@ -44,9 +46,26 @@ export default class Lcreate_souver extends Component {
         }
     }
     componentDidMount(){
-        this.setState({
-            loverId:this.props.loverId
-        })
+       const data=this.props.data;
+       const date1=data.date.split("T")[0].split("-");
+       const date2=data.setdate.split("T")[0].split("-");
+       const date3 =data.setdate.split("T")[1].split(".")[0].split(":")
+       this.setState({
+           loverId:data.lid,
+           mood:data.mood,
+           content:data.content,
+           imgurl:data.imgurl,
+           voiceurl:data.voiceurl,
+           name:data.name,
+           year: date1[0],
+           month: date1[1],
+           day: date1[2],
+           hour:date3[0],
+           min:date3[1],
+           month1:date2[1],
+           day1: date2[2],
+           id:data.id,
+       })
     }
     choosebgpic=()=>{
         ImagePicker.openPicker({
@@ -73,14 +92,15 @@ export default class Lcreate_souver extends Component {
     additem = ()=>{
         var time0 = this.state.year+'-'+this.state.month+'-'+this.state.day
         var date0 = moment(time0).format("YYYY-MM-DD")
-        var timename = moment(new Date()).format("HH:mm:ss")
-        var date = timename.split(':')
+        // var timename = moment(new Date()).format("HH:mm:ss")
+        // var date = timename.split(':')
         var name="纪念日"
         if(!this.state.name){
             name = '没有名称的纪念日'+date[0]+date[1]+date[2]
         }
-        myFetch.post('/lover/lsouvenir/lcsouvenir',{
+        myFetch.post('/lover/lsouvenir/modsouvenir',{
            loverid:this.state.loverId,
+           id:this.state.id,
            date:date0,
            name:this.state.name,
            mood:this.state.mood,
@@ -89,14 +109,14 @@ export default class Lcreate_souver extends Component {
            imgurl:this.state.imgurl,
            content:this.state.content,
         }).then(res=>{
-            // console.log(res)
+          console.log(res)
             if(res.code == 0){
                 setTimeout(()=>{
-                    Actions.pop({refresh:({data:res.msg})})
+                    Actions.pop({refresh:({data:res.data})})
                 },1000)
-                ToastAndroid.show(name+'，'+'创建成功！', ToastAndroid.SHORT);
+                ToastAndroid.show(res.msg, ToastAndroid.SHORT);
             }else{
-                ToastAndroid.show('创建失败！', ToastAndroid.SHORT);
+                ToastAndroid.show(res.msg, ToastAndroid.SHORT);
             }
         })
     }
@@ -109,7 +129,7 @@ export default class Lcreate_souver extends Component {
                         name='chevron-left'
                         onPress={() => Actions.pop()}
                     />
-                    <Text style={styles.title}>新建纪念日</Text>
+                    <Text style={styles.title}>编辑纪念日</Text>
                 </View>
                 <View style={{
                     height:1000*s,
@@ -169,7 +189,7 @@ export default class Lcreate_souver extends Component {
                         纪念日：</Text>
                     <TextInput
                         maxLength={18}
-                        placeholder='第一次去旅行'
+                        defaultValue={this.state.name}
                         onFocus={()=>{
                             ToastAndroid.showWithGravityAndOffset(
                                 '请保证名称不多于10个字！',
@@ -190,8 +210,8 @@ export default class Lcreate_souver extends Component {
                     <Text style={styles.text}>
                         心情：</Text>
                     <TextInput
-                        maxLength={10}
-                        placeholder='输入3代表 ღ ღ ღ'
+                        maxLength={2}
+                        defaultValue={this.state.mood}
                         onFocus={()=>{
                             ToastAndroid.showWithGravityAndOffset(
                                 '请输入1-5之内的整数！',
@@ -202,7 +222,7 @@ export default class Lcreate_souver extends Component {
                         onChangeText = {(text)=>{
                             this.setState({mood:text});
                           }} 
-                        style={[styles.input, { width: 0.5 * width }]} />
+                        style={[styles.input, { width: 0.5 * width}]} />
                 </View>
                 <View style={styles.msg}>
                     <Icon3 style={styles.listlineicon} name='calendar-check-o' /> 
@@ -294,7 +314,7 @@ export default class Lcreate_souver extends Component {
               
                 <TouchableOpacity style={styles.coverbox} onPress={this.choosebgpic}>
                         <Text
-                        style={styles.textbtn}>轻触设置图片</Text>
+                        style={styles.textbtn}>轻触修改图片</Text>
                         <Image
                             style={{
                                 width:0.5*width,
@@ -316,12 +336,11 @@ export default class Lcreate_souver extends Component {
                         marginRight: 'auto',
                         marginTop: 30 * s,
                         backgroundColor: "#fff",
-                        textDecorationLine: "line-through",
                         textAlignVertical: 'top',
                         borderRadius: 15,
                         fontSize:15
                     }}
-                        placeholder="用一段话记录"
+                        defaultValue={this.state.content}
                         multiline={true}
                         onChangeText = {(text)=>{
                             this.setState({content:text});
@@ -347,7 +366,7 @@ export default class Lcreate_souver extends Component {
                             lineHeight:48*s,
                             fontSize:28*s
                         }}
-                        >创建</Text>
+                        >修改</Text>
                     </TouchableOpacity>
                     </View>
                     
