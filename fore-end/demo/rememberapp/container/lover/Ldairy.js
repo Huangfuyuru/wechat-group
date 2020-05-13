@@ -190,7 +190,7 @@ export default class Ldairy extends Component {
                                                     color:`${titlecolor}`
                                                 }}
                                             >
-                                                {moment(item.setdate).format("YYYY年MM月DD日  HH:mm:ss")}
+                                                {moment(item.setdate).format("YYYY年MM月DD日 HH:mm:ss")}
                                             </Text>
                                             <Icon5 color={weathercolor} style={styles.lineweather} name={item.weather}/>
                                             <TouchableOpacity onPress={()=>this.rmCdiary(item)}>
