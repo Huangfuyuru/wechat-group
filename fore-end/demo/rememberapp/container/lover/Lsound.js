@@ -362,7 +362,7 @@ export default class Lsound extends Component {
                                         marginLeft: "auto",
                                         marginRight: 20 * s
                                     }
-                                    }>记录时间：{item.setdate.split("T")[0]}</Text>
+                                    }>记录时间：{ moment(item.setdate).format("YYYY-MM-DD")} </Text>
                                 </View>
                             }}
                         />

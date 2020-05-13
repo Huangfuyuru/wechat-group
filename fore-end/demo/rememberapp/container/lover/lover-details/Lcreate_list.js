@@ -85,12 +85,14 @@ export default class Lcreate_list extends Component {
         });
     }
     savelist = ()=>{
+        var time=this.state.year+"-"+this.state.month+"-"+this.state.day;
+        var date = moment(time).format("YYYY-MM-DD")
         myFetch.post(`/lover/loverlist/addloverlist`,{
             name:this.state.item.name,
             content:this.state.content,
             imgurl:this.state.img,
             local:this.state.site,
-            setdate:this.state.year+"-"+this.state.month+"-"+this.state.day,
+            setdate:date,
             listid:this.state.item.id,
             lid:this.state.loverId
         })

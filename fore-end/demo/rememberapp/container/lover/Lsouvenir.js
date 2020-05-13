@@ -61,7 +61,7 @@ export default class Lsouvenir extends Component {
         myFetch.get('/lover/lsouvenir', {
             loverid: this.props.loverId
         }).then(res => {
-            console.log("res", res)
+            // console.log("res", res)
             this.setState({
                 arr1: res.msg
             })
@@ -314,7 +314,7 @@ export default class Lsouvenir extends Component {
                                                             marginBottom: 50 * s
                                                         }}
                                                     >
-                                                        {item.date.split("T")[0]}
+                                                        { moment(item.date).format("YYYY-MM-DD")}
                                                         </Text>
                                                     <Text
                                                         style={{
