@@ -35,7 +35,7 @@ export default class Cdairy extends Component {
         myFetch.get('/child/cevents',{
             childsid:this.props.cid,
         }).then(res=>{
-            console.log(res)
+            // console.log(res)
             if(res){
                 this.setState({
                     lists:res
