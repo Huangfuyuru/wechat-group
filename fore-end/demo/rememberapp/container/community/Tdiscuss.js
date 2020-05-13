@@ -7,9 +7,11 @@ import {
     FlatList,
     Image,
     Alert,
+    ScrollView,
     ImageBackground,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    ToastAndroid
 } from 'react-native'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux';
@@ -28,38 +30,114 @@ export default class Cdairy extends Component {
         super();
         this.state={
             placeholder:'快来添加一条评论吧',
-            lists:[
-                {
-                    id:1,
-                    name:'时樾哥哥',
-                    content:'我有好多评论想评论我有好多评论想评论我有好多评论想评论我有好多评论想评论我有好多评论想评论我有好多评论想评论'
-                },
-                {
-                    id:2,
-                    name:'时樾哥哥',
-                    content:'棒'
-                },
-                {
-                    id:3,
-                    name:'时樾哥哥',
-                    content:'棒'
-                },
-            ],
+            lists:[],
             refreshing:false,
+            article_id:'',
+            tag:true,
+            answer_id:'',
+            host_id:'',
+            user_id:'',
+            content:'',
+            page:'',
+            discuss:false,
         }
     }
     componentDidMount(){
-        
+        console.log('评论')
+        this.setState({
+            article_id:this.props.article_id,
+            host_id:this.props.host_id,
+            user_id:this.props.user_id,
+            page:this.props.page
+        })
+        // console.log(this.props.article_id)
+        myFetch.get('/share/comment',{
+            article_id:this.props.article_id
+        }).then(res=>{
+            // console.log(res)
+            var rootlist = [];
+            var leaflist = [];
+            for(var i in res){
+                res[i].answer_id ? leaflist.push(res[i]):rootlist.push(res[i]);
+            }
+            for(var i in rootlist){
+                (function (j){
+                    console.log(rootlist[j])
+                    rootlist[j]['childlist']=[]
+                    for(var m in leaflist){
+                        if(leaflist[m].answer_id === rootlist[j].id){
+                            rootlist[j]['childlist'].push(leaflist[m])
+                        }
+                    }
+                })(i)
+            }
+            // console.log(rootlist[1])
+            this.setState({
+                lists:rootlist
+            })
+        })
     }
-    componentWillReceiveProps(nextProps) {
-        
+    refreshlist = ()=>{
+        myFetch.get('/share/comment',{
+            article_id:this.props.article_id
+        }).then(res=>{
+            // console.log(res)
+            var rootlist = [];
+            var leaflist = [];
+            for(var i in res){
+                res[i].answer_id ? leaflist.push(res[i]):rootlist.push(res[i]);
+            }
+            for(var i in rootlist){
+                (function (j){
+                    console.log(rootlist[j])
+                    rootlist[j]['childlist']=[]
+                    for(var m in leaflist){
+                        if(leaflist[m].answer_id === rootlist[j].id){
+                            rootlist[j]['childlist'].push(leaflist[m])
+                        }
+                    }
+                })(i)
+            }
+            // console.log(rootlist[1])
+            this.setState({
+                lists:rootlist,
+                refreshing:false
+            })
+        })
     }
-    
+    discuss = ()=>{
+        var content = this.state.content;
+        if(this.state.content){
+            myFetch.post('/share/comment/acomment',{
+                tag:this.state.tag,
+                answer_id:this.state.answer_id,
+                article_id:this.state.article_id,
+                host_id:this.state.host_id,
+                user_id:this.state.user_id,
+                content:content
+            }).then(res=>{
+                // console.log(res)
+                this.setState({
+                    placeholder:'快来添加一条评论吧',
+                    content:'',
+                    tag:true,
+                    answer_id:0,
+                    discuss:true
+                })         
+            })
+        }else{
+            ToastAndroid.showWithGravityAndOffset(
+            '评论内容不能为空！',
+            ToastAndroid.LONG,
+            ToastAndroid.TOP,
+            0,300)
+        }
+    }
     render() {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                    <TouchableOpacity onPress={()=>Actions.pop(this.props.callBack(this.state.discuss))}>
                         <Icon1 style={styles.icon} name='chevron-left'/>
                     </TouchableOpacity>
                     <Text style={styles.title}>评论</Text>
@@ -68,50 +146,95 @@ export default class Cdairy extends Component {
                 <WingBlank style={styles.wingblank}>
                     <View style={styles.footerline}>
                         <TextInput
+                            value={this.state.content}
                             autoFocus
                             style={styles.textinput}
-                            onChangeText={text=>{this.setState({context:text})}}
+                            onChangeText={text=>{this.setState({content:text})}}
                             placeholder={this.state.placeholder}
                             multiline={false}
                         />
                         <TouchableOpacity>
                             <Icon5 style={styles.iconbtn} name='smiley'/>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{
+                            var tag=true;
+                            if(this.state.placeholder === '快来添加一条评论吧'){
+                                this.setState({
+                                    answer_id:0,
+                                    tag:true
+                                })
+                                this.discuss()
+                            }else{
+                                this.setState({
+                                    answer_id:this.state.answer_id,
+                                    tag:false
+                                })
+                                tag = false;
+                                this.discuss()
+                            }
+                        }}>
                             <Icon4 style={styles.iconbtn} name='send-o'/>
                         </TouchableOpacity>
                     </View>
                     {
                         this.state.lists[0]
-                        ?<FlatList
-                            style={styles.list}
-                            refreshing = {this.state.refreshing}
-                            onRefresh={()=>{this.setState({refreshing:false})}}
-                            extraData={this.state}
-                            data={this.state.lists}
-                            horizontal={false}
-                            showsVerticalScrollIndicator={true}
-                            // ItemSeparatorComponent={}
-                            renderItem={({item})=>(
-                                <View style={styles.linebox}>
-                                    <View style={styles.linetitle}>
-                                        <TouchableOpacity onPress={()=>{}}>
-                                            <Image 
-                                                style={styles.innertitlepic}
-                                                source={{uri:`${image}`}}
-                                            />
-                                        </TouchableOpacity>
-                                        <Text style={styles.linename}>{item.name}</Text>
-                                        {/* <View style={styles.timebox}>
-                                        </View> */}
-                                        <Text style={styles.linetime}>{moment(new Date()).format('YYYY-MM-DD   HH:mm')}</Text>
-                                    </View>
-                                    <TouchableOpacity style={styles.linecontentbox} onPress={()=>this.setState({placeholder:`回复@${item.name}`})}>
-                                        <Text style={styles.linecontent}>{item.content}</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            )}
-                        />
+                        ?
+                        <ScrollView 
+                                    showsVerticalScrollIndicator={false}
+                                    scrollEnabled={this.state.enableScrollViewScroll}
+                                    ref={myScroll => (this._myScroll = myScroll)}
+                                    style={styles.listbox}
+                                >
+                                    {
+                                        this.state.lists&&this.state.lists.map((item,idx)=>{
+                                            return <View style={styles.listblock}>
+                                                <Text>111</Text>
+                                            </View>
+                                        })
+                                    }
+                                </ScrollView>
+                        // <FlatList
+                        //     style={styles.list}
+                        //     refreshing = {this.state.refreshing}
+                        //     onRefresh={this.refreshlist}
+                        //     extraData={this.state}
+                        //     data={this.state.lists}
+                        //     horizontal={false}
+                        //     showsVerticalScrollIndicator={true}
+                        //     // ItemSeparatorComponent={}
+                        //     renderItem={({item})=>(
+                        //         <View style={styles.linebox}>
+                        //             <View style={styles.linetitle}>
+                        //                 <TouchableOpacity onPress={()=>{}}>
+                        //                     <Image 
+                        //                         style={styles.innertitlepic}
+                        //                         source={{uri:`${image}`}}
+                        //                     />
+                        //                 </TouchableOpacity>
+                        //                 <Text style={styles.linename}>{item.name}</Text>
+                        //                 {
+                        //                     item.host_id === item.user_id
+                        //                     ?<Text style={styles.linetag}>作者</Text>
+                        //                     :null
+                        //                 }
+                        //                 <Text style={styles.linetime}>{moment(item.setdate).format('YYYY-MM-DD   HH:mm')}</Text>
+                        //             </View>
+                        //             <TouchableOpacity style={styles.linecontentbox} onPress={()=>this.setState({
+                        //                 placeholder:`回复@${item.name}`,
+                        //                 answer_id:item.id,
+                        //                 })}>
+                        //                 <Text style={styles.linecontent}>{item.content}</Text>
+                        //             </TouchableOpacity>
+                        //             <View>
+                        //                 {
+                        //                     item.childlist&&item.childlist.map((item,idx)=>{
+                        //                         return<Text>{item.content}</Text>
+                        //                     })
+                        //                 }
+                        //             </View>
+                        //         </View>
+                        //     )}
+                        // />
                         :<View style={styles.list}>
                             <View style={styles.nullpics}>
                                 <Image 
@@ -160,23 +283,27 @@ const styles = StyleSheet.create({
     },
     wingblank:{
         marginTop:0.015*height,
-        height:0.85*height,
+        height:0.86*height,
         alignItems:'center',
         // backgroundColor:'#000'
     },
     list:{
         width:0.93*width,
-        height:0.7*height,
-        marginTop:0.02*height,
-        // backgroundColor:'#ccc'
+        marginTop:0.025*height,
+        height:0.78*height,
+        // backgroundColor:'#ccc',
+        marginLeft:'auto',
+        marginRight:'auto'
     },
     linebox:{
-        // backgroundColor:'#ccc',
+        // backgroundColor:'#000',
+        // backgroundColor:"#ccc",
         marginBottom:0.01*height
     },
     linetitle:{
         // backgroundColor:'#ddd',
         flexDirection:'row',
+        alignItems:'center',
         width:0.8*width
     },
     innertitlepic:{
@@ -188,11 +315,20 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     },
     linename:{
-        width:0.5*width,
         fontSize:23*s,
         marginLeft:0.02*width,
         // backgroundColor:"#ccc",
         textAlignVertical:'center'
+    },
+    linetag:{
+        backgroundColor:'#FFBF2D',
+        width:0.08*width,
+        marginLeft:0.02*width,
+        // marginTop:0.01*height,
+        color:'#fff',
+        textAlign:'center',
+        textAlignVertical:'center',
+        height:0.025*height,
     },
     linetime:{
         width:0.25*width,
@@ -200,6 +336,7 @@ const styles = StyleSheet.create({
         textAlign:'right',
         marginLeft:0.02*width,
         color:'#999',
+        
         // backgroundColor:"#ccc",
         textAlignVertical:'center'
     },
@@ -230,7 +367,7 @@ const styles = StyleSheet.create({
         textAlign:'center',
         textAlignVertical:'center',
         fontSize:23*s,
-        color:'#bdbbb8'
+        color:'#bdbbb8',
         // backgroundColor:'#ccc'
     },
     footerline:{
