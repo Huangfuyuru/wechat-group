@@ -37,7 +37,8 @@ export default class dairy extends Component {
         console.log(this.props.data);
         this.setState({
             data:this.props.data,
-            id:this.props.data.id
+            id:this.props.data.id,
+            loverId:this.props.data.lid
         })
     }
     enlarge=(image)=>{
@@ -47,12 +48,12 @@ export default class dairy extends Component {
         })
     }
     componentWillReceiveProps(nextProps) {
-        // console.log("",nextProps)
         const adata=nextProps.data;
         adata.map((item)=>{
             if(item.id==this.state.id){
                 this.setState({
-                    data:item
+                    data:item,
+                    loverId:item.lid
                 })
             }
         })
@@ -60,6 +61,14 @@ export default class dairy extends Component {
     }
     savePictures = ()=>{
 
+    }
+    save=()=>{
+        myFetch.get('/lover/ldairy',{
+            loverid:this.state.loverId,
+        }).then(res=>{
+            console.log( "数据数据", res)
+            Actions.pop({refresh:({data:res.msg})})
+        })
     }
     render() {
         const item = this.state.data
@@ -88,9 +97,10 @@ export default class dairy extends Component {
                     <Icon1 
                         style={styles.icon}
                         name='chevron-left'
-                        onPress={()=>{
-                            Actions.pop()
-                        }}
+                        // onPress={()=>{
+                        //     Actions.pop()
+                        // }}
+                        onPress={this.save}
                     />
                     <Text style={styles.title}>
                         { moment(item.setdate).format(" YYYY年MM月DD日  HH:mm")}

@@ -8,7 +8,8 @@ import {
     Image,
     Alert,
     ImageBackground,
-    TouchableOpacity
+    TouchableOpacity,
+    ToastAndroid
 } from 'react-native'
 import moment from 'moment'
 import { Actions } from 'react-native-router-flux';

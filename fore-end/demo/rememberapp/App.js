@@ -41,6 +41,7 @@ import Ccsound from './container/child/child_details/Ccsound'
 import Cdairy from './container/child/Cdairy'
 import Ccdairy from './container/child/child_details/Ccdairy'
 import Csdairy from './container/child/child_details/Showdairy';
+import Cchdairy from "./container/child/change/CChdairy"
 import Cgrowup from './container/child/Cgrowup'
 import Ccgrowup from './container/child/child_details/Ccgrow'
 import Cevents from './container/child/Cevent'
@@ -66,6 +67,7 @@ import Llists from "./container/lover/Llists"
 import LSlists from "./container/lover/lover-details/LSlists"
 import Llist from "./container/lover/lover-details/listContent"
 import LClists from "./container/lover/lover-details/Lcreate_list"
+import Chlist from "./container/lover/change/Chlist"
 
 // 
 import Lsound from "./container/lover/Lsound"
@@ -74,6 +76,7 @@ import LCsound from "./container/lover/lover-details/Lcreate_sound"
 import Lsouvenir from "./container/lover/Lsouvenir"
 import LCsouvenir from "./container/lover/lover-details/Lcreate_souver"
 import souconent from "./container/lover/lover-details/SouConent"
+import Chsou from "./container/lover/change/Chsou"
 // 
 import Community from './container/Community';
 import My from './container/My';
@@ -230,6 +233,11 @@ const App = () => {
 										hideNavBar={true}
 										component={Csdairy} />
 									<Scene
+										key='cchdairy'
+										hideTabBar
+										hideNavBar={true}
+										component={Cchdairy} />
+									<Scene
 										key='cgrowup'
 										hideTabBar
 										hideNavBar={true}
@@ -294,11 +302,12 @@ const App = () => {
 									<Scene key='lclist' hideTabBar hideNavBar={true} component={LClists} />
 									<Scene key='lslists' hideTabBar hideNavBar={true} component={LSlists} />
 									<Scene key='list' hideTabBar hideNavBar={true} component={Llist} />
+									<Scene key='lchlist' hideTabBar hideNavBar={true} component={Chlist} />
 
 									<Scene key='lsouvenir' hideTabBar hideNavBar={true} component={Lsouvenir} />
 									<Scene key='lcsouvenir' hideTabBar hideNavBar={true} component={LCsouvenir} />
 									<Scene key='souvenir' hideTabBar hideNavBar={true} component={souconent} />
-
+									<Scene key='lchsou' hideTabBar hideNavBar={true} component={Chsou} />
 
 
 									<Scene key='ldairy' hideTabBar hideNavBar={true} component={Ldairy} />

@@ -66,7 +66,7 @@ export default class Llists extends React.Component {
         return ss;
     }
     componentWillReceiveProps(nextProps) {
-        console.log("nexttttttt",nextProps)
+        // console.log("nexttttttt",nextProps)
         this.setState({
             arr:nextProps.data
         })

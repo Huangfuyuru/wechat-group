@@ -15,7 +15,8 @@ import {
     ImageBackground,
     DrawerLayoutAndroid,
     Modal,
-    TextInput
+    TextInput,
+    ToastAndroid
 } from 'react-native'
 import { 
     Flex, 
@@ -33,11 +34,13 @@ import Icon2 from 'react-native-vector-icons/AntDesign'
 import Icon3 from 'react-native-vector-icons/Entypo'
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon5 from 'react-native-vector-icons/Fontisto'
+import Icon6 from 'react-native-vector-icons/Ionicons'
 import {myFetch} from '../../src/utils'
 import ImagePicker from 'react-native-image-crop-picker'
 import Swiper from 'react-native-swiper'
 import moment from 'moment'
 import Button from 'react-native-button'
+import CheckBox from 'react-native-checkbox'
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
 const h = height / 1012;
@@ -49,18 +52,31 @@ export default class Community extends Component {
         super(props);
         this.state={
             uid:'',
-            tag:'亲子',
+            style:'亲子',
             content:'',
             lists:[],
             uplist:[],
-            visible:false
+            visible:false,
+            tag:true
         }
     }
     componentDidMount(){
-        console.log('社区第一次加载');
+        console.log('发布动态第一次加载');
+        // console.log(this.props.uplist)
+        // console.log(this.props.uid)
         this.setState({
             lists:this.props.lists,
-            uplist:this.props.uplist
+            uid:this.props.uid
+        },()=>{
+            myFetch.uploadImages(this.props.uplist)
+            .then( res=>{
+                // console.log(res)
+                this.setState({
+                    uplist:res
+                })
+            }).catch( err=>{
+                console.log('flied');
+            })
         }) 
     }
     componentDidUpdate(prevProps,prevState){
@@ -68,9 +84,69 @@ export default class Community extends Component {
     
     }
     savelocal = ()=>{
-
+        AsyncStorage.removeItem('rememberarticledraft')
+        AsyncStorage.getItem('rememberarticledraft').
+        then((res)=>{
+            var style = this.state.style;
+            style==='亲子'?style=true:style=false;
+            if(res){
+                var draftlists = JSON.parse(res);
+                var newitem = {
+                    uid:this.state.uid,
+                    imgurl:this.state.uplist,
+                    content:this.state.content,
+                    tag:this.state.tag,
+                    style:style
+                }
+                draftlists.push(newitem);
+                console.log('1',draftlists.length)
+                AsyncStorage.setItem('rememberarticledraft',JSON.stringify(draftlists));
+            }else{
+                var draftlists = [];
+                var newitem = {
+                    uid:this.state.uid,
+                    imgurl:this.state.uplist,
+                    content:this.state.content,
+                    tag:this.state.tag,
+                    style:style
+                }
+                draftlists.push(newitem);
+                console.log('2',draftlists.length)
+                AsyncStorage.setItem('rememberarticledraft',JSON.stringify(draftlists));
+            }
+        })
     }
     publish = ()=>{
+        var style = this.state.style;
+        style==='亲子'?style=true:style=false;
+        console.log(this.state.uid,this.state.uplist,this.state.content,this.state.tag,style)
+        myFetch.post('/share/article/addarticle',{
+            uid:this.state.uid,
+            // imgurl:['#','#','#'],
+            imgurl:this.state.uplist,
+            content:this.state.content,
+            tag:this.state.tag,
+            style:style
+        }).then(res=>{
+            console.log(res)
+            if(res.code === 0){
+                ToastAndroid.showWithGravityAndOffset(
+                '发布成功！',
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
+                0,450)
+                setTimeout(()=>{
+                    Actions.community()
+                },3000)
+            }else{
+                this.savelocal();
+                ToastAndroid.showWithGravityAndOffset(
+                '发布失败，已存至草稿箱！',
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
+                0,450)
+            }
+        })
 
     }
     render() {
@@ -97,21 +173,50 @@ export default class Community extends Component {
                 </View>
                 <WingBlank style={styles.wingblank}>
                     <View style={styles.contentbox}>
-                        <Text style={styles.pickerbox}>
-                            <Icon3 style={styles.tagicon} name='price-tag'/>
-                            <Picker
-                                selectedValue={this.state.tag}
-                                mode='dropdown'
-                                style={styles.picker}
-                                onValueChange={(itemValue, itemIndex) =>
-                                    this.setState({
-                                        tag: itemValue,
-                                    })
-                                }>
-                                <Picker.Item label="亲子" value="亲子" />
-                                <Picker.Item label="爱人" value="爱人" />
-                            </Picker>
-                        </Text>
+                        <View style={styles.lockbox}>
+                            <View style={styles.lock}>
+                                <CheckBox
+                                    checkboxStyle={{
+                                        width:0.035*width,
+                                        height:0.035*width,
+                                        marginTop:0.01*height,
+                                        backgroundColor:'rgba(255,255,255,0.5)',
+                                        marginRight:0.02*width
+                                    }}
+                                    label=''
+                                    onChange={
+                                        (checked) =>{
+                                            if(checked){
+                                                this.setState({
+                                                    tag:false
+                                                })
+                                            }else{
+                                                this.setState({
+                                                    tag:true
+                                                })
+                                            }
+                                        }
+                                    }
+                                />
+                                <Text style={styles.locktext}>设为私密</Text>
+                                <Icon6 style={styles.lockicon} name='md-lock'/>
+                            </View>
+                            <Text style={styles.pickerbox}>
+                                <Icon3 style={styles.tagicon} name='price-tag'/>
+                                <Picker
+                                    selectedValue={this.state.style}
+                                    mode='dropdown'
+                                    style={styles.picker}
+                                    onValueChange={(itemValue, itemIndex) =>
+                                        this.setState({
+                                            style: itemValue,
+                                        })
+                                    }>
+                                    <Picker.Item label="亲子" value="亲子" />
+                                    <Picker.Item label="爱人" value="爱人" />
+                                </Picker>
+                            </Text>
+                        </View>
                         <TextInput
                             style={styles.content}
                             onChangeText={text=>{this.setState({content:text})}}
@@ -148,7 +253,14 @@ export default class Community extends Component {
                                 visible:false
                             },Actions.community())
                         }}>
-                            <Text style={styles.linebtn}>放弃更改</Text>
+                            <Text style={styles.linebtn}>放弃发布</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{
+                            this.setState({
+                                visible:false
+                            })
+                        }}>
+                            <Text style={styles.linebtn}>返回</Text>
                         </TouchableOpacity>
                     </WingBlank>
                 </Modal>
@@ -210,12 +322,47 @@ const styles = StyleSheet.create({
         paddingLeft:0.015*width,
         paddingRight:0.015*width,
     },
+    lockbox:{
+        width:0.86*width,
+        height:0.05*height,
+        // backgroundColor:'#ccc',
+        marginLeft:'auto',
+        marginRight:'auto',
+        flexDirection:'row',
+        alignItems:'center'
+    },
+    lock:{
+        width:0.3*width,
+        height:0.05*height,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        marginRight:0.31*width,
+        // backgroundColor:'#ddffcc'
+    },
+    lockicon:{
+        width:0.05*width,
+        textAlign:'center',
+        fontSize:40*s,
+        color:'#FFBF2D',
+        // backgroundColor:'#ffeeaa'
+    },
+    locktext:{
+        width:0.13*width,
+        height:0.03*height,
+        textAlignVertical:'bottom',
+        textAlign:'center',
+        fontSize:18*s,
+        color:'#bdbbb8',
+        // backgroundColor:'#ffeeff'
+    },
     pickerbox:{
         textAlign:'right',
+        marginTop:-0.005*height,
+        // backgroundColor:'#aaffee'
     },
     tagicon:{
         fontSize:50*s,
-        marginTop:-0.05*height,
         color:'#FFBF2D'
     },
     picker:{
@@ -262,8 +409,8 @@ const styles = StyleSheet.create({
         margin:0.01*width
     },
     nullwingblank:{
-        height:0.4*height,
-        marginTop:0.6*height,
+        height:0.5*height,
+        marginTop:0.5*height,
         justifyContent:'center',
         backgroundColor:'#fff',
         // backgroundColor:'#FFBF2D',
@@ -278,6 +425,7 @@ const styles = StyleSheet.create({
         color:'#888',
         fontSize:30*s,
         height:0.1*height,
-        marginTop:0.02*height
+        marginTop:0.01*height,
+        marginBottom:0.01*height,
     },
 })

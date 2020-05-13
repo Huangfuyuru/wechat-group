@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0076)file:///C:/Users/lenovo/AppData/Local/Temp/mume2020411-4236-p6tmnp.j2uv.html -->
+<!-- saved from url=(0078)file:///C:/Users/lenovo/AppData/Local/Temp/mume2020412-12692-re1tm8.4ur89.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>社区接口文档</title>
       
@@ -272,16 +272,17 @@ pre[data-line] .line-highlight[data-end]:after {
 <ol>
 <li>article表 新增comment(数组类型) 存放评论 例：[{uid:100002,content:'好可爱啊'},{uid:100002fuid:100003,content:'二级回复'}]</li>
 </ol>
+<h4 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-%E7%94%A8%E6%88%B7%E5%A4%B4%E5%83%8Fpic-%E7%94%A8%E6%88%B7%E6%98%B5%E7%A7%B0uname-%E6%98%AF%E5%90%A6%E5%85%B3%E6%B3%A8liketrue%E4%B8%BA%E5%85%B3%E6%B3%A8">返回数据： 用户头像pic、用户昵称uname、是否关注like（true为关注）</h4>
+
 <h3 class="mume-header" id="1%E7%82%B9%E5%87%BB%E7%A4%BE%E5%8C%BA">1.点击社区</h3>
 
 <h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001share">接口地址：<a href="http://148.70.223.218:3001/share">http://148.70.223.218:3001/share</a></h5>
 
 <h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E7%9A%84%E6%95%B0%E6%8D%AEuid">提交的数据：uid</h5>
 
-<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE%E7%94%A8%E6%88%B7%E5%A4%B4%E5%83%8F-%E6%98%B5%E7%A7%B0-%E6%89%80%E6%9C%89%E6%96%87%E7%AB%A0%E4%BF%A1%E6%81%AFcommon%E6%98%AF%E4%B8%AA%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E6%8C%89%E5%8F%91%E5%B8%83%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F">返回数据：用户头像、昵称、所有文章信息(common是个数组对象，按发布时间排序)</h5>
+<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE%E7%94%A8%E6%88%B7%E5%A4%B4%E5%83%8Fpic-%E7%94%A8%E6%88%B7%E6%98%B5%E7%A7%B0uname-%E6%98%AF%E5%90%A6%E5%85%B3%E6%B3%A8liketrue%E4%B8%BA%E5%85%B3%E6%B3%A8%E6%89%80%E6%9C%89%E6%96%87%E7%AB%A0%E4%BF%A1%E6%81%AFcommon%E6%98%AF%E4%B8%AA%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E6%8C%89%E5%8F%91%E5%B8%83%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F">返回数据：用户头像pic、用户昵称uname、是否关注like（true为关注）所有文章信息(common是个数组对象，按发布时间排序)</h5>
 
-<pre class="language-text">{"code":0,"msg":"请求成功","data":
-[{"uname":"嘻嘻","pic":"#","id":"4200001","imgurl":"{#1,#2,#3}","content":"学会和孩子沟通","setdate":"2020-04-09","tag":"true","style":"true","uid":"100001","zannum":0,"num":0,"comment":[{uname:'',pic:'',com:''}]},[{code:0,msg:[{...}]}] }
+<pre class="language-text">"code":0,"msg":"请求成功","data":[{"id":4200012,"imgurl":["http://148.70.223.218:3001/img/showimg/Lz9WDTRkbI14EsUU.jpg"],"content":"推荐一个好看的电视剧 叫最亲爱的你 哈哈哈哈哈","tag":true,"style":false,"uid":100016,"zannum":0,"num":0,"setdate":"2020-05-11T12:29:32.452Z","uname":"杨昕迪","pic":null,"like":false}
         
 {"code":1,"msg":"请求失败","data":null}
 </pre>
@@ -294,160 +295,157 @@ pre[data-line] .line-highlight[data-end]:after {
 <h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE">返回数据：</h5>
 
 <pre class="language-text">{"code":0,"msg":"请求成功","data":
-[{"id":4200004,"uname":"杨昕迪","imgurl":null,"content":"嘻嘻","tag":true,"style":false,"uid":100008,"zannum":0,"num":0,"setdate":"2020-05-08T13:24:21.803Z","pic":null},
-{"id":4200001,"uname":null,"imgurl":["#1","#2","#3"],"content":"学会和孩子沟通","tag":false,"style":true,"uid":100002,"zannum":0,"num":0,"setdate":"2020-04-26T10:20:05.511Z","pic":null}]}
+[{"id":4200004,"uname":"杨昕迪","imgurl":null,"content":"嘻嘻","tag":true,"style":false,"uid":100008,"zannum":0,"num":0,"setdate":"2020-05-08T13:24:21.803Z","pic":null,"like":true},
+{"id":4200001,"uname":null,"imgurl":["#1","#2","#3"],"content":"学会和孩子沟通","tag":false,"style":true,"uid":100002,"zannum":0,"num":0,"setdate":"2020-04-26T10:20:05.511Z","pic":null,"like":true}]}
+
+{code:1,msg:'你还没有关注的人哦',data:null}
+{code:1,msg:'请求失败',data:null};
 </pre>
-<h3 class="mume-header" id="3%E7%82%B9%E5%87%BB%E6%8E%A8%E8%8D%90">3.点击推荐</h3>
-
-<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001shareclassifyrecommend">接口地址：<a href="http://148.70.223.218:3001/share/classify/recommend">http://148.70.223.218:3001/share/classify/recommend</a></h5>
-
-<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AEuid-1">提交数据：uid</h5>
-
-<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-1">返回数据：</h5>
-
-<h3 class="mume-header" id="4%E7%82%B9%E5%87%BB%E5%85%A8%E9%83%A8">4.点击全部</h3>
+<h3 class="mume-header" id="3%E7%82%B9%E5%87%BB%E6%8E%A8%E8%8D%90%E5%90%8C%E7%82%B9%E5%87%BB%E7%A4%BE%E5%8C%BA%E6%8E%A5%E5%8F%A3">3.点击推荐（同点击社区接口）</h3>
 
 <h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001share-1">接口地址：<a href="http://148.70.223.218:3001/share">http://148.70.223.218:3001/share</a></h5>
 
-<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E7%9A%84%E6%95%B0%E6%8D%AEuid-1">提交的数据：uid</h5>
+<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AEuid-1">提交数据：uid</h5>
 
-<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE%E7%94%A8%E6%88%B7%E5%A4%B4%E5%83%8F-%E6%98%B5%E7%A7%B0-%E6%89%80%E6%9C%89%E6%96%87%E7%AB%A0%E4%BF%A1%E6%81%AFcommon%E6%98%AF%E4%B8%AA%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E6%8C%89%E5%8F%91%E5%B8%83%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F-1">返回数据：用户头像、昵称、所有文章信息(common是个数组对象，按发布时间排序)</h5>
+<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE%E7%94%A8%E6%88%B7%E7%9A%84%E6%89%80%E6%9C%89%E5%85%AC%E5%BC%80%E6%96%87%E7%AB%A0">返回数据：用户的所有公开文章</h5>
 
-<pre class="language-text">{"code":0,"msg":"请求成功","data":
-[{"uname":"嘻嘻","pic":"#","id":"4200001","name":"育儿经","imgurl":"{#1,#2,#3}","content":"学会和孩子沟通","setdate":"2020-04-09","tag":"true","style":"true","uid":"100001","zannum":0,"num":0,"comment":[{uname:'',pic:'',com:''}]},[{code:0,msg:[{...}]}] }
-        
-{"code":1,"msg":"请求失败","data":null}
-</pre>
-<h3 class="mume-header" id="5%E7%82%B9%E5%87%BB%E4%BA%B2%E5%AD%90">5.点击亲子</h3>
+<h3 class="mume-header" id="4%E7%82%B9%E5%87%BB%E5%85%A8%E9%83%A8-%E5%90%8C%E7%82%B9%E5%87%BB%E7%A4%BE%E5%8C%BA%E6%8E%A5%E5%8F%A3">4.点击全部 （同点击社区接口）</h3>
 
-<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001shareclassifychild">接口地址：<a href="http://148.70.223.218:3001/share/classify/child">http://148.70.223.218:3001/share/classify/child</a></h5>
+<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001share-2">接口地址：<a href="http://148.70.223.218:3001/share">http://148.70.223.218:3001/share</a></h5>
 
-<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-%E8%BF%94%E5%9B%9E%E4%BA%B2%E5%AD%90%E7%B1%BB%E6%89%80%E6%9C%89%E6%96%87%E7%AB%A0">返回数据： 返回亲子类所有文章</h5>
+<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AEuid-2">提交数据：uid</h5>
 
-<pre class="language-text">{"code":0,"msg":"请求成功","data":[{"uname":"嘻嘻","pic":"#","id":"4200001","imgurl":"{#1,#2,#3}","content":"学会和孩子沟通","setdate":"2020-04-09","tag":"true","style":"true","uid":"100001--","zannum":0,"num":0,"comment":[{uname:'',pic:'',com:''}]},[{code:0,msg:[{...}]}] }
-	  
-{"code":1,"msg":"请求失败","data":null}
-</pre>
-<h3 class="mume-header" id="6%E7%82%B9%E5%87%BB%E7%88%B1%E4%BA%BA">6.点击爱人</h3>
+<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE%E7%94%A8%E6%88%B7%E7%9A%84%E6%89%80%E6%9C%89%E5%85%AC%E5%BC%80%E6%96%87%E7%AB%A0-1">返回数据：用户的所有公开文章</h5>
 
-<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001shareclassifylover">接口地址：<a href="http://148.70.223.218:3001/share/classify/lover">http://148.70.223.218:3001/share/classify/lover</a></h5>
+<h3 class="mume-header" id="5%E5%86%99%E6%96%87%E7%AB%A0%E7%82%B9%E5%87%BB%E5%8A%A0%E5%8F%B7">5.写文章（点击加号）</h3>
 
-<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE%E8%BF%94%E5%9B%9E%E7%88%B1%E4%BA%BA%E7%B1%BB%E6%89%80%E6%9C%89%E6%96%87%E7%AB%A0">返回数据：返回爱人类所有文章</h5>
-
-<pre class="language-text">{"code":0,"msg":"请求成功","data":[{"uname":"嘻嘻","pic":"#","id":"4200001","imgurl":"{#1,#2,#3}","content":"学会和孩子沟通","setdate":"2020-04-09","tag":"true","style":"true","uid":"100001--","zannum":0,"num":0,"comment":[{uname:'',pic:'',com:''}]},[{code:0,msg:[{...}]}] }
-	  
-{"code":1,"msg":"请求失败","data":null}
-</pre>
-<h3 class="mume-header" id="7%E5%86%99%E6%96%87%E7%AB%A0%E7%82%B9%E5%87%BB%E5%8A%A0%E5%8F%B7">7.写文章（点击加号）</h3>
-
-<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001shareaddarticle">接口地址：<a href="http://148.70.223.218:3001/share/addarticle">http://148.70.223.218:3001/share/addarticle</a></h5>
+<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharearticleaddarticle">接口地址：<a href="http://148.70.223.218:3001/share/article/addarticle">http://148.70.223.218:3001/share/article/addarticle</a></h5>
 
 <h5 class="mume-header" id="methodpost">method:post</h5>
 
 <h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AEimgurl%E7%85%A7%E7%89%87%E6%98%AF%E4%B8%AA%E6%95%B0%E7%BB%84content%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9tag%E6%98%AF%E5%90%A6%E5%85%AC%E5%BC%80style%E6%96%87%E7%AB%A0%E7%B1%BB%E5%9E%8Buid">提交数据：imgurl(照片，是个数组),content(文章内容),tag(是否公开),style(文章类型),uid</h5>
 
-<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-2">返回数据：</h5>
+<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-1">返回数据：</h5>
 
 <pre class="language-text">{"code":0,"msg":"添加成功","data":[{"uname":"嘻嘻","pic":"#","id":"4200001","imgurl":"{#1,#2,#3}","content":"学会和孩子沟通","setdate":"2020-04-09","tag":"true","style":"true","uid":"100001--","zannum":0,"num":0,"comment":[{uname:'',pic:'',com:''}]},[{code:0,msg:[{...}]}] }
 	  
 {"code":1,"msg":"添加失败","data":null}
 </pre>
-<h3 class="mume-header" id="8%E5%88%A0%E9%99%A4%E6%96%87%E7%AB%A0">8.删除文章</h3>
+<h3 class="mume-header" id="6%E5%88%A0%E9%99%A4%E6%96%87%E7%AB%A0">6.删除文章</h3>
 
-<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharedelarticleuidid">接口地址：<a href="http://148.70.223.218:3001/share/delarticle?uid=&amp;id=">http://148.70.223.218:3001/share/delarticle?uid=&amp;id=</a></h5>
+<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharearticledelarticleuidid">接口地址：<a href="http://148.70.223.218:3001/share/article/delarticle?uid=&amp;id=">http://148.70.223.218:3001/share/article/delarticle?uid=&amp;id=</a></h5>
 
 <h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AE%E6%96%87%E7%AB%A0id-%E7%94%A8%E6%88%B7uid">提交数据：文章id、用户uid</h5>
 
-<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-3">返回数据：</h5>
+<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-2">返回数据：</h5>
 
 <pre class="language-text">{"code":0,"msg":"删除成功","data":[{"uname":"嘻嘻","pic":"#","id":"4200001","imgurl":"{#1,#2,#3}","content":"学会和孩子沟通","setdate":"2020-04-09","tag":"true","style":"true","uid":"100001--","zannum":0,"num":0,"comment":[{uname:'',pic:'',com:''}]},[{code:0,msg:'删除成功',data:null/用户文章}] }
 	  
 {"code":1,"msg":"删除失败","data":null/用户文章}
 </pre>
-<h3 class="mume-header" id="9%E7%82%B9%E5%87%BB%E6%96%87%E7%AB%A0%E6%97%81%E7%9A%84%E5%85%B3%E6%B3%A8%E5%85%B3%E6%B3%A8%E6%9C%AC%E7%89%87%E6%96%87%E7%AB%A0%E4%BD%9C%E8%80%85">9.点击文章旁的关注（关注本片文章作者）</h3>
+<h3 class="mume-header" id="7%E7%82%B9%E5%87%BB%E6%96%87%E7%AB%A0%E6%97%81%E7%9A%84%E5%85%B3%E6%B3%A8%E5%85%B3%E6%B3%A8%E6%9C%AC%E7%89%87%E6%96%87%E7%AB%A0%E4%BD%9C%E8%80%85">7.点击文章旁的关注（关注本片文章作者）</h3>
 
 <h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharearticleinterestuidfid">接口地址：<a href="http://148.70.223.218:3001/share/article/interest?uid=&amp;fid=">http://148.70.223.218:3001/share/article/interest?uid=&amp;fid=</a></h5>
 
 <h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AEuidfid%E5%85%B3%E6%B3%A8%E7%9A%84%E4%BA%BAid">提交数据：uid，fid(关注的人id)</h5>
 
-<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-4">返回数据：</h5>
+<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-3">返回数据：</h5>
 
 <pre class="language-text">该用户关注的人
 {"code":0,"msg":"添加成功","data":[{"id":4000009,"user_id":100002,"friend_id":100008}]}
 </pre>
-<h3 class="mume-header" id="10%E5%8F%96%E6%B6%88%E5%85%B3%E6%B3%A8">10.取消关注</h3>
+<h3 class="mume-header" id="8%E5%8F%96%E6%B6%88%E5%85%B3%E6%B3%A8">8.取消关注</h3>
 
 <h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharearticledelinteruidfid">接口地址：<a href="http://148.70.223.218:3001/share/article/delinter?uid=&amp;fid=">http://148.70.223.218:3001/share/article/delinter?uid=&amp;fid=</a></h5>
 
 <h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AEuidfid%E5%85%B3%E6%B3%A8%E7%9A%84%E4%BA%BAid-1">提交数据：uid，fid(关注的人id)</h5>
 
-<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-5">返回数据：</h5>
+<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-4">返回数据：</h5>
 
 <pre class="language-text">该用户剩下所关注的人
 {"code":0,"msg":"添加成功","data":[{"id":4000009,"user_id":100002,"friend_id":100008}]}
 </pre>
-<h3 class="mume-header" id="11%E9%80%81%E8%8A%B1">11.送花</h3>
+<h3 class="mume-header" id="9%E9%80%81%E8%8A%B1">9.送花</h3>
 
 <h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharenumaddnumuidauidid">接口地址：<a href="http://148.70.223.218:3001/share/num/addnum?uid=&amp;auid=&amp;id=">http://148.70.223.218:3001/share/num/addnum?uid=&amp;auid=&amp;id=</a></h5>
 
 <h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AE%E8%AF%A5%E7%94%A8%E6%88%B7%E7%9A%84uid-%E5%86%99%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E7%9A%84%E7%94%A8%E6%88%B7%E7%9A%84uid-%E6%96%87%E7%AB%A0%E7%9A%84id">提交数据：该用户的uid 、写这篇文章的用户的uid 、文章的id</h5>
 
-<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-6">返回数据：</h5>
+<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-5">返回数据：</h5>
 
-<pre class="language-text">{"code":0,"msg":"小花已送出",
-"data":[{ id: 4200002,imgurl: [ '#1', '#2', '#3' ],content: '学会和孩子沟通',setdate: 2020-04-15T16:00:00.000Z,
-tag: true, style: false,uid: 100001,zannum: 0,num: 21 },
-{ id: 100001,pass: '123',setdate: 2020-04-07T16:00:00.000Z,gender: null,email: '864134710@qq.com', imgurl: null,num: 34 },
-{ id: 100001,pass: '123',setdate: 2020-04-07T16:00:00.000Z,gender: null, email: '864134710@qq.com',imgurl: null,num: 34 } ]}           
-//数组第一项为该文章的具体内容，第二项文章所有者的信息，第三项送花者的信息
-{"code":1,"msg":"送花失败","data"null}
+<pre class="language-text"> art_num:该文章的花数、auser_num：文章作者的花数、user_name:送花者的花数
+{"code":0,"msg":"小花已送出","data":{"art_num":16,"user_num":84,"auser_num":16}}    
+
+{"code":1,"msg":"auser_num为0，不能送花","data":{"art_num":16,"user_num":84,"auser_num":0}}
 </pre>
-<h3 class="mume-header" id="12%E7%82%B9%E8%B5%9E">12.点赞</h3>
+<h3 class="mume-header" id="10%E7%82%B9%E8%B5%9E">10.点赞</h3>
 
 <h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharepraiseaddpraiseid">接口地址：<a href="http://148.70.223.218:3001/share/praise/addpraise?id=">http://148.70.223.218:3001/share/praise/addpraise?id=</a></h5>
 
 <h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AE%E6%96%87%E7%AB%A0%E7%9A%84id">提交数据：文章的id</h5>
 
-<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-7">返回数据：</h5>
+<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-6">返回数据：</h5>
 
 <pre class="language-text">{code:0,msg:"点赞成功",data:该文章的信息}
 {code:0,msg:"点赞失败",data:null}
 </pre>
-<h3 class="mume-header" id="13%E5%8F%96%E6%B6%88%E7%82%B9%E8%B5%9E">13.取消点赞</h3>
+<h3 class="mume-header" id="11%E5%8F%96%E6%B6%88%E7%82%B9%E8%B5%9E">11.取消点赞</h3>
 
 <h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharepraiseaddpraiseid-1">接口地址：<a href="http://148.70.223.218:3001/share/praise/addpraise?id=">http://148.70.223.218:3001/share/praise/addpraise?id=</a></h5>
 
 <h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AE%E6%96%87%E7%AB%A0%E7%9A%84id-1">提交数据：文章的id</h5>
 
-<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-8">返回数据：</h5>
+<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-7">返回数据：</h5>
 
 <pre class="language-text">{code:0,msg:"取消点赞成功",data:该文章的信息}
 {code:0,msg:"取消点赞失败",data:null}
 </pre>
-<h3 class="mume-header" id="14%E8%AF%84%E8%AE%BA">14.评论</h3>
+<h3 class="mume-header" id="%E7%94%A8%E6%88%B7%E8%AF%84%E8%AE%BA%E6%96%87%E7%AB%A0%E8%A1%A8-comment">用户评论文章表 comment</h3>
 
-<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharepraisecomment">接口地址：<a href="http://148.70.223.218:3001/share/praise/comment">http://148.70.223.218:3001/share/praise/comment</a></h5>
+<pre class="language-text">id  该评论的id
+article_id   评论的文章的id
+answer_id 评论的评论的id  如果tag为false，前端传入0
+tag 为true，表示评论的是文章，为false，表示评论的是评论
+host_id 作者的id
+user_id   评论者的id
+content 评论内容
+setdate 评论的时时间  可以不传入，后端会自动生成
+
+添加评论
+1.如果是在本文章下进行评论，tag为true,answer_id为0
+如果是在评论下进行评论，tag为false，article_id 不能为空
+</pre>
+<h3 class="mume-header" id="12%E8%AF%84%E8%AE%BA">12.评论</h3>
+
+<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharecommentarticle_id">接口地址：<a href="http://148.70.223.218:3001/share/comment?article_id=">http://148.70.223.218:3001/share/comment?article_id=</a></h5>
+
+<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E7%9A%84%E6%95%B0%E6%8D%AE%E8%AF%A5%E6%96%87%E7%AB%A0%E7%9A%84id">提交的数据：该文章的id</h5>
+
+<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-8">返回数据：</h5>
+
+<pre class="language-text">该文章的所有评论内容
+</pre>
+<h3 class="mume-header" id="13%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA">13.添加评论</h3>
+
+<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharecommentacomment">接口地址：<a href="http://148.70.223.218:3001/share/comment/acomment">http://148.70.223.218:3001/share/comment/acomment</a></h5>
 
 <h5 class="mume-header" id="methodpost-1">method：post</h5>
 
-<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E7%9A%84%E6%95%B0%E6%8D%AEuidcontent%E8%AF%84%E8%AE%BA%E7%9A%84%E5%86%85%E5%AE%B9">提交的数据：uid,content(评论的内容)</h5>
+<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E7%9A%84%E6%95%B0%E6%8D%AEtagarticle_id-answer_idhost_idhost_idcontent">提交的数据：tag,article_id ，answer_id，host_id，host_id，content</h5>
 
 <h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-9">返回数据：</h5>
 
-<pre class="language-text">该文章的具体信息
+<pre class="language-text">message = {msg:'添加失败',data:null} 
+message={msg:'添加成功',data:该文章的所有评论内容}
 </pre>
-<h3 class="mume-header" id="15%E4%BA%8C%E7%BA%A7%E8%AF%84%E8%AE%BA">15.二级评论</h3>
+<h3 class="mume-header" id="14%E5%88%A0%E9%99%A4%E8%AF%84%E8%AE%BA">14.删除评论</h3>
 
-<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharepraisedcomment">接口地址：<a href="http://148.70.223.218:3001/share/praise/dcomment">http://148.70.223.218:3001/share/praise/dcomment</a></h5>
+<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharecommentdcommentid">接口地址：<a href="http://148.70.223.218:3001/share/comment/dcomment?id=">http://148.70.223.218:3001/share/comment/dcomment?id=</a></h5>
 
-<h5 class="mume-header" id="methodpost-2">method：post</h5>
+<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E7%9A%84%E6%95%B0%E6%8D%AE%E8%AF%84%E8%AE%BAid%E6%96%87%E7%AB%A0article_id">提交的数据：评论id,文章article_id</h5>
 
-<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E7%9A%84%E6%95%B0%E6%8D%AEuidfuidcontent%E8%AF%84%E8%AE%BA%E7%9A%84%E5%86%85%E5%AE%B9">提交的数据：uid,fuid,content(评论的内容)</h5>
+<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-%E8%AF%A5%E6%96%87%E7%AB%A0%E7%9A%84%E6%89%80%E6%9C%89%E8%AF%84%E8%AE%BA%E5%86%85%E5%AE%B9">返回数据 ：该文章的所有评论内容</h5>
 
-<h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-10">返回数据：</h5>
-
-<pre class="language-text">uid的name，fuid的那么，uid的评论
-</pre>
 
       </div>
       
