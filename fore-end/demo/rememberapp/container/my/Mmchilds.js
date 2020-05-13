@@ -47,7 +47,6 @@ export default class Mmchilds extends Component {
         }
     }
     additem=()=>{
-    console.log('提交亲子');
     var time = this.state.year+'-'+this.state.month+'-'+this.state.day
     var birthday = moment(time).format("YYYY-MM-DD")
     AsyncStorage.getItem('user').
@@ -64,9 +63,6 @@ export default class Mmchilds extends Component {
         }).then(
             res=>{
                 if(res.code == 0){
-                    console.log('这是code'+res.code);
-                    console.log(this.state.uid+this.state.name+this.state.sex+birthday);
-                    console.log(res);
                     this.setState({
                         code:res.code
                     })
@@ -85,7 +81,6 @@ export default class Mmchilds extends Component {
                     ToastAndroid.SHORT,
                     ToastAndroid.CENTER,
                     25,-200)
-                    console.log('这是code'+res.code);
                 }
             }   
             )

@@ -137,7 +137,7 @@ export default class My extends Component {
                     uid:user.id,
                 })
                 console.log(this.state.uid);
-            myFetch.get('/my/sign',{
+            myFetch.get('/my/sign/',{
                 uid:this.state.uid
             }).then(res=>{
                 if(res){

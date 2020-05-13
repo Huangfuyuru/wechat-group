@@ -12,6 +12,7 @@ import {
     TouchableWithoutFeedback,
     Image
 } from 'react-native'
+import {myFetch} from '../../../src/utils'
 import moment from 'moment'
 import Icon1 from 'react-native-vector-icons/Feather'
 import { Actions } from 'react-native-router-flux';
@@ -27,6 +28,8 @@ export default class Cdairy extends Component {
             currentpicture:'',
             inner:'',
             data:'',
+            id:"",
+            cid:"",
             bg:''
         }
     }
@@ -34,13 +37,34 @@ export default class Cdairy extends Component {
         // console.log('nini'+this.props.data.imgurl);
         this.setState({
             data:this.props.data,
-            bg:this.props.bg
+            id:this.props.data.id,
+            cid:this.props.data.cid,
+            bg:this.props.bg,
+        })
+    }
+    componentWillReceiveProps(nextProps) {
+        const adata=nextProps.data;
+        adata.map((item)=>{
+            if(item.id==this.state.id){
+                this.setState({
+                    data:item,
+                    cid:item.cid
+                })
+            }
         })
     }
     enlarge=(item)=>{
         this.setState({
             visible:true,
             currentpicture:item
+        })
+    }
+    save=()=>{
+        myFetch.get('/child/cevents',{
+            childsid:this.state.cid,
+        }).then(res=>{
+            // console.log(res)
+            Actions.pop({refresh:({data:res})})
         })
     }
     render() {
@@ -52,10 +76,15 @@ export default class Cdairy extends Component {
         return (
             <View>
                 <View style={styles.navbar}>
-                    <TouchableOpacity onPress={()=>Actions.pop()}>
+                    <TouchableOpacity onPress={this.save}>
                         <Icon1 style={styles.icon} name='chevron-left'/>
                     </TouchableOpacity>
                     <Text style={styles.title}>{item.item} {item.name}</Text>
+                    <TouchableOpacity
+                     onPress={()=>Actions.cchevents({data:this.state.data})}
+                     >
+                  <Icon1 style={styles.icon1}  name='edit'/>
+                    </TouchableOpacity>
                 </View>
                 <WingBlank style={{
                     height:0.86*height,
@@ -139,15 +168,21 @@ const styles = StyleSheet.create({
         height:65*s,
         backgroundColor:'#FFBF2D',
         flexDirection: 'row',
-        paddingLeft:0.02*width,
+        paddingLeft:0.03*width,
         paddingTop:'1%',
-        paddingRight:0.1*width,
+        paddingRight:0.03*width,
         justifyContent:"center"
     },
+
     icon:{
         width:0.08*width,
         color:'#fff',
         fontSize:30,
+    },
+    icon1:{
+        width:0.08*width,
+        color:'#fff',
+        fontSize:25,
     },
     title:{
         marginLeft:'auto',

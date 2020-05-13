@@ -10,6 +10,8 @@ import {
 import {myFetch} from '../../../src/utils'
 import Icon1 from 'react-native-vector-icons/Feather'
 import { Actions } from 'react-native-router-flux';
+import moment from 'moment'
+
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
 export default class SouConent extends Component {
@@ -104,7 +106,7 @@ export default class SouConent extends Component {
                         marginLeft:35*s,
                         marginRight:35*s
                 }}
-            >{item.date ? (item.date.length >= 10 ? item.date.substr(0, 10) : item.date) : ""}</Text> 
+            >{ moment(item.date).format("YYYY年MM月DD日")}</Text> 
              <Text style={{
                     fontSize:35*s,
                     textAlign:"center",

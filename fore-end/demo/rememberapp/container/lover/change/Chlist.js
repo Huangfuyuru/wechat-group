@@ -39,7 +39,7 @@ export default class Lcreate_list extends Component {
     componentDidMount(){
         // console.log(this.props.data)
         const data=this.props.data;
-        const date0=data.setdate.split("T")[0];
+        const date0=moment(data.setdate).format("YYYY-MM-DD")
         const date=date0.split("-")
         this.setState({
             loverId:this.props.data.lid,

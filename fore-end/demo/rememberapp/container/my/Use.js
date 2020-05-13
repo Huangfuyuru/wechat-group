@@ -49,8 +49,8 @@ export default class Use extends Component {
                 uid:user.id,
             })
             console.log(this.state.name,this.state.sex,this.state.uid,this.state.pass);
-            myFetch.post('/my/information',{
-                uname:this.state.name,
+            myFetch.post('/my/information/',{
+                name:this.state.name,
                 pass:this.state.pass,
                 gender:this.state.sex,
                 uid:user.id,

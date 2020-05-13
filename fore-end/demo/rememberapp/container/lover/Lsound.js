@@ -20,7 +20,6 @@ import Icon3 from "react-native-vector-icons/FontAwesome"
 import Icon4 from 'react-native-vector-icons/SimpleLineIcons'
 import moment from 'moment'
 import Icon5 from 'react-native-vector-icons/Fontisto'
-
 import { Actions } from 'react-native-router-flux';
 import { myFetch } from '../../src/utils'
 const { width, scale, height } = Dimensions.get('window');
@@ -362,7 +361,7 @@ export default class Lsound extends Component {
                                         marginLeft: "auto",
                                         marginRight: 20 * s
                                     }
-                                    }>记录时间：{item.setdate.split("T")[0]}</Text>
+                                    }>记录时间：{ moment(item.setdate).format("YYYY-MM-DD")} </Text>
                                 </View>
                             }}
                         />
