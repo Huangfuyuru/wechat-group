@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0078)file:///C:/Users/lenovo/AppData/Local/Temp/mume2020412-12692-re1tm8.4ur89.html -->
+<!-- saved from url=(0091)file:///C:/Users/%E6%88%B4%E5%B0%94/AppData/Local/Temp/mume2020414-16328-1ya1zmg.jn21j.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>社区接口文档</title>
       
@@ -369,36 +369,52 @@ pre[data-line] .line-highlight[data-end]:after {
 
 <h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharenumaddnumuidauidid">接口地址：<a href="http://148.70.223.218:3001/share/num/addnum?uid=&amp;auid=&amp;id=">http://148.70.223.218:3001/share/num/addnum?uid=&amp;auid=&amp;id=</a></h5>
 
-<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AE%E8%AF%A5%E7%94%A8%E6%88%B7%E7%9A%84uid-%E5%86%99%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E7%9A%84%E7%94%A8%E6%88%B7%E7%9A%84uid-%E6%96%87%E7%AB%A0%E7%9A%84id">提交数据：该用户的uid 、写这篇文章的用户的uid 、文章的id</h5>
+<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AE%E8%AF%A5%E7%94%A8%E6%88%B7%E7%9A%84uid-%E5%86%99%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E7%9A%84%E7%94%A8%E6%88%B7%E7%9A%84auid-%E6%96%87%E7%AB%A0%E7%9A%84id">提交数据：该用户的uid 、写这篇文章的用户的auid 、文章的id</h5>
 
 <h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-5">返回数据：</h5>
 
 <pre class="language-text"> art_num:该文章的花数、auser_num：文章作者的花数、user_name:送花者的花数
-{"code":0,"msg":"小花已送出","data":{"art_num":16,"user_num":84,"auser_num":16}}    
+{"code":0,"msg":"小花已送出","data":{"art_num":16,"user_num":84,"auser_num":16}}   
+
+{code:1,msg:'只能送一次花哦',data:null}
 
 {"code":1,"msg":"auser_num为0，不能送花","data":{"art_num":16,"user_num":84,"auser_num":0}}
 </pre>
-<h3 class="mume-header" id="10%E7%82%B9%E8%B5%9E">10.点赞</h3>
+<h3 class="mume-header" id="10%E7%BB%99%E6%96%87%E7%AB%A0%E7%82%B9%E8%B5%9E">10.给文章点赞</h3>
 
-<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharepraiseaddpraiseid">接口地址：<a href="http://148.70.223.218:3001/share/praise/addpraise?id=">http://148.70.223.218:3001/share/praise/addpraise?id=</a></h5>
+<h5 class="mume-header" id="%E6%96%B9%E6%B3%95get">方法：get</h5>
 
-<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AE%E6%96%87%E7%AB%A0%E7%9A%84id">提交数据：文章的id</h5>
+<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharepraiseaddpraise">接口地址：<a href="http://148.70.223.218:3001/share/praise/addpraise">http://148.70.223.218:3001/share/praise/addpraise</a></h5>
+
+<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AEarticle_id-user_id">提交数据：article_id ,user_id</h5>
 
 <h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-6">返回数据：</h5>
 
-<pre class="language-text">{code:0,msg:"点赞成功",data:该文章的信息}
-{code:0,msg:"点赞失败",data:null}
+<pre class="language-text">点赞成功：
+    添加到"我喜欢"成功：
+    {code:0,msg:"点赞且增加到我喜欢成功",data:该文章的信息}
+   添加到"我喜欢"失败：
+   {code:1,msg:"增加到我喜欢失败",data:该文章的信息};
+点赞失败：
+{code:1,msg:"点赞失败",data:该文章的信息}
 </pre>
-<h3 class="mume-header" id="11%E5%8F%96%E6%B6%88%E7%82%B9%E8%B5%9E">11.取消点赞</h3>
+<h3 class="mume-header" id="11%E5%8F%96%E6%B6%88%E7%BB%99%E6%96%87%E7%AB%A0%E7%82%B9%E8%B5%9E">11.取消给文章点赞</h3>
 
-<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharepraiseaddpraiseid-1">接口地址：<a href="http://148.70.223.218:3001/share/praise/addpraise?id=">http://148.70.223.218:3001/share/praise/addpraise?id=</a></h5>
+<h3 class="mume-header" id="%E6%96%B9%E6%B3%95-get">方法： get</h3>
 
-<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AE%E6%96%87%E7%AB%A0%E7%9A%84id-1">提交数据：文章的id</h5>
+<h5 class="mume-header" id="%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80http148702232183001sharepraisereducepraise">接口地址：<a href="http://148.70.223.218:3001/share/praise/reducepraise">http://148.70.223.218:3001/share/praise/reducepraise</a></h5>
+
+<h5 class="mume-header" id="%E6%8F%90%E4%BA%A4%E6%95%B0%E6%8D%AEarticle_id-user_id-1">提交数据：article_id ,user_id</h5>
 
 <h5 class="mume-header" id="%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE-7">返回数据：</h5>
 
-<pre class="language-text">{code:0,msg:"取消点赞成功",data:该文章的信息}
-{code:0,msg:"取消点赞失败",data:null}
+<pre class="language-text">取消点赞成功：
+    删除"我喜欢"成功：
+    {code:0,msg:"取消点赞且删除我喜欢成功",data:该文章的信息}
+   删除"我喜欢"失败：
+   {code:1,msg:"删除我喜欢失败",data:该文章的信息};
+取消点赞失败：
+{code:1,msg:"取消点赞失败",data:该文章的信息}
 </pre>
 <h3 class="mume-header" id="%E7%94%A8%E6%88%B7%E8%AF%84%E8%AE%BA%E6%96%87%E7%AB%A0%E8%A1%A8-comment">用户评论文章表 comment</h3>
 
@@ -410,7 +426,7 @@ host_id 作者的id
 user_id   评论者的id
 content 评论内容
 setdate 评论的时时间  可以不传入，后端会自动生成
-
+ 
 添加评论
 1.如果是在本文章下进行评论，tag为true,answer_id为0
 如果是在评论下进行评论，tag为false，article_id 不能为空

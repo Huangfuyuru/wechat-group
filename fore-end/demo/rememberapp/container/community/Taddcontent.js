@@ -137,7 +137,7 @@ export default class Community extends Component {
                 0,450)
                 setTimeout(()=>{
                     Actions.community()
-                },3000)
+                },2000)
             }else{
                 this.savelocal();
                 ToastAndroid.showWithGravityAndOffset(

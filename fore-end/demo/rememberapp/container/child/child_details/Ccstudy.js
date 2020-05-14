@@ -69,8 +69,8 @@ export default class Cdairy extends Component {
         var time = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
         var record = [];
         var subject = this.state.subject;
-        console.log(subject)
-        var check = true;
+        // console.log(subject)
+        // var check = true;
         for(var i in subject){
             switch(subject[i].subject){
                 case '语文':
@@ -121,27 +121,26 @@ export default class Cdairy extends Component {
         // }
         // console.log(record)
         // console.log(check)
-        if(check){
-            myFetch.post('/child/cstudy/cchildScore',{
-                cid:this.state.cid,
-                stage:this.state.stage,
-                subject:JSON.stringify(this.state.subject),
-                score:JSON.stringify(record),
-                setdate:time,
-            }).then(
-                res=>{
-                    console.log(res)
-                    // if(res.code == 0){
-                    //     ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
-                    //     setTimeout(()=>{
-                    //         Actions.pop({refresh:({data:res.data})})
-                    //     },1000)
-                    // }else{
-                    //     ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
-                    // }
-                }
-            )
-        }
+        myFetch.post('/child/cstudy/cchildScore',{
+            cid:this.state.cid,
+            stage:this.state.stage,
+            subject:JSON.stringify(this.state.subject),
+            score:JSON.stringify(record),
+            setdate:time,
+        }).then(
+            res=>{
+                console.log('成绩')
+                console.log(res)
+                // if(res.code == 0){
+                //     ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+                //     setTimeout(()=>{
+                //         Actions.pop({refresh:({data:res.data})})
+                //     },1000)
+                // }else{
+                //     ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+                // }
+            }
+        )
     }
     render() {
         const primary=[
