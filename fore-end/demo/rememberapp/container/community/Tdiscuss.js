@@ -40,6 +40,7 @@ export default class Cdairy extends Component {
             content:'',
             page:'',
             discuss:false,
+            enableScrollViewScroll: true,
         }
     }
     componentDidMount(){
@@ -123,7 +124,8 @@ export default class Cdairy extends Component {
                     tag:true,
                     answer_id:0,
                     discuss:true
-                })         
+                })
+                this.refreshlist()     
             })
         }else{
             ToastAndroid.showWithGravityAndOffset(
@@ -133,6 +135,22 @@ export default class Cdairy extends Component {
             0,300)
         }
     }
+    handleScrollEnd = event => {
+        const contentHeight = event.nativeEvent.contentSize.height;
+        const scrollViewHeight = event.nativeEvent.layoutMeasurement.height;
+        const scrollOffset = event.nativeEvent.contentOffset.y;
+    
+        // 是否滑动到底部
+        const isEndReached = scrollOffset + scrollViewHeight >= contentHeight;
+        // 内容高度是否大于列表高度
+        const isContentFillPage = contentHeight >= scrollViewHeight;
+    
+        const { reqSsqData, reqJpqData, reqWbqData, reqInData } = this.state;
+    
+        if (isContentFillPage && isEndReached) {
+          // 已滑动scrollview底部，触发加载分页请求
+        }
+      };
     render() {
         return (
             <View>
@@ -178,63 +196,119 @@ export default class Cdairy extends Component {
                     </View>
                     {
                         this.state.lists[0]
-                        ?
-                        <ScrollView 
-                                    showsVerticalScrollIndicator={false}
-                                    scrollEnabled={this.state.enableScrollViewScroll}
-                                    ref={myScroll => (this._myScroll = myScroll)}
-                                    style={styles.listbox}
-                                >
-                                    {
-                                        this.state.lists&&this.state.lists.map((item,idx)=>{
-                                            return <View style={styles.listblock}>
-                                                <Text>111</Text>
-                                            </View>
-                                        })
-                                    }
-                                </ScrollView>
-                        // <FlatList
-                        //     style={styles.list}
-                        //     refreshing = {this.state.refreshing}
-                        //     onRefresh={this.refreshlist}
-                        //     extraData={this.state}
-                        //     data={this.state.lists}
-                        //     horizontal={false}
-                        //     showsVerticalScrollIndicator={true}
-                        //     // ItemSeparatorComponent={}
-                        //     renderItem={({item})=>(
-                        //         <View style={styles.linebox}>
-                        //             <View style={styles.linetitle}>
-                        //                 <TouchableOpacity onPress={()=>{}}>
-                        //                     <Image 
-                        //                         style={styles.innertitlepic}
-                        //                         source={{uri:`${image}`}}
-                        //                     />
-                        //                 </TouchableOpacity>
-                        //                 <Text style={styles.linename}>{item.name}</Text>
-                        //                 {
-                        //                     item.host_id === item.user_id
-                        //                     ?<Text style={styles.linetag}>作者</Text>
-                        //                     :null
-                        //                 }
-                        //                 <Text style={styles.linetime}>{moment(item.setdate).format('YYYY-MM-DD   HH:mm')}</Text>
-                        //             </View>
-                        //             <TouchableOpacity style={styles.linecontentbox} onPress={()=>this.setState({
-                        //                 placeholder:`回复@${item.name}`,
-                        //                 answer_id:item.id,
-                        //                 })}>
-                        //                 <Text style={styles.linecontent}>{item.content}</Text>
-                        //             </TouchableOpacity>
-                        //             <View>
-                        //                 {
-                        //                     item.childlist&&item.childlist.map((item,idx)=>{
-                        //                         return<Text>{item.content}</Text>
-                        //                     })
-                        //                 }
-                        //             </View>
-                        //         </View>
-                        //     )}
-                        // />
+                        ?<View
+                            style={styles.scrollbox} 
+                            onStartShouldSetResponderCapture={() => {
+                                this.setState({ enableScrollViewScroll: true });
+                            }} >
+                            <ScrollView 
+                                // refreshing = {this.state.refreshing}
+                                // onRefresh={this.refreshlist}
+                                // onScroll={event => this.onScroll(event)}
+                                // scrollEventThrottle={1}
+                                // onMomentumScrollEnd={this.handleScrollEnd}
+                                // onRefresh={this.refreshlist}
+
+                                showsVerticalScrollIndicator={false}
+                                scrollEnabled={this.state.enableScrollViewScroll}
+                                ref={myScroll => (this._myScroll = myScroll)}
+                                style={styles.list}
+                            >
+                                {
+                                    this.state.lists&&this.state.lists.map((item,idx)=>{
+                                        return <View style={styles.linebox}>
+                                        <View style={styles.linetitle}>
+                                            <TouchableOpacity onPress={()=>{}}>
+                                                <Image 
+                                                    style={styles.innertitlepic}
+                                                    source={{uri:`${image}`}}
+                                                />
+                                            </TouchableOpacity>
+                                            <Text style={styles.linename}>我是名字1</Text>
+                                            {
+                                                item.host_id === item.user_id
+                                                ?<Text style={styles.linetag}>作者</Text>
+                                                :null
+                                            }
+                                            <Text style={styles.linetime}>{
+                                            moment(item.setdate).format('YYYY-MM-DD   HH:mm')===moment(new Date()).format('YYYY-MM-DD   HH:mm')
+                                            ?'刚刚'
+                                            :moment(item.setdate).format('YYYY-MM-DD   HH:mm')
+                                            }</Text>
+                                        </View>
+                                        <TouchableOpacity style={styles.linecontentbox} onPress={()=>this.setState({
+                                            placeholder:`回复@${item.name}`,
+                                            answer_id:item.id,
+                                            })}>
+                                            <Text style={styles.linecontent}>{item.content}</Text>
+                                        </TouchableOpacity>
+                                        <View>
+                                            {
+                                                item.childlist[0]
+                                                ?<View 
+                                                    style={styles.childbox}
+                                                    onStartShouldSetResponderCapture={() => {
+                                                        this.setState({ enableScrollViewScroll: false });
+                                                        if (this._myScroll.contentOffset === 0
+                                                            && this.state.enableScrollViewScroll === false) {
+                                                            this.setState({ enableScrollViewScroll: true });
+                                                        }
+                                                    }}
+                                                >
+                                                    <FlatList
+                                                        extraData={this.state}
+                                                        data={item.childlist}
+                                                        horizontal={false}
+                                                        showsVerticalScrollIndicator={true}
+                                                        renderItem={({item})=>(
+                                                            <View style={styles.childlistbox}>
+                                                                <View style={styles.childlisttitle}>
+                                                                    <Image 
+                                                                        style={styles.childtitlepic}
+                                                                        source={{uri:`${image}`}}
+                                                                    />
+                                                                    <Text style={styles.childname}>
+                                                                        {item.name ? (item.name.length > 4 ? item.name.substr(0, 2) + " . . . " : item.name) : "忘取名了"}
+                                                                    </Text>
+                                                                    {
+                                                                        item.host_id === item.user_id
+                                                                        ?<Text style={styles.childtag}>作者</Text>
+                                                                        :null
+                                                                    }
+                                                                    <Text style={styles.childfix}>回复</Text>
+                                                                    <Text style={styles.childname}>
+                                                                        {item.name ? (item.name.length > 4 ? item.name.substr(0, 2) + " . . . " : item.name) : "没名字"}
+                                                                    </Text>
+                                                                    {/* {
+                                                                        item.host_id === this.state.shortid
+                                                                        ?<Text style={styles.childtag}>作者</Text>
+                                                                        :null
+                                                                    } */}
+                                                                    <Text style={styles.childtime}>{
+                                                                    moment(item.setdate).format('YYYY-MM-DD')===moment(new Date()).format('YYYY-MM-DD   HH:mm')
+                                                                    ?'刚刚'
+                                                                    :moment(item.setdate).format('YYYY-MM-DD')
+                                                                    }</Text>
+                                                                </View>
+                                                                <TouchableOpacity style={styles.childcontentbox} onPress={()=>this.setState({
+                                                                    placeholder:`回复@${item.name}`,
+                                                                    answer_id:item.answer_id,
+                                                                    })}>
+                                                                    <Text style={styles.linecontent}>{item.content}</Text>
+                                                                </TouchableOpacity>
+                                                            </View>
+                                                        
+                                                        )}
+                                                    />
+                                                </View>
+                                            :null
+                                            }
+                                        </View>
+                                    </View>
+                                    })
+                                }
+                            </ScrollView>
+                        </View>
                         :<View style={styles.list}>
                             <View style={styles.nullpics}>
                                 <Image 
@@ -287,11 +361,16 @@ const styles = StyleSheet.create({
         alignItems:'center',
         // backgroundColor:'#000'
     },
-    list:{
+    scrollbox:{
         width:0.93*width,
-        marginTop:0.025*height,
-        height:0.78*height,
+        paddingTop:0.025*height,
+        // height:0.8*height,
         // backgroundColor:'#ccc',
+        alignItems: 'center',
+        height: 0.81*height,
+    },
+    list:{
+        width:0.88*width,
         marginLeft:'auto',
         marginRight:'auto'
     },
@@ -324,7 +403,6 @@ const styles = StyleSheet.create({
         backgroundColor:'#FFBF2D',
         width:0.08*width,
         marginLeft:0.02*width,
-        // marginTop:0.01*height,
         color:'#fff',
         textAlign:'center',
         textAlignVertical:'center',
@@ -336,13 +414,70 @@ const styles = StyleSheet.create({
         textAlign:'right',
         marginLeft:0.02*width,
         color:'#999',
-        
+        // backgroundColor:"#000",
+        textAlignVertical:'center'
+    },
+    childbox:{
+        width:0.76*width,
+        marginTop:0.02*height,
+        marginLeft:0.07*height,
+        // backgroundColor:"#000",
+        backgroundColor:'rgba(220,220,220,0.2)',
+        maxHeight:0.3*height,
+        borderRadius:5
+    },
+    childlistbox:{
+        width:0.75*width,
+        paddingLeft:0.008*width,
+        paddingTop:0.008*width,
+        // backgroundColor:'#ccc',
+        marginBottom:0.005*height,
+    },
+    childlisttitle:{
+        flexDirection:'row',
+        alignItems:'center'
+    },
+    childtitlepic:{
+        width:0.05*height,
+        height:0.05*height,
+        borderRadius:100,
+    },
+    childname:{
+        fontSize:21*s,
+        marginLeft:0.01*width,
+        // backgroundColor:"#ccc",
+        textAlignVertical:'center'
+    },
+    childfix:{
+        color:'#555',
+        width:0.065*width,
+        marginLeft:0.01*width,
+        textAlign:'center',
+        fontSize:20*s,
+        // backgroundColor:'#ccc'
+    },
+    childtag:{
+        backgroundColor:'#FFBF2D',
+        width:0.065*width,
+        marginLeft:0.015*width,
+        // marginTop:0.01*height,
+        color:'#fff',
+        fontSize:15*s,
+        textAlign:'center',
+        textAlignVertical:'center',
+        height:0.02*height,
+    },
+    childtime:{
+        width:0.13*width,
+        fontSize:16*s,
+        // textAlign:'right',
+        color:'#999',
+        marginLeft:0.015*width,
         // backgroundColor:"#ccc",
         textAlignVertical:'center'
     },
     linecontentbox:{
         width:0.75*width,
-        // height:0.09*height,
         // backgroundColor:'#ddd',
         marginTop:-0.015*height,
         marginLeft:0.07*height+0.02*width,
@@ -352,6 +487,12 @@ const styles = StyleSheet.create({
         fontSize:22*s,
         color:'#333',
         // backgroundColor:'#ddd',
+    },
+    childcontentbox:{
+        // width:0.75*width,
+        // backgroundColor:'#ddd',
+        marginTop:-0.015*height,
+        marginLeft:0.05*height+0.01*width,
     },
     nullpics:{
         width:0.9*width,

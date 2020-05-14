@@ -80,7 +80,7 @@ export default class Community extends Component {
             myFetch.get('/share',{
                 uid:user.id
             }).then(res=>{
-                console.log(res.data[0])
+                // console.log(res.data[1])
                 for(var i in res.data){
                     if(!res.data[i].pic){
                         res.data[i].pic=image3
@@ -115,8 +115,8 @@ export default class Community extends Component {
             this.setState({
                 refreshing:false
             })
-            console.log('关注')
-            console.log(res)
+            // console.log('关注')
+            // console.log(res)
             for(var i in res.data){
                 if(!res.data[i].pic){
                     res.data[i].pic=image2
@@ -141,7 +141,7 @@ export default class Community extends Component {
         myFetch.get('/share',{
             uid:this.state.uid
         }).then(res=>{
-            console.log(res.data)
+            // console.log(res.data)
             for(var i in res.data){
                 if(!res.data[i].pic){
                     res.data[i].pic=image2
@@ -167,7 +167,7 @@ export default class Community extends Component {
         myFetch.get(`${url}`,{
             uid:this.state.uid
         }).then(res=>{
-            console.log(res.data)
+            // console.log(res.data)
             for(var i in res.data){
                 if(!res.data[i].pic){
                     res.data[i].pic=image2
@@ -175,8 +175,7 @@ export default class Community extends Component {
                 if(!res.data[i].imgurl){
                     res.data[i].imgurl=[image2]
                 }
-                console.log(res.data[i].style)
-
+                // console.log(res.data[i].style)
                 switch(style){
                     case 0:
                         classifylist.push(res.data[i]);
@@ -242,7 +241,7 @@ export default class Community extends Component {
                     uid:this.state.uid,
                     fid:item.uid
                 }).then(res=>{
-                    console.log(res)
+                    // console.log(res)
                     ToastAndroid.showWithGravityAndOffset(
                     '已取消关注！',
                     ToastAndroid.SHORT,
@@ -262,7 +261,7 @@ export default class Community extends Component {
                     uid:this.state.uid,
                     id:fid
                 }).then(res=>{
-                    console.log(res)
+                    // console.log(res)
                 })
             })
         }else{
@@ -273,7 +272,7 @@ export default class Community extends Component {
                     uid:this.state.uid,
                     id:fid
                 }).then(res=>{
-                    console.log(res)
+                    // console.log(res)
                 })
             })
         }
@@ -287,7 +286,7 @@ export default class Community extends Component {
             auid:item.uid,
             id:item.id
         }).then(res=>{
-            console.log(res)
+            // console.log(res)
             this.setState(({
                 sendflower:false
             }))
@@ -356,7 +355,18 @@ export default class Community extends Component {
                                         const { goToTab, onTabClick} = tabProps;
                                         goToTab && goToTab(i);
                                         // onTabClick && onTabClick(tabs[i], i=>{console.log(i)});
-                                        i === 0?this.refreshConcern():this.refreshRecommend();
+                                        i === 0?
+                                        this.setState({
+                                            clists:[]
+                                        },()=>{
+                                            this.refreshConcern()
+                                        })
+                                        :
+                                        this.setState({
+                                            rlists:[]
+                                        },()=>{
+                                            this.refreshRecommend()
+                                        })
                                     }}
                                     >
                                         <Text
@@ -415,6 +425,7 @@ export default class Community extends Component {
                 >
                     <WingBlank style={styles.wingblank}>
                         <FlatList
+                            ref={(flatList)=>this._flatList = flatList}
                             refreshing = {this.state.refreshing}
                             onRefresh={this.refreshConcern}
                             extraData={this.state}
@@ -486,7 +497,7 @@ export default class Community extends Component {
                                         </View>
                                         <View style={styles.innerfooter}>
                                             <View style={styles.footerbox}>
-                                                <TouchableOpacity onPress={this.like}>
+                                                <TouchableOpacity onPress={()=>this.like(item)}>
                                                     {
                                                         this.state.like
                                                         ?<Icon3 style={styles.footericon} color='red' name='heart'/>
@@ -607,7 +618,7 @@ export default class Community extends Component {
                                         </View>
                                         <View style={styles.innerfooter}>
                                             <View style={styles.footerbox}>
-                                                <TouchableOpacity onPress={this.like}>
+                                                <TouchableOpacity onPress={()=>this.like(item)}>
                                                     {
                                                         this.state.like
                                                         ?<Icon3 style={styles.footericon} color='red' name='heart'/>
