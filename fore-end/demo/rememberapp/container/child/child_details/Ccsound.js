@@ -182,11 +182,18 @@ export default class Lcreate_sound extends Component {
     myFetch.post(`/child/csound/ccsound`, {
       name: this.state.name,
       setdate: this.state.year + "-" + this.state.month + "-" + this.state.day,
-      childid: this.state.childsid,
-      voiceurl: "#"
+      childsid: this.state.childsid,
+      voiceurl: "https://webfs.yun.kugou.com/202005121224/a294c0ffcfb16b0320d9d929db13df07/G207/M07/1E/0F/b4cBAF6r6lWAev55ABLPq4wIH38048.mp3"
     })
       .then(res => {
-        console.log("res")
+        if(res.data!=[]){
+          setTimeout(()=>{
+              Actions.pop({refresh:({data:res.data})})
+          },1000)
+          ToastAndroid.show(this.state.name+'，'+res.msg, ToastAndroid.SHORT);
+      }else{
+          ToastAndroid.show(res.msg, ToastAndroid.SHORT);
+      }
       })
   }
   upFile = () => {

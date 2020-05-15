@@ -20,7 +20,6 @@ import Icon3 from "react-native-vector-icons/FontAwesome"
 import Icon4 from 'react-native-vector-icons/SimpleLineIcons'
 import moment from 'moment'
 import Icon5 from 'react-native-vector-icons/Fontisto'
-
 import { Actions } from 'react-native-router-flux';
 import { myFetch } from '../../src/utils'
 const { width, scale, height } = Dimensions.get('window');

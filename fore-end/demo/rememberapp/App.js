@@ -47,6 +47,7 @@ import Ccgrowup from './container/child/child_details/Ccgrow'
 import Cevents from './container/child/Cevent'
 import Ccevents from './container/child/child_details/Ccevent'
 import Csevents from './container/child/child_details/Showevent'
+import Cchevent from "./container/child/change/CChevent"
 import Cstudy from './container/child/Cstudy'
 import Ccstudy from './container/child/child_details/Ccstudy'
 
@@ -262,6 +263,11 @@ const App = () => {
 										hideTabBar
 										hideNavBar={true}
 										component={Csevents} />
+										<Scene
+										key='cchevents'
+										hideTabBar
+										hideNavBar={true}
+										component={Cchevent} />
 									<Scene
 										key='cstudy'
 										hideTabBar

@@ -465,11 +465,12 @@ const styles = StyleSheet.create({
         width:0.86*width,
         height:0.75*height,
         marginBottom:0.02*height,
-        // backgroundColor:'#ccc',
+        // backgroundColor:'#ccddff',
         transform:[{scale:0.98}]
     },
     listblock:{
         // backgroundColor:'rgba(255,191,45,0.1)',
+        // backgroundColor:'#ccc',
         backgroundColor:'rgba(204,204,204,0.3)',
         borderRadius:5,
         height:0.35*height,

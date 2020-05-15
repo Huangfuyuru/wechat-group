@@ -41,7 +41,8 @@ import {myFetch} from '../src/utils'
 const { width, scale, height } = Dimensions.get('window');
 const s = width / 640;
 const h = height / 1012;
-const image2 = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587985300669&di=0dd8b86dafb708019e01377b9d394503&imgtype=0&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D1229184673%2C3594306478%26fm%3D214%26gp%3D0.jpg'
+const image2 = 'http://tc.sinaimg.cn/maxwidth.2048/tc.service.weibo.com/p/image_96weixin_com/9a6afdf6ff7c953f04675270477405b0.jpg'
+const image3 = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587985300669&di=0dd8b86dafb708019e01377b9d394503&imgtype=0&src=http%3A%2F%2Fimg3.imgtn.bdimg.com%2Fit%2Fu%3D1229184673%2C3594306478%26fm%3D214%26gp%3D0.jpg'
 const image = 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3230746282,4148313693&fm=15&gp=0.jpg'
 const image1 = 'http://img.zcool.cn/community/019de45c32c171a80121df90bbe9ca.jpg@1280w_1l_2o_100sh.jpg'
 export default class Community extends Component {
@@ -79,10 +80,10 @@ export default class Community extends Component {
             myFetch.get('/share',{
                 uid:user.id
             }).then(res=>{
-                // console.log(res.msg)
+                // console.log(res.data[1])
                 for(var i in res.data){
                     if(!res.data[i].pic){
-                        res.data[i].pic=image2
+                        res.data[i].pic=image3
                     }
                     if(!res.data[i].imgurl){
                         res.data[i].imgurl=[image2]
@@ -91,15 +92,16 @@ export default class Community extends Component {
                 }
                 this.setState({
                     rlists:res.data,
-                    refreshing:false
+                    refreshing:false,
                 })
                 
             })
         })
     }
-    componentDidUpdate(prevProps,prevState){
-        console.log('更新')
-    
+    poprefresh = (data)=>{
+        if(data){
+            this.state.page === 0 ?this.refreshConcern():this.refreshRecommend();
+        }
     }
     refreshConcern = ()=>{
         // console.log('关注')
@@ -113,8 +115,8 @@ export default class Community extends Component {
             this.setState({
                 refreshing:false
             })
-            console.log('关注')
-            console.log(res)
+            // console.log('关注')
+            // console.log(res)
             for(var i in res.data){
                 if(!res.data[i].pic){
                     res.data[i].pic=image2
@@ -139,7 +141,7 @@ export default class Community extends Component {
         myFetch.get('/share',{
             uid:this.state.uid
         }).then(res=>{
-            console.log(res.data)
+            // console.log(res.data)
             for(var i in res.data){
                 if(!res.data[i].pic){
                     res.data[i].pic=image2
@@ -165,7 +167,7 @@ export default class Community extends Component {
         myFetch.get(`${url}`,{
             uid:this.state.uid
         }).then(res=>{
-            console.log(res.data)
+            // console.log(res.data)
             for(var i in res.data){
                 if(!res.data[i].pic){
                     res.data[i].pic=image2
@@ -173,8 +175,7 @@ export default class Community extends Component {
                 if(!res.data[i].imgurl){
                     res.data[i].imgurl=[image2]
                 }
-                console.log(res.data[i].style)
-
+                // console.log(res.data[i].style)
                 switch(style){
                     case 0:
                         classifylist.push(res.data[i]);
@@ -206,21 +207,29 @@ export default class Community extends Component {
             }
         })
     }
-    btnconcern = (fid)=>{
-        if(!this.state.btndisabled){
+    btnconcern = (item)=>{
+        var list=[];
+        this.state.page === 0?list=this.state.clists:list=this.state.rlists;
+        if(!item.like){
+            for(var i in list){
+                if(list[i].uid === item.uid){
+                    list[i].like = item.like;
+                }
+            }
             this.setState({
                 btndisabled:true,
-                btn:'取消关注'
-            },()=>{
+            },()=>{              
                 myFetch.get('/share/article/interest',{
                     uid:this.state.uid,
-                    fid:fid
+                    fid:item.uid
                 }).then(res=>{
+                    // console.log(res)
                     ToastAndroid.showWithGravityAndOffset(
                     '关注成功！',
                     ToastAndroid.SHORT,
                     ToastAndroid.CENTER,
                     0,-250)
+                    this.poprefresh(true)
                 })
             })
         }else{
@@ -230,13 +239,15 @@ export default class Community extends Component {
             },()=>{
                 myFetch.get('/share/article/delinter',{
                     uid:this.state.uid,
-                    fid:fid
+                    fid:item.uid
                 }).then(res=>{
+                    // console.log(res)
                     ToastAndroid.showWithGravityAndOffset(
                     '已取消关注！',
                     ToastAndroid.SHORT,
                     ToastAndroid.CENTER,
                     0,-250)
+                    this.poprefresh(true)
                 })
             })
         }
@@ -250,7 +261,7 @@ export default class Community extends Component {
                     uid:this.state.uid,
                     id:fid
                 }).then(res=>{
-                    console.log(res)
+                    // console.log(res)
                 })
             })
         }else{
@@ -261,15 +272,31 @@ export default class Community extends Component {
                     uid:this.state.uid,
                     id:fid
                 }).then(res=>{
-                    console.log(res)
+                    // console.log(res)
                 })
             })
         }
     }
-    sendflower = ()=>{
-        if(!this.state.sendflower){
-            this.setState({sendflower:true})
-        }
+    sendflower = (item)=>{
+        this.setState(({
+            sendflower:true
+        }))
+        myFetch.get('/share/num/addnum',{
+            uid:this.state.uid,
+            auid:item.uid,
+            id:item.id
+        }).then(res=>{
+            // console.log(res)
+            this.setState(({
+                sendflower:false
+            }))
+            ToastAndroid.showWithGravityAndOffset(
+            res.msg,
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER,
+            0,-250)
+            res.code ?null:this.poprefresh(true)
+        })
     }
     enlarge=(item)=>{
         // console.log(item.length)
@@ -313,7 +340,7 @@ export default class Community extends Component {
                     page={this.state.page}
                     tabs={tabs}
                     // onTabClick(tabs[i], i=>{console.log(i)})
-                    onChange={(tab,index)=>this.setState({page:index})}
+                    onChange={(tab,index)=>{this.setState({page:index})}}
                     // onChange={(index)=>this.setState({page:i})}
                     renderTabBar={tabProps => (
                         <View style={styles.navbar}>
@@ -328,7 +355,18 @@ export default class Community extends Component {
                                         const { goToTab, onTabClick} = tabProps;
                                         goToTab && goToTab(i);
                                         // onTabClick && onTabClick(tabs[i], i=>{console.log(i)});
-                                        i === 0?this.refreshConcern():this.refreshRecommend();
+                                        i === 0?
+                                        this.setState({
+                                            clists:[]
+                                        },()=>{
+                                            this.refreshConcern()
+                                        })
+                                        :
+                                        this.setState({
+                                            rlists:[]
+                                        },()=>{
+                                            this.refreshRecommend()
+                                        })
                                     }}
                                     >
                                         <Text
@@ -387,6 +425,7 @@ export default class Community extends Component {
                 >
                     <WingBlank style={styles.wingblank}>
                         <FlatList
+                            ref={(flatList)=>this._flatList = flatList}
                             refreshing = {this.state.refreshing}
                             onRefresh={this.refreshConcern}
                             extraData={this.state}
@@ -421,11 +460,11 @@ export default class Community extends Component {
                                         {
                                             item.uid === this.state.uid
                                             ?<Text style={{width:0.18*width,height:0.05*height,}}></Text>
-                                            :<TouchableOpacity onPress={()=>this.btnconcern(item.uid)}>
-                                            <Text style={!this.state.btndisabled?styles.innertitlebtn:styles.innerbtndisabled}>
-                                                {this.state.btn}
-                                            </Text>
-                                        </TouchableOpacity>
+                                            :<TouchableOpacity onPress={()=>this.btnconcern(item)}>
+                                                <Text style={!item.like?styles.innertitlebtn:styles.innerbtndisabled}>
+                                                    {!item.like?'关注':'取消关注'}
+                                                </Text>
+                                            </TouchableOpacity>
                                         }
                                     </View>
                                     <View style={styles.innerpics}>
@@ -458,7 +497,7 @@ export default class Community extends Component {
                                         </View>
                                         <View style={styles.innerfooter}>
                                             <View style={styles.footerbox}>
-                                                <TouchableOpacity onPress={this.like}>
+                                                <TouchableOpacity onPress={()=>this.like(item)}>
                                                     {
                                                         this.state.like
                                                         ?<Icon3 style={styles.footericon} color='red' name='heart'/>
@@ -468,13 +507,19 @@ export default class Community extends Component {
                                                 <Text style={styles.zannum}>{item.zannum}</Text>
                                             </View>
                                             <View style={styles.footerbox}>
-                                                <TouchableOpacity onPress={()=>Actions.tdiscuss()}>
+                                                <TouchableOpacity onPress={()=>Actions.tdiscuss({
+                                                    article_id:item.id,
+                                                    host_id:item.uid,
+                                                    user_id:this.state.uid,
+                                                    page:this.state.page,
+                                                    callBack:this.poprefresh.bind(this)
+                                                })}>
                                                     <Icon4 style={styles.footericon} color='#666' name='comment-processing-outline'/>
                                                 </TouchableOpacity>
-                                                <Text style={styles.zannum}>{item.zannum}</Text>
+                                                <Text style={styles.zannum}>{item.comment<10000 ?item.comment:(item.comment/10000).toFixed(1)+'万'}</Text>
                                             </View>
                                             <View style={styles.footerbox}>
-                                                <TouchableOpacity onPress={this.sendflower}>
+                                                <TouchableOpacity onPress={()=>this.sendflower(item)}>
                                                     {
                                                         this.state.sendflower
                                                         ?<Icon4 style={styles.footericon} color='red' name='flower-tulip'/>
@@ -536,11 +581,11 @@ export default class Community extends Component {
                                         {
                                             item.uid === this.state.uid
                                             ?<Text style={{width:0.18*width,height:0.05*height,}}></Text>
-                                            :<TouchableOpacity onPress={()=>this.btnconcern(item.uid)}>
-                                            <Text style={!this.state.btndisabled?styles.innertitlebtn:styles.innerbtndisabled}>
-                                                {this.state.btn}
-                                            </Text>
-                                        </TouchableOpacity>
+                                            :<TouchableOpacity onPress={()=>this.btnconcern(item)}>
+                                                <Text style={!item.like?styles.innertitlebtn:styles.innerbtndisabled}>
+                                                    {!item.like?'关注':'取消关注'}
+                                                </Text>
+                                            </TouchableOpacity>
                                         }
                                     </View>
                                     <View style={styles.innerpics}>
@@ -559,7 +604,7 @@ export default class Community extends Component {
                                                         />
                                                     </TouchableOpacity>
                                                 ))
-                                                // <Text></Text>
+                                                
                                             }                     
                                         </Swiper>
                                     </View>
@@ -573,7 +618,7 @@ export default class Community extends Component {
                                         </View>
                                         <View style={styles.innerfooter}>
                                             <View style={styles.footerbox}>
-                                                <TouchableOpacity onPress={this.like}>
+                                                <TouchableOpacity onPress={()=>this.like(item)}>
                                                     {
                                                         this.state.like
                                                         ?<Icon3 style={styles.footericon} color='red' name='heart'/>
@@ -583,13 +628,22 @@ export default class Community extends Component {
                                                 <Text style={styles.zannum}>{item.zannum}</Text>
                                             </View>
                                             <View style={styles.footerbox}>
-                                                <TouchableOpacity onPress={()=>Actions.tdiscuss()}>
+                                                <TouchableOpacity onPress={()=>Actions.tdiscuss({
+                                                    article_id:item.id,
+                                                    host_id:item.uid,
+                                                    user_id:this.state.uid,
+                                                    page:this.state.page,
+                                                    callBack:this.poprefresh.bind(this)
+                                                    })}>
                                                     <Icon4 style={styles.footericon} color='#666' name='comment-processing-outline'/>
                                                 </TouchableOpacity>
-                                                <Text style={styles.zannum}>{item.zannum}</Text>
+                                                <Text style={styles.zannum}>{item.comment<10000 ?item.comment:(item.comment/10000).toFixed(1)+'万'}</Text>
                                             </View>
                                             <View style={styles.footerbox}>
-                                                <TouchableOpacity onPress={this.sendflower}>
+                                                <TouchableOpacity onPress={()=>{
+                                                    this.sendflower(item);
+                                                    
+                                                }}>
                                                     {
                                                         this.state.sendflower
                                                         ?<Icon4 style={styles.footericon} color='red' name='flower-tulip'/>
@@ -715,6 +769,7 @@ const styles = StyleSheet.create({
         width:0.9*width,
         height:0.1*height,
         // backgroundColor:'#000',
+        // backgroundColor:"#ccc",
         flexDirection:'row',
         justifyContent:"center",
         alignItems:'center',
@@ -840,6 +895,7 @@ const styles = StyleSheet.create({
         height:0.04*height,
         // backgroundColor:'#ccc',
         // textAlignVertical:'bottom',
+        // color:'#FFBF2D',
         textAlign:'center',
         fontSize:45*s,
     },
@@ -847,7 +903,7 @@ const styles = StyleSheet.create({
         // backgroundColor:'#ccc',
         height:0.02*height,
         fontSize:18*s,
-        color:'#333',
+        // color:'#FFBF2D',
         textAlignVertical:'center'
     },
     modaltitle:{
