@@ -24,8 +24,8 @@ import Button from 'react-native-button';
 import {myFetch} from '../../src/utils'
 
 const {width,scale,height} = Dimensions.get('window');
-const image= 'https://p5.ssl.qhimgs1.com/sdr/400__/t01708fe3cc8550994f.jpg'
-// https://p5.ssl.qhimgs1.com/sdr/400__/t01708fe3cc8550994f.jpg
+const image= 'http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20190923/77970460742d4f45919499e65b35d976.jpeg'
+//
 const s = width / 640;
 const h = height / 1012;
 export default class Mychilds extends Component {
