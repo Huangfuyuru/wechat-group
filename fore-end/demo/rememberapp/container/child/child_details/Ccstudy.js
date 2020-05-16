@@ -51,26 +51,21 @@ export default class Cdairy extends Component {
     }
     resetsubject = ()=>{
         this.setState({
-            subject:[]
+            subject:[],
         })
     }
     choosesubject = ()=>{
         this.setState({
             subject:this.state.choosesubject
-        },()=>{
-            ToastAndroid.showWithGravityAndOffset(
-            '由于当前版本限制，为避免成绩信息存储错误，请您选好科目后一次性填写好成绩信息，修改填写成绩请重选科目。为您带来不便，感谢谅解~',
-            ToastAndroid.LONG,
-            ToastAndroid.CENTER,
-            0,-350)
         })
     }
     addsubject = ()=>{
         var time = moment(new Date()).format("YYYY-MM-DD HH:mm:ss")
         var record = [];
         var subject = this.state.subject;
+        var subjectlist = [];
         // console.log(subject)
-        // var check = true;
+        var check = true;
         for(var i in subject){
             switch(subject[i].subject){
                 case '语文':
@@ -80,7 +75,7 @@ export default class Cdairy extends Component {
                     record[i] = parseFloat(this.state.sx);
                     break;
                 case '英语':
-                    record[i] = parseFloat(this.state.yw);
+                    record[i] = parseFloat(this.state.yy);
                     break;
                 case '物理':
                     record[i] = parseFloat(this.state.wl);
@@ -108,39 +103,46 @@ export default class Cdairy extends Component {
                     break;
             }
         }
-        // for(var i in record){
-        //     if(isNaN(record[i])){
-        //         check = false;
-        //         ToastAndroid.showWithGravityAndOffset(
-        //         '请将清单中所有成绩填写完整！',
-        //         ToastAndroid.SHORT,
-        //         ToastAndroid.CENTER,
-        //         0,-300);
-        //         break;
-        //     }
-        // }
+        for(var i in subject){
+            subjectlist.push(subject[i].subject)
+        }
+        // console.log(subjectlist)
         // console.log(record)
-        // console.log(check)
-        myFetch.post('/child/cstudy/cchildScore',{
-            cid:this.state.cid,
-            stage:this.state.stage,
-            subject:JSON.stringify(this.state.subject),
-            score:JSON.stringify(record),
-            setdate:time,
-        }).then(
-            res=>{
-                console.log('成绩')
-                console.log(res)
-                // if(res.code == 0){
-                //     ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
-                //     setTimeout(()=>{
-                //         Actions.pop({refresh:({data:res.data})})
-                //     },1000)
-                // }else{
-                //     ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
-                // }
+        for(var i in record){
+            if(isNaN(record[i])){
+                check = false;
+                ToastAndroid.showWithGravityAndOffset(
+                '请将清单中所有成绩填写完整！',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+                0,-300);
+                break;
+            }else{
+                check = true;
             }
-        )
+        }
+        if(check){
+            myFetch.post('/child/cstudy/cchildScore',{
+                cid:this.state.cid,
+                stage:this.state.stage,
+                subject:JSON.stringify(subjectlist),
+                score:JSON.stringify(record),
+                setdate:time,
+            }).then(
+                res=>{
+                    console.log('成绩')
+                    console.log(res)
+                    if(res.code == 0){
+                        ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+                        setTimeout(()=>{
+                            Actions.pop({refresh:({data:res.data})})
+                        },1000)
+                    }else{
+                        ToastAndroid.show(res.msg+'！', ToastAndroid.SHORT);
+                    }
+                }
+            )
+        }
     }
     render() {
         const primary=[

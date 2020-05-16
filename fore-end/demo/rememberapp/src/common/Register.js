@@ -149,10 +149,14 @@ export default class Login extends Component {
                         }).then(
                             res=>{
                                 console.log(res)
-                                ToastAndroid.show(res.msg+'  正在跳转登录页',ToastAndroid.SHORT)
-                                setTimeout(()=>{
-                                    Actions.login();
-                                },3000)
+                                if(res.code === 0){
+                                    ToastAndroid.show(res.msg+'  正在跳转登录页',ToastAndroid.SHORT)
+                                    setTimeout(()=>{
+                                        Actions.login();
+                                    },3000)
+                                }else{
+                                    ToastAndroid.show(res.msg+'  请重新输入',ToastAndroid.SHORT)
+                                }
                             }
                         )
                     })
