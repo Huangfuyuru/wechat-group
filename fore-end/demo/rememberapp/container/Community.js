@@ -51,11 +51,8 @@ export default class Community extends Component {
         // var uid = JSON.parse(localStorage.getItem('uid'));
         this.state={
             uid:'',
-            like:false,
             sendflower:false,
             visible:false,
-            btndisabled:false,
-            btn:'关注',
             current:'',
             content:'对不齐呀对不齐呀！对不齐呀对不齐呀！对不齐呀对不齐呀！对不齐呀对不齐呀！对不齐呀对不齐呀！对不齐呀对不齐呀！对不齐呀对不齐呀！对不齐呀对不齐呀！',
             onPress:0,
@@ -80,7 +77,7 @@ export default class Community extends Component {
             myFetch.get('/share',{
                 uid:user.id
             }).then(res=>{
-                // console.log(res.data[1])
+                // console.log(res.data[0])
                 for(var i in res.data){
                     if(!res.data[i].pic){
                         res.data[i].pic=image3
@@ -216,64 +213,59 @@ export default class Community extends Component {
                     list[i].like = item.like;
                 }
             }
-            this.setState({
-                btndisabled:true,
-            },()=>{              
-                myFetch.get('/share/article/interest',{
-                    uid:this.state.uid,
-                    fid:item.uid
-                }).then(res=>{
-                    // console.log(res)
-                    ToastAndroid.showWithGravityAndOffset(
-                    '关注成功！',
-                    ToastAndroid.SHORT,
-                    ToastAndroid.CENTER,
-                    0,-250)
-                    this.poprefresh(true)
-                })
+            myFetch.get('/share/article/interest',{
+                uid:this.state.uid,
+                fid:item.uid
+            }).then(res=>{
+                // console.log(res)
+                ToastAndroid.showWithGravityAndOffset(
+                '关注成功！',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+                0,-250)
+                this.poprefresh(true)
             })
         }else{
-            this.setState({
-                btndisabled:false,
-                btn:'关注'
-            },()=>{
-                myFetch.get('/share/article/delinter',{
-                    uid:this.state.uid,
-                    fid:item.uid
-                }).then(res=>{
-                    // console.log(res)
-                    ToastAndroid.showWithGravityAndOffset(
-                    '已取消关注！',
-                    ToastAndroid.SHORT,
-                    ToastAndroid.CENTER,
-                    0,-250)
-                    this.poprefresh(true)
-                })
+            myFetch.get('/share/article/delinter',{
+                uid:this.state.uid,
+                fid:item.uid
+            }).then(res=>{
+                // console.log(res)
+                ToastAndroid.showWithGravityAndOffset(
+                '已取消关注！',
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+                0,-250)
+                this.poprefresh(true)
             })
         }
     }
-    like = (id)=>{
-        if(!this.state.like){
-            this.setState({
-                like:true
-            },()=>{
-                myFetch.get('/share/praise/addpraise?id=',{
-                    uid:this.state.uid,
-                    id:fid
-                }).then(res=>{
-                    // console.log(res)
-                })
+    like = (item)=>{
+        var list=[];
+        this.state.page === 0?list=this.state.clists:list=this.state.rlists;
+        if(!item.addZan){
+            // console.log('点赞')
+            for(var i in list){
+                if(list[i].uid === item.uid){
+                    list[i].addZan = item.addZan;
+                }
+            }
+            myFetch.get('/share/praise/addpraise',{
+                user_id:this.state.uid,
+                article_id:item.id
+
+            }).then(res=>{
+                console.log(res)
+                this.poprefresh(true)
             })
         }else{
-            this.setState({
-                like:false
-            },()=>{
-                myFetch.get('/share/praise/addpraise?id=',{
-                    uid:this.state.uid,
-                    id:fid
-                }).then(res=>{
-                    // console.log(res)
-                })
+            // console.log('取消赞')
+            myFetch.get('/share/praise/reducepraise',{
+                user_id:this.state.uid,
+                article_id:item.id
+            }).then(res=>{
+                console.log(res)
+                this.poprefresh(true)
             })
         }
     }
@@ -409,13 +401,17 @@ export default class Community extends Component {
                                                 height:0.04*height,
                                                 textAlign:'center',
                                                 textAlignVertical:'center',
-                                                width:0.1*width,
+                                                width:0.13*width,
                                                 fontSize:18*s,
                                                 // backgroundColor:'#ccc',
-                                                color:this.state.onPress == i ? 'rgba(0,0,0,0.7)' : '#999',
+                                                color:this.state.onPress == i ? '#FFBF2D' : '#999',
                                             }}
                                         >
-                                            {item.title}
+                                            {
+                                                this.state.onPress == i
+                                                ?<Icon2 size={20*s} color='#FFBF2D' name='md-radio-button-on'/>
+                                                :<Icon2 size={20*s} color='#999' name='md-radio-button-off'/>
+                                            } {item.title}
                                         </Text>
                                     </TouchableOpacity>
                                 ))}
@@ -499,12 +495,12 @@ export default class Community extends Component {
                                             <View style={styles.footerbox}>
                                                 <TouchableOpacity onPress={()=>this.like(item)}>
                                                     {
-                                                        this.state.like
+                                                        item.addZan
                                                         ?<Icon3 style={styles.footericon} color='red' name='heart'/>
                                                         :<Icon3 style={styles.footericon} color='#666' name='heart-outlined'/>
                                                     }
                                                 </TouchableOpacity>
-                                                <Text style={styles.zannum}>{item.zannum}</Text>
+                                                <Text style={styles.zannum}>{item.zannum<10000 ?item.zannum:(item.zannum/10000).toFixed(1)+'万'}</Text>
                                             </View>
                                             <View style={styles.footerbox}>
                                                 <TouchableOpacity onPress={()=>Actions.tdiscuss({
@@ -620,12 +616,12 @@ export default class Community extends Component {
                                             <View style={styles.footerbox}>
                                                 <TouchableOpacity onPress={()=>this.like(item)}>
                                                     {
-                                                        this.state.like
+                                                        item.addZan
                                                         ?<Icon3 style={styles.footericon} color='red' name='heart'/>
                                                         :<Icon3 style={styles.footericon} color='#666' name='heart-outlined'/>
                                                     }
                                                 </TouchableOpacity>
-                                                <Text style={styles.zannum}>{item.zannum}</Text>
+                                                <Text style={styles.zannum}>{item.zannum<10000 ?item.zannum:(item.zannum/10000).toFixed(1)+'万'}</Text>
                                             </View>
                                             <View style={styles.footerbox}>
                                                 <TouchableOpacity onPress={()=>Actions.tdiscuss({

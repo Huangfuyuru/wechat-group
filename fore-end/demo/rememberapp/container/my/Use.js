@@ -41,6 +41,27 @@ export default class Use extends Component {
             code:1
         }
     }
+    componentDidMount(){
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            this.setState({
+                uid:user.id,
+            })
+            myFetch.get('/my/information/password',{
+                uid:this.state.uid
+            }).then(res=>{
+                if(res){
+                    this.setState({
+                        pass:res.data.pass
+                    })
+                    console.log(this.state.pass);
+                }else{
+                    console.log('请求失败');
+                }
+            })
+        })
+    }
     additem=()=>{
         AsyncStorage.getItem('user').
         then((res)=>{
@@ -53,7 +74,7 @@ export default class Use extends Component {
                 name:this.state.name,
                 pass:this.state.pass,
                 gender:this.state.sex,
-                uid:user.id,
+                uid:this.state.uid,
             }).then(
                 res=>{
                     if(res.code == 0){

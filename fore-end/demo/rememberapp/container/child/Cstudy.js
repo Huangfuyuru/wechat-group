@@ -20,7 +20,7 @@ import moment from 'moment'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Ionicons'
-
+import {Echarts, echarts} from 'react-native-secharts';
 import { Actions } from 'react-native-router-flux';
 import {myFetch} from '../../src/utils'
 const {width,scale,height} = Dimensions.get('window');
@@ -37,7 +37,11 @@ export default class Cdairy extends Component {
             enableScrollViewScroll: true,
             listcolor:'#FFBF2D',
             chartcolor:'#bdbbb8',
-            lists:[]
+            lists:[],
+            onPress:0,
+            subjectlist:[],
+            scorelist:[]
+
         }
     }
     componentDidMount(){
@@ -48,24 +52,61 @@ export default class Cdairy extends Component {
         myFetch.get('/child/cstudy',{
             cid:this.props.cid
         }).then(res=>{
-            console.log('成绩：')
-            console.log(res)
+            // console.log('成绩：')
+            // console.log(res)
             var list=[];
             if(res){
+                // if(res[0].stage === '小学'){
+                //     this.setState({onPress:0})
+                // }else if(res[0].stage === '初中'){
+                //     this.setState({onPress:1})
+                // }else{
+                //     this.setState({onPress:2})
+                // }
+
+                // var list = [];
+                var subjectlist = [];
+                var scorelist =[];
+                // for(var i in res){
+                //     console.log(res[i])
+                //     if(res[i].stage === res[0].stage){
+                //         subjectlist.push(res[i].cont.subject);
+                //         scorelist.push(res[i].cont.scorelist);
+                //     }        
+                // }
+                for(var i in res[0].cont){
+                    subjectlist.push(res[0].cont[i].subject);
+                    scorelist.push(res[0].cont[i].score);
+                }
+                // console.log(scorelist)
                 this.setState({
-                    lists:res
+                    lists:res,
+                    subjectlist:subjectlist,
+                    scorelist:scorelist
                 })
             }else{
                 this.setState({
-                    lists:[]
+                    lists:[],
+                    subjectlist:[],
+                    scorelist:[]
                 })
             }
         })
     }
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            lists:nextProps.data
-        })
+        if(nextProps.data){
+            var subjectlist = [];
+            var scorelist =[];
+            for(var i in nextProps.data[0].cont){
+                subjectlist.push(nextProps.data[0].cont[i].subject);
+                scorelist.push(nextProps.data[0].cont[i].score);
+            }
+            this.setState({
+                lists:nextProps.data,
+                subjectlist:subjectlist,
+                scorelist:scorelist
+            })
+        }
     }
     rmStudy = (e)=>{
         Alert.alert('提示', '确定要删除吗？',
@@ -75,10 +116,16 @@ export default class Cdairy extends Component {
                         cid:this.state.cid,
                         id:e.id
                     }).then(res=>{
-                        console.log('删除记录')
-                        console.log(res.data)
+                        var subjectlist = [];
+                        var scorelist =[];
+                        for(var i in res.data[0].cont){
+                            subjectlist.push(res.data[0].cont[i].subject);
+                            scorelist.push(res.data[0].cont[i].score);
+                        }
                         this.setState({
-                            lists:res.data
+                            lists:res.data,
+                            subjectlist:subjectlist,
+                            scorelist:scorelist
                         })
                         ToastAndroid.showWithGravityAndOffset(
                         res.msg,
@@ -92,6 +139,35 @@ export default class Cdairy extends Component {
         )
     }
     render() {
+        const currentitem = this.state.currentitem;
+        var currenttitle ='';
+        var time = (moment(currentitem.date).format("YYYY-MM-DD")).split('-');
+        // console.log(Number(time[1]))
+        if(Number(time[1])>=3 && Number(time[1])<=8){
+            currenttitle = time[0]+'年 下学期'
+        }else{
+            currenttitle = time[0]+'年 上学期'
+        }
+        var option = {
+            title:{
+                text:currenttitle
+            },
+            xAxis: {
+                type: 'category',
+                data: this.state.subjectlist
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    data: this.state.scorelist,
+                    type: 'bar',
+                    color: ['#aaddee'],
+                },
+            ]
+        };
+        const choosetabs = [{title:'小学'},{title:'初中'},{title:'高中'}]
         const tabs = [
             { title: 
                 <Text style={{color:this.state.listcolor}}>
@@ -102,7 +178,7 @@ export default class Cdairy extends Component {
             { title: 
                 <Text style={{color:this.state.chartcolor}}>
                     <Icon2 style={styles.tabtitleicon} name='chart-bar'/>
-                    <Text style={styles.tabtitletext}>学业曲线</Text>
+                    <Text style={styles.tabtitletext}>成绩曲线</Text>
                 </Text>
                 
             },
@@ -205,15 +281,6 @@ export default class Cdairy extends Component {
                 icon:require('../../assets/gzzz.png')
             },
         ]
-        const currentitem = this.state.currentitem;
-        var currenttitle ='';
-        var time = (moment(currentitem.date).format("YYYY-MM-DD")).split('-');
-        // console.log(Number(time[1]))
-        if(Number(time[1])>=3 && Number(time[1])<=8){
-            currenttitle = time[0]+'年 下学期'
-        }else{
-            currenttitle = time[0]+'年 上学期'
-        }
         return (
             <View>
                 <View style={styles.navbar}>
@@ -228,6 +295,7 @@ export default class Cdairy extends Component {
                 <WingBlank style={styles.wingblank}>
                     <Tabs 
                         tabs={tabs}
+                        page={1}
                         tabBarUnderlineStyle={{
                             // borderColor:'#FFBF2D'
                             backgroundColor:'#FFBF2D'
@@ -341,7 +409,41 @@ export default class Cdairy extends Component {
                             </View>
                         }
                         <View style={styles.tabbox}>
-                            <Text>学业曲线</Text>
+                            <View style={styles.choosechart}>
+                                {/* {choosetabs.map((item, i) => (
+                                    <TouchableOpacity
+                                        onPress={()=>{
+                                        this.setState({onPress:i});
+                                    }}
+                                    >
+                                        <Text
+                                            style={{
+                                                height:0.025*height,
+                                                textAlign:'center',
+                                                textAlignVertical:'center',
+                                                width:0.2*width,
+                                                fontSize:20*s,
+                                                // backgroundColor:'#ccc',
+                                                color:this.state.onPress == i ? '#FFBF2D' : '#999',
+                                            }}
+                                        >
+                                            {
+                                                this.state.onPress == i
+                                                ?<Icon3 size={20*s} color='#FFBF2D' name='md-radio-button-on'/>
+                                                :<Icon3 size={20*s} color='#999' name='md-radio-button-off'/>
+                                            } {item.title}
+                                        </Text>
+                                    </TouchableOpacity>
+                                ))} */}
+                            </View>
+                            <View style={styles.chartbox}>
+                                <Echarts
+                                    // onPress={null} 
+                                    option={option} 
+                                    height={0.75*height}
+                                    backgroundColor	= 'rgba(205,205,205,0.1)'
+                                />
+                            </View>
                         </View>
                     </Tabs>
                 </WingBlank>
@@ -456,9 +558,7 @@ const styles = StyleSheet.create({
     },
     tabbox:{
         alignItems: 'center',
-        // justifyContent: 'center',
-        height: 0.80*height,
-        // backgroundColor: '#fff',
+        height: 0.8*height,
         // backgroundColor:'#ccc'
     },
     listbox:{
@@ -610,9 +710,19 @@ const styles = StyleSheet.create({
         fontSize:25*s,
         backgroundColor:'rgba(255,255,255,0.3)'
     },
+    choosechart:{
+        // backgroundColor:"#ddd",
+        width:0.8*width,
+        justifyContent:'center',
+        flexDirection:'row',
+        height:0.01*height,
+        // height:0.025*height,
+        marginTop:0.01*height,
+    },
     chartbox:{
         width:0.86*width,
         height: 0.75*height,
+        // marginTop:0.01*height,
         transform:[{scale:0.98}],
         // backgroundColor:'#ccc'
     }
