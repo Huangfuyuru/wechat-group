@@ -6,7 +6,8 @@ import {
     Dimensions,
     TouchableOpacity,
     FlatList,
-    Alert
+    Alert,
+    ToastAndroid
 } from 'react-native'
 import { 
     WingBlank,
@@ -20,6 +21,7 @@ import Icon3 from 'react-native-vector-icons/Ionicons'
 import Icon4 from 'react-native-vector-icons/Entypo'
 import { Actions } from 'react-native-router-flux';
 import {myFetch} from '../../src/utils'
+import {Echarts, echarts} from 'react-native-secharts';
 const {width,scale,height} = Dimensions.get('window');
 const s = width / 640;
 export default class Cdairy extends Component {
@@ -29,7 +31,10 @@ export default class Cdairy extends Component {
             cid:'',
             listcolor:'#FFBF2D',
             chartcolor:'#bdbbb8',
-            lists:[]
+            lists:[],
+            agelist:[],
+            weightlist:[],
+            heightlist:[]
         }
     }
     componentDidMount(){
@@ -40,10 +45,35 @@ export default class Cdairy extends Component {
         myFetch.get('/child/cgrowup',{
             childsid:this.props.cid,
         }).then(res=>{
-            console.log(res)
+            // console.log('res')
             if(res){
+                var list=[];
+                for(var i in res){
+                    list.push(res[i])
+                }
+                var agelist = this.state.agelist;
+                var heightlist = this.state.heightlist;
+                var weightlist = this.state.weightlist;
+                list.sort(function(a,b){  
+                    if(a.age<b.age){  
+                        return -1;  
+                    }else if(a.age>b.age){  
+                        return 1;  
+                    }  
+                    return 0;  
+                });  
+                for(var i in list){
+                    if(list[i].unit === '岁'){
+                        agelist.push(list[i].age);
+                        heightlist.push(list[i].length);
+                        weightlist.push(list[i].weight);
+                    }
+                }
                 this.setState({
-                    lists:res
+                    lists:res,
+                    agelist:agelist,
+                    weightlist:weightlist,
+                    heightlist:heightlist
                 })
             }else{
                 this.setState({
@@ -53,9 +83,38 @@ export default class Cdairy extends Component {
         })
     }
     componentWillReceiveProps(nextProps) {
+        var list=[];
+        for(var i in nextProps.data){
+            list.push(nextProps.data[i])
+        }
+        var agelist = [];
+        var heightlist = [];
+        var weightlist = [];
+        list.sort(function(a,b){  
+            if(a.age<b.age){  
+                return -1;  
+            }else if(a.age>b.age){  
+                return 1;  
+            }  
+            return 0;  
+        });  
+        for(var i in list){
+            if(list[i].unit === '岁'){
+                agelist.push(list[i].age);
+                heightlist.push(list[i].length);
+                weightlist.push(list[i].weight);
+            }
+        }
         this.setState({
-            lists:nextProps.data
+            lists:nextProps.data,
+            agelist:agelist,
+            weightlist:weightlist,
+            heightlist:heightlist
         })
+        
+        // this.setState({
+        //     lists:nextProps.data
+        // })
     }
     rmGrow = (e)=>{
         Alert.alert('提示', '确定要删除吗？',
@@ -65,11 +124,35 @@ export default class Cdairy extends Component {
                         childsid:this.state.cid,
                         childGrowid:e.id
                     }).then(res=>{
-                        console.log('删除记录')
+                        // console.log('删除记录')
                         console.log(res.data)
-                        console.log(res)
+                        var list=[];
+                        for(var i in res.data){
+                            list.push(res.data[i])
+                        }
+                        var agelist = [];
+                        var heightlist = [];
+                        var weightlist = [];
+                        list.sort(function(a,b){  
+                            if(a.age<b.age){  
+                                return -1;  
+                            }else if(a.age>b.age){  
+                                return 1;  
+                            }  
+                            return 0;  
+                        });  
+                        for(var i in list){
+                            if(list[i].unit === '岁'){
+                                agelist.push(list[i].age);
+                                heightlist.push(list[i].length);
+                                weightlist.push(list[i].weight);
+                            }
+                        }
                         this.setState({
-                            lists:res.data
+                            lists:res.data,
+                            agelist:agelist,
+                            weightlist:weightlist,
+                            heightlist:heightlist
                         })
                         ToastAndroid.showWithGravityAndOffset(
                         res.msg,
@@ -83,6 +166,64 @@ export default class Cdairy extends Component {
         )
     }
     render() {
+        var option1 = {
+            title: {
+                text: '成长柱形图'
+            },
+            legend: {
+                data:['体重','身高']
+            },
+            xAxis: {
+                type: 'category',
+                data: this.state.agelist
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'体重',
+                    data: this.state.weightlist,
+                    type: 'bar',
+                    color: ['#FFBF2D'],
+                },
+                {
+                    name:'身高',
+                    data: this.state.heightlist,
+                    type: 'bar',
+                    color: ['#aaddee'],
+                },
+            ]
+        };
+        var option2 = {
+            title: {
+                text: '成长折线图'
+            },
+            legend: {
+                data:['体重','身高']
+            },
+            xAxis: {
+                type: 'category',
+                data: this.state.agelist
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'体重',
+                    data: this.state.weightlist,
+                    type: 'line',
+                    color: ['#FFBF2D'],
+                },
+                {
+                    name:'身高',
+                    data: this.state.heightlist,
+                    type: 'line',
+                    color: ['#aaddee'],
+                },
+            ]
+        };
         const tabs = [
             { title: 
                 <Text style={{color:this.state.listcolor}}>
@@ -112,6 +253,7 @@ export default class Cdairy extends Component {
                 <WingBlank style={styles.wingblank}>
                     <Tabs
                         tabs={tabs}
+                        page={0}
                         tabBarUnderlineStyle={{backgroundColor:'#FFBF2D'}}
                         tabBarActiveTextColor='#FFBF2D'
                         swipeable={true}
@@ -183,6 +325,21 @@ export default class Cdairy extends Component {
                         }
                         <View style={styles.tabbox}>
                             <View style={styles.chartbox}>
+                                <Echarts
+                                    // onPress={null} 
+                                    option={option1} 
+                                    backgroundColor	= 'rgba(205,205,205,0.1)'
+                                    height={0.35*height}
+                                    // height={300}
+                                />
+                                <Text style={{height:0.05*height}}></Text>
+                                <Echarts
+                                    // onPress={null} 
+                                    option={option2} 
+                                    backgroundColor	= 'rgba(205,205,205,0.1)'
+                                    height={0.35*height}
+                                    // height={300}
+                                />
                             </View>
                         </View>
                     </Tabs>
@@ -347,6 +504,7 @@ const styles = StyleSheet.create({
     chartbox:{
         width:0.86*width,
         height: 0.75*height,
+        // justifyContent:'center',
         transform:[{scale:0.98}],
         // backgroundColor:'#ccc'
     }

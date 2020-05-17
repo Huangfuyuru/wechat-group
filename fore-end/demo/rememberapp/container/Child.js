@@ -119,7 +119,6 @@ export default class Child extends Component {
                     console.log(res)
                 }
             )
-
             myFetch.post('/child',{
                 uid:this.state.uid
             }).then(
@@ -176,9 +175,9 @@ export default class Child extends Component {
                 this.setState({
                     background:res.url
                 })
-                console.log('success');
+                // console.log('success');
             }).catch( err=>{
-                console.log('flied');
+                // console.log('flied');
             })
         });
         ImagePicker.clean().then(() => { 
@@ -511,7 +510,7 @@ export default class Child extends Component {
                                 </TouchableOpacity>
                             </Flex>
                         </View>
-                        <View style={{
+                        {/* <View style={{
                             width:'100%',
                             marginTop:10,
                             // backgroundColor:'#ccc'
@@ -556,7 +555,7 @@ export default class Child extends Component {
                                     </View>
                                 </View>
                             )}
-                        />
+                        /> */}
                         
                     </WingBlank>
                 </View>
@@ -593,7 +592,7 @@ const styles = StyleSheet.create({
     },
     lover_first: {
         textAlign: "center",
-        height: 0.33*height,
+        height: 0.4*height,
         width: width,
         alignItems:'center'
     },
@@ -615,11 +614,14 @@ const styles = StyleSheet.create({
 
     },
     lover_second: {
-        marginBottom:15,
+        // backgroundColor:'#ccc',
+        marginTop:0.03*height,
+        // marginBottom:15,
         width:'100%',
         height: 140*h,
         flexDirection: "column",
         justifyContent: "center",
+        
         marginLeft:'auto',
         marginRight:'auto'
     },
