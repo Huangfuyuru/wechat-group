@@ -74,7 +74,7 @@ export default class Use extends Component {
                 name:this.state.name,
                 pass:this.state.pass,
                 gender:this.state.sex,
-                uid:this.state.uid,
+                uid:user.id,
             }).then(
                 res=>{
                     if(res.code == 0){
