@@ -68,8 +68,9 @@ export default class Mfollowers extends Component {
                 console.log(res)
                 if(res){
                     this.setState({
-                        lists:res
+                        lists:res.data
                     })
+                    console.log(res);
                 }else{
                     this.setState({
                         lists:[]
