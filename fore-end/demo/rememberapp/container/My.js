@@ -56,7 +56,7 @@ export default class My extends Component {
             //粉丝人数
             num2:5,
             //小花数量
-            num3:55
+            num3:0
         }
     }
     componentDidMount() {
@@ -73,37 +73,40 @@ export default class My extends Component {
                 }).then(
                     res => {
                         this.setState({
-                            back:res[0].imgurl
+                            back:res.data.imgurl
                         })
-                        console.log("res", res)
+                        console.log(res);
+                        console.log('back'+this.state.back)
                     }
                 )
             })
+            myFetch.post('/my/', {
+                uid:this.state.uid,
+            }).then(
+                res => {
+                    this.setState({
+                        num3:res.num
+                    })
+                    console.log('num3'+this.state.num3)
+                }
+            )
     }
     componentDidUpdate(prevProps,prevState){
         console.log('更新')
         console.log(this.state.back)
         if(prevState.back != this.state.back){
-            AsyncStorage.getItem('user').
-            then((res) => {
-                var user = JSON.parse(res)
-                this.setState({
-                    uid: user.id
-                })
-                myFetch.post('/my/mypage',{
-                    uid:this.state.uid,
-                    imgurl:this.state.back,
-                    
-                }).then(
-                    res=>{
-                        this.setState({
-                            back:res.imgurl
-                        })
-                    }
-                )
-            })
-        }  
-        console.log(this.state.back);
+            myFetch.post('/my/mypage',{
+                uid:this.state.uid,
+                imgurl:this.state.back
+            }).then(
+                res=>{
+                    this.setState({
+                        back:res.data.imgurl
+                    })
+                    console.log(res.data.imgurl)
+                }
+            )
+        }
     }
     choosebgpic=()=>{
         ImagePicker.openPicker({
@@ -129,28 +132,35 @@ export default class My extends Component {
         });
     }
     alertMsg = () => {
-       console.log('---------------');
-        AsyncStorage.getItem('user').
-            then((res)=>{
-                var user = JSON.parse(res)
-                this.setState({
-                    uid:user.id,
-                })
-                console.log(this.state.uid);
-            myFetch.get('/my/sign/',{
-                uid:this.state.uid
-            }).then(res=>{
-                if(res){
-                    this.setState({
-                        code:res.code
+        console.log('---------------');
+        Alert.alert('提示', '确认签到？',
+            [
+                { text: "确定", onPress: ()=>{
+                    AsyncStorage.getItem('user').
+                    then((res)=>{
+                        var user = JSON.parse(res)
+                        this.setState({
+                            uid:user.id,
+                        })
+                        console.log(this.state.uid);
+                        myFetch.get('/my/sign/',{
+                            uid:this.state.uid
+                        }).then(res=>{
+                            if(res){
+                                this.setState({
+                                    num3:res.data.num
+                                })
+                                console.log(this.state.num3);
+                            }else{
+                                console.log(res);
+                            }
+                        })
                     })
-                    console.log(this.state.code);
-                }else{
-                    console.log('这是code'+res.code);
-                }
-            })
-        })
-
+                } },
+                { text: "取消", onPress: this.opntion2Selected },
+            ]
+        )
+        console.log(this.state.back);
     }
     render() {
         return (
