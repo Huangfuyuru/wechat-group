@@ -111,7 +111,6 @@ export default class My extends Component {
                 myFetch.get('/my/mypage/fans',{
                     user_id:this.state.uid
                 }).then(res=>{
-                    // console.log(res)
                     if(res){
                         this.setState({
                             num2:res.data.length
@@ -124,7 +123,6 @@ export default class My extends Component {
                 myFetch.get('/my/mypage/focus',{
                     user_id:this.state.uid
                 }).then(res=>{
-                    // console.log(res)
                     if(res){
                         this.setState({
                             num1:res.data.length
@@ -159,7 +157,6 @@ export default class My extends Component {
         });
     }
     alertMsg = () => {
-        // console.log('---------------');
         Alert.alert('提示', '确认签到？',
             [
                 { text: "确定", onPress: ()=>{
@@ -177,7 +174,6 @@ export default class My extends Component {
                                 this.setState({
                                     num3:res.data.num
                                 })
-                                // console.log(this.state.num3);
                             }else{
                                 console.log(res);
                             }
