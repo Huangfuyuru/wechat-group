@@ -33,7 +33,7 @@ export default class Mychilds extends Component {
         this.state={
             uid:'',
             code:1, //要获取的状态
-            lists:[]
+            lists:[],
         }
     }
     componentDidMount(){
@@ -63,12 +63,22 @@ export default class Mychilds extends Component {
             lists:nextProps.data
         })
     }
+    Mmlover = ()=>{
+        if(this.state.lists.length==0){
+            Actions.Mmlover({uid:this.state.uid});
+        }
+        else{
+            ToastAndroid.showWithGravityAndOffset(
+                '只能创建一个爱人哟！',
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER,
+            25,-100)
+        }
+    }
     rmCevent = (e)=>{
         Alert.alert('提示', '确定要删除吗？',
             [
                 { text: "确定", onPress: ()=>{
-                    console.log(this.state.uid);
-                    console.log(e.id);
                     myFetch.get('/my/lover/dellover',{
                         lid:e.id,
                         uid:this.state.uid,
@@ -103,7 +113,7 @@ export default class Mychilds extends Component {
                         onPress={()=>Actions.pop()}
                     />
                     <Text style={styles.title}>爱人列表</Text>
-                    <TouchableOpacity onPress={()=>Actions.Mmlover({uid:this.state.uid})}>
+                    <TouchableOpacity onPress={()=>this.Mmlover()}>
                         <Icon2 style={styles.icon}  name='md-add'/>
                     </TouchableOpacity>
                 </View>

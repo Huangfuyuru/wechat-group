@@ -62,21 +62,33 @@ export default class Mfollowers extends Component {
             this.setState({
                 uid:user.id,
             })
-            myFetch.get('/my/mypage/fans',{
-                uid:this.state.uid
+            myFetch.get('/my/mypage/focus',{
+                user_id:this.state.uid
             }).then(res=>{
-                console.log(res)
                 if(res){
                     this.setState({
-                        lists:res.data
+                        list:res.data
                     })
-                    console.log(res);
+                    // console.log(this.state.list);
                 }else{
-                    this.setState({
-                        lists:[]
-                    })
+                    console.log('关注数据返回失败');
                 }
             })
+            // myFetch.get('/my/mypage/fansmsg',{
+            //     uid:this.state.uid
+            // }).then(res=>{
+            //     console.log(res)
+            //     if(res){
+            //         this.setState({
+            //             lists:res.data
+            //         })
+            //         console.log(res);
+            //     }else{
+            //         this.setState({
+            //             lists:[]
+            //         })
+            //     }
+            // })
         })
     }
     componentWillReceiveProps(nextProps) {

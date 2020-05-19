@@ -51,28 +51,44 @@ export default class Mattention extends Component {
                     bgimg:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1587617812978&di=6cb77f5505fdb1394b2fa1ad214bc7e7&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201511%2F21%2F20151121170552_v4CWj.jpeg',
                     name:'我宣你啊！'
                 },
-            ]
+            ],
+            list:[]
         }
     }
     componentDidMount(){
         console.log('关注');
-        // AsyncStorage.getItem('user').
-        // then((res)=>{
-        //     var user = JSON.parse(res)
-        //     this.setState({
-        //         // friend_id:,
-        //     })
-        //     console.log('-------------------');
-        //     myFetch.get('/my/mypage/friendmsg',{
-        //         uid:user.id
-        //     }).then(res=>{
-        //         if(res){
-        //            console.log(res);
-        //         }else{
-        //             console.log('失败');
-        //         }
-        //     })
-        // })
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            this.setState({
+                uid:user.id
+            })
+            console.log('-------------------');
+            // myFetch.get('/my/mypage/focus',{
+            //     user_id:this.state.uid
+            // }).then(res=>{
+            //     if(res){
+            //         this.setState({
+            //             list:res.data
+            //         })
+            //         // console.log(this.state.list);
+            //     }else{
+            //         console.log('关注数据返回失败');
+            //     }
+            // })
+            myFetch.get('/my/mypage/focusmsg',{
+                user_id:this.state.uid
+            }).then(res=>{
+                if(res){
+                    this.setState({
+                        lists:res.data
+                    })
+                   console.log(res);
+                }else{
+                    console.log('失败');
+                }
+            })
+        })
     }
     componentWillReceiveProps(nextProps) {
         this.setState({
