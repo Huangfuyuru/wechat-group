@@ -127,6 +127,7 @@ export default class My extends Component {
                         this.setState({
                             num1:res.data.length
                         })
+                        console.log(res.data);
                     }else{
                         console.log('关注数据返回失败');
                     }
