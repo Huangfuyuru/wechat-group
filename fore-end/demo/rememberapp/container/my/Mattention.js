@@ -56,24 +56,23 @@ export default class Mattention extends Component {
     }
     componentDidMount(){
         console.log('关注');
-        AsyncStorage.getItem('user').
-        then((res)=>{
-            var user = JSON.parse(res)
-            this.setState({
-                uid:user.id,
-            })
-            console.log(user.id);
-            myFetch.get('/my/mypage/focus',{
-                uid:user.id
-            }).then(res=>{
-                console.log(res)
-                if(res){
-                   console.log(res);
-                }else{
-                    console.log('失败');
-                }
-            })
-        })
+        // AsyncStorage.getItem('user').
+        // then((res)=>{
+        //     var user = JSON.parse(res)
+        //     this.setState({
+        //         // friend_id:,
+        //     })
+        //     console.log('-------------------');
+        //     myFetch.get('/my/mypage/friendmsg',{
+        //         uid:user.id
+        //     }).then(res=>{
+        //         if(res){
+        //            console.log(res);
+        //         }else{
+        //             console.log('失败');
+        //         }
+        //     })
+        // })
     }
     componentWillReceiveProps(nextProps) {
         this.setState({

@@ -52,44 +52,12 @@ export default class My extends Component {
             //头像地址
             back: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=896950653,2577927585&fm=26&gp=0.jpg',
             //关注人数
-            num1:6,
+            num1:0,
             //粉丝人数
-            num2:5,
+            num2:0,
             //小花数量
             num3:0
         }
-    }
-    componentDidMount() {
-        console.log('my第一次加载');
-        AsyncStorage.getItem('user').
-            then((res) => {
-                var user = JSON.parse(res)
-                this.setState({
-                    uid: user.id
-                })
-                myFetch.post('/my/mypage', {
-                    uid:this.state.uid,
-                    imgurl:this.state.back,
-                }).then(
-                    res => {
-                        this.setState({
-                            back:res.data.imgurl
-                        })
-                        console.log(res);
-                        console.log('back'+this.state.back)
-                    }
-                )
-            })
-            myFetch.post('/my/', {
-                uid:this.state.uid,
-            }).then(
-                res => {
-                    this.setState({
-                        num3:res.num
-                    })
-                    console.log('num3'+this.state.num3)
-                }
-            )
     }
     componentDidUpdate(prevProps,prevState){
         console.log('更新')
@@ -103,10 +71,67 @@ export default class My extends Component {
                     this.setState({
                         back:res.data.imgurl
                     })
-                    console.log(res.data.imgurl)
+                    // console.log(res.data.imgurl)
                 }
             )
         }
+    }
+    componentDidMount() {
+        console.log('my第一次加载');
+        AsyncStorage.getItem('user').
+            then((res) => {
+                var user = JSON.parse(res)
+                this.setState({
+                    uid: user.id
+                })
+                // console.log('--------------------');
+                // console.log(this.state.back);
+                // console.log('--------------------');
+                // myFetch.post('/my/mypage', {
+                //     uid:this.state.uid,
+                //     imgurl:this.state.back,
+                // }).then(
+                //     res => {
+                //         this.setState({
+                //             back:res.data.imgurl
+                //         })
+                //         // console.log(res);
+                //         // console.log('back'+this.state.back)
+                //     }
+                // )
+                myFetch.post('/my/', {
+                    uid:this.state.uid,
+                }).then(
+                    res => {
+                        this.setState({
+                            num3:res.num
+                        })
+                    }
+                )
+                myFetch.get('/my/mypage/fans',{
+                    user_id:this.state.uid
+                }).then(res=>{
+                    if(res){
+                        this.setState({
+                            num2:res.data.length
+                        })
+                        console.log(res.data);
+                    }else{
+                        console.log('粉丝数据返回失败');
+                    }
+                })
+                myFetch.get('/my/mypage/focus',{
+                    user_id:this.state.uid
+                }).then(res=>{
+                    if(res){
+                        this.setState({
+                            num1:res.data.length
+                        })
+                    }else{
+                        console.log('关注数据返回失败');
+                    }
+                })
+            })
     }
     choosebgpic=()=>{
         ImagePicker.openPicker({
@@ -132,7 +157,6 @@ export default class My extends Component {
         });
     }
     alertMsg = () => {
-        console.log('---------------');
         Alert.alert('提示', '确认签到？',
             [
                 { text: "确定", onPress: ()=>{
@@ -150,7 +174,6 @@ export default class My extends Component {
                                 this.setState({
                                     num3:res.data.num
                                 })
-                                console.log(this.state.num3);
                             }else{
                                 console.log(res);
                             }
@@ -160,7 +183,6 @@ export default class My extends Component {
                 { text: "取消", onPress: this.opntion2Selected },
             ]
         )
-        console.log(this.state.back);
     }
     render() {
         return (
@@ -201,8 +223,21 @@ export default class My extends Component {
                     </View>
                 </View>
                 {/* body */}
-                <View style={{width:'100%',height:10*h,backgroundColor:'#eee'}}></View>
-                <TouchableOpacity onPress={()=>Actions.Mychilds()}  style={styles.btn}>
+                <View style={{width:'100%',height:80*h,backgroundColor:'#eee',flexDirection:'row'}}>
+                    <View style={{width:'50%',borderWidth:2,borderColor:'white'}}>
+                        <TouchableOpacity onPress={()=>Actions.Mychilds()}  style={styles.btn}>
+                            <Icon6 style={styles.icon3}  name='child'/>
+                            <Text style={styles.blockbtn}>&nbsp;&nbsp;亲子列表</Text >
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{width:'50%',borderWidth:2,borderColor:'white'}}>
+                        <TouchableOpacity onPress={()=>Actions.Mylover()}  style={styles.btn}>
+                            <Icon5 style={styles.icon3}  name='account-heart'/>
+                            <Text style={styles.blockbtn}>&nbsp;&nbsp;爱人列表</Text >
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                {/* <TouchableOpacity onPress={()=>Actions.Mychilds()}  style={styles.btn}>
                     <Icon6 style={styles.icon3}  name='child'/>
                     <Text style={styles.blockbtn}>&nbsp;&nbsp;亲子列表</Text >
                 </TouchableOpacity>
@@ -210,7 +245,7 @@ export default class My extends Component {
                 <TouchableOpacity onPress={()=>Actions.Mylover()}  style={styles.btn}>
                     <Icon5 style={styles.icon3}  name='account-heart'/>
                     <Text style={styles.blockbtn}>&nbsp;&nbsp;爱人列表</Text >
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         )
     }
@@ -243,10 +278,10 @@ const styles = StyleSheet.create({
     btn: {
         padding:0,
         height: 50*h,
-        width: "100%",
-        marginLeft: 20,
+        // width: "500%",
+        marginLeft: 50,
         marginRight: 5,
-        marginTop: 5,
+        marginTop: 10,
         flexDirection:'row',
         borderRadius: 5,
     },
