@@ -295,7 +295,7 @@ export default class Cdairy extends Component {
                 <WingBlank style={styles.wingblank}>
                     <Tabs 
                         tabs={tabs}
-                        page={1}
+                        // page={0}
                         tabBarUnderlineStyle={{
                             // borderColor:'#FFBF2D'
                             backgroundColor:'#FFBF2D'
