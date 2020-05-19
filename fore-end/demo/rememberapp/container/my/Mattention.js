@@ -80,9 +80,9 @@ export default class Mattention extends Component {
                 user_id:this.state.uid
             }).then(res=>{
                 if(res){
-                    this.setState({
-                        lists:res.data
-                    })
+                    // this.setState({
+                    //     lists:res.data
+                    // })
                    console.log(res);
                 }else{
                     console.log('失败');
