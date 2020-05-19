@@ -30,6 +30,7 @@ export default class Cdairy extends Component {
     }
     uploadImage =(params)=> {
         return new Promise(function (resolve, reject) {
+            // console.log(params)
             let formData = new FormData();
             formData.append('params', params);
             fetch('http://148.70.223.218:3001/imgs', {

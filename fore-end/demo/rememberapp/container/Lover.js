@@ -315,7 +315,7 @@ export default class Lover extends Component {
                         </Flex>
                     </View>
                     </WingBlank>
-                    <View style={{
+                    {/* <View style={{
                         width: '100%',
                         marginTop: 70
                     }}>
@@ -334,8 +334,8 @@ export default class Lover extends Component {
                             fontSize: 15,
                             color: '#555'
                         }}>以下内容仅自己可见</Text>
-                    </View>
-                    <FlatList
+                    </View> */}
+                    {/* <FlatList
                         showsVerticalScrollIndicator={false}
                         style={styles.scrollView}
                         data={news}
@@ -374,7 +374,7 @@ export default class Lover extends Component {
                                 </View>
                             </View>
                         )}
-                    />
+                    /> */}
 
                 </View>
             )
@@ -384,13 +384,13 @@ export default class Lover extends Component {
 const styles = StyleSheet.create({
     lover_first: {
         textAlign: "center",
-        height: 0.33 * height,
+        height: 0.4* height,
         width: width,
         alignItems:'center'
 
     },
     lover_second: {
-        marginBottom: 15,
+        marginTop:0.03*height,
         width: '100%',
         height: 140 * h,
         flexDirection: "column",
