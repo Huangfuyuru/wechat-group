@@ -55,7 +55,6 @@ export default class Use extends Component {
                     this.setState({
                         pass:res.data.pass
                     })
-                    console.log(this.state.pass);
                 }else{
                     console.log('请求失败');
                 }
@@ -69,7 +68,6 @@ export default class Use extends Component {
             this.setState({
                 uid:user.id,
             })
-            console.log(this.state.name,this.state.sex,this.state.uid,this.state.pass);
             myFetch.post('/my/information/',{
                 name:this.state.name,
                 pass:this.state.pass,
@@ -78,7 +76,6 @@ export default class Use extends Component {
             }).then(
                 res=>{
                     if(res.code == 0){
-                        console.log('这是code'+res.code);
                         this.setState({
                             code:res.code
                         })
@@ -97,7 +94,6 @@ export default class Use extends Component {
                         ToastAndroid.SHORT,
                         ToastAndroid.CENTER,
                         25,-200)
-                        console.log('这是code'+res.code);
                     }
                 }   
             )
