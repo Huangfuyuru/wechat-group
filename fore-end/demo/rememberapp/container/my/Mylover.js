@@ -79,8 +79,6 @@ export default class Mychilds extends Component {
         Alert.alert('提示', '确定要删除吗？',
             [
                 { text: "确定", onPress: ()=>{
-                    console.log(this.state.uid);
-                    console.log(e.id);
                     myFetch.get('/my/lover/dellover',{
                         lid:e.id,
                         uid:this.state.uid,
@@ -115,7 +113,6 @@ export default class Mychilds extends Component {
                         onPress={()=>Actions.pop()}
                     />
                     <Text style={styles.title}>爱人列表</Text>
-                    {/* <TouchableOpacity onPress={()=>Actions.Mmlover({uid:this.state.uid})}> */}
                     <TouchableOpacity onPress={()=>this.Mmlover()}>
                         <Icon2 style={styles.icon}  name='md-add'/>
                     </TouchableOpacity>

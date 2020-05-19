@@ -64,28 +64,30 @@ export default class Mattention extends Component {
                 uid:user.id
             })
             console.log('-------------------');
-            myFetch.get('/my/mypage/focus',{
+            // myFetch.get('/my/mypage/focus',{
+            //     user_id:this.state.uid
+            // }).then(res=>{
+            //     if(res){
+            //         this.setState({
+            //             list:res.data
+            //         })
+            //         // console.log(this.state.list);
+            //     }else{
+            //         console.log('关注数据返回失败');
+            //     }
+            // })
+            myFetch.get('/my/mypage/focusmsg',{
                 user_id:this.state.uid
             }).then(res=>{
                 if(res){
                     this.setState({
-                        list:res.data
+                        lists:res.data
                     })
-                    // console.log(this.state.list);
+                   console.log(res);
                 }else{
-                    console.log('关注数据返回失败');
+                    console.log('失败');
                 }
             })
-            
-            // myFetch.get('/my/mypage/focusmsg',{
-            //     uid:user.id
-            // }).then(res=>{
-            //     if(res){
-            //        console.log(res);
-            //     }else{
-            //         console.log('失败');
-            //     }
-            // })
         })
     }
     componentWillReceiveProps(nextProps) {

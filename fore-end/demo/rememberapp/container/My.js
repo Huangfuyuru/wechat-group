@@ -56,7 +56,8 @@ export default class My extends Component {
             //粉丝人数
             num2:0,
             //小花数量
-            num3:0
+            num3:0,
+            name:''
         }
     }
     componentDidUpdate(prevProps,prevState){
@@ -69,7 +70,8 @@ export default class My extends Component {
             }).then(
                 res=>{
                     this.setState({
-                        back:res.data.imgurl
+                        back:res.data.imgurl,
+                        name:res.data.name
                     })
                     // console.log(res.data.imgurl)
                 }
@@ -84,21 +86,22 @@ export default class My extends Component {
                 this.setState({
                     uid: user.id
                 })
-                // console.log('--------------------');
-                // console.log(this.state.back);
-                // console.log('--------------------');
-                // myFetch.post('/my/mypage', {
-                //     uid:this.state.uid,
-                //     imgurl:this.state.back,
-                // }).then(
-                //     res => {
-                //         this.setState({
-                //             back:res.data.imgurl
-                //         })
-                //         // console.log(res);
-                //         // console.log('back'+this.state.back)
-                //     }
-                // )
+                console.log('--------------------');
+                console.log(this.state.back);
+                console.log('--------------------');
+                myFetch.post('/my/mypage', {
+                    uid:this.state.uid,
+                    imgurl:this.state.back,
+                }).then(
+                    res => {
+                        this.setState({
+                            back:res.data.imgurl,
+                            name:res.data.name
+                        })
+                        // console.log(res);
+                        // console.log('back'+this.state.back)
+                    }
+                )
                 myFetch.post('/my/', {
                     uid:this.state.uid,
                 }).then(
@@ -115,7 +118,6 @@ export default class My extends Component {
                         this.setState({
                             num2:res.data.length
                         })
-                        console.log(res.data);
                     }else{
                         console.log('粉丝数据返回失败');
                     }
@@ -127,7 +129,6 @@ export default class My extends Component {
                         this.setState({
                             num1:res.data.length
                         })
-                        console.log(res.data);
                     }else{
                         console.log('关注数据返回失败');
                     }
@@ -210,7 +211,7 @@ export default class My extends Component {
                         <TouchableOpacity onPress={()=>{this.choosebgpic()}}>
                             <Image style={{width:100*h,height:100*h,borderRadius:60,borderColor:'#FFBF2D',borderWidth:2}} source={{uri: this.state.back}} />
                         </TouchableOpacity>
-                        <Text style={{color:'#FFBF2D', fontWeight:'bold',fontSize:17,marginTop:10*h}}>小浣熊</Text>
+                        <Text style={{color:'#FFBF2D', fontWeight:'bold',fontSize:17,marginTop:10*h}}>{this.state.name}</Text>
                         <View style={{fontWeight:'bold',marginTop:10*h,fontSize:17,width:'100%',justifyContent:'center',flexDirection:'row'}}>
                             <TouchableOpacity onPress={()=>{Actions.Mattention()}}>
                                 <Text style={{fontSize:17, color:'#FFBF2D'}}>关注:{this.state.num1}&nbsp;&nbsp;&nbsp;&nbsp;</Text>

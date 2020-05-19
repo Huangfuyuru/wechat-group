@@ -79,13 +79,14 @@ export default class Use extends Component {
                         this.setState({
                             code:res.code
                         })
+                        console.log(res.data.name);
                         ToastAndroid.showWithGravityAndOffset(
                             '修改成功！',
                         ToastAndroid.SHORT,
                         ToastAndroid.CENTER,
                         25,-200)
                         setTimeout(() => {
-                            Actions.pop() 
+                            Actions.pop({refresh:({name:res.data.name})}) 
                         }, 3000);
                     }
                     else{
@@ -127,7 +128,7 @@ export default class Use extends Component {
                     <Icon3 
                         style={styles.icon}
                         name='chevron-left'
-                        onPress={()=>Actions.pop()}
+                        onPress={()=>Actions.pop() }
                     />
                     <Text style={styles.title}>设置</Text>
                 </View>
