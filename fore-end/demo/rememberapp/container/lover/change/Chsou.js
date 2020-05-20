@@ -444,7 +444,7 @@ const styles = StyleSheet.create({
         borderColor: '#bdbbb8',
         borderStyle: 'solid',
         borderBottomWidth: 1,
-        fontSize: 24 * s,
+        fontSize: 21 * s,
         textAlign: 'center',
         color: '#333',
         backgroundColor:"#fff",
