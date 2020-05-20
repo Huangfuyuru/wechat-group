@@ -116,7 +116,28 @@ export default class My extends Component {
                 }
             )
         }
-        
+        myFetch.get('/my/mypage/fans',{
+            user_id:this.state.uid
+        }).then(res=>{
+            if(res){
+                this.setState({
+                    num2:res.data.length
+                })
+            }else{
+                console.log('粉丝数据返回失败');
+            }
+        })
+        myFetch.get('/my/mypage/focus',{
+            user_id:this.state.uid
+        }).then(res=>{
+            if(res){
+                this.setState({
+                    num1:res.data.length
+                })
+            }else{
+                console.log('关注数据返回失败');
+            }
+        })
     }
     choosebgpic=()=>{
         ImagePicker.openPicker({
