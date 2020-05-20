@@ -118,23 +118,6 @@ export default class My extends Component {
         }
         
     }
-    // componentDidUpdate(prevProps,prevState){
-    //     console.log('更新')
-    //     console.log(this.state.back)
-    //     if(prevState.back != this.state.back){
-    //         myFetch.post('/my/mypage',{
-    //             uid:this.state.uid,
-    //             imgurl:this.state.back
-    //         }).then(
-    //             res=>{
-    //                 this.setState({
-    //                     back:res.data.imgurl,
-    //                     name:res.data.name
-    //                 })
-    //             }
-    //         )
-    //     }
-    // }
     choosebgpic=()=>{
         ImagePicker.openPicker({
             width: 400, 
@@ -239,15 +222,6 @@ export default class My extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                {/* <TouchableOpacity onPress={()=>Actions.Mychilds()}  style={styles.btn}>
-                    <Icon6 style={styles.icon3}  name='child'/>
-                    <Text style={styles.blockbtn}>&nbsp;&nbsp;亲子列表</Text >
-                </TouchableOpacity>
-                <View style={{width:'100%',height:2*h,backgroundColor:'#eee'}}></View>
-                <TouchableOpacity onPress={()=>Actions.Mylover()}  style={styles.btn}>
-                    <Icon5 style={styles.icon3}  name='account-heart'/>
-                    <Text style={styles.blockbtn}>&nbsp;&nbsp;爱人列表</Text >
-                </TouchableOpacity> */}
             </View>
         )
     }
