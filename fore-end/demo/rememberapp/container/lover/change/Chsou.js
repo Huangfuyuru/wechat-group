@@ -50,7 +50,7 @@ export default class Lcreate_souver extends Component {
        const data=this.props.data;
        const date1=moment(data.date).format("YYYY-MM-DD").split("-");
        const date2=moment(data.setdate).format("YYYY-MM-DD").split("-");
-       const date3 =moment(data.setdate).format("YYYY-MM-DD hh:mm:ss").split(" ")[1].split(":");
+       const date3 =moment(data.setdate).format("YYYY-MM-DD HH:mm:ss").split(" ")[1].split(":");
        this.setState({
            loverId:data.lid,
            mood:data.mood,
