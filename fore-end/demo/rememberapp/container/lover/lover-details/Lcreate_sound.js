@@ -234,6 +234,7 @@ export default class Lcreate_sound extends Component {
                 maxLength={4}
                 defaultValue={this.state.year}
                 style={styles.input}
+                editable={false}
                 onChangeText={(text) => {
                   this.setState({ year: text });
                 }}
@@ -247,6 +248,7 @@ export default class Lcreate_sound extends Component {
                 maxLength={2}
                 defaultValue={this.state.month}
                 style={styles.input}
+                editable={false}
                 onChangeText={(text) => {
                   this.setState({ month: text });
                 }}
@@ -260,6 +262,7 @@ export default class Lcreate_sound extends Component {
                 maxLength={2}
                 defaultValue={this.state.day}
                 style={styles.input}
+                editable={false}
                 onChangeText={(text) => {
                   this.setState({ day: text });
                 }}
@@ -389,9 +392,9 @@ const styles = StyleSheet.create({
   },
   input: {
     width: 0.13 * width,
-    borderColor: '#bdbbb8',
-    borderStyle: 'solid',
-    borderBottomWidth: 1,
+    // borderColor: '#bdbbb8',
+    // borderStyle: 'solid',
+    // borderBottomWidth: 1,
     fontSize: 22 * s,
     textAlign: 'center',
     color: '#333'

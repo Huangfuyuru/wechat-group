@@ -122,14 +122,13 @@ export default class Mychilds extends Component {
                         renderItem={({item})=>{
                             return <View key={item.id}
                                 style={{
-                                    backgroundColor:'#FF6666 ',
                                     borderRadius:10,
                                     width:0.87*width,
-                                    height:0.15*height,
+                                    height:0.12*height,
                                     marginTop:20*s,
                                     borderWidth:5,
-                                    borderColor:'#CCC',
-                                    flexDirection:'row',    
+                                    borderColor:'#FFCCFF',
+                                    flexDirection:'row',
                                     alignItems:'center',
                                 }}
                             >
@@ -196,7 +195,7 @@ const styles = StyleSheet.create({
     },
     icon2:{
         width:0.08*width,
-        color:'#FFBF2D',
+        color:'black',
         fontSize:25,
     },
     title:{
@@ -216,7 +215,7 @@ const styles = StyleSheet.create({
     },
     listlineicon:{
         fontSize:32*s,
-        color:'#FFBF2D',
+        color:'#FF99CC',
     },
     btn:{
         width:'100%',

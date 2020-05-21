@@ -60,6 +60,49 @@ export default class My extends Component {
             name:''
         }
     }
+    componentDidMount() {
+        console.log('my第一次加载');
+        AsyncStorage.getItem('user').
+        then((res) => {
+            var user = JSON.parse(res)
+            this.setState({
+                uid: user.id
+            })
+            myFetch.post('/my/', {
+                uid:this.state.uid,
+            }).then(
+                res => {
+                    this.setState({
+                        num3:res.num,
+                        name:res.name,
+                        back:res.imgurl
+                    })
+                }
+            )
+            myFetch.get('/my/mypage/fans',{
+                user_id:this.state.uid
+            }).then(res=>{
+                if(res){
+                    this.setState({
+                        num2:res.data.length
+                    })
+                }else{
+                    console.log('粉丝数据返回失败');
+                }
+            })
+            myFetch.get('/my/mypage/focus',{
+                user_id:this.state.uid
+            }).then(res=>{
+                if(res){
+                    this.setState({
+                        num1:res.data.length
+                    })
+                }else{
+                    console.log('关注数据返回失败');
+                }
+            })
+        })
+    }
     componentDidUpdate(prevProps,prevState){
         console.log('更新')
         console.log(this.state.back)
@@ -69,71 +112,32 @@ export default class My extends Component {
                 imgurl:this.state.back
             }).then(
                 res=>{
-                    this.setState({
-                        back:res.data.imgurl,
-                        name:res.data.name
-                    })
-                    // console.log(res.data.imgurl)
+                    console.log(res)
                 }
             )
         }
-    }
-    componentDidMount() {
-        console.log('my第一次加载');
-        AsyncStorage.getItem('user').
-            then((res) => {
-                var user = JSON.parse(res)
+        myFetch.get('/my/mypage/fans',{
+            user_id:this.state.uid
+        }).then(res=>{
+            if(res){
                 this.setState({
-                    uid: user.id
+                    num2:res.data.length
                 })
-                console.log('--------------------');
-                console.log(this.state.back);
-                console.log('--------------------');
-                myFetch.post('/my/mypage', {
-                    uid:this.state.uid,
-                    imgurl:this.state.back,
-                }).then(
-                    res => {
-                        this.setState({
-                            back:res.data.imgurl,
-                            name:res.data.name
-                        })
-                        // console.log(res);
-                        // console.log('back'+this.state.back)
-                    }
-                )
-                myFetch.post('/my/', {
-                    uid:this.state.uid,
-                }).then(
-                    res => {
-                        this.setState({
-                            num3:res.num
-                        })
-                    }
-                )
-                myFetch.get('/my/mypage/fans',{
-                    user_id:this.state.uid
-                }).then(res=>{
-                    if(res){
-                        this.setState({
-                            num2:res.data.length
-                        })
-                    }else{
-                        console.log('粉丝数据返回失败');
-                    }
+            }else{
+                console.log('粉丝数据返回失败');
+            }
+        })
+        myFetch.get('/my/mypage/focus',{
+            user_id:this.state.uid
+        }).then(res=>{
+            if(res){
+                this.setState({
+                    num1:res.data.length
                 })
-                myFetch.get('/my/mypage/focus',{
-                    user_id:this.state.uid
-                }).then(res=>{
-                    if(res){
-                        this.setState({
-                            num1:res.data.length
-                        })
-                    }else{
-                        console.log('关注数据返回失败');
-                    }
-                })
-            })
+            }else{
+                console.log('关注数据返回失败');
+            }
+        })
     }
     choosebgpic=()=>{
         ImagePicker.openPicker({
@@ -239,15 +243,6 @@ export default class My extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                {/* <TouchableOpacity onPress={()=>Actions.Mychilds()}  style={styles.btn}>
-                    <Icon6 style={styles.icon3}  name='child'/>
-                    <Text style={styles.blockbtn}>&nbsp;&nbsp;亲子列表</Text >
-                </TouchableOpacity>
-                <View style={{width:'100%',height:2*h,backgroundColor:'#eee'}}></View>
-                <TouchableOpacity onPress={()=>Actions.Mylover()}  style={styles.btn}>
-                    <Icon5 style={styles.icon3}  name='account-heart'/>
-                    <Text style={styles.blockbtn}>&nbsp;&nbsp;爱人列表</Text >
-                </TouchableOpacity> */}
             </View>
         )
     }

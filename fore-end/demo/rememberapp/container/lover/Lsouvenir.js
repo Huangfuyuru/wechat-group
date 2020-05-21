@@ -225,17 +225,21 @@ export default class Lsouvenir extends Component {
                             data={list}
                             numColumns={1}
                             renderItem={({ item }) => {
-                                let time=item.setdate.split("T");
-                                let time0=time[1].split(".");
-                                let time1=time0[0].split(":");
+                            //     2020-05-13T01:46:00.000Z
+                            //    2020-05-19
+                            //     ["21", "08", "16"]
+                                const setdate=moment(item.setdate).format("YYYY-MM-DD HH:mm:ss")
+                                console.log(setdate)
+                                let time=setdate.split(" ");
+                                let time1=time[1].split(":");
                                 if(time[0]==this.state.date){
                                     if(time1[0]==this.state.time[0]){
                                         let min=Number(time1[1]);
                                         let min1 =Number(this.state.time[1]);
-                                        console.log("ggg",min,min1);
-                                        if(min==min1||(min1>min&&min1-min<=5)){
+                                        if(min==min1||(min1>min&&min1-min<=3)){
                                             item.paused=true;
-                                        }
+                                            ToastAndroid.show(item.name+"到啦到啦！！", ToastAndroid.SHORT);
+                                        }item.name
                                 
                                     }
                                 }
