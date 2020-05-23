@@ -48,6 +48,7 @@ export default class My extends Component {
             code:1,
             uid:'',
             data,
+            flag:true,
             width: new Animated.Value(20),
             //头像地址
             back: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=896950653,2577927585&fm=26&gp=0.jpg',
@@ -104,8 +105,6 @@ export default class My extends Component {
         })
     }
     componentDidUpdate(prevProps,prevState){
-        console.log('更新')
-        console.log(this.state.back)
         if(prevState.back != this.state.back){
             myFetch.post('/my/mypage',{
                 uid:this.state.uid,
@@ -115,29 +114,29 @@ export default class My extends Component {
                     console.log(res)
                 }
             )
+            myFetch.get('/my/mypage/fans',{
+                user_id:this.state.uid
+            }).then(res=>{
+                if(res){
+                    this.setState({
+                        num2:res.data.length
+                    })
+                }else{
+                    console.log('粉丝数据返回失败');
+                }
+            })
+            myFetch.get('/my/mypage/focus',{
+                user_id:this.state.uid
+            }).then(res=>{
+                if(res){
+                    this.setState({
+                        num1:res.data.length
+                    })
+                }else{
+                    console.log('关注数据返回失败');
+                }
+            })
         }
-        myFetch.get('/my/mypage/fans',{
-            user_id:this.state.uid
-        }).then(res=>{
-            if(res){
-                this.setState({
-                    num2:res.data.length
-                })
-            }else{
-                console.log('粉丝数据返回失败');
-            }
-        })
-        myFetch.get('/my/mypage/focus',{
-            user_id:this.state.uid
-        }).then(res=>{
-            if(res){
-                this.setState({
-                    num1:res.data.length
-                })
-            }else{
-                console.log('关注数据返回失败');
-            }
-        })
     }
     choosebgpic=()=>{
         ImagePicker.openPicker({
@@ -163,7 +162,8 @@ export default class My extends Component {
         });
     }
     alertMsg = () => {
-        Alert.alert('提示', '确认签到？',
+        if(this.state.flag){
+            Alert.alert('提示', '确认签到？',
             [
                 { text: "确定", onPress: ()=>{
                     AsyncStorage.getItem('user').
@@ -172,7 +172,6 @@ export default class My extends Component {
                         this.setState({
                             uid:user.id,
                         })
-                        console.log(this.state.uid);
                         myFetch.get('/my/sign/',{
                             uid:this.state.uid
                         }).then(res=>{
@@ -180,15 +179,30 @@ export default class My extends Component {
                                 this.setState({
                                     num3:res.data.num
                                 })
+                                ToastAndroid.showWithGravityAndOffset(
+                                    '签到成功！',
+                                ToastAndroid.SHORT,
+                                ToastAndroid.CENTER,
+                                25,-100)
                             }else{
                                 console.log(res);
                             }
                         })
                     })
+                    this.setState({
+                        flag:false
+                    })
                 } },
                 { text: "取消", onPress: this.opntion2Selected },
             ]
         )
+        }else{
+            ToastAndroid.showWithGravityAndOffset(
+                '今天已经签到过了！',
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER,
+            25,-100)
+        }
     }
     render() {
         return (
@@ -240,6 +254,20 @@ export default class My extends Component {
                         <TouchableOpacity onPress={()=>Actions.Mylover()}  style={styles.btn}>
                             <Icon5 style={styles.icon3}  name='account-heart'/>
                             <Text style={styles.blockbtn}>&nbsp;&nbsp;爱人列表</Text >
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={{width:'100%',height:80*h,backgroundColor:'#eee',flexDirection:'row'}}>
+                    <View style={{width:'50%',borderWidth:2,borderColor:'white'}}>
+                        <TouchableOpacity onPress={()=>Actions.Mychilds()}  style={styles.btn}>
+                            <Icon7 style={styles.icon3}  name='star'/>
+                            <Text style={styles.blockbtn}>&nbsp;&nbsp;我的收藏</Text >
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{width:'50%',borderWidth:2,borderColor:'white'}}>
+                        <TouchableOpacity onPress={()=>Actions.Mylover()}  style={styles.btn}>
+                            <Icon7 style={styles.icon3}  name='pushpin'/>
+                            <Text style={styles.blockbtn}>&nbsp;&nbsp;我的发布</Text >
                         </TouchableOpacity>
                     </View>
                 </View>

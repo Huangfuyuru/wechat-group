@@ -61,6 +61,26 @@ export default class Use extends Component {
             })
         })
     }
+    again=()=>{
+        AsyncStorage.getItem('user').
+        then((res)=>{
+            var user = JSON.parse(res)
+            this.setState({
+                uid:user.id,
+            })
+        myFetch.post('/my/', {
+            uid:this.state.uid,
+        }).then(
+            res => {
+                // this.setState({
+                //     name:res.name,
+                //     back:res.imgurl
+                // })
+                console.log(res);
+            }
+        )
+    })
+    }
     additem=()=>{
         AsyncStorage.getItem('user').
         then((res)=>{
@@ -79,14 +99,14 @@ export default class Use extends Component {
                         this.setState({
                             code:res.code
                         })
-                        console.log(res.data.name);
                         ToastAndroid.showWithGravityAndOffset(
                             '修改成功！',
                         ToastAndroid.SHORT,
                         ToastAndroid.CENTER,
                         25,-200)
                         setTimeout(() => {
-                            Actions.pop({refresh:({name:res.data.name})}) 
+                            // onPress={()=>Actions.pop(this.props.callBack(this.state.discuss))}
+                            Actions.pop()
                         }, 3000);
                     }
                     else{
@@ -103,7 +123,6 @@ export default class Use extends Component {
     leave=()=>{
         AsyncStorage.setItem('isLogin','false');
         AsyncStorage.removeItem('user',(res)=>{
-            console.log(res)
             if(!res){
                 ToastAndroid.show('已清除登录信息！', ToastAndroid.SHORT);
                 setTimeout(()=>{
