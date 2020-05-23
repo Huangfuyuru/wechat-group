@@ -243,7 +243,8 @@ export default class Child extends Component {
             this.setState({
                 weather:res.result,
                 realtime:res.result.realtime,
-                future:res.result.future
+                future:res.result.future,
+                text:''
             },()=>{console.log(this.state.weather)})
             // console.log(res)
         })
@@ -394,6 +395,7 @@ export default class Child extends Component {
                                     style={styles.searchinput} 
                                     placeholder='  搜索其他城市'
                                     multiline={false}
+                                    value={this.state.text}
                                     onChangeText={text=>{this.setState({text:text})}}
                                 />
                                 <TouchableOpacity onPress={()=>this.getweather(this.state.text)}>
@@ -593,6 +595,7 @@ const styles = StyleSheet.create({
     searchinput:{
         backgroundColor:"#fff",
         padding:0,
+        paddingLeft:0.03*width,
         height:0.04*height,
         borderRadius:5,
         // borderWidth:0.5,
