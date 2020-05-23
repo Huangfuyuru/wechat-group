@@ -38,6 +38,7 @@ export default class Cdairy extends Component {
             day:date[2],
             content:'',
             id:"",
+            bg:"",
             name:'',
             lists:[],
             uplists:[],
@@ -51,6 +52,7 @@ export default class Cdairy extends Component {
         console.log(data,"数据")
         this.setState({
             cid:data.cid,
+            bg:this.props.bg,
             id:data.id,
             year:date[0],
             month:date[1],
@@ -189,6 +191,7 @@ export default class Cdairy extends Component {
         // }, 3000);
     }
     render() {
+        const backgroundcolor=this.state.bg
         return (
             <View>
                 <View style={styles.navbar}>
@@ -200,7 +203,9 @@ export default class Cdairy extends Component {
                         <Icon2 style={styles.icon}  name='playlist-check'/>
                     </TouchableOpacity>
                 </View>
-                <WingBlank>
+                <WingBlank style={{
+                    backgroundColor:backgroundcolor
+                }}>
                     <View style={styles.msgbox}>
                         <View style={styles.msg}>
                             <Text style={styles.text}>

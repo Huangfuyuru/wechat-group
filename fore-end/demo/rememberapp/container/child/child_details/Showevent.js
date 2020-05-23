@@ -81,7 +81,7 @@ export default class Cdairy extends Component {
                     </TouchableOpacity>
                     <Text style={styles.title}>{item.item} {item.name}</Text>
                     <TouchableOpacity
-                     onPress={()=>Actions.cchevents({data:this.state.data})}
+                     onPress={()=>Actions.cchevents({data:this.state.data,bg:bgcolor})}
                      >
                   <Icon1 style={styles.icon1}  name='edit'/>
                     </TouchableOpacity>
