@@ -61,26 +61,6 @@ export default class Use extends Component {
             })
         })
     }
-    again=()=>{
-        AsyncStorage.getItem('user').
-        then((res)=>{
-            var user = JSON.parse(res)
-            this.setState({
-                uid:user.id,
-            })
-        myFetch.post('/my/', {
-            uid:this.state.uid,
-        }).then(
-            res => {
-                // this.setState({
-                //     name:res.name,
-                //     back:res.imgurl
-                // })
-                console.log(res);
-            }
-        )
-    })
-    }
     additem=()=>{
         AsyncStorage.getItem('user').
         then((res)=>{
@@ -106,7 +86,8 @@ export default class Use extends Component {
                         25,-200)
                         setTimeout(() => {
                             // onPress={()=>Actions.pop(this.props.callBack(this.state.discuss))}
-                            Actions.pop()
+                            // Actions.pop()
+                            Actions.pop(this.props.callBack(this.state.again))
                         }, 3000);
                     }
                     else{

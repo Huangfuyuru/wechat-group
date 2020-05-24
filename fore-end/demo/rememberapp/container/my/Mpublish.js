@@ -65,7 +65,7 @@ export default class Mattention extends Component {
                         name='chevron-left'
                         onPress={()=>Actions.pop()}
                     />
-                    <Text style={styles.title}>我的关注</Text>
+                    <Text style={styles.title}>我的发布</Text>
                 </View>
                 <WingBlank style={styles.wingblank}>
                     <FlatList

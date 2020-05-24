@@ -138,6 +138,18 @@ export default class My extends Component {
             })
         }
     }
+    // 姓名的callback函数用
+    again=()=>{
+        myFetch.post('/my/', {
+            uid:this.state.uid,
+        }).then(
+            res => {
+                this.setState({
+                    name:res.name,
+                })
+            }
+        )
+    }
     choosebgpic=()=>{
         ImagePicker.openPicker({
             width: 400, 
@@ -259,13 +271,13 @@ export default class My extends Component {
                 </View>
                 <View style={{width:'100%',height:80*h,backgroundColor:'#eee',flexDirection:'row'}}>
                     <View style={{width:'50%',borderWidth:2,borderColor:'white'}}>
-                        <TouchableOpacity onPress={()=>Actions.Mychilds()}  style={styles.btn}>
+                        <TouchableOpacity onPress={()=>Actions.Mstore()}  style={styles.btn}>
                             <Icon7 style={styles.icon3}  name='star'/>
                             <Text style={styles.blockbtn}>&nbsp;&nbsp;我的收藏</Text >
                         </TouchableOpacity>
                     </View>
                     <View style={{width:'50%',borderWidth:2,borderColor:'white'}}>
-                        <TouchableOpacity onPress={()=>Actions.Mylover()}  style={styles.btn}>
+                        <TouchableOpacity onPress={()=>Actions.Mpublish()}  style={styles.btn}>
                             <Icon7 style={styles.icon3}  name='pushpin'/>
                             <Text style={styles.blockbtn}>&nbsp;&nbsp;我的发布</Text >
                         </TouchableOpacity>

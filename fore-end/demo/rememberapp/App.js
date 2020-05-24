@@ -87,8 +87,8 @@ import Mylover from './container/my/Mylover'
 import Mmchilds from './container/my/Mmchilds'
 import Mmlover from './container/my/Mmlover'
 import Myfriend from './container/my/Myfriend'
-import Message from './container/my/Message'
-import Message2 from './container/my/Message2'
+import Mstore from './container/my/Mstore'
+import Mpublish from './container/my/Mpublish'
 import Mattention from './container/my/Mattention'
 import Mfollowers from './container/my/Mfollowers'
 import Use from './container/my/Use'
@@ -375,8 +375,8 @@ const App = () => {
 									<Scene key='Mmchilds' hideTabBar hideNavBar={true} component={Mmchilds} />
 									<Scene key='Mmlover' hideTabBar hideNavBar={true} component={Mmlover} />
 									<Scene key='Myfriend' hideTabBar hideNavBar={true} component={Myfriend} />
-									<Scene key='Message' hideTabBar hideNavBar={true} component={Message} />
-									<Scene key='Message2' hideTabBar hideNavBar={true} component={Message2} />
+									<Scene key='Mstore' hideTabBar hideNavBar={true} component={Mstore} />
+									<Scene key='Mpublish' hideTabBar hideNavBar={true} component={Mpublish} />
 									<Scene key='Mfollowers' hideTabBar hideNavBar={true} component={Mfollowers} />
 									<Scene key='Mattention' hideTabBar hideNavBar={true} component={Mattention} />
 									<Scene key='Use' hideTabBar hideNavBar={true} component={Use} />

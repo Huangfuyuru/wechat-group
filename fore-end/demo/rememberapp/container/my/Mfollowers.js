@@ -45,7 +45,6 @@ export default class Mfollowers extends Component {
                     this.setState({
                         lists:res.data
                     })
-                   console.log(res);
                 }else{
                     console.log('失败');
                 }
