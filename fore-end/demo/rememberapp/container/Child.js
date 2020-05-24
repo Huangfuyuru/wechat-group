@@ -49,6 +49,11 @@ export default class Child extends Component {
                     cpic:image,
                     ccontent:'请先到个人中心添加宝贝，然后这里将展示您在社区私密的亲子发布'
                 },
+                {
+                    ctime:'今天',
+                    cpic:image,
+                    ccontent:'请先到个人中心添加宝贝，然后这里将展示您在社区私密的亲子发布'
+                },
             ],
             form:'',
             cid:'',
@@ -59,6 +64,7 @@ export default class Child extends Component {
             children:[],
             weather:'',
             realtime:'',
+            future:[],
             text:''
         }
     }
@@ -102,7 +108,7 @@ export default class Child extends Component {
         })
     }
     componentDidUpdate(prevProps,prevState){
-        console.log('更新')
+        console.log('孩子更新')
         if(prevState.background != this.state.background){
             myFetch.post('/child/changebackground',{
                 childsid:this.state.currentchild.id,
@@ -224,22 +230,24 @@ export default class Child extends Component {
         // city?city:'北京';
         // console.log(city)
         var code;
-        if(city =='undefined'){
+        if(!city){
             // console.log(city);
             code = encodeURI('北京',"utf8")
         }else{
             code = encodeURI(city,"utf8")
         }
-        // console.log(city)
-        // fetch(`http://apis.juhe.cn/simpleWeather/query?city=${code}&key=83a5a764e688d1c517e7081a1aa2977f`)
-        // .then(res=>res.json())
-        // .then(res=>{
-        //     this.setState({
-        //         weather:res.result,
-        //         realtime:res.result.realtime
-        //     },()=>{console.log(this.state.weather)})
-        //     // console.log(res)
-        // })
+        console.log(city)
+        fetch(`http://apis.juhe.cn/simpleWeather/query?city=${code}&key=83a5a764e688d1c517e7081a1aa2977f`)
+        .then(res=>res.json())
+        .then(res=>{
+            this.setState({
+                weather:res.result,
+                realtime:res.result.realtime,
+                future:res.result.future,
+                text:''
+            },()=>{console.log(this.state.weather)})
+            // console.log(res)
+        })
     }
     render() {
         return (
@@ -379,46 +387,63 @@ export default class Child extends Component {
                     <View style={styles.weather}>
                         <View style={styles.realtime}>
                             <View style={styles.realtimetitle}>
-                                {/* <Text style={styles.city}>{this.state.weather.city}</Text> */}
-                                <Text style={styles.city}>张家口</Text>
+                                <Text style={styles.city}>{this.state.weather.city}</Text>
+                                {/* <Text style={styles.city}>张家口</Text>
+                                <Text style={styles.weatherstate}>晴</Text> */}
+                                <Text style={styles.weatherstate}>{this.state.realtime.info}</Text>
                                 <TextInput
                                     style={styles.searchinput} 
                                     placeholder='  搜索其他城市'
                                     multiline={false}
+                                    value={this.state.text}
                                     onChangeText={text=>{this.setState({text:text})}}
                                 />
-                                <Icon2 style={styles.weathericon} name='search1'/>
-                            </View>                  
-                            <Text style={styles.weatherline}>天气情况：晴</Text>
-                            <Text style={styles.weatherline}>天气情况：晴</Text>
-                            <Text style={styles.weatherline}>天气情况：晴</Text>
-                            <Text style={styles.weatherline}>天气情况：晴</Text>
-                            <Text style={styles.weatherline}>天气情况：晴</Text>
-                            {
-                                this.state.realtime.info
-                                ?<Text style={styles.weatherline}>天气情况：{this.state.realtime.info}</Text>
-                                :null
-                            }
-                            {
-                                this.state.realtime.temperature
-                                ?<Text style={styles.weatherline}>当前气温：{this.state.realtime.temperature} ℃</Text>
-                                :null
-                            }
-                            {
-                                this.state.realtime.humidity
-                                ? <Text style={styles.weatherline}>当前湿度：{this.state.realtime.humidity}</Text>
-                                :null
-                            }
-                            {
-                                this.state.realtime.direct
-                                ?<Text style={styles.weatherline}>风向：{this.state.realtime.direct}</Text>
-                                :null
-                            }
-                            {
-                                this.state.realtime.power
-                                ?<Text style={styles.weatherline}>风力：{this.state.realtime.power}</Text>
-                                :null
-                            }
+                                <TouchableOpacity onPress={()=>this.getweather(this.state.text)}>
+                                    <Icon2 style={styles.weathericon} name='search1'/>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.realtimenext}>
+                                <View style={styles.realtimeleft}>
+                                    {
+                                        this.state.realtime.temperature
+                                        ?<Text style={styles.weatherline}>当前气温：{this.state.realtime.temperature} ℃</Text>
+                                        :null
+                                    }
+                                    {
+                                        this.state.realtime.humidity
+                                        ? <Text style={styles.weatherline}>当前湿度：{this.state.realtime.humidity}</Text>
+                                        :null
+                                    }
+                                    {
+                                        this.state.realtime.direct
+                                        ?<Text style={styles.weatherline}>风向：{this.state.realtime.direct}</Text>
+                                        :null
+                                    }
+                                    {
+                                        this.state.realtime.power
+                                        ?<Text style={styles.weatherline}>风力：{this.state.realtime.power}</Text>
+                                        :null
+                                    }
+                                </View>
+                                <View style={styles.realtimeright}>
+                                    <Text style={styles.righttext}>未来5天天气预报</Text>
+                                </View>
+                            </View>                          
+                        </View>
+                        <View style={styles.future}>
+                            <FlatList
+                                extraData={this.state}
+                                horizontal = {true}
+                                data={this.state.future}
+                                showsHorizontalScrollIndicator={false}
+                                renderItem={({item})=>(
+                                    <View style={styles.weatherblock}>
+                                        <Text style={styles.futureline}>{item.date}</Text>
+                                        <Text style={styles.futureline}>{item.weather}</Text>
+                                        <Text style={styles.futureline}>{item.temperature}</Text>
+                                    </View>                            
+                                )}
+                            />
                         </View>
                     </View>
                 </WingBlank>
@@ -508,17 +533,110 @@ const styles = StyleSheet.create({
     },
     weather:{
         height:0.31*height,
-        backgroundColor:'#ccc',
+        backgroundColor:'rgba(205,205,205,0.2)',
         marginTop:0.01*height
     },
     realtime:{
-        height:0.15*height,
-        backgroundColor:'#eee'
+        height:0.175*height,
+        justifyContent:'space-around',
+        // backgroundColor:'#ccc'
     },
     realtimetitle:{
+        flexDirection:'row',
+        alignItems:'center',
+        backgroundColor:'#eee',
+        marginBottom:0.02*height
+    },
+    realtimenext:{
         flexDirection:'row'
     },
+    realtimeleft:{
+        width:0.4*width
+    },
+    realtimeright:{
+        width:0.6*width,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    righttext:{
+        width:0.4*width,
+        height:0.06*height,
+        backgroundColor:'#fff',
+        color:'#FFBF2D',
+        borderRadius:5,
+        fontSize:25*s1,
+        textAlign:'center',
+        textAlignVertical:'center'
+    },
     city:{
-        
+        width:0.2*width,
+        height:0.055*height,
+        marginBottom:0.005*height,
+        fontSize:32*s1,
+        color:'#555',
+        // color:'#FFBF2D',
+        // backgroundColor:'#ccc',
+        textAlign:'right',
+        textAlignVertical:'center',
+    },
+    weatherstate:{
+        width:0.04*height,
+        height:0.04*height,
+        borderRadius:100,
+        fontSize:20*s1,
+        color:'#fff',
+        // color:'#FFBF2D',
+        marginLeft:0.03*width,
+        marginRight:0.08*width,
+        backgroundColor:'#FFBF2D',
+        textAlign:'center',
+        textAlignVertical:'center',
+    },
+    searchinput:{
+        backgroundColor:"#fff",
+        padding:0,
+        paddingLeft:0.03*width,
+        height:0.04*height,
+        borderRadius:5,
+        // borderWidth:0.5,
+        width:0.43*width,
+    },
+    weathericon:{
+        width:0.04*height,
+        height:0.04*height,
+        fontSize:30*s1,
+        color:'#888',
+        // backgroundColor:'#000',
+        marginLeft:0.01*width,
+        textAlignVertical:'center',
+        textAlign:'center'
+    },
+    weatherline:{
+        width:0.35*width,
+        height:0.03*height,
+        marginLeft:0.05*width,
+        // marginRight:'auto',
+        // marginLeft:'auto',
+        textAlign:'left',
+        fontSize:20*s1,
+        textAlignVertical:'center'
+    },
+    future:{
+        height:0.13*height,
+        paddingTop:0.015*height,
+        // backgroundColor:'#000'
+    },
+    weatherblock:{
+        backgroundColor:'#fff',
+        width:0.12*height,
+        height:0.12*height,
+        marginLeft:0.05*width,
+        marginRight:0.05*width,
+        justifyContent:'center'
+    },
+    futureline:{
+        textAlignVertical:'center',
+        textAlign:'center',
+        height:0.03*height
     }
 })
