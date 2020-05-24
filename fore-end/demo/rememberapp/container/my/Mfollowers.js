@@ -27,17 +27,16 @@ export default class Mfollowers extends Component {
         this.state={
             uid:'',
             lists:[],
+            back: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3825009501,3483030709&fm=15&gp=0.jpg',
         }
     }
     componentDidMount(){
-        console.log('关注');
         AsyncStorage.getItem('user').
         then((res)=>{
             var user = JSON.parse(res)
             this.setState({
                 uid:user.id
             })
-            console.log('-------------------');
             myFetch.get('/my/mypage/fansmsg',{
                 user_id:this.state.uid
             }).then(res=>{
@@ -126,16 +125,23 @@ export default class Mfollowers extends Component {
                                     height:0.10*height,
                                     marginTop:20*s,
                                     borderWidth:5,
-                                    borderColor:'rgba(204,204,204,0.1)',
+                                    borderColor:'rgba(204,204,204,0.3)',
                                     flexDirection:'row',    
                                     alignItems:'center'
                                 }}
                             >
-                                <View style={{width:'30%',marginLeft:'7%',height:'100%',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                                    <Image style={{width:70*h,height:70*h,borderRadius:60,borderColor:'#FFBF2D',borderWidth:2}} source={{uri:`${item.bgimg}`}} />
-                                </View>
+                                {
+                                    item.imgurl?
+                                    <View style={{width:'30%',marginLeft:'7%',height:'100%',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                                        <Image style={{width:70*h,height:70*h,borderRadius:60,borderColor:'#FFBF2D',borderWidth:2}} source={{uri:`${item.imgurl}`}} />
+                                    </View>
+                                    :
+                                    <View style={{width:'30%',marginLeft:'7%',height:'100%',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                                        <Image style={{width:70*h,height:70*h,borderRadius:60,borderColor:'#FFBF2D',borderWidth:2}} source={{uri: this.state.back}} />
+                                    </View>
+                                }
                                 <View style={{width:'40%',marginLeft:'5%',height:'100%',flexDirection:'row',alignItems:'center'}}>
-                                    <Text style={{fontSize:16}}>{item.name}</Text>
+                                    <Text style={{fontSize:16}}>id:&nbsp;&nbsp;&nbsp;{item.name}</Text>
                                 </View>
                             </View>
                         }}

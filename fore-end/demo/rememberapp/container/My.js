@@ -51,7 +51,7 @@ export default class My extends Component {
             flag:true,
             width: new Animated.Value(20),
             //头像地址
-            back: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=896950653,2577927585&fm=26&gp=0.jpg',
+            back: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3825009501,3483030709&fm=15&gp=0.jpg',
             //关注人数
             num1:0,
             //粉丝人数
@@ -273,7 +273,7 @@ export default class My extends Component {
                     <View style={{width:'50%',borderWidth:2,borderColor:'white'}}>
                         <TouchableOpacity onPress={()=>Actions.Mstore()}  style={styles.btn}>
                             <Icon7 style={styles.icon3}  name='star'/>
-                            <Text style={styles.blockbtn}>&nbsp;&nbsp;我的收藏</Text >
+                            <Text style={styles.blockbtn}>&nbsp;&nbsp;我的喜欢</Text >
                         </TouchableOpacity>
                     </View>
                     <View style={{width:'50%',borderWidth:2,borderColor:'white'}}>

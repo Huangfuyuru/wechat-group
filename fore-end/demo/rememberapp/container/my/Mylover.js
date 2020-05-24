@@ -34,6 +34,8 @@ export default class Mychilds extends Component {
             uid:'',
             code:1, //要获取的状态
             lists:[],
+            back:'http://pic180.nipic.com/file/20180905/27581684_161923154081_2.jpg'
+
         }
     }
     componentDidMount(){
@@ -131,18 +133,21 @@ export default class Mychilds extends Component {
                                 </View>
                             }
                         renderItem={({item})=>{
-                            return <View key={item.id}
-                                style={{
-                                    borderRadius:10,
-                                    width:0.87*width,
-                                    height:0.12*height,
-                                    marginTop:20*s,
-                                    borderWidth:5,
-                                    borderColor:'#FFCCFF',
-                                    flexDirection:'row',
-                                    alignItems:'center'
-                                }}
-                            >
+                            return <ImageBackground
+                            imageStyle={{opacity:0.7}}
+                            style={{
+                                borderRadius:10,
+                                width:0.87*width,
+                                height:0.12*height,
+                                marginTop:20*s,
+                                borderWidth:5,
+                                borderColor:'rgba(204,204,204,0.3)',
+                                flexDirection:'row',
+                                alignItems:'center',
+                            }}
+                            resizeMode='cover'
+                            source={{uri:this.state.back}}
+                        >
                                 <View style={{width:'15%',marginLeft:'30%',height:'100%',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                                     <Icon4 style={styles.listlineicon} name='heart'/>
                                     <Text style={{fontSize:16}}>&nbsp;昵称：</Text>
@@ -153,7 +158,7 @@ export default class Mychilds extends Component {
                                 <TouchableOpacity >
                                     <Icon3 style={styles.icon2} onPress={()=>this.rmCevent(item)} name='delete'/>
                                 </TouchableOpacity>
-                            </View>
+                            </ImageBackground>
                         }}
                         /> 
                         :<View>
@@ -215,7 +220,8 @@ const styles = StyleSheet.create({
         textAlign:'center',
         fontSize:20,
         color:'#fff',
-        letterSpacing:3
+        letterSpacing:3,
+        fontWeight:'bold'
     },
     scrollView: {
         backgroundColor: '#fff',

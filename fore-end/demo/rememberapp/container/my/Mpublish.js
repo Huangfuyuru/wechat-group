@@ -27,24 +27,25 @@ export default class Mattention extends Component {
         this.state={
             uid:'',
             lists:[],
+            num:0
         }
     }
     componentDidMount(){
-        console.log('关注');
+        // /my/myarticle/mypublish
         AsyncStorage.getItem('user').
         then((res)=>{
             var user = JSON.parse(res)
             this.setState({
                 uid:user.id
             })
-            console.log('-------------------');
-            myFetch.get('/my/mypage/focusmsg',{
+            myFetch.get('/my/myartic/mylikemsg',{
                 user_id:this.state.uid
             }).then(res=>{
                 if(res){
-                    this.setState({
-                        lists:res.data
-                    })
+                    // this.setState({
+                    //     num:res.data.
+                    // })
+                    console.log(res);
                 }else{
                     console.log('失败');
                 }
@@ -52,9 +53,9 @@ export default class Mattention extends Component {
         })
     }
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            lists:nextProps.data
-        })
+        // this.setState({
+        //     lists:nextProps.data
+        // })
     }
     render() {
         return (

@@ -86,8 +86,8 @@ export default class Use extends Component {
                         25,-200)
                         setTimeout(() => {
                             // onPress={()=>Actions.pop(this.props.callBack(this.state.discuss))}
-                            // Actions.pop()
-                            Actions.pop(this.props.callBack(this.state.again))
+                            Actions.pop()
+                            // Actions.pop(this.props.callBack(this.state.again))
                         }, 3000);
                     }
                     else{

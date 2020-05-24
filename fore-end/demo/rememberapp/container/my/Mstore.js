@@ -27,10 +27,11 @@ export default class Mattention extends Component {
         this.state={
             uid:'',
             lists:[],
+            back: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3825009501,3483030709&fm=15&gp=0.jpg',
+
         }
     }
     componentDidMount(){
-        console.log('关注');
         AsyncStorage.getItem('user').
         then((res)=>{
             var user = JSON.parse(res)
@@ -38,13 +39,14 @@ export default class Mattention extends Component {
                 uid:user.id
             })
             console.log('-------------------');
-            myFetch.get('/my/mypage/focusmsg',{
+            myFetch.get('/my/myarticle/mylike',{
                 user_id:this.state.uid
             }).then(res=>{
                 if(res){
-                    this.setState({
-                        lists:res.data
-                    })
+                    // this.setState({
+                    //     lists:res.data
+                    // })
+                    console.log(res);
                 }else{
                     console.log('失败');
                 }
@@ -65,7 +67,7 @@ export default class Mattention extends Component {
                         name='chevron-left'
                         onPress={()=>Actions.pop()}
                     />
-                    <Text style={styles.title}>我的收藏</Text>
+                    <Text style={styles.title}>我的喜欢</Text>
                 </View>
                 <WingBlank style={styles.wingblank}>
                     <FlatList
@@ -131,9 +133,16 @@ export default class Mattention extends Component {
                                     alignItems:'center'
                                 }}
                             >
-                                <View style={{width:'30%',marginLeft:'7%',height:'100%',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                                    <Image style={{width:70*h,height:70*h,borderRadius:60,borderColor:'#FFBF2D',borderWidth:2}} source={{uri:`${item.imgurl}`}} />
-                                </View>
+                                {
+                                    item.imgurl?
+                                    <View style={{width:'30%',marginLeft:'7%',height:'100%',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                                        <Image style={{width:70*h,height:70*h,borderRadius:60,borderColor:'#FFBF2D',borderWidth:2}} source={{uri:`${item.imgurl}`}} />
+                                    </View>
+                                    :
+                                    <View style={{width:'30%',marginLeft:'7%',height:'100%',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                                        <Image style={{width:70*h,height:70*h,borderRadius:60,borderColor:'#FFBF2D',borderWidth:2}} source={{uri: this.state.back}} />
+                                    </View>
+                                }
                                 <View style={{width:'40%',marginLeft:'5%',height:'100%',flexDirection:'row',alignItems:'center'}}>
                                     <Text style={{fontSize:16}}>{item.name}</Text>
                                 </View>
