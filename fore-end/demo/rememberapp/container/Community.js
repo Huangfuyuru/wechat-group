@@ -463,7 +463,8 @@ export default class Community extends Component {
                                             </TouchableOpacity>
                                         }
                                     </View>
-                                    <View style={styles.innerpics}>
+                                    <View 
+                                        style={item.content.length>0?styles.innerpics:styles.innerpicscover}>
                                         <Swiper
                                             renderPagination = {renderPagination} 
                                             loop={false}
@@ -473,7 +474,7 @@ export default class Community extends Component {
                                                 imgurl&&imgurl.map((img,idx)=>(
                                                     <TouchableOpacity onPress={()=>this.enlarge(imgurl)}>
                                                         <Image 
-                                                            style={styles.img}
+                                                            style={item.content.length>0?styles.img:styles.imgcover}
                                                             resizeMode="cover"
                                                             source={{uri:`${img}`}}
                                                         />
@@ -484,13 +485,17 @@ export default class Community extends Component {
                                         </Swiper>
                                     </View>
                                     <View style={styles.innerlast}>
-                                        <View style={styles.innercontent}>
-                                            <TouchableOpacity onPress={()=>this.enlarge(item.content)}>
-                                                <Text selectable = {true} style={styles.content}>
-                                                    {item.content ? (item.content.length > 66 ? item.content.substr(0, 66) + " . . . " : item.content) : ""}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        </View>
+                                        {
+                                            item.content.length>0
+                                            ?<View style={styles.innercontent}>
+                                                <TouchableOpacity onPress={()=>this.enlarge(item.content)}>
+                                                    <Text selectable = {true} style={styles.content}>
+                                                        {item.content ? (item.content.length > 55 ? item.content.substr(0, 55) + " . . . " : item.content) : ""}
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                            :null
+                                        }
                                         <View style={styles.innerfooter}>
                                             <View style={styles.footerbox}>
                                                 <TouchableOpacity onPress={()=>this.like(item)}>
@@ -584,7 +589,8 @@ export default class Community extends Component {
                                             </TouchableOpacity>
                                         }
                                     </View>
-                                    <View style={styles.innerpics}>
+                                    <View 
+                                        style={item.content.length>0?styles.innerpics:styles.innerpicscover}>
                                         <Swiper
                                             renderPagination = {renderPagination} 
                                             loop={false}
@@ -594,7 +600,7 @@ export default class Community extends Component {
                                                 imgurl&&imgurl.map((img,idx)=>(
                                                     <TouchableOpacity onPress={()=>this.enlarge(imgurl)}>
                                                         <Image 
-                                                            style={styles.img}
+                                                            style={item.content.length>0?styles.img:styles.imgcover}
                                                             resizeMode="cover"
                                                             source={{uri:`${img}`}}
                                                         />
@@ -605,13 +611,17 @@ export default class Community extends Component {
                                         </Swiper>
                                     </View>
                                     <View style={styles.innerlast}>
-                                        <View style={styles.innercontent}>
-                                            <TouchableOpacity onPress={()=>this.enlarge(item.content)}>
-                                                <Text selectable = {true} style={styles.content}>
-                                                    {item.content ? (item.content.length > 66 ? item.content.substr(0, 66) + " . . . " : item.content) : ""}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        </View>
+                                        {
+                                            item.content.length>0
+                                            ?<View style={styles.innercontent}>
+                                                <TouchableOpacity onPress={()=>this.enlarge(item.content)}>
+                                                    <Text selectable = {true} style={styles.content}>
+                                                        {item.content ? (item.content.length > 55 ? item.content.substr(0, 55) + " . . . " : item.content) : ""}
+                                                    </Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                            :null
+                                        }
                                         <View style={styles.innerfooter}>
                                             <View style={styles.footerbox}>
                                                 <TouchableOpacity onPress={()=>this.like(item)}>
@@ -679,7 +689,9 @@ export default class Community extends Component {
                             {
                                 typeof(this.state.current) === 'string'
                                 ?<View style={styles.contentbox}>
-                                    <Text selectable = {true} style={styles.content}>{this.state.current}</Text>
+                                    <ScrollView showsVerticalScrollIndicator={false}>
+                                        <Text selectable = {true} style={styles.content}>{this.state.current}</Text>
+                                    </ScrollView>
                                 </View>
                                 :<Swiper
                                     renderPagination = {renderPagination} 
@@ -773,8 +785,8 @@ const styles = StyleSheet.create({
         marginTop:0.01*height
     },
     innertitlepic:{
-        width:0.1*height,
-        height:0.1*height,
+        width:0.08*height,
+        height:0.08*height,
         borderRadius:100,
         borderColor:'rgba(255,191,45,0.1)',
         borderWidth:3
@@ -784,7 +796,7 @@ const styles = StyleSheet.create({
         marginLeft:0.03*width,
         height:0.045*height,
         color:'#333',
-        fontSize:23*s,
+        fontSize:22*s,
         // backgroundColor:"#ccc",
         textAlign:'left',
         textAlignVertical:'center'
@@ -793,6 +805,7 @@ const styles = StyleSheet.create({
         width:0.25*width,
         marginLeft:0.03*width,
         height:0.025*height,
+        fontSize:18*s,
         color:'#333',
         // backgroundColor:"#ccc",
         textAlign:'left',
@@ -840,11 +853,27 @@ const styles = StyleSheet.create({
         width:0.87*width,
         // backgroundColor:'#ddccff',
         height:0.44*height,
+        // justifyContent:'center',
+        alignItems:'center'
+    },
+    innerpicscover:{
+        width:0.87*width,
+        // backgroundColor:'#ddccff',
+        height:0.57*height,
+        // justifyContent:'center',
         alignItems:'center'
     },
     img:{
-        width:0.87*width,
-        height:0.44*height
+        width:0.85*width,
+        height:0.4*height,
+        marginLeft:'auto',
+        marginRight:'auto'
+    },
+    imgcover:{
+        width:0.85*width,
+        height:0.5*height,
+        marginLeft:'auto',
+        marginRight:'auto'
     },
     paginationStyle: {
         position: 'absolute',
@@ -859,13 +888,15 @@ const styles = StyleSheet.create({
     innercontent:{
         width:0.88*width,
         height:0.13*height,
-        paddingTop:0.015*height,
+        // paddingTop:0.005*height,
+        marginTop:-0.01*height,
         paddingLeft:0.01*width,
         justifyContent:'center',
         // backgroundColor:'#ddeeff',
         alignItems:'center'
     },
     content:{
+        // textAlign:'center',
         lineHeight:0.04*height,
         fontSize:23*s,
         // backgroundColor:'#000'

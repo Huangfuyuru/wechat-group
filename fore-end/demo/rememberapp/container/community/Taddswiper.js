@@ -77,6 +77,7 @@ export default class Community extends Component {
             var lists = this.state.lists;
             var uplist = this.state.uplist;
             for(var i in images){
+                // console.log(images[i].path)
                 lists.push(images[i].path);
                 uplist.push(images[i].data);
             }
