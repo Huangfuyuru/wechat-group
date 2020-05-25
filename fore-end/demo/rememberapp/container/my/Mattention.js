@@ -27,6 +27,7 @@ export default class Mattention extends Component {
         this.state={
             uid:'',
             lists:[],
+            num1:0,
             back: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3825009501,3483030709&fm=15&gp=0.jpg',
 
         }
@@ -49,6 +50,17 @@ export default class Mattention extends Component {
                     console.log('失败');
                 }
             })
+            myFetch.get('/my/mypage/focus',{
+                user_id:this.state.uid
+            }).then(res=>{
+                if(res){
+                    this.setState({
+                        num1:res.data.length
+                    })
+                }else{
+                    console.log('关注数据返回失败');
+                }
+            })
         })
     }
     componentWillReceiveProps(nextProps) {
@@ -66,6 +78,9 @@ export default class Mattention extends Component {
                         onPress={()=>Actions.pop()}
                     />
                     <Text style={styles.title}>我的关注</Text>
+                </View>
+                <View style={{width:'100%',height:35*s}}>
+                    <Text style={{fontSize:17, color:'#FFBF2D'}}>关注人数：{this.state.num1}</Text>
                 </View>
                 <WingBlank style={styles.wingblank}>
                     <FlatList

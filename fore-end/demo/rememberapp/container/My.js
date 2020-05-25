@@ -80,28 +80,7 @@ export default class My extends Component {
                     })
                 }
             )
-            myFetch.get('/my/mypage/fans',{
-                user_id:this.state.uid
-            }).then(res=>{
-                if(res){
-                    this.setState({
-                        num2:res.data.length
-                    })
-                }else{
-                    console.log('粉丝数据返回失败');
-                }
-            })
-            myFetch.get('/my/mypage/focus',{
-                user_id:this.state.uid
-            }).then(res=>{
-                if(res){
-                    this.setState({
-                        num1:res.data.length
-                    })
-                }else{
-                    console.log('关注数据返回失败');
-                }
-            })
+            
         })
     }
     componentDidUpdate(prevProps,prevState){
@@ -114,28 +93,28 @@ export default class My extends Component {
                     console.log('')
                 }
             )
-            myFetch.get('/my/mypage/fans',{
-                user_id:this.state.uid
-            }).then(res=>{
-                if(res){
-                    this.setState({
-                        num2:res.data.length
-                    })
-                }else{
-                    console.log('粉丝数据返回失败');
-                }
-            })
-            myFetch.get('/my/mypage/focus',{
-                user_id:this.state.uid
-            }).then(res=>{
-                if(res){
-                    this.setState({
-                        num1:res.data.length
-                    })
-                }else{
-                    console.log('关注数据返回失败');
-                }
-            })
+            // myFetch.get('/my/mypage/fans',{
+            //     user_id:this.state.uid
+            // }).then(res=>{
+            //     if(res){
+            //         this.setState({
+            //             num2:res.data.length
+            //         })
+            //     }else{
+            //         console.log('粉丝数据返回失败');
+            //     }
+            // })
+            // myFetch.get('/my/mypage/focus',{
+            //     user_id:this.state.uid
+            // }).then(res=>{
+            //     if(res){
+            //         this.setState({
+            //             num1:res.data.length
+            //         })
+            //     }else{
+            //         console.log('关注数据返回失败');
+            //     }
+            // })
         }
     }
     // 姓名的callback函数用
@@ -243,12 +222,12 @@ export default class My extends Component {
                         </TouchableOpacity>
                         <Text style={{color:'#FFBF2D', fontWeight:'bold',fontSize:17,marginTop:10*h}}>{this.state.name}</Text>
                         <View style={{fontWeight:'bold',marginTop:10*h,fontSize:17,width:'100%',justifyContent:'center',flexDirection:'row'}}>
-                            <TouchableOpacity onPress={()=>{Actions.Mattention()}}>
-                                <Text style={{fontSize:17, color:'#FFBF2D'}}>关注:{this.state.num1}&nbsp;&nbsp;&nbsp;&nbsp;</Text>
+                            {/* <TouchableOpacity onPress={()=>{Actions.Mattention()}}>
+                                <Text style={{fontSize:17, color:'#FFBF2D'}}>关注&nbsp;&nbsp;&nbsp;&nbsp;</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={()=>{Actions.Mfollowers()}}>
-                                <Text style={{fontSize:17,color:'#FFBF2D'}}>粉丝:{this.state.num2}&nbsp;&nbsp;&nbsp;&nbsp;</Text>
-                            </TouchableOpacity>
+                                <Text style={{fontSize:17,color:'#FFBF2D'}}>粉丝&nbsp;&nbsp;&nbsp;</Text>
+                            </TouchableOpacity> */}
                             <Icon3 style={styles.icon2} name='flower' />
                             <Text style={{color:'#FFBF2D',fontSize:17}}>&nbsp;:&nbsp;{this.state.num3}</Text>
                         </View>
@@ -269,7 +248,7 @@ export default class My extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={{width:'100%',height:80*h,backgroundColor:'#eee',flexDirection:'row'}}>
+                {/* <View style={{width:'100%',height:80*h,backgroundColor:'#eee',flexDirection:'row'}}>
                     <View style={{width:'50%',borderWidth:2,borderColor:'white'}}>
                         <TouchableOpacity onPress={()=>Actions.Mstore()}  style={styles.btn}>
                             <Icon7 style={styles.icon3}  name='star'/>
@@ -280,6 +259,20 @@ export default class My extends Component {
                         <TouchableOpacity onPress={()=>Actions.Mpublish()}  style={styles.btn}>
                             <Icon7 style={styles.icon3}  name='pushpin'/>
                             <Text style={styles.blockbtn}>&nbsp;&nbsp;我的发布</Text >
+                        </TouchableOpacity>
+                    </View>
+                </View> */}
+                <View style={{width:'100%',height:80*h,backgroundColor:'#eee',flexDirection:'row'}}>
+                    <View style={{width:'50%',borderWidth:2,borderColor:'white'}}>
+                        <TouchableOpacity onPress={()=>Actions.Mattention()}  style={styles.btn}>
+                            <Icon7 style={styles.icon3}  name='star'/>
+                            <Text style={styles.blockbtn}>&nbsp;&nbsp;我的关注</Text >
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{width:'50%',borderWidth:2,borderColor:'white'}}>
+                        <TouchableOpacity onPress={()=>Actions.Mfollowers()}  style={styles.btn}>
+                            <Icon7 style={styles.icon3}  name='pushpin'/>
+                            <Text style={styles.blockbtn}>&nbsp;&nbsp;我的粉丝</Text >
                         </TouchableOpacity>
                     </View>
                 </View>
