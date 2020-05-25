@@ -299,19 +299,21 @@ export default class Lover extends Component {
                             // backgroundColor:"red"
                         }}>
                             <Text style={{
-                                fontSize: 22 * s,
+                                fontSize: 26 * s1,
                                 marginLeft: 12 * s,
                             }}>{this.state.text1} </Text>
                             <Text style={{
                                 backgroundColor: "pink",
                                 color: "#fff",
                                 borderRadius: 5,
-                                fontSize: 15 * s,
+                                fontSize: 20 * s1,
                                 height: 20 * s,
+                                marginLeft:3*s,
+                                marginRight:3*s,
                                 marginTop: 7 * s,
                             }}>{this.state.msg.datetime}</Text>
                             <Text style={{
-                                marginTop: 5 * s,
+                                marginTop: 12 * s1,
                             }}> {this.formatStar(this.state.text1)}</Text>
                         </View>
                         <View style={{
@@ -340,8 +342,8 @@ export default class Lover extends Component {
                                 <Text numberOfLines={4} style={{
                                     height: 0.14 * height,
                                     width: 0.9 * width,
-                                }}>今日概述:
-                                {this.state.msg.summary}
+                                    fontSize:22*s1
+                                }}>今日概述:{this.state.msg.summary}
                                 </Text>
                                 </TouchableOpacity> 
                         </View>
@@ -350,7 +352,8 @@ export default class Lover extends Component {
                 </WingBlank>
                 <Modal
                     transparent
-                    visible={this.state.visible}
+                    visible=
+                    {this.state.visible}
                 >
                     <View style={{
                         backgroundColor:"#fff",
@@ -358,12 +361,23 @@ export default class Lover extends Component {
                         width:0.64*width,
                         position:"absolute",
                         top:200*s,
+                        backgroundColor:"#fff",
+                        borderWidth:0.13,
+                        borderColor:"#000",
                         left:0.18*width,
                         borderRadius:15
                     }}>
                         <TouchableOpacity onPress={()=>this.ensmall()}>
-                        <Text>
-                        {this.state.msg.summary}
+                        <Text style={{
+                            fontSize:22*s1,
+                            height:0.3*height,
+                            width:0.6*width,
+                            backgroundColor:'rgba(255 ,105 ,180,0.1)',
+                            marginLeft:"auto",
+                            marginRight:"auto",
+                            marginTop:0.01*height
+                        }}>{this.state.msg.summary}
+                        你你你你你你你你你你
                         </Text>
                         </TouchableOpacity>
                     </View>
@@ -377,7 +391,7 @@ const styles = StyleSheet.create({
     star: {
         width: 0.3 * width,
         padding: 3 * s,
-        fontSize: 15 * s
+        fontSize: 20 * s1
         //    backgroundColor:"pink"
     },
     lover_first: {
@@ -409,7 +423,7 @@ const styles = StyleSheet.create({
     },
     blockbtn: {
         textAlign: "center",
-        fontSize: 20,
+        fontSize:20,
         textAlignVertical: 'center',
         lineHeight: 55 * h,
         color: "#fff",
@@ -425,7 +439,7 @@ const styles = StyleSheet.create({
         width: 0.25 * width,
         height: 0.05 * height,
         marginBottom: 0.005 * height,
-        fontSize: 28 * s1,
+        fontSize: 26 * s1,
         color: 'pink',
         // backgroundColor:"pink",
         borderRadius: 10,
