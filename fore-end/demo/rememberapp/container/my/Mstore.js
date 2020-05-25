@@ -72,7 +72,7 @@ export default class Mstore extends Component {
             this.setState({
                 uid:user.id,
             })
-            myFetch.get('/my/myartic/mylikemsg',{
+            myFetch.get('/my/myartic/mypublish',{
                 user_id:user.id
             }).then(res=>{
                 for(var i in res.data){
