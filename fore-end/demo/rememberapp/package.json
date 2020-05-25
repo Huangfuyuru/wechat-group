@@ -25,6 +25,7 @@
     "react-native-image-crop-picker": "^0.31.1",
     "react-native-image-picker": "^2.3.1",
     "react-native-message-bar": "^2.0.10",
+    "react-native-ocalendar": "^1.0.1",
     "react-native-reanimated": "^1.8.0",
     "react-native-router-flux": "^4.2.0",
     "react-native-screens": "^2.4.0",
