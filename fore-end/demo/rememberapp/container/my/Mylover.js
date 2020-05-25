@@ -52,6 +52,8 @@ export default class Mychilds extends Component {
                     this.setState({
                         lists:res
                     })
+                    console.log(res);
+                    console.log('------------------------------');
                 }else{
                     this.setState({
                         lists:[]
@@ -89,6 +91,7 @@ export default class Mychilds extends Component {
                             this.setState({
                                 lists:res.data
                             })
+                            console.log(res.data);
                             ToastAndroid.showWithGravityAndOffset(
                                 '删除成功！',
                             ToastAndroid.SHORT,

@@ -111,7 +111,7 @@ export default class My extends Component {
                 imgurl:this.state.back
             }).then(
                 res=>{
-                    console.log(res)
+                    console.log('')
                 }
             )
             myFetch.get('/my/mypage/fans',{
