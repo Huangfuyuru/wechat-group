@@ -79,7 +79,7 @@ export default class Mattention extends Component {
                     />
                     <Text style={styles.title}>我的关注</Text>
                 </View>
-                <View style={{width:'100%',height:35*s}}>
+                <View style={{width:'100%',height:30*s,marginTop:'2%', marginLeft:'6%',fontWeight:'bold'}}>
                     <Text style={{fontSize:17, color:'#FFBF2D'}}>关注人数：{this.state.num1}</Text>
                 </View>
                 <WingBlank style={styles.wingblank}>

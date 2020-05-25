@@ -26,6 +26,7 @@ export default class Mfollowers extends Component {
         super();
         this.state={
             uid:'',
+            num2:0,
             lists:[],
             back: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3825009501,3483030709&fm=15&gp=0.jpg',
         }
@@ -48,6 +49,17 @@ export default class Mfollowers extends Component {
                     console.log('失败');
                 }
             })
+            myFetch.get('/my/mypage/fans',{
+                user_id:this.state.uid
+            }).then(res=>{
+                if(res){
+                    this.setState({
+                        num2:res.data.length
+                    })
+                }else{
+                    console.log('粉丝数据返回失败');
+                }
+            })
         })
     }
     componentWillReceiveProps(nextProps) {
@@ -65,6 +77,9 @@ export default class Mfollowers extends Component {
                         onPress={()=>Actions.pop()}
                     />
                     <Text style={styles.title}>我的粉丝</Text>
+                </View>
+                <View style={{width:'100%',height:30*s,marginTop:'2%', marginLeft:'6%',fontWeight:'bold'}}>
+                    <Text style={{fontSize:17, color:'#FFBF2D'}}>粉丝人数：{this.state.num2}</Text>
                 </View>
                 <WingBlank style={styles.wingblank}>
                     <FlatList
