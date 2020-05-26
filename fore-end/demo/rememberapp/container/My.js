@@ -213,8 +213,8 @@ export default class My extends Component {
             refreshing:true,
             onPress:0
         })
-        myFetch.get('/share/classify/interest',{
-            uid:this.state.uid
+        myFetch.get('/my/myarticle/mylike',{
+           user_id:this.state.uid
         }).then(res=>{
             this.setState({
                 refreshing:false
@@ -305,10 +305,10 @@ export default class My extends Component {
                         <Text style={{color:'#FFBF2D', fontWeight:'bold',fontSize:17,marginTop:10*h}}>{this.state.name}</Text>
                         <View style={{fontWeight:'bold',marginTop:10*h,fontSize:17,width:'100%',justifyContent:'center',flexDirection:'row'}}>
                             <TouchableOpacity onPress={()=>{Actions.Mattention()}}>
-                                <Text style={{fontSize:17, color:'#FFBF2D'}}>关注&nbsp;&nbsp;</Text>
+                                <Text style={{fontSize:17, color:'#FFBF2D',fontWeight:'bold'}}>关注&nbsp;&nbsp;</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={()=>{Actions.Mfollowers()}}>
-                                <Text style={{fontSize:17,color:'#FFBF2D'}}>粉丝&nbsp;&nbsp;</Text>
+                                <Text style={{fontSize:17,color:'#FFBF2D',fontWeight:'bold'}}>粉丝&nbsp;&nbsp;</Text>
                             </TouchableOpacity>
                             <Icon3 style={styles.icon2} name='flower' />
                             <Text style={{color:'#FFBF2D',fontSize:17}}>&nbsp;:&nbsp;{this.state.num3}</Text>
@@ -389,7 +389,7 @@ export default class My extends Component {
                             refreshing = {this.state.refreshing}
                             onRefresh={this.refreshRecommend}
                             extraData={this.state}
-                            data={this.state.rlists}
+                            data={this.state.clists}
                             horizontal={false}
                             initialNumToRender={1}
                             pagingEnabled={true}
