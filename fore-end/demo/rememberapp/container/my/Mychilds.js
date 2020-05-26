@@ -77,6 +77,7 @@ export default class Mychilds extends Component {
                             this.setState({
                                 lists:res.data
                             })
+                            console.log(res)
                         }else{
                             this.setState({
                                 lists:[]

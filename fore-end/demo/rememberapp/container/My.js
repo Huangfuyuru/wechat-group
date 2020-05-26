@@ -106,7 +106,7 @@ export default class My extends Component {
                     })
                 }
             )
-            myFetch.get('/share',{
+            myFetch.get('/my/myarticle/mypublish',{
                 uid:user.id
             }).then(res=>{
                 // console.log(res.data[0])

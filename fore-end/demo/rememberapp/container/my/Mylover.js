@@ -52,12 +52,24 @@ export default class Mychilds extends Component {
                     this.setState({
                         lists:res
                     })
-                    console.log(res);
-                    console.log('------------------------------');
                 }else{
                     this.setState({
                         lists:[]
                     })
+                }
+            })
+            myFetch.get('/my/myarticle/mylike',{
+                user_id:this.state.uid
+            }).then(res=>{
+                if(res){
+                    // this.setState({
+                    //     lists:res
+                    // })
+                    console.log(res);
+                }else{
+                    // this.setState({
+                    //     lists:[]
+                    // })
                 }
             })
         })
@@ -91,7 +103,8 @@ export default class Mychilds extends Component {
                             this.setState({
                                 lists:res.data
                             })
-                            console.log(res.data);
+                            console.log(res);
+                            console.log('------------------------------');
                             ToastAndroid.showWithGravityAndOffset(
                                 '删除成功！',
                             ToastAndroid.SHORT,
