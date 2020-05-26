@@ -219,16 +219,20 @@ export default class My extends Component {
             this.setState({
                 refreshing:false
             })
-            for(var i in res.data[0]){
+            var list=[];
+            for(var i in res.data){   
+                list.push(res.data[i][0])
+            }
+            for(var i in list){
                 // if(!res.data[i].pic){
                 //     res.data[i].pic=image2
                 // }
-                if(!res.data[0][i].imgurl){
-                    res.data[0][i].imgurl=[image2]
+                if(!list[i].imgurl){
+                    list[i].imgurl=[image2]
                 }
             }
             this.setState({
-                clists:res.data[0],
+                clists:list,
                 refreshing:false,
             })
         })

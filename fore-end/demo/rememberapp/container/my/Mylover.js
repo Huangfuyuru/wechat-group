@@ -59,35 +59,6 @@ export default class Mychilds extends Component {
                     })
                 }
             })
-            myFetch.get('/my/myarticle/mylike',{
-                user_id:this.state.uid
-                // uid:this.state.uid
-            }).then(res=>{
-                if(res){
-                    // this.setState({
-                    //     lists:res
-                    // })
-                    console.log('我喜欢----------------------------------------');
-                    // for(var i in res.data){                        
-                    // }
-                    console.log(res.data[0]);
-                    // console.log(res.data)
-                }else{
-                    // this.setState({
-                    //     lists:[]
-                    // })
-                    console.log('我喜欢获取失败');
-                }
-            })
-            myFetch.get('/my/myarticle/mypublish',{
-                uid:this.state.uid
-            }).then(res=>{
-                // for(var i in res.data){
-                //     console.log(res.data[i]);
-                // }
-                console.log('我发布----------------------------------------');
-                console.log(res.data);
-            })
         })
     }
     componentWillReceiveProps(nextProps) {
