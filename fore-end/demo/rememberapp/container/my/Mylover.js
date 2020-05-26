@@ -60,6 +60,7 @@ export default class Mychilds extends Component {
             })
             myFetch.get('/my/myarticle/mylike',{
                 user_id:this.state.uid
+                // uid:this.state.uid
             }).then(res=>{
                 if(res){
                     // this.setState({
@@ -70,6 +71,7 @@ export default class Mychilds extends Component {
                     // this.setState({
                     //     lists:[]
                     // })
+                    console.log('我喜欢获取失败');
                 }
             })
         })

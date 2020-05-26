@@ -109,7 +109,6 @@ export default class My extends Component {
             myFetch.get('/my/myarticle/mypublish',{
                 uid:user.id
             }).then(res=>{
-                // console.log(res.data[0])
                 for(var i in res.data){
                     if(!res.data[i].pic){
                         res.data[i].pic=image3
@@ -117,7 +116,6 @@ export default class My extends Component {
                     if(!res.data[i].imgurl){
                         res.data[i].imgurl=[image2]
                     }
-                    // console.log(res.data[i].imgurl)
                 }
                 this.setState({
                     rlists:res.data,
@@ -211,7 +209,6 @@ export default class My extends Component {
         }
     }
     refreshConcern = ()=>{
-        // console.log('关注')
         this.setState({
             refreshing:true,
             onPress:0
@@ -222,8 +219,6 @@ export default class My extends Component {
             this.setState({
                 refreshing:false
             })
-            // console.log('关注')
-            // console.log(res)
             for(var i in res.data){
                 if(!res.data[i].pic){
                     res.data[i].pic=image2
@@ -231,7 +226,6 @@ export default class My extends Component {
                 if(!res.data[i].imgurl){
                     res.data[i].imgurl=[image2]
                 }
-                // console.log(res.data[i].imgurl)
             }
             this.setState({
                 clists:res.data,
@@ -245,10 +239,9 @@ export default class My extends Component {
             refreshing:true,
             onPress:0
         })
-        myFetch.get('/share',{
+        myFetch.get('/my/myarticle/mypublish',{
             uid:this.state.uid
         }).then(res=>{
-            // console.log(res.data)
             for(var i in res.data){
                 if(!res.data[i].pic){
                     res.data[i].pic=image2
@@ -256,7 +249,6 @@ export default class My extends Component {
                 if(!res.data[i].imgurl){
                     res.data[i].imgurl=[image2]
                 }
-                // console.log(res.data[i].imgurl)
             }
             this.setState({
                 rlists:res.data,
@@ -267,7 +259,6 @@ export default class My extends Component {
 
     }
     enlarge=(item)=>{
-        // console.log(item.length)
         this.setState({
             visible:true,
             current:item
@@ -339,23 +330,8 @@ export default class My extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                {/* <View style={{width:'100%',height:80*h,backgroundColor:'#eee',flexDirection:'row'}}>
-                    <View style={{width:'50%',borderWidth:2,borderColor:'white'}}>
-                        <TouchableOpacity onPress={()=>Actions.Mstore()}  style={styles.btn}>
-                            <Icon7 style={styles.icon3}  name='star'/>
-                            <Text style={styles.blockbtn}>&nbsp;&nbsp;我的喜欢</Text >
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{width:'50%',borderWidth:2,borderColor:'white'}}>
-                        <TouchableOpacity onPress={()=>Actions.Mpublish()}  style={styles.btn}>
-                            <Icon7 style={styles.icon3}  name='pushpin'/>
-                            <Text style={styles.blockbtn}>&nbsp;&nbsp;我的发布</Text >
-                        </TouchableOpacity>
-                    </View>
-                </View> */}
                 <Tabs
                     renderUnderline={() =>null}
-                    // swipeable={true}
                     styles={{
                         topTabBarSplitLine: {
                             borderBottomWidth: 0,
@@ -363,9 +339,7 @@ export default class My extends Component {
                     }}
                     page={this.state.page}
                     tabs={tabs}
-                    // onTabClick(tabs[i], i=>{console.log(i)})
                     onChange={(tab,index)=>{this.setState({page:index})}}
-                    // onChange={(index)=>this.setState({page:i})}
                     renderTabBar={tabProps => (
                         <View style={styles.navbar}>
                             <View style={styles.navbartitle}>
@@ -375,7 +349,6 @@ export default class My extends Component {
                                     onPress={() => {
                                         const { goToTab, onTabClick} = tabProps;
                                         goToTab && goToTab(i);
-                                        // onTabClick && onTabClick(tabs[i], i=>{console.log(i)});
                                         i === 0?
                                         this.setState({
                                             clists:[]
@@ -397,7 +370,6 @@ export default class My extends Component {
                                                 textAlignVertical:'center',
                                                 width:0.2*width,
                                                 fontSize:tabProps.activeTab === i ? 28*s : 24*s,
-                                                // backgroundColor:'#ccc',
                                                 fontWeight: tabProps.activeTab === i ? 'bold' : 'normal',
                                                 color: tabProps.activeTab === i ? '#FFBF2D' : 'rgba(0,0,0,0.6)',
                                             }}
@@ -413,7 +385,61 @@ export default class My extends Component {
                     )}
                 >
                     <WingBlank style={styles.wingblank}>
-                        
+                        <FlatList
+                            refreshing = {this.state.refreshing}
+                            onRefresh={this.refreshRecommend}
+                            extraData={this.state}
+                            data={this.state.rlists}
+                            horizontal={false}
+                            initialNumToRender={1}
+                            pagingEnabled={true}
+                            viewabilityConfig={VIEWABILITY_CONFIG}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={({item})=>{
+                                var imgurl = item.imgurl;
+                                for(var i in imgurl){
+                                    if(imgurl[i] === '#'){
+                                        imgurl[i] = image2
+                                    }
+                                }
+                                return<View style={styles.innerbox}>
+                                    <View style={styles.innerpics}>
+                                        <Swiper
+                                            renderPagination = {renderPagination} 
+                                            loop={false}
+                                        >
+                                            
+                                            {
+                                                imgurl&&imgurl.map((img,idx)=>(
+                                                    <TouchableOpacity onPress={()=>this.enlarge(imgurl)}>
+                                                        <Image 
+                                                            style={styles.img}
+                                                            resizeMode="cover"
+                                                            source={{uri:`${img}`}}
+                                                        />
+                                                    </TouchableOpacity>
+                                                ))
+                                                
+                                            }                     
+                                        </Swiper>
+                                    </View>
+                                    <View style={styles.innerlast}>
+                                        <View style={styles.innercontent}>
+                                            <TouchableOpacity onPress={()=>this.enlarge(item.content)}>
+                                                <Text selectable = {true} style={styles.content}>
+                                                    {item.content ? (item.content.length > 66 ? item.content.substr(0, 66) + " . . . " : item.content) : ""}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={styles.innerfooter}>
+                                        </View>
+                                    </View>
+                                </View>
+                            }}
+                            getItemLayout={(data, index) => {
+                                return {length: height, offset: height * index, index}
+                            }}
+                        />
                     </WingBlank>
                     <WingBlank style={styles.wingblank}>
                         <FlatList
@@ -544,7 +570,6 @@ const styles = StyleSheet.create({
     btn: {
         padding:0,
         height: 40*h,
-        // width: "500%",
         marginLeft: 50,
         marginRight: 5,
         marginTop: 5,
@@ -604,11 +629,9 @@ const styles = StyleSheet.create({
         height:0.75*height,
         marginTop:0.01*height,
         justifyContent:'center',
-        // backgroundColor:'#FFBF2D',
         backgroundColor:'rgba(250,250,250,1)'
     },
     innerbox:{
-        // backgroundColor:'#ccc',
         height:0.75*height,
         alignItems:'center'
     },
@@ -641,7 +664,6 @@ const styles = StyleSheet.create({
     },
     innerpics:{
         width:0.87*width,
-        // backgroundColor:'#ddccff',
         height:0.44*height,
         alignItems:'center'
     },
@@ -657,22 +679,16 @@ const styles = StyleSheet.create({
     innerlast:{
         width:0.88*width,
         height:0.18*height,
-        // backgroundColor:'#ccc',
     },
     innercontent:{
         width:0.88*width,
         height:0.13*height,
-        // paddingTop:0.015*height,
-        // paddingLeft:0.01*width,
         justifyContent:'center',
-        // backgroundColor:'#ddeeff',
         alignItems:'center'
     },
     content:{
         lineHeight:0.04*height,
         fontSize:23*s,
-        // backgroundColor:'#000'
-
     },
     innerfooter:{
         width:0.87*width,
@@ -694,17 +710,14 @@ const styles = StyleSheet.create({
         height:0.7*height,
         marginLeft:'auto',
         marginRight:'auto',
-        // backgroundColor:'#ccc'
     },
     contentbox:{
         width:0.8*width,
-        // marginTop:0.05*height,
         paddingTop:0.02*height,
         marginLeft:'auto',
         marginRight:'auto',
         alignItems:'center',
         paddingLeft:0.015*width,
-        // backgroundColor:'#ccc',
     },
     modalbtn:{
         width:0.18*width,
