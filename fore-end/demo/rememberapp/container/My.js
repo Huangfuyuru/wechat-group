@@ -219,19 +219,18 @@ export default class My extends Component {
             this.setState({
                 refreshing:false
             })
-            for(var i in res.data){
-                if(!res.data[i].pic){
-                    res.data[i].pic=image2
-                }
-                if(!res.data[i].imgurl){
-                    res.data[i].imgurl=[image2]
+            for(var i in res.data[0]){
+                // if(!res.data[i].pic){
+                //     res.data[i].pic=image2
+                // }
+                if(!res.data[0][i].imgurl){
+                    res.data[0][i].imgurl=[image2]
                 }
             }
             this.setState({
-                clists:res.data,
+                clists:res.data[0],
                 refreshing:false,
             })
-            
         })
     }
     refreshRecommend = ()=>{

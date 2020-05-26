@@ -34,6 +34,7 @@ export default class Mychilds extends Component {
             uid:'',
             code:1, //要获取的状态
             lists:[],
+            list:[],
             back:'http://pic180.nipic.com/file/20180905/27581684_161923154081_2.jpg'
 
         }
@@ -66,13 +67,26 @@ export default class Mychilds extends Component {
                     // this.setState({
                     //     lists:res
                     // })
-                    console.log(res);
+                    console.log('我喜欢----------------------------------------');
+                    // for(var i in res.data){                        
+                    // }
+                    console.log(res.data[0]);
+                    // console.log(res.data)
                 }else{
                     // this.setState({
                     //     lists:[]
                     // })
                     console.log('我喜欢获取失败');
                 }
+            })
+            myFetch.get('/my/myarticle/mypublish',{
+                uid:this.state.uid
+            }).then(res=>{
+                // for(var i in res.data){
+                //     console.log(res.data[i]);
+                // }
+                console.log('我发布----------------------------------------');
+                console.log(res.data);
             })
         })
     }
