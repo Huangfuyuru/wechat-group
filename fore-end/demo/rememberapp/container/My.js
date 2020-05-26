@@ -224,9 +224,6 @@ export default class My extends Component {
                 list.push(res.data[i][0])
             }
             for(var i in list){
-                // if(!res.data[i].pic){
-                //     res.data[i].pic=image2
-                // }
                 if(!list[i].imgurl){
                     list[i].imgurl=[image2]
                 }
@@ -320,13 +317,13 @@ export default class My extends Component {
                 </View>
                 {/* body */}
                 <View style={{width:'100%',height:60*h,flexDirection:'row'}}>
-                    <View style={{width:'50%',borderWidth:2,borderColor:'#eee',borderRadius:15}}>
+                    <View style={{width:'50%',borderWidth:1,borderColor:'#eee'}}>
                         <TouchableOpacity onPress={()=>Actions.Mychilds()}  style={styles.btn}>
                             <Icon6 style={styles.icon3}  name='child'/>
                             <Text style={styles.blockbtn}>&nbsp;&nbsp;亲子列表</Text >
                         </TouchableOpacity>
                     </View>
-                    <View style={{width:'50%',borderWidth:2,borderColor:'#eee',borderRadius:15}}>
+                    <View style={{width:'50%',borderWidth:1,borderColor:'#eee'}}>
                         <TouchableOpacity onPress={()=>Actions.Mylover()}  style={styles.btn}>
                             <Icon5 style={styles.icon3}  name='account-heart'/>
                             <Text style={styles.blockbtn}>&nbsp;&nbsp;爱人列表</Text >
@@ -382,8 +379,6 @@ export default class My extends Component {
                                     </TouchableOpacity>
                                 ))}
                             </View>
-                            {/* <View style={styles.navbarline}>
-                            </View> */}
                         </View>
                     )}
                 >

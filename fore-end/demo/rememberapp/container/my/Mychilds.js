@@ -137,18 +137,6 @@ export default class Mychilds extends Component {
                             resizeMode='cover'
                             source={{uri:this.state.back}}
                         >
-                             {/* <View key={item.id}
-                                style={{
-                                    borderRadius:10,
-                                    width:0.87*width,
-                                    height:0.12*height,
-                                    marginTop:20*s,
-                                    borderWidth:5,
-                                    borderColor:'rgba(204,204,204,0.3)',
-                                    flexDirection:'row',
-                                    alignItems:'center',
-                                }}
-                            > */}
                                 <View style={{width:'15%',marginLeft:'30%',height:'100%',flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                                     <Icon4 style={styles.listlineicon} name='heart'/>
                                     <Text style={{fontSize:16}}>&nbsp;昵称：</Text>
@@ -160,7 +148,6 @@ export default class Mychilds extends Component {
                                     <Icon3 style={styles.icon2} onPress={()=>this.rmCevent(item)} name='delete'/>
                                 </TouchableOpacity>
                                 
-                            {/* </View> */}
                             </ImageBackground>
                         }}
                         /> 
