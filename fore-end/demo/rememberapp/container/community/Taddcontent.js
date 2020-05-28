@@ -70,6 +70,7 @@ export default class Community extends Component {
         },()=>{
             myFetch.uploadImages(this.props.uplist)
             .then( res=>{
+                console.log('res')
                 console.log(res)
                 this.setState({
                     uplist:res
@@ -117,6 +118,7 @@ export default class Community extends Component {
         })
     }
     publish = ()=>{
+        console.log('this.state.uplist')
         console.log(this.state.uplist)
         var style = this.state.style;
         style==='亲子'?style=true:style=false;

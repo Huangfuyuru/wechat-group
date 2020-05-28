@@ -84,7 +84,7 @@ export default class Community extends Component {
             this.setState({
                 lists:lists,
                 uplist:uplist
-            })
+            },()=>{console.log(this.state.uplist)})
         });
         ImagePicker.clean().then(() => { 
             console.log('removed all tmp images from tmp directory');
