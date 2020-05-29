@@ -7,11 +7,11 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
-    ImageBackground
+    ImageBackground,
  } from 'react-native'
 import Icon1 from 'react-native-vector-icons/Feather'
 import Icon3 from 'react-native-vector-icons/Ionicons'
-import { WingBlank } from '@ant-design/react-native';
+import { WingBlank,Tabs,TabBar, } from '@ant-design/react-native';
 import {myFetch} from '../../src/utils'
 import { Actions } from 'react-native-router-flux';
 const image2 = 'http://tc.sinaimg.cn/maxwidth.2048/tc.service.weibo.com/p/image_96weixin_com/9a6afdf6ff7c953f04675270477405b0.jpg'
@@ -28,6 +28,7 @@ export default class Tprincipal extends Component {
             current:'',
             concernnum:389000,
             fansnum:389000,
+            page:0,
             onPress:0
         }
     }
@@ -54,6 +55,12 @@ export default class Tprincipal extends Component {
         //     })
             
         // })
+    }
+    my = ()=>{
+
+    }
+    like = ()=>{
+
     }
     render() {
         const tabs = [
@@ -86,39 +93,38 @@ export default class Tprincipal extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                {tabs.map((item, i) => (
-                    <TouchableOpacity
-                        onPress={()=>{
-                        this.setState({onPress:i},()=>{
-                            switch(i){
-                                case 0:
-                                    this.my();
-                                    break;
-                                case 1:
-                                    this.like();
-                                    break;
-                                default:
-                                    break; 
-                            }
-                        })
-                    }}
-                    >
-                        <View style={styles.titlebox}>
+                <View style={styles.titlebtn}>
+                    {tabs.map((item, i) => (
+                        <TouchableOpacity
+                            onPress={()=>{
+                            this.setState({onPress:i},()=>{
+                                switch(i){
+                                    case 0:
+                                        this.my();
+                                        break;
+                                    case 1:
+                                        this.like();
+                                        break;
+                                    default:
+                                        break; 
+                                }
+                            })
+                        }}
+                        >
                             <Text style={{
                                 textAlign:'center',
-                                width:0.15*width,
-                                color: this.state.onPress === i ? '#FFBF2D' : 'rgba(0,0,0,0.4)',
-                            }}>{item.icon}</Text>
-                            <Text style={{
+                                width:0.2*width,
+                                height:0.05*height,
+                                textAlignVertical:'center',
                                 textAlign:'center',
-                                width:0.15*width,
-                                fontSize:this.state.onPress === i ? 18*s : 16*s,
+                                // backgroundColor:'#ccc',
+                                fontSize:this.state.onPress === i ? 0.045*width :  0.04*width,
                                 fontWeight: this.state.onPress === i ? 'bold' : 'normal',
                                 color: this.state.onPress === i ? '#FFBF2D' : 'rgba(0,0,0,0.6)',
                             }}>{item.title}</Text>
-                        </View>
-                    </TouchableOpacity>
-                ))}
+                        </TouchableOpacity>
+                    ))}
+                </View>
                 <WingBlank style={styles.inner}>
                     <FlatList
                         // refreshing = {this.state.refreshing}
@@ -132,7 +138,7 @@ export default class Tprincipal extends Component {
                         showsVerticalScrollIndicator={false}
                         renderItem={({item})=>{
                             return<View style={styles.innerblock}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={()=>Actions.tdetail()}>
                                     <ImageBackground
                                         resizeMode="cover"
                                         style={styles.backgroundimg}
@@ -212,10 +218,21 @@ const styles = StyleSheet.create({
         color:'#000',
         fontSize:0.03*width
     },
-    inner:{
-        backgroundColor:'#ccc',
+    titlebtn:{
+        flexDirection:'row',
+        width:0.5*width,
         marginTop:0.01*height,
-        height:0.73*height,
+        height:0.05*height,
+        marginLeft:'auto',
+        marginRight:'auto',
+        // backgroundColor:'#aaddcc',
+        alignItems:'center',
+        justifyContent:'space-around'
+    },
+    inner:{
+        // backgroundColor:'#ccc',
+        marginTop:0.005*height,
+        height:0.67*height,
         alignItems:'center'
     },
     innerblock:{

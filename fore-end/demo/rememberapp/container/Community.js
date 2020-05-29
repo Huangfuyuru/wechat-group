@@ -21,7 +21,6 @@ import {
     WingBlank,
     Icon, 
     SearchBar, 
-    TabBar,
     Tabs
 } from '@ant-design/react-native'
 import {
@@ -244,7 +243,7 @@ export default class Community extends Component {
         var list=[];
         this.state.page === 0?list=this.state.clists:list=this.state.rlists;
         if(!item.addZan){
-            // console.log('点赞')
+            console.log('点赞')
             for(var i in list){
                 if(list[i].uid === item.uid){
                     list[i].addZan = item.addZan;
