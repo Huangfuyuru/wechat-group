@@ -33,8 +33,6 @@ import Icon1 from 'react-native-vector-icons/Feather'
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon3 from 'react-native-vector-icons/Entypo'
 import Icon4 from 'react-native-vector-icons/FontAwesome'
-import Icon5 from 'react-native-vector-icons/MaterialCommunityIcons'
-import Icon6 from 'react-native-vector-icons/FontAwesome5'
 import Icon7 from 'react-native-vector-icons/AntDesign'
 
 import ImagePicker from 'react-native-image-crop-picker'
@@ -75,7 +73,7 @@ export default class My extends Component {
             sendflower:false,
             visible:false,
             current:'',
-            content:'对不齐呀对不齐呀！对不齐呀对不齐呀！对不齐呀对不齐呀！对不齐呀对不齐呀！对不齐呀对不齐呀！对不齐呀对不齐呀！对不齐呀对不齐呀！对不齐呀对不齐呀！',
+            content:'',
             onPress:0,
             showFoot:0,
             refreshing:false,
@@ -277,7 +275,7 @@ export default class My extends Component {
         const VIEWABILITY_CONFIG = {
     		viewAreaCoveragePercentThreshold: 80,//item滑动80%部分才会到下一个
 		};
-        const tabs = [{ title: '喜欢'},{ title: '发布'}];
+        const tabs = [{ title: '发布'},{ title: '喜欢'}];
         return (
             <View style={{ 
                 width: width, 
@@ -297,37 +295,39 @@ export default class My extends Component {
                     </TouchableOpacity>
                 </View>
                 {/* 头像 */}
-                <View style={{width:'100%',height:200*h,flexDirection:'row'}}>
-                    <View style={{width:'100%',height:200*h,alignItems:'center',marginTop:20*h}}>
+                <View style={{width:'100%',height:180*h,flexDirection:'row'}}>
+                    <View style={{width:'100%',height:180*h,alignItems:'center',marginTop:20*h}}>
                         <TouchableOpacity onPress={()=>{this.choosebgpic()}}>
                             <Image style={{width:100*h,height:100*h,borderRadius:60,borderColor:'#FFBF2D',borderWidth:2}} source={{uri: this.state.back}} />
                         </TouchableOpacity>
-                        <Text style={{color:'#FFBF2D', fontWeight:'bold',fontSize:17,marginTop:10*h}}>{this.state.name}</Text>
-                        <View style={{fontWeight:'bold',marginTop:10*h,fontSize:17,width:'100%',justifyContent:'center',flexDirection:'row'}}>
-                            <TouchableOpacity onPress={()=>{Actions.Mattention()}}>
-                                <Text style={{fontSize:17, color:'#FFBF2D',fontWeight:'bold'}}>关注&nbsp;&nbsp;</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={()=>{Actions.Mfollowers()}}>
-                                <Text style={{fontSize:17,color:'#FFBF2D',fontWeight:'bold'}}>粉丝&nbsp;&nbsp;</Text>
-                            </TouchableOpacity>
-                            <Icon3 style={styles.icon2} name='flower' />
-                            <Text style={{color:'#FFBF2D',fontSize:17}}>&nbsp;:&nbsp;{this.state.num3}</Text>
-                        </View>
+                        <Text style={{color:'#FFBF2D', fontWeight:'bold',fontSize:17,marginTop:20*h}}>{this.state.name}</Text>
                     </View>
                 </View>
                 {/* body */}
                 <View style={{width:'100%',height:60*h,flexDirection:'row'}}>
-                    <View style={{width:'50%',borderWidth:1,borderColor:'#eee'}}>
+                    <View style={{width:'20%',borderLeftColor:'#eee',borderLeftWidth:2}}>
                         <TouchableOpacity onPress={()=>Actions.Mychilds()}  style={styles.btn}>
-                            <Icon6 style={styles.icon3}  name='child'/>
-                            <Text style={styles.blockbtn}>&nbsp;&nbsp;亲子列表</Text >
+                            <Text style={styles.blockbtn}>亲子</Text >
                         </TouchableOpacity>
                     </View>
-                    <View style={{width:'50%',borderWidth:1,borderColor:'#eee'}}>
+                    <View style={{width:'20%',borderLeftColor:'#eee',borderLeftWidth:2}}>
                         <TouchableOpacity onPress={()=>Actions.Mylover()}  style={styles.btn}>
-                            <Icon5 style={styles.icon3}  name='account-heart'/>
-                            <Text style={styles.blockbtn}>&nbsp;&nbsp;爱人列表</Text >
+                            <Text style={styles.blockbtn}>爱人</Text >
                         </TouchableOpacity>
+                    </View>
+                    <View style={{width:'20%',borderLeftColor:'#eee',borderLeftWidth:2}}>
+                        <TouchableOpacity onPress={()=>Actions.Mfollowers()}  style={styles.btn}>
+                            <Text style={styles.blockbtn}>粉丝</Text >
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{width:'20%',borderLeftColor:'#eee',borderLeftWidth:2}}>
+                        <TouchableOpacity onPress={()=>Actions.Mattention()}  style={styles.btn}>
+                            <Text style={styles.blockbtn}>关注</Text >
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{width:'20%',borderLeftColor:'#eee',borderLeftWidth:2,flexDirection:'row'}}>
+                        <Icon3 style={styles.icon2} name='flower' />
+                        <Text style={{color:'#FFBF2D',fontSize:18,marginTop:12}}>&nbsp;:&nbsp;{this.state.num3}</Text>
                     </View>
                 </View>
                 <Tabs
@@ -387,7 +387,7 @@ export default class My extends Component {
                             refreshing = {this.state.refreshing}
                             onRefresh={this.refreshRecommend}
                             extraData={this.state}
-                            data={this.state.clists}
+                            data={this.state.rlists}
                             horizontal={false}
                             initialNumToRender={1}
                             pagingEnabled={true}
@@ -444,7 +444,7 @@ export default class My extends Component {
                             refreshing = {this.state.refreshing}
                             onRefresh={this.refreshRecommend}
                             extraData={this.state}
-                            data={this.state.rlists}
+                            data={this.state.clists}
                             horizontal={false}
                             initialNumToRender={1}
                             pagingEnabled={true}
@@ -568,7 +568,7 @@ const styles = StyleSheet.create({
     btn: {
         padding:0,
         height: 40*h,
-        marginLeft: 50,
+        marginLeft: 25,
         marginRight: 5,
         marginTop: 5,
         flexDirection:'row',
@@ -576,7 +576,7 @@ const styles = StyleSheet.create({
     },
     blockbtn:{ 
         textAlign: "center", 
-        fontSize: 16,
+        fontSize: 18,
         textAlignVertical:'center', 
         lineHeight: 50*h, 
         color:'#FFBF2D',
@@ -584,11 +584,9 @@ const styles = StyleSheet.create({
     },
     icon2:{
         color:'#FFBF2D',
-        fontSize:20,
-    },
-    icon3:{
-        color:'#FFBF2D',
-        fontSize:30,
+        fontSize:23,
+        marginTop:12,
+        marginLeft:20
     },
     // 新增
     navbartitle:{
