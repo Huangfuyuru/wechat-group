@@ -440,7 +440,7 @@ export default class Community extends Component {
                                 }
                                 return<View style={styles.innerbox}>
                                     <View style={styles.innertitle}>
-                                        <TouchableOpacity>
+                                        <TouchableOpacity onPress={()=>Actions.tprincipal({uid:this.state.uid,uname:item.uname,upic:item.pic})}>
                                             <Image 
                                                 style={styles.innertitlepic}
                                                 source={{uri:`${item.pic}`}}
@@ -566,7 +566,7 @@ export default class Community extends Component {
                                 }
                                 return<View style={styles.innerbox}>
                                     <View style={styles.innertitle}>
-                                        <TouchableOpacity>
+                                        <TouchableOpacity onPress={()=>Actions.tprincipal({uid:this.state.uid,uname:item.uname,upic:item.pic})}>
                                             <Image 
                                                 style={styles.innertitlepic}
                                                 source={{uri:`${item.pic}`}}
