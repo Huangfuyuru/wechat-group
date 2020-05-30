@@ -299,7 +299,7 @@ export default class Lover extends Component {
                             // backgroundColor:"red"
                         }}>
                             <Text style={{
-                                fontSize: 26 * s1,
+                                fontSize: 28 * s1,
                                 marginLeft: 12 * s,
                             }}>{this.state.text1} </Text>
                             <Text style={{
@@ -342,7 +342,7 @@ export default class Lover extends Component {
                                 <Text numberOfLines={4} style={{
                                     height: 0.14 * height,
                                     width: 0.9 * width,
-                                    fontSize:22*s1
+                                    fontSize:24*s1
                                 }}>今日概述:{this.state.msg.summary}
                                 </Text>
                                 </TouchableOpacity> 
@@ -369,7 +369,7 @@ export default class Lover extends Component {
                     }}>
                         <TouchableOpacity onPress={()=>this.ensmall()}>
                         <Text style={{
-                            fontSize:22*s1,
+                            fontSize:24*s1,
                             height:0.3*height,
                             width:0.6*width,
                             backgroundColor:'rgba(255 ,105 ,180,0.1)',
@@ -377,7 +377,6 @@ export default class Lover extends Component {
                             marginRight:"auto",
                             marginTop:0.01*height
                         }}>{this.state.msg.summary}
-                        你你你你你你你你你你
                         </Text>
                         </TouchableOpacity>
                     </View>
@@ -391,7 +390,7 @@ const styles = StyleSheet.create({
     star: {
         width: 0.3 * width,
         padding: 3 * s,
-        fontSize: 20 * s1
+        fontSize: 21 * s1
         //    backgroundColor:"pink"
     },
     lover_first: {

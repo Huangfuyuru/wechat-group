@@ -39,9 +39,15 @@ export default class Ldairy extends Component {
             loverid:this.props.loverId,
         }).then(res=>{
             console.log(res.msg)
+            if(res.msg){
                 this.setState({
                     lists:res.msg
                 })
+            }else{
+                this.setState({
+                    lists:null
+                })
+            }
         })
     }
     componentWillReceiveProps(nextProps) {
