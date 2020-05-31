@@ -218,12 +218,11 @@ export default class Tprincipal extends Component {
                             data={this.state.list}
                             horizontal={false}
                             numColumns={3}
-                            // initialNumToRender={3}
                             pagingEnabled={true}
                             showsVerticalScrollIndicator={false}
                             renderItem={({ item }) => {
                                 return <View style={styles.innerblock}>
-                                    <TouchableOpacity onPress={() => Actions.tdetail()}>
+                                    <TouchableOpacity onPress={() => Actions.tdetail({uid:this.state.uid,item:item,upic:this.props.upic,uname:this.props.uname})}>
                                         <ImageBackground
                                             resizeMode="cover"
                                             style={styles.backgroundimg}
@@ -251,7 +250,7 @@ export default class Tprincipal extends Component {
                             showsVerticalScrollIndicator={false}
                             renderItem={({ item }) => {
                                 return <View style={styles.innerblock}>
-                                    <TouchableOpacity onPress={() => Actions.tdetail()}>
+                                    <TouchableOpacity onPress={() => Actions.tdetail({uid:item.uid,item:item})}>
                                         <ImageBackground
                                             resizeMode="cover"
                                             style={styles.backgroundimg}
