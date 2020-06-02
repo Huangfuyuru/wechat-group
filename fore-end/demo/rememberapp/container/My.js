@@ -98,19 +98,21 @@ export default class My extends Component {
             }).then(
                 res => {
                     this.setState({
-                        num3:res.num,
                         name:res.name,
+                        num3:res.num,
                         back:res.imgurl
                     })
+                    console.log('-------------');
+                    console.log(res);
                 }
             )
             myFetch.get('/my/myarticle/mypublish',{
                 uid:user.id
             }).then(res=>{
                 for(var i in res.data){
-                    if(!res.data[i].pic){
-                        res.data[i].pic=image3
-                    }
+                    // if(!res.data[i].pic){
+                    //     res.data[i].pic=image3
+                    // }
                     if(!res.data[i].imgurl){
                         res.data[i].imgurl=[image2]
                     }
@@ -124,37 +126,64 @@ export default class My extends Component {
         })
     }
     componentDidUpdate(prevProps,prevState){
+        console.log('更新')
+        console.log(this.state.back)
         if(prevState.back != this.state.back){
             myFetch.post('/my/mypage',{
                 uid:this.state.uid,
                 imgurl:this.state.back
             }).then(
                 res=>{
-                    console.log('')
+                    // console.log(this.state.back)
+                    console.log(res);
                 }
             )
         }
     }
-    choosebgpic=()=>{
+    // choosebgpic=()=>{
+    //     ImagePicker.openPicker({
+    //         width: 400, 
+    //         height: 300, 
+    //         cropping: true,
+    //         includeBase64:true
+    //     }).then(image => {
+    //        myFetch.uploadImage(image.data)
+    //         .then( res=>{
+    //             this.setState({
+    //                 back:res.url
+    //             })
+
+    //             console.log('success');
+    //         }).catch( err=>{
+    //             console.log('flied');
+    //         })
+    //     });
+    //     ImagePicker.clean().then(() => { 
+    //         console.log('removed all tmp images from tmp directory');
+    //     }).catch(e => { 
+    //         console.log(e)
+    //     });
+    // }
+    choosebgpic = () => {
         ImagePicker.openPicker({
-            width: 400, 
-            height: 300, 
+            width: 400,
+            height: 300,
             cropping: true,
-            includeBase64:true
+            includeBase64: true
         }).then(image => {
-           myFetch.uploadImage(image.data)
-            .then( res=>{
-                this.setState({
-                    back:res.url
+            myFetch.uploadImage(image.data)
+                .then(res => {
+                    this.setState({
+                        back: res.url
+                    })
+                    console.log('success');
+                }).catch(err => {
+                    console.log('flied');
                 })
-                console.log('success');
-            }).catch( err=>{
-                console.log('flied');
-            })
         });
-        ImagePicker.clean().then(() => { 
+        ImagePicker.clean().then(() => {
             console.log('removed all tmp images from tmp directory');
-        }).catch(e => { 
+        }).catch(e => {
             console.log(e)
         });
     }
@@ -275,7 +304,7 @@ export default class My extends Component {
         const VIEWABILITY_CONFIG = {
     		viewAreaCoveragePercentThreshold: 80,//item滑动80%部分才会到下一个
 		};
-        const tabs = [{ title: '发布'},{ title: '喜欢'}];
+        const tabs = [{ title: '喜欢'},{ title: '发布'}];
         return (
             <View style={{ 
                 width: width, 
@@ -382,12 +411,69 @@ export default class My extends Component {
                         </View>
                     )}
                 >
-                    <WingBlank style={styles.wingblank}>
+                    {/* <WingBlank style={styles.wingblank}>
                         <FlatList
                             refreshing = {this.state.refreshing}
                             onRefresh={this.refreshRecommend}
                             extraData={this.state}
                             data={this.state.rlists}
+                            horizontal={false}
+                            initialNumToRender={1}
+                            pagingEnabled={true}
+                            viewabilityConfig={VIEWABILITY_CONFIG}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={({item})=>{
+                                var imgurl = item.imgurl;
+                                for(var i in imgurl){
+                                    if(imgurl[i] === '#'){
+                                        imgurl[i] = image2
+                                    }
+                                }
+                                return<View style={styles.innerbox}>
+                                    <View style={styles.innerpics}>
+                                        <Swiper
+                                            renderPagination = {renderPagination} 
+                                            loop={false}
+                                        >
+                                            
+                                            {
+                                                imgurl&&imgurl.map((img,idx)=>(
+                                                    <TouchableOpacity onPress={()=>this.enlarge(imgurl)}>
+                                                        <Image 
+                                                            style={styles.img}
+                                                            resizeMode="cover"
+                                                            source={{uri:`${img}`}}
+                                                        />
+                                                    </TouchableOpacity>
+                                                ))
+                                                
+                                            }                     
+                                        </Swiper>
+                                    </View>
+                                    <View style={styles.innerlast}>
+                                        <View style={styles.innercontent}>
+                                            <TouchableOpacity onPress={()=>this.enlarge(item.content)}>
+                                                <Text selectable = {true} style={styles.content}>
+                                                    {item.content ? (item.content.length > 66 ? item.content.substr(0, 66) + " . . . " : item.content) : ""}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={styles.innerfooter}>
+                                        </View>
+                                    </View>
+                                </View>
+                            }}
+                            getItemLayout={(data, index) => {
+                                return {length: height, offset: height * index, index}
+                            }}
+                        />
+                    </WingBlank> */}
+                    <WingBlank style={styles.wingblank}>
+                        <FlatList
+                            refreshing = {this.state.refreshing}
+                            onRefresh={this.refreshRecommend}
+                            extraData={this.state}
+                            data={this.state.clists}
                             horizontal={false}
                             initialNumToRender={1}
                             pagingEnabled={true}
@@ -444,7 +530,7 @@ export default class My extends Component {
                             refreshing = {this.state.refreshing}
                             onRefresh={this.refreshRecommend}
                             extraData={this.state}
-                            data={this.state.clists}
+                            data={this.state.rlists}
                             horizontal={false}
                             initialNumToRender={1}
                             pagingEnabled={true}
