@@ -21,7 +21,6 @@ import {
     WingBlank,
     Icon, 
     SearchBar, 
-    TabBar,
     Tabs
 } from '@ant-design/react-native'
 import {
@@ -244,7 +243,7 @@ export default class Community extends Component {
         var list=[];
         this.state.page === 0?list=this.state.clists:list=this.state.rlists;
         if(!item.addZan){
-            // console.log('点赞')
+            console.log('点赞')
             for(var i in list){
                 if(list[i].uid === item.uid){
                     list[i].addZan = item.addZan;
@@ -440,7 +439,7 @@ export default class Community extends Component {
                                 }
                                 return<View style={styles.innerbox}>
                                     <View style={styles.innertitle}>
-                                        <TouchableOpacity onPress={()=>Actions.tprincipal({uid:this.state.uid,uname:item.uname,upic:item.pic})}>
+                                        <TouchableOpacity onPress={()=>Actions.tprincipal({uid:item.uid,uname:item.uname,upic:item.pic})}>
                                             <Image 
                                                 style={styles.innertitlepic}
                                                 source={{uri:`${item.pic}`}}
@@ -566,7 +565,7 @@ export default class Community extends Component {
                                 }
                                 return<View style={styles.innerbox}>
                                     <View style={styles.innertitle}>
-                                        <TouchableOpacity onPress={()=>Actions.tprincipal({uid:this.state.uid,uname:item.uname,upic:item.pic})}>
+                                        <TouchableOpacity onPress={()=>Actions.tprincipal({uid:item.uid,uname:item.uname,upic:item.pic})}>
                                             <Image 
                                                 style={styles.innertitlepic}
                                                 source={{uri:`${item.pic}`}}

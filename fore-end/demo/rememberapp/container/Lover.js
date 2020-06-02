@@ -99,7 +99,7 @@ export default class Lover extends Component {
                 if(res){
                     this.getStar(res.name,"today")
                 }else{
-                    this.getStar("射手座","today")
+                    this.getStar("双子座","today")
                 }
             })
     }
@@ -299,11 +299,11 @@ export default class Lover extends Component {
                             // backgroundColor:"red"
                         }}>
                             <Text style={{
-                                fontSize: 26 * s1,
+                                fontSize: 28 * s1,
                                 marginLeft: 12 * s,
                             }}>{this.state.text1} </Text>
                             <Text style={{
-                                backgroundColor: "pink",
+                                backgroundColor: "#FFBF2D",
                                 color: "#fff",
                                 borderRadius: 5,
                                 fontSize: 20 * s1,
@@ -336,14 +336,28 @@ export default class Lover extends Component {
                             flexWrap: "wrap",
                             height: 0.14 * height,
                             marginLeft: 10 * s,
+                            marginTop: 2 * s,
                             width: 0.9 * width,
+                            // backgroundColor:"red"
                         }}>
-                               <TouchableOpacity activeOpacity={0.5} onPress={()=>this.enlarge()}>
-                                <Text numberOfLines={4} style={{
-                                    height: 0.14 * height,
-                                    width: 0.9 * width,
-                                    fontSize:22*s1
-                                }}>今日概述:{this.state.msg.summary}
+                               <TouchableOpacity activeOpacity={0.5} onPress={()=>this.enlarge()} style={{
+                                     flex: 1,
+                                     alignItems: 'center',
+                                     height: 0.14 * height,
+                                     width: 0.9 * width,
+                               }}>
+                                   <Text numberOfLines={4} style={{
+                                         letterSpacing:3,
+                                         fontSize:24*s1,
+                                         lineHeight:34*s1,
+                                   }}>今日概述:
+                                <Text  style={{
+                                    fontSize:24*s1,
+                                    textDecorationStyle:"dotted",
+                                    fontWeight:"90",
+                                    textDecorationStyle:"dotted"
+                                }}>{this.state.msg.summary}
+                                </Text>
                                 </Text>
                                 </TouchableOpacity> 
                         </View>
@@ -369,15 +383,16 @@ export default class Lover extends Component {
                     }}>
                         <TouchableOpacity onPress={()=>this.ensmall()}>
                         <Text style={{
-                            fontSize:22*s1,
+                            fontSize:24*s1,
                             height:0.3*height,
                             width:0.6*width,
+                            padding:20*s,
+                            letterSpacing:2,
                             backgroundColor:'rgba(255 ,105 ,180,0.1)',
                             marginLeft:"auto",
                             marginRight:"auto",
                             marginTop:0.01*height
                         }}>{this.state.msg.summary}
-                        你你你你你你你你你你
                         </Text>
                         </TouchableOpacity>
                     </View>
@@ -391,7 +406,8 @@ const styles = StyleSheet.create({
     star: {
         width: 0.3 * width,
         padding: 3 * s,
-        fontSize: 20 * s1
+        fontSize: 21 * s1,
+        letterSpacing:2
         //    backgroundColor:"pink"
     },
     lover_first: {
@@ -440,7 +456,7 @@ const styles = StyleSheet.create({
         height: 0.05 * height,
         marginBottom: 0.005 * height,
         fontSize: 26 * s1,
-        color: 'pink',
+        color: '#FFBF2D',
         // backgroundColor:"pink",
         borderRadius: 10,
         // backgroundColor:'#ccc',
