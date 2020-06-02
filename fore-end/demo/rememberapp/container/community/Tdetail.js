@@ -129,7 +129,7 @@ export default class Tdetail extends Component {
                     </TouchableOpacity>
                 </View>
                 <WingBlank style={styles.inner}>
-                    <View style={this.state.content.length > 0 ? styles.pic : styles.piccover}>
+                    <View style={styles.pic}>
                         <Swiper
                             renderPagination={renderPagination}
                             loop={false}
@@ -138,8 +138,8 @@ export default class Tdetail extends Component {
                                 this.state.imgurl && this.state.imgurl.map((img, idx) => (
                                     <TouchableOpacity onPress={()=>this.enlarge(this.state.imgurl)}>
                                     <Image
-                                        style={this.state.content.length > 0 ? styles.img : styles.imgcover}
-                                        resizeMode="contain"
+                                        style={styles.img}
+                                        resizeMode="cover"
                                         source={{ uri: img }}
                                     />
                                     </TouchableOpacity>
@@ -177,7 +177,9 @@ export default class Tdetail extends Component {
                             ? <TouchableOpacity onPress={()=>this.enlarge(this.state.content)}>
                                 <Text style={styles.content}>&#8195;{this.state.content ? (this.state.content.length > 55 ? this.state.content.substr(0, 55) + " . . . " : this.state.content) : ""}</Text>
                             </TouchableOpacity>
-                            : null
+                            : <TouchableOpacity onPress={()=>this.enlarge(this.state.content)}>
+                            <Text style={styles.content}>&#8195;还没有内容呢~~</Text>
+                        </TouchableOpacity>
                     }
                     <Text style={{
                          width: 0.9 * width,
@@ -386,29 +388,31 @@ const styles = StyleSheet.create({
     },
     paginationStyle: {
         position: 'absolute',
-        bottom: 20,
-        right: 20
+        bottom: 10,
+        right: 10
     },
     pic: {
         height: 0.35 * height,
+        width:0.9*width,
+        marginBottom:0.02*height
     },
-    piccover: {
-        height: 0.4 * height,
-    },
+    // piccover: {
+    //     height: 0.4 * height,
+    //     width:0.9*width
+    // },
     img: {
-        width: 0.9 * width,
-        height: 0.35 * height,
+        width:0.9*width,
+        height:0.35*height,
         marginRight: 'auto',
         marginLeft: 'auto',
-        // backgroundColor:'#000'
     },
-    imgcover: {
-        width: 0.9 * width,
-        height: 0.35 * height,
-        marginRight: 'auto',
-        marginLeft: 'auto',
-        backgroundColor: '#000'
-    },
+    // imgcover: {
+    //     width: 0.9 * width,
+    //     height: 0.5 * height,
+    //     marginRight: 'auto',
+    //     marginLeft: 'auto',
+    //     backgroundColor: '#000'
+    // },
     content: {
         width: 0.9 * width,
         height: 0.11 * height,
@@ -456,7 +460,9 @@ const styles = StyleSheet.create({
         width: 0.06 * height,
         height: 0.06 * height,
         borderRadius: 100,
-        marginRight: 0.03 * width
+        marginRight: 0.03 * width,
+        borderColor:"#ccc",
+        borderWidth:1,
     },
     uname: {
         fontSize: 0.035 * width,

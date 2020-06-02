@@ -42,7 +42,7 @@ export default class Tprincipal extends Component {
         myFetch.get('/my/myarticle/mypublish', {
             uid: this.props.uid
         }).then(res => {
-            // console.log(res.data[0])
+            if(res.data[0]){
             for (var i in res.data) {
                 if (!res.data[i].imgurl) {
                     res.data[i].imgurl = [image2]
@@ -52,7 +52,12 @@ export default class Tprincipal extends Component {
                 list: res.data,
                 refreshing: false,
             })
-
+        }else{
+            this.setState({
+                list:[],
+                refreshing: false,
+            })
+        }
         })
         myFetch.get('/my/myarticle/mylike',{
             user_id:this.props.uid
@@ -60,6 +65,7 @@ export default class Tprincipal extends Component {
              this.setState({
                  refreshing:false
              })
+             if(res.data[0]){
              var list=[];
              for(var i in res.data){   
                  list.push(res.data[i][0])
@@ -73,16 +79,26 @@ export default class Tprincipal extends Component {
                  llist:list,
                  refreshing:false,
              })
+            }
+            else{
+                this.setState({
+                    llist:[],
+                    refreshing:false,
+                })
+            }
          })
          myFetch.get('/my/mypage/fansmsg',{
             user_id:this.props.uid
         }).then(res=>{
-            if(res){
+            if(res.data){
+              
                 this.setState({
                     fansnum:res.data.length
                 })
             }else{
-                console.log('粉丝数据返回失败');
+                this.setState({
+                    fansnum:0
+                })
             }
         })
         //  
@@ -94,7 +110,9 @@ export default class Tprincipal extends Component {
                     concernnum:res.data.length
                 })
             }else{
-                console.log('粉丝数据返回失败');
+                this.setState({
+                    concernnum:0
+                })
             }
         })
     }
@@ -106,16 +124,22 @@ export default class Tprincipal extends Component {
         myFetch.get('/my/myarticle/mypublish',{
             uid:this.state.uid
         }).then(res=>{
-            for(var i in res.data){
-                if(!res.data[i].imgurl){
-                    res.data[i].imgurl=[image2]
+            if(res.data[0]){
+                for (var i in res.data) {
+                    if (!res.data[i].imgurl) {
+                        res.data[i].imgurl = [image2]
+                    }
                 }
+                this.setState({
+                    list: res.data,
+                    refreshing: false,
+                })
+            }else{
+                this.setState({
+                    list:[],
+                    refreshing: false,
+                })
             }
-            this.setState({
-                list:res.data,
-                refreshing:false
-            })
-            
         })  
     }
     like=()=>{
@@ -129,6 +153,7 @@ export default class Tprincipal extends Component {
             this.setState({
                 refreshing:false
             })
+            if(res.data[0]){
             var list=[];
             for(var i in res.data){   
                 list.push(res.data[i][0])
@@ -142,6 +167,13 @@ export default class Tprincipal extends Component {
                 llist:list,
                 refreshing:false,
             })
+           }
+           else{
+               this.setState({
+                   llist:[],
+                   refreshing:false,
+               })
+           }
         })
     }
     render() {
@@ -211,6 +243,7 @@ export default class Tprincipal extends Component {
                     )}
                 >
                     <WingBlank style={styles.inner}>
+                        {this.state.list[0]?
                         <FlatList
                             refreshing = {this.state.refreshing}
                             onRefresh={this.my}
@@ -235,9 +268,20 @@ export default class Tprincipal extends Component {
                                     </TouchableOpacity>
                                 </View>
                             }}
-                        />
+                        />:
+                        <View style={{
+                            alignItems:"center",
+                            marginTop:0.35*width
+                            // backgroundColor:"red"
+                        }}><Text style={{
+                            fontSize:0.04*width,
+                            color:"#ccc"
+                        }}>还没有任何内容~~</Text></View>
+
+    }
                     </WingBlank>
                     <WingBlank style={styles.inner}>
+                        {this.state.llist[0]?
                         <FlatList
                             refreshing = {this.state.refreshing}
                             onRefresh={this.like}
@@ -265,7 +309,16 @@ export default class Tprincipal extends Component {
                                     </TouchableOpacity>
                                 </View>
                             }}
-                        />
+                        />:
+                        <View style={{
+                            alignItems:"center",
+                            marginTop:0.35*width
+                            // backgroundColor:"red"
+                        }}><Text style={{
+                            fontSize:0.04*width,
+                            color:"#ccc"
+                        }}>还没有任何内容~~</Text></View>
+    }
                     </WingBlank>
                 </Tabs>
             </View>
