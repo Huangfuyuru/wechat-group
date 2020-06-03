@@ -348,11 +348,11 @@ export default class Lover extends Component {
                                }}>
                                    <Text numberOfLines={4} style={{
                                          letterSpacing:3,
-                                         fontSize:24*s1,
+                                         fontSize:23*s1,
                                          lineHeight:34*s1,
                                    }}>今日概述:
                                 <Text  style={{
-                                    fontSize:24*s1,
+                                    fontSize:22*s1,
                                     textDecorationStyle:"dotted",
                                     fontWeight:"90",
                                     textDecorationStyle:"dotted"
@@ -383,7 +383,7 @@ export default class Lover extends Component {
                     }}>
                         <TouchableOpacity onPress={()=>this.ensmall()}>
                         <Text style={{
-                            fontSize:24*s1,
+                            fontSize:22*s1,
                             height:0.3*height,
                             width:0.6*width,
                             padding:20*s,
@@ -406,7 +406,7 @@ const styles = StyleSheet.create({
     star: {
         width: 0.3 * width,
         padding: 3 * s,
-        fontSize: 21 * s1,
+        fontSize: 20 * s1,
         letterSpacing:2
         //    backgroundColor:"pink"
     },

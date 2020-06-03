@@ -200,10 +200,11 @@ export default class Tdetail extends Component {
                                             <TouchableOpacity onPress={()=>{}}>
                                                 <Image 
                                                     style={styles.innertitlepic}
-                                                    source={{uri:`${image}`}}
+                                                    // source={{uri:`${image}`}}
+                                                    source={item.imgurl?{uri:`${item.imgurl}`}:{uri:`${image}`}}
                                                 />
                                             </TouchableOpacity>
-                                            <Text style={styles.linename}>我是名字1</Text>
+                                            <Text style={styles.linename}>{item.name}</Text>
                                             {
                                                 item.host_id === item.user_id
                                                 ?<Text style={styles.linetag}>作者</Text>
@@ -235,7 +236,7 @@ export default class Tdetail extends Component {
                                                     }}
                                                 >
                                                     <FlatList
-                                                        extraData={this.state}
+                                                        // extraData={this.state}
                                                         data={item.childlist}
                                                         horizontal={false}
                                                         showsVerticalScrollIndicator={true}
@@ -422,7 +423,8 @@ const styles = StyleSheet.create({
         borderRadius:10,
         padding:0.008*height,
         marginBottom:0.02*height,
-        letterSpacing:1.5
+        letterSpacing:1.5,
+        lineHeight:0.055*width
     },
     innerfooter: {
         width: 0.87 * width,

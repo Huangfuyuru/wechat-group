@@ -262,7 +262,13 @@ export default class Tprincipal extends Component {
                                             source={{ uri: item.imgurl[0]}}
                                             alt='发布图片'>
                                             <View style={styles.contentbox}>
+                                                {
+                                                    item.content ?
                                                 <Text style={styles.innercontent}>{item.content ? (item.content > 15 ? item.content.substr(0, 15) + " . . . " :item.content ) : ""}</Text>
+                                              : <Text style={styles.innercontent}>还没有内容呢~</Text>
+                                            }
+                                                {/* <Text style={styles.innercontent}>{item.content ? (item.content > 15 ? item.content.substr(0, 15) + " . . . " :item.content ) : ""}</Text> */}
+
                                             </View>
                                         </ImageBackground>
                                     </TouchableOpacity>
