@@ -197,7 +197,7 @@ export default class Tdetail extends Component {
                                     this.state.list&&this.state.list.map((item,idx)=>{
                                         return <View style={styles.linebox}>
                                         <View style={styles.linetitle}>
-                                            <TouchableOpacity onPress={()=>{}}>
+                                            <TouchableOpacity >
                                                 <Image 
                                                     style={styles.innertitlepic}
                                                     // source={{uri:`${image}`}}
@@ -216,10 +216,7 @@ export default class Tdetail extends Component {
                                             :moment(item.setdate).format('YYYY-MM-DD   HH:mm')
                                             }</Text>
                                         </View>
-                                        <TouchableOpacity style={styles.linecontentbox} onPress={()=>this.setState({
-                                            placeholder:`回复@${item.name}`,
-                                            answer_id:item.id,
-                                            })}>
+                                        <TouchableOpacity style={styles.linecontentbox} >
                                             <Text style={styles.linecontent}>{item.content}</Text>
                                         </TouchableOpacity>
                                         <View>
@@ -227,16 +224,10 @@ export default class Tdetail extends Component {
                                                 item.childlist[0]
                                                 ?<View 
                                                     style={styles.childbox}
-                                                    onStartShouldSetResponderCapture={() => {
-                                                        this.setState({ enableScrollViewScroll: false });
-                                                        if (this._myScroll.contentOffset === 0
-                                                            && this.state.enableScrollViewScroll === false) {
-                                                            this.setState({ enableScrollViewScroll: true });
-                                                        }
-                                                    }}
+                                                   
                                                 >
                                                     <FlatList
-                                                        // extraData={this.state}
+                                                        extraData={this.state}
                                                         data={item.childlist}
                                                         horizontal={false}
                                                         showsVerticalScrollIndicator={true}
@@ -265,10 +256,7 @@ export default class Tdetail extends Component {
                                                                     :moment(item.setdate).format('YYYY-MM-DD')
                                                                     }</Text>
                                                                 </View>
-                                                                <TouchableOpacity style={styles.childcontentbox} onPress={()=>this.setState({
-                                                                    placeholder:`回复@${item.name}`,
-                                                                    answer_id:item.answer_id,
-                                                                    })}>
+                                                                <TouchableOpacity style={styles.childcontentbox} >
                                                                     <Text style={styles.linecontent}>{item.content}</Text>
                                                                 </TouchableOpacity>
                                                             </View>
