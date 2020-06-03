@@ -55,7 +55,7 @@ export default class Cdairy extends Component {
         myFetch.get('/share/comment',{
             article_id:this.props.article_id
         }).then(res=>{
-            // console.log(res)
+            console.log(res)
             var rootlist = [];
             var leaflist = [];
             for(var i in res){
@@ -221,10 +221,10 @@ export default class Cdairy extends Component {
                                             <TouchableOpacity onPress={()=>{}}>
                                                 <Image 
                                                     style={styles.innertitlepic}
-                                                    source={{uri:`${image}`}}
+                                                    source={imgurl?{uri:`${item.imgurl}`}:{uri:`${image}`}}
                                                 />
                                             </TouchableOpacity>
-                                            <Text style={styles.linename}>我是名字1</Text>
+                                            <Text style={styles.linename}>{item.name}</Text>
                                             {
                                                 item.host_id === item.user_id
                                                 ?<Text style={styles.linetag}>作者</Text>
@@ -265,7 +265,7 @@ export default class Cdairy extends Component {
                                                                 <View style={styles.childlisttitle}>
                                                                     <Image 
                                                                         style={styles.childtitlepic}
-                                                                        source={{uri:`${image}`}}
+                                                                        source={imgurl?{uri:`${item.imgurl}`}:{uri:`${image}`}}
                                                                     />
                                                                     <Text style={styles.childname}>
                                                                         {item.name ? (item.name.length > 4 ? item.name.substr(0, 2) + " . . . " : item.name) : "忘取名了"}
