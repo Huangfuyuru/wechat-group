@@ -37,12 +37,10 @@ export default class Lsound extends Component {
         this.setState({
             childsid: this.props.cid
         })
-        this.setState({
-                arr: null
-        })
         myFetch.get('/child/csound', {
             childsid: this.props.cid
         }).then(res => {
+            // console.log(res)
             if(res){
             const arr0=res;
             arr0.map((item)=>{
@@ -177,7 +175,7 @@ export default class Lsound extends Component {
                         childsid:this.state.childsid,
                         childVoiceid:e.id,
                     }).then(res=>{
-                        if(res.code=0){
+                        if(res.code==0){
                             if(res.data){
                             const arr0=res.data;
                             arr0.map((item)=>{
@@ -198,7 +196,7 @@ export default class Lsound extends Component {
                         }
                         else{
                             this.setState({
-                                arr: []
+                                arr: null
                             })
                         }
                     }
@@ -357,7 +355,7 @@ export default class Lsound extends Component {
                                         </TouchableOpacity>
                                     </View>
                                     <Video
-                                        source={{ uri: item.uri }}
+                                        source={{ uri: item.voiceurl }}
                                         ref={(ref) => {
                                             this.player = ref
                                         }}

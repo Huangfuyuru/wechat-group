@@ -82,7 +82,7 @@ export default class Lcreate_souver extends Component {
         myFetch.post('/lover/lsouvenir/lcsouvenir',{
            loverid:this.state.loverId,
            date:date0,
-           name:this.state.name,
+           name:this.state.name?this.state.name:name,
            mood:this.state.mood,
            setdate:this.state.year+"-"+this.state.month1+"-"+this.state.day1+" "+this.state.hour+":"+this.state.min,
            voiceurl:this.state.voiceurl,
