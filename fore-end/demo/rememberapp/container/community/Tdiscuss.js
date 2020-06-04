@@ -31,6 +31,7 @@ export default class Cdairy extends Component {
         this.state={
             placeholder:'快来添加一条评论吧',
             lists:[],
+            currentname:'',
             refreshing:false,
             article_id:'',
             tag:true,
@@ -221,7 +222,7 @@ export default class Cdairy extends Component {
                                             <TouchableOpacity onPress={()=>{}}>
                                                 <Image 
                                                     style={styles.innertitlepic}
-                                                    source={imgurl?{uri:`${item.imgurl}`}:{uri:`${image}`}}
+                                                    source={item.imgurl?{uri:`${item.imgurl}`}:{uri:`${image}`}}
                                                 />
                                             </TouchableOpacity>
                                             <Text style={styles.linename}>{item.name}</Text>
@@ -238,6 +239,7 @@ export default class Cdairy extends Component {
                                         </View>
                                         <TouchableOpacity style={styles.linecontentbox} onPress={()=>this.setState({
                                             placeholder:`回复@${item.name}`,
+                                            currentname:item.name,
                                             answer_id:item.id,
                                             })}>
                                             <Text style={styles.linecontent}>{item.content}</Text>
@@ -265,10 +267,11 @@ export default class Cdairy extends Component {
                                                                 <View style={styles.childlisttitle}>
                                                                     <Image 
                                                                         style={styles.childtitlepic}
-                                                                        source={imgurl?{uri:`${item.imgurl}`}:{uri:`${image}`}}
+                                                                        source={item.imgurl?{uri:`${item.imgurl}`}:{uri:`${image}`}}
                                                                     />
                                                                     <Text style={styles.childname}>
-                                                                        {item.name ? (item.name.length > 4 ? item.name.substr(0, 2) + " . . . " : item.name) : "忘取名了"}
+                                                                        {item.name}
+                                                                        {/* {item.name ? (item.name.length > 4 ? item.name.substr(0, 2) + " . . . " : item.name) : "忘取名了"} */}
                                                                     </Text>
                                                                     {
                                                                         item.host_id === item.user_id
@@ -276,9 +279,9 @@ export default class Cdairy extends Component {
                                                                         :null
                                                                     }
                                                                     <Text style={styles.childfix}>回复</Text>
-                                                                    <Text style={styles.childname}>
-                                                                        {item.name ? (item.name.length > 4 ? item.name.substr(0, 2) + " . . . " : item.name) : "没名字"}
-                                                                    </Text>
+                                                                    {/* <Text style={styles.childname}>
+                                                                        {this.state.currentname ? (item.name.length > 4 ? item.name.substr(0, 2) + " . . . " : item.name) : "没名字"}
+                                                                    </Text> */}
                                                                     {/* {
                                                                         item.host_id === this.state.shortid
                                                                         ?<Text style={styles.childtag}>作者</Text>
