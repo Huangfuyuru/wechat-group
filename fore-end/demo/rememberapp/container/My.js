@@ -102,8 +102,6 @@ export default class My extends Component {
                         num3:res.num,
                         back:res.imgurl
                     })
-                    console.log('-------------');
-                    console.log(res);
                 }
             )
             myFetch.get('/my/myarticle/mypublish',{
@@ -121,7 +119,7 @@ export default class My extends Component {
                     rlists:res.data,
                     refreshing:false,
                 })
-                
+                console.log(this.state.rlists[0].tag);
             })
         })
     }
@@ -135,35 +133,11 @@ export default class My extends Component {
             }).then(
                 res=>{
                     // console.log(this.state.back)
-                    console.log(res);
+                    // console.log(res);
                 }
             )
         }
     }
-    // choosebgpic=()=>{
-    //     ImagePicker.openPicker({
-    //         width: 400, 
-    //         height: 300, 
-    //         cropping: true,
-    //         includeBase64:true
-    //     }).then(image => {
-    //        myFetch.uploadImage(image.data)
-    //         .then( res=>{
-    //             this.setState({
-    //                 back:res.url
-    //             })
-
-    //             console.log('success');
-    //         }).catch( err=>{
-    //             console.log('flied');
-    //         })
-    //     });
-    //     ImagePicker.clean().then(() => { 
-    //         console.log('removed all tmp images from tmp directory');
-    //     }).catch(e => { 
-    //         console.log(e)
-    //     });
-    // }
     choosebgpic = () => {
         ImagePicker.openPicker({
             width: 400,
@@ -411,63 +385,6 @@ export default class My extends Component {
                         </View>
                     )}
                 >
-                    {/* <WingBlank style={styles.wingblank}>
-                        <FlatList
-                            refreshing = {this.state.refreshing}
-                            onRefresh={this.refreshRecommend}
-                            extraData={this.state}
-                            data={this.state.rlists}
-                            horizontal={false}
-                            initialNumToRender={1}
-                            pagingEnabled={true}
-                            viewabilityConfig={VIEWABILITY_CONFIG}
-                            showsVerticalScrollIndicator={false}
-                            renderItem={({item})=>{
-                                var imgurl = item.imgurl;
-                                for(var i in imgurl){
-                                    if(imgurl[i] === '#'){
-                                        imgurl[i] = image2
-                                    }
-                                }
-                                return<View style={styles.innerbox}>
-                                    <View style={styles.innerpics}>
-                                        <Swiper
-                                            renderPagination = {renderPagination} 
-                                            loop={false}
-                                        >
-                                            
-                                            {
-                                                imgurl&&imgurl.map((img,idx)=>(
-                                                    <TouchableOpacity onPress={()=>this.enlarge(imgurl)}>
-                                                        <Image 
-                                                            style={styles.img}
-                                                            resizeMode="cover"
-                                                            source={{uri:`${img}`}}
-                                                        />
-                                                    </TouchableOpacity>
-                                                ))
-                                                
-                                            }                     
-                                        </Swiper>
-                                    </View>
-                                    <View style={styles.innerlast}>
-                                        <View style={styles.innercontent}>
-                                            <TouchableOpacity onPress={()=>this.enlarge(item.content)}>
-                                                <Text selectable = {true} style={styles.content}>
-                                                    {item.content ? (item.content.length > 66 ? item.content.substr(0, 66) + " . . . " : item.content) : ""}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                        <View style={styles.innerfooter}>
-                                        </View>
-                                    </View>
-                                </View>
-                            }}
-                            getItemLayout={(data, index) => {
-                                return {length: height, offset: height * index, index}
-                            }}
-                        />
-                    </WingBlank> */}
                     <WingBlank style={styles.wingblank}>
                         <FlatList
                             refreshing = {this.state.refreshing}
@@ -492,7 +409,6 @@ export default class My extends Component {
                                             renderPagination = {renderPagination} 
                                             loop={false}
                                         >
-                                            
                                             {
                                                 imgurl&&imgurl.map((img,idx)=>(
                                                     <TouchableOpacity onPress={()=>this.enlarge(imgurl)}>
@@ -545,11 +461,13 @@ export default class My extends Component {
                                 }
                                 return<View style={styles.innerbox}>
                                     <View style={styles.innerpics}>
+                                        {
+                                            item.tag==false?<Icon3 style={styles.icon3} name='lock' ></Icon3>:<Text></Text>
+                                        }
                                         <Swiper
                                             renderPagination = {renderPagination} 
                                             loop={false}
                                         >
-                                            
                                             {
                                                 imgurl&&imgurl.map((img,idx)=>(
                                                     <TouchableOpacity onPress={()=>this.enlarge(imgurl)}>
@@ -673,6 +591,10 @@ const styles = StyleSheet.create({
         fontSize:23,
         marginTop:12,
         marginLeft:20
+    },
+    icon3:{
+        color:'#FFBF2D',
+        fontSize:23,
     },
     // 新增
     navbartitle:{
