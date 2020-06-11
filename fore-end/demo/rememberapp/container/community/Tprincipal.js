@@ -42,22 +42,27 @@ export default class Tprincipal extends Component {
         myFetch.get('/my/myarticle/mypublish', {
             uid: this.props.uid
         }).then(res => {
+            console.log(res)
+            var list=[];
             if(res.data[0]){
-            for (var i in res.data) {
-                if (!res.data[i].imgurl) {
-                    res.data[i].imgurl = [image2]
+                for (var i in res.data) {
+                    if (!res.data[i].imgurl) {
+                        res.data[i].imgurl = [image2]
+                    }
+                    if(res.data[i].tag){
+                        list.push(res.data[i])
+                    }
                 }
+                this.setState({
+                    list:  list,
+                    refreshing: false,
+                })
+            }else{
+                this.setState({
+                    list:[],
+                    refreshing: false,
+                })
             }
-            this.setState({
-                list: res.data,
-                refreshing: false,
-            })
-        }else{
-            this.setState({
-                list:[],
-                refreshing: false,
-            })
-        }
         })
         myFetch.get('/my/myarticle/mylike',{
             user_id:this.props.uid
@@ -66,21 +71,22 @@ export default class Tprincipal extends Component {
                  refreshing:false
              })
              if(res.data[0]){
-             var list=[];
-             for(var i in res.data){   
-                 list.push(res.data[i][0])
-             }
-             for(var i in list){
-                 if(!list[i].imgurl){
-                     list[i].imgurl=[image2]
-                 }
-             }
-             this.setState({
-                 llist:list,
-                 refreshing:false,
-             })
-            }
-            else{
+                var list=[];
+                console.log('res.data')
+                console.log(res.data)
+                for(var i in res.data){   
+                    list.push(res.data[i][0])
+                }
+                for(var i in list){
+                    if(!list[i].imgurl){
+                        list[i].imgurl=[image2]
+                    }
+                }
+                this.setState({
+                    llist:list,
+                    refreshing:false,
+                })
+            }else{
                 this.setState({
                     llist:[],
                     refreshing:false,
@@ -178,8 +184,8 @@ export default class Tprincipal extends Component {
     }
     render() {
         const tabs = [
-            { title: '作品' },
-            { title: '喜欢' },
+            { title: '作品'+`${this.state.list.length}`},
+            { title: '喜欢'+`${this.state.llist.length}`},
         ];
         return (
             <View style={{flex:1}}> 

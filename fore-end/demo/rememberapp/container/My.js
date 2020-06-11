@@ -278,7 +278,7 @@ export default class My extends Component {
         const VIEWABILITY_CONFIG = {
     		viewAreaCoveragePercentThreshold: 80,//item滑动80%部分才会到下一个
 		};
-        const tabs = [{ title: '喜欢'},{ title: '发布'}];
+        const tabs = [{ title: '喜欢'+`${this.state.clists.length}`},{ title: '发布'+`${this.state.rlists.length}`}];
         return (
             <View style={{ 
                 width: width, 
@@ -461,9 +461,6 @@ export default class My extends Component {
                                 }
                                 return<View style={styles.innerbox}>
                                     <View style={styles.innerpics}>
-                                        {
-                                            item.tag==false?<Icon3 style={styles.icon3} name='lock' ></Icon3>:<Text></Text>
-                                        }
                                         <Swiper
                                             renderPagination = {renderPagination} 
                                             loop={false}
@@ -483,6 +480,13 @@ export default class My extends Component {
                                         </Swiper>
                                     </View>
                                     <View style={styles.innerlast}>
+                                        {
+                                            item.tag==false?
+                                            <View style={styles.lock}>
+                                                <Icon3 style={styles.icon3} name='lock' ></Icon3>
+                                            </View>:null
+                                        }
+                                        
                                         <View style={styles.innercontent}>
                                             <TouchableOpacity onPress={()=>this.enlarge(item.content)}>
                                                 <Text selectable = {true} style={styles.content}>
@@ -733,5 +737,9 @@ const styles = StyleSheet.create({
         backgroundColor:'#FFBF2D',
         fontSize:25*s,
         color:'#fff',
+    },
+    lock:{
+        marginLeft:0.02*width,
+        marginTop:-0.05*height
     }
 })

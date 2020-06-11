@@ -307,7 +307,7 @@ export default class Community extends Component {
             );
           }
         const VIEWABILITY_CONFIG = {
-    		viewAreaCoveragePercentThreshold: 80,//item滑动80%部分才会到下一个
+    		viewAreaCoveragePercentThreshold: 0,//item滑动80%部分才会到下一个
 		};
         const tabs = [{ title: '关注'},{ title: '推荐'}];
         const linetabs = [{title:'全部'},{title:'亲子'},{title:'爱人'}]
