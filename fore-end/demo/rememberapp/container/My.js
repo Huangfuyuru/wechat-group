@@ -594,7 +594,7 @@ const styles = StyleSheet.create({
     },
     icon3:{
         color:'#FFBF2D',
-        fontSize:23,
+        fontSize:30,
     },
     // 新增
     navbartitle:{
